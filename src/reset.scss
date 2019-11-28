@@ -1,0 +1,68 @@
+/* = RESET = */
+*{
+	box-sizing:border-box;
+}
+
+body {
+  margin:0;
+  padding:0;
+  line-height: 1.15;
+}
+
+a, button, input{
+	transition:linear .35s;
+}
+
+a, button, div, span, input{
+	outline:none!important;
+}
+
+input{
+	border:1px solid #000;
+}
+
+button{
+    outline: none!important;
+    border:none;
+		cursor:pointer;
+		padding:0;
+}
+
+h1, h2, h3, h4, h5, h6{
+	margin:0;
+}
+
+a{
+	text-decoration:none;
+	color:#57ADAD;
+}
+
+img{
+	max-width:100%;
+	border-style: none;
+}
+
+ul{
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+
+p{
+  margin:0;
+}
+
+audio, video {
+  display: inline-block;
+}
+
+article, aside, footer, header, nav, section {
+  display: block;
+}
+
+table{
+	border-collapse: collapse;
+	padding:0;
+	margin:0;
+}
+/* = RESET END = */

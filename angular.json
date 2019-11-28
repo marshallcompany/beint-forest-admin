@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "beintLogin": {
+    "beint": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/beintLogin",
+            "outputPath": "dist/beint",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -62,18 +62,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "beintLogin:build"
+            "browserTarget": "beint:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "beintLogin:build:production"
+              "browserTarget": "beint:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "beintLogin:build"
+            "browserTarget": "beint:build"
           }
         },
         "test": {
@@ -107,7 +107,7 @@
         }
       }
     },
-    "beintLogin-e2e": {
+    "beint-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "prefix": "",
@@ -116,11 +116,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "beintLogin:serve"
+            "devServerTarget": "beint:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "beintLogin:serve:production"
+              "devServerTarget": "beint:serve:production"
             }
           }
         },
@@ -136,5 +136,5 @@
       }
     }
   },
-  "defaultProject": "beintLogin"
+  "defaultProject": "beint"
 }
