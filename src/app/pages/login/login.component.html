@@ -1,20 +1,34 @@
-<div class="container">
-  <div class="login-wrapper">
-    <h1 class="login-wrapper__title">Login</h1>
-    <form [formGroup]="form" (ngSubmit)="submit(form)">
-        <div class="login-item">
-          <span class="login-item__label">E-mail</span>
-          <input formControlName="email" type="email" class="login-item__input">
+<section class="login">
+    <div class="container">
+        <p class="logo">be<span class="grn-text">i</span><span class="letter-position">nt</span></p>
+        <div class="login-wrapper">
+          <div class="wpr">
+              <h1 class="login-wrapper__title">Login</h1>
+              <form [formGroup]="form" (ngSubmit)="submit(form)">
+                  <div class="login-item">
+                    <span class="login-item__label">E-mail</span>
+                    <input formControlName="email" type="email" class="login-item__input" [ngClass]="{'input-valid': form.get('email').valid}">
+                    <div class="error-box" *ngIf="(form.get('email').touched || form.get('email').dirty) && form.get('email').invalid">
+                      <p class="error-box__text" *ngIf="form.get('email').hasError('required')">This field is required.</p>
+                      <p class="error-box__text" *ngIf="form.get('email').hasError('invalidEmailAddress') && !form.get('email').hasError('required')">Invalid E-Mail format.</p>
+                    </div>
+                  </div>
+                  <div class="login-item">
+                    <span class="login-item__label">Password</span>
+                    <div class="pass-show">
+                        <input formControlName="password" [type]="showPass ? 'text' : 'password'" class="login-item__input" [ngClass]="{'input-valid': form.get('password').valid}">
+                        <button class="pass-show__button" (click)="showPassword()">
+                            <img src="../assets/image/eye.svg" alt="" class="eye">
+                        </button>
+                    </div>
+                    <div class="error-box" *ngIf="(form.get('password').touched || form.get('password').dirty) && form.get('password').invalid">
+                      <p class="error-box__text" *ngIf="form.get('password').hasError('required')">This field is required.</p>
+                      <p class="error-box__text" *ngIf="form.value.password && form.get('password').hasError('minlength')">Password must be at least 8 characters.</p>
+                    </div>
+                  </div>
+                  <button type="submit" [disabled]="!form.valid" class="login-button">Login</button>
+              </form>
+          </div>
         </div>
-        <div class="error-box" *ngIf="(form.get('email').touched || form.get('email').dirty) && form.get('email').invalid">
-          <p class="error-box__text" *ngIf="form.get('email').hasError('required')">This field is required.</p>
-          <p class="error-box__text" *ngIf="form.get('email').hasError('invalidEmailAddress') && !form.get('email').hasError('required')">Invalid E-Mail format.</p>
-        </div>
-        <div class="login-item">
-          <span class="login-item__label">Password</span>
-          <input formControlName="password" type="password" class="login-item__input">
-        </div>
-        <button type="submit" [disabled]="!form.valid" class="login-button">Login</button>
-    </form>
-  </div>
-</div>
+      </div>
+</section>

@@ -11,13 +11,15 @@ import { FormValidators } from '../../validators/validators'
 export class LoginComponent implements OnInit {
 
   public form: FormGroup;
+  public showPass: boolean;
 
   constructor(
     public formBuilder: FormBuilder,
   ) {
+    this.showPass = false;
     this.form = this.formBuilder.group({
       email: ['', [Validators.required, FormValidators.emailValidator]],
-      password: ['', [Validators.required]]
+      password: ['', [Validators.required, Validators.minLength(8)]]
     });
   }
 
@@ -28,4 +30,7 @@ export class LoginComponent implements OnInit {
     console.log('[ EVENT ]', event);
   }
 
+  public showPassword = () => {
+    this.showPass = !this.showPass;
+  }
 }

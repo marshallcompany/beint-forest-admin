@@ -4,13 +4,11 @@ import { FormsModule, ReactiveFormsModule, Validators }   from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
-import { PersonalDataComponent } from './pages/personal-data/personal-data.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    PersonalDataComponent
+    LoginComponent
   ],
   imports: [
     BrowserModule,

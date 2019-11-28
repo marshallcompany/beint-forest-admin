@@ -1,4 +1,4 @@
-@import "reset";
+@import "app/theme/reset.scss";
 /* = STYLE CONTAINER = */
 .container{
 	padding:0 15px;
@@ -42,7 +42,17 @@ body{
 body{
 	font-size:18px;
 	background-color:#ffffff;
-	font-family:Arial, sans-serif;
+	font-family:Gilroy Regular, sans-serif;
 }
 
-@import "media";
+.error-box{
+	margin-top:10px;
+    &__text{
+		color:rgb(197, 59, 59);
+		font-size: 16px;
+		font-family: Gilroy Bold;
+    }
+}
+
+@import "app/theme/media";
+@import "app/theme/fonts";
