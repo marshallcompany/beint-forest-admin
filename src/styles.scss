@@ -53,6 +53,18 @@ body{
 		font-family: Gilroy Bold;
     }
 }
-
-@import "app/theme/media";
+@media screen and (max-width:480px) {
+	.error-box{
+        &__text{
+            font-size: 14px;
+        }
+    }
+}
+@media screen and (max-width:375px) {
+	.error-box{
+        &__text{
+            font-size: 12px;
+        }
+    }
+}
 @import "app/theme/fonts";

@@ -20,6 +20,7 @@
     transform:translate(-50%, 0);
     position: absolute;
     font-family: Gilroy Bold;
+    text-align: center;
     .grn-text {
         color:rgba(80, 180, 164,1);
     }
@@ -87,6 +88,9 @@
         &.input-valid{
             box-shadow:0 0 0 1.5px rgb(80, 180, 164);
         }
+        &.input-invalid{
+            box-shadow:0 0 0 1.5px rgb(197, 59, 59);
+        }
     }
 }
 .pass-show{
@@ -102,8 +106,10 @@
         top:50%;
         transform:translate(0, -50%);
         background-color:transparent;
+        height:25px;
+        width:25px;
         .eye{
-            height:25px;
+            height: 100%;
         }
     }
 }
@@ -122,3 +128,95 @@
         background-color: rgb(197, 59, 59);
     }
 }
+/* = MEDIA = */
+@media screen and (max-width:480px){
+    .logo{
+        font-size: 75px;
+    }
+    .login-wrapper{
+        width:375px;
+        height:375px;
+        padding:0 25px;
+        box-sizing: border-box;
+        &:before{
+            width:97%;
+            height:97%;
+        }
+        .wpr{
+            width:85%;
+        }
+        &__title{
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+    }
+    .login-item{
+        &:nth-of-type(2){
+            margin-bottom:25px;
+        }
+        &__label{
+            font-size: 14px;
+            margin-bottom:5px;
+        }
+        &__input{
+            padding:7.5px 10px;
+            font-size: 14px;
+        }
+    }
+    .pass-show{
+        .login-item{
+            &__input{
+                padding-right:35px;
+            }
+        }
+        &__button{
+            height:20px;
+            width:20px;
+        }
+    }
+    .login-button{
+        height:40px;
+        font-size: 14px;
+        width:100px;
+    }
+}
+@media screen and (max-width:414px){
+    .logo{
+        top:20px;
+    }
+}
+@media screen and (max-width:375px){
+    .logo{
+        width:180px;
+        font-size: 65px;
+        .letter-position{
+            margin-left: -9.1%;
+        }
+    }
+    .login-wrapper{
+        width:320px;
+        height:350px;
+        padding:0 15px;
+        border-top-left-radius: 100px;
+        border-bottom-right-radius: 100px;
+        .wpr{
+            width: 95%;
+        }
+        &::before{
+            border-top-left-radius: 100px;
+            border-bottom-right-radius: 100px;
+        }
+    }
+}
+@media screen and (max-width:320px){
+    .login-wrapper{
+        width: 300px;
+    }
+    .logo{
+        font-size: 50px;
+        .letter-position{
+            margin-left: -7.1%;
+        }
+    }
+}
+/* = MEDIA END = */

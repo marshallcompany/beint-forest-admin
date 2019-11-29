@@ -33,4 +33,19 @@ export class LoginComponent implements OnInit {
   public showPassword = () => {
     this.showPass = !this.showPass;
   }
+
+  public inputStatus = (name, element) => {
+    this.form.get(name).statusChanges
+    .pipe()
+    .subscribe(
+      res => {
+        if (res === 'INVALID') {
+          element.classList.add('input-invalid');
+        } else {
+          element.classList.remove('input-invalid');
+          element.classList.add('input-valid');
+        }
+      }
+    )
+  }
 }
