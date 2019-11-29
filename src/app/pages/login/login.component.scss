@@ -1,35 +1,34 @@
 .login{
     background: linear-gradient(to top, rgba(80, 180, 164,.35), #ffffff 45%);
-    min-height:100%;
-    height:100%;
+    min-height: 100%;
 }
 .container{
-    min-height:100%;
-    height:100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items:center;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-.logo{
-    font-size: 100px;
-    font-weight:700;
-    left:50%;
-    top:50px;
-    transform:translate(-50%, 0);
-    position: absolute;
-    font-family: Gilroy Bold;
+.header-logo{
+    padding:25px 0;
+    margin-bottom:75px;
     text-align: center;
-    .grn-text {
-        color:rgba(80, 180, 164,1);
-    }
-    .letter-position{
-        display:inline-block;
-        margin-left:-10.1%;
+    &__text{
+        display: inline-block;
+        font-size: 100px;
+        font-weight:700;
+        font-family: Gilroy Bold;
+        text-align: center;
+        .grn-text {
+            color:rgba(80, 180, 164,1);
+        }
+        .letter-position{
+            display:inline-block;
+            margin-left:-10.1%;
+        }
     }
 }
 .login-wrapper{
+    min-height: 100%;
     background: linear-gradient(to bottom, rgba(80, 180, 164,.35), rgba(80, 180, 164,.85));
     padding:0 50px;
     height: 450px;
@@ -43,6 +42,7 @@
     justify-content: center;
     position: relative;
     z-index: 1;
+    flex-shrink: 0;
     &:before{
         content:'';
         width:95%;
@@ -130,8 +130,12 @@
 }
 /* = MEDIA = */
 @media screen and (max-width:480px){
-    .logo{
-        font-size: 75px;
+    .header-logo{
+        margin-bottom:50px;
+        &__text{
+            font-size: 75px;
+        }
+        
     }
     .login-wrapper{
         width:375px;
@@ -180,18 +184,13 @@
         width:100px;
     }
 }
-@media screen and (max-width:414px){
-    .logo{
-        top:20px;
-    }
-}
 @media screen and (max-width:375px){
-    .logo{
-        width:180px;
-        font-size: 65px;
-        .letter-position{
-            margin-left: -9.1%;
+    .header-logo{
+        margin-bottom:35px;
+        &__text{
+            font-size: 65px;
         }
+        
     }
     .login-wrapper{
         width:320px;
@@ -212,11 +211,12 @@
     .login-wrapper{
         width: 300px;
     }
-    .logo{
-        font-size: 50px;
-        .letter-position{
-            margin-left: -7.1%;
+    .header-logo{
+        margin-bottom:0;
+        &__text{
+            font-size: 50px;
         }
+        
     }
 }
 /* = MEDIA END = */
