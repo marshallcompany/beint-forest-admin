@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import {Router} from "@angular/router"
+
 import { FormValidators } from '../../validators/validators'
+import { AuthProvider } from '../../providers/auth/auth'
+
 
 @Component({
   selector: 'app-login',
@@ -15,6 +19,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     public formBuilder: FormBuilder,
+    public router: Router,
+    private auth: AuthProvider
   ) {
     this.showPass = false;
     this.form = this.formBuilder.group({
@@ -26,8 +32,20 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  public submit = (event) => {
-    console.log('[ EVENT ]', event);
+  public submit = () => {
+    this.auth.login(this.form.value)
+      .pipe()
+      .subscribe(
+        res => {
+          this.router.navigate(['/personal-data']);
+          alert('Successfully');
+        },
+        err => {
+          console.log('[ ERROR LOGIN ]', err);
+          alert('Is no such user');
+        },
+        () => console.log('[ LOGIN DONE ]')
+      )
   }
 
   public showPassword = () => {

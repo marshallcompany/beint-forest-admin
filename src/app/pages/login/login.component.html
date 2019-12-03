@@ -19,7 +19,7 @@
                     <span class="login-item__label">Password</span>
                     <div class="pass-show">
                         <input formControlName="password" #password (focus)="inputStatus('password', password)" [type]="showPass ? 'text' : 'password'" class="login-item__input" [ngClass]="{'input-valid': form.get('password').valid}">
-                        <button class="pass-show__button" (click)="showPassword()">
+                        <button type="button" class="pass-show__button" (click)="showPassword()">
                             <img src="../assets/image/eye.svg" alt="" class="eye">
                         </button>
                     </div>

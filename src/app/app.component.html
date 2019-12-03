@@ -1,2 +1,6 @@
-<app-login></app-login>
+<nav>
+    <a routerLink="login" [queryParams]="{'status':'apply', 'id': 200}"routerLinkActive="active">Login</a> <br>
+    <a routerLink="personal-data" routerLinkActive="active">Personal Data</a>
+</nav>
+<router-outlet></router-outlet>
 

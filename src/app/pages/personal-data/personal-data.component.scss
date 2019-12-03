@@ -1,0 +1,19 @@
+.header-logo{
+    padding:25px 0;
+    margin-bottom:75px;
+    text-align: center;
+    &__text{
+        display: inline-block;
+        font-size: 100px;
+        font-weight:700;
+        font-family: Gilroy Bold;
+        text-align: center;
+        .grn-text {
+            color:rgba(80, 180, 164,1);
+        }
+        .letter-position{
+            display:inline-block;
+            margin-left:-10.1%;
+        }
+    }
+}
