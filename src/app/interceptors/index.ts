@@ -1,5 +1,7 @@
-import { StandardHeadersInterceptor } from './StandartHeadersInterceptors';
+import { AccessTokenInterceptor } from './access-token';
+import { ContentTypeInterceptor } from './content-type';
 
 export const Interceptors = {
-    standardHeaders: StandardHeadersInterceptor
-}
+  accessToken: AccessTokenInterceptor,
+  contentType: ContentTypeInterceptor
+};

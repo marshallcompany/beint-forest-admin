@@ -1,24 +1,17 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, Validators }   from '@angular/forms';
-
+import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+
+import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
-import { PersonalDataComponent } from './pages/personal-data/personal-data.component';
+import { PersonalDataComponent } from './pages/profile/profile.component';
 
-import { RouterModule, Routes } from '@angular/router'
-
-import { RestProvider } from './providers/rest/rest';
-import { ApiRoutesProvider } from './providers/api-routes/api-routes'
-import { AuthProvider } from './providers/auth/auth'
-import { Interceptors } from './interceptors/index'
-
-const appRoutes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'personal-data',      component: PersonalDataComponent },
-]
+import { ApiRoutesProvider } from './services/api-routes';
+import { AuthService } from './services/auth';
+import { Interceptors } from './interceptors/index';
 
 @NgModule({
   declarations: [
@@ -27,7 +20,7 @@ const appRoutes: Routes = [
     PersonalDataComponent
   ],
   imports: [
-    RouterModule.forRoot(appRoutes),
+    AppRoutingModule,
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
@@ -35,10 +28,10 @@ const appRoutes: Routes = [
   ],
   providers: [
     Validators,
-    RestProvider,
     ApiRoutesProvider,
-    AuthProvider,
-    { provide: HTTP_INTERCEPTORS, useClass: Interceptors.standardHeaders, multi: true },
+    AuthService,
+    { provide: HTTP_INTERCEPTORS, useClass: Interceptors.contentType, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: Interceptors.accessToken, multi: true },
   ],
   bootstrap: [AppComponent]
 })

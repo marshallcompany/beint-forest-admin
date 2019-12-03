@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import {Router} from "@angular/router"
+import { Router } from '@angular/router';
 
-import { FormValidators } from '../../validators/validators'
-import { AuthProvider } from '../../providers/auth/auth'
+import { FormValidators } from '../../validators/validators';
+import { AuthService } from '../../services/auth';
 
 
 @Component({
@@ -14,48 +14,29 @@ import { AuthProvider } from '../../providers/auth/auth'
 })
 export class LoginComponent implements OnInit {
 
-  public form: FormGroup;
   public showPass: boolean;
+  public form: FormGroup;
 
   constructor(
     public formBuilder: FormBuilder,
     public router: Router,
-    private auth: AuthProvider
+    private auth: AuthService
   ) {
     this.showPass = false;
     this.form = this.formBuilder.group({
       email: ['', [Validators.required, FormValidators.emailValidator]],
-      password: ['', [Validators.required, Validators.minLength(8)]]
+      password: ['', [Validators.required, Validators.minLength(3)]]
     });
   }
 
-  ngOnInit() {
-  }
-
-  public submit = () => {
-    this.auth.login(this.form.value)
-      .pipe()
-      .subscribe(
-        res => {
-          this.router.navigate(['/personal-data']);
-          alert('Successfully');
-        },
-        err => {
-          console.log('[ ERROR LOGIN ]', err);
-          alert('Is no such user');
-        },
-        () => console.log('[ LOGIN DONE ]')
-      )
-  }
+  ngOnInit() { }
 
   public showPassword = () => {
     this.showPass = !this.showPass;
   }
 
   public inputStatus = (name, element) => {
-    this.form.get(name).statusChanges
-    .pipe()
-    .subscribe(
+    this.form.get(name).statusChanges.subscribe(
       res => {
         if (res === 'INVALID') {
           element.classList.add('input-invalid');
@@ -64,6 +45,17 @@ export class LoginComponent implements OnInit {
           element.classList.add('input-valid');
         }
       }
-    )
+    );
   }
+
+  public async submit() {
+    try {
+      await this.auth.login(this.form.value);
+      this.router.navigate(['/profile']);
+    } catch (error) {
+      console.log('error', error)
+      alert(`Oops! Something went wrong. Please try again later.`);
+    }
+  }
+
 }
