@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
+import { ApplicationService } from '../services/application-service';
 import { AuthService } from '../services/auth.service';
 import { Observable } from 'rxjs';
 
@@ -11,7 +12,8 @@ export class AuthGuard implements CanActivate {
 
   constructor(
     public auth: AuthService,
-    public router: Router
+    public router: Router,
+    public applicationService: ApplicationService
   ) { }
 
   public canActivate(
@@ -23,7 +25,7 @@ export class AuthGuard implements CanActivate {
     const jobId = activatedRouteSnapshot.params['jobId'];
 
     if (jobId) {
-      localStorage.setItem('JOB_ID', jobId);
+      this.applicationService.saveJobId(jobId);
     }
 
     if (!this.auth.getAuthData()) {

@@ -20,6 +20,7 @@ export class AuthService {
 
   private readonly STORAGE_TOKEN_KEY: string;
   private readonly STORAGE_REFRESH_TOKEN: string;
+  private readonly JOB_ID: string;
 
   constructor(
     private http: HttpClient,
@@ -27,6 +28,7 @@ export class AuthService {
   ) {
     this.STORAGE_TOKEN_KEY = 'JWT';
     this.STORAGE_REFRESH_TOKEN = 'REFRESH_TOKEN';
+    this.JOB_ID = 'JOB_ID';
   }
 
   private saveAuthData(authData) {
@@ -49,6 +51,7 @@ export class AuthService {
   public logout = () => {
     localStorage.removeItem(this.STORAGE_TOKEN_KEY);
     localStorage.removeItem(this.STORAGE_REFRESH_TOKEN);
+    localStorage.removeItem(this.JOB_ID);
   }
 
 }

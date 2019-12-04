@@ -126,6 +126,7 @@
     font-family: Gilroy Bold;
     &:disabled{
         background-color: rgb(197, 59, 59);
+        opacity: .85;
     }
 }
 /* = MEDIA = */

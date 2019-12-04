@@ -17,8 +17,4 @@ export class ProfileService {
     return await this.http.get<any>(this.apiRoutes.PROFILE).toPromise();
   }
 
-  public async apply(id: string) {
-    const url = this.apiRoutes.JOB_VACANCIES.replace(':id', id);
-    return this.http.put<any>(url, {}).toPromise();
-  }
 }

@@ -1,0 +1,36 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { ApiRoutesProvider } from './api-routes.services';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ApplicationService {
+
+  public readonly JOB_ID: string;
+
+  constructor(
+    private http: HttpClient,
+    private apiRoutes: ApiRoutesProvider
+  ) {
+    this.JOB_ID = 'JOB_ID';
+  }
+
+  public saveJobId = (id: any) => {
+    localStorage.setItem(this.JOB_ID, id);
+  }
+
+  public getJobId = () => {
+    return localStorage.getItem(this.JOB_ID);
+  }
+
+  public removeJobId = () => {
+    return localStorage.removeItem(this.JOB_ID);
+  }
+
+  public async apply(id: string) {
+    const url = this.apiRoutes.JOB_VACANCIES.replace(':id', id);
+    return this.http.put<any>(url, {}).toPromise();
+  }
+
+}
