@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { FormValidators } from '../../validators/validators';
-import { AuthService } from '../../services/auth';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
       await this.auth.login(this.form.value);
       this.router.navigate(['/profile']);
     } catch (error) {
-      console.log('error', error)
+      console.log('error', error);
       alert(`Oops! Something went wrong. Please try again later.`);
     }
   }

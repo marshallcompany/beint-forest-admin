@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { ApiRoutesProvider } from './api-routes';
+import { ApiRoutesProvider } from './api-routes.services';
 
 @Injectable({
   providedIn: 'root'
@@ -15,5 +15,10 @@ export class ProfileService {
 
   public async getProfile() {
     return await this.http.get<any>(this.apiRoutes.PROFILE).toPromise();
+  }
+
+  public async apply(id: string) {
+    const url = this.apiRoutes.JOB_VACANCIES.replace(':id', id);
+    return this.http.put<any>(url, {}).toPromise();
   }
 }

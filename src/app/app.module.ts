@@ -7,17 +7,17 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
-import { PersonalDataComponent } from './pages/profile/profile.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
-import { ApiRoutesProvider } from './services/api-routes';
-import { AuthService } from './services/auth';
+import { ApiRoutesProvider } from './services/api-routes.services';
+import { AuthService } from './services/auth.service';
 import { Interceptors } from './interceptors/index';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    PersonalDataComponent
+    ProfileComponent
   ],
   imports: [
     AppRoutingModule,

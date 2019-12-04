@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { ApiRoutesProvider } from './api-routes';
+import { ApiRoutesProvider } from './api-routes.services';
 
 export interface User {
   id: string;
@@ -38,7 +38,7 @@ export class AuthService {
     return localStorage.getItem(this.STORAGE_TOKEN_KEY);
   }
 
-  public async login({ email, password }) {
+  public async login({ email, password }): Promise<any> {
     const authData = await this.http.post<any>(this.apiRoutes.LOGIN, { email, password }).toPromise();
     if (authData && authData.refreshToken && authData.token) {
       this.saveAuthData(authData);

@@ -1,4 +1,9 @@
 <section class="profile">
+  <button
+    class="login-button"
+    (click)="logout()">
+    Logout
+  </button>
   <div class="container">
     <div class="header-logo">
       <p class="header-logo__text">be<span class="grn-text">i</span><span class="letter-position">nt</span></p>
@@ -9,6 +14,5 @@
     <h1 *ngIf="jobId">
       You have successfully applied to Job {{ jobId }}
     </h1>
-
   </div>
 </section>
