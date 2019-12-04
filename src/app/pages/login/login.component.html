@@ -14,12 +14,12 @@
             <input
               formControlName="email"
               #email
-              (focus)="inputStatus('email', email)"
+              (blur)="triggerValidation('email')"
               type="email"
               class="login-item__input">
             <div
               class="error-box"
-              *ngIf="(form.get('email').touched || form.get('email').dirty) && form.get('email').invalid">
+              *ngIf="(form.get('email').touched || form.get('email').dirty) && form.get('email').invalid && validationError.email">
               <p
                 class="error-box__text"
                 *ngIf="form.get('email').hasError('required')">This field is required.</p>
@@ -34,7 +34,7 @@
               <input
                 formControlName="password"
                 #password
-                (focus)="inputStatus('password', password)"
+                (blur)="triggerValidation('password')"
                 [type]="showPass ? 'text' : 'password'"
                 class="login-item__input"
                 [ngClass]="{'input-valid': form.get('password').valid}">
@@ -50,7 +50,7 @@
             </div>
             <div
               class="error-box"
-              *ngIf="(form.get('password').touched || form.get('password').dirty) && form.get('password').invalid">
+              *ngIf="(form.get('password').touched || form.get('password').dirty) && form.get('password').invalid && validationError.password">
               <p
                 class="error-box__text"
                 *ngIf="form.get('password').hasError('required')">This field is required.</p>

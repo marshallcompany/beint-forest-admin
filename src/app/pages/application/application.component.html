@@ -8,11 +8,14 @@
     <div class="header-logo">
       <p class="header-logo__text">be<span class="grn-text">i</span><span class="letter-position">nt</span></p>
     </div>
-    <h1>Profile</h1>
-    <div>{{ profileData | json }}</div>
 
-    <h1 *ngIf="jobId">
-      You have successfully applied to Job {{ jobId }}
-    </h1>
+    <div *ngIf="jobId">
+      <h1 *ngIf="applicationSuccess">
+        You have successfully applied to Job {{ jobId }}
+      </h1>
+      <h1 *ngIf="!applicationSuccess">
+        Oops! Looks like you have already applied to this job.
+      </h1>
+    </div>
   </div>
 </section>

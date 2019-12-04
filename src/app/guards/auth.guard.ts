@@ -23,8 +23,10 @@ export class AuthGuard implements CanActivate {
 
     // tslint:disable-next-line:no-string-literal
     const jobId = activatedRouteSnapshot.params['jobId'];
+    // tslint:disable-next-line:no-string-literal
+    const keep = activatedRouteSnapshot.params['keep'];
 
-    if (jobId) {
+    if (jobId && Boolean(keep)) {
       this.applicationService.saveJobId(jobId);
     }
 

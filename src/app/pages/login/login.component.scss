@@ -85,12 +85,6 @@
         padding:10px 10px;
         font-size: 16px;
         width:100%;
-        &.input-valid{
-            box-shadow:0 0 0 1.5px rgb(80, 180, 164);
-        }
-        &.input-invalid{
-            box-shadow:0 0 0 1.5px rgb(197, 59, 59);
-        }
     }
 }
 .pass-show{
