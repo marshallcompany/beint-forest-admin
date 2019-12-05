@@ -33,4 +33,8 @@ export class ApplicationService {
     return this.http.put<any>(url, {}).toPromise();
   }
 
+  public async getJobData(id: string) {
+    const url = this.apiRoutes.GET_JOB_DATA.replace(':id', id);
+    return await this.http.get<any>(url, {}).toPromise();
+  }
 }

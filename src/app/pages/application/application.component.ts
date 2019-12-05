@@ -13,6 +13,7 @@ export class ApplicationComponent implements OnInit {
 
   public jobId: string;
   public applicationSuccess: boolean;
+  public jobData: object;
 
   constructor(
     private applicationService: ApplicationService,
@@ -26,6 +27,8 @@ export class ApplicationComponent implements OnInit {
   async ngOnInit() {
     try {
       this.jobId = this.route.snapshot.paramMap.get('jobId') || this.applicationService.getJobId();
+      this.jobData = await this.applicationService.getJobData(this.jobId);
+      console.log(this.jobData);
       if (this.jobId) {
         await this.applicationService.apply(this.jobId);
         this.applicationService.removeJobId();

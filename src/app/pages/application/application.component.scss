@@ -40,7 +40,11 @@
     margin-bottom:10px;
     border-radius:10px;
     &_success{
-        background-color: #8EC260;
+        background: rgba(80, 180, 164, .2);
+        .job-message-item__text{
+            margin-bottom:15px;
+            color:rgb(85, 182, 0);
+        }
     }
     &_error{
         background-color: rgb(216, 60, 60);
@@ -49,11 +53,23 @@
         font-family: Gilroy Bold;
         color:#ffffff;
         font-size: 20px;
-        span{
-            display: inline-block;
-            background-color: #2C488E;
-            padding:5px;
-        }
+        text-align: center;
+    }
+}
+.job-description {
+    background-color: #ffffff;
+    padding:10px;
+    border-radius:10px;
+}
+.job-description-item{
+    margin-bottom:10px;
+    &:last-child{
+        margin-bottom:0;
+    }
+    &__label{
+        font-weight: 700;
+        display: block;
+        margin-bottom:10px;
     }
 }
 @media screen and (max-width:630px){

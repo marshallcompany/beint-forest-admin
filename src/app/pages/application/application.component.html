@@ -32,8 +32,26 @@
         class="job-message-item job-message-item_success"
         *ngIf="applicationSuccess">
         <p class="job-message-item__text">
-          You have successfully applied to Job <span>5de6537ff6441e001dcb7206</span>
+          You have successfully applied to Job
         </p>
+        <div class="job-description">
+          <div class="job-description-item">
+            <span class="job-description-item__label">Title:</span>
+            <p class="job-description-item__text">{{ jobData?.title }}</p>
+          </div>
+          <div class="job-description-item">
+            <span class="job-description-item__label">Description:</span>
+            <p class="job-description-item__text">{{ jobData?.description }}</p>
+          </div>
+          <div class="job-description-item">
+            <span class="job-description-item__label">Job ID:</span>
+            <p class="job-description-item__text">{{ jobData?.id }}</p>
+          </div>
+          <div class="job-description-item">
+            <span class="job-description-item__label">Job created:</span>
+            <p class="job-description-item__text">{{ jobData?.createdAt | date:'fullDate' }}</p>
+          </div>
+        </div>
       </div>
       <div
         class="job-message-item job-message-item_error"
