@@ -13,6 +13,7 @@ export class ApplicationComponent implements OnInit {
 
   public jobId: string;
   public applicationSuccess: boolean;
+  public applicationError: boolean;
   public jobData: object;
 
   constructor(
@@ -21,7 +22,7 @@ export class ApplicationComponent implements OnInit {
     private authService: AuthService,
     private router: Router
   ) {
-    this.applicationSuccess = false;
+    this.applicationError = false;
   }
 
   async ngOnInit() {
@@ -41,6 +42,7 @@ export class ApplicationComponent implements OnInit {
     } catch (error) {
       console.log('error', error);
       this.applicationSuccess = false;
+      this.applicationError = true;
       this.applicationService.removeJobId();
     }
   }

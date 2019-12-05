@@ -55,11 +55,16 @@
       </div>
       <div
         class="job-message-item job-message-item_error"
-        *ngIf="!applicationSuccess">
+        *ngIf="!applicationSuccess && applicationError">
         <p class="job-message-item__text">
           Oops! Looks like you have already applied to this job.
         </p>
       </div>
     </div>
+    <img
+      *ngIf="!applicationSuccess && !applicationError"
+      class="spinner"
+      src="../assets/image/spinner.svg"
+      alt>
   </div>
 </section>
