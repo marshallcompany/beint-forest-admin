@@ -21,18 +21,41 @@
     display:block;
     position: absolute;
     right:20px;
-    top:65px;
-    width:150px;
+    top:50px;
+    width:50px;
     height:50px;
-    border-radius:5px;
     font-size: 16px;
-    background-color:rgb(80, 180, 164);
+    background:linear-gradient(45deg, #5ABF99 45%, #FDC531);
     color:#ffffff;
     text-transform: uppercase;
     font-family: Gilroy Bold;
     z-index: 1;
+    &__img{
+        height: 25px;
+        fill: #ffffff;
+    }
 }
-
+.job-message-item{
+    padding:20px;
+    margin-bottom:10px;
+    border-radius:10px;
+    &_success{
+        background-color: #8EC260;
+    }
+    &_error{
+        background-color: rgb(216, 60, 60);
+    }
+    &__text{
+        font-family: Gilroy Bold;
+        color:#ffffff;
+        font-size: 20px;
+        span{
+            display: inline-block;
+            background-color: #2C488E;
+            padding:5px;
+        }
+    }
+}
 @media screen and (max-width:630px){
   .logout-button{
     right: inherit;
