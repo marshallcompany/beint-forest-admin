@@ -1,0 +1,50 @@
+.error-wrp{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  text-align: center;
+  &__text{
+    font-size: 35px;
+  }
+}
+.error-image-wrp{
+  display: inline-block;
+  margin-bottom:25px;
+  position: relative;
+  z-index: 1;
+  &:before{
+    content:'';
+    width:90%;
+    height:80%;
+    background-color: rgb(197, 59, 59);
+    position: absolute;
+    left:50%;
+    transform: translate(-50%, 0);
+    bottom:10px;
+    z-index: -1;
+  }
+  &__svg{
+    height: 300px;
+    
+  }
+  .header-svg{
+    fill:rgb(80, 180, 164);
+  }
+  .content-svg{
+    fill:#f4f4f4;
+  }
+}
+@media screen and (max-width:768px){
+  .error-wrp{
+    &__text{
+      font-size: 25px;
+    }
+  }
+  .error-image-wrp{
+    &__svg{
+      height:250px;
+    }
+  }
+}

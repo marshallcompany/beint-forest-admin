@@ -13,13 +13,15 @@ import { ApiRoutesProvider } from './services/api-routes.services';
 import { AuthService } from './services/auth.service';
 import { Interceptors } from './interceptors/index';
 import { ApplicationComponent } from './pages/application/application.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     ProfileComponent,
-    ApplicationComponent
+    ApplicationComponent,
+    NotFoundComponent
   ],
   imports: [
     AppRoutingModule,
