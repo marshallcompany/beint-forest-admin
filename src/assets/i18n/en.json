@@ -1,0 +1,9 @@
+{
+  "info": {
+    "about": "Multilanguage application"
+  },
+  "languages": {
+    "english": "English",
+    "germany": "Germany"
+  }
+}
