@@ -1,0 +1,68 @@
+<section class="job-description">
+  <div class="container">
+    <h1 class="title-primary">
+      <span
+        class="title-primary__text"
+        style="margin-right:10px;">Job</span>
+      <span class="title-primary__text">Description</span>
+    </h1>
+    <div
+      class="job-description-wrp"
+      *ngIf="jobData">
+      <div class="job-description-wrp-item">
+        <span class="job-description-wrp-item__label">Title:</span>
+        <p class="job-description-wrp-item__text">{{ jobData?.vacancy.title }}</p>
+      </div>
+      <div class="job-description-wrp-item">
+        <span class="job-description-wrp-item__label">Description:</span>
+        <p class="job-description-wrp-item__text">{{ jobData?.vacancy.description }}</p>
+      </div>
+      <div class="job-description-wrp-item">
+        <span class="job-description-wrp-item__label">Job ID:</span>
+        <p class="job-description-wrp-item__text">{{ jobData?.vacancy.id }}</p>
+      </div>
+      <div class="job-description-wrp-item">
+        <span class="job-description-wrp-item__label">Job created:</span>
+        <p class="job-description-wrp-item__text">{{ jobData?.vacancy.createdAt | date:'fullDate' }}</p>
+      </div>
+    </div>
+    <div
+      class="error-box"
+      *ngIf="noJodData">
+      <p class="error-box__text">
+        Oops! something went wrong.
+      </p>
+    </div>
+    <div
+      class="job-message-wrp"
+      *ngIf="jobId">
+      <div
+        class="job-message-item job-message-item_success"
+        *ngIf="applicationSuccess">
+        <p class="job-message-item__text">
+          You have successfully applied to Job
+        </p>
+      </div>
+    </div>
+    <div class="job-actions">
+      <button
+        class="job-actions__btn"
+        (click)="jobApply()"
+        [disabled]="statusButtonApply">
+        Apply
+      </button>
+      <button
+        class="job-actions__btn profile"
+        (click)="goToProfile()">
+        Profile
+      </button>
+    </div>
+    <div class="job-actions">
+      <button
+        (click)="downloadFile()"
+        class="job-actions__btn">
+        Download CV
+      </button>
+    </div>
+  </div>
+</section>

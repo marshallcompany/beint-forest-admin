@@ -1,0 +1,109 @@
+.job-description{
+  padding-top:100px;
+}
+.job-actions{
+  display:flex;
+  justify-content:space-evenly;
+  padding:15px 0;
+  &__btn{
+    width:175px;
+    padding:15px 0;
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: .7px;
+    font-family: Gilroy Bold;
+    background-color: rgb(98, 156, 10);
+    color:#ffffff;
+    border-radius: 10px;
+    &:disabled{
+      opacity: .5;
+    }
+    &.profile{
+      background-color: #2C498E;
+    }
+  }
+}
+.title-primary{
+    text-align:center;
+    margin-bottom:25px;
+    color:#000000;
+    &__text{
+        font-size: 50px;
+        letter-spacing: 1px;
+        display: inline-block;
+        position: relative;
+        &:before{
+            content:'';
+            width:100%;
+            height:4px;
+            background-color:#5ABF99;
+            position: absolute;
+            left:50%;
+            bottom:-1px;
+            transform: translate(-50%, 0);
+        }
+    }
+}
+.job-message-item{
+    padding:20px;
+    margin-bottom:10px;
+    border-radius:10px;
+    width:80%;
+    margin:0 auto;
+    &_success{
+        background: rgba(80, 180, 164, .2);
+        .job-message-item__text{
+            color:rgb(85, 182, 0);
+        }
+    }
+    &__text{
+        font-family: Gilroy Bold;
+        color:#ffffff;
+        font-size: 20px;
+        text-align: center;
+    }
+}
+.job-description-wrp {
+  width:90%;
+  margin:25px  auto;
+  box-shadow: 0 0 10px 2px rgba(0,0,0,.5);
+  padding:10px;
+  background-color:#f4f4f4;
+}
+.job-description-wrp-item{
+    margin-bottom:10px;
+    &:last-child{
+        margin-bottom:0;
+    }
+    &__label{
+        font-weight: 700;
+        display: block;
+        margin-bottom:10px;
+    }
+}
+.error-box{
+  text-align:center;
+  &__text{
+    font-size: 20px;
+  }
+}
+@media screen and (max-width:768px) {
+  .job-description{
+    padding-top:50px;
+  }
+  .title-primary{
+    &__text{
+      font-size:30px;
+      &:before{
+        height:2px;
+      }
+    }
+  }
+  .job-actions{
+    &__btn{
+      width:125px;
+      padding:10px 0;
+      font-size: 16px;
+    }
+  }
+}

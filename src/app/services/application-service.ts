@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 import { ApiRoutesProvider } from './api-routes.services';
 
 @Injectable({
@@ -37,4 +38,6 @@ export class ApplicationService {
     const url = this.apiRoutes.GET_JOB_DATA.replace(':id', id);
     return await this.http.get<any>(url, {}).toPromise();
   }
+
 }
+
