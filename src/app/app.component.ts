@@ -20,9 +20,6 @@ export class AppComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if (this.authService.getAuthData()) {
-      this.router.navigate(['/profile']);
-    }
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(
