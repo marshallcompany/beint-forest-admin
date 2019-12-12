@@ -1,7 +1,7 @@
 .login{
     background: linear-gradient(to top, rgba(80, 180, 164,.35), #ffffff 45%);
     min-height: 100%;
-    padding-bottom:20px;
+    overflow: auto;
 }
 .container{
     position: relative;

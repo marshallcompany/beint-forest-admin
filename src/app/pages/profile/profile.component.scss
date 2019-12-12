@@ -1,6 +1,8 @@
+
 .profile{
     padding-top:100px;
     min-height:100%;
+    overflow: auto;
     background: #2C498E;
 }
 .title-primary{
@@ -105,7 +107,6 @@
 }
 .profile-item{
     width:100%;
-    // border-bottom:1px solid #ffffff;
     position: relative;
     padding:10px 0;
     &:before{
@@ -137,9 +138,26 @@
     }
 }
 @media screen and (max-width:768px) {
+.profile-header{
+    justify-content: flex-start;
+}
+  .profile-avatar{
+      width:200px;
+      height:200px;
+  }
+  .profile-content{
+    &-item{
+        margin-bottom:5px;
+        &__label{
+            font-size: 20px;
+        }
+        &__info{
+            font-size: 18px;
+        }
+    }
+}
   .profile{
     padding-top:50px;
-    min-height:calc(100% - 70px);
   }
   .title-primary{
     &__text{
@@ -161,6 +179,12 @@
       justify-content: center;
   }
   .profile-item{
-      width:95%;
+      width:100%;
+  }
+}
+@media screen and (max-width:480px) {
+    .profile-avatar{
+      width:150px;
+      height:150px;
   }
 }
