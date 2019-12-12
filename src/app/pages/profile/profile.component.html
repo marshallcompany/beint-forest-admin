@@ -2,23 +2,28 @@
   <div class="container">
     <h1 class="title-primary"><span class="title-primary__text">Profile</span></h1>
     <div class="profile-wrp">
-      <div class="profile-item">
-        <span class="profile-item__label">First name:</span>
-        <p
-          class="profile-item__info"
-          *ngIf="profileData?.profile">{{ profileData?.profile.personal.firstName }}</p>
-        <p
-          class="profile-item__info"
-          *ngIf="!profileData?.profile">Mark</p>
-      </div>
-      <div class="profile-item">
-        <span class="profile-item__label">Last name:</span>
-        <p
-          class="profile-item__info"
-          *ngIf="profileData?.profile">{{ profileData?.profile.personal.lastName }}</p>
-        <p
-          class="profile-item__info"
-          *ngIf="!profileData?.profile">Van Bommel</p>
+      <div class="profile-header">
+        <div class="profile-avatar"></div>
+        <div class="profile-content">
+          <div class="profile-content-item">
+            <span class="profile-content-item__label">First name:</span>
+            <p
+              class="profile-content-item__info"
+              *ngIf="profileData?.profile">{{ profileData?.profile.personal.firstName }}</p>
+            <p
+              class="profile-content-item__info"
+              *ngIf="!profileData?.profile">Mark</p>
+          </div>
+          <div class="profile-content-item">
+            <span class="profile-content-item__label">Last name:</span>
+            <p
+              class="profile-content-item__info"
+              *ngIf="profileData?.profile">{{ profileData?.profile.personal.lastName }}</p>
+            <p
+              class="profile-content-item__info"
+              *ngIf="!profileData?.profile">Ivanov</p>
+          </div>
+        </div>
       </div>
       <div class="profile-item">
         <span class="profile-item__label">E-mail:</span>

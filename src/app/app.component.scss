@@ -4,7 +4,7 @@ mat-sidenav {
     padding:15px;
     padding-left:0;
     padding-right:0;
-    background: linear-gradient(45deg, #5ABF99, #2c498e 90%);
+    background: #f2f2f2;
 }
 .nav-box{
  width:90%;
@@ -19,7 +19,7 @@ mat-sidenav {
    background-color:transparent;
    font-size:18px;
    font-weight: 700;
-   color:#ffffff;
+   color:#2c498e;
    text-transform: uppercase;
    &:last-child{
      margin-bottom:0;
@@ -35,6 +35,15 @@ mat-sidenav {
     display: flex;
     align-items:center;
     justify-content: space-between;
+  }
+}
+.back-button{
+  width:35px;
+  height:35px;
+  background:transparent;
+  i{
+    color:#ffffff;
+    font-size: 50px;
   }
 }
 .menu-btn{
@@ -87,18 +96,24 @@ mat-sidenav {
     width:35px;
     height:35px;
     font-size: 16px;
-    background:linear-gradient(45deg, #5ABF99 45%, #FDC531);
+    background-color: transparent;
     color:#ffffff;
     text-transform: uppercase;
     font-family: Gilroy Bold;
-    border-radius:5px;
     z-index: 1;
-    &__img{
-        height: 20px;
-        fill: #ffffff;
+    i{
+      font-size: 30px;
     }
 }
 @media screen and (max-width:768px) {
+  .back-button{
+     height:30px;
+     width:30px;
+     margin-left:15px;
+     i{
+       font-size: 33px;
+     }
+  }
   .menu-btn{
     height:30px;
     width:30px;

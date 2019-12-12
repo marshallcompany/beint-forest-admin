@@ -1,10 +1,7 @@
 <section class="job-description">
   <div class="container">
     <h1 class="title-primary">
-      <span
-        class="title-primary__text"
-        style="margin-right:10px;">Job</span>
-      <span class="title-primary__text">Description</span>
+      <span class="title-primary__text">Job Description</span>
     </h1>
     <div
       class="job-description-wrp"
@@ -46,22 +43,38 @@
     </div>
     <div class="job-actions">
       <button
-        class="job-actions__btn"
+        class="job-actions__btn apply"
         (click)="jobApply()"
         [disabled]="statusButtonApply">
-        Apply
+        <span>
+          <i class="material-icons btn-icon">
+            done
+          </i>
+          Apply
+        </span>
       </button>
       <button
         class="job-actions__btn profile"
         (click)="goToProfile()">
-        Profile
+        <span>
+          <i class="material-icons btn-icon">
+            account_circle
+          </i>
+          Profile
+        </span>
       </button>
     </div>
-    <div class="job-actions">
+    <div class="download-cv">
+      <h2 class="download-cv__title">Download your CV to view</h2>
       <button
         (click)="downloadFile()"
-        class="job-actions__btn">
-        Download CV
+        class="download-cv-button">
+        <span>
+          <i class="material-icons btn-icon">
+            file_download
+          </i>
+          DOWNLOAD
+        </span>
       </button>
     </div>
   </div>
