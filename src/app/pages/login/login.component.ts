@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
       await this.auth.login(this.form.value);
 
       if (this.applicationService.getJobId()) {
-        this.router.navigate(['/application']);
+        this.router.navigate(['/job-description']);
       } else {
         this.router.navigate(['/profile']);
       }

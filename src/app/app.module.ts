@@ -5,15 +5,22 @@ import { HTTP_INTERCEPTORS, HttpClientModule, HttpClient } from '@angular/common
 
 import { AppRoutingModule } from './app-routing.module';
 
+import { ApiRoutesProvider } from './services/api-routes.services';
+import { AuthService } from './services/auth.service';
+import { DownloadFileService } from './services/download-file.service';
+
+import { Interceptors } from './interceptors/index';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSidenavModule } from '@angular/material';
+import { MatIconModule } from '@angular/material/icon';
+
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ProfileComponent } from './pages/profile/profile.component';
-
-import { ApiRoutesProvider } from './services/api-routes.services';
-import { AuthService } from './services/auth.service';
-import { Interceptors } from './interceptors/index';
 import { ApplicationComponent } from './pages/application/application.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { JobDescriptionComponent } from './pages/job-description/job-description.component';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -28,7 +35,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoginComponent,
     ProfileComponent,
     ApplicationComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    JobDescriptionComponent
   ],
   imports: [
     AppRoutingModule,
@@ -42,12 +50,16 @@ export function HttpLoaderFactory(http: HttpClient) {
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    })
+    }),
+    BrowserAnimationsModule,
+    MatSidenavModule,
+    MatIconModule
   ],
   providers: [
     Validators,
     ApiRoutesProvider,
     AuthService,
+    DownloadFileService,
     { provide: HTTP_INTERCEPTORS, useClass: Interceptors.contentType, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: Interceptors.accessToken, multi: true },
   ],

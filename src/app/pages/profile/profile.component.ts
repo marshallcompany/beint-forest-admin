@@ -15,21 +15,15 @@ export class ProfileComponent implements OnInit {
   public jobId: string;
 
   constructor(
-    private profileService: ProfileService,
-    private authService: AuthService,
-    private router: Router
+    private profileService: ProfileService
   ) { }
 
   async ngOnInit() {
     try {
       this.profileData = await this.profileService.getProfile();
+      console.log('profile', this.profileData);
     } catch (error) {
       console.log('error', error);
     }
-  }
-
-  logout() {
-    this.authService.logout();
-    this.router.navigate(['/login']);
   }
 }
