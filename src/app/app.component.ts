@@ -3,6 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { Router, NavigationEnd } from '@angular/router';
 import { AuthService } from './services/auth.service';
+import { NotificationService } from './services/notification.service';
 import { Location } from '@angular/common';
 import { filter } from 'rxjs/operators';
 @Component({
@@ -20,6 +21,7 @@ export class AppComponent implements OnInit {
     private translateService: TranslateService,
     private authService: AuthService,
     private location: Location,
+    public notificationService: NotificationService
   ) { }
 
   ngOnInit() {

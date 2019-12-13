@@ -41,7 +41,7 @@ export class HttpMultiLoaderServiceService implements TranslateLoader {
         map(response => lodashMerge({}, ...response)),
         switchMap(translation => {
           if (0 === Object.keys(translation).length) {
-            throwError('NO_TRANSLATIONS');
+            return throwError('NO_TRANSLATIONS');
           }
           return of(translation);
         })

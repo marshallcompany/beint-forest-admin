@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule, HttpClient } from '@angular/common/http';
 
@@ -24,12 +24,14 @@ import { JobDescriptionComponent } from './pages/job-description/job-description
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpMultiLoaderServiceService } from './services/http-multi-loader-service';
+import { NotificationService } from './services/notification.service';
+import { GlobalErrorService } from './services/global-error-service';
+import { SnackbarModule } from 'ngx-snackbar';
 
-
-export const createTranslateLoader = (http: HttpClient, ApiRoutesProvider: ApiRoutesProvider) => {
+export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRoutesProvider) => {
   return new HttpMultiLoaderServiceService(http, [
     { prefix: './assets/i18n', suffix: '.json' },
-    { prefix: `${ApiRoutesProvider.GET_LANG}` },
+    { prefix: `${apiRoutesProvider.GET_LANG}` },
   ]);
 };
 
@@ -57,13 +59,19 @@ export const createTranslateLoader = (http: HttpClient, ApiRoutesProvider: ApiRo
     }),
     BrowserAnimationsModule,
     MatSidenavModule,
-    MatIconModule
+    MatIconModule,
+    SnackbarModule.forRoot()
   ],
   providers: [
     Validators,
     ApiRoutesProvider,
     AuthService,
     DownloadFileService,
+    NotificationService,
+    {
+      provide: ErrorHandler,
+      useClass: GlobalErrorService
+    },
     { provide: HTTP_INTERCEPTORS, useClass: Interceptors.contentType, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: Interceptors.accessToken, multi: true },
   ],
