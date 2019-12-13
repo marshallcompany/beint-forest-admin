@@ -5,7 +5,7 @@
   <div class="container">
     <div class="login-wrapper">
       <div class="wpr">
-        <h1 class="login-wrapper__title">Sign In</h1>
+        <h1 class="login-wrapper__title">{{ 'login.SIGN_IN' | translate }}</h1>
         <form
           [formGroup]="form"
           (ngSubmit)="submit(form)">
@@ -22,10 +22,10 @@
               *ngIf="(form.get('email').touched || form.get('email').dirty) && form.get('email').invalid && validationError.email">
               <p
                 class="error-box__text"
-                *ngIf="form.get('email').hasError('required')">This field is required.</p>
+                *ngIf="form.get('email').hasError('required')">{{ 'local_error.FIELD_REQUIRED' | translate }}</p>
               <p
                 class="error-box__text"
-                *ngIf="form.get('email').hasError('invalidEmailAddress') && !form.get('email').hasError('required')">Invalid E-Mail format.</p>
+                *ngIf="form.get('email').hasError('invalidEmailAddress') && !form.get('email').hasError('required')">{{ 'local_error.INVALID_EMAIL' | translate }}</p>
             </div>
           </div>
           <div class="login-item">
@@ -53,17 +53,17 @@
               *ngIf="(form.get('password').touched || form.get('password').dirty) && form.get('password').invalid && validationError.password">
               <p
                 class="error-box__text"
-                *ngIf="form.get('password').hasError('required')">This field is required.</p>
+                *ngIf="form.get('password').hasError('required')">{{ 'local_error.FIELD_REQUIRED' | translate }}</p>
               <p
                 class="error-box__text"
-                *ngIf="form.value.password && form.get('password').hasError('minlength')">Password must be at least 8 characters.</p>
+                *ngIf="form.value.password && form.get('password').hasError('minlength')">{{ 'local_error.LENGTH_PASS' | translate }}</p>
             </div>
           </div>
           <button
             type="submit"
             [disabled]="!form.valid"
             class="login-button">
-            Login
+            {{ 'login.SIGN_IN_BUTTON' | translate }}
           </button>
         </form>
       </div>

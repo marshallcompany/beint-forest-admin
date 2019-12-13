@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { FormValidators } from '../../validators/validators';
 import { AuthService } from '../../services/auth.service';
 import { ApplicationService } from '../../services/application-service';
+import { GlobalErrorService } from 'src/app/services/global-error-service';
 
 
 @Component({
@@ -23,7 +24,8 @@ export class LoginComponent implements OnInit {
     public formBuilder: FormBuilder,
     public router: Router,
     private auth: AuthService,
-    private applicationService: ApplicationService
+    private applicationService: ApplicationService,
+    private globalErrorService: GlobalErrorService
   ) {
     this.showPass = false;
     this.validationError = {
@@ -54,7 +56,7 @@ export class LoginComponent implements OnInit {
 
     } catch (error) {
       console.log('error', error);
-      alert(`Oops! Something went wrong. Please try again later.`);
+      this.globalErrorService.handleError(error);
     }
   }
 

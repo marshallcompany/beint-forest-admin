@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationStart, NavigationEnd } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+
+import { Router, NavigationEnd } from '@angular/router';
 import { AuthService } from './services/auth.service';
+import { NotificationService } from './services/notification.service';
 import { Location } from '@angular/common';
 import { filter } from 'rxjs/operators';
 @Component({
@@ -15,11 +18,14 @@ export class AppComponent implements OnInit {
 
   constructor(
     public router: Router,
+    private translateService: TranslateService,
     private authService: AuthService,
     private location: Location,
+    public notificationService: NotificationService
   ) { }
 
   ngOnInit() {
+    this.setLanguage();
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(
@@ -36,15 +42,25 @@ export class AppComponent implements OnInit {
       );
   }
 
+  private setLanguage = () => {
+    const browserLang = this.translateService.getBrowserLang();
+    this.translateService.addLangs(['en', 'de']);
+    this.translateService.setDefaultLang('en');
+    this.translateService.use(browserLang.match(/en|de/) ? browserLang : 'en');
+  }
+
   logout() {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
+
   public backRouter = () => {
     this.location.back();
   }
+
   public goToComponent = (name: string, nav: any) => {
     this.router.navigate([`${name}`]);
     nav.toggle();
   }
+
 }

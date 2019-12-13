@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule, HttpClient } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -22,6 +22,19 @@ import { ApplicationComponent } from './pages/application/application.component'
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { JobDescriptionComponent } from './pages/job-description/job-description.component';
 
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { HttpMultiLoaderServiceService } from './services/http-multi-loader-service';
+import { NotificationService } from './services/notification.service';
+import { GlobalErrorService } from './services/global-error-service';
+import { SnackbarModule } from 'ngx-snackbar';
+
+export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRoutesProvider) => {
+  return new HttpMultiLoaderServiceService(http, [
+    { prefix: './assets/i18n', suffix: '.json' },
+    { prefix: `${apiRoutesProvider.GET_LANG}` },
+  ]);
+};
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,15 +50,28 @@ import { JobDescriptionComponent } from './pages/job-description/job-description
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: createTranslateLoader,
+        deps: [HttpClient, ApiRoutesProvider]
+      }
+    }),
     BrowserAnimationsModule,
     MatSidenavModule,
-    MatIconModule
+    MatIconModule,
+    SnackbarModule.forRoot()
   ],
   providers: [
     Validators,
     ApiRoutesProvider,
     AuthService,
     DownloadFileService,
+    NotificationService,
+    {
+      provide: ErrorHandler,
+      useClass: GlobalErrorService
+    },
     { provide: HTTP_INTERCEPTORS, useClass: Interceptors.contentType, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: Interceptors.accessToken, multi: true },
   ],

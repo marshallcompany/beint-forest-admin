@@ -1,5 +1,53 @@
 
 @import "app/theme/reset.scss";
+.snack {
+  box-shadow: 0px 4px 25px 0px rgba(0, 0, 0, .5);
+}
+.snackbar-error {
+  border: 1px solid #dc3545;
+  background-color: #dc3545 !important;
+  color: #ffffff !important;
+	font-weight: 700;
+}
+.snack-action {
+	color:transparent!important;
+	position: relative;
+	width:15px;
+	height:15px;
+	margin-right:25px!important;
+	&:before{
+		content:'';
+		width:15px;
+		height:2px;
+		background-color: #ffffff;
+		position:absolute;
+		left:0;
+		top:50%;
+		transform:  translateY(-50%) rotate(45deg);
+	}
+	&:after{
+		content:'';
+		width:15px;
+		height:2px;
+		background-color: #ffffff;
+		position:absolute;
+		left:0;
+		top:50%;
+		transform:  translateY(-50%) rotate(-45deg);
+	}
+}
+.snackbar-info {
+  border: 1px solid #007bff;
+  background-color: white !important;
+  color: #007bff !important;
+  font-weight: 700;
+}
+.snackbar-success {
+  border: 1px solid #28a745;
+  background-color: white !important;
+  color: #28a745 !important;
+  font-weight: 700;
+}
 /* = STYLE CONTAINER = */
 .container{
 	padding:0 15px;

@@ -1,0 +1,34 @@
+{
+  "global.default_error_message": "Ooops! Something went wrong.",
+  "general": {
+    "FIRST_NAME": "First Name:",
+    "LAST_NAME": "Last Name:",
+    "PLACE": "Place of living:",
+    "PHONE": "Phone:",
+    "BIRTH": "Birthday:",
+    "ACCOUNT_CREATED": "Account created:"
+  },
+  "login": {
+    "SIGN_IN": "Sign In",
+    "SIGN_IN_BUTTON": "Login"
+  },
+  "local_error": {
+    "FIELD_REQUIRED": "This field is required.",
+    "INVALID_EMAIL": "Invalid E-Mail format.",
+    "LENGTH_PASS": "Password must be at least 8 characters."
+  },
+  "profile": {
+    "PROFILE_TTL": "Profile"
+  },
+  "job_description": {
+    "TTL": "Job Description",
+    "APPLY_BTN": "Apply",
+    "PROFILE_BTN": "Profile",
+    "DOWNLOAD_BTN": "DOWNLOAD",
+    "DOWNLOAD_TEXT": "Download your CV to view"
+  },
+  "languages": {
+    "english": "English",
+    "germany": "Germany"
+  }
+}
