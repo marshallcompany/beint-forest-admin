@@ -1,7 +1,7 @@
 <section class="job-description">
   <div class="container">
     <h1 class="title-primary">
-      <span class="title-primary__text">Job Description</span>
+      <span class="title-primary__text">{{ 'job_description.TTL' | translate }}</span>
     </h1>
     <div
       class="job-description-wrp"
@@ -50,7 +50,7 @@
           <i class="material-icons btn-icon">
             done
           </i>
-          Apply
+          {{ 'job_description.APPLY_BTN' | translate }}
         </span>
       </button>
       <button
@@ -60,12 +60,12 @@
           <i class="material-icons btn-icon">
             account_circle
           </i>
-          Profile
+           {{ 'job_description.PROFILE_BTN' | translate }}
         </span>
       </button>
     </div>
     <div class="download-cv">
-      <h2 class="download-cv__title">Download your CV to view</h2>
+      <h2 class="download-cv__title"> {{ 'job_description.DOWNLOAD_TEXT' | translate }}</h2>
       <button
         (click)="downloadFile()"
         class="download-cv-button">
@@ -73,7 +73,7 @@
           <i class="material-icons btn-icon">
             file_download
           </i>
-          DOWNLOAD
+           {{ 'job_description.DOWNLOAD_BTN' | translate }}
         </span>
       </button>
     </div>

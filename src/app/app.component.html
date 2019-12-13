@@ -9,17 +9,6 @@
         Profile
       </button>
     </div>
-    <label>
-      <select
-        #langselect
-        (change)="translateService.use(langselect.value)">
-        <option
-          *ngFor="let lang of translateService.getLangs()"
-          value="{{lang}}">
-          {{lang}}
-        </option>
-      </select>
-    </label>
   </mat-sidenav>
   <mat-sidenav-content>
     <header
@@ -45,13 +34,27 @@
         <div class="header-logo">
           <p class="header-logo__text">be<span class="custom-text">i</span><span class="letter-position">nt</span></p>
         </div>
-        <button
-          class="logout-button"
-          (click)="logout()">
-          <i class="material-icons">
+        <div style="display:flex; align-items:center;">
+          <label>
+            <select
+              #langselect
+              (change)="translateService.use(langselect.value)">
+              <option
+                *ngFor="let lang of translateService.getLangs()"
+                value="{{lang}}"
+                [selected]="lang === translateService.currentLang">
+                {{lang}}
+              </option>
+            </select>
+          </label>
+          <button
+            class="logout-button"
+            (click)="logout()">
+            <i class="material-icons">
             exit_to_app
           </i>
-        </button>
+          </button>
+        </div>
       </div>
     </header>
     <router-outlet></router-outlet>

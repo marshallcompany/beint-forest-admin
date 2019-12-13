@@ -1,7 +1,31 @@
 {
-  "info": {
-    "about": "Mehrsprachige Anwendung",
-    "SIGN_IN": "Einloggen"
+  "global.default_error_message": "Hoppla! Etwas ist schief gelaufen.",
+  "general": {
+    "FIRST_NAME": "Vorname:",
+    "LAST_NAME": "Familienname, Nachname:",
+    "PLACE": "Wohnort:",
+    "PHONE": "Telefon:",
+    "BIRTH": "Geburtstag:",
+    "ACCOUNT_CREATED": "Account erstellt:"
+  },
+  "login": {
+    "SIGN_IN": "Einloggen",
+    "SIGN_IN_BUTTON": "Einloggen"
+  },
+  "local_error": {
+    "FIELD_REQUIRED": "Dieses Feld wird benötigt.",
+    "INVALID_EMAIL": "Ungültiges E-mail format.",
+    "LENGTH_PASS": "Das Passwort muss aus mindestens 8 Zeichen bestehen."
+  },
+  "profile": {
+    "PROFILE_TTL": "Profil"
+  },
+  "job_description": {
+    "TTL": "Arbeitsbeschreibung",
+    "APPLY_BTN": "Sich bewerben",
+    "PROFILE_BTN": "Profil",
+    "DOWNLOAD_BTN": "HERUNTERLADEN",
+    "DOWNLOAD_TEXT": "Laden Sie Ihren Lebenslauf zur Ansicht herunter"
   },
   "languages": {
     "english": "English",
