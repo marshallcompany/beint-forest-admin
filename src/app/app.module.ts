@@ -23,11 +23,15 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { JobDescriptionComponent } from './pages/job-description/job-description.component';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpMultiLoaderServiceService } from './services/http-multi-loader-service';
 
-export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
-}
+
+export const createTranslateLoader = (http: HttpClient, ApiRoutesProvider: ApiRoutesProvider) => {
+  return new HttpMultiLoaderServiceService(http, [
+    { prefix: './assets/i18n', suffix: '.json' },
+    { prefix: `${ApiRoutesProvider.GET_LANG}` },
+  ]);
+};
 
 @NgModule({
   declarations: [
@@ -47,8 +51,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
+        useFactory: createTranslateLoader,
+        deps: [HttpClient, ApiRoutesProvider]
       }
     }),
     BrowserAnimationsModule,

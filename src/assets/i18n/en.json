@@ -1,6 +1,7 @@
 {
   "info": {
-    "about": "Multilanguage application"
+    "about": "Multilanguage application",
+    "SIGN_IN": "Sign In"
   },
   "languages": {
     "english": "English",
