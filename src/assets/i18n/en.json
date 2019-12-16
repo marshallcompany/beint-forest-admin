@@ -25,7 +25,11 @@
     "APPLY_BTN": "Apply",
     "PROFILE_BTN": "Profile",
     "DOWNLOAD_BTN": "DOWNLOAD",
-    "DOWNLOAD_TEXT": "Download your CV to view"
+    "DOWNLOAD_TEXT": "Download your CV to view",
+    "JOB_TTL": "Title:",
+    "JOB_DESCRIPTION__TTL": "Description:",
+    "JOB_ID_TTL": "Job ID:",
+    "JOB_CREATED_TTL": "Job created:"
   },
   "languages": {
     "english": "English",

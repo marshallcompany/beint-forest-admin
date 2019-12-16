@@ -25,7 +25,11 @@
     "APPLY_BTN": "Sich bewerben",
     "PROFILE_BTN": "Profil",
     "DOWNLOAD_BTN": "HERUNTERLADEN",
-    "DOWNLOAD_TEXT": "Laden Sie Ihren Lebenslauf zur Ansicht herunter"
+    "DOWNLOAD_TEXT": "Laden Sie Ihren Lebenslauf zur Ansicht herunter",
+    "JOB_TTL": "Titel:",
+    "JOB_DESCRIPTION_TTL": "Beschreibung:",
+    "JOB_ID_TTL": "Job ID:",
+    "JOB_CREATED_TTL": "Job erstellt:"
   },
   "languages": {
     "english": "English",

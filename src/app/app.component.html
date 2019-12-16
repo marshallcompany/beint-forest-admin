@@ -38,12 +38,12 @@
           <label>
             <select
               #langselect
-              (change)="translateService.use(langselect.value)">
+              (change)="translatesService.changeLanguageCode(langselect.value)">
               <option
-                *ngFor="let lang of translateService.getLangs()"
-                value="{{lang}}"
-                [selected]="lang === translateService.currentLang">
-                {{lang}}
+                *ngFor="let lang of translatesService.languagesSelect"
+                value="{{lang.code}}"
+                [selected]="lang.code === translatesService.getCurrentLang()">
+                {{lang.name}}
               </option>
             </select>
           </label>
