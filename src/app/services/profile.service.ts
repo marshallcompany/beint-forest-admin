@@ -3,6 +3,15 @@ import { HttpClient } from '@angular/common/http';
 
 import { ApiRoutesProvider } from './api-routes.services';
 
+export interface Profile {
+  createdAt: string;
+  email: string;
+  id: string;
+  profile?: object;
+  role: string;
+  updatedAt: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,8 +22,8 @@ export class ProfileService {
     private apiRoutes: ApiRoutesProvider
   ) { }
 
-  public async getProfile() {
-    return await this.http.get<any>(this.apiRoutes.PROFILE).toPromise();
+  public getProfile() {
+    return this.http.get<Profile>(this.apiRoutes.PROFILE);
   }
 
 }
