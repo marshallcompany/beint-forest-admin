@@ -31,7 +31,7 @@ export class ApplicationComponent implements OnInit {
       this.jobData = await this.applicationService.getJobData(this.jobId);
       console.log(this.jobData);
       if (this.jobId) {
-        await this.applicationService.apply(this.jobId);
+        await this.applicationService.jobApply(this.jobId);
         this.applicationService.removeJobId();
         this.applicationSuccess = true;
 

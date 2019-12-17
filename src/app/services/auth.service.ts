@@ -3,17 +3,6 @@ import { HttpClient } from '@angular/common/http';
 
 import { ApiRoutesProvider } from './api-routes.services';
 import { TranslatesService } from './translates.service';
-export interface User {
-  id: string;
-  email?: string;
-  firstName?: string;
-  lastName?: string;
-}
-
-export interface Authdata {
-  token: string;
-  refreshToken: string;
-}
 
 @Injectable()
 export class AuthService {
@@ -26,7 +15,7 @@ export class AuthService {
     private apiRoutes: ApiRoutesProvider,
     private translatesService: TranslatesService
   ) {
-    this.STORAGE_TOKEN_KEY = 'JWT';
+    this.STORAGE_TOKEN_KEY = 'JWT_TOKEN';
     this.STORAGE_REFRESH_TOKEN = 'REFRESH_TOKEN';
   }
 

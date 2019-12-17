@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { ApiRoutesProvider } from './api-routes.services';
+import { GlobalErrorService } from './global-error-service';
 
 import { saveAs } from 'file-saver';
+
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +14,8 @@ export class DownloadFileService {
 
   constructor(
     private http: HttpClient,
-    private apiRoutes: ApiRoutesProvider
+    private apiRoutes: ApiRoutesProvider,
+    private globalErrorService: GlobalErrorService
   ) { }
 
   public downloadCandidateCv = () => {
@@ -24,7 +27,10 @@ export class DownloadFileService {
         blob => {
           saveAs(blob, 'candidate_cv.pdf');
         },
-        err => console.log('[ ERROR DOWNLOAD CV ]', err),
+        err => {
+          console.log('[ ERROR DOWNLOAD CV ]', err);
+          this.globalErrorService.handleError(err);
+        },
         () => console.log('[ DONE DOWNLOAD CV ]')
       );
   }
