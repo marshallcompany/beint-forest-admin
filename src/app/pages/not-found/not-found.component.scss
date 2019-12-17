@@ -1,3 +1,4 @@
+@import "../../theme/variables.scss";
 .error-wrp{
   position:absolute;
   left:50%;
@@ -18,7 +19,7 @@
     content:'';
     width:90%;
     height:80%;
-    background-color: rgb(197, 59, 59);
+    background-color: $red;
     position: absolute;
     left:50%;
     transform: translate(-50%, 0);
@@ -30,7 +31,7 @@
     
   }
   .header-svg{
-    fill:rgb(80, 180, 164);
+    fill:$primary;
   }
   .content-svg{
     fill:#f4f4f4;

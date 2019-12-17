@@ -1,3 +1,4 @@
+@import "../../theme/variables.scss";
 .login{
     background: linear-gradient(to top, rgba(80, 180, 164,.35), #ffffff 45%);
     min-height: 100%;
@@ -17,10 +18,10 @@
         display: inline-block;
         font-size: 100px;
         font-weight:700;
-        font-family: Gilroy Bold;
+        font-family: $gb;
         text-align: center;
-        .grn-text {
-            color:rgba(80, 180, 164,1);
+        .custom-text {
+            color:$primary;
         }
         .letter-position{
             display:inline-block;
@@ -77,7 +78,7 @@
     &__label{
         font-size: 16px;
         margin-bottom:10px;
-        font-family: Gilroy Bold;
+        font-family: $gb;
     }
     &__input{
         border:none;
@@ -115,12 +116,12 @@
     height:50px;
     border-radius:5px;
     font-size: 16px;
-    background-color:rgb(80, 180, 164);
+    background-color:$primary;
     color:#ffffff;
     text-transform: uppercase;
-    font-family: Gilroy Bold;
+    font-family: $gb;
     &:disabled{
-        background-color: rgb(197, 59, 59);
+        background-color: $red;
         opacity: .85;
     }
 }

@@ -1,9 +1,10 @@
+@import "../../theme/variables.scss";
 
 .profile{
     padding-top:100px;
     min-height:100%;
     overflow: auto;
-    background: #2C498E;
+    background: $blue;
 }
 .title-primary{
     text-align:center;
@@ -18,7 +19,7 @@
             content:'';
             width:105%;
             height:4px;
-            background-color:#fdc531;
+            background-color:$yellow;
             position: absolute;
             left:50%;
             bottom:-1px;
@@ -26,44 +27,7 @@
         }
     }
 }
-.header-logo{
-    padding:25px 0;
-    margin-bottom:75px;
-    text-align: center;
-    &__text{
-        display: inline-block;
-        font-size: 100px;
-        font-weight:700;
-        font-family: Gilroy Bold;
-        text-align: center;
-        color:#ffffff;
-        .grn-text {
-            color:#FDC531;
-        }
-        .letter-position{
-            display:inline-block;
-            margin-left:-10.1%;
-        }
-    }
-}
-.logout-button{
-    display:block;
-    position: absolute;
-    right:20px;
-    top:50px;
-    width:50px;
-    height:50px;
-    font-size: 16px;
-    background:linear-gradient(45deg, #5ABF99 45%, #FDC531);
-    color:#ffffff;
-    text-transform: uppercase;
-    font-family: Gilroy Bold;
-    z-index: 1;
-    &__img{
-        height: 25px;
-        fill: #ffffff;
-    }
-}
+
 .profile-wrp{
     display: flex;
     flex-wrap:wrap;
@@ -95,7 +59,7 @@
         }
         &__label{
             font-size: 30px;
-            font-family: Gilroy Bold;
+            font-family: $gb;
             color:#ffffff;
             margin-bottom: 10px;
         }
@@ -116,7 +80,7 @@
         position:absolute;
         left:0;
         bottom:0;
-        background: linear-gradient(90deg, #2C498E , #fdc531);
+        background: linear-gradient(90deg, $blue , $yellow);
     }
     &:after{
         content:'';
@@ -125,7 +89,7 @@
         position:absolute;
         right:0;
         bottom:0;
-        background: linear-gradient(-90deg, #2C498E , #fdc531);
+        background: linear-gradient(-90deg, $blue , $yellow);
     }
     &__label{
         display: block;
@@ -137,6 +101,7 @@
         color:#ffffff;
     }
 }
+// MEDIA
 @media screen and (max-width:768px) {
 .profile-header{
     justify-content: flex-start;

@@ -1,14 +1,10 @@
-
 @import "app/theme/reset.scss";
+@import "app/theme/variables.scss";
+
 .snack {
   box-shadow: 0px 4px 25px 0px rgba(0, 0, 0, .5);
 }
-.snackbar-error {
-  border: 1px solid #dc3545;
-  background-color: #dc3545 !important;
-  color: #ffffff !important;
-	font-weight: 700;
-}
+// STYLE SNACKBAR
 .snack-action {
 	color:transparent!important;
 	position: relative;
@@ -37,16 +33,19 @@
 	}
 }
 .snackbar-info {
-  border: 1px solid #007bff;
-  background-color: white !important;
-  color: #007bff !important;
+  background-color: $blue !important;
+  color: #ffffff !important;
   font-weight: 700;
 }
 .snackbar-success {
-  border: 1px solid #28a745;
-  background-color: white !important;
-  color: #28a745 !important;
+  background-color: $green !important;
+  color: #ffffff !important;
   font-weight: 700;
+}
+.snackbar-error {
+  background-color: $red !important;
+  color: #ffffff !important;
+	font-weight: 700;
 }
 /* = STYLE CONTAINER = */
 .container{
@@ -97,7 +96,7 @@ body{
 .error-box{
 	margin-top:10px;
     &__text{
-		color:rgb(197, 59, 59);
+		color:$red;
 		font-size: 16px;
 		font-family: Gilroy Bold;
     }
@@ -116,6 +115,8 @@ body{
         }
     }
 }
-@import "app/theme/fonts";
+
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: $gr, sans-serif; }
+
+@import "app/theme/fonts";

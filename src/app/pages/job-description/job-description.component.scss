@@ -1,3 +1,4 @@
+@import "../../theme/variables.scss";
 .job-description{
   padding-top:100px;
 }
@@ -9,7 +10,7 @@
     width:275px;
     padding:15px 0;
     font-family: Gilroy Bold;
-    background-color: rgb(98, 156, 10);
+    background-color: $green;
     color:#ffffff;
     position: relative;
     &:before{
@@ -38,15 +39,9 @@
       opacity: .5;
     }
     &.profile{
-      background-color: #2C498E;
+      background-color: $blue;
       &:before{
          background-color: rgb(13, 42, 110);
-      }
-    }
-    &.download{
-      background-color: #5ABF99;
-      &:before{
-        background-color: rgb(70, 128, 106);
       }
     }
   }
@@ -62,10 +57,10 @@
   }
 }
 .download-cv-button{
-  background-color: #5ABF99;
+  background-color: $primary;
   padding:15px 0;
   width:275px;
-  font-family: Gilroy Bold;
+  font-family: $gb;
   color:#ffffff;
   position: relative;
     &:before{
@@ -100,7 +95,7 @@
         letter-spacing: 1px;
         display: inline-block;
         position: relative;
-        font-family: Gilroy Bold;
+        font-family: $gb;
         background: linear-gradient(90deg,  rgb(11, 33, 85) 10%,  rgb(7, 77, 117));
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -119,7 +114,7 @@
         }
     }
     &__text{
-        font-family: Gilroy Bold;
+        font-family: $gb;
         color:#ffffff;
         font-size: 20px;
         text-align: center;
@@ -146,7 +141,7 @@
 }
 .error-box{
   text-align:center;
-  background-color: #c53b3b;
+  background-color: $red;
   width:50%;
   margin:0 auto;
   margin-bottom:25px;
