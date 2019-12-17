@@ -31,6 +31,9 @@
     "JOB_ID_TTL": "Job ID:",
     "JOB_CREATED_TTL": "Job created:"
   },
+  "not-found": {
+    "MESSAGE": "Oops! Page not found. Please come back."
+  },
   "languages": {
     "english": "English",
     "germany": "Germany"
