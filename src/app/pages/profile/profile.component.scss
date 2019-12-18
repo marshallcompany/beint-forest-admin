@@ -37,18 +37,17 @@
 .profile-header{
     width:100%;
     display:flex;
-    justify-content: center;
     align-items:center;
     margin-bottom:25px;
 }
 .profile-avatar{
-    width:300px;
-    height:300px;
+    width:350px;
+    height:350px;
     flex-shrink: 0;
     background-image:url('https://picsum.photos/id/1/350/350');
     background-size:cover;
-    background-position:50%;
-    border-radius:25px;
+    background-position:50% top;
+    border-radius:50%;
     margin-right:25px;
 }
 .profile-content{

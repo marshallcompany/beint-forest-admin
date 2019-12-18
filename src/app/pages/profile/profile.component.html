@@ -9,7 +9,7 @@
             <span class="profile-content-item__label">{{ 'general.FIRST_NAME' | translate }}</span>
             <p
               class="profile-content-item__info"
-              *ngIf="profileData?.profile">{{ profileData?.profile.personal.firstName }}</p>
+              *ngIf="profileData && profileData.profile">{{ profileData.profile.personal.firstName }}</p>
             <p
               class="profile-content-item__info"
               *ngIf="!profileData?.profile">Mark</p>
@@ -18,7 +18,7 @@
             <span class="profile-content-item__label">{{ 'general.LAST_NAME' | translate }}</span>
             <p
               class="profile-content-item__info"
-              *ngIf="profileData?.profile">{{ profileData?.profile.personal.lastName }}</p>
+              *ngIf="profileData && profileData.profile">{{ profileData.profile.personal.lastName }}</p>
             <p
               class="profile-content-item__info"
               *ngIf="!profileData?.profile">Ivanov</p>
@@ -27,13 +27,15 @@
       </div>
       <div class="profile-item">
         <span class="profile-item__label">E-mail:</span>
-        <p class="profile-item__info">{{ profileData?.email }}</p>
+        <p
+          class="profile-item__info"
+          *ngIf="profileData">{{ profileData.email }}</p>
       </div>
       <div class="profile-item">
         <span class="profile-item__label">{{ 'general.PLACE' | translate }}</span>
         <p
           class="profile-item__info"
-          *ngIf="profileData?.profile">{{ profileData?.profile.personal.birthPlace }}</p>
+          *ngIf="profileData && profileData.profile">{{ profileData.profile.personal.birthPlace }}</p>
         <p
           class="profile-item__info"
           *ngIf="!profileData?.profile">Maasbracht, Netherlands</p>
@@ -42,7 +44,7 @@
         <span class="profile-item__label">{{ 'general.BIRTH' | translate }}</span>
         <p
           class="profile-item__info"
-          *ngIf="profileData?.profile">{{ profileData?.profile.personal.dateBirth | date:'fullDate' }}</p>
+          *ngIf="profileData && profileData.profile">{{ profileData.profile.personal.dateBirth | date:'fullDate' }}</p>
         <p
           class="profile-item__info"
           *ngIf="!profileData?.profile">{{ '2077-06-02T13:40:11.042Z' | date:'fullDate' }}</p>
@@ -51,18 +53,22 @@
         <span class="profile-item__label">{{ 'general.PHONE' | translate }}</span>
         <p
           class="profile-item__info"
-          *ngIf="profileData?.profile">{{ profileData?.profile.contact.phoneNumberLandline }}</p>
+          *ngIf="profileData && profileData.profile">{{ profileData.profile.contact.phoneNumberLandline }}</p>
         <p
           class="profile-item__info"
           *ngIf="!profileData?.profile">+123456789012</p>
       </div>
       <div class="profile-item">
         <span class="profile-item__label">User ID:</span>
-        <p class="profile-item__info">{{ profileData?.id }}</p>
+        <p
+          class="profile-item__info"
+          *ngIf="profileData">{{ profileData.id }}</p>
       </div>
       <div class="profile-item">
         <span class="profile-item__label">{{ 'general.ACCOUNT_CREATED' | translate }}</span>
-        <p class="profile-item__info">{{ profileData?.createdAt | date:'fullDate' }}</p>
+        <p
+          class="profile-item__info"
+          *ngIf="profileData">{{ profileData.createdAt | date:'fullDate' }}</p>
       </div>
     </div>
   </div>

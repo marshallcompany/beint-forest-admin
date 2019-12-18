@@ -5,14 +5,16 @@
 .job-actions{
   display:flex;
   justify-content:space-evenly;
+  align-items:flex-end;
   padding:25px 0;
   &__btn{
-    width:275px;
     padding:15px 0;
+    width:300px;
     font-family: Gilroy Bold;
     background-color: $green;
     color:#ffffff;
     position: relative;
+    flex-shrink:0;
     &:before{
       content:'';
       width:100%;
@@ -38,19 +40,12 @@
     &:disabled{
       opacity: .5;
     }
-    &.profile{
-      background-color: $blue;
-      &:before{
-         background-color: rgb(13, 42, 110);
-      }
-    }
   }
 }
 .download-cv{
   display:flex;
   flex-direction:column;
   align-items: center;
-  margin-bottom:15px;
   &__title{
     margin-bottom:10px;
     font-size: 18px;
@@ -59,7 +54,7 @@
 .download-cv-button{
   background-color: $primary;
   padding:15px 0;
-  width:275px;
+  width:300px;
   font-family: $gb;
   color:#ffffff;
   position: relative;
@@ -102,7 +97,7 @@
     }
 }
 .job-message-item{
-    padding:20px;
+    padding:15px;
     margin-bottom:10px;
     border-radius:50px;
     width:80%;
@@ -116,25 +111,64 @@
     &__text{
         font-family: $gb;
         color:#ffffff;
-        font-size: 20px;
+        font-size: 18px;
         text-align: center;
     }
+}
+.offer-rating{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  &__title{
+    text-align:center;
+    width:100%;
+    font-family: $gb;
+  }
+}
+.offer-rating-wrp{
+  width:95%;
+  height:50px;
+  background-color:#f4f4f4;
+  border-radius:50px;
+  margin:15px auto;
+  overflow: hidden;
+  position: relative;
+  &__line{
+    display: inline-block;
+    width:0;
+    height:100%;
+    transition: .1s linear;
+    background: linear-gradient(45deg,  #fdc531 5%,#5ABF99);
+  }
+  &__percent{
+    position: absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%, -50%);
+    color:$blue;
+    font-family: $gb;
+    letter-spacing: 2px;
+    &.change-color{
+      color:#ffffff;
+    }
+  }
 }
 .job-description-wrp {
   width:100%;
   margin:25px  auto;
+  background: linear-gradient(90deg, #e7e5e5 80%, #f2f2f2);
+  border-radius:10px;
+  padding:10px 15px;
 }
 .job-description-wrp-item{
-    margin-bottom:5px;
-    background: linear-gradient(90deg, #e7e5e5 80%, #f2f2f2);
-    padding:5px;
+    margin-bottom:10px;
     &:last-child{
         margin-bottom:0;
     }
     &__label{
         font-weight: 700;
         display: block;
-        margin-bottom:10px;
+        margin-bottom:5px;
         color:#615f5f;
         font-family: Gilroy Bold;
     }
@@ -172,6 +206,9 @@
       }
     }
   }
+  .offer-rating-wrp{
+    height:38px;
+  }
   .job-description{
     padding-top:50px;
   }
@@ -185,7 +222,7 @@
   }
   .job-actions{
     &__btn{
-      width:150px;
+      width:250px;
       padding:10px 0;
       span{
         font-size: 14px;
@@ -195,8 +232,14 @@
       }
     }
   }
+  .download-cv{
+    &__title{
+      text-align:center;
+      font-size: 16px;
+    }
+  }
   .download-cv-button{
-    width:150px;
+    width:250px;
     padding:10px 0;
     span{
         font-size: 14px;
@@ -204,6 +247,15 @@
           font-size: 20px;
         }
       }
+  }
+}
+@media screen and (max-width:568px) {
+  .job-actions{
+    flex-direction:column;
+    align-items: center;
+    &__btn{
+      margin-bottom:15px;
+    }
   }
 }
 @media screen and (max-width:480px) {

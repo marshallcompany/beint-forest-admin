@@ -22,6 +22,17 @@
         <span class="job-description-wrp-item__label">{{ 'job_description.JOB_CREATED_TTL' | translate }}</span>
         <p class="job-description-wrp-item__text">{{ jobData?.vacancy.createdAt | date:'fullDate' }}</p>
       </div>
+      <div
+        class="job-message-wrp"
+        *ngIf="jobId">
+        <div
+          class="job-message-item job-message-item_success"
+          *ngIf="applicationSuccess">
+          <p class="job-message-item__text">
+          You have successfully applied to Job
+        </p>
+        </div>
+      </div>
     </div>
     <div
       class="error-box"
@@ -31,14 +42,16 @@
       </p>
     </div>
     <div
-      class="job-message-wrp"
-      *ngIf="jobId">
-      <div
-        class="job-message-item job-message-item_success"
-        *ngIf="applicationSuccess">
-        <p class="job-message-item__text">
-          You have successfully applied to Job
-        </p>
+      class="offer-rating"
+      *ngIf="jobData">
+      <h2 class="offer-rating__title">Rating</h2>
+      <div class="offer-rating-wrp">
+        <div
+          class="offer-rating-wrp__line"
+          [style.width]="ratingNumber + '%'"></div>
+        <p
+          class="offer-rating-wrp__percent"
+          [ngClass]="{'change-color': ratingNumber >= 52}">{{ratingNumber}}%</p>
       </div>
     </div>
     <div class="job-actions">
@@ -53,29 +66,19 @@
           {{ 'job_description.APPLY_BTN' | translate }}
         </span>
       </button>
-      <button
-        class="job-actions__btn profile"
-        (click)="goToProfile()">
-        <span>
-          <i class="material-icons btn-icon">
-            account_circle
-          </i>
-           {{ 'job_description.PROFILE_BTN' | translate }}
-        </span>
-      </button>
-    </div>
-    <div class="download-cv">
-      <h2 class="download-cv__title"> {{ 'job_description.DOWNLOAD_TEXT' | translate }}</h2>
-      <button
-        (click)="downloadFile()"
-        class="download-cv-button">
-        <span>
+      <div class="download-cv">
+        <h2 class="download-cv__title"> {{ 'job_description.DOWNLOAD_TEXT' | translate }}</h2>
+        <button
+          (click)="downloadFile()"
+          class="download-cv-button">
+          <span>
           <i class="material-icons btn-icon">
             file_download
           </i>
            {{ 'job_description.DOWNLOAD_BTN' | translate }}
         </span>
-      </button>
+        </button>
+      </div>
     </div>
   </div>
 </section>

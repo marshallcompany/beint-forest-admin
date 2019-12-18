@@ -18,7 +18,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ProfileComponent } from './pages/profile/profile.component';
-import { ApplicationComponent } from './pages/application/application.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { JobDescriptionComponent } from './pages/job-description/job-description.component';
 
@@ -40,9 +39,8 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     AppComponent,
     LoginComponent,
     ProfileComponent,
-    ApplicationComponent,
     NotFoundComponent,
-    JobDescriptionComponent
+    JobDescriptionComponent,
   ],
   imports: [
     AppRoutingModule,

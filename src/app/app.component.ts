@@ -41,8 +41,7 @@ export class AppComponent implements OnInit {
         ({ urlAfterRedirects }: NavigationEnd) => {
           this.history = [...this.history, urlAfterRedirects];
           const routerStateHistory = this.history[this.history.length - 2] || '/index';
-          const id = localStorage.getItem('JOB_ID');
-          if (routerStateHistory === '/job-description' || routerStateHistory === `/apply/${id}/keep/true`) {
+          if (routerStateHistory === '/job-description' || routerStateHistory.includes('/apply/')) {
             this.routerStatus = true;
           } else {
             this.routerStatus = false;

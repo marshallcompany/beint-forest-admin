@@ -17,6 +17,8 @@ export class JobDescriptionComponent implements OnInit {
   public applicationSuccess: boolean;
   public noJodData: boolean;
   public statusButtonApply: boolean;
+  public rating: number;
+  public ratingNumber: number;
 
   constructor(
     public router: Router,
@@ -27,6 +29,7 @@ export class JobDescriptionComponent implements OnInit {
   ) {
     this.noJodData = false;
     this.statusButtonApply = false;
+
   }
 
   ngOnInit() {
@@ -40,6 +43,7 @@ export class JobDescriptionComponent implements OnInit {
         data => {
           console.log('DATA JOB', data);
           this.jobData = data;
+          this.animationRatingJob();
           if (this.jobData && this.jobData.meta && this.jobData.meta.pendingApplication && this.jobData.meta.pendingApplication) {
             this.applicationSuccess = true;
             this.statusButtonApply = true;
@@ -53,6 +57,18 @@ export class JobDescriptionComponent implements OnInit {
         },
         () => console.log('[ DATA JOB DONE ]')
       );
+  }
+
+  public animationRatingJob = () => {
+    this.rating = 65;
+    this.ratingNumber = 0;
+    const set = setInterval(() => {
+      if (this.ratingNumber !== this.rating) {
+        this.ratingNumber++;
+      } else {
+        clearInterval(set);
+      }
+    }, 50);
   }
 
   public apply = () => {
@@ -75,10 +91,6 @@ export class JobDescriptionComponent implements OnInit {
         () => console.log('[ DONE APPLY JOB ]')
       );
 
-  }
-
-  public goToProfile = () => {
-    this.router.navigate(['/profile']);
   }
 
   public downloadFile = () => {
