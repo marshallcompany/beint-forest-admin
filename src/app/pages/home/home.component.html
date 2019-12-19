@@ -1,0 +1,249 @@
+<section class="home">
+  <div class="user-information-wrp">
+    <div class="user-information">
+      <div class="user-avatar">
+        <img
+          src="https://picsum.photos/id/1/350/350"
+          class="user-avatar__img">
+      </div>
+      <p class="user-information__name">Hey Max!</p>
+      <p class="user-information__description">
+        Dein Profil ist zu <strong>65%</strong> vollständig.
+        Ergänze fehlende Infos und erhöhe deine Chance bei der Bewerbung.
+      </p>
+    </div>
+    <button
+      class="profile-setting-button"
+      (click)="goToProfile()">
+      Profil bearbeiten
+    </button>
+  </div>
+  <div class="user-actions">
+    <div class="container">
+      <div class="actions-wrp">
+        <div class="actions-item">
+          <div class="actions-icon">
+            <img
+              src="../assets/image/file.svg"
+              class="actions-icon__img">
+          </div>
+          <p class="actions-item__number_overlay">3</p>
+          <p class="actions-item__number">3</p>
+          <p class="actions-item__title">Offene Bewerbungen</p>
+        </div>
+        <div class="actions-item">
+          <div class="actions-icon">
+            <img
+              src="../assets/image/loupe.svg"
+              class="actions-icon__img">
+          </div>
+          <p class="actions-item__number_overlay">140</p>
+          <p class="actions-item__number">140</p>
+          <p class="actions-item__title">Neue Jobs</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="top-offer">
+    <div class="container">
+      <div class="top-offer-box">
+        <h2 class="top-offer-box__title">
+          <img src="../assets/image/star.svg">
+          <span>Deine Top Matches</span>
+        </h2>
+        <div class="offer-item">
+          <!-- offer preview -->
+          <div class="offer-preview">
+            <div class="offer-preview-header">
+              <div class="offer-logo">
+                <p class="logo-default">
+                  <span class="logo-default__item"></span>
+                  <span class="logo-default__item"></span>
+                </p>
+                <span>LOGO</span>
+              </div>
+              <div class="offer-actions">
+                <button class="bookmark-btn">
+                  <img
+                    src="../assets/image/bookmark.svg"
+                    class="bookmark-btn__icon">
+                </button>
+                <div class="offer-status"></div>
+              </div>
+            </div>
+            <div class="offer-info">
+              <p class="offer-info__date">01.11.2019</p>
+              <p class="offer-info__vacancy">UI/UX Designer/in</p>
+              <p class="offer-info__scope">Marketing</p>
+              <p class="offer-info__company">Mustefirma GmbH</p>
+            </div>
+          </div>
+          <!-- offer details -->
+          <div class="offer-details">
+            <div class="offer-details-item">
+              <p class="offer-details-item__label">Ort</p>
+              <p class="offer-details-item__info">
+                Osnabrück
+                <span class="field-status field-status_green"></span>
+              </p>
+            </div>
+            <div class="offer-details-item">
+              <p class="offer-details-item__label">Art der Anstellung</p>
+              <p class="offer-details-item__info">
+                Festanstellung
+                <span class="field-status field-status_red"></span>
+              </p>
+            </div>
+            <div class="offer-details-item">
+              <p class="offer-details-item__label">Arbeitszeit</p>
+              <p class="offer-details-item__info">
+                35h / Woche
+                <span class="field-status field-status_yellow"></span>
+              </p>
+            </div>
+            <div class="offer-details-item">
+              <p class="offer-details-item__label">Tarifvertrag</p>
+              <p class="offer-details-item__info">
+                Kein Tarifvertrag
+                <span class="field-status field-status_yellow"></span>
+              </p>
+            </div>
+            <div class="offer-details-item">
+              <p class="offer-details-item__label">Top Skills</p>
+              <div class="offer-skill">
+                <div class="offer-skill-item green">
+                  <div class="offer-skill-item__circle"></div>
+                  <p class="offer-skill-item__text">Adobe XD</p>
+                </div>
+                <div class="offer-skill-item yellow">
+                  <div class="offer-skill-item__circle"></div>
+                  <p class="offer-skill-item__text">Zeichnen</p>
+                </div>
+                <div class="offer-skill-item red">
+                  <div class="offer-skill-item__circle"></div>
+                  <p class="offer-skill-item__text">Kreativität</p>
+                </div>
+              </div>
+            </div>
+            <div class="offer-details-item">
+              <p class="offer-details-item__label">Sprachen</p>
+              <div class="offer-skill">
+                <div class="offer-skill-item green">
+                  <div class="offer-skill-item__circle"></div>
+                  <p class="offer-skill-item__text">Deutsch</p>
+                </div>
+                <div class="offer-skill-item yellow">
+                  <div class="offer-skill-item__circle"></div>
+                  <p class="offer-skill-item__text">Englisch</p>
+                </div>
+              </div>
+            </div>
+            <button class="apply-btn">Jetzt bewerben</button>
+          </div>
+          <!-- show offer button -->
+          <button class="show-offer-btn">
+            <i class="material-icons">
+                keyboard_arrow_down
+              </i>
+          </button>
+        </div>
+        <div class="offer-item">
+          <!-- offer preview -->
+          <div class="offer-preview">
+            <div class="offer-preview-header">
+              <div class="offer-logo">
+                <p class="logo-default">
+                  <span class="logo-default__item"></span>
+                  <span class="logo-default__item"></span>
+                </p>
+                <span>LOGO</span>
+              </div>
+              <div class="offer-actions">
+                <button class="bookmark-btn">
+                  <img
+                    src="../assets/image/bookmark.svg"
+                    class="bookmark-btn__icon">
+                </button>
+                <div class="offer-status"></div>
+              </div>
+            </div>
+            <div class="offer-info">
+              <p class="offer-info__date">01.11.2019</p>
+              <p class="offer-info__vacancy">UI/UX Designer/in</p>
+              <p class="offer-info__scope">Marketing</p>
+              <p class="offer-info__company">Mustefirma GmbH</p>
+            </div>
+          </div>
+          <!-- offer details -->
+          <div class="offer-details">
+            <div class="offer-details-item">
+              <p class="offer-details-item__label">Ort</p>
+              <p class="offer-details-item__info">
+                Osnabrück
+                <span class="field-status field-status_green"></span>
+              </p>
+            </div>
+            <div class="offer-details-item">
+              <p class="offer-details-item__label">Art der Anstellung</p>
+              <p class="offer-details-item__info">
+                Festanstellung
+                <span class="field-status field-status_red"></span>
+              </p>
+            </div>
+            <div class="offer-details-item">
+              <p class="offer-details-item__label">Arbeitszeit</p>
+              <p class="offer-details-item__info">
+                35h / Woche
+                <span class="field-status field-status_yellow"></span>
+              </p>
+            </div>
+            <div class="offer-details-item">
+              <p class="offer-details-item__label">Tarifvertrag</p>
+              <p class="offer-details-item__info">
+                Kein Tarifvertrag
+                <span class="field-status field-status_yellow"></span>
+              </p>
+            </div>
+            <div class="offer-details-item">
+              <p class="offer-details-item__label">Top Skills</p>
+              <div class="offer-skill">
+                <div class="offer-skill-item green">
+                  <div class="offer-skill-item__circle"></div>
+                  <p class="offer-skill-item__text">Adobe XD</p>
+                </div>
+                <div class="offer-skill-item yellow">
+                  <div class="offer-skill-item__circle"></div>
+                  <p class="offer-skill-item__text">Zeichnen</p>
+                </div>
+                <div class="offer-skill-item red">
+                  <div class="offer-skill-item__circle"></div>
+                  <p class="offer-skill-item__text">Kreativität</p>
+                </div>
+              </div>
+            </div>
+            <div class="offer-details-item">
+              <p class="offer-details-item__label">Sprachen</p>
+              <div class="offer-skill">
+                <div class="offer-skill-item green">
+                  <div class="offer-skill-item__circle"></div>
+                  <p class="offer-skill-item__text">Deutsch</p>
+                </div>
+                <div class="offer-skill-item yellow">
+                  <div class="offer-skill-item__circle"></div>
+                  <p class="offer-skill-item__text">Englisch</p>
+                </div>
+              </div>
+            </div>
+            <button class="apply-btn">Jetzt bewerben</button>
+          </div>
+          <!-- show offer button -->
+          <button class="show-offer-btn">
+            <i class="material-icons">
+                keyboard_arrow_down
+              </i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

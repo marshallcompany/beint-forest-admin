@@ -26,6 +26,7 @@ import { HttpMultiLoaderServiceService } from './services/http-multi-loader-serv
 import { NotificationService } from './services/notification.service';
 import { GlobalErrorService } from './services/global-error-service';
 import { SnackbarModule } from 'ngx-snackbar';
+import { HomeComponent } from './pages/home/home.component';
 
 export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRoutesProvider) => {
   return new HttpMultiLoaderServiceService(http, [
@@ -41,6 +42,7 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     ProfileComponent,
     NotFoundComponent,
     JobDescriptionComponent,
+    HomeComponent,
   ],
   imports: [
     AppRoutingModule,

@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
       if (this.applicationService.getJobId()) {
         this.router.navigate(['/job-description']);
       } else {
-        this.router.navigate(['/profile']);
+        this.router.navigate(['/home']);
       }
 
     } catch (error) {

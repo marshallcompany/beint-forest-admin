@@ -1,0 +1,343 @@
+@import "../../theme/variables.scss";
+// USER INFORMATION
+.user-information-wrp{
+  padding-bottom:75px;
+  background-color:$blue;
+  border-bottom-left-radius: 50px;
+  position: relative;
+  .profile-setting-button{
+    position:absolute;
+    left:50%;
+    bottom:20px;
+    transform: translate(-50%, 0);
+    background-color:transparent;
+    color:#ffffff;
+    text-transform: uppercase;
+    font-size: 25px;
+    font-family: $gb;
+    letter-spacing: 1px;
+  }
+}
+.user-information{
+  background-color:$primary;
+  border-bottom-left-radius: 50px;
+  padding:50px 0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  &:before{
+    content:'';
+    background-color:#ffffff;
+    opacity: .1;
+    width:850px;
+    height:850px;
+    position:absolute;
+    left:-250px;
+    top:-200px;
+    border-radius: 50%;
+    z-index: -1;
+  }
+  &:after{
+    content:'';
+    background-color:#ffffff;
+    opacity: .1;
+    width:1050px;
+    height:1050px;
+    position:absolute;
+    right:-75px;
+    top:-750px;
+    border-radius: 50%;
+    z-index: -1;
+  }
+  &__name{
+    color:$blue;
+    font-size: 55px;
+    font-family: $gb;
+    margin-bottom:10px;
+  }
+  &__description{
+    color:#ffffff;
+    font-size: 30px;
+    width:50%;
+    text-align:center;
+  }
+}
+.user-avatar {
+  width:250px;
+  height:250px;
+  background:rgba(255,255,255,.5);
+  border-radius:50%;
+  margin-bottom:30px;
+  padding:10px;
+  box-sizing: border-box;
+  &__img{
+    height: 100%;
+    width:100%;
+    object-fit: cover;
+    object-position: 50%;
+    border-radius: 50%;
+  }
+}
+// USER ACTIONS
+.user-actions{
+  padding:40px 0;
+}
+.actions-wrp{
+  display: flex;
+  justify-content: space-around;
+}
+.actions-icon{
+  background-color:$primary;
+  width:50px;
+  height:50px;
+  border-radius:50px;
+  position:relative;
+  &__img{
+    position: absolute;
+    left:50%;
+    top:50%;
+    transform: translate(-50%, -50%);
+    height:25px;
+  }
+}
+.actions-item{
+  width:35%;
+  background-color:#f4f4f4;
+  box-shadow: 0px 20px 30px #00000027;
+  padding:15px;
+  border-radius:10px;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  &__number{
+    color:#313131;
+    font-size: 100px;
+    text-align:center;
+    font-family: $gb;
+    &_overlay{
+      font-size: 300px;
+      position:absolute;
+      color:#313131;
+      opacity: .03;
+      position: absolute;
+      right:0;
+      top:-75px;
+      font-family: $gb;
+      z-index: -1;
+    }
+  }
+  &__title{
+    color:#313131;
+    font-size: 25px;
+  }
+}
+// TOP OFFER
+.top-offer{
+  padding-bottom:75px;
+}
+.top-offer-box{
+  display: flex;
+  flex-wrap:wrap;
+  align-items: flex-start;
+  &__title{
+    margin-bottom:20px;
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    width:100%;
+    span{
+      text-transform: uppercase;
+      font-weight:300;
+      color:#656565;
+    }
+    img{
+      display:inline-block;
+      margin-right:10px;
+    }
+  }
+}
+.offer-item{
+  background-color:#ffffff;
+  box-shadow: 0px 20px 30px #00000027;
+  width:45%;
+  margin:0 auto;
+  padding:20px;
+  padding-bottom:0;
+  border-radius:10px;
+}
+.offer-preview-header{
+  margin-bottom:15px;
+  display: flex;
+  justify-content: space-between;
+  align-items:center;
+}
+.offer-logo{
+  display: flex;
+  align-items:center;
+  span{
+    color:#313131;
+    font-family: $gb;
+  }
+}
+.logo-default {
+  display: inline-block;
+  width:30px;
+  height:20px;
+  margin-right:15px;
+  &__item{
+    display: block;
+    width:100%;
+    height:7px;
+    border-radius: 10px 0px;
+    &:nth-child(1){
+      background-color: $red;
+      margin-bottom:5px;
+    }
+    &:nth-child(2){
+      background-color: #6A6A6A;
+    }
+  }
+}
+.offer-actions{
+  display: flex;
+  align-items: center;
+}
+.bookmark-btn{
+  margin-right:10px;
+  background-color:transparent;
+}
+.offer-status{
+  width:20px;
+  height:20px;
+  border-radius:50%;
+  background-color: $green;
+}
+.offer-info{
+  &__date{
+    font-size: 18px;
+    opacity: .5;
+    margin-bottom:5px;
+  }
+  &__vacancy{
+    font-family: $gb;
+    font-weight: 700;
+    font-size: 22px;
+    margin-bottom:5px;
+  }
+  &__scope{
+    font-size: 22px;
+    margin-bottom:10px;
+  }
+  &__company{
+    font-size: 22px;
+  }
+}
+.show-offer-btn{
+  height:50px;
+  width:100%;
+  background-color:transparent;
+  i{
+    font-size: 30px;
+  }
+}
+// TOP OFFER DETAILS
+.offer-details-item {
+  padding:15px 0;
+  border-bottom: 1px solid #EAEAEA;
+  &__label{
+    margin-bottom:5px;
+    color:#989898;
+    font-size: 20px;
+  }
+  &__info{
+    font-size: 22px;
+    padding-right:15px;
+    position: relative;
+  }
+}
+.field-status{
+  display: inline-block;
+  width:15px;
+  height:15px;
+  border-radius:50%;
+  position: absolute;
+  right:0;
+  top:5px;
+  &_red{
+    background-color:$red;
+  }
+  &_yellow{
+    background-color:$yellow;
+  }
+  &_green{
+    background-color:$green;
+  }
+}
+.apply-btn{
+  display: block;
+  width:300px;
+  padding:15px 0;
+  background-color: $primary;
+  color:#ffffff;
+  text-transform: uppercase;
+  font-family: $gb;
+  border-radius:30px;
+  margin:0 auto;
+  margin-top:20px;
+  box-shadow: 0px 20px 30px #00000026;
+}
+// OFFER SKILL
+.offer-skill{
+  display: flex;
+}
+.offer-skill-item{
+  border:2px solid;
+  padding:15px 10px;
+  border-radius:5px;
+  display: flex;
+  align-items:center;
+  flex-shrink:0;
+  margin-right:10px;
+  &:last-child{
+    margin-right:0;
+  }
+  &__circle{
+    width:10px;
+    height:10px;
+    border-radius: 50%;
+    margin-right:15px;
+  }
+  &__text{
+    font-size: 16px;
+  }
+  &.green{
+    border-color: $green;
+    .offer-skill-item__circle{
+      background-color: $green;
+    }
+    .offer-skill-item__text{
+      color:$green;
+    }
+  }
+   &.yellow{
+     border-color: $yellow;
+    .offer-skill-item__circle{
+      background-color: $yellow;
+    }
+    .offer-skill-item__text{
+      color:$yellow;
+    }
+  }
+   &.red{
+     border-color: $red;
+    .offer-skill-item__circle{
+      background-color: $red;
+    }
+    .offer-skill-item__text{
+      color:$red;
+    }
+  }
+}
