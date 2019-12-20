@@ -14,6 +14,8 @@ import { Interceptors } from './interceptors/index';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSidenavModule } from '@angular/material';
 import { MatIconModule } from '@angular/material/icon';
+import { MatExpansionModule, MAT_EXPANSION_PANEL_DEFAULT_OPTIONS } from '@angular/material';
+
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -60,6 +62,7 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     BrowserAnimationsModule,
     MatSidenavModule,
     MatIconModule,
+    MatExpansionModule,
     SnackbarModule.forRoot()
   ],
   providers: [
@@ -68,6 +71,14 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     AuthService,
     DownloadFileService,
     NotificationService,
+    {
+      provide: MAT_EXPANSION_PANEL_DEFAULT_OPTIONS,
+      useValue: {
+        hideToggle: true,
+        expandedHeight: 'auto',
+        collapsedHeight: 'auto'
+      }
+    },
     {
       provide: ErrorHandler,
       useClass: GlobalErrorService

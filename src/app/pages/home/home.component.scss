@@ -168,6 +168,9 @@
   padding-bottom:0;
   border-radius:10px;
 }
+.offer-preview{
+  width:100%;
+}
 .offer-preview-header{
   margin-bottom:15px;
   display: flex;
@@ -233,6 +236,12 @@
   }
   &__company{
     font-size: 22px;
+    display: flex;
+    align-items:center;
+    img{
+      height:20px;
+      margin-right:15px;
+    }
   }
 }
 .show-offer-btn{
@@ -285,13 +294,13 @@
   text-transform: uppercase;
   font-family: $gb;
   border-radius:30px;
-  margin:0 auto;
-  margin-top:20px;
-  box-shadow: 0px 20px 30px #00000026;
+  margin:25px auto;
+  box-shadow: 0px 10px 20px #00000026;
 }
 // OFFER SKILL
 .offer-skill{
   display: flex;
+  flex-wrap: wrap;
 }
 .offer-skill-item{
   border:2px solid;
@@ -301,6 +310,7 @@
   align-items:center;
   flex-shrink:0;
   margin-right:10px;
+  margin-bottom:5px;
   &:last-child{
     margin-right:0;
   }
@@ -341,3 +351,193 @@
     }
   }
 }
+/* = MEDIA = */
+@media screen and (max-width:568px){
+	.container{
+		padding:0 15px;
+	}
+}
+@media screen and (max-width:1400px){
+  .user-information{
+    &__description{
+      width:80%;
+    }
+  }
+}
+@media screen and (max-width:992px){
+  .user-information{
+    &:before{
+      width:500px;
+      height:500px;
+      left:-100px;
+      top:-100px;
+    }
+    &:after{
+     width:600px;
+     height:600px;
+     right:-25px;
+     top:-200px;
+    }
+    &__name{
+      font-size: 40px;
+    }
+    &__description{
+      font-size: 22px;
+    }
+  }
+  .actions-item{
+    width:35%;
+    padding:10px;
+    &__title{
+      font-size: 22px;
+    }
+    &__number{
+      font-size: 75px;
+      &_overlay{
+        font-size: 200px;
+        top:-25px;
+      }
+    }
+  }
+  .actions-icon{
+    width:40px;
+    height:40px;
+    &__img{
+      height:20px;
+    }
+  }
+  .offer-item{
+    width:90%;
+    margin-bottom:15px;
+    &:last-child{
+      margin-bottom:0;
+    }
+  }
+}
+@media screen and (max-width:768px){
+  .user-information-wrp{
+    padding-bottom:50px;
+    .profile-setting-button{
+      font-size: 18px;
+      bottom:15px;
+    }
+  }
+  .user-information{
+    padding:25px 0;
+    &:before{
+      width:500px;
+      height:500px;
+      left:-250px;
+      top:-250px;
+    }
+    &:after{
+     width:350px;
+     height:350px;
+     top: -90px;
+     right: -15px;
+    }
+  }
+  .user-avatar{
+    width:200px;
+    height:200px;
+    margin-bottom: 25px;
+  }
+  .top-offer-box{
+    &__title{
+      justify-content: flex-start;
+      font-size: 18px;
+    }
+  }
+  .offer-item{
+    width:100%;
+  }
+  .offer-info{
+    &__date{
+      font-size: 16px;
+    }
+    &__vacancy{
+      font-size: 18px;
+    }
+    &__scope{
+      font-size: 18px;
+    }
+    &__company{
+      font-size: 18px;
+      img{
+        height:15px;
+        margin-right:10px;
+      }
+    }
+  }
+  .offer-details-item{
+    padding:10px 0;
+    &__label{
+      font-size: 18px;
+    }
+    &__info{
+      font-size: 18px;
+    }
+  }
+}
+@media screen and (max-width:568px){
+  .top-offer{
+    padding-bottom:25px;
+  }
+  .offer-skill-item{
+    padding:5px;
+    &__circle{
+      margin-right:10px;
+    }
+  }
+  .actions-wrp{
+    flex-wrap:wrap;
+  }
+  .actions-item{
+    width:75%;
+    margin-bottom:10px;
+    &:last-child{
+      margin-bottom:0;
+    }
+  }
+}
+@media screen and (max-width:480px){
+  .user-avatar{
+    height:150px;
+    width:150px;
+    padding:5px;
+  }
+  .user-information{
+     &:before{
+      width:500px;
+      height:500px;
+      left:-250px;
+      top:-250px;
+    }
+    &:after{
+     top: -92px;
+     right:-15pxpx;
+     width: 250px;
+     height: 250px;
+    }
+    &__name{
+      font-size: 30px;
+    }
+    &__description{
+      font-size: 17px;
+      width:90%;
+    }
+  }
+  .offer-item{
+    padding:10px;
+  }
+  .apply-btn{
+    width:200px;
+    padding:10px 0;
+    margin:15px auto;
+    box-shadow: 0px 5px 10px #00000026;
+  }
+  .show-offer-btn{
+    height:25px;
+  }
+}
+/* = MEDIA END = */

@@ -116,6 +116,15 @@ body{
     }
 }
 
+// ACCORDION
+mat-expansion-panel-header{
+  padding:0!important;
+}
+mat-expansion-panel{
+  .mat-expansion-panel-body{
+  	padding:0!important;
+	}
+}
 html, body { height: 100%; color:#313131;}
 body { margin: 0; font-family: $gr, sans-serif; }
 
