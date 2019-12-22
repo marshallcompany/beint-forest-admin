@@ -18,6 +18,7 @@ import { TranslatesService } from './services/translates.service';
 export class AppComponent implements OnInit {
 
   public routerStatus: boolean;
+  public activeRouter: string;
   private history = [];
 
   constructor(
@@ -39,6 +40,7 @@ export class AppComponent implements OnInit {
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(
         ({ urlAfterRedirects }: NavigationEnd) => {
+          this.activeRouter = urlAfterRedirects;
           this.history = [...this.history, urlAfterRedirects];
           const routerStateHistory = this.history[this.history.length - 2] || '/index';
           if (routerStateHistory === '/job-description' || routerStateHistory.includes('/apply/')) {
@@ -56,7 +58,7 @@ export class AppComponent implements OnInit {
 
   public goToComponent = (name: string, nav: any) => {
     this.router.navigate([`${name}`]);
-    nav.toggle();
+    // nav.toggle();
   }
 
   public logout = () => {

@@ -16,7 +16,6 @@ import { MatSidenavModule } from '@angular/material';
 import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule, MAT_EXPANSION_PANEL_DEFAULT_OPTIONS } from '@angular/material';
 
-
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ProfileComponent } from './pages/profile/profile.component';
@@ -29,6 +28,15 @@ import { NotificationService } from './services/notification.service';
 import { GlobalErrorService } from './services/global-error-service';
 import { SnackbarModule } from 'ngx-snackbar';
 import { HomeComponent } from './pages/home/home.component';
+
+import { SwiperModule } from 'ngx-swiper-wrapper';
+import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
+import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+
+const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
+  direction: 'horizontal',
+  slidesPerView: 'auto'
+};
 
 export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRoutesProvider) => {
   return new HttpMultiLoaderServiceService(http, [
@@ -52,6 +60,7 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    SwiperModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -71,6 +80,10 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     AuthService,
     DownloadFileService,
     NotificationService,
+    {
+      provide: SWIPER_CONFIG,
+      useValue: DEFAULT_SWIPER_CONFIG
+    },
     {
       provide: MAT_EXPANSION_PANEL_DEFAULT_OPTIONS,
       useValue: {

@@ -85,7 +85,8 @@
 html,
 body{
 	height: 100%;
-    overflow: auto;
+		overflow: auto;
+		overflow-x: hidden;
 }
 body{
 	font-size:18px;
@@ -123,6 +124,20 @@ mat-expansion-panel-header{
 mat-expansion-panel{
   .mat-expansion-panel-body{
   	padding:0!important;
+	}
+}
+// SWIPER 
+app-home{
+	.s-wrapper{
+		overflow: inherit!important;
+	}
+	.s-wrapper,
+	.swiper-wrapper,
+	.swiper-slide{
+		width:auto!important;
+		height:auto!important;
+		max-width: inherit!important;
+    max-height: inherit!important;
 	}
 }
 html, body { height: 100%; color:#313131;}

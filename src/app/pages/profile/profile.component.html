@@ -1,74 +1,242 @@
-<section class="profile">
-  <div class="container">
-    <h1 class="title-primary"><span class="title-primary__text">{{ 'profile.PROFILE_TTL' | translate }}</span></h1>
-    <div class="profile-wrp">
-      <div class="profile-header">
-        <div class="profile-avatar"></div>
-        <div class="profile-content">
-          <div class="profile-content-item">
-            <span class="profile-content-item__label">{{ 'general.FIRST_NAME' | translate }}</span>
-            <p
-              class="profile-content-item__info"
-              *ngIf="profileData && profileData.profile">{{ profileData.profile.personal.firstName }}</p>
-            <p
-              class="profile-content-item__info"
-              *ngIf="!profileData?.profile">Mark</p>
+<section
+  class="profile"
+  style="padding-bottom:80px;">
+  <div class="profile-header">
+    <div class="user-avatar">
+      <img
+        src="https://picsum.photos/id/1/350/350"
+        class="user-avatar__img">
+      <button
+        class="cancel"
+        *ngIf="status">
+        <img
+          src="../assets/image/cancel.svg"
+          (click)="toggle()"
+          alt>
+      </button>
+    </div>
+  </div>
+  <div
+    class="profile-category"
+    *ngIf="!status">
+    <div class="container">
+      <div class="category-wrp">
+        <div
+          class="category-item"
+          (click)="toggle()">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" class="icon-overlay">
+            <path class="a" d="M29.924,25.706a1.172,1.172,0,0,0-2.295.478,1.224,1.224,0,0,1-.248,1.027,1.191,1.191,0,0,1-.937.446H3.557a1.191,1.191,0,0,1-.937-.446,1.224,1.224,0,0,1-.248-1.027A12.948,12.948,0,0,1,14.69,15.932q.155.006.311.006t.312-.006a12.892,12.892,0,0,1,10.411,5.722,1.172,1.172,0,1,0,1.947-1.305,15.243,15.243,0,0,0-7.9-6,7.969,7.969,0,1,0-9.539,0A15.242,15.242,0,0,0,.076,25.706,3.56,3.56,0,0,0,3.557,30H26.444a3.56,3.56,0,0,0,3.48-4.294ZM9.375,7.969a5.625,5.625,0,1,1,5.91,5.618l-.285,0-.284,0A5.632,5.632,0,0,1,9.375,7.969Z"/>
+          </svg>
+          <div class="cat-header">
+            <div class="flx">
+              <div class="cat-header__status">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 13.38 13.38"      class="cat-header__status_icon">
+                  <path d="M12.6.784a2.677,2.677,0,0,0-3.786,0L1.328,8.266a.523.523,0,0,0-.134.229L.019,12.717a.523.523,0,0,0,.646.643l4.222-1.2a.523.523,0,0,0,.227-.872L2.453,8.619l6.2-6.2,2.306,2.306L6.214,9.459a.523.523,0,0,0,.738.74L12.6,4.57a2.677,2.677,0,0,0,0-3.786ZM3.748,11.4l-2.471.7.692-2.487Zm8.11-7.568-.156.155L9.394,1.678l.155-.155A1.632,1.632,0,0,1,11.858,3.83Z"/>
+                </svg>
+              </div>
+              <p class="cat-number">3/17</p>
+            </div>
           </div>
-          <div class="profile-content-item">
-            <span class="profile-content-item__label">{{ 'general.LAST_NAME' | translate }}</span>
-            <p
-              class="profile-content-item__info"
-              *ngIf="profileData && profileData.profile">{{ profileData.profile.personal.lastName }}</p>
-            <p
-              class="profile-content-item__info"
-              *ngIf="!profileData?.profile">Ivanov</p>
+          <p class="cat-title">Personal & contact</p>
+        </div>
+        <div class="category-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70.514 65.286" class="icon-overlay">
+            <path d="M67.76,62.094a2.754,2.754,0,0,0,2.754-2.754V41.16A11.03,11.03,0,0,0,59.5,30.142H47.642V26.551a7.578,7.578,0,0,0-7.57-7.57h-9.63a7.578,7.578,0,0,0-7.57,7.57v3.591H11.018A11.03,11.03,0,0,0,0,41.16v32.09A11.03,11.03,0,0,0,11.018,84.267H59.5A11.03,11.03,0,0,0,70.514,73.249a2.754,2.754,0,0,0-5.509,0A5.515,5.515,0,0,1,59.5,78.758H11.018a5.515,5.515,0,0,1-5.509-5.509V53.687H32.64v4.137a2.754,2.754,0,0,0,5.509,0V53.687H65.005v5.652A2.754,2.754,0,0,0,67.76,62.094ZM28.381,26.551a2.063,2.063,0,0,1,2.061-2.061h9.63a2.063,2.063,0,0,1,2.061,2.061v3.591H28.381V26.551ZM5.509,48.178V41.16a5.515,5.515,0,0,1,5.509-5.509H59.5a5.515,5.515,0,0,1,5.509,5.509v7.019Z" transform="translate(0 -18.981)"/>
+          </svg>
+          <div class="cat-header">
+            <div class="flx">
+              <div class="cat-header__status">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 13.38 13.38"      class="cat-header__status_icon">
+                  <path d="M12.6.784a2.677,2.677,0,0,0-3.786,0L1.328,8.266a.523.523,0,0,0-.134.229L.019,12.717a.523.523,0,0,0,.646.643l4.222-1.2a.523.523,0,0,0,.227-.872L2.453,8.619l6.2-6.2,2.306,2.306L6.214,9.459a.523.523,0,0,0,.738.74L12.6,4.57a2.677,2.677,0,0,0,0-3.786ZM3.748,11.4l-2.471.7.692-2.487Zm8.11-7.568-.156.155L9.394,1.678l.155-.155A1.632,1.632,0,0,1,11.858,3.83Z"/>
+                </svg>
+              </div>
+              <p class="cat-number">4/23</p>
+            </div>
           </div>
+          <p class="cat-title">Vocational training</p>
+        </div>
+        <div class="category-item grn">
+          <svg  version="1.1"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	        viewBox="0 0 791.803 791.803" style="enable-background:new 0 0 791.803 791.803;"
+	        xml:space="preserve" class="icon-overlay">
+            <path d="M395.904,475.016l-236.203-72.7v71.524v49.896c0,56.133,105.787,101.644,236.274,101.644
+		        c130.48,0,236.285-45.511,236.285-101.644c0-0.442-0.145-0.886-0.154-1.318V402.316L395.904,475.016z"/>
+            <path d="M0,318.734l84.383,30.185l7.191-15.401l31-2.635l4.42,4.599l-26.601,6.308l-3.877,11.475
+		        c-0.007,0-60.087,125.604-51.263,187.05c0,0,37.502,22.37,74.988,0l9.962-168v-13.984l55.8-12.588l-3.941,9.705l-41.604,13.529
+		        l19.242,6.874l236.203,72.7l236.201-72.7l159.699-57.116l-395.9-152.313L0,318.734z"/>
+          </svg>
+          <div class="cat-header">
+            <div class="flx">
+              <div class="cat-header__status">
+                <svg xmlns="http://www.w3.org/2000/svg"  class="cat-header__status_icon" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 15.812 11.89">
+                  <path class="a" d="M15.581,63.635a.618.618,0,0,0-.868.095L6.494,73.958a.618.618,0,0,1-.875.027L1.045,69.6a.618.618,0,0,0-.855.892l4.577,4.387a1.837,1.837,0,0,0,1.275.51l.077,0a1.838,1.838,0,0,0,1.306-.615l.021-.025L15.676,64.5A.618.618,0,0,0,15.581,63.635Z" transform="translate(0 -63.498)"/>
+                </svg>
+              </div>
+              <p class="cat-number">17/17</p>
+            </div>
+          </div>
+          <p class="cat-title">Professional background</p>
+        </div>
+        <div class="category-item">
+          <svg version="1.1" class="icon-overlay" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	              viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+
+            <path d="M310,190c-5.52,0-10,4.48-10,10s4.48,10,10,10c5.52,0,10-4.48,10-10S315.52,190,310,190z"/>
+            <path d="M500.281,443.719l-133.48-133.48C388.546,277.485,400,239.555,400,200C400,89.72,310.28,0,200,0S0,89.72,0,200
+                s89.72,200,200,200c39.556,0,77.486-11.455,110.239-33.198l36.895,36.895c0.005,0.005,0.01,0.01,0.016,0.016l96.568,96.568
+                C451.276,507.838,461.319,512,472,512c10.681,0,20.724-4.162,28.278-11.716C507.837,492.731,512,482.687,512,472
+                S507.837,451.269,500.281,443.719z M305.536,345.727c0,0.001-0.001,0.001-0.002,0.002C274.667,368.149,238.175,380,200,380
+                c-99.252,0-180-80.748-180-180S100.748,20,200,20s180,80.748,180,180c0,38.175-11.851,74.667-34.272,105.535
+                C334.511,320.988,320.989,334.511,305.536,345.727z M326.516,354.793c10.35-8.467,19.811-17.928,28.277-28.277l28.371,28.371
+                c-8.628,10.183-18.094,19.65-28.277,28.277L326.516,354.793z M486.139,486.139c-3.78,3.78-8.801,5.861-14.139,5.861
+                s-10.359-2.081-14.139-5.861l-88.795-88.795c10.127-8.691,19.587-18.15,28.277-28.277l88.798,88.798
+                C489.919,461.639,492,466.658,492,472C492,477.342,489.919,482.361,486.139,486.139z"/>
+
+            <path d="M200,40c-88.225,0-160,71.775-160,160s71.775,160,160,160s160-71.775,160-160S288.225,40,200,40z M200,340
+                c-77.196,0-140-62.804-140-140S122.804,60,200,60s140,62.804,140,140S277.196,340,200,340z"/>
+
+            <path d="M312.065,157.073c-8.611-22.412-23.604-41.574-43.36-55.413C248.479,87.49,224.721,80,200,80c-5.522,0-10,4.478-10,10
+                c0,5.522,4.478,10,10,10c41.099,0,78.631,25.818,93.396,64.247c1.528,3.976,5.317,6.416,9.337,6.416
+                c1.192,0,2.405-0.215,3.584-0.668C311.472,168.014,314.046,162.229,312.065,157.073z"/>
+          </svg>
+          <div class="cat-header">
+            <div class="flx">
+              <div class="cat-header__status">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 13.38 13.38"      class="cat-header__status_icon">
+                  <path d="M12.6.784a2.677,2.677,0,0,0-3.786,0L1.328,8.266a.523.523,0,0,0-.134.229L.019,12.717a.523.523,0,0,0,.646.643l4.222-1.2a.523.523,0,0,0,.227-.872L2.453,8.619l6.2-6.2,2.306,2.306L6.214,9.459a.523.523,0,0,0,.738.74L12.6,4.57a2.677,2.677,0,0,0,0-3.786ZM3.748,11.4l-2.471.7.692-2.487Zm8.11-7.568-.156.155L9.394,1.678l.155-.155A1.632,1.632,0,0,1,11.858,3.83Z"/>
+                </svg>
+              </div>
+              <p class="cat-number">4/23</p>
+            </div>
+          </div>
+          <p class="cat-title">Search preferences</p>
+        </div>
+        <div class="category-item">
+          <svg version="1.1"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 470 470" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 470 470" class="icon-overlay">
+            <path d="m429.591,418.378l-62.223-150.218c-1.585-3.826-5.972-5.645-9.799-4.059s-5.645,5.973-4.059,9.799l56.251,135.801-51.309-14.867c-3.368-0.977-6.965,0.513-8.656,3.586l-25.769,46.793-60.357-145.716c69.663-13.434 122.447-74.853 122.447-148.378 0.001-83.327-67.79-151.119-151.117-151.119s-151.119,67.792-151.119,151.119c0,33.751 11.124,64.951 29.896,90.133l-73.368,177.126c-1.103,2.664-0.582,5.724 1.341,7.872 1.922,2.148 4.907,3.004 7.676,2.202l60.533-17.541 30.4,55.207c1.324,2.403 3.847,3.882 6.568,3.882 0.138,0 0.277-0.004 0.416-0.011 2.879-0.16 5.411-1.955 6.515-4.619l58.136-140.353c1.585-3.827-0.232-8.214-4.059-9.799-3.827-1.585-8.214,0.232-9.799,4.059l-52.165,125.936-25.767-46.793c-1.692-3.073-5.291-4.563-8.657-3.586l-51.308,14.867 64.397-155.469c27.598,29.52 66.86,48.005 110.364,48.005 4.491,0 8.933-0.209 13.325-0.594l67.818,163.727c1.103,2.664 3.636,4.459 6.514,4.618 0.14,0.008 0.278,0.012 0.417,0.012 2.721,0 5.244-1.479 6.567-3.882l30.401-55.207 60.533,17.541c2.771,0.803 5.753-0.054 7.676-2.202 1.923-2.148 2.443-5.208 1.34-7.872zm-330.71-267.259c2.84217e-14-75.056 61.063-136.119 136.119-136.119 75.056,0 136.118,61.063 136.118,136.119s-61.062,136.118-136.118,136.118c-75.056,0-136.119-61.062-136.119-136.118z"/>
+            <path d="m321.659,122.961c-0.863-2.658-3.135-4.616-5.892-5.079l-50.467-8.469-23.649-45.379c-1.292-2.479-3.855-4.034-6.651-4.034-2.795,0-5.359,1.555-6.651,4.034l-23.65,45.379-50.466,8.469c-2.757,0.462-5.028,2.42-5.892,5.079-0.864,2.659-0.178,5.577 1.781,7.572l35.85,36.515-7.54,50.614c-0.412,2.765 0.748,5.529 3.01,7.173 2.26,1.642 5.249,1.891 7.751,0.646l45.807-22.812 45.806,22.812c1.059,0.527 2.203,0.787 3.343,0.787 1.557,0 3.104-0.484 4.409-1.432 2.262-1.644 3.422-4.408 3.01-7.173l-7.539-50.614 35.85-36.516c1.958-1.995 2.644-4.913 1.78-7.572zm-50.951,36.244c-1.648,1.679-2.413,4.033-2.066,6.359l5.97,40.074-36.268-18.061c-1.054-0.524-2.198-0.787-3.344-0.787-1.145,0-2.291,0.262-3.343,0.787l-36.268,18.061 5.97-40.074c0.347-2.326-0.418-4.681-2.066-6.359l-28.385-28.912 39.957-6.706c2.32-0.389 4.323-1.844 5.41-3.93l18.725-35.929 18.725,35.93c1.088,2.086 3.09,3.541 5.41,3.93l39.958,6.706-28.385,28.911z"/>
+            <path d="m348.612,158.684c-4.107-0.549-7.877,2.343-8.42,6.45-6.957,52.507-52.18,92.104-105.192,92.104-58.514,0-106.119-47.604-106.119-106.119s47.605-106.119 106.119-106.119c53.013,0 98.235,39.596 105.192,92.104 0.543,4.107 4.32,7.001 8.42,6.45 4.105-0.544 6.994-4.314 6.449-8.42-7.94-59.936-59.555-105.134-120.061-105.134-66.785,0-121.119,54.333-121.119,121.119s54.334,121.118 121.119,121.118c60.506,0 112.121-45.198 120.062-105.134 0.544-4.105-2.344-7.875-6.45-8.419z"/>
+          </svg>
+          <div class="cat-header">
+            <div class="flx">
+              <div class="cat-header__status">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 13.38 13.38"      class="cat-header__status_icon">
+                  <path d="M12.6.784a2.677,2.677,0,0,0-3.786,0L1.328,8.266a.523.523,0,0,0-.134.229L.019,12.717a.523.523,0,0,0,.646.643l4.222-1.2a.523.523,0,0,0,.227-.872L2.453,8.619l6.2-6.2,2.306,2.306L6.214,9.459a.523.523,0,0,0,.738.74L12.6,4.57a2.677,2.677,0,0,0,0-3.786ZM3.748,11.4l-2.471.7.692-2.487Zm8.11-7.568-.156.155L9.394,1.678l.155-.155A1.632,1.632,0,0,1,11.858,3.83Z"/>
+                </svg>
+              </div>
+              <p class="cat-number">16/19</p>
+            </div>
+          </div>
+          <p class="cat-title">Others</p>
+        </div>
+        <div class="category-item red">
+          <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 86.782 86.782" class="icon-overlay">
+            <path  d="M74.073,12.709A43.391,43.391,0,0,0,12.709,74.073a43.408,43.408,0,0,0,53.134,6.456,3.39,3.39,0,1,0-3.513-5.8A36.936,36.936,0,1,1,73.794,63.711a3.39,3.39,0,1,0,5.636,3.768,43.284,43.284,0,0,0-5.357-54.77Z" transform="translate(0 0)"/>
+            <g transform="translate(27.289 49.662)">
+              <path  d="M189.814,293a3.39,3.39,0,0,0-3.39,3.39,9.322,9.322,0,1,1-18.645,0,3.39,3.39,0,0,0-6.78,0,16.1,16.1,0,1,0,32.2,0A3.39,3.39,0,0,0,189.814,293Z" transform="translate(-161 -293)"/>
+            </g>
+            <g transform="translate(50.001 25.594)">
+              <path  d="M303.475,151A8.484,8.484,0,0,0,295,159.475a3.39,3.39,0,1,0,6.78,0,1.695,1.695,0,1,1,3.39,0,3.39,3.39,0,1,0,6.78,0A8.484,8.484,0,0,0,303.475,151Z" transform="translate(-295 -151)"/>
+            </g>
+            <g transform="translate(20.001 25.594)">
+              <path  d="M126.475,151A8.484,8.484,0,0,0,118,159.475a3.39,3.39,0,1,0,6.78,0,1.695,1.695,0,1,1,3.39,0,3.39,3.39,0,1,0,6.78,0A8.484,8.484,0,0,0,126.475,151Z" transform="translate(-118 -151)"/>
+            </g>
+          </svg>
+          <div class="cat-header">
+            <div class="flx">
+              <div class="cat-header__status">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 13.38 13.38"      class="cat-header__status_icon">
+                  <path d="M12.6.784a2.677,2.677,0,0,0-3.786,0L1.328,8.266a.523.523,0,0,0-.134.229L.019,12.717a.523.523,0,0,0,.646.643l4.222-1.2a.523.523,0,0,0,.227-.872L2.453,8.619l6.2-6.2,2.306,2.306L6.214,9.459a.523.523,0,0,0,.738.74L12.6,4.57a2.677,2.677,0,0,0,0-3.786ZM3.748,11.4l-2.471.7.692-2.487Zm8.11-7.568-.156.155L9.394,1.678l.155-.155A1.632,1.632,0,0,1,11.858,3.83Z"/>
+                </svg>
+              </div>
+              <p class="cat-number">0/19</p>
+            </div>
+          </div>
+          <p class="cat-title">Me about me</p>
         </div>
       </div>
-      <div class="profile-item">
-        <span class="profile-item__label">E-mail:</span>
-        <p
-          class="profile-item__info"
-          *ngIf="profileData">{{ profileData.email }}</p>
-      </div>
-      <div class="profile-item">
-        <span class="profile-item__label">{{ 'general.PLACE' | translate }}</span>
-        <p
-          class="profile-item__info"
-          *ngIf="profileData && profileData.profile">{{ profileData.profile.personal.birthPlace }}</p>
-        <p
-          class="profile-item__info"
-          *ngIf="!profileData?.profile">Maasbracht, Netherlands</p>
-      </div>
-      <div class="profile-item">
-        <span class="profile-item__label">{{ 'general.BIRTH' | translate }}</span>
-        <p
-          class="profile-item__info"
-          *ngIf="profileData && profileData.profile">{{ profileData.profile.personal.dateBirth | date:'fullDate' }}</p>
-        <p
-          class="profile-item__info"
-          *ngIf="!profileData?.profile">{{ '2077-06-02T13:40:11.042Z' | date:'fullDate' }}</p>
-      </div>
-      <div class="profile-item">
-        <span class="profile-item__label">{{ 'general.PHONE' | translate }}</span>
-        <p
-          class="profile-item__info"
-          *ngIf="profileData && profileData.profile">{{ profileData.profile.contact.phoneNumberLandline }}</p>
-        <p
-          class="profile-item__info"
-          *ngIf="!profileData?.profile">+123456789012</p>
-      </div>
-      <div class="profile-item">
-        <span class="profile-item__label">User ID:</span>
-        <p
-          class="profile-item__info"
-          *ngIf="profileData">{{ profileData.id }}</p>
-      </div>
-      <div class="profile-item">
-        <span class="profile-item__label">{{ 'general.ACCOUNT_CREATED' | translate }}</span>
-        <p
-          class="profile-item__info"
-          *ngIf="profileData">{{ profileData.createdAt | date:'fullDate' }}</p>
+    </div>
+  </div>
+
+  <div
+    class="contact"
+    *ngIf="status">
+    <div class="container">
+      <div class="contact-wrp">
+        <div class="contact-header">
+          <div class="contact-header_logo">
+            <div class="l">
+              <img
+                src="../../../assets/image/edit.svg"
+                alt>
+            </div>
+            <p>Personal <br> & contact</p>
+          </div>
+          <div class="contact-header_arrow">
+            <i class="material-icons">
+              keyboard_arrow_left
+            </i>
+            <i class="material-icons">
+              keyboard_arrow_right
+            </i>
+          </div>
+        </div>
+        <div class="contact-item">
+          <p class="contact-item__label">First name</p>
+          <input
+            type="text"
+            placeholder="First name"
+            class="contact-item__input"
+            *ngIf="profileData"
+            value="{{profileData.profile.personal.firstName}}">
+        </div>
+        <div class="contact-item">
+          <p class="contact-item__label">Last name</p>
+          <input
+            type="text"
+            placeholder="Last name"
+            class="contact-item__input"
+            *ngIf="profileData"
+            value="{{profileData.profile.personal.lastName}}">
+        </div>
+
+        <div class="contact-item">
+          <p class="contact-item__label">Email</p>
+          <input
+            type="text"
+            placeholder="Email"
+            class="contact-item__input"
+            *ngIf="profileData"
+            value="{{profileData.email}}">
+        </div>
+        <div class="contact-item">
+          <p class="contact-item__label">Name suffix</p>
+          <input
+            type="text"
+            placeholder="Name suffix"
+            class="contact-item__input">
+        </div>
+        <div class="contact-item">
+          <p class="contact-item__label">Academic titlel</p>
+          <input
+            type="text"
+            placeholder="Academic titlel"
+            class="contact-item__input">
+        </div>
+        <div class="contact-item">
+          <p class="contact-item__label">Nationality</p>
+          <input
+            type="text"
+            placeholder="Nationality"
+            class="contact-item__input">
+        </div>
+        <div class="contact-item">
+          <p class="contact-item__label">Skype</p>
+          <input
+            type="text"
+            placeholder="Skype"
+            class="contact-item__input">
+        </div>
       </div>
     </div>
   </div>

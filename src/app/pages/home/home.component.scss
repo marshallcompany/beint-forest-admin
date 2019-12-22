@@ -85,10 +85,6 @@
 .user-actions{
   padding:40px 0;
 }
-.actions-wrp{
-  display: flex;
-  justify-content: space-around;
-}
 .actions-icon{
   background-color:$primary;
   width:50px;
@@ -101,17 +97,30 @@
     top:50%;
     transform: translate(-50%, -50%);
     height:25px;
+    fill:#ffffff;
   }
 }
+.flex-wrp{
+  flex: 1;
+}
 .actions-item{
-  width:35%;
+  width:300px!important;
+  height:300px!important;
+  min-height: inherit!important;
+  min-width: inherit!important;
   background-color:#f4f4f4;
   box-shadow: 0px 20px 30px #00000027;
   padding:15px;
   border-radius:10px;
   position: relative;
-  overflow: hidden;
+  overflow: hidden!important;
   z-index: 1;
+  margin-right:25px;
+  display: flex;
+  flex-direction: column;
+  &:last-child{
+    margin-right:0;
+  }
   &__number{
     color:#313131;
     font-size: 100px;
@@ -153,9 +162,11 @@
       font-weight:300;
       color:#656565;
     }
-    img{
+    svg{
       display:inline-block;
       margin-right:10px;
+      fill:$grey;
+      height:20px;
     }
   }
 }
@@ -163,7 +174,6 @@
   background-color:#ffffff;
   box-shadow: 0px 20px 30px #00000027;
   width:45%;
-  margin:0 auto;
   padding:20px;
   padding-bottom:0;
   border-radius:10px;
@@ -211,6 +221,10 @@
 .bookmark-btn{
   margin-right:10px;
   background-color:transparent;
+  &__icon{
+    height:20px;
+    fill:$black;
+  }
 }
 .offer-status{
   width:20px;
@@ -238,9 +252,10 @@
     font-size: 22px;
     display: flex;
     align-items:center;
-    img{
+    svg{
       height:20px;
       margin-right:15px;
+      fill:$black;
     }
   }
 }
@@ -352,11 +367,6 @@
   }
 }
 /* = MEDIA = */
-@media screen and (max-width:568px){
-	.container{
-		padding:0 15px;
-	}
-}
 @media screen and (max-width:1400px){
   .user-information{
     &__description{
@@ -386,7 +396,8 @@
     }
   }
   .actions-item{
-    width:35%;
+    width:250px!important;
+    height:250px!important;
     padding:10px;
     &__title{
       font-size: 22px;
@@ -480,6 +491,9 @@
   }
 }
 @media screen and (max-width:568px){
+  .container{
+		padding:0 15px;
+	}
   .top-offer{
     padding-bottom:25px;
   }
@@ -489,14 +503,12 @@
       margin-right:10px;
     }
   }
-  .actions-wrp{
-    flex-wrap:wrap;
-  }
   .actions-item{
-    width:75%;
-    margin-bottom:10px;
-    &:last-child{
-      margin-bottom:0;
+    width:200px!important;
+    height:200px!important;
+    margin-right:10px;
+    &__title{
+      font-size: 18px;
     }
   }
 }

@@ -10,11 +10,13 @@ import { GlobalErrorService } from 'src/app/services/global-error-service';
 export class ProfileComponent implements OnInit {
 
   public profileData: Profile;
-
+  public status: boolean;
   constructor(
     private profileService: ProfileService,
     private globalErrorService: GlobalErrorService
-  ) { }
+  ) {
+    this.status = false;
+  }
 
   ngOnInit() {
     this.init();
@@ -34,5 +36,8 @@ export class ProfileComponent implements OnInit {
         },
         () => console.log('[ PROFILE DATA DONE ]')
       );
+  }
+  public toggle = () => {
+    this.status = !this.status;
   }
 }
