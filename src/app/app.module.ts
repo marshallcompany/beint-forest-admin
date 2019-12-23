@@ -29,6 +29,8 @@ import { GlobalErrorService } from './services/global-error-service';
 import { SnackbarModule } from 'ngx-snackbar';
 import { HomeComponent } from './pages/home/home.component';
 
+import { NgCircleProgressModule } from 'ng-circle-progress';
+
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
@@ -72,6 +74,7 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     MatSidenavModule,
     MatIconModule,
     MatExpansionModule,
+    NgCircleProgressModule.forRoot({}),
     SnackbarModule.forRoot()
   ],
   providers: [

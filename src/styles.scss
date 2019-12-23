@@ -144,3 +144,10 @@ html, body { height: 100%; color:#313131;}
 body { margin: 0; font-family: $gr, sans-serif; }
 
 @import "app/theme/fonts";
+circle-progress{
+    svg{
+      path{
+        stroke-width: 8px;
+      }
+    }
+  }

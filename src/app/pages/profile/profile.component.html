@@ -3,6 +3,20 @@
   style="padding-bottom:80px;">
   <div class="profile-header">
     <div class="user-avatar">
+      <circle-progress
+        [percent]="30"
+        [radius]="100"
+        [outerStrokeColor]="'#ffffff'"
+        [innerStrokeColor]="'transparent'"
+        [showTitle]="false"
+        [showUnits]="false"
+        [showSubtitle]="false"
+        [showSubtitle]="false"
+        [animation]="true"
+        [animationDuration]="1000"
+        [startFromZero]="false"
+        [responsive]="true">
+      </circle-progress>
       <img
         src="https://picsum.photos/id/1/350/350"
         class="user-avatar__img">

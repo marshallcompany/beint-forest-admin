@@ -66,19 +66,34 @@
   }
 }
 .user-avatar {
-  width:250px;
-  height:250px;
-  background:rgba(255,255,255,.5);
+  width:300px;
+  height:300px;
   border-radius:50%;
   margin-bottom:30px;
-  padding:10px;
   box-sizing: border-box;
+  position: relative;
+  &:before{
+      content:'';
+      width:calc(100% - 25px);
+      height:calc(100% - 25px);
+      background: rgba(255,255,255,0.5);
+      border-radius: 50%;
+      position: absolute;
+      left:50%;
+      top:50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0px 20px 30px #16030327;
+  }
   &__img{
-    height: 100%;
-    width:100%;
     object-fit: cover;
     object-position: 50%;
     border-radius: 50%;
+    position: absolute;
+    left:50%;
+    top:50%;
+    transform: translate(-50%, -50%);
+    height: calc(100% - 47px);
+    width: calc(100% - 47px);
   }
 }
 // USER ACTIONS
@@ -449,9 +464,17 @@
     }
   }
   .user-avatar{
-    width:200px;
-    height:200px;
+    width:225px;
+    height:225px;
     margin-bottom: 25px;
+    &__img{
+      width: calc(100% - 35px);
+      height: calc(100% - 35px);
+    }
+    &:before{
+      width: calc(100% - 17px);
+      height: calc(100% - 17px);
+    }
   }
   .top-offer-box{
     &__title{
@@ -516,7 +539,14 @@
   .user-avatar{
     height:150px;
     width:150px;
-    padding:5px;
+    &:before{
+      width: calc(100% - 12px);
+      height: calc(100% - 12px);
+    }
+    &__img{
+      width: calc(100% - 24px);
+      height: calc(100% - 24px);
+    }
   }
   .user-information{
      &:before{
