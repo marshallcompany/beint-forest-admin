@@ -124,7 +124,7 @@
         left:50%;
         top:50%;
         transform:translate(-50%,-50%);
-        height:20px;
+        height:16px;
         fill:#ffffff;
     }
 }
@@ -132,21 +132,17 @@
     font-family: $gb;
 }
 
-@media screen and (max-width:568px){
-	.container{
-		padding:0 15px;
-	}
+@media screen and (max-width:992px) {
+    .category-item{
+        width:45%;
+    }
 }
 @media screen and (max-width:768px){
-    .cancel{
-        left: 156%;
-    }
-    .contact-wrp{
-        width:100%;
-    }
-    .contact-item{
-        &__input{
-            width:100%;
+    .cancel-edit-btn{
+        right: 25px;
+        top: 55px;
+        img{
+            height:18px;
         }
     }
     .profile-header{
@@ -170,33 +166,40 @@
     }
     .category-item{
         width:49%;
-        height:175px;
+        height:200px;
         margin-bottom:10px;
     }
-    .cat-title{
-        font-size: 16px;
-    }
+}
+@media screen and (max-width:568px){
+	.container{
+		padding:0 15px;
+	}
 }
 @media screen and (max-width:480px) {
-      .user-avatar{
-        height:150px;
-        width:150px;
-        &:before{
-            width: calc(100% - 12px);
-            height: calc(100% - 12px);
+    .category-item{
+        &__title{
+            font-size: 16px;
         }
-        &__img{
-        width: calc(100% - 24px);
-        height: calc(100% - 24px);
-        }
+    }
+    .category-overlay{
+        height:80px;
     }
 }
 @media screen and (max-width:414px) {
     .container{
-		padding:0 5px;
+		padding:0 10px;
 	}
     .category-item{
         width:49%;
+        height: 155px;
         margin-bottom:15px;
+        padding:8.5px;
+    }
+    .category-status{
+        height:25px;
+        width:25px;
+        &__icon{
+            height:12px;
+        }
     }
 }

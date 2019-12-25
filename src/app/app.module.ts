@@ -12,11 +12,16 @@ import { DownloadFileService } from './services/download-file.service';
 import { Interceptors } from './interceptors/index';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSidenavModule } from '@angular/material';
 import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule, MAT_EXPANSION_PANEL_DEFAULT_OPTIONS } from '@angular/material';
 import { MatSelectModule } from '@angular/material/select';
-import { MatInputModule } from '@angular/material';
+import {
+  MatSidenavModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatFormFieldModule,
+  MatInputModule
+} from '@angular/material';
 
 
 import { AppComponent } from './app.component';
@@ -83,7 +88,10 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     MatExpansionModule,
     MatSelectModule,
     MatInputModule,
-    NgCircleProgressModule.forRoot({}),
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    NgCircleProgressModule.forRoot(),
     SnackbarModule.forRoot()
   ],
   providers: [

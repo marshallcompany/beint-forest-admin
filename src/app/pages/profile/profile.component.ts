@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { ProfileService, Profile } from '../../services/profile.service';
 import { GlobalErrorService } from 'src/app/services/global-error-service';
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',

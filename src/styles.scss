@@ -1,6 +1,6 @@
 @import "app/theme/reset.scss";
 @import "app/theme/variables.scss";
-
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
 .snack {
   box-shadow: 0px 4px 25px 0px rgba(0, 0, 0, .5);
 }
@@ -117,15 +117,6 @@ body{
     }
 }
 
-// ACCORDION
-mat-expansion-panel-header{
-  padding:0!important;
-}
-mat-expansion-panel{
-  .mat-expansion-panel-body{
-  	padding:0!important;
-	}
-}
 // SWIPER 
 app-home{
 	.s-wrapper{

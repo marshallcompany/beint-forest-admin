@@ -78,12 +78,19 @@
           </div>
           <div class="edit-item">
             <p class="edit-item__label">Birthday</p>
-            <input
-              type="text"
-              class="edit-item__input"
-              placeholder="XX.XX.XXXX"
-              formControlName="dateBirth"
-              (blur)="submit('Birthday')">
+            <div class="datepicker-wrp">
+              <input
+                [matDatepicker]="myDatepicker"
+                formControlName="dateBirth"
+                placeholder="DD/MM/YYYY"
+                class="edit-item__input"
+                (dateChange)="submit('Birthday')">
+              <mat-datepicker-toggle [for]="myDatepicker"></mat-datepicker-toggle>
+              <mat-datepicker #myDatepicker></mat-datepicker>
+              <img
+                class="datepicker-wrp__icon"
+                src="../assets/image/calendar.svg">
+            </div>
           </div>
           <div class="edit-item">
             <p class="edit-item__label">Nationality</p>
@@ -104,7 +111,6 @@
               (blur)="submit('Place of residence')">
           </div>
         </div>
-
         <div formGroupName="contact">
           <div formGroupName="residence">
             <div class="edit-item">

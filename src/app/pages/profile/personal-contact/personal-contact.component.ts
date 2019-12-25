@@ -5,6 +5,8 @@ import { ProfileService } from '../../../services/profile.service';
 import { map } from 'rxjs/internal/operators/map';
 import { NotificationService } from 'src/app/services/notification.service';
 
+import * as moment from 'moment';
+
 @Component({
   selector: 'app-personal-contact',
   templateUrl: './personal-contact.component.html',
