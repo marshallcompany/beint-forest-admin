@@ -26,4 +26,8 @@ export class ProfileService {
     return this.http.get<Profile>(this.apiRoutes.PROFILE);
   }
 
+  public updateProfile(data) {
+    return this.http.patch<any>(this.apiRoutes.PROFILE, data);
+  }
+
 }

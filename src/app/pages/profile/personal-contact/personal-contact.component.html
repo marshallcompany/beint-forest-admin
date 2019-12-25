@@ -1,0 +1,203 @@
+<section class="personal-contact">
+  <div class="container">
+    <div class="edit-wrp">
+      <div class="edit-header">
+        <div class="edit-title-box">
+          <div class="edit-title-box__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 13.38 13.38"  class="category-status__icon">
+              <path d="M12.6.784a2.677,2.677,0,0,0-3.786,0L1.328,8.266a.523.523,0,0,0-.134.229L.019,12.717a.523.523,0,0,0,.646.643l4.222-1.2a.523.523,0,0,0,.227-.872L2.453,8.619l6.2-6.2,2.306,2.306L6.214,9.459a.523.523,0,0,0,.738.74L12.6,4.57a2.677,2.677,0,0,0,0-3.786ZM3.748,11.4l-2.471.7.692-2.487Zm8.11-7.568-.156.155L9.394,1.678l.155-.155A1.632,1.632,0,0,1,11.858,3.83Z"/>
+            </svg>
+          </div>
+          <p class="edit-title-box__text">Personal <br> & contact</p>
+        </div>
+        <div class="edit-navigation">
+          <button
+            class="edit-navigation__btn"
+            disabled>
+            <img src="../assets/image/back.svg">
+          </button>
+          <button
+            class="edit-navigation__btn"
+            (click)="next()">
+            <img src="../assets/image/next.svg">
+          </button>
+        </div>
+      </div>
+      <form
+        *ngIf="form"
+        [formGroup]="form">
+        <div formGroupName="personal">
+          <div class="edit-item">
+            <p class="edit-item__label">Gender</p>
+            <mat-form-field>
+              <select
+                matNativeControl
+                formControlName="gender"
+                (change)="submit('Gender')">
+                <option value="male">Male</option>
+                <option value="woman">Woman</option>
+              </select>
+            </mat-form-field>
+          </div>
+
+          <div class="edit-item">
+            <p class="edit-item__label">First Name</p>
+            <input
+              type="text"
+              class="edit-item__input"
+              placeholder="First Name"
+              formControlName="firstName"
+              (blur)="submit('First Name')">
+          </div>
+          <div class="edit-item">
+            <p class="edit-item__label">Last Name</p>
+            <input
+              type="text"
+              class="edit-item__input"
+              placeholder="Last Name"
+              formControlName="lastName"
+              (blur)="submit('Last Name')">
+          </div>
+          <div class="edit-item">
+            <p class="edit-item__label">Middle Name</p>
+            <input
+              type="text"
+              class="edit-item__input"
+              placeholder="Middle Name"
+              formControlName="middleName"
+              (blur)="submit('Middle Name')">
+          </div>
+          <div class="edit-item">
+            <p class="edit-item__label">Academic Title</p>
+            <input
+              type="text"
+              class="edit-item__input"
+              placeholder="Academic Title"
+              formControlName="academicTitle"
+              (blur)="submit('Academic Title')">
+          </div>
+          <div class="edit-item">
+            <p class="edit-item__label">Birthday</p>
+            <input
+              type="text"
+              class="edit-item__input"
+              placeholder="XX.XX.XXXX"
+              formControlName="dateBirth"
+              (blur)="submit('Birthday')">
+          </div>
+          <div class="edit-item">
+            <p class="edit-item__label">Nationality</p>
+            <input
+              type="text"
+              class="edit-item__input"
+              placeholder="Nationality"
+              formControlName="nationality"
+              (blur)="submit('Nationality')">
+          </div>
+          <div class="edit-item">
+            <p class="edit-item__label">Place of residence</p>
+            <input
+              type="text"
+              class="edit-item__input"
+              placeholder="Place of residence"
+              formControlName="birthPlace"
+              (blur)="submit('Place of residence')">
+          </div>
+        </div>
+
+        <div formGroupName="contact">
+          <div formGroupName="residence">
+            <div class="edit-item">
+              <p class="edit-item__label">Postcode</p>
+              <input
+                type="text"
+                class="edit-item__input"
+                placeholder="Postcode"
+                formControlName="zipCode"
+                (blur)="submit('Postcode')">
+            </div>
+            <div class="edit-item">
+              <p class="edit-item__label">Street</p>
+              <input
+                type="text"
+                class="edit-item__input"
+                placeholder="Street"
+                formControlName="street"
+                (blur)="submit('Street')">
+            </div>
+            <div class="edit-item">
+              <p class="edit-item__label">House number</p>
+              <input
+                type="text"
+                class="edit-item__input"
+                placeholder="House number"
+                formControlName="houseNumber"
+                (blur)="submit('House number')">
+            </div>
+          </div>
+          <div class="edit-item">
+            <p class="edit-item__label">Mobile phone</p>
+            <input
+              type="text"
+              class="edit-item__input"
+              placeholder="Mobile phone"
+              formControlName="phoneNumberMobile"
+              (blur)="submit('Mobile phone')">
+          </div>
+          <div class="edit-item">
+            <p class="edit-item__label">Landline phone</p>
+            <input
+              type="text"
+              class="edit-item__input"
+              placeholder="Landline phone"
+              formControlName="phoneNumberLandline"
+              (blur)="submit('Landline phone')">
+          </div>
+          <div class="edit-item">
+            <p class="edit-item__label">Email</p>
+            <input
+              type="text"
+              class="edit-item__input"
+              placeholder="Email">
+          </div>
+          <div class="edit-item">
+            <p class="edit-item__label">Skype</p>
+            <input
+              type="text"
+              class="edit-item__input"
+              placeholder="Skype"
+              formControlName="skype"
+              (blur)="submit('Skype')">
+          </div>
+          <div class="edit-item">
+            <p class="edit-item__label">Instagram</p>
+            <input
+              type="text"
+              class="edit-item__input"
+              placeholder="Instagram"
+              formControlName="instagram"
+              (blur)="submit('Instagram')">
+          </div>
+          <div class="edit-item">
+            <p class="edit-item__label">Facebook</p>
+            <input
+              type="text"
+              class="edit-item__input"
+              placeholder="Facebook"
+              formControlName="facebook"
+              (blur)="submit('Facebook')">
+          </div>
+          <div class="edit-item">
+            <p class="edit-item__label">Linkedin</p>
+            <input
+              type="text"
+              class="edit-item__input"
+              placeholder="Linkedin"
+              formControlName="linkedin"
+              (blur)="submit('Linkedin')">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

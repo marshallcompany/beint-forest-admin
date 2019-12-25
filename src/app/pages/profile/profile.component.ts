@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { ProfileService, Profile } from '../../services/profile.service';
 import { GlobalErrorService } from 'src/app/services/global-error-service';
@@ -10,12 +11,16 @@ import { GlobalErrorService } from 'src/app/services/global-error-service';
 export class ProfileComponent implements OnInit {
 
   public profileData: Profile;
-  public status: boolean;
+
+  public editProfileStatus: boolean;
+  public categoryState: Array<any>;
+
   constructor(
     private profileService: ProfileService,
-    private globalErrorService: GlobalErrorService
+    private globalErrorService: GlobalErrorService,
+    private router: Router
   ) {
-    this.status = false;
+    this.editProfileStatus = false;
   }
 
   ngOnInit() {
@@ -37,7 +42,10 @@ export class ProfileComponent implements OnInit {
         () => console.log('[ PROFILE DATA DONE ]')
       );
   }
-  public toggle = () => {
-    this.status = !this.status;
+  public showEditCategory = (router?: string) => {
+    this.editProfileStatus = !this.editProfileStatus;
+    if (router) {
+      this.router.navigate([router]);
+    }
   }
 }

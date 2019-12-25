@@ -1,10 +1,20 @@
 @import "../../theme/variables.scss";
+.cancel-edit-btn{
+    background-color: transparent;
+    position:absolute;
+    right:30px;
+    top:75px;
+}
+// PROFILE HEADER
 .profile-header{
     height:250px;
     background-color: $primary;
     border-bottom-left-radius:50px;
     position:relative;
     margin-bottom:150px;
+    .container{
+        height:100%;
+    }
 }
 .user-avatar {
   width:300px;
@@ -39,16 +49,13 @@
     width: calc(100% - 47px);
   }
 }
-.cancel{
-    position: absolute;
-    left:215%;
-    top:15px;
-    background-color: transparent;
-}
-.category-wrp{
-    display:flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+// PROFILE CATEGORY
+.profile-category{
+    .container{
+        display:flex;
+        justify-content: space-between;
+        flex-wrap: wrap;    
+    }
 }
 .category-item{
     box-shadow: 0px 20px 30px #00000027;
@@ -62,109 +69,69 @@
     width:30%;
     margin-bottom:35px;
     cursor: pointer;
-    &.grn{
-        .cat-header__status{
+    &.category-middle{
+        .category-status{
+            background-color: $yellow;
+        }
+        .check-category{
+            color:$yellow;
+        }
+    }
+    &.category-high{
+        .category-status{
             background-color: $green;
         }
-        .cat-number{
-            color: $green;
+        .check-category{
+            color:$green;
         }
     }
-    &.red{
-        .cat-header__status{
+    &.category-low{
+        .category-status{
             background-color: $red;
         }
-        .cat-number{
-            color: $red;
+        .check-category{
+            color:$red;
         }
     }
+    &__title{
+        font-size: 18px;
+    }
 }
-.icon-overlay{
+.category-overlay{
     position:absolute;
     right:15px;
     top:15px;
     height:100px;
     z-index: -1;
+    fill:#F9F9F9;
 }
-.cat-header{
+.category-head{
+    flex: 1;
     .flx{
         display: flex;
         align-items: center;
         justify-content: space-between;
     }
-    flex: 1;
-    &__status{
-       width:35px;
-       height:35px;
-       border-radius:50px;
-       background-color: $yellow;
-       position:relative;
-       &_icon{
-           position: absolute;
-           left:50%;
-           top:50%;
-           transform:translate(-50%,-50%);
-       }
-    }
 }
-.cat-number{
-    font-family: $gb;
-    color:$yellow;
-}
-// ZZZZZZZZZZZZZZZZZZZz
-.contact-wrp{
-    width:75%;
-    margin:0 auto;
-}
-.contact-item{
-    margin-bottom:15px;
-    &__label{
-        opacity: 0.5;
-        font-size: 20px;
-        margin-bottom:10px;
-        padding-left:15px;
-        font-family:Regular, WorkSans;
-        font-size: 14px;
-    }
-    &__input{
-        box-shadow: 0px 2px 5px #00000026;
-        border-radius: 10px;
-        width:100%;
-        border:0;
-        padding:15px 20px;
-        font-weight: 500;
-        color:#313131;
-        font-family:Regular, WorkSans;
-    }
-}
-.contact-header{
-    margin-bottom:50px;
-    display: flex;
-    justify-content: space-between;
-
-}
-.contact-header_logo{
-    display: flex;
-    align-items:center;
-    p{
-        font-family:Regular, WorkSans;
-    }
-}
-.l{
-    margin-right:5px;
+.category-status{
     width:35px;
     height:35px;
-    border-radius:50%;
-    background-color: $yellow;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    border-radius:50px;
+    background-color:#f4f4f4;
+    position:relative;
+    &__icon{
+        position: absolute;
+        left:50%;
+        top:50%;
+        transform:translate(-50%,-50%);
+        height:20px;
+        fill:#ffffff;
+    }
 }
-.contact-header_arrow{
-    display: flex;
-    width:50px;
-    justify-content: space-between;
+.check-category{
+    font-family: $gb;
 }
+
 @media screen and (max-width:568px){
 	.container{
 		padding:0 15px;

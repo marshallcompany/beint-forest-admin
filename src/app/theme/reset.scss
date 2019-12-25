@@ -8,7 +8,11 @@ body {
   padding:0;
   line-height: 1.15;
 }
-
+button{
+	&:disabled{
+		opacity: .85;
+	}
+}
 a, button, input{
 	transition:linear .35s;
 }

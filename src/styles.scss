@@ -140,6 +140,20 @@ app-home{
     max-height: inherit!important;
 	}
 }
+.mat-form-field-infix{
+  &:after{
+		right:20px!important;
+		width:15px!important;
+		height:15px!important;
+		margin-top:-6.5px!important;
+		border:none!important;
+		background-image: url('/assets/image/next.svg');
+		background-size:cover;
+		transform: rotate(90deg);
+		transform-origin: center;
+		background-position:50%;
+  }
+}
 html, body { height: 100%; color:#313131;}
 body { margin: 0; font-family: $gr, sans-serif; }
 

@@ -15,6 +15,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSidenavModule } from '@angular/material';
 import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule, MAT_EXPANSION_PANEL_DEFAULT_OPTIONS } from '@angular/material';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material';
+
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -34,6 +37,8 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+import { PersonalContactComponent } from './pages/profile/personal-contact/personal-contact.component';
+import { EducationComponent } from './pages/profile/education/education.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -55,6 +60,8 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     NotFoundComponent,
     JobDescriptionComponent,
     HomeComponent,
+    PersonalContactComponent,
+    EducationComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -74,6 +81,8 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     MatSidenavModule,
     MatIconModule,
     MatExpansionModule,
+    MatSelectModule,
+    MatInputModule,
     NgCircleProgressModule.forRoot({}),
     SnackbarModule.forRoot()
   ],

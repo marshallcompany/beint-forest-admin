@@ -1,0 +1,92 @@
+@import "../../../theme/variables.scss";
+.edit-wrp{
+    display: flex;
+    flex-direction: column;
+}
+.edit-header{
+    padding:0 12px;
+    margin-bottom:50px;
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+}
+.edit-title-box{
+    display: flex;
+    align-items:center;
+    &__icon{
+        margin-right:5px;
+        width:35px;
+        height:35px;
+        border-radius:50%;
+        background-color: $yellow;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        svg{
+            fill:#ffffff;
+            height:15px;
+        }
+    }
+    &__text{
+        font-family:Regular, WorkSans;
+        font-size: 18px;
+    }
+}
+.edit-navigation{
+    display: flex;
+    &__btn{
+        background-color:transparent;
+        margin-right:10px;
+        display: block;
+        height: 25px;
+        width:25px;
+        position:relative;
+        &:last-child{
+            margin-right:0;
+        }
+        img{
+            position: absolute;
+            left:50%;
+            top:50%;
+            transform:translate(-50%, -50%);
+            height: 20px;
+        }
+    }
+}
+.edit-item{
+    margin-bottom:15px;
+    mat-form-field{
+        width:100%;
+        box-shadow: 0px 2px 5px #00000026;
+        border-radius: 10px;
+        select{
+            padding:0;
+            top:0;
+            margin-bottom:0;
+            padding:15px 20px;
+            font-family:Regular, WorkSans;
+            font-size: 14px;
+            font-weight: 500;
+        }
+    }
+
+    &__label{
+        opacity: 0.5;
+        font-size: 20px;
+        margin-bottom:10px;
+        padding-left:15px;
+        font-family:Regular, WorkSans;
+        font-size: 14px;
+    }
+    &__input{
+        box-shadow: 0px 2px 5px #00000026;
+        border-radius: 10px;
+        width:100%;
+        border:0;
+        padding:15px 20px;
+        font-weight: 500;
+        color:#313131;
+        font-family:Regular, WorkSans;
+        font-size: 14px;
+    }
+}
