@@ -58,7 +58,6 @@ export class AppComponent implements OnInit {
 
   public goToComponent = (name: string, nav: any) => {
     this.router.navigate([`${name}`]);
-    // nav.toggle();
   }
 
   public logout = () => {

@@ -120,13 +120,15 @@
   <button
     class="navigation-btn navigation-btn_home"
     (click)="goToComponent('/home')"
-    [ngClass]="{'active': activeRouter === '/home'}">
+    [disabled]="activeRouter?.includes('/home')"
+    [ngClass]="{'active': activeRouter?.includes('/home')}">
     <span>b</span>
   </button>
   <button
     class="navigation-btn"
     (click)="goToComponent('/profile')"
-    [ngClass]="{'active': activeRouter === '/profile'}">
+    [disabled]="activeRouter?.includes('/profile')"
+    [ngClass]="{'active': activeRouter?.includes('/profile')}">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" class="navigation-btn__icon">
       <g transform="translate(0)">
         <g transform="translate(0)">

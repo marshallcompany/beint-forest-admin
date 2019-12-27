@@ -18,7 +18,6 @@ export class PersonalContactComponent implements OnInit {
   public personal: FormGroupName;
   public contact: FormGroupName;
   public residence: FormGroupName;
-  public categoryData: any;
 
   constructor(
     public formBuilder: FormBuilder,
@@ -79,7 +78,6 @@ export class PersonalContactComponent implements OnInit {
       .subscribe(
         profileData => {
           console.log('[ EDIT PROFILE DATA ]', profileData);
-          this.categoryData = profileData;
           this.formInit(profileData);
         },
         err => {

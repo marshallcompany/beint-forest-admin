@@ -290,8 +290,15 @@ mat-expansion-panel{
   height:50px;
   width:100%;
   background-color:transparent;
+  &.acord-active{
+    i{
+      transform: rotate(180deg);
+      transform-origin: center;
+    }
+  }
   i{
     font-size: 30px;
+    transition: .35s linear;
   }
 }
 // TOP OFFER DETAILS
@@ -331,6 +338,7 @@ mat-expansion-panel{
   display: block;
   width:300px;
   padding:15px 0;
+  font-size: 17px;
   background-color: $primary;
   color:#ffffff;
   text-transform: uppercase;
@@ -499,18 +507,18 @@ mat-expansion-panel{
   }
   .offer-info{
     &__date{
-      font-size: 16px;
+      font-size: 14px;
     }
     &__vacancy{
-      font-size: 18px;
+      font-size: 17px;
     }
     &__scope{
-      font-size: 18px;
+      font-size: 17px;
     }
     &__company{
-      font-size: 18px;
+      font-size: 17px;
       img{
-        height:15px;
+        height:18px;
         margin-right:10px;
       }
     }
@@ -518,16 +526,16 @@ mat-expansion-panel{
   .offer-details-item{
     padding:10px 0;
     &__label{
-      font-size: 18px;
+      font-size: 17px;
     }
     &__info{
-      font-size: 18px;
+      font-size: 17px;
     }
   }
 }
 @media screen and (max-width:568px){
   .container{
-		padding:0 15px;
+		padding:0 20px;
   }
   .user-information{
     &__name{
@@ -579,8 +587,9 @@ mat-expansion-panel{
     padding:10px;
   }
   .apply-btn{
-    width:200px;
-    padding:10px 0;
+    max-width:295px;
+    width:100%;
+    padding:15px 0;
     margin:15px auto;
     box-shadow: 0px 5px 10px #00000026;
   }

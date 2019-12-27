@@ -166,13 +166,20 @@
     }
     .category-item{
         width:49%;
-        height:200px;
+        height:180px;
         margin-bottom:10px;
+    }
+    .category-status{
+        width:25px;
+        height:25px;
+        &__icon{
+            height:12px;
+        }
     }
 }
 @media screen and (max-width:568px){
 	.container{
-		padding:0 15px;
+		padding:0 25px;
 	}
 }
 @media screen and (max-width:480px) {
@@ -186,9 +193,6 @@
     }
 }
 @media screen and (max-width:414px) {
-    .container{
-		padding:0 10px;
-	}
     .category-item{
         width:49%;
         height: 155px;

@@ -25,25 +25,30 @@ import {
 
 
 import { AppComponent } from './app.component';
+import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { JobDescriptionComponent } from './pages/job-description/job-description.component';
+import { PersonalContactComponent } from './pages/profile/personal-contact/personal-contact.component';
+import { EducationComponent } from './pages/profile/education/education.component';
+import { OfferComponent } from './pages/offer/offer.component';
+import { OfferThanksComponent } from './pages/offer/offer-thanks/offer-thanks.component';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpMultiLoaderServiceService } from './services/http-multi-loader-service';
 import { NotificationService } from './services/notification.service';
 import { GlobalErrorService } from './services/global-error-service';
 import { SnackbarModule } from 'ngx-snackbar';
-import { HomeComponent } from './pages/home/home.component';
+
 
 import { NgCircleProgressModule } from 'ng-circle-progress';
 
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
-import { PersonalContactComponent } from './pages/profile/personal-contact/personal-contact.component';
-import { EducationComponent } from './pages/profile/education/education.component';
+
+
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -67,6 +72,8 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     HomeComponent,
     PersonalContactComponent,
     EducationComponent,
+    OfferComponent,
+    OfferThanksComponent,
   ],
   imports: [
     AppRoutingModule,

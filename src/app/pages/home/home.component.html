@@ -5,7 +5,7 @@
     <div class="user-information">
       <div class="user-avatar">
         <circle-progress
-          [percent]="30"
+          [percent]="65"
           [radius]="100"
           [outerStrokeColor]="'#ffffff'"
           [innerStrokeColor]="'transparent'"
@@ -26,7 +26,7 @@
         class="user-information__name"
         *ngIf="user">Hey {{user.profile.personal.firstName}}!</p>
       <p class="user-information__description">
-       Your profile is <strong>30%</strong> complete. Fill in missing information and increase your chance when applying.
+       Your profile is <strong>65%</strong> complete. Fill in missing information and increase your chance when applying.
       </p>
     </div>
     <button
@@ -123,7 +123,9 @@
           </svg>
           <span>YOUR TOP MATCHES</span>
         </h2>
-        <div class="offer-item">
+        <div
+          class="offer-item"
+          *ngFor="let item of acord; let i = index">
           <div class="offer-preview-header">
             <div class="offer-logo">
               <p class="logo-default">
@@ -145,14 +147,17 @@
               <div class="offer-status"></div>
             </div>
           </div>
-          <mat-expansion-panel [(expanded)]="i">
+          <mat-expansion-panel
+            (opened)="openGroup(i)"
+            (closed)="closeGroup(i)"
+            #mep="matExpansionPanel">
             <mat-expansion-panel-header>
               <!-- offer preview -->
               <div class="offer-preview">
                 <div class="offer-info">
                   <p class="offer-info__date">01.11.2019</p>
-                  <p class="offer-info__vacancy">UI/UX Designer/in</p>
-                  <p class="offer-info__scope">Marketing</p>
+                  <p class="offer-info__vacancy">{{item.title}}</p>
+                  <p class="offer-info__scope">{{item.category}}</p>
                   <p class="offer-info__company">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70.514 65.286"><path d="M67.76,62.094a2.754,2.754,0,0,0,2.754-2.754V41.16A11.03,11.03,0,0,0,59.5,30.142H47.642V26.551a7.578,7.578,0,0,0-7.57-7.57h-9.63a7.578,7.578,0,0,0-7.57,7.57v3.591H11.018A11.03,11.03,0,0,0,0,41.16v32.09A11.03,11.03,0,0,0,11.018,84.267H59.5A11.03,11.03,0,0,0,70.514,73.249a2.754,2.754,0,0,0-5.509,0A5.515,5.515,0,0,1,59.5,78.758H11.018a5.515,5.515,0,0,1-5.509-5.509V53.687H32.64v4.137a2.754,2.754,0,0,0,5.509,0V53.687H65.005v5.652A2.754,2.754,0,0,0,67.76,62.094ZM28.381,26.551a2.063,2.063,0,0,1,2.061-2.061h9.63a2.063,2.063,0,0,1,2.061,2.061v3.591H28.381V26.551ZM5.509,48.178V41.16a5.515,5.515,0,0,1,5.509-5.509H59.5a5.515,5.515,0,0,1,5.509,5.509v7.019Z" transform="translate(0 -18.981)"/>
                     </svg>
@@ -221,11 +226,18 @@
                   </div>
                 </div>
               </div>
-              <button class="apply-btn">Apply now</button>
+              <button
+                class="apply-btn"
+                (click)="offer(item.id)">
+                Apply now
+              </button>
             </div>
           </mat-expansion-panel>
           <!-- show offer button -->
-          <button class="show-offer-btn">
+          <button
+            class="show-offer-btn"
+            (click)="mep.expanded = !mep.expanded"
+            #i>
             <i class="material-icons">
                 keyboard_arrow_down
               </i>

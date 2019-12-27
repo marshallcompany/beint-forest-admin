@@ -11,7 +11,8 @@ import { JobDescriptionComponent } from './pages/job-description/job-description
 import { HomeComponent } from './pages/home/home.component';
 import { PersonalContactComponent } from './pages/profile/personal-contact/personal-contact.component';
 import { EducationComponent } from './pages/profile/education/education.component';
-
+import { OfferComponent } from './pages/offer/offer.component';
+import { OfferThanksComponent } from './pages/offer/offer-thanks/offer-thanks.component';
 
 const itemRoutes: Routes = [
   { path: 'personal&contact', component: PersonalContactComponent },
@@ -22,6 +23,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [WelcomeGuard] },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard], children: itemRoutes },
+  { path: 'offer/:jobId', component: OfferComponent, canActivate: [AuthGuard] },
+  { path: 'offer-thanks', component: OfferThanksComponent, canActivate: [AuthGuard] },
   { path: 'job-description', component: JobDescriptionComponent, canActivate: [AuthGuard] },
   { path: 'apply/:jobId/keep/:keep', component: JobDescriptionComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: '/home', pathMatch: 'full', canActivate: [AuthGuard] },
@@ -30,7 +33,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(
-    routes,
+    routes
     // { enableTracing: true }
   )],
   exports: [RouterModule]
