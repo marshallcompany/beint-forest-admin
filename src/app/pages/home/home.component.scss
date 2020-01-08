@@ -178,6 +178,7 @@ mat-expansion-panel{
   display: flex;
   flex-wrap:wrap;
   align-items: flex-start;
+  justify-content: space-between;
   &__title{
     margin-bottom:20px;
     display:flex;
@@ -498,6 +499,7 @@ mat-expansion-panel{
   }
   .top-offer-box{
     &__title{
+      width:100%;
       justify-content: flex-start;
       font-size: 18px;
     }

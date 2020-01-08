@@ -28,7 +28,6 @@
         }
     }
     &__text{
-        font-family:Regular, WorkSans;
         font-size: 18px;
     }
 }
@@ -36,7 +35,7 @@
     display: flex;
     &__btn{
         background-color:transparent;
-        margin-right:10px;
+        margin-right:25px;
         display: block;
         height: 25px;
         width:25px;
@@ -119,7 +118,6 @@ textarea{
             top:0;
             margin-bottom:0;
             padding:15px 15px;
-            font-family:Regular, WorkSans;
             font-size: 14px;
             font-weight: 500;
         }
@@ -141,7 +139,6 @@ textarea{
         font-size: 20px;
         margin-bottom:10px;
         padding-left:15px;
-        font-family:Regular, WorkSans;
         font-size: 14px;
     }
     &__input{
@@ -152,7 +149,6 @@ textarea{
         padding:15px 15px;
         font-weight: 500;
         color:#313131;
-        font-family:Regular, WorkSans;
         font-size: 14px;
         &::placeholder{
             color:#989898;

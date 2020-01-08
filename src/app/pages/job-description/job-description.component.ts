@@ -60,7 +60,7 @@ export class JobDescriptionComponent implements OnInit {
   }
 
   public animationRatingJob = () => {
-    this.rating = 65;
+    this.rating = 81;
     this.ratingNumber = 0;
     const set = setInterval(() => {
       if (this.ratingNumber !== this.rating) {
