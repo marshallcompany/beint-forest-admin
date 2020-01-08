@@ -1,0 +1,31 @@
+version: "3.4"
+
+services:
+  web:
+    build:
+      context: ../../.
+      target: build-stage
+      args:
+        - BUILD=0
+    container_name: beint_web_app
+    command: npm start --host 0.0.0.0
+    restart: always
+    env_file:
+      - './.env'
+      - '../../.env'
+    ports:
+      - "${LISTEN_HOST}:${LISTEN_PORT}:4200"
+    volumes:
+       - ../../src:/app/src
+       - ../../e2e:/app/e2e
+       - ../../dist:/app/dist
+    networks:
+      - public
+
+volumes:
+  web:
+    driver: local
+
+networks:
+  public:
+    driver: bridge

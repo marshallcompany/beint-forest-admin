@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  BASE_API_URL: 'http://localhost:3000',
+  BASE_API_URL: 'http://18.196.26.31:3000', // for test server TODO make this configurable via .env vars
+  // BASE_API_URL: 'http://localhost:3000', // for local dev purposes
 };
 
 /*
