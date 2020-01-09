@@ -34,29 +34,29 @@ export class PersonalContactComponent implements OnInit {
   public formInit = (profileData) => {
     this.form = this.formBuilder.group({
       personal: this.formBuilder.group({
-        academicTitle: new FormControl(profileData.personal.academicTitle),
+        academicTitle: new FormControl(!profileData.personal.academicTitle ? '' : profileData.personal.academicTitle),
         avatarUri: new FormControl(null),
-        birthPlace: new FormControl(profileData.personal.birthPlace),
-        dateBirth: new FormControl(profileData.personal.dateBirth),
-        firstName: new FormControl(profileData.personal.firstName),
-        gender: new FormControl(profileData.personal.gender),
-        lastName: new FormControl(profileData.personal.lastName),
-        middleName: new FormControl(profileData.personal.middleName),
-        nationality: new FormControl(profileData.personal.nationality)
+        birthPlace: new FormControl(!profileData.personal.birthPlace ? '' : profileData.personal.birthPlace),
+        dateBirth: new FormControl(!profileData.personal.dateBirth ? '' : profileData.personal.dateBirth),
+        firstName: new FormControl(!profileData.personal.firstName ? '' : profileData.personal.firstName),
+        gender: new FormControl(!profileData.personal.gender ? 'male' : profileData.personal.gender),
+        lastName: new FormControl(!profileData.personal.lastName ? '' : profileData.personal.lastName),
+        middleName: new FormControl(!profileData.personal.middleName ? '' : profileData.personal.middleName),
+        nationality: new FormControl(!profileData.personal.nationality ? '' : profileData.personal.nationality)
       }),
       contact: this.formBuilder.group({
-        facebook: new FormControl(profileData.contact.facebook),
-        instagram: new FormControl(profileData.contact.instagram),
-        linkedin: new FormControl(profileData.contact.linkedin),
-        phoneNumberLandline: new FormControl(profileData.contact.phoneNumberLandline),
-        phoneNumberMobile: new FormControl(profileData.contact.phoneNumberMobile),
-        skype: new FormControl(profileData.contact.skype),
-        xing: new FormControl(profileData.contact.xing),
+        facebook: new FormControl(!profileData.contact.facebook ? '' : profileData.contact.facebook),
+        instagram: new FormControl(!profileData.contact.instagram ? '' : profileData.contact.instagram),
+        linkedin: new FormControl(!profileData.contact.linkedin ? '' : profileData.contact.linkedin),
+        phoneNumberLandline: new FormControl(!profileData.contact.phoneNumberLandline ? '' : profileData.contact.phoneNumberLandline),
+        phoneNumberMobile: new FormControl(!profileData.contact.phoneNumberMobile ? '' : profileData.contact.phoneNumberMobile),
+        skype: new FormControl(!profileData.contact.skype ? '' : profileData.contact.skype),
+        xing: new FormControl(!profileData.contact.xing ? '' : profileData.contact.xing),
         residence: this.formBuilder.group({
-          houseNumber: new FormControl(profileData.contact.residence.houseNumber),
-          place: new FormControl(profileData.contact.residence.place),
-          street: new FormControl(profileData.contact.residence.street),
-          zipCode: new FormControl(profileData.contact.residence.zipCode),
+          houseNumber: new FormControl(profileData.contact.residence === undefined ? '' : profileData.contact.residence.houseNumber),
+          place: new FormControl(profileData.contact.residence === undefined ? '' : profileData.contact.residence.place),
+          street: new FormControl(profileData.contact.residence === undefined ? '' : profileData.contact.residence.street),
+          zipCode: new FormControl(profileData.contact.residence === undefined ? '' : profileData.contact.residence.zipCode),
         })
       }),
     });

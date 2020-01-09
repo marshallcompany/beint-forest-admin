@@ -40,55 +40,113 @@ export class EducationComponent implements OnInit {
 
 
   public formInit = () => {
-    this.schoolForm = this.formBuilder.group({
-      education: this.formBuilder.group({
-        schools: this.formBuilder.array([
-          this.formBuilder.group({
-            certificate: new FormControl(null),
-            dateFinish: new FormControl(this.dataProfile.profile.education.schools[0].dateFinish),
-            degree: new FormControl(this.dataProfile.profile.education.schools[0].degree),
-            note: new FormControl(this.dataProfile.profile.education.schools[0].note),
-            schoolName: new FormControl(this.dataProfile.profile.education.schools[0].schoolName)
-          })
-          // this.createSchoolItem()
-        ])
-      })
-    });
-    this.educationForm = this.formBuilder.group({
-      education: this.formBuilder.group({
-        specialEducation: this.formBuilder.array([
-          this.formBuilder.group({
-            certificate: new FormControl(null),
-            dateFinish: new FormControl(this.dataProfile.profile.education.specialEducation[0].dateFinish),
-            isCompleted: new FormControl(this.dataProfile.profile.education.specialEducation[0].isCompleted),
-            note: new FormControl(this.dataProfile.profile.education.specialEducation[0].note),
-            professionalEducation: new FormControl(this.dataProfile.profile.education.specialEducation[0].professionalEducation),
-            trainingCompany: new FormControl(this.dataProfile.profile.education.specialEducation[0].trainingCompany),
-            trainingLocation: new FormControl(this.dataProfile.profile.education.specialEducation[0].trainingLocation),
-          })
-          // this.createEducationItem()
-        ])
-      })
-    });
-    this.universityForm = this.formBuilder.group({
-      education: this.formBuilder.group({
-        universities: this.formBuilder.array([
-          this.formBuilder.group({
-            certificate: new FormControl(null),
-            courseOfStudy: new FormControl(this.dataProfile.profile.education.universities[0].courseOfStudy),
-            dateFinish: new FormControl(this.dataProfile.profile.education.universities[0].dateFinish),
-            dateStart: new FormControl(this.dataProfile.profile.education.universities[0].dateStart),
-            degree: new FormControl(this.dataProfile.profile.education.universities[0].degree),
-            highestDegree: new FormControl(this.dataProfile.profile.education.universities[0].highestDegree),
-            note: new FormControl(this.dataProfile.profile.education.universities[0].note),
-            specialization: new FormControl(this.dataProfile.profile.education.universities[0].specialization),
-            titleThesis: new FormControl(this.dataProfile.profile.education.universities[0].titleThesis),
-            universityName: new FormControl(this.dataProfile.profile.education.universities[0].universityName),
-          })
-          // this.createUniversityItem()
-        ])
-      })
-    });
+    if (this.dataProfile && this.dataProfile.profile && this.dataProfile.profile.education && this.dataProfile.profile.education.schools.length !== 0) {
+      this.schoolForm = this.formBuilder.group({
+        education: this.formBuilder.group({
+          schools: this.formBuilder.array([
+            this.formBuilder.group({
+              certificate: new FormControl(null),
+              dateFinish: new FormControl(this.dataProfile.profile.education.schools[0].dateFinish),
+              degree: new FormControl(this.dataProfile.profile.education.schools[0].degree),
+              note: new FormControl(this.dataProfile.profile.education.schools[0].note),
+              schoolName: new FormControl(this.dataProfile.profile.education.schools[0].schoolName)
+            })
+            // this.createSchoolItem()
+          ])
+        })
+      });
+    } else {
+      this.schoolForm = this.formBuilder.group({
+        education: this.formBuilder.group({
+          schools: this.formBuilder.array([
+            this.formBuilder.group({
+              certificate: new FormControl(null),
+              dateFinish: new FormControl(''),
+              degree: new FormControl(''),
+              note: new FormControl(''),
+              schoolName: new FormControl('')
+            })
+            // this.createSchoolItem()
+          ])
+        })
+      });
+    }
+    if (this.dataProfile && this.dataProfile.profile && this.dataProfile.profile.education && this.dataProfile.profile.education.specialEducation.length !== 0) {
+      this.educationForm = this.formBuilder.group({
+        education: this.formBuilder.group({
+          specialEducation: this.formBuilder.array([
+            this.formBuilder.group({
+              certificate: new FormControl(null),
+              dateFinish: new FormControl(this.dataProfile.profile.education.specialEducation[0].dateFinish),
+              isCompleted: new FormControl(this.dataProfile.profile.education.specialEducation[0].isCompleted),
+              note: new FormControl(this.dataProfile.profile.education.specialEducation[0].note),
+              professionalEducation: new FormControl(this.dataProfile.profile.education.specialEducation[0].professionalEducation),
+              trainingCompany: new FormControl(this.dataProfile.profile.education.specialEducation[0].trainingCompany),
+              trainingLocation: new FormControl(this.dataProfile.profile.education.specialEducation[0].trainingLocation),
+            })
+            // this.createEducationItem()
+          ])
+        })
+      });
+    } else {
+      this.educationForm = this.formBuilder.group({
+        education: this.formBuilder.group({
+          specialEducation: this.formBuilder.array([
+            this.formBuilder.group({
+              certificate: new FormControl(null),
+              dateFinish: new FormControl(''),
+              isCompleted: new FormControl(true),
+              note: new FormControl(''),
+              professionalEducation: new FormControl(''),
+              trainingCompany: new FormControl(''),
+              trainingLocation: new FormControl(''),
+            })
+            // this.createEducationItem()
+          ])
+        })
+      });
+    }
+    if (this.dataProfile && this.dataProfile.profile && this.dataProfile.profile.education && this.dataProfile.profile.education.universities.length !== 0) {
+      this.universityForm = this.formBuilder.group({
+        education: this.formBuilder.group({
+          universities: this.formBuilder.array([
+            this.formBuilder.group({
+              certificate: new FormControl(null),
+              courseOfStudy: new FormControl(this.dataProfile.profile.education.universities[0].courseOfStudy),
+              dateFinish: new FormControl(this.dataProfile.profile.education.universities[0].dateFinish),
+              dateStart: new FormControl(this.dataProfile.profile.education.universities[0].dateStart),
+              degree: new FormControl(this.dataProfile.profile.education.universities[0].degree),
+              highestDegree: new FormControl(this.dataProfile.profile.education.universities[0].highestDegree),
+              note: new FormControl(this.dataProfile.profile.education.universities[0].note),
+              specialization: new FormControl(this.dataProfile.profile.education.universities[0].specialization),
+              titleThesis: new FormControl(this.dataProfile.profile.education.universities[0].titleThesis),
+              universityName: new FormControl(this.dataProfile.profile.education.universities[0].universityName),
+            })
+            // this.createUniversityItem()
+          ])
+        })
+      });
+    } else {
+      this.universityForm = this.formBuilder.group({
+        education: this.formBuilder.group({
+          universities: this.formBuilder.array([
+            this.formBuilder.group({
+              certificate: new FormControl(null),
+              courseOfStudy: new FormControl(''),
+              dateFinish: new FormControl(''),
+              dateStart: new FormControl(''),
+              degree: new FormControl(''),
+              highestDegree: new FormControl(''),
+              note: new FormControl(''),
+              specialization: new FormControl(''),
+              titleThesis: new FormControl(''),
+              universityName: new FormControl(''),
+            })
+            // this.createUniversityItem()
+          ])
+        })
+      });
+    }
   }
 
   createSchoolItem(): FormGroup {
