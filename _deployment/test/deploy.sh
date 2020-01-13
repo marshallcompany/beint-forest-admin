@@ -6,6 +6,8 @@ set -e
 
 PROJECT_NAME='beint_web_app-test'
 
+docker network create beint-internal || true
+
 docker-compose --project-name $PROJECT_NAME kill
 docker-compose --project-name $PROJECT_NAME rm -f
 docker-compose --project-name $PROJECT_NAME pull

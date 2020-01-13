@@ -1,9 +1,7 @@
 version: "3.4"
 
-#todo config letsencrypt for domain later
-
 services:
-  web:
+  web_candidate:
     build:
       context: ../../.
       args:
@@ -19,15 +17,16 @@ services:
       - "${LISTEN_HOST}:${GATEWAY_PORT_HTTP}:80"
       - "${LISTEN_HOST}:${GATEWAY_PORT_SSL}:443"
     volumes:
-      - ./gateway.conf:/external_confs/gateway.conf:ro # todo config domain for project
+      - ./gateway.conf:/external_confs/gateway.conf:ro
     command: /bin/sh -c "envsubst '' < /external_confs/gateway.conf > /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"
     networks:
-      - public
+      - beint-internal
 
 volumes:
-  web:
+  web_candidate:
     driver: local
 
 networks:
-  public:
+  beint-internal:
+    external: true
     driver: bridge
