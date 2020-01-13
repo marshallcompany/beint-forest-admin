@@ -20,13 +20,13 @@ services:
       - ./gateway.conf:/external_confs/gateway.conf:ro
     command: /bin/sh -c "envsubst '' < /external_confs/gateway.conf > /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"
     networks:
-      - beint-internal
+      - beint-common
 
 volumes:
   web_candidate:
     driver: local
 
 networks:
-  beint-internal:
+  beint-common:
     external: true
     driver: bridge
