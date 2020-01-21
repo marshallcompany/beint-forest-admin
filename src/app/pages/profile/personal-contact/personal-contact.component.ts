@@ -53,10 +53,10 @@ export class PersonalContactComponent implements OnInit {
         skype: new FormControl(!profileData.contact.skype ? '' : profileData.contact.skype),
         xing: new FormControl(!profileData.contact.xing ? '' : profileData.contact.xing),
         residence: this.formBuilder.group({
-          houseNumber: new FormControl(profileData.contact.residence === undefined ? '' : profileData.contact.residence.houseNumber),
-          place: new FormControl(profileData.contact.residence === undefined ? '' : profileData.contact.residence.place),
-          street: new FormControl(profileData.contact.residence === undefined ? '' : profileData.contact.residence.street),
-          zipCode: new FormControl(profileData.contact.residence === undefined ? '' : profileData.contact.residence.zipCode),
+          houseNumber: new FormControl(!profileData.contact.residence ? '' : profileData.contact.residence.houseNumber),
+          place: new FormControl(!profileData.contact.residence ? '' : profileData.contact.residence.place),
+          street: new FormControl(!profileData.contact.residence ? '' : profileData.contact.residence.street),
+          zipCode: new FormControl(!profileData.contact.residence ? '' : profileData.contact.residence.zipCode),
         })
       }),
     });

@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, FormArray, FormControl, FormGroupName } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, FormGroupName } from '@angular/forms';
 import { ProfileService } from 'src/app/services/profile.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { map } from 'rxjs/operators';
 
-import * as moment from 'moment';
 
 @Component({
   selector: 'app-education',
@@ -14,18 +13,13 @@ import * as moment from 'moment';
 })
 export class EducationComponent implements OnInit {
 
-  schoolForm: FormGroup;
+  form: FormGroup;
+  education: FormGroupName;
   schools: FormArray;
-
-  universityForm: FormGroup;
   universities: FormArray;
-
-  educationForm: FormGroup;
   specialEducation: FormArray;
 
-  education: FormGroupName;
-
-  public dataProfile: any;
+  public profile: any;
 
   constructor(
     public formBuilder: FormBuilder,
@@ -38,186 +32,22 @@ export class EducationComponent implements OnInit {
     this.init();
   }
 
-
-  public formInit = () => {
-    if (this.dataProfile && this.dataProfile.profile && this.dataProfile.profile.education && this.dataProfile.profile.education.schools.length !== 0) {
-      this.schoolForm = this.formBuilder.group({
-        education: this.formBuilder.group({
-          schools: this.formBuilder.array([
-            this.formBuilder.group({
-              certificate: new FormControl(null),
-              dateFinish: new FormControl(this.dataProfile.profile.education.schools[0].dateFinish),
-              degree: new FormControl(this.dataProfile.profile.education.schools[0].degree),
-              note: new FormControl(this.dataProfile.profile.education.schools[0].note),
-              schoolName: new FormControl(this.dataProfile.profile.education.schools[0].schoolName)
-            })
-            // this.createSchoolItem()
-          ])
-        })
-      });
-    } else {
-      this.schoolForm = this.formBuilder.group({
-        education: this.formBuilder.group({
-          schools: this.formBuilder.array([
-            this.formBuilder.group({
-              certificate: new FormControl(null),
-              dateFinish: new FormControl(''),
-              degree: new FormControl(''),
-              note: new FormControl(''),
-              schoolName: new FormControl('')
-            })
-            // this.createSchoolItem()
-          ])
-        })
-      });
-    }
-    if (this.dataProfile && this.dataProfile.profile && this.dataProfile.profile.education && this.dataProfile.profile.education.specialEducation.length !== 0) {
-      this.educationForm = this.formBuilder.group({
-        education: this.formBuilder.group({
-          specialEducation: this.formBuilder.array([
-            this.formBuilder.group({
-              certificate: new FormControl(null),
-              dateFinish: new FormControl(this.dataProfile.profile.education.specialEducation[0].dateFinish),
-              isCompleted: new FormControl(this.dataProfile.profile.education.specialEducation[0].isCompleted),
-              note: new FormControl(this.dataProfile.profile.education.specialEducation[0].note),
-              professionalEducation: new FormControl(this.dataProfile.profile.education.specialEducation[0].professionalEducation),
-              trainingCompany: new FormControl(this.dataProfile.profile.education.specialEducation[0].trainingCompany),
-              trainingLocation: new FormControl(this.dataProfile.profile.education.specialEducation[0].trainingLocation),
-            })
-            // this.createEducationItem()
-          ])
-        })
-      });
-    } else {
-      this.educationForm = this.formBuilder.group({
-        education: this.formBuilder.group({
-          specialEducation: this.formBuilder.array([
-            this.formBuilder.group({
-              certificate: new FormControl(null),
-              dateFinish: new FormControl(''),
-              isCompleted: new FormControl(true),
-              note: new FormControl(''),
-              professionalEducation: new FormControl(''),
-              trainingCompany: new FormControl(''),
-              trainingLocation: new FormControl(''),
-            })
-            // this.createEducationItem()
-          ])
-        })
-      });
-    }
-    if (this.dataProfile && this.dataProfile.profile && this.dataProfile.profile.education && this.dataProfile.profile.education.universities.length !== 0) {
-      this.universityForm = this.formBuilder.group({
-        education: this.formBuilder.group({
-          universities: this.formBuilder.array([
-            this.formBuilder.group({
-              certificate: new FormControl(null),
-              courseOfStudy: new FormControl(this.dataProfile.profile.education.universities[0].courseOfStudy),
-              dateFinish: new FormControl(this.dataProfile.profile.education.universities[0].dateFinish),
-              dateStart: new FormControl(this.dataProfile.profile.education.universities[0].dateStart),
-              degree: new FormControl(this.dataProfile.profile.education.universities[0].degree),
-              highestDegree: new FormControl(this.dataProfile.profile.education.universities[0].highestDegree),
-              note: new FormControl(this.dataProfile.profile.education.universities[0].note),
-              specialization: new FormControl(this.dataProfile.profile.education.universities[0].specialization),
-              titleThesis: new FormControl(this.dataProfile.profile.education.universities[0].titleThesis),
-              universityName: new FormControl(this.dataProfile.profile.education.universities[0].universityName),
-            })
-            // this.createUniversityItem()
-          ])
-        })
-      });
-    } else {
-      this.universityForm = this.formBuilder.group({
-        education: this.formBuilder.group({
-          universities: this.formBuilder.array([
-            this.formBuilder.group({
-              certificate: new FormControl(null),
-              courseOfStudy: new FormControl(''),
-              dateFinish: new FormControl(''),
-              dateStart: new FormControl(''),
-              degree: new FormControl(''),
-              highestDegree: new FormControl(''),
-              note: new FormControl(''),
-              specialization: new FormControl(''),
-              titleThesis: new FormControl(''),
-              universityName: new FormControl(''),
-            })
-            // this.createUniversityItem()
-          ])
-        })
-      });
-    }
-  }
-
-  createSchoolItem(): FormGroup {
-    return this.formBuilder.group({
-      certificate: new FormControl(null),
-      dateFinish: new FormControl(''),
-      degree: new FormControl(''),
-      note: new FormControl(''),
-      schoolName: new FormControl('')
-    });
-  }
-
-  addSchoolItem() {
-    this.schools = this.schoolForm.get('education').get('schools') as FormArray;
-    this.schools.push(this.createSchoolItem());
-  }
-
-  createUniversityItem(): FormGroup {
-    return this.formBuilder.group({
-      certificate: new FormControl(null),
-      courseOfStudy: new FormControl(''),
-      dateFinish: new FormControl(''),
-      dateStart: new FormControl(''),
-      degree: new FormControl(''),
-      highestDegree: new FormControl(''),
-      note: new FormControl(''),
-      specialization: new FormControl(''),
-      titleThesis: new FormControl(''),
-      universityName: new FormControl(''),
-    });
-  }
-
-  addUniversityItem() {
-    this.universities = this.universityForm.get('education').get('universities') as FormArray;
-    this.universities.push(this.createUniversityItem());
-  }
-
-  createEducationItem(): FormGroup {
-    return this.formBuilder.group({
-      certificate: new FormControl(null),
-      dateFinish: new FormControl(''),
-      isCompleted: new FormControl(''),
-      note: new FormControl(''),
-      professionalEducation: new FormControl(''),
-      trainingCompany: new FormControl(''),
-      trainingLocation: new FormControl(''),
-    });
-  }
-
-  addEducationItem() {
-    this.specialEducation = this.educationForm.get('education').get('specialEducation') as FormArray;
-    this.specialEducation.push(this.createEducationItem());
-  }
-
   public init = () => {
     this.profileService.getProfile()
       .pipe(
-        // map((fullProfileData: any) => {
-        //   if (fullProfileData.profile && fullProfileData.profile.personal && fullProfileData.profile.contact) {
-        //     return {
-        //       personal: fullProfileData.profile.personal,
-        //       contact: fullProfileData.profile.contact
-        //     };
-        //   }
-        //   return fullProfileData;
-        // })
+        map((fullProfileData: any) => {
+          if (fullProfileData.profile && fullProfileData.profile.education) {
+            return {
+              education: fullProfileData.profile.education
+            };
+          }
+          return fullProfileData;
+        })
       )
       .subscribe(
         profileData => {
-          this.dataProfile = profileData;
-          this.formInit();
+          this.profile = profileData;
+          this.formInit(profileData);
           console.log('[ EDIT PROFILE DATA ]', profileData);
         },
         err => {
@@ -227,6 +57,148 @@ export class EducationComponent implements OnInit {
           console.log('[ EDIT PROFILE DATA DONE ]');
         }
       );
+  }
+
+  public formInit = (profileData) => {
+    this.form = this.formBuilder.group({
+      education: this.formBuilder.group({
+        schools: this.formBuilder.array([]),
+        universities: this.formBuilder.array([]),
+        specialEducation: this.formBuilder.array([]),
+      })
+    });
+
+    this.schools = this.form.get('education').get('schools') as FormArray;
+    this.universities = this.form.get('education').get('universities') as FormArray;
+    this.specialEducation = this.form.get('education').get('specialEducation') as FormArray;
+
+    this.schoolGroupInit(profileData);
+    this.specialEducationGroupInit(profileData);
+    this.universityGroupInit(profileData);
+  }
+  // SCHOOL GROUP
+  public createSchoolGroup = (schools?: any): FormGroup => {
+    if (schools) {
+      return this.formBuilder.group({
+        certificate: [null],
+        dateFinish: [!schools.dateFinish ? '' : schools.dateFinish],
+        degree: [!schools.degree ? '' : schools.degree],
+        note: [!schools.note ? '' : schools.note],
+        schoolName: [!schools.schoolName ? '' : schools.schoolName]
+      });
+    } else {
+      return this.formBuilder.group({
+        certificate: [null],
+        dateFinish: [''],
+        degree: [''],
+        note: [''],
+        schoolName: ['']
+      });
+    }
+  }
+  public addSchoolItem = (feild?: any) => {
+    if (feild) {
+      this.schools.push(this.createSchoolGroup(feild));
+    } else {
+      this.schools.push(this.createSchoolGroup());
+    }
+  }
+  public schoolGroupInit = (profileData) => {
+    if (profileData.education.schools.length !== 0) {
+      profileData.education.schools.forEach(element => {
+        this.addSchoolItem(element);
+      });
+    } else {
+      this.addSchoolItem();
+    }
+  }
+  // SPECIAL EDUCATION
+  public createSpecialEducationGroup = (specialEducation?: any): FormGroup => {
+    if (specialEducation) {
+      return this.formBuilder.group({
+        certificate: [null],
+        dateFinish: [!specialEducation.dateFinish ? '' : specialEducation.dateFinish],
+        isCompleted: [!specialEducation.isCompleted ? '' : specialEducation.isCompleted],
+        note: [!specialEducation.note ? '' : specialEducation.note],
+        professionalEducation: [!specialEducation.professionalEducation ? '' : specialEducation.professionalEducation],
+        trainingCompany: [!specialEducation.trainingCompany ? '' : specialEducation.trainingCompany],
+        trainingLocation: [!specialEducation.trainingLocation ? '' : specialEducation.trainingLocation],
+      });
+    } else {
+      return this.formBuilder.group({
+        certificate: [null],
+        dateFinish: [''],
+        isCompleted: [true],
+        note: [''],
+        professionalEducation: [''],
+        trainingCompany: [''],
+        trainingLocation: [''],
+      });
+    }
+  }
+  public addSpecialEducationItem = (feild?: any) => {
+    if (feild) {
+      this.specialEducation.push(this.createSpecialEducationGroup(feild));
+    } else {
+      this.specialEducation.push(this.createSpecialEducationGroup());
+    }
+  }
+  public specialEducationGroupInit = (profileData) => {
+    if (profileData.education.specialEducation.length !== 0) {
+      profileData.education.specialEducation.forEach(element => {
+        this.addSpecialEducationItem(element);
+      });
+    } else {
+      this.addSpecialEducationItem();
+    }
+  }
+  // UNIVERSITY
+  public createUniversityGroup = (university?: any): FormGroup => {
+    if (university) {
+      return this.formBuilder.group({
+        certificate: [null],
+        courseOfStudy: [!university.courseOfStudy ? '' : university.courseOfStudy],
+        dateFinish: [!university.dateFinish ? '' : university.dateFinish],
+        dateStart: [!university.dateStart ? '' : university.dateStart],
+        degree: [!university.degree ? '' : university.degree],
+        highestDegree: [!university.highestDegree ? '' : university.highestDegree],
+        note: [!university.note ? '' : university.note],
+        specialization: [!university.specialization ? '' : university.specialization],
+        titleThesis: [!university.titleThesis ? '' : university.titleThesis],
+        universityName: [!university.universityName ? '' : university.universityName],
+      });
+    } else {
+      return this.formBuilder.group({
+        certificate: [null],
+        courseOfStudy: [''],
+        dateFinish: [''],
+        dateStart: [''],
+        degree: [''],
+        highestDegree: [''],
+        note: [''],
+        specialization: [''],
+        titleThesis: [''],
+        universityName: [''],
+      });
+    }
+  }
+
+  public addUniversityItem = (feild?: any) => {
+    if (feild) {
+      this.universities.push(this.createUniversityGroup(feild));
+    } else {
+      this.universities.push(this.createUniversityGroup());
+    }
+  }
+
+  public universityGroupInit = (profileData) => {
+    if (profileData.education.universities.length !== 0) {
+      profileData.education.universities.forEach(element => {
+        this.addUniversityItem(element);
+      });
+    } else {
+      this.addUniversityItem();
+    }
   }
 
   prev() {
