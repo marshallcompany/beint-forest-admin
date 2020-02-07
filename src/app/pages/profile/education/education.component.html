@@ -79,10 +79,17 @@
                 <p class="edit-item__label">Certificate</p>
                 <div class="input-decor">
                   <input
-                    type="text"
+                    type="file"
                     class="edit-item__input"
                     placeholder="Upload certificate"
-                    formControlName="certificate">
+                    formControlName="certificate"
+                    #{{uploader
+                    +
+                    i}}
+                    hidden>
+                  <button
+                    (click)="uploader.click()"
+                    class="upload-file-btn"></button>
                   <img src="../assets/image/download.svg">
                 </div>
               </div>
