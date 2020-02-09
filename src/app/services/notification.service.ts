@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 
 import { TranslateService } from '@ngx-translate/core';
-import { SnackbarService } from 'ngx-snackbar';
+
+import { MatSnackBar } from '@angular/material';
 
 
 @Injectable({
@@ -10,19 +11,15 @@ import { SnackbarService } from 'ngx-snackbar';
 export class NotificationService {
 
   constructor(
-    private snakbar: SnackbarService,
     private translate: TranslateService,
+    private snackbar: MatSnackBar
   ) { }
 
-  private show = (mssg: string, type?: string) => {
-    this.snakbar.add({
-      msg: `${mssg}`,
-      customClass: type ? `snackbar-${type}` : 'snackbar-error',
-      timeout: 3000,
-      action: {
-        text: '/',
-        onClick: () => { },
-      },
+  private show = (message: string, type?: string) => {
+    this.snackbar.open(`${message}`, `X`, {
+      duration: 100000,
+      verticalPosition: 'top',
+      panelClass: type ? `snackbar-${type}` : 'snackbar-error'
     });
   }
 

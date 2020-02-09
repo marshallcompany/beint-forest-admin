@@ -22,6 +22,8 @@ import {
   MatFormFieldModule,
   MatInputModule
 } from '@angular/material';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 
 
 import { AppComponent } from './app.component';
@@ -39,7 +41,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpMultiLoaderServiceService } from './services/http-multi-loader-service';
 import { NotificationService } from './services/notification.service';
 import { GlobalErrorService } from './services/global-error-service';
-import { SnackbarModule } from 'ngx-snackbar';
+
 
 
 import { NgCircleProgressModule } from 'ng-circle-progress';
@@ -98,8 +100,8 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     MatDatepickerModule,
     MatNativeDateModule,
     MatFormFieldModule,
-    NgCircleProgressModule.forRoot(),
-    SnackbarModule.forRoot()
+    MatSnackBarModule,
+    NgCircleProgressModule.forRoot()
   ],
   providers: [
     Validators,
