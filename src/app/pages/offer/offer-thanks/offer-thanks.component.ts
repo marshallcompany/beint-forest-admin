@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class OfferThanksComponent implements OnInit {
 
-  @ViewChild('scrollToTop') scrollToTop;
+  @ViewChild('scrollToTop', { static: true }) scrollToTop;
 
   constructor(
     private router: Router
