@@ -54,7 +54,7 @@
 	position: relative;
 	width:100%;
 }
-@media screen and (max-width:568px){
+@media screen and (min-width: 320px) and (max-width:568px){
 	.container{
 		padding:0 2.5px;
 	}

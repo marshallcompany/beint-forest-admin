@@ -1,0 +1,125 @@
+@import "../../../theme/variables.scss";
+.header{
+  padding:65px 0 80px 90px;
+  background-color: $blue;
+  &__logo{
+    fill: #ffffff;
+    height:50px;
+  }
+}
+.thanks-description{
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+  position: relative;
+  margin-top:-15px;
+  background-color: #ffffff;
+  display: flex;
+  justify-content:center;
+}
+.thanks-box{
+  text-align:center;
+  position: relative;
+  transform: translateY(-115px);
+  &__image{
+    height: 370px;
+    margin-bottom:75px;
+  }
+  &__title{
+    margin-bottom:30px;
+    color:$blue;
+    font-size: 30px;
+    font-family: $gb;
+  }
+  &__text{
+    font-size: 17px;
+    margin-bottom:40px;
+    span{
+      display: block;
+      margin-bottom:25px;
+      &:last-child{
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+.history-button{
+  background-color: transparent;
+  display: flex;
+  align-items:center;
+  margin: 0 auto;
+  &__decor{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:35px;
+    height:35px;
+    background-color: $yellow;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-right:10px;
+    svg{
+      fill: #ffffff;
+      height: 20px;
+    }
+  }
+  &__text{
+    font-size: 17px;
+    color:$black;
+    font-family: $gr;
+  }
+}
+/* = MEDIA = */
+@media screen and (max-width:1200px){}
+@media screen and (max-width:992px){
+  .header{
+    padding:45px 0 55px 45px;
+    &__logo{
+      height:40px;
+    }
+  }
+  .thanks-box{
+    transform: translateY(-75px);
+    &__image{
+      height:300px;
+      margin-bottom:35px;
+    }
+  }
+}
+@media screen and (max-width:768px){}
+@media screen and (max-width:667px){}
+@media screen and (max-width:640px){}
+@media screen and (max-width:568px){
+  .header{
+    padding:30px 0 80px 20px;
+    &__logo{
+      height:30px;
+    }
+  }
+  .thanks-box{
+    transform: translateY(-65px);
+    &__image{
+      height:215px;
+      margin-bottom:50px;
+    }
+    &__text{
+      margin:0 40px 45px 40px;
+    }
+  }
+}
+@media screen and (max-width:480px){}
+@media screen and (max-width:414px){}
+@media screen and (max-width:375px){
+  .header{
+    &__logo{
+      height:25px;
+    }
+  }
+  .thanks-box{
+    &__text{
+      margin:0 20px 30px 20px;
+    }
+  }
+}
+@media screen and (max-width:360px){}
+@media screen and (max-width:320px){}
+/* = MEDIA END = */
