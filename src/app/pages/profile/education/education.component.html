@@ -22,12 +22,13 @@
         </div>
       </div>
       <form
-        [formGroup]="schoolForm"
-        *ngIf="schoolForm">
+        [formGroup]="form"
+        *ngIf="form">
         <div formGroupName="education">
+          <!-- SCHOOL -->
           <div
             formArrayName="schools"
-            *ngFor="let item of schoolForm.get('education').get('schools').controls; let i = index;"
+            *ngFor="let item of form.get('education').get('schools').controls; let i = index;"
             class="group">
             <h3 class="group__title">School №{{i + 1}}</h3>
             <div [formGroupName]="i">
@@ -38,7 +39,7 @@
                   class="edit-item__input"
                   placeholder="Degree"
                   formControlName="degree"
-                  (blur)="submit(schoolForm.value, 'Degree')">
+                  (blur)="submit(form.value, 'Degree')">
               </div>
               <div class="edit-item">
                 <p class="edit-item__label">School Name</p>
@@ -47,7 +48,7 @@
                   class="edit-item__input"
                   placeholder="School Name"
                   formControlName="schoolName"
-                  (blur)="submit(schoolForm.value, 'School Name')">
+                  (blur)="submit(form.value, 'School Name')">
               </div>
               <div class="edit-item">
                 <p class="edit-item__label">Note</p>
@@ -56,7 +57,7 @@
                   class="edit-item__input"
                   placeholder="Note"
                   formControlName="note"
-                  (blur)="submit(schoolForm.value, 'Note')">
+                  (blur)="submit(form.value, 'Note')">
               </div>
               <div class="edit-item">
                 <p class="edit-item__label">Date Finish</p>
@@ -66,7 +67,7 @@
                     formControlName="dateFinish"
                     placeholder="DD/MM/YYYY"
                     class="edit-item__input"
-                    (dateChange)="submit(schoolForm.value, 'Date Finish')">
+                    (dateChange)="submit(form.value, 'Date Finish')">
                   <mat-datepicker-toggle [for]="myDatepicker"></mat-datepicker-toggle>
                   <mat-datepicker #myDatepicker></mat-datepicker>
                   <img
@@ -78,31 +79,30 @@
                 <p class="edit-item__label">Certificate</p>
                 <div class="input-decor">
                   <input
-                    type="text"
+                    type="file"
                     class="edit-item__input"
                     placeholder="Upload certificate"
-                    formControlName="certificate">
+                    formControlName="certificate"
+                    hidden>
+                  <button
+                    (click)="uploader.click()"
+                    class="upload-file-btn"></button>
                   <img src="../assets/image/download.svg">
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <button
-          type="button"
-          (click)="addSchoolItem()"
-          class="add-btn">
-          <span>Add school</span>
-          <img src="../assets/image/plus.svg">
-        </button>
-      </form>
-      <form
-        [formGroup]="educationForm"
-        *ngIf="educationForm">
-        <div formGroupName="education">
+          <button
+            type="button"
+            (click)="addSchoolItem()"
+            class="add-btn">
+            <span>Add school</span>
+            <img src="../assets/image/plus.svg">
+          </button>
+          <!-- SPECIAL EDUCATION -->
           <div
             formArrayName="specialEducation"
-            *ngFor="let item of educationForm.get('education').get('specialEducation').controls; let i = index;"
+            *ngFor="let item of form.get('education').get('specialEducation').controls; let i = index;"
             class="group">
             <h3 class="group__title">Traning №{{i + 1}}</h3>
             <div [formGroupName]="i">
@@ -112,7 +112,7 @@
                   <select
                     matNativeControl
                     formControlName="isCompleted"
-                    (change)="submit(educationForm.value, 'Completed education')">
+                    (change)="submit(form.value, 'Completed education')">
                     <option value="true">Yes</option>
                     <option value="false">No</option>
                     <button
@@ -132,7 +132,7 @@
                   class="edit-item__input"
                   placeholder="Education professional"
                   formControlName="professionalEducation"
-                  (blur)="submit(educationForm.value, 'Education professional')">
+                  (blur)="submit(form.value, 'Education professional')">
               </div>
               <div class="edit-item">
                 <p class="edit-item__label">Training company</p>
@@ -141,7 +141,7 @@
                   class="edit-item__input"
                   placeholder="Company"
                   formControlName="trainingCompany"
-                  (blur)="submit(educationForm.value, 'Training company')">
+                  (blur)="submit(form.value, 'Training company')">
               </div>
               <div class="edit-item">
                 <p class="edit-item__label">Training location</p>
@@ -150,7 +150,7 @@
                   class="edit-item__input"
                   placeholder="Location"
                   formControlName="trainingLocation"
-                  (blur)="submit(educationForm.value, 'Training location')">
+                  (blur)="submit(form.value, 'Training location')">
               </div>
               <div class="edit-item">
                 <p class="edit-item__label">Note</p>
@@ -159,7 +159,7 @@
                   class="edit-item__input"
                   placeholder="Note"
                   formControlName="note"
-                  (blur)="submit(educationForm.value, 'Note')">
+                  (blur)="submit(form.value, 'Note')">
               </div>
               <div class="edit-item">
                 <p class="edit-item__label">Date</p>
@@ -169,7 +169,7 @@
                     formControlName="dateFinish"
                     placeholder="DD/MM/YYYY"
                     class="edit-item__input"
-                    (dateChange)="submit(educationForm.value, 'Date')">
+                    (dateChange)="submit(form.value, 'Date')">
                   <mat-datepicker-toggle [for]="myDatepicker"></mat-datepicker-toggle>
                   <mat-datepicker #myDatepicker></mat-datepicker>
                   <img
@@ -190,22 +190,17 @@
               </div>
             </div>
           </div>
-        </div>
-        <button
-          type="button"
-          (click)="addEducationItem()"
-          class="add-btn">
-          <span>Add traning</span>
-          <img src="../assets/image/plus.svg">
-        </button>
-      </form>
-      <form
-        [formGroup]="universityForm"
-        *ngIf="universityForm">
-        <div formGroupName="education">
+          <button
+            type="button"
+            (click)="addSpecialEducationItem()"
+            class="add-btn">
+            <span>Add traning</span>
+            <img src="../assets/image/plus.svg">
+          </button>
+          <!-- UNIVARSITY -->
           <div
             formArrayName="universities"
-            *ngFor="let item of universityForm.get('education').get('universities').controls; let i = index;"
+            *ngFor="let item of form.get('education').get('universities').controls; let i = index;"
             class="group">
             <h3 class="group__title">University №{{i + 1}}</h3>
             <div [formGroupName]="i">
@@ -216,7 +211,7 @@
                   class="edit-item__input"
                   placeholder="Enter subject"
                   formControlName="specialization"
-                  (blur)="submit(universityForm.value, 'University specialization')">
+                  (blur)="submit(form.value, 'University specialization')">
               </div>
               <div class="edit-item">
                 <p class="edit-item__label">Course of Study</p>
@@ -225,7 +220,7 @@
                   class="edit-item__input"
                   placeholder="Enter subject"
                   formControlName="courseOfStudy"
-                  (blur)="submit(universityForm.value, 'Course of Study')">
+                  (blur)="submit(form.value, 'Course of Study')">
               </div>
               <div class="edit-item">
                 <p class="edit-item__label">Highest Degree</p>
@@ -234,7 +229,7 @@
                   class="edit-item__input"
                   placeholder="Enter subject"
                   formControlName="highestDegree"
-                  (blur)="submit(universityForm.value, 'Highest Degree')">
+                  (blur)="submit(form.value, 'Highest Degree')">
               </div>
               <div class="edit-item">
                 <p class="edit-item__label">University Name</p>
@@ -243,7 +238,7 @@
                   class="edit-item__input"
                   placeholder="Enter subject"
                   formControlName="universityName"
-                  (blur)="submit(universityForm.value, 'University Name')">
+                  (blur)="submit(form.value, 'University Name')">
               </div>
               <div class="group-input">
                 <div class="edit-item">
@@ -254,7 +249,7 @@
                       formControlName="dateStart"
                       placeholder="DD/MM/YYYY"
                       class="edit-item__input"
-                      (dateChange)="submit(universityForm.value, 'Date Start')">
+                      (dateChange)="submit(form.value, 'Date Start')">
                     <mat-datepicker-toggle [for]="datepickerStart"></mat-datepicker-toggle>
                     <mat-datepicker #datepickerStart></mat-datepicker>
                     <img
@@ -270,7 +265,7 @@
                       formControlName="dateFinish"
                       placeholder="DD/MM/YYYY"
                       class="edit-item__input"
-                      (dateChange)="submit(universityForm.value, 'Date Finish')">
+                      (dateChange)="submit(form.value, 'Date Finish')">
                     <mat-datepicker-toggle [for]="datepickerFinish"></mat-datepicker-toggle>
                     <mat-datepicker #datepickerFinish></mat-datepicker>
                     <img
@@ -286,7 +281,7 @@
                   class="edit-item__input"
                   placeholder="Enter subject"
                   formControlName="titleThesis"
-                  (blur)="submit(universityForm.value, 'Title Thesis')">
+                  (blur)="submit(form.value, 'Title Thesis')">
                 </textarea>
               </div>
               <div class="edit-item">
@@ -296,7 +291,7 @@
                   class="edit-item__input"
                   placeholder="Enter subject"
                   formControlName="note"
-                  (blur)="submit(universityForm.value, 'Note')">
+                  (blur)="submit(form.value, 'Note')">
               </div>
               <div class="edit-item">
                 <p class="edit-item__label">Highest Degreen</p>
@@ -305,7 +300,7 @@
                   class="edit-item__input"
                   placeholder="Enter subject"
                   formControlName="highestDegree"
-                  (blur)="submit(universityForm.value, 'Highest Degreen')">
+                  (blur)="submit(form.value, 'Highest Degreen')">
               </div>
             </div>
           </div>

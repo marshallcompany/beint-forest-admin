@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  BASE_API_URL: 'http://dev.api.beint.de', // for test server TODO make this configurable via .env vars
-  // BASE_API_URL: 'http://localhost:3000', // for local dev purposes
+  // BASE_API_URL: 'http://dev.api.beint.de', // for test server TODO make this configurable via .env vars
+  BASE_API_URL: 'http://localhost:3000', // for local dev purposes
 };
 
 /*
