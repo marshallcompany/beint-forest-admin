@@ -13,6 +13,8 @@ import { PersonalContactComponent } from '../pages/profile/personal-contact/pers
 import { EducationComponent } from '../pages/profile/education/education.component';
 import { OfferComponent } from '../pages/offer/offer.component';
 import { OfferThanksComponent } from '../pages/offer/offer-thanks/offer-thanks.component';
+import { ApplyComponent } from '../pages/apply/apply.component';
+import { ApplyThanksComponent } from '../pages/apply/apply-thanks/apply-thanks.component';
 
 const itemRoutes: Routes = [
   { path: 'personal&contact', component: PersonalContactComponent },
@@ -22,6 +24,7 @@ const itemRoutes: Routes = [
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [WelcomeGuard] },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'apply', component: ApplyComponent, children: [{ path: 'thanks', component: ApplyThanksComponent }] },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard], children: itemRoutes },
   { path: 'offer/:jobId', component: OfferComponent, canActivate: [AuthGuard] },
   { path: 'offer-thanks', component: OfferThanksComponent, canActivate: [AuthGuard] },

@@ -35,6 +35,8 @@ import { EducationComponent } from './pages/profile/education/education.componen
 import { OfferComponent } from './pages/offer/offer.component';
 import { OfferThanksComponent } from './pages/offer/offer-thanks/offer-thanks.component';
 import { HomeComponent } from './pages/home/home.component';
+import { ApplyComponent } from './pages/apply/apply.component';
+import { ApplyThanksComponent } from './pages/apply/apply-thanks/apply-thanks.component';
 
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -61,6 +63,8 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     EducationComponent,
     OfferComponent,
     OfferThanksComponent,
+    ApplyComponent,
+    ApplyThanksComponent,
   ],
   imports: [
     RoutingModule,
