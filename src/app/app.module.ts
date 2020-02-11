@@ -3,29 +3,29 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule, HttpClient } from '@angular/common/http';
 
-import { AppRoutingModule } from './app-routing.module';
-
+import { RoutingModule } from './modules/routing.module';
 import { ApiRoutesProvider } from './services/api-routes.services';
+
 import { AuthService } from './services/auth.service';
 import { DownloadFileService } from './services/download-file.service';
 
 import { Interceptors } from './interceptors/index';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatIconModule } from '@angular/material/icon';
-import { MatExpansionModule, MAT_EXPANSION_PANEL_DEFAULT_OPTIONS } from '@angular/material/expansion';
-import { MatSelectModule } from '@angular/material/select';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
+import { HttpMultiLoaderServiceService } from './services/http-multi-loader-service';
+import { NotificationService } from './services/notification.service';
+import { GlobalErrorService } from './services/global-error-service';
 
+import { NgCircleProgressModule } from 'ng-circle-progress';
+
+import { SwiperModule } from 'ngx-swiper-wrapper';
+import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
+import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+import { MaterialModule } from './modules/material.module';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
@@ -34,20 +34,7 @@ import { PersonalContactComponent } from './pages/profile/personal-contact/perso
 import { EducationComponent } from './pages/profile/education/education.component';
 import { OfferComponent } from './pages/offer/offer.component';
 import { OfferThanksComponent } from './pages/offer/offer-thanks/offer-thanks.component';
-
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { HttpMultiLoaderServiceService } from './services/http-multi-loader-service';
-import { NotificationService } from './services/notification.service';
-import { GlobalErrorService } from './services/global-error-service';
-
-
-
-import { NgCircleProgressModule } from 'ng-circle-progress';
-
-import { SwiperModule } from 'ngx-swiper-wrapper';
-import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
-import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
-
+import { HomeComponent } from './pages/home/home.component';
 
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -76,7 +63,7 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     OfferThanksComponent,
   ],
   imports: [
-    AppRoutingModule,
+    RoutingModule,
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
@@ -90,15 +77,7 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
       }
     }),
     BrowserAnimationsModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatExpansionModule,
-    MatSelectModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatFormFieldModule,
-    MatSnackBarModule,
+    MaterialModule,
     NgCircleProgressModule.forRoot()
   ],
   providers: [
@@ -110,14 +89,6 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     {
       provide: SWIPER_CONFIG,
       useValue: DEFAULT_SWIPER_CONFIG
-    },
-    {
-      provide: MAT_EXPANSION_PANEL_DEFAULT_OPTIONS,
-      useValue: {
-        hideToggle: true,
-        expandedHeight: 'auto',
-        collapsedHeight: 'auto'
-      }
     },
     {
       provide: ErrorHandler,

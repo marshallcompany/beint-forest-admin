@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { AuthService } from './services/auth.service';
 import { NotificationService } from './services/notification.service';
-import { Location } from '@angular/common';
 import { filter } from 'rxjs/operators';
 
 import { TranslatesService } from './services/translates.service';
@@ -25,7 +24,6 @@ export class AppComponent implements OnInit {
     public router: Router,
     private translatesService: TranslatesService,
     private authService: AuthService,
-    private location: Location,
     public notificationService: NotificationService
   ) { }
 
@@ -52,17 +50,9 @@ export class AppComponent implements OnInit {
       );
   }
 
-  public backRouter = () => {
-    this.location.back();
-  }
 
-  public goToComponent = (name: string, nav: any) => {
+  public goToComponent = (name: string) => {
     this.router.navigate([`${name}`]);
-  }
-
-  public logout = () => {
-    this.authService.logout();
-    this.router.navigate(['/login']);
   }
 
 }

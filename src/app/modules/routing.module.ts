@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AuthGuard } from './guards/auth.guard';
-import { WelcomeGuard } from './guards/welcome.guard';
+import { AuthGuard } from '../guards/auth.guard';
+import { WelcomeGuard } from '../guards/welcome.guard';
 
-import { LoginComponent } from './pages/login/login.component';
-import { ProfileComponent } from './pages/profile/profile.component';
-import { NotFoundComponent } from './pages/not-found/not-found.component';
-import { JobDescriptionComponent } from './pages/job-description/job-description.component';
-import { HomeComponent } from './pages/home/home.component';
-import { PersonalContactComponent } from './pages/profile/personal-contact/personal-contact.component';
-import { EducationComponent } from './pages/profile/education/education.component';
-import { OfferComponent } from './pages/offer/offer.component';
-import { OfferThanksComponent } from './pages/offer/offer-thanks/offer-thanks.component';
+import { LoginComponent } from '../pages/login/login.component';
+import { ProfileComponent } from '../pages/profile/profile.component';
+import { NotFoundComponent } from '../pages/not-found/not-found.component';
+import { JobDescriptionComponent } from '../pages/job-description/job-description.component';
+import { HomeComponent } from '../pages/home/home.component';
+import { PersonalContactComponent } from '../pages/profile/personal-contact/personal-contact.component';
+import { EducationComponent } from '../pages/profile/education/education.component';
+import { OfferComponent } from '../pages/offer/offer.component';
+import { OfferThanksComponent } from '../pages/offer/offer-thanks/offer-thanks.component';
 
 const itemRoutes: Routes = [
   { path: 'personal&contact', component: PersonalContactComponent },
@@ -38,5 +38,5 @@ const routes: Routes = [
   )],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class RoutingModule { }
 
