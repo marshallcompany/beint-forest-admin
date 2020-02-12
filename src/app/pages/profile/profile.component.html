@@ -40,7 +40,17 @@
     </div>
   </div>
 
-  <div
+  <div class="container">
+    <div class="div">
+      <div
+        *ngFor="let categorie of categories"
+        class="div__item">
+        <app-profile-category-item [category]="categorie"></app-profile-category-item>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div
     class="profile-category"
     *ngIf="!editProfileStatus">
     <div class="container">
@@ -180,7 +190,7 @@
         <p class="category-item__title">Me about me</p>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <div
     class="profile-edit"

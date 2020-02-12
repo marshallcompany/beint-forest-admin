@@ -4,6 +4,12 @@ import { Router } from '@angular/router';
 import { ProfileService, Profile } from '../../services/profile.service';
 import { GlobalErrorService } from 'src/app/services/global-error-service';
 
+interface Category {
+  name: string;
+  icon: string;
+  path: Array<string>;
+}
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -11,38 +17,29 @@ import { GlobalErrorService } from 'src/app/services/global-error-service';
 })
 export class ProfileComponent implements OnInit {
 
-  public profileData: Profile;
-
+  public categories: Array<Category>;
   public editProfileStatus: boolean;
-  public categoryState: Array<any>;
 
   constructor(
-    private profileService: ProfileService,
-    private globalErrorService: GlobalErrorService,
     private router: Router
   ) {
     this.editProfileStatus = false;
+
+    this.categories = [
+      { name: 'Persönliches & Kontakt', icon: '../assets/image/profile/category-01.svg', path: ['ewfwef'] },
+      { name: 'Berufliche Ausbildung', icon: '../assets/image/profile/category-02.svg', path: ['ewfwef'] },
+      { name: 'Beruflicher Werdegang', icon: '../assets/image/profile/category-03.svg', path: ['ewfwef'] },
+      { name: 'Such-Präferenzen', icon: '../assets/image/profile/category-04.svg', path: ['ewfwef'] },
+      { name: 'Dokumente', icon: '../assets/image/profile/category-05.svg', path: ['ewfwef'] },
+      { name: 'Sonstiges', icon: '../assets/image/profile/category-06.svg', path: ['ewfwef'] },
+      { name: 'Ich über mich', icon: '../assets/image/profile/category-07.svg', path: ['ewfwef'] }
+    ];
+
   }
 
   ngOnInit() {
-    this.init();
   }
 
-  private init = () => {
-    this.profileService.getProfile()
-      .pipe()
-      .subscribe(
-        data => {
-          this.profileData = data;
-          console.log('[ PROFILE DATA ]', this.profileData);
-        },
-        err => {
-          this.globalErrorService.handleError(err);
-          console.log('[ ERROR PROFILE DATA ]', err);
-        },
-        () => console.log('[ PROFILE DATA DONE ]')
-      );
-  }
   public showEditCategory = (router?: string) => {
     this.editProfileStatus = !this.editProfileStatus;
     if (router) {

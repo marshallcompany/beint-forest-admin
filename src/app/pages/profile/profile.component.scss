@@ -132,6 +132,16 @@
     font-family: $gb;
 }
 
+.div{
+    display: flex;
+    flex-wrap:wrap;
+    &__item{
+        width:230px;
+        height:230px;
+        margin-right:12px;
+        margin-bottom: 12px;
+    }
+}
 @media screen and (max-width:992px) {
     .category-item{
         width:45%;

@@ -37,6 +37,7 @@ import { OfferThanksComponent } from './pages/offer/offer-thanks/offer-thanks.co
 import { HomeComponent } from './pages/home/home.component';
 import { ApplyComponent } from './pages/apply/apply.component';
 import { ApplyThanksComponent } from './pages/apply/apply-thanks/apply-thanks.component';
+import { ProfileCategoryItemComponent } from './components/profile-category-item/profile-category-item.component';
 
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -65,6 +66,7 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     OfferThanksComponent,
     ApplyComponent,
     ApplyThanksComponent,
+    ProfileCategoryItemComponent,
   ],
   imports: [
     RoutingModule,
