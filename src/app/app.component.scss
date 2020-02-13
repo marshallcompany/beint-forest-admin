@@ -2,6 +2,36 @@
 app-root{
   margin-bottom:100px;
 }
+.nav-header{
+  position:absolute;
+  left:0;
+  top:0;
+  width:100%;
+  z-index: 10;
+  transition-duration: 400ms;
+  transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  &__hamburger{
+    width:40px;
+    height:40px;
+    background-color:transparent;
+    margin:7px 0 0 7px;
+    &:hover{
+      background-color:transparent;
+    }
+  }
+  &__logout{
+    width:40px;
+    height:40px;
+    background-color:transparent;
+    margin:7px 7px 0 0;
+    &:hover{
+      background-color:transparent;
+    }
+  }
+}
 .custom-navigation{
   width:568px;
   height: 80px;

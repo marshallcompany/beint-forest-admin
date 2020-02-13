@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 
 import { Router, NavigationEnd } from '@angular/router';
 import { AuthService } from './services/auth.service';
@@ -50,6 +50,14 @@ export class AppComponent implements OnInit {
       );
   }
 
+  public navChange = (element?) => {
+    const navHeader: HTMLElement = document.getElementById('nav');
+    if (element) {
+      navHeader.style.transform = `translateX(${element._elementRef.nativeElement.offsetWidth}px)`;
+    } else {
+      navHeader.style.transform = 'translateX(0px)';
+    }
+  }
 
   public goToComponent = (name: string) => {
     this.router.navigate([`${name}`]);
