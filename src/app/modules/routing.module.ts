@@ -16,30 +16,28 @@ import { OfferThanksComponent } from '../pages/offer/offer-thanks/offer-thanks.c
 import { ApplyComponent } from '../pages/apply/apply.component';
 import { ApplyThanksComponent } from '../pages/apply/apply-thanks/apply-thanks.component';
 
-const itemRoutes: Routes = [
-  { path: 'personal&contact', component: PersonalContactComponent },
-  { path: 'education', component: EducationComponent },
-];
+
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [WelcomeGuard] },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'apply', component: ApplyComponent },
   { path: 'apply-thanks', component: ApplyThanksComponent },
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard], children: itemRoutes },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'offer/:jobId', component: OfferComponent, canActivate: [AuthGuard] },
   { path: 'offer-thanks', component: OfferThanksComponent, canActivate: [AuthGuard] },
   { path: 'job-description', component: JobDescriptionComponent, canActivate: [AuthGuard] },
   { path: 'apply/:jobId/keep/:keep', component: JobDescriptionComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: '/home', pathMatch: 'full', canActivate: [AuthGuard] },
+  { path: 'personal&contact', component: PersonalContactComponent },
+  { path: 'education', component: EducationComponent },
   { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(
-    routes
-    // { enableTracing: true }
-  )],
+  imports: [
+    RouterModule.forRoot(routes),
+  ],
   exports: [RouterModule]
 })
 export class RoutingModule { }

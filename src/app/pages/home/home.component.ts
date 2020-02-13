@@ -66,8 +66,4 @@ export class HomeComponent implements OnInit {
     e.classList.remove('acord-active');
   }
 
-  goToApply() {
-    this.router.navigate(['apply-thanks']);
-  }
-
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Router, NavigationEnd } from '@angular/router';
 import { AuthService } from './services/auth.service';
@@ -8,6 +8,12 @@ import { filter } from 'rxjs/operators';
 import { TranslatesService } from './services/translates.service';
 
 
+interface State {
+  name: string;
+  icon: string;
+  path: string;
+  activeClass: string;
+}
 
 @Component({
   selector: 'app-root',
@@ -15,6 +21,8 @@ import { TranslatesService } from './services/translates.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+
+  public stateRoute: Array<State>;
 
   public routerStatus: boolean;
   public activeRouter: string;
@@ -25,12 +33,20 @@ export class AppComponent implements OnInit {
     private translatesService: TranslatesService,
     private authService: AuthService,
     public notificationService: NotificationService
-  ) { }
+  ) {
+    this.stateRoute = [
+      { name: 'Home', icon: '../assets/image/menu/home.svg', path: 'home', activeClass: 'route-active' },
+      { name: 'Pipeline', icon: '../assets/image/menu/file.svg', path: '*', activeClass: 'route-active' },
+      { name: 'Profile', icon: '../assets/image/menu/profile.svg', path: 'profile', activeClass: 'route-active' },
+      { name: 'Settings', icon: '../assets/image/menu/settings.svg', path: '**', activeClass: 'route-active' },
+      { name: 'Search', icon: '../assets/image/menu/search.svg', path: '***', activeClass: 'route-active' }
+    ];
+  }
+
 
   ngOnInit() {
     this.translatesService.initLanguage();
     this.checkRouterState();
-
   }
 
   private checkRouterState = () => {
@@ -50,12 +66,24 @@ export class AppComponent implements OnInit {
       );
   }
 
-  public navChange = (element?) => {
-    const navHeader: HTMLElement = document.getElementById('nav');
+  public menuClose = (element) => {
+    element.close();
+  }
+
+  public navChange = (element) => {
+    const navHamburgerButton: HTMLElement = document.getElementById('nav-hamburger-button');
     if (element) {
-      navHeader.style.transform = `translateX(${element._elementRef.nativeElement.offsetWidth}px)`;
+      navHamburgerButton.style.display = 'none';
+      setTimeout(() => {
+        navHamburgerButton.style.opacity = '0';
+        navHamburgerButton.style.display = 'block';
+        navHamburgerButton.style.pointerEvents = 'none';
+      }, 50);
     } else {
-      navHeader.style.transform = 'translateX(0px)';
+      navHamburgerButton.style.opacity = '1';
+      navHamburgerButton.style.pointerEvents = 'auto';
+
+
     }
   }
 

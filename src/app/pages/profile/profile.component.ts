@@ -26,13 +26,13 @@ export class ProfileComponent implements OnInit {
     this.editProfileStatus = false;
 
     this.categories = [
-      { name: 'Persönliches & Kontakt', icon: '../assets/image/profile/category-01.svg', path: ['ewfwef'] },
-      { name: 'Berufliche Ausbildung', icon: '../assets/image/profile/category-02.svg', path: ['ewfwef'] },
-      { name: 'Beruflicher Werdegang', icon: '../assets/image/profile/category-03.svg', path: ['ewfwef'] },
-      { name: 'Such-Präferenzen', icon: '../assets/image/profile/category-04.svg', path: ['ewfwef'] },
-      { name: 'Dokumente', icon: '../assets/image/profile/category-05.svg', path: ['ewfwef'] },
-      { name: 'Sonstiges', icon: '../assets/image/profile/category-06.svg', path: ['ewfwef'] },
-      { name: 'Ich über mich', icon: '../assets/image/profile/category-07.svg', path: ['ewfwef'] }
+      { name: 'Persönliches & Kontakt', icon: '../assets/image/profile/category-01.svg', path: ['personal&contact'] },
+      { name: 'Berufliche Ausbildung', icon: '../assets/image/profile/category-02.svg', path: ['personal&contact'] },
+      { name: 'Beruflicher Werdegang', icon: '../assets/image/profile/category-03.svg', path: ['personal&contact'] },
+      { name: 'Such-Präferenzen', icon: '../assets/image/profile/category-04.svg', path: ['personal&contact'] },
+      { name: 'Dokumente', icon: '../assets/image/profile/category-05.svg', path: ['personal&contact'] },
+      { name: 'Sonstiges', icon: '../assets/image/profile/category-06.svg', path: ['personal&contact'] },
+      { name: 'Ich über mich', icon: '../assets/image/profile/category-07.svg', path: ['personal&contact'] }
     ];
 
   }
