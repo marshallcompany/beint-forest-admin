@@ -251,17 +251,16 @@ app-home{
 }
 .mat-form-field-infix{
   &:after{
-		right:20px!important;
+		right:25px!important;
 		width:15px!important;
-		height:15px!important;
-		margin-top:-6.5px!important;
+		height:5px!important;
 		border:none!important;
-		background-image: url('/assets/image/next.svg');
-		background-size:cover;
-		transform: rotate(90deg);
-		transform-origin: center;
+		background-image: url('/assets/image/select-arrow.svg');
+		background-repeat: no-repeat;
+		background-size:contain;
 		background-position:50%;
   }
 }
+
 @import "app/theme/fonts";
 

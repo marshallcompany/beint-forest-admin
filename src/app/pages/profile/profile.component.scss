@@ -4,6 +4,8 @@
     min-height: 100vh;
     background-color: $primary;
     position: relative;
+    overflow: auto;
+	overflow-x: hidden;
 }
 
 // PROFILE HEADER

@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, FormGroupName, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormGroupName } from '@angular/forms';
 import { ProfileService } from '../../../services/profile.service';
 import { map } from 'rxjs/internal/operators/map';
 import { NotificationService } from 'src/app/services/notification.service';
 
+
 import * as moment from 'moment';
+import { switchMap } from 'rxjs/operators';
+import { throwError, of } from 'rxjs';
 
 @Component({
   selector: 'app-personal',
@@ -13,7 +16,7 @@ import * as moment from 'moment';
   styleUrls: ['./personal.component.scss']
 })
 export class PersonalComponent implements OnInit {
-
+  public formData: object;
   public form: FormGroup;
   public personal: FormGroupName;
   public contact: FormGroupName;
@@ -23,7 +26,7 @@ export class PersonalComponent implements OnInit {
     public formBuilder: FormBuilder,
     private profileService: ProfileService,
     private notificationService: NotificationService,
-    private router: Router
+    private router: Router,
   ) {
   }
 
@@ -34,29 +37,28 @@ export class PersonalComponent implements OnInit {
   public formInit = (profileData) => {
     this.form = this.formBuilder.group({
       personal: this.formBuilder.group({
-        academicTitle: new FormControl(!profileData.personal.academicTitle ? '' : profileData.personal.academicTitle),
-        avatarUri: new FormControl(null),
-        birthPlace: new FormControl(!profileData.personal.birthPlace ? '' : profileData.personal.birthPlace),
-        dateBirth: new FormControl(!profileData.personal.dateBirth ? '' : profileData.personal.dateBirth),
-        firstName: new FormControl(!profileData.personal.firstName ? '' : profileData.personal.firstName),
-        gender: new FormControl(!profileData.personal.gender ? 'male' : profileData.personal.gender),
-        lastName: new FormControl(!profileData.personal.lastName ? '' : profileData.personal.lastName),
-        middleName: new FormControl(!profileData.personal.middleName ? '' : profileData.personal.middleName),
-        nationality: new FormControl(!profileData.personal.nationality ? '' : profileData.personal.nationality)
+        academicTitle: [profileData.personal.academicTitle ?? ''],
+        birthPlace: [profileData.personal.birthPlace ?? ''],
+        dateBirth: [profileData.personal.dateBirth ?? ''],
+        firstName: [profileData.personal.firstName ?? ''],
+        gender: [profileData.personal.gender ?? 'male'],
+        lastName: [profileData.personal.lastName ?? ''],
+        middleName: [profileData.personal.middleName ?? ''],
+        nationality: [profileData.personal.nationality ?? '']
       }),
       contact: this.formBuilder.group({
-        facebook: new FormControl(!profileData.contact.facebook ? '' : profileData.contact.facebook),
-        instagram: new FormControl(!profileData.contact.instagram ? '' : profileData.contact.instagram),
-        linkedin: new FormControl(!profileData.contact.linkedin ? '' : profileData.contact.linkedin),
-        phoneNumberLandline: new FormControl(!profileData.contact.phoneNumberLandline ? '' : profileData.contact.phoneNumberLandline),
-        phoneNumberMobile: new FormControl(!profileData.contact.phoneNumberMobile ? '' : profileData.contact.phoneNumberMobile),
-        skype: new FormControl(!profileData.contact.skype ? '' : profileData.contact.skype),
-        xing: new FormControl(!profileData.contact.xing ? '' : profileData.contact.xing),
+        facebook: [profileData.contact.facebook ?? ''],
+        instagram: [profileData.contact.instagram ?? ''],
+        linkedin: [profileData.contact.linkedin ?? ''],
+        phoneNumberLandline: [profileData.contact.phoneNumberLandline ?? ''],
+        phoneNumberMobile: [profileData.contact.phoneNumberMobile ?? ''],
+        skype: [profileData.contact.skype ?? ''],
+        xing: [profileData.contact.xing ?? ''],
         residence: this.formBuilder.group({
-          houseNumber: new FormControl(!profileData.contact.residence ? '' : profileData.contact.residence.houseNumber),
-          place: new FormControl(!profileData.contact.residence ? '' : profileData.contact.residence.place),
-          street: new FormControl(!profileData.contact.residence ? '' : profileData.contact.residence.street),
-          zipCode: new FormControl(!profileData.contact.residence ? '' : profileData.contact.residence.zipCode),
+          houseNumber: [profileData.contact.residence.houseNumber ?? ''],
+          place: [profileData.contact.residence.place ?? ''],
+          street: [profileData.contact.residence.street ?? ''],
+          zipCode: [profileData.contact.residence.zipCode ?? ''],
         })
       }),
     });
@@ -79,6 +81,7 @@ export class PersonalComponent implements OnInit {
         profileData => {
           console.log('[ EDIT PROFILE DATA ]', profileData);
           this.formInit(profileData);
+          this.formData = this.form.value;
         },
         err => {
           console.log('[ ERROR EDIT PROFILE DATA ]', err);
@@ -91,10 +94,18 @@ export class PersonalComponent implements OnInit {
 
   public submit = (field: string) => {
     this.profileService.updateProfile(this.form.value)
-      .pipe()
+      .pipe(
+        switchMap(formData => {
+          if (JSON.stringify(this.formData) === JSON.stringify(this.form.value)) {
+            return throwError('[ Fields did not apologize ]');
+          }
+          return of(formData);
+        })
+      )
       .subscribe(
         res => {
           console.log('[ UPDATE PROFILE ]', res);
+          this.formData = this.form.value;
           this.notificationService.notify(`Field ${field} updated successfully!`, 'success');
         },
         err => {
@@ -102,6 +113,11 @@ export class PersonalComponent implements OnInit {
         }
       );
   }
+
+  public closeCategory = () => {
+    this.router.navigate(['profile']);
+  }
+
   next() {
     this.router.navigate(['education']);
   }
