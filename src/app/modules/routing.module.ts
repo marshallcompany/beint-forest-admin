@@ -9,7 +9,7 @@ import { ProfileComponent } from '../pages/profile/profile.component';
 import { NotFoundComponent } from '../pages/not-found/not-found.component';
 import { JobDescriptionComponent } from '../pages/job-description/job-description.component';
 import { HomeComponent } from '../pages/home/home.component';
-import { PersonalContactComponent } from '../pages/profile/personal-contact/personal-contact.component';
+import { PersonalComponent } from '../pages/profile/personal/personal.component';
 import { EducationComponent } from '../pages/profile/education/education.component';
 import { OfferComponent } from '../pages/offer/offer.component';
 import { OfferThanksComponent } from '../pages/offer/offer-thanks/offer-thanks.component';
@@ -29,7 +29,7 @@ const routes: Routes = [
   { path: 'job-description', component: JobDescriptionComponent, canActivate: [AuthGuard] },
   { path: 'apply/:jobId/keep/:keep', component: JobDescriptionComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: '/home', pathMatch: 'full', canActivate: [AuthGuard] },
-  { path: 'personal&contact', component: PersonalContactComponent },
+  { path: 'personal', component: PersonalComponent },
   { path: 'education', component: EducationComponent },
   { path: '**', component: NotFoundComponent }
 ];

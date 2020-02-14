@@ -8,11 +8,11 @@ import { NotificationService } from 'src/app/services/notification.service';
 import * as moment from 'moment';
 
 @Component({
-  selector: 'app-personal-contact',
-  templateUrl: './personal-contact.component.html',
-  styleUrls: ['./personal-contact.component.scss']
+  selector: 'app-personal',
+  templateUrl: './personal.component.html',
+  styleUrls: ['./personal.component.scss']
 })
-export class PersonalContactComponent implements OnInit {
+export class PersonalComponent implements OnInit {
 
   public form: FormGroup;
   public personal: FormGroupName;
@@ -103,6 +103,6 @@ export class PersonalContactComponent implements OnInit {
       );
   }
   next() {
-    this.router.navigate(['profile/education']);
+    this.router.navigate(['education']);
   }
 }
