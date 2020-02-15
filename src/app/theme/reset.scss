@@ -9,8 +9,14 @@ body {
   line-height: 1.15;
 }
 button{
+	outline: none;
+  border: none;
 	&:disabled{
 		opacity: .85;
+	}
+	&::-moz-focus-inner{
+		outline: none;
+    border: none;
 	}
 }
 a, button, input{

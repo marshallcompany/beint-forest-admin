@@ -1,0 +1,170 @@
+@import "../../../theme/variables.scss";
+.personal{
+    background-color:$primary;
+    position:relative;
+    min-height: 100vh;
+    overflow: auto;
+	overflow-x: hidden;
+}
+// STYLE INPUT
+.flx{
+    display: flex;
+    flex-wrap:wrap;
+    justify-content: space-between;
+}
+.field{
+    width:47%;
+    margin-bottom:20px;
+    &__label{
+        color:$black;
+        opacity: .5;
+        margin-bottom:11px;
+        margin-left:19px;
+    }
+}
+.field-wrapper{
+    width:100%;
+    position: relative;
+    mat-form-field{
+        width:100%;
+        box-shadow: 0px 2px 5px #00000026;
+        border-radius: 10px;
+        select{
+            padding:0;
+            top:0;
+            margin-bottom:0;
+            padding:15px 19px;
+            color:$black;
+            opacity: .8;
+            font-size: 17px;
+        }
+        ::ng-deep .mat-form-field-wrapper{
+            padding:0;
+            .mat-form-field-infix,
+            .mat-form-field-label-wrapper{
+                padding:0;
+                margin:0;
+                border:0;
+            }
+            .mat-form-field-underline{
+                display: none;
+            }
+        }
+    }
+    &__input{
+        width:100%;
+        background-color:#ffffff;
+        border:0;
+        padding:15px 19px;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.17);
+        border-radius: 10px;
+        color:$black;
+        opacity: .8;
+        font-size: 17px;
+        &::placeholder{
+            color:#989898;
+            opacity: .8;
+            font-size: 17px;
+        }
+    }
+    &__status{
+       width:10px;
+       height:100%;
+       position: absolute;
+       right:0;
+       top:0;
+       border-bottom-right-radius: 10px;
+       border-top-right-radius: 10px;
+       background-color:$green; 
+       &.invalid{
+           background-color: $yellow;
+       }
+    }
+}
+.datepicker-wrp{
+ position: relative;
+ cursor: pointer;
+ &__icon{
+     position:absolute;
+     right:25px;
+     top:50%;
+     transform: translateY(-50%);
+     z-index: 1;
+     width:15px;
+     height:17px;
+ }
+ mat-datepicker-toggle{
+     z-index: 2;
+     position: absolute;
+     left:0;
+     top:0;
+     width:100%;
+     height:100%;
+     ::ng-deep button{
+         position: absolute;
+         left:0;
+         top:0;
+         width:100%!important;
+         height:100%!important;
+         svg{
+             display:none;
+         }
+         .mat-button-focus-overlay,
+         .mat-button-wrapper,
+         .mat-button-ripple{
+             display: none;
+         }
+     }
+ }
+}
+/* = MEDIA = */
+@media screen and (max-width:1500px){
+    .form-wrapper{
+        padding:0 100px;
+    }
+}
+
+@media screen and (max-width:992px){
+    .form-wrapper{
+        padding:0 75px;
+    }
+}
+@media screen and (max-width:768px){
+    .personal{
+        background-color:#ffffff;
+    }
+    .form-wrapper{
+        padding:0 0px;
+    }
+    .field{
+        width:100%;
+    }
+}
+@media screen and (max-width:667px){}
+@media screen and (max-width:640px){}
+@media screen and (max-width:568px){
+    .field{
+        &__label{
+            margin-left:10px;
+            font-size: 16px;
+        }
+    }
+    .field-wrapper{
+        mat-form-field {
+            select{
+                padding:10px;
+                font-size: 14px;
+            }
+        }
+        &__input{
+            padding:10px;
+            font-size: 14px;
+        }
+    }
+}
+@media screen and (max-width:480px){}
+@media screen and (max-width:414px){}
+@media screen and (max-width:375px){}
+@media screen and (max-width:360px){}
+@media screen and (max-width:320px){}
+/* = MEDIA END = */

@@ -17,7 +17,7 @@ export class NotificationService {
 
   private show = (message: string, type?: string) => {
     this.snackbar.open(`${message}`, `X`, {
-      duration: 100000,
+      duration: 3000,
       verticalPosition: 'top',
       panelClass: type ? `snackbar-${type}` : 'snackbar-error'
     });

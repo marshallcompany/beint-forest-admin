@@ -3,12 +3,17 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { AuthService } from './services/auth.service';
 import { NotificationService } from './services/notification.service';
-import { Location } from '@angular/common';
 import { filter } from 'rxjs/operators';
 
 import { TranslatesService } from './services/translates.service';
 
 
+interface State {
+  name: string;
+  icon: string;
+  path: string;
+  activeClass: string;
+}
 
 @Component({
   selector: 'app-root',
@@ -16,6 +21,8 @@ import { TranslatesService } from './services/translates.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+
+  public stateRoute: Array<State>;
 
   public routerStatus: boolean;
   public activeRouter: string;
@@ -25,14 +32,21 @@ export class AppComponent implements OnInit {
     public router: Router,
     private translatesService: TranslatesService,
     private authService: AuthService,
-    private location: Location,
     public notificationService: NotificationService
-  ) { }
+  ) {
+    this.stateRoute = [
+      { name: 'Home', icon: '../assets/image/menu/home.svg', path: 'home', activeClass: 'route-active' },
+      { name: 'Pipeline', icon: '../assets/image/menu/file.svg', path: '*', activeClass: 'route-active' },
+      { name: 'Profile', icon: '../assets/image/menu/profile.svg', path: 'profile', activeClass: 'route-active' },
+      { name: 'Settings', icon: '../assets/image/menu/settings.svg', path: '**', activeClass: 'route-active' },
+      { name: 'Search', icon: '../assets/image/menu/search.svg', path: '***', activeClass: 'route-active' }
+    ];
+  }
+
 
   ngOnInit() {
     this.translatesService.initLanguage();
     this.checkRouterState();
-
   }
 
   private checkRouterState = () => {
@@ -52,17 +66,29 @@ export class AppComponent implements OnInit {
       );
   }
 
-  public backRouter = () => {
-    this.location.back();
+  public menuClose = (element) => {
+    element.close();
   }
 
-  public goToComponent = (name: string, nav: any) => {
+  public navChange = (element) => {
+    const navHamburgerButton: HTMLElement = document.getElementById('nav-hamburger-button');
+    if (element) {
+      navHamburgerButton.style.display = 'none';
+      setTimeout(() => {
+        navHamburgerButton.style.opacity = '0';
+        navHamburgerButton.style.display = 'block';
+        navHamburgerButton.style.pointerEvents = 'none';
+      }, 50);
+    } else {
+      navHamburgerButton.style.opacity = '1';
+      navHamburgerButton.style.pointerEvents = 'auto';
+
+
+    }
+  }
+
+  public goToComponent = (name: string) => {
     this.router.navigate([`${name}`]);
-  }
-
-  public logout = () => {
-    this.authService.logout();
-    this.router.navigate(['/login']);
   }
 
 }

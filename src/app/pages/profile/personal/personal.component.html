@@ -1,0 +1,311 @@
+<section class="personal">
+  <div class="background">
+    <img
+      src="../assets/image/background-circle-01.png"
+      class="background__circle background__circle_01">
+    <img
+      src="../assets/image/background-circle-02.png"
+      class="background__circle background__circle_02">
+  </div>
+  <app-category-nav-header
+    iconCategory="../assets/image/menu/profile.svg"
+    nameCategory="Persönliches & Kontakt"
+    nextCategoryName="education"></app-category-nav-header>
+  <div class="form-wrapper">
+    <div class="container">
+      <form
+        class="form"
+        *ngIf="form"
+        [formGroup]="form">
+        <div
+          formGroupName="personal"
+          class="flx">
+          <div class="field">
+            <p class="field__label">Name</p>
+            <div class="field-wrapper">
+              <input
+                type="text"
+                placeholder="Name"
+                class="field-wrapper__input"
+                formControlName="firstName"
+                (blur)="submit('Name')">
+              <div
+                class="field-wrapper__status"
+                [ngClass]="{invalid : !form.get('personal').get('firstName').value}"></div>
+            </div>
+          </div>
+          <div class="field">
+            <p class="field__label">Vorname</p>
+            <div class="field-wrapper">
+              <input
+                type="text"
+                placeholder="Vorname"
+                class="field-wrapper__input"
+                formControlName="lastName"
+                (blur)="submit('Vorname')">
+              <div
+                class="field-wrapper__status"
+                [ngClass]="{invalid : !form.get('personal').get('lastName').value}"></div>
+            </div>
+          </div>
+          <div class="field">
+            <p class="field__label">Namenzusatz</p>
+            <div class="field-wrapper">
+              <input
+                type="text"
+                placeholder="Namenzusatz"
+                class="field-wrapper__input"
+                formControlName="middleName"
+                (blur)="submit('Namenzusatz')">
+              <div
+                class="field-wrapper__status"
+                [ngClass]="{invalid : !form.get('personal').get('middleName').value}"></div>
+            </div>
+          </div>
+          <div class="field">
+            <p class="field__label">Geschlecht</p>
+            <div class="field-wrapper">
+              <mat-form-field>
+                <select
+                  matNativeControl
+                  formControlName="gender"
+                  (change)="submit('Geschlecht')">
+                  <option value="male">Male</option>
+                  <option value="woman">Woman</option>
+                </select>
+              </mat-form-field>
+              <div
+                class="field-wrapper__status"
+                [ngClass]="{invalid : !form.get('personal').get('gender').value}"></div>
+            </div>
+          </div>
+          <div class="field">
+            <p class="field__label">Akademischer Titel</p>
+            <div class="field-wrapper">
+              <input
+                type="text"
+                placeholder="Akademischer Titel"
+                class="field-wrapper__input"
+                formControlName="academicTitle"
+                (blur)="submit('Akademischer Titel')">
+              <div
+                class="field-wrapper__status"
+                [ngClass]="{invalid : !form.get('personal').get('academicTitle').value}"></div>
+            </div>
+          </div>
+          <div class="field">
+            <p class="field__label">Geburtsdatum</p>
+            <div class="field-wrapper">
+              <div class="datepicker-wrp">
+                <input
+                  [matDatepicker]="myDatepicker"
+                  formControlName="dateBirth"
+                  placeholder="DD/MM/YYYY"
+                  class="field-wrapper__input"
+                  (dateChange)="submit('Geburtsdatum')">
+                <mat-datepicker-toggle [for]="myDatepicker"></mat-datepicker-toggle>
+                <mat-datepicker #myDatepicker></mat-datepicker>
+                <img
+                  class="datepicker-wrp__icon"
+                  src="../assets/image/calendar.svg">
+              </div>
+              <div
+                class="field-wrapper__status"
+                [ngClass]="{invalid : !form.get('personal').get('dateBirth').value}"></div>
+            </div>
+          </div>
+          <div class="field">
+            <p class="field__label">Staatsangehörigkeit</p>
+            <div class="field-wrapper">
+              <input
+                type="text"
+                placeholder="Geschlecht eingeben"
+                class="field-wrapper__input"
+                formControlName="nationality"
+                (blur)="submit('Staatsangehörigkeit')">
+              <div
+                class="field-wrapper__status"
+                [ngClass]="{invalid : !form.get('personal').get('nationality').value}"></div>
+            </div>
+          </div>
+          <div class="field">
+            <p class="field__label">Wohnort</p>
+            <div class="field-wrapper">
+              <input
+                type="text"
+                placeholder="Wohnort eingeben"
+                class="field-wrapper__input"
+                formControlName="birthPlace"
+                (blur)="submit('Wohnort')">
+              <div
+                class="field-wrapper__status"
+                [ngClass]="{invalid : !form.get('personal').get('birthPlace').value}"></div>
+            </div>
+          </div>
+        </div>
+        <div formGroupName="contact">
+          <div
+            formGroupName="residence"
+            class="flx">
+            <div class="field">
+              <p class="field__label">PLZ</p>
+              <div class="field-wrapper">
+                <input
+                  type="text"
+                  placeholder="PLZ eingeben"
+                  class="field-wrapper__input"
+                  formControlName="zipCode"
+                  (blur)="submit('PLZ')">
+                <div
+                  class="field-wrapper__status"
+                  [ngClass]="{invalid : !form.get('contact').get('residence').get('zipCode').value}"></div>
+              </div>
+            </div>
+            <div class="field">
+              <p class="field__label">Straße</p>
+              <div class="field-wrapper">
+                <input
+                  type="text"
+                  placeholder="Straße eingeben"
+                  class="field-wrapper__input"
+                  formControlName="street"
+                  (blur)="submit('Straße')">
+                <div
+                  class="field-wrapper__status"
+                  [ngClass]="{invalid : !form.get('contact').get('residence').get('street').value}"></div>
+              </div>
+            </div>
+            <div class="field">
+              <p class="field__label">Hausnummer</p>
+              <div class="field-wrapper">
+                <input
+                  type="text"
+                  placeholder="Hausnummer eingeben"
+                  class="field-wrapper__input"
+                  formControlName="houseNumber"
+                  (blur)="submit('Hausnummer')">
+                <div
+                  class="field-wrapper__status"
+                  [ngClass]="{invalid : !form.get('contact').get('residence').get('houseNumber').value}"></div>
+              </div>
+            </div>
+            <div class="field">
+              <p class="field__label">Platz</p>
+              <div class="field-wrapper">
+                <input
+                  type="text"
+                  placeholder="Platz eingeben"
+                  class="field-wrapper__input"
+                  formControlName="place"
+                  (blur)="submit('Platz')">
+                <div
+                  class="field-wrapper__status"
+                  [ngClass]="{invalid : !form.get('contact').get('residence').get('place').value}"></div>
+              </div>
+            </div>
+          </div>
+          <div class="flx">
+            <div class="field">
+              <p class="field__label">Mobil</p>
+              <div class="field-wrapper">
+                <input
+                  type="tel"
+                  placeholder="Mobil eingeben"
+                  class="field-wrapper__input"
+                  formControlName="phoneNumberMobile"
+                  (blur)="submit('Mobil')">
+                <div
+                  class="field-wrapper__status"
+                  [ngClass]="{invalid : !form.get('contact').get('phoneNumberMobile').value}"></div>
+              </div>
+            </div>
+            <div class="field">
+              <p class="field__label">Telefonnummer Festnetz</p>
+              <div class="field-wrapper">
+                <input
+                  type="tel"
+                  placeholder="Mobil eingeben"
+                  class="field-wrapper__input"
+                  formControlName="phoneNumberLandline"
+                  (blur)="submit('Telefonnummer Festnetz')">
+                <div
+                  class="field-wrapper__status"
+                  [ngClass]="{invalid : !form.get('contact').get('phoneNumberLandline').value}"></div>
+              </div>
+            </div>
+            <div class="field">
+              <p class="field__label">Facebook</p>
+              <div class="field-wrapper">
+                <input
+                  type="tel"
+                  placeholder="Facebook eingeben"
+                  class="field-wrapper__input"
+                  formControlName="facebook"
+                  (blur)="submit('Facebook')">
+                <div
+                  class="field-wrapper__status"
+                  [ngClass]="{invalid : !form.get('contact').get('facebook').value}"></div>
+              </div>
+            </div>
+            <div class="field">
+              <p class="field__label">Instagram</p>
+              <div class="field-wrapper">
+                <input
+                  type="tel"
+                  placeholder="Instagram eingeben"
+                  class="field-wrapper__input"
+                  formControlName="instagram"
+                  (blur)="submit('Instagram')">
+                <div
+                  class="field-wrapper__status"
+                  [ngClass]="{invalid : !form.get('contact').get('instagram').value}"></div>
+              </div>
+            </div>
+            <div class="field">
+              <p class="field__label">Linkedin</p>
+              <div class="field-wrapper">
+                <input
+                  type="tel"
+                  placeholder="Linkedin eingeben"
+                  class="field-wrapper__input"
+                  formControlName="linkedin"
+                  (blur)="submit('Linkedin')">
+                <div
+                  class="field-wrapper__status"
+                  [ngClass]="{invalid : !form.get('contact').get('linkedin').value}"></div>
+              </div>
+            </div>
+            <div class="field">
+              <p class="field__label">Skype</p>
+              <div class="field-wrapper">
+                <input
+                  type="tel"
+                  placeholder="Skype eingeben"
+                  class="field-wrapper__input"
+                  formControlName="skype"
+                  (blur)="submit('Skype')">
+                <div
+                  class="field-wrapper__status"
+                  [ngClass]="{invalid : !form.get('contact').get('skype').value}"></div>
+              </div>
+            </div>
+            <div class="field">
+              <p class="field__label">Xing</p>
+              <div class="field-wrapper">
+                <input
+                  type="tel"
+                  placeholder="Xing eingeben"
+                  class="field-wrapper__input"
+                  formControlName="xing"
+                  (blur)="submit('Xing')">
+                <div
+                  class="field-wrapper__status"
+                  [ngClass]="{invalid : !form.get('contact').get('xing').value}"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
