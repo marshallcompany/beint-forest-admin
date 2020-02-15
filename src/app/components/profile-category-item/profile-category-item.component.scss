@@ -51,3 +51,43 @@
     color: $yellow;
   }
 }
+@media screen and (max-width:1200px){
+  .profile-category{
+    &__decor{
+      height:85px;
+    }
+  }
+  .category-state{
+    &__circle{
+      width:40px;
+      height:40px;
+    }
+    &__image{
+      height:20px;
+    }
+  }
+}
+@media screen and (max-width:480px){
+   .category-state{
+    &__circle{
+      width:35px;
+      height:35px;
+    }
+  }
+  .profile-category{
+    &__decor{
+      height:80px;
+    }
+  }
+}
+@media screen and (max-width:375px){
+  .profile-category{
+    padding:7px;
+    &__name{
+      font-size: 14px;
+    }
+    &__decor{
+      height:60px;
+    }
+  }
+}

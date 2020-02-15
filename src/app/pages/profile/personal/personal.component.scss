@@ -6,75 +6,6 @@
     overflow: auto;
 	overflow-x: hidden;
 }
-.categorie-header{
-    padding-top:85px;
-    margin-bottom:40px;
-}
-.categorie-wrapper{
-    display: flex;
-    align-items:center;
-    justify-content: space-between;
-}
-.categorie-info{
-    display: flex;
-    align-items: center;
-}
-.categorie-icon{
-    width:80px;
-    height:80px;
-    border-radius:50px;
-    background-color:$primary;
-    display: flex;
-    align-items:center;
-    justify-content: center;
-    margin-right:25px;
-    &__image{
-        height:40px;
-    }
-}
-.categorie-detail{
-    display: flex;
-    align-items: center;
-    &__label{
-        color:$blue;
-        font-family: $gb;
-        font-size: 30px;
-        margin-right:50px;
-    }
-    &__back{
-        background-color:transparent;
-        margin-right:50px;
-    }
-    &__next{
-        background-color: transparent;
-    }
-}
-.categorie-edit-status{
-    display: flex;
-    align-items:center;
-    &__icon{
-        background-color:$yellow;
-        width:50px;
-        height:50px;
-        border-radius:50%;
-        display:flex;
-        align-items:center;
-        justify-content: center;
-        margin-right:40px;
-    }
-    &__image{
-        height:25px;
-    }
-}
-.categorie-close-button{
-    background-color: transparent;
-    width:25px;
-    height:25px;
-    &__icon{
-        height:100%;
-        fill:$black;
-    }
-}
 // STYLE INPUT
 .flx{
     display: flex;
@@ -82,7 +13,7 @@
     justify-content: space-between;
 }
 .field{
-    width:45%;
+    width:47%;
     margin-bottom:20px;
     &__label{
         color:$black;
@@ -186,3 +117,54 @@
      }
  }
 }
+/* = MEDIA = */
+@media screen and (max-width:1500px){
+    .form-wrapper{
+        padding:0 100px;
+    }
+}
+
+@media screen and (max-width:992px){
+    .form-wrapper{
+        padding:0 75px;
+    }
+}
+@media screen and (max-width:768px){
+    .personal{
+        background-color:#ffffff;
+    }
+    .form-wrapper{
+        padding:0 0px;
+    }
+    .field{
+        width:100%;
+    }
+}
+@media screen and (max-width:667px){}
+@media screen and (max-width:640px){}
+@media screen and (max-width:568px){
+    .field{
+        &__label{
+            margin-left:10px;
+            font-size: 16px;
+        }
+    }
+    .field-wrapper{
+        mat-form-field {
+            select{
+                padding:10px;
+                font-size: 14px;
+            }
+        }
+        &__input{
+            padding:10px;
+            font-size: 14px;
+        }
+    }
+}
+@media screen and (max-width:480px){}
+@media screen and (max-width:414px){}
+@media screen and (max-width:375px){}
+@media screen and (max-width:360px){}
+@media screen and (max-width:320px){}
+/* = MEDIA END = */

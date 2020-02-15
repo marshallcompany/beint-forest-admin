@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { ProfileService, Profile } from '../../services/profile.service';
+import { ProfileService } from '../../services/profile.service';
 import { GlobalErrorService } from 'src/app/services/global-error-service';
 
 interface Category {
@@ -17,14 +17,13 @@ interface Category {
 })
 export class ProfileComponent implements OnInit {
 
+  public profileDate;
   public categories: Array<Category>;
-  public editProfileStatus: boolean;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private profileService: ProfileService
   ) {
-    this.editProfileStatus = false;
-
     this.categories = [
       { name: 'Persönliches & Kontakt', icon: '../assets/image/profile/category-01.svg', path: ['personal'] },
       { name: 'Berufliche Ausbildung', icon: '../assets/image/profile/category-02.svg', path: ['personal'] },
@@ -34,14 +33,30 @@ export class ProfileComponent implements OnInit {
       { name: 'Sonstiges', icon: '../assets/image/profile/category-06.svg', path: ['personal'] },
       { name: 'Ich über mich', icon: '../assets/image/profile/category-07.svg', path: ['personal'] }
     ];
-
   }
 
   ngOnInit() {
+    this.init();
+  }
+
+  public init = () => {
+    this.profileService.getProfile()
+      .pipe()
+      .subscribe(
+        res => {
+          this.profileDate = res;
+          console.log(this.profileDate);
+        },
+        err => {
+          console.log('[ PROFILE ERROR ]', err);
+        },
+        () => {
+          console.log('[ PROFILE DONE ]');
+        }
+      );
   }
 
   public showEditCategory = (router?: string) => {
-    this.editProfileStatus = !this.editProfileStatus;
     if (router) {
       this.router.navigate([router]);
     }

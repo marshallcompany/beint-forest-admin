@@ -7,48 +7,10 @@
       src="../assets/image/background-circle-02.png"
       class="background__circle background__circle_02">
   </div>
-  <div class="categorie-header">
-    <div class="container">
-      <div class="categorie-wrapper">
-        <div class="categorie-info">
-          <div class="categorie-icon">
-            <img
-              src="../assets/image/menu/profile.svg"
-              class="categorie-icon__image">
-          </div>
-          <div class="categorie-detail">
-            <p class="categorie-detail__label">Persönliches & Kontakt</p>
-            <div class="categorie-detail__navigation">
-              <button class="categorie-detail__back">
-                <img src="../assets/image/back.svg">
-              </button>
-              <button class="categorie-detail__next">
-                <img src="../assets/image/next.svg">
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="categorie-edit-status">
-          <div class="categorie-edit-status__icon">
-            <img
-              src="../assets/image/profile/pencil.svg"
-              class="categorie-edit-status__image">
-          </div>
-          <button
-            class="categorie-close-button"
-            (click)="closeCategory()">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.765 21.765" class="categorie-close-button__icon">
-              <g transform="translate(0 -0.001)">
-                <g transform="translate(0 0.001)">
-                  <path class="a" d="M12.084,10.883l9.431-9.431a.85.85,0,0,0-1.2-1.2L10.882,9.681,1.451.25a.85.85,0,0,0-1.2,1.2L9.68,10.883.249,20.314a.85.85,0,0,0,1.2,1.2l9.431-9.431,9.431,9.431a.85.85,0,0,0,1.2-1.2Z" transform="translate(0 -0.001)"/>
-                </g>
-              </g>
-            </svg>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
+  <app-category-nav-header
+    iconCategory="../assets/image/menu/profile.svg"
+    nameCategory="Persönliches & Kontakt"
+    nextCategoryName="education"></app-category-nav-header>
   <div class="form-wrapper">
     <div class="container">
       <form
@@ -79,7 +41,8 @@
                 type="text"
                 placeholder="Vorname"
                 class="field-wrapper__input"
-                formControlName="lastName">
+                formControlName="lastName"
+                (blur)="submit('Vorname')">
               <div
                 class="field-wrapper__status"
                 [ngClass]="{invalid : !form.get('personal').get('lastName').value}"></div>
@@ -92,7 +55,8 @@
                 type="text"
                 placeholder="Namenzusatz"
                 class="field-wrapper__input"
-                formControlName="middleName">
+                formControlName="middleName"
+                (blur)="submit('Namenzusatz')">
               <div
                 class="field-wrapper__status"
                 [ngClass]="{invalid : !form.get('personal').get('middleName').value}"></div>
@@ -104,7 +68,8 @@
               <mat-form-field>
                 <select
                   matNativeControl
-                  formControlName="gender">
+                  formControlName="gender"
+                  (change)="submit('Geschlecht')">
                   <option value="male">Male</option>
                   <option value="woman">Woman</option>
                 </select>
@@ -121,7 +86,8 @@
                 type="text"
                 placeholder="Akademischer Titel"
                 class="field-wrapper__input"
-                formControlName="academicTitle">
+                formControlName="academicTitle"
+                (blur)="submit('Akademischer Titel')">
               <div
                 class="field-wrapper__status"
                 [ngClass]="{invalid : !form.get('personal').get('academicTitle').value}"></div>
@@ -136,7 +102,7 @@
                   formControlName="dateBirth"
                   placeholder="DD/MM/YYYY"
                   class="field-wrapper__input"
-                  (dateChange)="submit('Birthday')">
+                  (dateChange)="submit('Geburtsdatum')">
                 <mat-datepicker-toggle [for]="myDatepicker"></mat-datepicker-toggle>
                 <mat-datepicker #myDatepicker></mat-datepicker>
                 <img
@@ -155,7 +121,8 @@
                 type="text"
                 placeholder="Geschlecht eingeben"
                 class="field-wrapper__input"
-                formControlName="nationality">
+                formControlName="nationality"
+                (blur)="submit('Staatsangehörigkeit')">
               <div
                 class="field-wrapper__status"
                 [ngClass]="{invalid : !form.get('personal').get('nationality').value}"></div>
@@ -168,7 +135,8 @@
                 type="text"
                 placeholder="Wohnort eingeben"
                 class="field-wrapper__input"
-                formControlName="birthPlace">
+                formControlName="birthPlace"
+                (blur)="submit('Wohnort')">
               <div
                 class="field-wrapper__status"
                 [ngClass]="{invalid : !form.get('personal').get('birthPlace').value}"></div>
@@ -186,7 +154,8 @@
                   type="text"
                   placeholder="PLZ eingeben"
                   class="field-wrapper__input"
-                  formControlName="zipCode">
+                  formControlName="zipCode"
+                  (blur)="submit('PLZ')">
                 <div
                   class="field-wrapper__status"
                   [ngClass]="{invalid : !form.get('contact').get('residence').get('zipCode').value}"></div>
@@ -199,7 +168,8 @@
                   type="text"
                   placeholder="Straße eingeben"
                   class="field-wrapper__input"
-                  formControlName="street">
+                  formControlName="street"
+                  (blur)="submit('Straße')">
                 <div
                   class="field-wrapper__status"
                   [ngClass]="{invalid : !form.get('contact').get('residence').get('street').value}"></div>
@@ -212,7 +182,8 @@
                   type="text"
                   placeholder="Hausnummer eingeben"
                   class="field-wrapper__input"
-                  formControlName="houseNumber">
+                  formControlName="houseNumber"
+                  (blur)="submit('Hausnummer')">
                 <div
                   class="field-wrapper__status"
                   [ngClass]="{invalid : !form.get('contact').get('residence').get('houseNumber').value}"></div>
@@ -225,7 +196,8 @@
                   type="text"
                   placeholder="Platz eingeben"
                   class="field-wrapper__input"
-                  formControlName="place">
+                  formControlName="place"
+                  (blur)="submit('Platz')">
                 <div
                   class="field-wrapper__status"
                   [ngClass]="{invalid : !form.get('contact').get('residence').get('place').value}"></div>
@@ -240,7 +212,8 @@
                   type="tel"
                   placeholder="Mobil eingeben"
                   class="field-wrapper__input"
-                  formControlName="phoneNumberMobile">
+                  formControlName="phoneNumberMobile"
+                  (blur)="submit('Mobil')">
                 <div
                   class="field-wrapper__status"
                   [ngClass]="{invalid : !form.get('contact').get('phoneNumberMobile').value}"></div>
@@ -253,7 +226,8 @@
                   type="tel"
                   placeholder="Mobil eingeben"
                   class="field-wrapper__input"
-                  formControlName="phoneNumberLandline">
+                  formControlName="phoneNumberLandline"
+                  (blur)="submit('Telefonnummer Festnetz')">
                 <div
                   class="field-wrapper__status"
                   [ngClass]="{invalid : !form.get('contact').get('phoneNumberLandline').value}"></div>
@@ -266,7 +240,8 @@
                   type="tel"
                   placeholder="Facebook eingeben"
                   class="field-wrapper__input"
-                  formControlName="facebook">
+                  formControlName="facebook"
+                  (blur)="submit('Facebook')">
                 <div
                   class="field-wrapper__status"
                   [ngClass]="{invalid : !form.get('contact').get('facebook').value}"></div>
@@ -279,7 +254,8 @@
                   type="tel"
                   placeholder="Instagram eingeben"
                   class="field-wrapper__input"
-                  formControlName="instagram">
+                  formControlName="instagram"
+                  (blur)="submit('Instagram')">
                 <div
                   class="field-wrapper__status"
                   [ngClass]="{invalid : !form.get('contact').get('instagram').value}"></div>
@@ -292,7 +268,8 @@
                   type="tel"
                   placeholder="Linkedin eingeben"
                   class="field-wrapper__input"
-                  formControlName="linkedin">
+                  formControlName="linkedin"
+                  (blur)="submit('Linkedin')">
                 <div
                   class="field-wrapper__status"
                   [ngClass]="{invalid : !form.get('contact').get('linkedin').value}"></div>
@@ -305,7 +282,8 @@
                   type="tel"
                   placeholder="Skype eingeben"
                   class="field-wrapper__input"
-                  formControlName="skype">
+                  formControlName="skype"
+                  (blur)="submit('Skype')">
                 <div
                   class="field-wrapper__status"
                   [ngClass]="{invalid : !form.get('contact').get('skype').value}"></div>
@@ -318,7 +296,8 @@
                   type="tel"
                   placeholder="Xing eingeben"
                   class="field-wrapper__input"
-                  formControlName="xing">
+                  formControlName="xing"
+                  (blur)="submit('Xing')">
                 <div
                   class="field-wrapper__status"
                   [ngClass]="{invalid : !form.get('contact').get('xing').value}"></div>

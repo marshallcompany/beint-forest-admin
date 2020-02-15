@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { ProfileService, Profile } from '../../services/profile.service';
+import { ProfileService } from '../../services/profile.service';
 import { GlobalErrorService } from 'src/app/services/global-error-service';
 
 @Component({
@@ -11,7 +11,7 @@ import { GlobalErrorService } from 'src/app/services/global-error-service';
 })
 export class HomeComponent implements OnInit {
 
-  public user: Profile;
+  public user;
   public acord: Array<any> = [
     {
       title: 'Front-end Developer',

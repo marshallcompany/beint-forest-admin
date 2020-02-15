@@ -5,8 +5,6 @@ import { ProfileService } from '../../../services/profile.service';
 import { map } from 'rxjs/internal/operators/map';
 import { NotificationService } from 'src/app/services/notification.service';
 
-
-import * as moment from 'moment';
 import { switchMap } from 'rxjs/operators';
 import { throwError, of } from 'rxjs';
 
@@ -112,13 +110,5 @@ export class PersonalComponent implements OnInit {
           console.log('[ ERROR UPDATE PROFILE ]', err);
         }
       );
-  }
-
-  public closeCategory = () => {
-    this.router.navigate(['profile']);
-  }
-
-  next() {
-    this.router.navigate(['education']);
   }
 }

@@ -16,8 +16,6 @@
           [outerStrokeWidth]="8"
           [innerStrokeWidth]="8"
           [space]="-8"
-          [outerStrokeColor]="'#54c0ae'"
-          [innerStrokeColor]="'#cbe8e4'"
           [showSubtitle]="false"
           [showTitle]="false"
           [showUnits]="false"
@@ -29,7 +27,7 @@
           src="https://picsum.photos/id/1/350/350"
           class="profile-details__image">
       </div>
-      <p class="profile-details__name">Hey Max!</p>
+      <p class="profile-details__name">Hey <span *ngIf="profileDate">{{ profileDate.profile.personal.firstName }}</span>!</p>
       <p class="profile-details__description">
         Dein Profil ist zu 65% vollständig. Ergänze fehlende Infos und erhöhe deine Chance bei der Bewerbung.
       </p>
@@ -47,11 +45,4 @@
       </div>
     </div>
   </section>
-
-  <div
-    class="profile-edit"
-    *ngIf="editProfileStatus">
-    <router-outlet></router-outlet>
-  </div>
-
 </div>
