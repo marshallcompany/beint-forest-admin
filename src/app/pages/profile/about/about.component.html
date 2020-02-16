@@ -1,0 +1,44 @@
+<div class="about">
+  <div class="background">
+    <img
+      src="../assets/image/background-circle-01.png"
+      class="background__circle background__circle_01">
+    <img
+      src="../assets/image/background-circle-02.png"
+      class="background__circle background__circle_02">
+  </div>
+  <app-category-nav-header
+    iconCategory="../assets/image/profile/category-07.svg"
+    nameCategory="Ich über mich"
+    nextCategoryName="education"></app-category-nav-header>
+  <section class="form-wrapper">
+    <div class="container">
+      <form
+        [formGroup]="form"
+        class="form"
+        *ngIf="form">
+        <div
+          formArrayName="aboutAnswers"
+          *ngFor="let item of form.get('aboutAnswers').controls; let i = index;">
+          <div
+            [formGroupName]="i"
+            class="field">
+            <p class="field__label">{{ question[i].text }}</p>
+            <div class="field-wrapper">
+              <textarea
+                type="text"
+                [placeholder]="question[i].placeholder"
+                class="field-wrapper__input"
+                formControlName="answer"
+                (blur)="submit(i + 1)">
+              </textarea>
+              <div
+                class="field-wrapper__status"
+                [ngClass]="{invalid : !this.form.get('aboutAnswers').controls[i].get('answer').value}"></div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+</div>
