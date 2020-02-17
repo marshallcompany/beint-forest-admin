@@ -15,6 +15,7 @@ import { OfferComponent } from '../pages/offer/offer.component';
 import { OfferThanksComponent } from '../pages/offer/offer-thanks/offer-thanks.component';
 import { ApplyComponent } from '../pages/apply/apply.component';
 import { ApplyThanksComponent } from '../pages/apply/apply-thanks/apply-thanks.component';
+import { AboutComponent } from '../pages/profile/about/about.component';
 
 
 
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full', canActivate: [AuthGuard] },
   { path: 'personal', component: PersonalComponent },
   { path: 'education', component: EducationComponent },
+  { path: 'about', component: AboutComponent },
   { path: '**', component: NotFoundComponent }
 ];
 

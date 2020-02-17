@@ -31,7 +31,7 @@ export class ProfileComponent implements OnInit {
       { name: 'Such-Präferenzen', icon: '../assets/image/profile/category-04.svg', path: ['personal'] },
       { name: 'Dokumente', icon: '../assets/image/profile/category-05.svg', path: ['personal'] },
       { name: 'Sonstiges', icon: '../assets/image/profile/category-06.svg', path: ['personal'] },
-      { name: 'Ich über mich', icon: '../assets/image/profile/category-07.svg', path: ['personal'] }
+      { name: 'Ich über mich', icon: '../assets/image/profile/category-07.svg', path: ['about'] }
     ];
   }
 
