@@ -2,7 +2,18 @@
 @import "app/theme/variables.scss";
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 @import "~@ng-select/ng-select/themes/default.theme.css";
-
+html,
+body{
+	height: 100%;
+		overflow: auto;
+		overflow-x: hidden;
+}
+body{
+	font-size:18px;
+	background-color:#ffffff;
+	color:#313131;
+	font-family:Gilroy Regular, sans-serif;
+}
 // STYLE SNACKBAR
 .snack {
   box-shadow: 0px 4px 25px 0px rgba(0, 0, 0, .5);
@@ -10,7 +21,9 @@
 .mat-ripple.mat-button-ripple {
 	display:none;
 }
-.mat-button-wrapper {
+.mat-simple-snackbar-action{
+  .mat-button{
+    .mat-button-wrapper {
 	color:transparent!important;
 	position: relative;
 	width:15px;
@@ -36,6 +49,8 @@
 		transform:  translateY(-50%) rotate(-45deg);
 	}
 }
+  }  
+}
 .snackbar-info {
   background-color: $blue !important;
   color: #ffffff !important;
@@ -56,11 +71,10 @@
     width:100%;
     background-color:#ffffff;
     border:0;
-    padding:15.5px 19px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.17);
-    border-radius: 10px;
     color:$black;
     font-size: 17px;
+    border-radius: 10px;
     &::placeholder{
         color:#989898;
         opacity: .8;
@@ -85,6 +99,8 @@
     transform: rotate(-180deg);
 }
 .ng-select .ng-select-container{
+    padding:15.5px 19px;
+    border-radius: 10px;
     &:hover{
         border: none!important;
         box-shadow: none!important;
@@ -93,6 +109,10 @@
 .ng-select.ng-select-focused:not(.ng-select-opened)>.ng-select-container{
     border: none!important;
     box-shadow: none!important;
+    
+}
+.ng-select.ng-select-opened>.ng-select-container {
+    background: transparent!important;
 }
 .ng-select-container{
     border:none!important;
@@ -104,61 +124,12 @@
     }
 }
 .ng-dropdown-panel{
-    z-index: 10!important;
-    border:none!important;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.17)!important;
-}
-/* = STYLE CONTAINER = */
-.container{
-	padding:0 15px;
-	margin:0 auto;
-	position: relative;
-	width:100%;
-}
-@media screen and (min-width: 320px) and (max-width:568px){
-	.container{
-		padding:0 15px;
-	}
-}
-@media screen and (min-width: 568px) and (max-width: 767px){
-	.container{
-		max-width:568px;
-		padding:0 15px;
-	}
-}
-@media screen and (min-width: 768px) and (max-width: 991px){
-	.container{
-		max-width:768px;
-		padding:0 20px;
-	}
-}
-@media screen and (min-width: 992px) and (max-width: 1199px){
-	.container{
-		max-width:992px;
-	}
-}
-@media screen and (min-width:1200px) and (max-width:1399px){
-	.container{
-		max-width:1200px;
-	}
-}
-@media screen and (min-width:1400px){
-	.container{
-		max-width:1400px;
-	}
-}
-/* = STYLE CONTAINER END = */
-html,
-body{
-	height: 100%;
-		overflow: auto;
-		overflow-x: hidden;
-}
-body{
-	font-size:18px;
-	background-color:#ffffff;
-	color:#313131;
-	font-family:Gilroy Regular, sans-serif;
+    z-index: 10;
+    border:none;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top:2px!important;
 }
 
 // BACKGROUND DECOR
@@ -209,18 +180,41 @@ app-home{
     max-height: inherit!important;
 	}
 }
-.mat-form-field-infix{
-  &:after{
-		right:25px!important;
-		width:15px!important;
-		height:5px!important;
-		border:none!important;
-		background-image: url('/assets/image/select-arrow.svg');
-		background-repeat: no-repeat;
-		background-size:contain;
-		background-position:50%;
-  }
+/* = STYLE CONTAINER = */
+.container{
+	padding:0 15px;
+	margin:0 auto;
+	position: relative;
+	width:100%;
 }
+@media screen and (min-width: 568px) and (max-width: 767px){
+	.container{
+		max-width:568px;
+	}
+}
+@media screen and (min-width: 768px) and (max-width: 991px){
+	.container{
+		max-width:768px;
+		padding:0 20px;
+	}
+}
+@media screen and (min-width: 992px) and (max-width: 1199px){
+	.container{
+		max-width:992px;
+	}
+}
+@media screen and (min-width:1200px) and (max-width:1399px){
+	.container{
+		max-width:1200px;
+	}
+}
+@media screen and (min-width:1400px){
+	.container{
+		max-width:1400px;
+	}
+}
+/* = STYLE CONTAINER END = */
+
 @media screen and (max-width:1400px) {
 	.background{
         &__circle{
