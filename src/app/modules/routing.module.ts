@@ -16,6 +16,7 @@ import { OfferThanksComponent } from '../pages/offer/offer-thanks/offer-thanks.c
 import { ApplyComponent } from '../pages/apply/apply.component';
 import { ApplyThanksComponent } from '../pages/apply/apply-thanks/apply-thanks.component';
 import { AboutComponent } from '../pages/profile/about/about.component';
+import { SearchSettingsComponent } from '../pages/profile/search-settings/search-settings.component';
 
 
 
@@ -33,6 +34,7 @@ const routes: Routes = [
   { path: 'personal', component: PersonalComponent },
   { path: 'education', component: EducationComponent },
   { path: 'about', component: AboutComponent },
+  { path: 'search-settings', component: SearchSettingsComponent },
   { path: '**', component: NotFoundComponent }
 ];
 

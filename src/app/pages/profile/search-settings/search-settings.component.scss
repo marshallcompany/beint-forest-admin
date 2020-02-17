@@ -1,0 +1,126 @@
+@import "../../../theme/variables.scss";
+.search{
+  background-color:$primary;
+  position:relative;
+  min-height: 100vh;
+  overflow: auto;
+	overflow-x: hidden;
+}
+.flx{
+    display: flex;
+    flex-wrap:wrap;
+    justify-content: space-between;
+}
+.field{
+    width:47%;
+    margin-bottom:20px;
+    &__label{
+        color:$black;
+        opacity: .5;
+        margin-bottom:11px;
+        margin-left:19px;
+    }
+}
+.field-wrapper{
+    width:100%;
+    position: relative;
+    &__input{
+        width:100%;
+        background-color:#ffffff;
+        border:0;
+        padding:15px 19px;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.17);
+        border-radius: 10px;
+        color:$black;
+        opacity: .8;
+        font-size: 17px;
+        &::placeholder{
+            color:#989898;
+            opacity: .8;
+            font-size: 17px;
+        }
+    }
+    &__status{
+       width:10px;
+       height:100%;
+       position: absolute;
+       right:0;
+       top:0;
+       border-bottom-right-radius: 10px;
+       border-top-right-radius: 10px;
+       background-color:$green; 
+       &.invalid{
+           background-color: $yellow;
+       }
+    }
+}
+.range-wrapper{
+  width:100%;
+  margin-bottom:15px;
+  &__label{
+    color:$black;
+    opacity: .5;
+    margin-bottom:25px;
+    margin-left:19px;
+    font-size: 18px;
+    font-family: $gr;
+    font-weight: normal;
+  }
+}
+.range-field{
+  width:47%;
+  padding:0 19px;
+  .mat-slider-horizontal{
+    width:100%;
+    min-width: inherit;
+  }
+  ::ng-deep .mat-slider-thumb{
+    background-color: $primary;
+  }
+  ::ng-deep .mat-slider-thumb-label {
+    background-color: $primary;
+  }
+  ::ng-deep .mat-slider-track-fill{
+    background-color: $primary;
+  }
+  ::ng-deep .mat-accent .mat-slider-thumb-label-text {
+    display: none;
+  }
+}
+.range-value{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+/* = MEDIA = */
+@media screen and (max-width:1500px){
+    .form-wrapper{
+        padding:0 100px;
+    }
+}
+
+@media screen and (max-width:992px){
+    .form-wrapper{
+        padding:0 75px;
+    }
+}
+@media screen and (max-width:768px){
+    .search{
+        background-color:#ffffff;
+    }
+    .form-wrapper{
+        padding:0 0px;
+    }
+    .field{
+        width:100%;
+    }
+}
+@media screen and (max-width:568px){
+    .field{
+        &__label{
+            margin-left:10px;
+            font-size: 16px;
+        }
+    }
+}
+/* = MEDIA END = */
