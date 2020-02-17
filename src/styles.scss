@@ -1,7 +1,7 @@
 @import "app/theme/reset.scss";
 @import "app/theme/variables.scss";
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
-
+@import "~@ng-select/ng-select/themes/default.theme.css";
 
 // STYLE SNACKBAR
 .snack {
@@ -50,6 +50,63 @@
   background-color: $red !important;
   color: #ffffff !important;
 	font-weight: 700;
+}
+// STYLE SELECT
+.custom-select {
+    width:100%;
+    background-color:#ffffff;
+    border:0;
+    padding:15.5px 19px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.17);
+    border-radius: 10px;
+    color:$black;
+    font-size: 17px;
+    &::placeholder{
+        color:#989898;
+        opacity: .8;
+        font-size: 17px;
+    }
+}
+.ng-arrow-wrapper{
+    width:auto!important;
+    .ng-arrow{
+    background-image: url('/assets/image/select-arrow.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    border:none!important;
+    width:15px!important;
+    height:5px!important;
+    transition: .25s linear;
+    }
+}
+.ng-select.ng-select-opened>.ng-select-container .ng-arrow{
+    top:0!important;
+    transform-origin: center;
+    transform: rotate(-180deg);
+}
+.ng-select .ng-select-container{
+    &:hover{
+        border: none!important;
+        box-shadow: none!important;
+    }
+}
+.ng-select.ng-select-focused:not(.ng-select-opened)>.ng-select-container{
+    border: none!important;
+    box-shadow: none!important;
+}
+.ng-select-container{
+    border:none!important;
+    height: auto!important;
+    min-height: auto!important;
+    .ng-value-container{
+        padding:0!important;
+        
+    }
+}
+.ng-dropdown-panel{
+    z-index: 10!important;
+    border:none!important;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.17)!important;
 }
 /* = STYLE CONTAINER = */
 .container{

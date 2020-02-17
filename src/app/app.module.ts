@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule, HttpClient } from '@angular/common/http';
-
+import { NgSelectModule } from '@ng-select/ng-select';
 import { RoutingModule } from './modules/routing.module';
 import { ApiRoutesProvider } from './services/api-routes.services';
 
@@ -77,6 +77,7 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     ReactiveFormsModule,
     HttpClientModule,
     SwiperModule,
+    NgSelectModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

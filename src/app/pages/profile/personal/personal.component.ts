@@ -39,7 +39,7 @@ export class PersonalComponent implements OnInit {
         birthPlace: [profileData.personal.birthPlace ?? ''],
         dateBirth: [profileData.personal.dateBirth ?? ''],
         firstName: [profileData.personal.firstName ?? ''],
-        gender: [profileData.personal.gender ?? 'male'],
+        gender: [profileData.personal.gender ?? 'Male'],
         lastName: [profileData.personal.lastName ?? ''],
         middleName: [profileData.personal.middleName ?? ''],
         nationality: [profileData.personal.nationality ?? '']

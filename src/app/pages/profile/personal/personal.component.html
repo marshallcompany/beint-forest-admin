@@ -65,15 +65,16 @@
           <div class="field">
             <p class="field__label">Geschlecht</p>
             <div class="field-wrapper">
-              <mat-form-field>
-                <select
-                  matNativeControl
-                  formControlName="gender"
-                  (change)="submit('Geschlecht')">
-                  <option value="male">Male</option>
-                  <option value="woman">Woman</option>
-                </select>
-              </mat-form-field>
+              <ng-select
+                [searchable]="false"
+                [clearable]="false"
+                placeholder="Gender"
+                formControlName="gender"
+                (change)="submit('Geschlecht')"
+                class="custom-select">
+                <ng-option [value]="'Male'">Male</ng-option>
+                <ng-option [value]="'Woman'">Woman</ng-option>
+              </ng-select>
               <div
                 class="field-wrapper__status"
                 [ngClass]="{invalid : !form.get('personal').get('gender').value}"></div>
