@@ -25,32 +25,6 @@
 .field-wrapper{
     width:100%;
     position: relative;
-    mat-form-field{
-        width:100%;
-        box-shadow: 0px 2px 5px #00000026;
-        border-radius: 10px;
-        select{
-            padding:0;
-            top:0;
-            margin-bottom:0;
-            padding:15px 19px;
-            color:$black;
-            opacity: .8;
-            font-size: 17px;
-        }
-        ::ng-deep .mat-form-field-wrapper{
-            padding:0;
-            .mat-form-field-infix,
-            .mat-form-field-label-wrapper{
-                padding:0;
-                margin:0;
-                border:0;
-            }
-            .mat-form-field-underline{
-                display: none;
-            }
-        }
-    }
     &__input{
         width:100%;
         background-color:#ffffff;
@@ -59,7 +33,6 @@
         box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.17);
         border-radius: 10px;
         color:$black;
-        opacity: .8;
         font-size: 17px;
         &::placeholder{
             color:#989898;
@@ -71,6 +44,7 @@
        width:10px;
        height:100%;
        position: absolute;
+       z-index: 5;
        right:0;
        top:0;
        border-bottom-right-radius: 10px;
@@ -81,6 +55,7 @@
        }
     }
 }
+
 .datepicker-wrp{
  position: relative;
  cursor: pointer;
