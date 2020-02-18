@@ -1,0 +1,9 @@
+@import "../../../theme/variables.scss";
+.professional-background{
+    background-color:$primary;
+    position:relative;
+    min-height: 100vh;
+    overflow: auto;
+    overflow-x: hidden;
+    padding-top: 100px;
+}

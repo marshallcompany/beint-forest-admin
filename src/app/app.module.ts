@@ -41,6 +41,7 @@ import { ProfileCategoryItemComponent } from './components/profile-category-item
 import { CategoryNavHeaderComponent } from './components/category-nav-header/category-nav-header.component';
 import { AboutComponent } from './pages/profile/about/about.component';
 import { SearchSettingsComponent } from './pages/profile/search-settings/search-settings.component';
+import { ProfessionalBackgroundComponent } from './pages/profile/professional-background/professional-background.component';
 
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -73,6 +74,7 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     CategoryNavHeaderComponent,
     AboutComponent,
     SearchSettingsComponent,
+    ProfessionalBackgroundComponent,
   ],
   imports: [
     RoutingModule,

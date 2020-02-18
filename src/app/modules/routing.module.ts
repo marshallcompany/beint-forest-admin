@@ -17,6 +17,7 @@ import { ApplyComponent } from '../pages/apply/apply.component';
 import { ApplyThanksComponent } from '../pages/apply/apply-thanks/apply-thanks.component';
 import { AboutComponent } from '../pages/profile/about/about.component';
 import { SearchSettingsComponent } from '../pages/profile/search-settings/search-settings.component';
+import { ProfessionalBackgroundComponent } from '../pages/profile/professional-background/professional-background.component';
 
 
 
@@ -35,9 +36,9 @@ const routes: Routes = [
   { path: 'education', component: EducationComponent },
   { path: 'about', component: AboutComponent },
   { path: 'search-settings', component: SearchSettingsComponent },
+  { path: 'professional-background', component: ProfessionalBackgroundComponent },
   { path: '**', component: NotFoundComponent }
 ];
-
 @NgModule({
   imports: [
     RouterModule.forRoot(routes),
