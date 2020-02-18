@@ -23,15 +23,16 @@
           <div
             [formGroupName]="i"
             class="field">
-            <p class="field__label">{{ question[i].text }}</p>
+            <p class="field__label">{{ form.get('aboutAnswers').controls[i].value.question }}</p>
             <div class="field-wrapper">
               <textarea
                 type="text"
-                [placeholder]="question[i].placeholder"
+                placeholder="die Antwort eingeben"
                 class="field-wrapper__input"
                 formControlName="answer"
                 (blur)="submit(i + 1)">
               </textarea>
+              <div class="field-type">abc</div>
               <div
                 class="field-wrapper__status"
                 [ngClass]="{invalid : !this.form.get('aboutAnswers').controls[i].get('answer').value}"></div>

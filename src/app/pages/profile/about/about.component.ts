@@ -6,8 +6,8 @@ import { throwError, of } from 'rxjs';
 import { NotificationService } from 'src/app/services/notification.service';
 
 export interface Question {
-  text: string;
-  placeholder: string;
+  question: string;
+  answer: string;
 }
 
 @Component({
@@ -17,7 +17,8 @@ export interface Question {
 })
 export class AboutComponent implements OnInit {
 
-  public formData: object;
+  public formData: any;
+  public answerData: any;
 
   public form: FormGroup;
   public aboutAnswers: FormArray;
@@ -31,32 +32,14 @@ export class AboutComponent implements OnInit {
   ) {
 
     this.question = [
-      { text: 'Was motiviert dich?', placeholder: 'die Antwort eingeben' },
-      { text: 'Welchen Witz würdest du in einem Vorstellungsgespräch erzählen?', placeholder: 'die Antwort eingeben' },
-      { text: 'Was ist deine Supermacht?', placeholder: 'die Antwort eingeben' }
+      { question: 'Was motiviert dich?', answer: '' },
+      { question: 'Welchen Witz würdest du in einem Vorstellungsgespräch erzählen?', answer: '' },
+      { question: 'Was ist deine Supermacht?', answer: '' }
     ];
   }
 
   ngOnInit(): void {
     this.init();
-  }
-
-
-  public formInit = (answer?) => {
-    this.form = this.fb.group({
-      aboutAnswers: this.fb.array([
-        this.fb.group({
-          answer: [answer && answer.answers[0] && answer.answers[0].answer ? answer.answers[0].answer : '']
-        }),
-        this.fb.group({
-          answer: [answer && answer.answers[1] && answer.answers[1].answer ? answer.answers[1].answer : '']
-        }),
-        this.fb.group({
-          answer: [answer && answer.answers[2] && answer.answers[2].answer ? answer.answers[2].answer : '']
-        })
-      ])
-    });
-    this.aboutAnswers = this.form.get('aboutAnswers') as FormArray;
   }
 
   public init = () => {
@@ -73,14 +56,40 @@ export class AboutComponent implements OnInit {
       )
       .subscribe(
         res => {
-          this.formInit(res);
+          this.answerData = res;
+          this.formInit();
           this.formData = this.form.value;
         },
         err => {
-          this.formInit();
+          console.log('ERROR', err);
         }
       );
   }
+
+  public formInit = () => {
+    this.form = this.fb.group({
+      aboutAnswers: this.fb.array([])
+    });
+    this.aboutAnswers = this.form.get('aboutAnswers') as FormArray;
+    this.questionGroupInit(this.answerData);
+  }
+
+  public createAnswerGroup = (index, question?, ): FormGroup => {
+    return this.fb.group({
+      question: [question ? question.question : ''],
+      answer: [this.answerData && this.answerData.answers ? this.answerData.answers[index].answer : '']
+    });
+  }
+
+  public questionGroupInit = (answerData) => {
+    if (this.question) {
+      this.question.forEach((question, index) => {
+        this.aboutAnswers.push(this.createAnswerGroup(index, question));
+      });
+    }
+  }
+
+
 
   public submit = (field: string) => {
     this.profileService.updateProfile(this.form.value)
