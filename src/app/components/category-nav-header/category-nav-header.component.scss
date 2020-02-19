@@ -1,31 +1,30 @@
 @import "../../theme/variables.scss";
-.categorie-header{
+.category-header{
     padding-top:85px;
-    margin-bottom:40px;
+    margin-bottom:15px;
 }
-.categorie-wrapper{
+.category-wrapper{
     display: flex;
     align-items:center;
-    justify-content:flex-start;
+    justify-content:space-between;
     position: relative;
 }
-
-.categorie-icon{
-    width:80px;
-    height:80px;
-    border-radius:50px;
-    background-color:$primary;
+.category-detail{
     display: flex;
-    align-items:center;
-    justify-content: center;
-    margin-right:25px;
+    align-items: center;
+    &__icon{
+        width:80px;
+        height:80px;
+        border-radius:50px;
+        background-color:$primary;
+        display: flex;
+        align-items:center;
+        justify-content: center;
+        margin-right:25px;
+    }
     &__image{
         height:40px;
     }
-}
-.categorie-detail{
-    display: flex;
-    align-items: center;
     &__label{
         color:$blue;
         font-family: $gb;
@@ -35,33 +34,37 @@
     &__back{
         background-color:transparent;
         margin-right:50px;
+        &_mobile{
+            display: none;
+            position: absolute;
+            left:10px;
+            top:50%;
+            transform: translate(0, -50%);
+            margin:0;
+            svg{
+                fill:$blue;
+                height:25px;
+            }
+        }
     }
     &__next{
         background-color: transparent;
+        &_mobile{
+            display: none;
+            position: absolute;
+            right:10px;
+            top:50%;
+            transform: translate(0, -50%);
+            margin:0;
+            svg{
+                fill:$blue;
+                height:25px;
+            }
+        }
     }
 }
-.categorie-edit-status{
-    display: flex;
-    align-items:center;
-    position: absolute;
-    right:0;
-    top:50%;
-    transform: translate(0, -50%);
-    &__icon{
-        background-color:$yellow;
-        width:50px;
-        height:50px;
-        border-radius:50%;
-        display:flex;
-        align-items:center;
-        justify-content: center;
-        margin-right:40px;
-    }
-    &__image{
-        height:25px;
-    }
-}
-.categorie-close-button{
+
+.category-close-button{
     background-color: transparent;
     width:25px;
     height:25px;
@@ -71,127 +74,107 @@
     }
 }
 /* = MEDIA = */
+
 @media screen and (max-width:1500px){
-    .categorie-header{
-        padding-right:100px;
-        padding-left:100px;
+    .category-header{
+        padding-left:5vw;
+        padding-right:5vw;
+        padding-top:40px;
     }
 }
-
-@media screen and (max-width:992px){
-    .categorie-header{
-        padding-right:75px;
-        padding-left:75px;
-
+@media screen and (max-width:1200px){
+    .category-detail{
+        &__icon{
+            width:70px;
+            height:70px;
+        }
+        &__image{
+            height:40px;
+        }
+        &__label{
+            font-size: 22px;
+        }
     }
-    .categorie-icon{
+}
+@media screen and (max-width:992px){
+    .category-icon{
         width:50px;
         height:50px;
         &__image{
             height:30px;
         }
     }
-    .categorie-detail{
-        &__label{
-            font-size: 20px;
-        }
-    }
-    .categorie-edit-status{
+    .category-detail{
         &__icon{
-            height:35px;
-            width:35px;
+            width:60px;
+            height:60px;
+            margin-right:10px;
         }
         &__image{
-            height:20px;
+            height:30px;
+        }
+        &__label{
+            font-size: 20px;
+            margin-right:15px;
         }
     }
-    .categorie-close-button{
+    .category-close-button{
         width:20px;
         height:20px;
     }
 }
 @media screen and (max-width:768px){
-    .categorie-header{
-        padding-right:0;
-        padding-left:0;
+    .category-header{
         position: relative;
-        padding-top: 40px;
+        padding:30px 0;
         z-index: 1;
-        background-color:#F0F0F0;
+        background-color:$primary;
         margin-bottom:25px;
         border-bottom-left-radius: 50px;
-        &::before{
-            content:'';
-            position: absolute;
-            left:0;
-            top:0;
-            width:100%;
-            height:145px;
-            background-color: $primary;
-            border-bottom-left-radius: 50px;
-        }
     }
-    .categorie-wrapper{
-        flex-wrap: wrap;
-        justify-content: space-between;
+
+    .category-detail{
+        width: 100%;
+        display:flex;
+        justify-content: center;
         align-items: center;
-    }
-    .categorie-icon{
-        margin:0;
-        width:inherit;
-        height:inherit;
-        border-radius:0;
-        order: -2;
         &__image{
             height:75px;
-            opacity: .5;
         }
-    }
-    .categorie-detail{
-        width:100%;
-        padding:45px 0 25px 0;
-        justify-content: space-between;
         &__label{
           margin:0;
-          width:150px;
+          width:125px;
+          color:#ffffff;
+        }
+        &__navigation{
+            display: none;
+        }
+        &__next{
+            &_mobile{
+                display: block;
+            }
+        }
+        &__back{
+            &_mobile{
+                display: block;
+            }
         }
     }
-    .categorie-edit-status{
-        position: inherit;
-        right:inherit;
-        top:inherit;
-        transform: inherit;
-        order: -1;
-        &__icon{
-            height: 45px;
-            width:45px;
-            margin-right:30px;
-        }
-        &__image{
-            height:25px;
-        }
+    .category-close-button{
+        display: none;
     }
 }
 @media screen and (max-width:667px){}
 @media screen and (max-width:640px){}
 @media screen and (max-width:568px){}
 @media screen and (max-width:480px){
-     .categorie-detail{
+     .category-detail{
+        &__image{
+            height: 50px;
+        }
         &__label{
           font-size: 16px;
-        }
-        &__back{
-            margin-right:40px;
-        }
-    }
-    .categorie-edit-status{
-        &__icon{
-            height: 40px;
-            width:40px;
-            margin-right:20px;
-        }
-        &__image{
-            height:20px;
+          width:100px;
         }
     }
 }

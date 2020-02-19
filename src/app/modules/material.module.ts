@@ -10,6 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSliderModule } from '@angular/material/slider';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     MatNativeDateModule,
     MatFormFieldModule,
     MatSnackBarModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatSliderModule
   ],
   exports: [
     MatIconModule,
@@ -33,7 +35,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     MatNativeDateModule,
     MatFormFieldModule,
     MatSnackBarModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatSliderModule
   ],
   providers: [
     {

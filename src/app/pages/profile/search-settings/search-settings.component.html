@@ -1,0 +1,141 @@
+<div class="search">
+  <div class="background">
+    <img
+      src="../assets/image/background-circle-01.png"
+      class="background__circle background__circle_01">
+    <img
+      src="../assets/image/background-circle-02.png"
+      class="background__circle background__circle_02">
+  </div>
+  <app-category-nav-header
+    iconCategory="../assets/image/profile/category-04.svg"
+    nameCategory="Such-Präferenzen"
+    nextCategoryName="education"></app-category-nav-header>
+  <div class="form-wrapper">
+    <div class="container">
+      <form
+        class="form"
+        [formGroup]="form">
+        <div
+          class="flx"
+          formGroupName="searchPreferences">
+          <div class="range-wrapper">
+            <h2 class="range-wrapper__label">Umkreis</h2>
+            <div
+              class="range-field"
+              formGroupName="salaryExpectations">
+              <div class="range-value">
+                <p>0 km</p>
+                <p *ngIf="valueRange">{{ valueRange }} km</p>
+              </div>
+              <mat-slider
+                thumbLabel
+                (input)="rangeValue($event)"
+                (change)="rangeChange()"
+                value="50"
+                min="0"
+                max="100"
+                formControlName="max">
+              </mat-slider>
+            </div>
+          </div>
+          <div
+            class="field"
+            formArrayName="desiredPlacesOfWork">
+            <p class="field__label">In welchen Orten würdest du am liebsten arbeiten wollen?</p>
+            <div
+              class="field-wrapper"
+              [formGroupName]="0">
+              <input
+                type="text"
+                placeholder="Bezeichnung"
+                class="field-wrapper__input"
+                formControlName="city">
+              <div class="field-wrapper__status"></div>
+            </div>
+          </div>
+          <div class="field">
+            <p class="field__label">In welcher Branche mochtest du am liebsten arbeiten?</p>
+            <div class="field-wrapper">
+              <input
+                type="text"
+                placeholder="die Antwort eingeben"
+                class="field-wrapper__input"
+                [(ngModel)]="branches"
+                [ngModelOptions]="{standalone: true}"
+                (blur)="saveData('desiredIndustryBranches', branches)">
+              <div class="field-wrapper__status"></div>
+            </div>
+          </div>
+          <div class="field">
+            <p class="field__label">Welche Arbeitzeit ist für dich optimal?</p>
+            <div class="field-wrapper">
+              <input
+                type="text"
+                placeholder="die Antwort eingeben"
+                class="field-wrapper__input"
+                [(ngModel)]="workingHours"
+                [ngModelOptions]="{standalone: true}"
+                (blur)="saveData('preferredWorkingHours', workingHours)">
+              <div class="field-wrapper__status"></div>
+            </div>
+          </div>
+          <div class="field">
+            <p class="field__label">Was sind deine favorisierten Geschäftsbereiche?</p>
+            <div class="field-wrapper">
+              <input
+                type="text"
+                placeholder="die Antwort eingeben"
+                class="field-wrapper__input"
+                [(ngModel)]="businessAreas"
+                [ngModelOptions]="{standalone: true}"
+                (blur)="saveData('preferredBusinessAreas', businessAreas)">
+              <div class="field-wrapper__status"></div>
+            </div>
+          </div>
+          <!-- /////////////////// -->
+          <div class="field">
+            <p class="field__label">Was ist deine Gehaltsvorstellung</p>
+            <div class="field-wrapper">
+              <input
+                type="text"
+                placeholder="die Antwort eingeben"
+                class="field-wrapper__input">
+              <div class="field-wrapper__status"></div>
+            </div>
+          </div>
+          <div class="field">
+            <p class="field__label">Wie groß ist deine Reisebereitschaft?</p>
+            <div class="field-wrapper">
+              <input
+                type="text"
+                placeholder="die Antwort eingeben"
+                class="field-wrapper__input">
+              <div class="field-wrapper__status"></div>
+            </div>
+          </div>
+          <div class="field">
+            <p class="field__label">Welche Benefits hättest du gerne?</p>
+            <div class="field-wrapper">
+              <input
+                type="text"
+                placeholder="die Antwort eingeben"
+                class="field-wrapper__input">
+              <div class="field-wrapper__status"></div>
+            </div>
+          </div>
+          <div class="field">
+            <p class="field__label">Ab wann bist du verfügbar</p>
+            <div class="field-wrapper">
+              <input
+                type="text"
+                placeholder="die Antwort eingeben"
+                class="field-wrapper__input">
+              <div class="field-wrapper__status"></div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
