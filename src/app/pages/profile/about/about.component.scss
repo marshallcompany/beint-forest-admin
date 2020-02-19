@@ -19,13 +19,13 @@
 .field-wrapper{
     width:100%;
     position: relative;
+    padding:15px 55px 15px 19px;
+    background-color:#ffffff;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.17);
+    border-radius: 10px;
     &__input{
         width:100%;
-        background-color:#ffffff;
         border:0;
-        padding:15px 19px;
-        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.17);
-        border-radius: 10px;
         color:$black;
         opacity: .8;
         font-size: 17px;
@@ -33,6 +33,7 @@
         outline: none;
         height: 130px;
         font-family: $gr;
+        padding:0;
         &::placeholder{
             color:#989898;
             opacity: .8;
@@ -52,6 +53,14 @@
            background-color: $yellow;
        }
     }
+}
+.field-type{
+    position: absolute;
+    right:19px;
+    top:15px;
+    color: #989898;
+    opacity: 0.8;
+    font-size: 17px;
 }
 @media screen and (max-width:1500px){
     .form-wrapper{
