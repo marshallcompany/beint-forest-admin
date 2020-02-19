@@ -1,34 +1,41 @@
-<div class="categorie-header">
+<div class="category-header">
   <div class="container">
-    <div class="categorie-wrapper">
-      <div class="categorie-icon">
-        <img
-          [src]="iconCategory"
-          class="categorie-icon__image">
-      </div>
-      <div class="categorie-detail">
-        <p class="categorie-detail__label">{{ nameCategory }}</p>
-        <div class="categorie-detail__navigation">
-          <button class="categorie-detail__back">
+    <div class="category-wrapper">
+      <div class="category-detail">
+        <button class="category-detail__back category-detail__back_mobile">
+          <svg viewBox="0 0 9 24"  xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M7.83442 23.8537C8.42181 23.5354 8.63997 22.8012 8.32168 22.2138L2.59664 11.6483L8.30426 1.81724C8.6397 1.23947 8.44324 0.499163 7.86547 0.163727C7.2877 -0.171709 6.5474 0.024744 6.21196 0.602516L0.163582 11.0205C-0.0480747 11.3851 -0.0546751 11.8336 0.146161 12.2042L6.19454 23.3664C6.51283 23.9538 7.24703 24.172 7.83442 23.8537Z" />
+          </svg>
+
+        </button>
+        <button class="category-detail__back category-detail__next_mobile">
+          <svg viewBox="0 0 9 24"  xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M1.10162 23.8537C0.514221 23.5354 0.296067 22.8012 0.614355 22.2138L6.33939 11.6483L0.631776 1.81724C0.29634 1.23947 0.492792 0.499163 1.07056 0.163727C1.64834 -0.171709 2.38864 0.024744 2.72407 0.602516L8.77245 11.0205C8.98411 11.3851 8.99071 11.8336 8.78987 12.2042L2.7415 23.3664C2.42321 23.9538 1.68901 24.172 1.10162 23.8537Z" />
+          </svg>
+
+        </button>
+        <div class="category-detail__icon">
+          <img
+            [src]="iconCategory"
+            class="category-detail__image">
+        </div>
+        <p class="category-detail__label">{{ nameCategory }}</p>
+        <div class="category-detail__navigation">
+          <button class="category-detail__back">
             <img src="../assets/image/back.svg">
           </button>
           <button
-            class="categorie-detail__next"
+            class="category-detail__next"
             (click)="nextCategory()">
             <img src="../assets/image/next.svg">
           </button>
         </div>
       </div>
-      <div class="categorie-edit-status">
-        <div class="categorie-edit-status__icon">
-          <img
-            src="../assets/image/profile/pencil.svg"
-            class="categorie-edit-status__image">
-        </div>
+      <div class="category-close">
         <button
-          class="categorie-close-button"
+          class="category-close-button"
           (click)="closeCategory()">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.765 21.765" class="categorie-close-button__icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.765 21.765" class="category-close-button__icon">
             <g transform="translate(0 -0.001)">
               <g transform="translate(0 0.001)">
                 <path class="a" d="M12.084,10.883l9.431-9.431a.85.85,0,0,0-1.2-1.2L10.882,9.681,1.451.25a.85.85,0,0,0-1.2,1.2L9.68,10.883.249,20.314a.85.85,0,0,0,1.2,1.2l9.431-9.431,9.431,9.431a.85.85,0,0,0,1.2-1.2Z" transform="translate(0 -0.001)"/>
