@@ -6,6 +6,17 @@
   overflow: auto;
 	overflow-x: hidden;
 }
+.category-decor{
+    margin-bottom: 2vw;
+    &__image{
+        display: block;
+        width: 90%;
+        margin:0 auto;
+        &_mobile{
+            display: none;
+        }
+    }
+}
 .field{
     width:100%;
     margin-bottom:20px;
@@ -66,21 +77,31 @@
 }
 @media screen and (max-width:1500px){
     .form-wrapper{
-        padding:0 100px;
+        padding-left:5vw;
+        padding-right:5vw;
     }
 }
 
-@media screen and (max-width:992px){
-    .form-wrapper{
-        padding:0 75px;
-    }
-}
+// @media screen and (max-width:992px){
+//     .form-wrapper{
+//         padding:0 75px;
+//     }
+// }
 @media screen and (max-width:768px){
+    .category-decor{
+        &__image{
+            width: 80%;
+            display: none;
+            &_mobile{
+                display: block;
+            }
+        }
+    }
     .about{
         background-color:#ffffff;
     }
     .form-wrapper{
-        padding:0 0px;
+        padding:0;
     }
 }
 @media screen and (max-width:568px){
