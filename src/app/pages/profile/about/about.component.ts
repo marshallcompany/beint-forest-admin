@@ -7,7 +7,6 @@ import { NotificationService } from 'src/app/services/notification.service';
 
 export interface Question {
   question: string;
-  answer: string;
 }
 
 @Component({
@@ -37,9 +36,9 @@ export class AboutComponent implements OnInit {
   ) {
 
     this.question = [
-      { question: 'Was motiviert dich?', answer: '' },
-      { question: 'Welchen Witz würdest du in einem Vorstellungsgespräch erzählen?', answer: '' },
-      { question: 'Was ist deine Supermacht?', answer: '' }
+      { question: 'Was motiviert dich?' },
+      { question: 'Welchen Witz würdest du in einem Vorstellungsgespräch erzählen?' },
+      { question: 'Was ist deine Supermacht?' }
     ];
   }
 
@@ -75,7 +74,6 @@ export class AboutComponent implements OnInit {
     this.form = this.fb.group({
       aboutAnswers: this.fb.array([])
     });
-    this.aboutAnswers = this.form.get('aboutAnswers') as FormArray;
     this.questionGroupInit(this.answerData);
   }
 
@@ -87,7 +85,8 @@ export class AboutComponent implements OnInit {
   }
 
   public questionGroupInit = (answerData) => {
-    if (this.question) {
+    this.aboutAnswers = this.form.get('aboutAnswers') as FormArray;
+    if (this.aboutAnswers) {
       this.question.forEach((question, index) => {
         this.aboutAnswers.push(this.createAnswerGroup(index, question));
       });
