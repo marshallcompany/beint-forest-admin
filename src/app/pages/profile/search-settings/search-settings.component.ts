@@ -11,6 +11,12 @@ import { map } from 'rxjs/operators';
 })
 export class SearchSettingsComponent implements OnInit {
 
+  public navSettings = {
+    iconCategory: '../assets/image/profile/category-04.svg',
+    nameCategory: 'Such-Präferenzen',
+    nextCategory: null
+  };
+
   public branches: string;
   public workingHours: string;
   public businessAreas: string;

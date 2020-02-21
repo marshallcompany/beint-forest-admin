@@ -58,6 +58,12 @@ export class ProfessionalBackgroundComponent implements OnInit {
     },
   ];
 
+  public navSettings = {
+    iconCategory: '../assets/image/profile/category-03.svg',
+    nameCategory: 'Beruflicher Werdegang',
+    nextCategory: 'search-settings'
+  };
+
   public form: FormGroup;
   public formWorkArray: FormArray;
   public formFreelanceArray: FormArray;
