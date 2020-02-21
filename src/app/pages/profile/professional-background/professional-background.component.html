@@ -1,0 +1,538 @@
+<section class="professional-background">
+  <div class="background">
+    <img
+      src="../assets/image/background-circle-01.png"
+      class="background__circle background__circle_01">
+    <img
+      src="../assets/image/background-circle-02.png"
+      class="background__circle background__circle_02">
+  </div>
+  <app-category-nav-header [navSettings]="navSettings"></app-category-nav-header>
+  <div class="category-decor">
+    <div class="container">
+      <img
+        src="../assets/image/profile/professional-background/image-desktop.svg"
+        class="category-decor__image">
+      <img
+        src="../assets/image/profile/professional-background/image-mobile.svg"
+        class="category-decor__image category-decor__image_mobile">
+    </div>
+  </div>
+  <div class="subcategory">
+    <div class="container">
+      <form
+        class="form"
+        [formGroup]="form"
+        *ngIf="form">
+        <div
+          class="subcategory-item"
+          formArrayName="formWorkArray">
+          <mat-expansion-panel
+            class="accordion"
+            #accordion01="matExpansionPanel">
+            <mat-expansion-panel-header>
+              <div class="subcategory-header">
+                <div class="subcategory-info">
+                  <img
+                    src="../assets/image/profile/professional-background/subcategory-01.svg"
+                    class="subcategory-info__icon">
+                  <p class="subcategory-info__label">Anstellungsverhältnisse</p>
+                </div>
+                <img
+                  src="../assets/image/profile/accordion-arrow.svg"
+                  [ngClass]="{ 'accordion-active' : accordion01.expanded }"
+                  class="subcategory-header__arrow">
+              </div>
+            </mat-expansion-panel-header>
+            <div class="subcategory-content">
+              <div
+                class="flex"
+                *ngFor="let item of form.get('formWorkArray').controls; let i = index"
+                [formGroupName]="i">
+                <div
+                  class="remove-fields"
+                  *ngIf="this.form.get('formWorkArray').controls.length > 1">
+                  <button
+                    class="remove-fields__button"
+                    (click)="remove('formWorkArray', i)">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.765 21.765" class="remove-fields__icon">
+                      <g transform="translate(0 -0.001)">
+                        <g transform="translate(0 0.001)">
+                          <path class="a" d="M12.084,10.883l9.431-9.431a.85.85,0,0,0-1.2-1.2L10.882,9.681,1.451.25a.85.85,0,0,0-1.2,1.2L9.68,10.883.249,20.314a.85.85,0,0,0,1.2,1.2l9.431-9.431,9.431,9.431a.85.85,0,0,0,1.2-1.2Z" transform="translate(0 -0.001)"/>
+                        </g>
+                      </g>
+                    </svg>
+                  </button>
+                </div>
+                <div class="field">
+                  <p class="field__label">Arbeitgeber</p>
+                  <div class="field-wrapper">
+                    <input
+                      type="text"
+                      placeholder="Arbeitgeber"
+                      class="field-wrapper__input"
+                      formControlName="field1">
+                    <div class="field-type">abc</div>
+                    <div
+                      class="field-wrapper__status"
+                      [ngClass]="{invalid : !this.form.get('formWorkArray').controls[i].get('field1').value}"></div>
+                  </div>
+                </div>
+                <div class="field">
+                  <p class="field__label">Art der Anstellung</p>
+                  <div class="field-wrapper">
+                    <ng-select
+                      [searchable]="false"
+                      [clearable]="false"
+                      placeholder="Art der Anstellung"
+                      formControlName="select1"
+                      class="custom-select">
+                      <ng-option [value]="'Vollzeit'">Vollzeit</ng-option>
+                      <ng-option [value]="'Teilzeit'">Teilzeit</ng-option>
+                      <ng-option [value]="'Verschiebung'">Verschiebung</ng-option>
+                      <ng-option [value]="'Fernarbeit'">Fernarbeit</ng-option>
+                      <ng-option [value]="'Praktikum'">Praktikum</ng-option>
+                    </ng-select>
+                    <div class="field-wrapper__status"></div>
+                  </div>
+                </div>
+                <div class="checkbox-wrapper">
+                  <input
+                    type="checkbox"
+                    [id]="'subcategory1-checkbox_'+(i+1)"
+                    class="checkbox-wrapper__input"
+                    formControlName="checkbox">
+                  <label
+                    [for]="'subcategory1-checkbox_'+(i+1)"
+                    class="checkbox-wrapper__input">
+                    Führungskraft
+                  </label>
+                </div>
+                <div class="field">
+                  <p class="field__label">Ort</p>
+                  <div class="field-wrapper">
+                    <input
+                      type="text"
+                      placeholder="Ort"
+                      class="field-wrapper__input"
+                      formControlName="ort">
+                    <div class="field-type">abc</div>
+                    <div
+                      class="field-wrapper__status"
+                      [ngClass]="{invalid : !this.form.get('formWorkArray').controls[i].get('ort').value}"></div>
+                  </div>
+                </div>
+                <div class="field">
+                  <p class="field__label">Branche</p>
+                  <div class="field-wrapper">
+                    <ng-select
+                      [searchable]="false"
+                      [clearable]="false"
+                      placeholder="Branche"
+                      class="custom-select"
+                      formControlName="branch">
+                      <ng-option [value]="'Branche'">Branche</ng-option>
+                    </ng-select>
+                    <div class="field-wrapper__status"></div>
+                  </div>
+                </div>
+                <div class="field">
+                  <p class="field__label">Job Bezeichnung</p>
+                  <div class="field-wrapper">
+                    <input
+                      type="text"
+                      placeholder="Job Bezeichnung"
+                      class="field-wrapper__input"
+                      formControlName="jobTitle">
+                    <div class="field-type">abc</div>
+                    <div
+                      class="field-wrapper__status"
+                      [ngClass]="{invalid : !this.form.get('formWorkArray').controls[i].get('jobTitle').value}"></div>
+                  </div>
+                </div>
+                <div class="field">
+                  <p class="field__label">Geschäftebereich</p>
+                  <div class="field-wrapper">
+                    <ng-select
+                      [searchable]="false"
+                      [clearable]="false"
+                      placeholder="Geschäftebereiche"
+                      class="custom-select"
+                      formControlName="area">
+                      <ng-option [value]="'Geschäftebereich'">Geschäftebereich</ng-option>
+                    </ng-select>
+                    <div class="field-wrapper__status"></div>
+                  </div>
+                </div>
+                <div class="field field_date">
+                  <p class="field__label">Von</p>
+                  <div class="field-wrapper">
+                    <div class="datepicker-wrp">
+                      <input
+                        [matDatepicker]="dateVon"
+                        placeholder="DD/MM/YYYY"
+                        class="field-wrapper__input"
+                        formControlName="von">
+                      <mat-datepicker-toggle [for]="dateVon"></mat-datepicker-toggle>
+                      <mat-datepicker #dateVon></mat-datepicker>
+                      <img
+                        class="datepicker-wrp__icon"
+                        src="../assets/image/calendar.svg">
+                    </div>
+                    <div
+                      class="field-wrapper__status"
+                      [ngClass]="{invalid : !this.form.get('formWorkArray').controls[i].get('von').value}"></div>
+                  </div>
+                  <p class="field__label">Bis</p>
+                  <div class="field-wrapper">
+                    <div class="datepicker-wrp">
+                      <input
+                        [matDatepicker]="dateBis"
+                        placeholder="DD/MM/YYYY"
+                        class="field-wrapper__input"
+                        formControlName="bis">
+                      <mat-datepicker-toggle [for]="dateBis"></mat-datepicker-toggle>
+                      <mat-datepicker #dateBis></mat-datepicker>
+                      <img
+                        class="datepicker-wrp__icon"
+                        src="../assets/image/calendar.svg">
+                    </div>
+                    <div
+                      class="field-wrapper__status"
+                      [ngClass]="{invalid : !this.form.get('formWorkArray').controls[i].get('bis').value}"></div>
+                  </div>
+                </div>
+                <div class="field">
+                  <p class="field__label">Job Bezeichnung</p>
+                  <div class="field-wrapper field-wrapper_textarea">
+                    <textarea
+                      placeholder="Job Bezeichnung"
+                      class="field-wrapper__input field-wrapper__input_textarea"
+                      formControlName="description"></textarea>
+                    <div class="field-type">abc</div>
+                    <div
+                      class="field-wrapper__status"
+                      [ngClass]="{invalid : !this.form.get('formWorkArray').controls[i].get('description').value}"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="add-fields">
+                <button
+                  class="add-fields__button"
+                  (click)="setFormGroup('newWorkFields')">
+                  <img
+                    src="../assets/image/plus.svg"
+                    alt>
+                </button>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </div>
+        <div
+          class="subcategory-item"
+          formArrayName="formFreelanceArray">
+          <mat-expansion-panel
+            class="accordion"
+            #accordion02="matExpansionPanel">
+            <mat-expansion-panel-header>
+              <div class="subcategory-header">
+                <div class="subcategory-info">
+                  <img
+                    src="../assets/image/profile/professional-background/subcategory-02.svg"
+                    class="subcategory-info__icon">
+                  <p class="subcategory-info__label">Selbständigkeit</p>
+                </div>
+                <img
+                  src="../assets/image/profile/accordion-arrow.svg"
+                  [ngClass]="{ 'accordion-active' : accordion02.expanded }"
+                  class="subcategory-header__arrow">
+              </div>
+            </mat-expansion-panel-header>
+            <div class="subcategory-content">
+              <div
+                class="flex"
+                *ngFor="let item of form.get('formFreelanceArray').controls; let i = index"
+                [formGroupName]="i">
+                <div
+                  class="remove-fields"
+                  *ngIf="this.form.get('formFreelanceArray').controls.length > 1">
+                  <button
+                    class="remove-fields__button"
+                    (click)="remove('formFreelanceArray', i)">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.765 21.765" class="remove-fields__icon">
+                      <g transform="translate(0 -0.001)">
+                        <g transform="translate(0 0.001)">
+                          <path class="a" d="M12.084,10.883l9.431-9.431a.85.85,0,0,0-1.2-1.2L10.882,9.681,1.451.25a.85.85,0,0,0-1.2,1.2L9.68,10.883.249,20.314a.85.85,0,0,0,1.2,1.2l9.431-9.431,9.431,9.431a.85.85,0,0,0,1.2-1.2Z" transform="translate(0 -0.001)"/>
+                        </g>
+                      </g>
+                    </svg>
+                  </button>
+                </div>
+                <div class="field">
+                  <p class="field__label">Bezeichnung</p>
+                  <div class="field-wrapper">
+                    <input
+                      type="text"
+                      placeholder="Bezeichnung"
+                      class="field-wrapper__input"
+                      formControlName="field1">
+                    <div class="field-type">abc</div>
+                    <div
+                      class="field-wrapper__status"
+                      [ngClass]="{invalid : !this.form.get('formFreelanceArray').controls[i].get('field1').value}"></div>
+                  </div>
+                </div>
+                <div class="field">
+                  <p class="field__label">Name der Firma</p>
+                  <div class="field-wrapper">
+                    <input
+                      type="text"
+                      placeholder="Name der Firma"
+                      class="field-wrapper__input"
+                      formControlName="field2">
+                    <div class="field-type">abc</div>
+                    <div
+                      class="field-wrapper__status"
+                      [ngClass]="{invalid : !this.form.get('formFreelanceArray').controls[i].get('field2').value}"></div>
+                  </div>
+                </div>
+                <div class="checkbox-wrapper">
+                  <input
+                    type="checkbox"
+                    [id]="'subcategory1-checkbox_'+(i+1)"
+                    class="checkbox-wrapper__input"
+                    formControlName="checkbox">
+                  <label
+                    [for]="'subcategory1-checkbox_'+(i+1)"
+                    class="checkbox-wrapper__input">
+                    Führungskraft
+                  </label>
+                </div>
+                <div class="field">
+                  <p class="field__label">Branche</p>
+                  <div class="field-wrapper">
+                    <ng-select
+                      [searchable]="false"
+                      [clearable]="false"
+                      placeholder="Branche"
+                      class="custom-select"
+                      formControlName="branch">
+                      <ng-option [value]="'Branche'">Branche</ng-option>
+                    </ng-select>
+                    <div class="field-wrapper__status"></div>
+                  </div>
+                </div>
+                <div class="field">
+                  <p class="field__label">Ort</p>
+                  <div class="field-wrapper">
+                    <input
+                      type="text"
+                      placeholder="Ort"
+                      class="field-wrapper__input"
+                      formControlName="ort">
+                    <div class="field-type">abc</div>
+                    <div
+                      class="field-wrapper__status"
+                      [ngClass]="{invalid : !this.form.get('formFreelanceArray').controls[i].get('ort').value}"></div>
+                  </div>
+                </div>
+                <div class="field field_date">
+                  <p class="field__label">Von</p>
+                  <div class="field-wrapper">
+                    <div class="datepicker-wrp">
+                      <input
+                        [matDatepicker]="dateVon"
+                        placeholder="DD/MM/YYYY"
+                        class="field-wrapper__input"
+                        formControlName="von">
+                      <mat-datepicker-toggle [for]="dateVon"></mat-datepicker-toggle>
+                      <mat-datepicker #dateVon></mat-datepicker>
+                      <img
+                        class="datepicker-wrp__icon"
+                        src="../assets/image/calendar.svg">
+                    </div>
+                    <div
+                      class="field-wrapper__status"
+                      [ngClass]="{invalid : !this.form.get('formFreelanceArray').controls[i].get('von').value}"></div>
+                  </div>
+                  <p class="field__label">Bis</p>
+                  <div class="field-wrapper">
+                    <div class="datepicker-wrp">
+                      <input
+                        [matDatepicker]="dateBis"
+                        placeholder="DD/MM/YYYY"
+                        class="field-wrapper__input"
+                        formControlName="bis">
+                      <mat-datepicker-toggle [for]="dateBis"></mat-datepicker-toggle>
+                      <mat-datepicker #dateBis></mat-datepicker>
+                      <img
+                        class="datepicker-wrp__icon"
+                        src="../assets/image/calendar.svg">
+                    </div>
+                    <div
+                      class="field-wrapper__status"
+                      [ngClass]="{invalid : !this.form.get('formFreelanceArray').controls[i].get('bis').value}"></div>
+                  </div>
+                </div>
+                <div class="field">
+                  <p class="field__label">Job Bezeichnung</p>
+                  <div class="field-wrapper field-wrapper_textarea">
+                    <textarea
+                      placeholder="Job Bezeichnung"
+                      class="field-wrapper__input field-wrapper__input_textarea"
+                      formControlName="description"></textarea>
+                    <div class="field-type">abc</div>
+                    <div
+                      class="field-wrapper__status"
+                      [ngClass]="{invalid : !this.form.get('formFreelanceArray').controls[i].get('description').value}"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="add-fields">
+                <button
+                  class="add-fields__button"
+                  (click)="setFormGroup('newFreelanceFields')">
+                  <img
+                    src="../assets/image/plus.svg"
+                    alt>
+                </button>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </div>
+        <div
+          class="subcategory-item"
+          formArrayName="formOtherArray">
+          <mat-expansion-panel
+            class="accordion"
+            #accordion03="matExpansionPanel">
+            <mat-expansion-panel-header>
+              <div class="subcategory-header">
+                <div class="subcategory-info">
+                  <img
+                    src="../assets/image/profile/professional-background/subcategory-03.svg"
+                    class="subcategory-info__icon">
+                  <p class="subcategory-info__label">Sonstige Stationen</p>
+                </div>
+                <img
+                  src="../assets/image/profile/accordion-arrow.svg"
+                  [ngClass]="{ 'accordion-active' : accordion03.expanded }"
+                  class="subcategory-header__arrow">
+              </div>
+            </mat-expansion-panel-header>
+            <div class="subcategory-content">
+              <div
+                class="flex"
+                *ngFor="let item of form.get('formOtherArray').controls; let i = index"
+                [formGroupName]="i">
+                <div
+                  class="remove-fields"
+                  *ngIf="this.form.get('formOtherArray').controls.length > 1">
+                  <button
+                    class="remove-fields__button"
+                    (click)="remove('formOtherArray', i)">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.765 21.765" class="remove-fields__icon">
+                      <g transform="translate(0 -0.001)">
+                        <g transform="translate(0 0.001)">
+                          <path class="a" d="M12.084,10.883l9.431-9.431a.85.85,0,0,0-1.2-1.2L10.882,9.681,1.451.25a.85.85,0,0,0-1.2,1.2L9.68,10.883.249,20.314a.85.85,0,0,0,1.2,1.2l9.431-9.431,9.431,9.431a.85.85,0,0,0,1.2-1.2Z" transform="translate(0 -0.001)"/>
+                        </g>
+                      </g>
+                    </svg>
+                  </button>
+                </div>
+                <div class="field">
+                  <p class="field__label">Bezeichnung</p>
+                  <div class="field-wrapper">
+                    <input
+                      type="text"
+                      placeholder="Bezeichnung"
+                      class="field-wrapper__input"
+                      formControlName="field1">
+                    <div class="field-type">abc</div>
+                    <div
+                      class="field-wrapper__status"
+                      [ngClass]="{invalid : !this.form.get('formOtherArray').controls[i].get('field1').value}"></div>
+                  </div>
+                </div>
+                <div class="field">
+                  <p class="field__label">Ort</p>
+                  <div class="field-wrapper">
+                    <input
+                      type="text"
+                      placeholder="Ort"
+                      class="field-wrapper__input"
+                      formControlName="ort">
+                    <div class="field-type">abc</div>
+                    <div
+                      class="field-wrapper__status"
+                      [ngClass]="{invalid : !this.form.get('formOtherArray').controls[i].get('ort').value}"></div>
+                  </div>
+                </div>
+                <div class="field field_date">
+                  <p class="field__label">Von</p>
+                  <div class="field-wrapper">
+                    <div class="datepicker-wrp">
+                      <input
+                        [matDatepicker]="dateVon"
+                        placeholder="DD/MM/YYYY"
+                        class="field-wrapper__input"
+                        formControlName="von">
+                      <mat-datepicker-toggle [for]="dateVon"></mat-datepicker-toggle>
+                      <mat-datepicker #dateVon></mat-datepicker>
+                      <img
+                        class="datepicker-wrp__icon"
+                        src="../assets/image/calendar.svg">
+                    </div>
+                    <div
+                      class="field-wrapper__status"
+                      [ngClass]="{invalid : !this.form.get('formOtherArray').controls[i].get('von').value}"></div>
+                  </div>
+                  <p class="field__label">Bis</p>
+                  <div class="field-wrapper">
+                    <div class="datepicker-wrp">
+                      <input
+                        [matDatepicker]="dateBis"
+                        placeholder="DD/MM/YYYY"
+                        class="field-wrapper__input"
+                        formControlName="bis">
+                      <mat-datepicker-toggle [for]="dateBis"></mat-datepicker-toggle>
+                      <mat-datepicker #dateBis></mat-datepicker>
+                      <img
+                        class="datepicker-wrp__icon"
+                        src="../assets/image/calendar.svg">
+                    </div>
+                    <div
+                      class="field-wrapper__status"
+                      [ngClass]="{invalid : !this.form.get('formOtherArray').controls[i].get('bis').value}"></div>
+                  </div>
+                </div>
+                <div class="field">
+                  <p class="field__label">Job Bezeichnung</p>
+                  <div class="field-wrapper field-wrapper_textarea">
+                    <textarea
+                      placeholder="Job Bezeichnung"
+                      class="field-wrapper__input field-wrapper__input_textarea"
+                      formControlName="description"></textarea>
+                    <div class="field-type">abc</div>
+                    <div
+                      class="field-wrapper__status"
+                      [ngClass]="{invalid : !this.form.get('formOtherArray').controls[i].get('description').value}"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="add-fields">
+                <button
+                  class="add-fields__button"
+                  (click)="setFormGroup('newOtherFields')">
+                  <img
+                    src="../assets/image/plus.svg"
+                    alt>
+                </button>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

@@ -14,6 +14,13 @@ import { throwError, of } from 'rxjs';
   styleUrls: ['./personal.component.scss']
 })
 export class PersonalComponent implements OnInit {
+
+  public navSettings = {
+    iconCategory: '../assets/image/menu/profile.svg',
+    nameCategory: 'Persönliches & Kontakt',
+    nextCategory: 'professional-background'
+  };
+
   public formData: object;
   public form: FormGroup;
   public personal: FormGroupName;
@@ -32,7 +39,7 @@ export class PersonalComponent implements OnInit {
     this.init();
   }
 
-  public formInit = (profileData) => {
+  public formInit = (profileData: any = {}) => {
     this.form = this.formBuilder.group({
       personal: this.formBuilder.group({
         academicTitle: [profileData.personal.academicTitle ?? ''],

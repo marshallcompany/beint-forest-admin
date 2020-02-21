@@ -1,0 +1,303 @@
+@import "../../../theme/variables.scss";
+.professional-background{
+    background-color:$primary;
+    position:relative;
+    min-height: 100vh;
+    overflow: auto;
+    overflow-x: hidden;
+    padding-bottom:25px;
+}
+.subcategory-item{
+    margin-bottom:10px;
+    &:last-child{
+        margin-bottom:0;
+    }
+}
+.category-decor{
+    margin-bottom: 2vw;
+    &__image{
+        display: block;
+        width: 90%;
+        margin:0 auto;
+        &_mobile{
+            display: none;
+        }
+    }
+}
+// ACCORDION HEADER
+.mat-expansion-panel{
+    border-radius: 10px;
+    box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.15);
+}
+.subcategory-header{
+    width: 100%;
+    padding:30px 50px 30px 30px;
+    display: flex;
+    align-items:center;
+    justify-content: space-between;
+    &__arrow{
+        transition: .25s linear;
+        &.accordion-active{
+            transform-origin: center;
+            transform: rotate(-180deg);
+        }
+    }
+}
+.subcategory-info{
+    display: flex;
+    align-items:center;
+    &__icon{
+        margin-right:30px;
+        width: 40px;
+    }
+    &__label{
+        font-size: 17px;
+        font-family: $gb;
+    }
+}
+// ACCORDION CONTENT
+.subcategory-content{
+    padding-bottom:75px;
+}
+
+::ng-deep .accordion .mat-expansion-panel-body, .mat-expansion-panel-header {
+    padding:0;
+}
+.form{
+    margin:0;
+}
+.flex{
+    display: flex;
+    flex-wrap:wrap;
+    justify-content: space-between;
+    border-top: 1px solid rgba(184, 177, 177, .8);
+    padding: 25px 50px 75px 30px;
+}
+.remove-fields{
+    width:100%;
+    display: flex;
+    justify-content: flex-end;
+    &__button{
+        width:20px;
+        height:20px;
+        background-color:transparent;
+    }
+    &__icon{
+        height:100%;
+        fill:#D53D3D;
+    }
+}
+.add-fields{
+    position: relative;
+    width:100%;
+    height: 1px;
+    background-color:rgba(184, 177, 177, .8);
+    &__button{
+        position: absolute;
+        left:50%;
+        top:50%;
+        transform: translate(-50%, -50%);
+        width:50px;
+        height:50px;
+        border-radius:50%;
+        background-color:$primary;
+        display: flex;
+        align-items:center;
+        justify-content: center;
+    }
+}
+.field{
+    width:47%;
+    margin-bottom:20px;
+    &_date{
+        .field-wrapper{
+            margin-bottom:20px;
+            &:last-child{
+                margin-bottom:0;
+            }
+        }
+    }
+    &__label{
+        color:$black;
+        opacity: .5;
+        margin-bottom:11px;
+        margin-left:19px;
+    }
+}
+.field-wrapper{
+    width:100%;
+    position: relative;
+    &_textarea{
+        height: 150px;
+        .field-type{
+            top:25px;
+            right:19px;
+        }
+    }
+    &__input{
+        width:100%;
+        background-color:#ffffff;
+        border:0;
+        padding:15px 50px 15px 19px;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.17);
+        border-radius: 10px;
+        color:$black;
+        font-size: 17px;
+        &_textarea{
+            resize: none;
+            height: 100%;
+            border:none;
+            outline: none;
+            font-size: 17px;
+            color:$black;
+            font-family: $gr;
+            &::placeholder{
+                color:#989898;
+                opacity: .8;
+                font-family: $gr;
+                font-size: 17px;
+            }
+        }
+        &::placeholder{
+            color:#989898;
+            opacity: .8;
+            font-size: 17px;
+        }
+    }
+    &__status{
+       width:10px;
+       height:100%;
+       position: absolute;
+       z-index: 5;
+       right:0;
+       top:0;
+       border-bottom-right-radius: 10px;
+       border-top-right-radius: 10px;
+       background-color:$green; 
+       &.invalid{
+           background-color: $yellow;
+       }
+    }
+}
+.field-type{
+    position: absolute;
+    top:50%;
+    right:19px;
+    transform: translate(0 , -50%);
+    color: #989898;
+    opacity: 0.8;
+    font-size: 17px;
+    width:30px;
+    text-align: center;
+}
+.checkbox-wrapper{
+    width:100%;
+    display: flex;
+    align-items:center;
+    margin-bottom:20px;
+    padding-left:19px;
+    &__input{
+        width:20px;
+        height:20px;
+        border-radius:5px;
+        margin:0;
+        margin-right:10px;
+    }
+}
+@media screen and (max-width:1500px){
+    .subcategory{
+        padding-left:5vw;
+        padding-right:5vw;
+    }
+}
+@media screen and (max-width:1200px){
+    .subcategory-header{
+       padding:20px 20px; 
+    }
+    .subcategory-content{
+        padding-bottom:50px;
+    }
+    .flex{
+        padding: 15px 20px 50px 20px;
+    }
+    .subcategory-info{
+        &__icon{
+            height:35px;
+            margin-right:25px;
+        }
+    }
+}
+@media screen and (max-width:992px){
+    .remove-fields{
+        margin:20px 0;
+    }
+    .field{
+        width: 100%;
+    }
+}
+@media screen and (max-width:768px){
+    .category-decor{
+        margin-bottom: 2vw;
+    &__image{
+        width: 80%;
+        display: none;
+        &_mobile{
+            display: block;
+        }
+    }
+}
+    .subcategory{
+        padding:0;
+    }
+    .subcategory-header{
+        &__arrow{
+            height: 12px;
+        }
+    }
+    .professional-background{
+        background-color:#ffffff;
+    }
+    .field-wrapper{
+        &__input{
+            font-size: 14px;
+        }
+    }
+    .custom-select{
+        font-size: 14px;
+    }
+    .subcategory-info{
+        &__label{
+            font-size: 15px;
+        }
+    }
+    ::ng-deep .ng-select .ng-select-container{
+        padding:13px 19px;
+    }
+}
+@media screen and (max-width:568px){
+    .field{
+        &__label{
+            margin-left:10px;
+            font-size: 16px;
+        }
+    }
+    .field-wrapper{
+        &__input{
+            padding-left:10px;
+        }
+    }
+    ::ng-deep .ng-select .ng-select-container{
+        padding-left: 10px;
+    }
+}
+@media screen and (max-width:375px){
+    .subcategory-info{
+        &__icon{
+            width:30px;
+            margin-right:10px;
+        }
+        &__label{
+            grid-template: 14px;
+        }
+    }
+}
