@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { ProfileService } from '../../../services/profile.service';
 import { map, switchMap } from 'rxjs/operators';
@@ -9,6 +9,10 @@ import { map, switchMap } from 'rxjs/operators';
   styleUrls: ['./professional-background.component.scss']
 })
 export class ProfessionalBackgroundComponent implements OnInit {
+  public accordionsStatus: boolean;
+  @ViewChild('accordion01', { static: false }) accordion01;
+  @ViewChild('accordion02', { static: false }) accordion02;
+  @ViewChild('accordion03', { static: false }) accordion03;
   public works = [
     {
       field1: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
@@ -73,6 +77,7 @@ export class ProfessionalBackgroundComponent implements OnInit {
     private fb: FormBuilder,
     private profileService: ProfileService
   ) {
+    this.accordionsStatus = false;
   }
 
   ngOnInit(): void {
@@ -106,6 +111,12 @@ export class ProfessionalBackgroundComponent implements OnInit {
     this.setFormGroup();
   }
 
+
+  public accordionChange = () => {
+    if (!this.accordion01.expanded && !this.accordion02.expanded && !this.accordion03.expanded) {
+      this.accordionsStatus = false;
+    }
+  }
 
   public createFormGroup = (data: any, nameGroup: string): FormGroup => {
     switch (nameGroup) {
@@ -146,8 +157,11 @@ export class ProfessionalBackgroundComponent implements OnInit {
     }
   }
 
-  public remove = (nameGroup, i) => {
+  public remove = (nameGroup, xx, i) => {
     this[nameGroup].removeAt(i);
+    if (this[nameGroup].controls.length < 1) {
+      this[nameGroup].push(this.createFormGroup({}, xx));
+    }
   }
 
 
