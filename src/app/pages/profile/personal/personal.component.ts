@@ -39,14 +39,14 @@ export class PersonalComponent implements OnInit {
     this.init();
   }
 
-  public formInit = (profileData: any = {}) => {
+  public formInit = (profileData) => {
     this.form = this.formBuilder.group({
       personal: this.formBuilder.group({
         academicTitle: [profileData.personal.academicTitle ?? ''],
         birthPlace: [profileData.personal.birthPlace ?? ''],
         dateBirth: [profileData.personal.dateBirth ?? ''],
         firstName: [profileData.personal.firstName ?? ''],
-        gender: [profileData.personal.gender ?? 'Male'],
+        gender: [profileData.personal.gender ? profileData.personal.gender : null],
         lastName: [profileData.personal.lastName ?? ''],
         middleName: [profileData.personal.middleName ?? ''],
         nationality: [profileData.personal.nationality ?? '']
@@ -55,9 +55,7 @@ export class PersonalComponent implements OnInit {
         facebook: [profileData.contact.facebook ?? ''],
         instagram: [profileData.contact.instagram ?? ''],
         linkedin: [profileData.contact.linkedin ?? ''],
-        phoneNumberLandline: [profileData.contact.phoneNumberLandline ?? ''],
         phoneNumberMobile: [profileData.contact.phoneNumberMobile ?? ''],
-        skype: [profileData.contact.skype ?? ''],
         xing: [profileData.contact.xing ?? ''],
         residence: this.formBuilder.group({
           houseNumber: [profileData.contact.residence.houseNumber ?? ''],
@@ -90,6 +88,7 @@ export class PersonalComponent implements OnInit {
         },
         err => {
           console.log('[ ERROR EDIT PROFILE DATA ]', err);
+          this.formInit({});
         },
         () => {
           console.log('[ EDIT PROFILE DATA DONE ]');
