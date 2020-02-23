@@ -8,127 +8,251 @@
       class="background__circle background__circle_02">
   </div>
   <app-category-nav-header [navSettings]="navSettings"></app-category-nav-header>
+  <div class="category-decor">
+    <div class="container">
+      <img
+        src="../assets/image/profile/search/image-desktop.svg"
+        class="category-decor__image">
+      <img
+        src="../assets/image/profile/search/image-mobile.svg"
+        class="category-decor__image category-decor__image_mobile">
+    </div>
+  </div>
   <div class="form-wrapper">
     <div class="container">
       <form
         class="form"
-        [formGroup]="form">
+        [formGroup]="form"
+        *ngIf="form">
         <div
-          class="flx"
+          class="flex-grid"
           formGroupName="searchPreferences">
+          <div class="field">
+            <p class="field__label">Wunsch Arbeitsorte</p>
+            <div class="field-wrapper">
+              <input
+                type="text"
+                placeholder="Wunsch Arbeitsorte"
+                class="field-wrapper__input">
+              <div class="field-wrapper__type">abc</div>
+              <div class="field-wrapper__status"></div>
+            </div>
+          </div>
+          <div class="field field_checkbox">
+            <div class="checkbox-wrapper">
+              <input
+                type="checkbox"
+                id="checkbox"
+                class="checkbox-wrapper__input"
+                formControlName="willingToRelocate"
+                (change)="submit('Führungskraft')">
+              <label
+                for="checkbox"
+                class="checkbox-wrapper__label">
+                Überall
+              </label>
+            </div>
+          </div>
           <div class="range-wrapper">
-            <h2 class="range-wrapper__label">Umkreis</h2>
-            <div
-              class="range-field"
-              formGroupName="salaryExpectations">
+            <h2 class="range-wrapper__label">Umkreis Wunschort</h2>
+            <div class="range-field">
               <div class="range-value">
                 <p>0 km</p>
                 <p *ngIf="valueRange">{{ valueRange }} km</p>
               </div>
               <mat-slider
-                thumbLabel
                 (input)="rangeValue($event)"
-                (change)="rangeChange()"
-                value="50"
+                (blur)="submit('Umkreis Wunschort')"
                 min="0"
                 max="100"
-                formControlName="max">
+                formControlName="desiredDestinationRadius">
               </mat-slider>
             </div>
           </div>
-          <div
-            class="field"
-            formArrayName="desiredPlacesOfWork">
-            <p class="field__label">In welchen Orten würdest du am liebsten arbeiten wollen?</p>
-            <div
-              class="field-wrapper"
-              [formGroupName]="0">
-              <input
-                type="text"
-                placeholder="Bezeichnung"
-                class="field-wrapper__input"
-                formControlName="city">
-              <div class="field-wrapper__status"></div>
-            </div>
-          </div>
           <div class="field">
-            <p class="field__label">In welcher Branche mochtest du am liebsten arbeiten?</p>
+            <p class="field__label">Bevorzugter Geschäftsbereich</p>
             <div class="field-wrapper">
               <input
                 type="text"
-                placeholder="die Antwort eingeben"
+                placeholder="Bevorzugter Geschäftsbereich"
+                class="field-wrapper__input"
+                [(ngModel)]="preferredBusiness"
+                [ngModelOptions]="{standalone: true}"
+                (change)="pushData('preferredBusinessAreas', preferredBusiness, 'Bevorzugter Geschäftsbereich')">
+              <div class="field-wrapper__type">abc</div>
+              <div
+                [ngClass]="{invalid : !preferredBusiness }"
+                class="field-wrapper__status"></div>
+            </div>
+          </div>
+          <div class="field">
+            <p class="field__label">Wunsch-Branche</p>
+            <div class="field-wrapper">
+              <input
+                type="text"
+                placeholder="Wunsch-Branche"
                 class="field-wrapper__input"
                 [(ngModel)]="branches"
                 [ngModelOptions]="{standalone: true}"
-                (blur)="saveData('desiredIndustryBranches', branches)">
-              <div class="field-wrapper__status"></div>
+                (change)="pushData('desiredIndustryBranches', branches, 'Wunsch-Branche')">
+              <div class="field-wrapper__type">abc</div>
+              <div
+                [ngClass]="{invalid : !branches }"
+                class="field-wrapper__status"></div>
             </div>
           </div>
-          <div class="field">
-            <p class="field__label">Welche Arbeitzeit ist für dich optimal?</p>
+          <div class="field field_select">
+            <p class="field__label">Gewünschte Art der Anstellung</p>
             <div class="field-wrapper">
-              <input
-                type="text"
-                placeholder="die Antwort eingeben"
-                class="field-wrapper__input"
+              <ng-select
+                [searchable]="false"
+                [clearable]="false"
+                placeholder="Wählen Sie aus der Liste"
+                [(ngModel)]="employmentTypes"
+                [ngModelOptions]="{standalone: true}"
+                (change)="pushData('desiredEmploymentTypes', employmentTypes, 'Gewünschte Art der Anstellung')"
+                class="custom-select">
+                <ng-option [value]="'Minijob'">Minijob</ng-option>
+                <ng-option [value]="'Aushilfe'">Aushilfe</ng-option>
+                <ng-option [value]="'Praktikum'">Praktikum</ng-option>
+                <ng-option [value]="'Ausbildung'">Ausbildung</ng-option>
+                <ng-option [value]="'Traineeprogramm'">Traineeprogramm</ng-option>
+              </ng-select>
+              <div
+                [ngClass]="{invalid : !employmentTypes }"
+                class="field-wrapper__status"></div>
+            </div>
+          </div>
+          <div class="field field_select">
+            <p class="field__label">Präferierte Arbeitszeit</p>
+            <div class="field-wrapper">
+              <ng-select
+                [searchable]="false"
+                [clearable]="false"
+                placeholder="Wählen Sie aus der Liste"
                 [(ngModel)]="workingHours"
                 [ngModelOptions]="{standalone: true}"
-                (blur)="saveData('preferredWorkingHours', workingHours)">
-              <div class="field-wrapper__status"></div>
+                (change)="pushData('preferredWorkingHours', workingHours, 'Gewünschte Art der Anstellung')"
+                class="custom-select">
+                <ng-option [value]="'Vollzeit'">Vollzeit</ng-option>
+                <ng-option [value]="'Teilzeit (Vormittags)'">Teilzeit (Vormittags)</ng-option>
+                <ng-option [value]="'Teilzeit (Nachmittags)'">Teilzeit (Nachmittags)</ng-option>
+                <ng-option [value]="'Teilzeit (Flexibel)'">Teilzeit (Flexibel)</ng-option>
+                <ng-option [value]="'Alle'">Alle</ng-option>
+              </ng-select>
+              <div
+                [ngClass]="{invalid : !workingHours }"
+                class="field-wrapper__status"></div>
             </div>
           </div>
-          <div class="field">
-            <p class="field__label">Was sind deine favorisierten Geschäftsbereiche?</p>
+          <div class="field field_select">
+            <p class="field__label">Reisebereitschaft</p>
             <div class="field-wrapper">
-              <input
-                type="text"
-                placeholder="die Antwort eingeben"
+              <ng-select
+                [searchable]="false"
+                [clearable]="false"
+                placeholder="Wählen Sie aus der Liste"
+                formControlName="travellingReady"
+                (change)="submit('Geschlecht')"
+                class="custom-select">
+                <ng-option [value]="'keine'">keine</ng-option>
+                <ng-option [value]="'max 1 Tag/Woche'">max 1 Tag/Woche</ng-option>
+                <ng-option [value]="'max 2 Tage/Woche'">max 2 Tage/Woche</ng-option>
+                <ng-option [value]="'max 3 Tage/Woche'">max 3 Tage/Wochet</ng-option>
+                <ng-option [value]="'max 4 Tage/Woche'">max 4 Tage/Woche</ng-option>
+                <ng-option [value]="'5 Tage/Woche'">5 Tage/Woche</ng-option>
+              </ng-select>
+              <div
+                [ngClass]="{invalid : !form.get('searchPreferences').get('travellingReady').value }"
+                class="field-wrapper__status"></div>
+            </div>
+          </div>
+          <div class="field field_group">
+            <p class="field__label">Gehaltsvorstellung</p>
+            <div
+              class="salary-group"
+              formGroupName="salaryExpectations">
+              <div class="field">
+                <div class="field-wrapper">
+                  <input
+                    type="tel"
+                    placeholder="min"
+                    class="field-wrapper__input"
+                    formControlName="min"
+                    (change)="submit('max')">
+                  <div class="field-wrapper__type">123</div>
+                  <div
+                    [ngClass]="{invalid : !form.get('searchPreferences').get('salaryExpectations').get('min').value || form.get('searchPreferences').get('salaryExpectations').get('min').hasError('onlyNumbers')}"
+                    class="field-wrapper__status"></div>
+                </div>
+                <p
+                  class="error-box"
+                  *ngIf="(form.get('searchPreferences').get('salaryExpectations').get('min').touched || form.get('searchPreferences').get('salaryExpectations').get('min').dirty) && form.get('searchPreferences').get('salaryExpectations').get('min').invalid">
+                  <span
+                    class="error-box__text"
+                    *ngIf="form.get('searchPreferences').get('salaryExpectations').get('min').hasError('onlyNumbers')">Enter only the amount</span>
+                </p>
+              </div>
+              <div class="field">
+                <div class="field-wrapper">
+                  <input
+                    type="tel"
+                    placeholder="max"
+                    class="field-wrapper__input"
+                    formControlName="max"
+                    (change)="submit('max')">
+                  <div class="field-wrapper__type">123</div>
+                  <div
+                    [ngClass]="{invalid : !form.get('searchPreferences').get('salaryExpectations').get('max').value || form.get('searchPreferences').get('salaryExpectations').get('max').hasError('onlyNumbers')}"
+                    class="field-wrapper__status"></div>
+                </div>
+                <p
+                  class="error-box"
+                  *ngIf="(form.get('searchPreferences').get('salaryExpectations').get('max').touched || form.get('searchPreferences').get('salaryExpectations').get('max').dirty) && form.get('searchPreferences').get('salaryExpectations').get('max').invalid">
+                  <span
+                    class="error-box__text"
+                    *ngIf="form.get('searchPreferences').get('salaryExpectations').get('max').hasError('onlyNumbers')">Enter only the amount</span>
+                </p>
+              </div>
+            </div>
+            <div class="field field_datapicker">
+              <p class="field__label">Bis</p>
+              <div class="field-wrapper">
+                <div class="datepicker-wrp">
+                  <input
+                    [matDatepicker]="dateBis"
+                    placeholder="DD/MM/YYYY"
+                    formControlName="readyToStartJobFrom"
+                    (dateChange)="submit('Bis')"
+                    [min]="minDate"
+                    class="field-wrapper__input">
+                  <mat-datepicker-toggle [for]="dateBis"></mat-datepicker-toggle>
+                  <mat-datepicker
+                    touchUi="true"
+                    #dateBis></mat-datepicker>
+                  <img
+                    class="datepicker-wrp__icon"
+                    src="../assets/image/calendar.svg">
+                </div>
+                <div
+                  [ngClass]="{invalid : !form.get('searchPreferences').get('readyToStartJobFrom').value }"
+                  class="field-wrapper__status"></div>
+              </div>
+            </div>
+          </div>
+          <div class="field field_textarea">
+            <p class="field__label">Benefits</p>
+            <div class="field-wrapper">
+              <textarea
+                placeholder="Geben Sie die gewünschte ein"
                 class="field-wrapper__input"
-                [(ngModel)]="businessAreas"
+                [(ngModel)]="advantages"
                 [ngModelOptions]="{standalone: true}"
-                (blur)="saveData('preferredBusinessAreas', businessAreas)">
-              <div class="field-wrapper__status"></div>
-            </div>
-          </div>
-          <!-- /////////////////// -->
-          <div class="field">
-            <p class="field__label">Was ist deine Gehaltsvorstellung</p>
-            <div class="field-wrapper">
-              <input
-                type="text"
-                placeholder="die Antwort eingeben"
-                class="field-wrapper__input">
-              <div class="field-wrapper__status"></div>
-            </div>
-          </div>
-          <div class="field">
-            <p class="field__label">Wie groß ist deine Reisebereitschaft?</p>
-            <div class="field-wrapper">
-              <input
-                type="text"
-                placeholder="die Antwort eingeben"
-                class="field-wrapper__input">
-              <div class="field-wrapper__status"></div>
-            </div>
-          </div>
-          <div class="field">
-            <p class="field__label">Welche Benefits hättest du gerne?</p>
-            <div class="field-wrapper">
-              <input
-                type="text"
-                placeholder="die Antwort eingeben"
-                class="field-wrapper__input">
-              <div class="field-wrapper__status"></div>
-            </div>
-          </div>
-          <div class="field">
-            <p class="field__label">Ab wann bist du verfügbar</p>
-            <div class="field-wrapper">
-              <input
-                type="text"
-                placeholder="die Antwort eingeben"
-                class="field-wrapper__input">
-              <div class="field-wrapper__status"></div>
+                (change)="pushData('benefits', advantages, 'Benefits')"></textarea>
+              <div class="field-wrapper__type">abc</div>
+              <div
+                [ngClass]="{invalid : !advantages }"
+                class="field-wrapper__status"></div>
             </div>
           </div>
         </div>

@@ -1,19 +1,65 @@
 @import "../../../theme/variables.scss";
+.error-box{
+    padding-left:19px;
+}
 .search{
   background-color:$primary;
   position:relative;
   min-height: 100vh;
   overflow: auto;
-	overflow-x: hidden;
+  overflow-x: hidden;
 }
-.flx{
+.category-decor{
+    margin-bottom: 2vw;
+    &__image{
+        display: block;
+        width: 90%;
+        margin:0 auto;
+        &_mobile{
+            display: none;
+        }
+    }
+}
+.flex-grid{
     display: flex;
     flex-wrap:wrap;
     justify-content: space-between;
 }
 .field{
-    width:47%;
-    margin-bottom:20px;
+    width:46.5%;
+    padding-bottom:30px;
+    position: relative;
+    &_checkbox{
+        display: flex;
+        align-items: center;
+    }
+    &_select{
+        .field-wrapper{
+            padding:0!important;
+            background-color:inherit;
+        }
+    }
+    &_datapicker{
+        width:100%;
+        padding:0;
+        .field-wrapper{
+            padding-right:0;
+        }
+    }
+    &_textarea{
+        display: flex;
+        flex-direction: column;
+        .field-wrapper{
+            flex:1;
+            .field-wrapper__input{
+                height: 100%;
+                font-family: $gr;
+                outline: none;
+                border:none;
+                resize: none;
+            }
+        }
+    }
     &__label{
         color:$black;
         opacity: .5;
@@ -24,15 +70,14 @@
 .field-wrapper{
     width:100%;
     position: relative;
+    padding:14px 55px 14px 19px;
+    background-color:#ffffff;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.17);
+    border-radius: 10px;
     &__input{
         width:100%;
-        background-color:#ffffff;
         border:0;
-        padding:15px 19px;
-        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.17);
-        border-radius: 10px;
         color:$black;
-        opacity: .8;
         font-size: 17px;
         &::placeholder{
             color:#989898;
@@ -53,23 +98,21 @@
            background-color: $yellow;
        }
     }
-}
-.range-wrapper{
-  width:100%;
-  margin-bottom:15px;
-  &__label{
-    color:$black;
-    opacity: .5;
-    margin-bottom:25px;
-    margin-left:19px;
-    font-size: 18px;
-    font-family: $gr;
-    font-weight: normal;
-  }
+    &__type{
+        position: absolute;
+        right:19px;
+        top:15px;
+        color: #989898;
+        opacity: 0.8;
+        font-size: 17px;
+        width:30px;
+        text-align:center;
+    }
 }
 .range-field{
-  width:47%;
+  width:100%;
   padding:0 19px;
+  position: relative;
   .mat-slider-horizontal{
     width:100%;
     min-width: inherit;
@@ -83,36 +126,111 @@
   ::ng-deep .mat-slider-track-fill{
     background-color: $primary;
   }
+  ::ng-deep .mat-slider-horizontal {
+      height:52px;
+      padding:0;
+      .mat-slider-wrapper{
+        top:inherit;
+        bottom:4px;
+      }
+  }
   ::ng-deep .mat-accent .mat-slider-thumb-label-text {
     display: none;
   }
 }
+.range-wrapper{
+  width:47%;
+  margin-bottom:15px;
+  &__label{
+    color:$black;
+    margin-bottom:11px;
+    margin-left:19px;
+    font-size: 18px;
+    font-family: $gr;
+    font-weight: normal;
+  }
+}
+
 .range-value{
   display: flex;
   justify-content: space-between;
-  margin-bottom: 15px;
+  position: absolute;
+  left:50%;
+  top:0;
+  width:calc(100% - 38px);
+  transform: translate(-50% , 0);
+  z-index: 10;
+}
+.checkbox-wrapper{
+    display: flex;
+    align-items:flex-end;
+    padding-top:25px;
+    &__input{
+        width:20px;
+        height:20px;
+        border-radius:5px;
+        margin:0;
+        margin-right:10px;
+    }
+}
+.salary-group{
+    display: flex;
+    align-items:flex-start;
+    justify-content: space-between;
 }
 /* = MEDIA = */
 @media screen and (max-width:1500px){
     .form-wrapper{
-        padding:0 100px;
+        padding-left:5vw;
+        padding-right:5vw;
     }
 }
 
 @media screen and (max-width:992px){
-    .form-wrapper{
-        padding:0 75px;
+    .error-box{
+        &__text{
+            font-size:16px;
+        }
     }
 }
 @media screen and (max-width:768px){
+  .category-decor{
+      margin-bottom:5vw;
+        &__image{
+            width: 80%;
+            display: none;
+            &_mobile{
+                display: block;
+            }
+        }
+    }
     .search{
         background-color:#ffffff;
     }
     .form-wrapper{
-        padding:0 0px;
+        padding:0;
     }
     .field{
         width:100%;
+        &_checkbox{
+            padding-left:19px;
+        }
+        &_textarea{
+            .field-wrapper__input{
+                min-height: 150px;
+            }
+        }
+    }
+    .checkbox-wrapper{
+        padding:0;
+    }
+    .range-wrapper{
+        width:100%;
+    }
+    .salary-group{
+        .field{
+            width:47%;
+        }
     }
 }
 @media screen and (max-width:568px){
