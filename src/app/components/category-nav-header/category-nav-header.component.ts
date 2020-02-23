@@ -63,7 +63,6 @@ export class CategoryNavHeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.navSettings);
   }
 
 

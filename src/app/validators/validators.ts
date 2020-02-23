@@ -8,5 +8,10 @@ export class FormValidators {
         }
         return null;
     }
-    
+    static numberValidation(control: FormControl) {
+        if (control && control.value !== null && (/\D/g).test(control.value)) {
+            return { onlyNumbers: true };
+        }
+        return null;
+    }
 }
