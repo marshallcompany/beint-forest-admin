@@ -16,7 +16,14 @@ body{
 }
 .datepicker-wrp{
  position: relative;
+ width: 100%;
+ height: 100%;
+ border-radius: 10px;
+ overflow: hidden;
  cursor: pointer;
+ .field-wrapper__input{
+     height: 100%;
+ }
  &__icon{
      position:absolute;
      right:25px;
@@ -108,15 +115,9 @@ body{
     width:100%;
     background-color:#ffffff;
     border:0;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.17);
     color:$black;
     font-size: 17px;
     border-radius: 10px;
-    &::placeholder{
-        color:#989898;
-        opacity: .8;
-        font-size: 17px;
-    }
 }
 .ng-arrow-wrapper{
     width:auto!important;

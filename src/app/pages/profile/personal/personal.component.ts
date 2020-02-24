@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormGroupName } from '@angular/forms';
 import { ProfileService } from '../../../services/profile.service';
 import { map } from 'rxjs/internal/operators/map';
@@ -21,50 +20,47 @@ export class PersonalComponent implements OnInit {
     nextCategory: 'professional-background'
   };
 
-  public formData: object;
+  public firstPersonalData: object;
   public form: FormGroup;
   public personal: FormGroupName;
   public contact: FormGroupName;
   public residence: FormGroupName;
 
   constructor(
+
     public formBuilder: FormBuilder,
     private profileService: ProfileService,
     private notificationService: NotificationService,
-    private router: Router,
   ) {
+    this.form = this.formBuilder.group({
+      personal: this.formBuilder.group({
+        academicTitle: [''],
+        birthPlace: [''],
+        dateBirth: [''],
+        firstName: [''],
+        gender: [''],
+        lastName: [''],
+        middleName: [''],
+        nationality: ['']
+      }),
+      contact: this.formBuilder.group({
+        facebook: [''],
+        instagram: [''],
+        linkedin: [''],
+        phoneNumberMobile: [''],
+        xing: [''],
+        residence: this.formBuilder.group({
+          houseNumber: [''],
+          place: [''],
+          street: [''],
+          zipCode: [''],
+        })
+      }),
+    });
   }
 
   ngOnInit() {
     this.init();
-  }
-
-  public formInit = (profileData) => {
-    this.form = this.formBuilder.group({
-      personal: this.formBuilder.group({
-        academicTitle: [profileData.personal.academicTitle ?? ''],
-        birthPlace: [profileData.personal.birthPlace ?? ''],
-        dateBirth: [profileData.personal.dateBirth ?? ''],
-        firstName: [profileData.personal.firstName ?? ''],
-        gender: [profileData.personal.gender ? profileData.personal.gender : null],
-        lastName: [profileData.personal.lastName ?? ''],
-        middleName: [profileData.personal.middleName ?? ''],
-        nationality: [profileData.personal.nationality ?? '']
-      }),
-      contact: this.formBuilder.group({
-        facebook: [profileData.contact.facebook ?? ''],
-        instagram: [profileData.contact.instagram ?? ''],
-        linkedin: [profileData.contact.linkedin ?? ''],
-        phoneNumberMobile: [profileData.contact.phoneNumberMobile ?? ''],
-        xing: [profileData.contact.xing ?? ''],
-        residence: this.formBuilder.group({
-          houseNumber: [profileData.contact.residence.houseNumber ?? ''],
-          place: [profileData.contact.residence.place ?? ''],
-          street: [profileData.contact.residence.street ?? ''],
-          zipCode: [profileData.contact.residence.zipCode ?? ''],
-        })
-      }),
-    });
   }
 
   public init = () => {
@@ -81,26 +77,51 @@ export class PersonalComponent implements OnInit {
         })
       )
       .subscribe(
-        profileData => {
-          console.log('[ EDIT PROFILE DATA ]', profileData);
-          this.formInit(profileData);
-          this.formData = this.form.value;
+        personalData => {
+          console.log('[ EDIT PROFILE DATA ]', personalData);
+          this.patchFormValue(personalData);
+          this.firstPersonalData = this.form.value;
         },
         err => {
           console.log('[ ERROR EDIT PROFILE DATA ]', err);
-          this.formInit({});
         },
-        () => {
-          console.log('[ EDIT PROFILE DATA DONE ]');
-        }
+        () => console.log('[ EDIT PROFILE DATA DONE ]')
       );
+  }
+
+  public patchFormValue = (personalData) => {
+    this.form.patchValue({
+      personal: {
+        academicTitle: personalData.personal.academicTitle ? personalData.personal.academicTitle : '',
+        birthPlace: personalData.personal.birthPlace ? personalData.personal.birthPlace : '',
+        dateBirth: personalData.personal.dateBirth ? personalData.personal.dateBirth : '',
+        firstName: personalData.personal.firstName ? personalData.personal.firstName : '',
+        gender: personalData.personal.gender ? personalData.personal.gender : null,
+        lastName: personalData.personal.lastName ? personalData.personal.lastName : '',
+        middleName: personalData.personal.middleName ? personalData.personal.middleName : '',
+        nationality: personalData.personal.nationality ? personalData.personal.nationality : ''
+      },
+      contact: {
+        facebook: personalData.contact.facebook ? personalData.contact.facebook : '',
+        instagram: personalData.contact.instagram ? personalData.contact.instagram : '',
+        linkedin: personalData.contact.linkedin ? personalData.contact.linkedin : '',
+        phoneNumberMobile: personalData.contact.phoneNumberMobile ? personalData.contact.phoneNumberMobile : '',
+        xing: personalData.contact.xing ? personalData.contact.xing : '',
+        residence: {
+          houseNumber: personalData.contact.residence.houseNumber ? personalData.contact.residence.houseNumber : '',
+          place: personalData.contact.residence.place ? personalData.contact.residence.place : '',
+          street: personalData.contact.residence.street ? personalData.contact.residence.street : '',
+          zipCode: personalData.contact.residence.zipCode ? personalData.contact.residence.zipCode : '',
+        }
+      },
+    });
   }
 
   public submit = (field: string) => {
     this.profileService.updateProfile(this.form.value)
       .pipe(
         switchMap(formData => {
-          if (JSON.stringify(this.formData) === JSON.stringify(this.form.value)) {
+          if (JSON.stringify(this.firstPersonalData) === JSON.stringify(this.form.value)) {
             return throwError('[ Fields did not apologize ]');
           }
           return of(formData);
@@ -109,7 +130,7 @@ export class PersonalComponent implements OnInit {
       .subscribe(
         res => {
           console.log('[ UPDATE PROFILE ]', res);
-          this.formData = this.form.value;
+          this.firstPersonalData = this.form.value;
           this.notificationService.notify(`Field ${field} updated successfully!`, 'success');
         },
         err => {
