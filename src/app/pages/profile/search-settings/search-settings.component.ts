@@ -119,7 +119,7 @@ export class SearchSettingsComponent implements OnInit {
       this[formArrayName].push(this.fb.control(field));
       setTimeout(() => {
         this.submit(nameField);
-      })
+      });
     } else {
       return false;
     }
