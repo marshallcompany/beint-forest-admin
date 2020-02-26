@@ -51,12 +51,15 @@
         flex-direction: column;
         .field-wrapper{
             flex:1;
+            padding-top:15px;
             .field-wrapper__input{
+                padding:0;
                 height: 100%;
                 font-family: $gr;
                 outline: none;
                 border:none;
                 resize: none;
+                font-size: 17px;
             }
         }
     }
@@ -68,12 +71,16 @@
     }
 }
 .field-wrapper{
+    height: 50px;
     width:100%;
     position: relative;
-    padding:14px 55px 14px 19px;
+    padding-left:19px;
+    padding-right:55px;
     background-color:#ffffff;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.17);
     border-radius: 10px;
+    display: flex;
+    align-items: center;
     &__input{
         width:100%;
         border:0;
@@ -218,6 +225,7 @@
         &_textarea{
             .field-wrapper__input{
                 min-height: 150px;
+                font-size: 14px!important;
             }
         }
     }
@@ -232,9 +240,30 @@
             width:47%;
         }
     }
+    .field-wrapper{
+        &__input{
+            font-size: 14px;
+        }
+        &__type{
+            font-size: 14px;
+        }
+    }
+    .custom-select{
+        font-size: 14px;
+        ::ng-deep .ng-placeholder{
+            font-size: 17px;
+        }
+    }
 }
 @media screen and (max-width:568px){
+    .field-wrapper,
+    .range-field{
+        padding-left:10px;
+    }
     .field{
+        &_checkbox{
+            padding-left:10px;
+        }
         &__label{
             margin-left:10px;
             font-size: 16px;
