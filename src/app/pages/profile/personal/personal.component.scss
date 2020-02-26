@@ -44,7 +44,7 @@
         opacity: .8;
     }
 }
-// STYLE INPUT
+
 .flex-grid{
     display: flex;
     flex-wrap:wrap;
@@ -53,6 +53,17 @@
 .field{
     width:47%;
     margin-bottom:20px;
+    &_select{
+        .field-wrapper{
+            padding:0!important;
+            background-color:inherit;
+        }
+    }
+    &_datapicker{
+        .field-wrapper{
+            padding-right:0;
+        }
+    }
     &__label{
         color:$black;
         opacity: .5;
@@ -61,15 +72,19 @@
     }
 }
 .field-wrapper{
+    height: 50px;
     width:100%;
     position: relative;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.17);
+    padding-left: 19px;
+    padding-right:55px;
+    border-radius: 10px;
+    background-color:#ffffff;
+    display: flex;
+    align-items: center;
     &__input{
         width:100%;
-        background-color:#ffffff;
         border:0;
-        padding:15px 50px 15px 19px;
-        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.17);
-        border-radius: 10px;
         color:$black;
         font-size: 17px;
         &::placeholder{
@@ -92,54 +107,19 @@
            background-color: $yellow;
        }
     }
+    &__type{
+        position: absolute;
+        top:50%;
+        right:19px;
+        transform: translate(0 , -50%);
+        color: #989898;
+        opacity: 0.8;
+        font-size: 17px;
+        width: 30px;
+        text-align: center;
+    }
 }
-.field-type{
-    position: absolute;
-    top:50%;
-    right:19px;
-    transform: translate(0 , -50%);
-    color: #989898;
-    opacity: 0.8;
-    font-size: 17px;
-    width: 30px;
-    text-align: center;
-}
-.datepicker-wrp{
- position: relative;
- cursor: pointer;
- &__icon{
-     position:absolute;
-     right:25px;
-     top:50%;
-     transform: translateY(-50%);
-     z-index: 1;
-     width:15px;
-     height:17px;
- }
- mat-datepicker-toggle{
-     z-index: 2;
-     position: absolute;
-     left:0;
-     top:0;
-     width:100%;
-     height:100%;
-     ::ng-deep button{
-         position: absolute;
-         left:0;
-         top:0;
-         width:100%!important;
-         height:100%!important;
-         svg{
-             display:none;
-         }
-         .mat-button-focus-overlay,
-         .mat-button-wrapper,
-         .mat-button-ripple{
-             display: none;
-         }
-     }
- }
-}
+
 /* = MEDIA = */
 @media screen and (max-width:1500px){
     .form-wrapper{
@@ -148,9 +128,9 @@
     }
 }
 @media screen and (max-width:768px){
-     .subcategory-item{
-         margin-bottom:40px;
-     }
+    .subcategory-item{
+      margin-bottom:25px;
+    }
      .category-decor{
         &__image{
             width: 80%;
@@ -170,9 +150,15 @@
         &__input{
             font-size: 14px;
         }
+        &__type{
+            font-size: 14px;
+        }
     }
     .custom-select{
         font-size: 14px;
+        ::ng-deep .ng-placeholder{
+            font-size: 17px;
+        }
     }
     .field{
         width:100%;
@@ -189,9 +175,7 @@
         padding-left: 10px;
     }
     .field-wrapper{
-        &__input{
-            padding-left:10px;
-        }
+        padding-left:10px;
         mat-form-field {
             select{
                 padding:10px;

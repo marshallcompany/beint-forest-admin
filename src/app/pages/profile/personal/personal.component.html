@@ -44,7 +44,7 @@
                 class="field-wrapper__input"
                 formControlName="firstName"
                 (blur)="submit('Name')">
-              <div class="field-type">abc</div>
+              <div class="field-wrapper__type">abc</div>
               <div
                 class="field-wrapper__status"
                 [ngClass]="{invalid : !form.get('personal').get('firstName').value}"></div>
@@ -59,7 +59,7 @@
                 class="field-wrapper__input"
                 formControlName="lastName"
                 (blur)="submit('Vorname')">
-              <div class="field-type">abc</div>
+              <div class="field-wrapper__type">abc</div>
               <div
                 class="field-wrapper__status"
                 [ngClass]="{invalid : !form.get('personal').get('lastName').value}"></div>
@@ -74,13 +74,13 @@
                 class="field-wrapper__input"
                 formControlName="middleName"
                 (blur)="submit('Namenzusatz')">
-              <div class="field-type">abc</div>
+              <div class="field-wrapper__type">abc</div>
               <div
                 class="field-wrapper__status"
                 [ngClass]="{invalid : !form.get('personal').get('middleName').value}"></div>
             </div>
           </div>
-          <div class="field">
+          <div class="field field_select">
             <p class="field__label">Geschlecht</p>
             <div class="field-wrapper">
               <ng-select
@@ -107,13 +107,13 @@
                 class="field-wrapper__input"
                 formControlName="academicTitle"
                 (blur)="submit('Akademischer Titel')">
-              <div class="field-type">abc</div>
+              <div class="field-wrapper__type">abc</div>
               <div
                 class="field-wrapper__status"
                 [ngClass]="{invalid : !form.get('personal').get('academicTitle').value}"></div>
             </div>
           </div>
-          <div class="field">
+          <div class="field field_datapicker">
             <p class="field__label">Geburtsdatum</p>
             <div class="field-wrapper">
               <div class="datepicker-wrp">
@@ -145,7 +145,7 @@
                 class="field-wrapper__input"
                 formControlName="birthPlace"
                 (blur)="submit('Geburtsort')">
-              <div class="field-type">abc</div>
+              <div class="field-wrapper__type">abc</div>
               <div
                 class="field-wrapper__status"
                 [ngClass]="{invalid : !form.get('personal').get('birthPlace').value}"></div>
@@ -160,7 +160,7 @@
                 class="field-wrapper__input"
                 formControlName="nationality"
                 (blur)="submit('Staatsangehörigkeit')">
-              <div class="field-type">abc</div>
+              <div class="field-wrapper__type">abc</div>
               <div
                 class="field-wrapper__status"
                 [ngClass]="{invalid : !form.get('personal').get('nationality').value}"></div>
@@ -189,7 +189,7 @@
                 class="field-wrapper__input"
                 formControlName="place"
                 (blur)="submit('Wohnort')">
-              <div class="field-type">abc</div>
+              <div class="field-wrapper__type">abc</div>
               <div
                 class="field-wrapper__status"
                 [ngClass]="{invalid : !form.get('contact').get('residence').get('place').value}"></div>
@@ -206,7 +206,7 @@
                 class="field-wrapper__input"
                 formControlName="zipCode"
                 (blur)="submit('PLZ')">
-              <div class="field-type">123</div>
+              <div class="field-wrapper__type">123</div>
               <div
                 class="field-wrapper__status"
                 [ngClass]="{invalid : !form.get('contact').get('residence').get('zipCode').value}"></div>
@@ -223,7 +223,7 @@
                 class="field-wrapper__input"
                 formControlName="street"
                 (blur)="submit('Straße')">
-              <div class="field-type">abc</div>
+              <div class="field-wrapper__type">abc</div>
               <div
                 class="field-wrapper__status"
                 [ngClass]="{invalid : !form.get('contact').get('residence').get('street').value}"></div>
@@ -240,7 +240,7 @@
                 class="field-wrapper__input"
                 formControlName="houseNumber"
                 (blur)="submit('Hausnummer')">
-              <div class="field-type">abc</div>
+              <div class="field-wrapper__type">abc</div>
               <div
                 class="field-wrapper__status"
                 [ngClass]="{invalid : !form.get('contact').get('residence').get('houseNumber').value}"></div>
@@ -255,7 +255,7 @@
                 class="field-wrapper__input"
                 formControlName="phoneNumberMobile"
                 (blur)="submit('Phone')">
-              <div class="field-type">
+              <div class="field-wrapper__type">
                 <img src="../assets/image/profile/phone.svg">
               </div>
               <div
@@ -272,7 +272,7 @@
                 type="text"
                 placeholder="Email eingeben"
                 class="field-wrapper__input">
-              <div class="field-type">abc</div>
+              <div class="field-wrapper__type">abc</div>
               <div class="field-wrapper__status"></div>
             </div>
           </div>
@@ -297,7 +297,7 @@
                 class="field-wrapper__input"
                 formControlName="instagram"
                 (blur)="submit('Instagram')">
-              <div class="field-type">abc</div>
+              <div class="field-wrapper__type">abc</div>
               <div
                 class="field-wrapper__status"
                 [ngClass]="{invalid : !form.get('contact').get('instagram').value}"></div>
@@ -312,7 +312,7 @@
                 class="field-wrapper__input"
                 formControlName="facebook"
                 (blur)="submit('Facebook')">
-              <div class="field-type">abc</div>
+              <div class="field-wrapper__type">abc</div>
               <div
                 class="field-wrapper__status"
                 [ngClass]="{invalid : !form.get('contact').get('facebook').value}"></div>
@@ -327,7 +327,7 @@
                 class="field-wrapper__input"
                 formControlName="xing"
                 (blur)="submit('Xing')">
-              <div class="field-type">abc</div>
+              <div class="field-wrapper__type">abc</div>
               <div
                 class="field-wrapper__status"
                 [ngClass]="{invalid : !form.get('contact').get('xing').value}"></div>
@@ -342,7 +342,7 @@
                 class="field-wrapper__input"
                 formControlName="linkedin"
                 (blur)="submit('Linkedin')">
-              <div class="field-type">abc</div>
+              <div class="field-wrapper__type">abc</div>
               <div
                 class="field-wrapper__status"
                 [ngClass]="{invalid : !form.get('contact').get('linkedin').value}"></div>

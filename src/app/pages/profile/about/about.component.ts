@@ -100,7 +100,7 @@ export class AboutComponent implements OnInit {
       .pipe(
         switchMap(formData => {
           if (JSON.stringify(this.formData) === JSON.stringify(this.form.value)) {
-            return throwError('[ Fields did not apologize ]');
+            return throwError('[ Fields have not changed ]');
           }
           return of(formData);
         })
