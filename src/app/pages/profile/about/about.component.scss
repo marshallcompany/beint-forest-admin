@@ -20,6 +20,27 @@
 .field{
     width:100%;
     margin-bottom:20px;
+    &_textarea{
+        .field-wrapper{
+            &__input{
+                width:100%;
+                border:0;
+                color:$black;
+                opacity: .8;
+                font-size: 17px;
+                resize: none;
+                outline: none;
+                height: 150px;
+                font-family: $gr;
+                padding:0;
+                &::placeholder{
+                    color:#989898;
+                    opacity: .8;
+                    font-size: 17px;
+                }
+            }
+        }
+    }
     &__label{
         color:$black;
         opacity: .5;
@@ -34,23 +55,6 @@
     background-color:#ffffff;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.17);
     border-radius: 10px;
-    &__input{
-        width:100%;
-        border:0;
-        color:$black;
-        opacity: .8;
-        font-size: 17px;
-        resize: none;
-        outline: none;
-        height: 130px;
-        font-family: $gr;
-        padding:0;
-        &::placeholder{
-            color:#989898;
-            opacity: .8;
-            font-size: 17px;
-        }
-    }
     &__status{
        width:10px;
        height:100%;
@@ -64,8 +68,7 @@
            background-color: $yellow;
        }
     }
-}
-.field-type{
+    &__type{
     position: absolute;
     right:19px;
     top:15px;
@@ -75,6 +78,7 @@
     width:30px;
     text-align:center;
 }
+}
 @media screen and (max-width:1500px){
     .form-wrapper{
         padding-left:5vw;
@@ -82,12 +86,13 @@
     }
 }
 
-// @media screen and (max-width:992px){
-//     .form-wrapper{
-//         padding:0 75px;
-//     }
-// }
 @media screen and (max-width:768px){
+    .about{
+        background-color:#ffffff;
+    }
+    .form-wrapper{
+        padding:0;
+    }
     .category-decor{
         &__image{
             width: 80%;
@@ -97,11 +102,17 @@
             }
         }
     }
-    .about{
-        background-color:#ffffff;
-    }
-    .form-wrapper{
-        padding:0;
+    .field{
+        &_textarea{
+            .field-wrapper{
+                &__input{
+                    font-size: 16px;
+                }
+                &__type{
+                    font-size: 14px;
+                }
+            }
+        }
     }
 }
 @media screen and (max-width:568px){
@@ -112,9 +123,6 @@
         }
     }
     .field-wrapper{
-        &__input{
-            padding:10px;
-            font-size: 14px;
-        }
+        padding-left:10px;
     }
 }

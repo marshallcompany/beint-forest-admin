@@ -201,21 +201,21 @@
     }
 }
 @media screen and (max-width:768px){
-  .category-decor{
-      margin-bottom:5vw;
-        &__image{
-            width: 80%;
-            display: none;
-            &_mobile{
-                display: block;
-            }
-        }
-    }
     .search{
         background-color:#ffffff;
     }
     .form-wrapper{
         padding:0;
+    }
+    .category-decor{
+        margin-bottom:5vw;
+            &__image{
+                width: 80%;
+                display: none;
+                &_mobile{
+                    display: block;
+                }
+            }
     }
     .field{
         width:100%;
@@ -223,9 +223,11 @@
             padding-left:19px;
         }
         &_textarea{
-            .field-wrapper__input{
+            .field-wrapper{
+                &__input{
                 min-height: 150px;
-                font-size: 14px!important;
+                font-size: 16px!important;
+            }
             }
         }
     }
@@ -242,17 +244,14 @@
     }
     .field-wrapper{
         &__input{
-            font-size: 14px;
+            font-size: 16px;
         }
         &__type{
             font-size: 14px;
         }
     }
     .custom-select{
-        font-size: 14px;
-        ::ng-deep .ng-placeholder{
-            font-size: 17px;
-        }
+        font-size: 16px;
     }
 }
 @media screen and (max-width:568px){

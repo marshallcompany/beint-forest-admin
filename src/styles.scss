@@ -2,6 +2,8 @@
 @import "app/theme/variables.scss";
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 @import "~@ng-select/ng-select/themes/default.theme.css";
+@import "app/theme/fonts";
+
 html,
 body{
 	height: 100%;
@@ -113,11 +115,30 @@ body{
 // STYLE SELECT
 .custom-select {
     width:100%;
+    height:100%;
     background-color:#ffffff;
     border:0;
     color:$black;
     font-size: 17px;
     border-radius: 10px;
+    .ng-select-container{
+        padding:0 19px;
+        border-radius: 10px;
+        border:none;
+        height: 100%!important;
+        min-height: auto!important;
+        font-family: $gr;
+        .ng-value-container{
+            padding:0;
+            .ng-placeholder{
+                font-size: 17px;
+            }
+        }
+        &:hover{
+            border: none;
+            box-shadow: none;
+        }
+    }
 }
 .ng-arrow-wrapper{
     width:auto!important;
@@ -136,14 +157,7 @@ body{
     transform-origin: center;
     transform: rotate(-180deg);
 }
-.ng-select .ng-select-container{
-    padding:15.5px 19px;
-    border-radius: 10px;
-    &:hover{
-        border: none!important;
-        box-shadow: none!important;
-    }
-}
+
 .ng-select.ng-select-focused:not(.ng-select-opened)>.ng-select-container{
     border: none!important;
     box-shadow: none!important;
@@ -152,15 +166,6 @@ body{
 .ng-select.ng-select-opened>.ng-select-container {
     background: transparent!important;
 }
-.ng-select-container{
-    border:none!important;
-    height: auto!important;
-    min-height: auto!important;
-    .ng-value-container{
-        padding:0!important;
-        
-    }
-}
 .ng-dropdown-panel{
     z-index: 10;
     border:none;
@@ -168,15 +173,16 @@ body{
     border-radius: 10px;
     overflow: hidden;
     margin-top:2px!important;
+    font-family: $gr;
 }
 
 // BACKGROUND DECOR
 .background{
     position: absolute;
     right:0;
-		top:0;
+	top:0;
     width:calc(100% - 60px);
-		min-height: 100%;
+	min-height: 100%;
     background-color:#F9F9F9;
     border-bottom-left-radius: 50px;
     &__circle{
@@ -215,43 +221,9 @@ app-home{
 		width:auto!important;
 		height:auto!important;
 		max-width: inherit!important;
-    max-height: inherit!important;
+        max-height: inherit!important;
 	}
 }
-/* = STYLE CONTAINER = */
-.container{
-	padding:0 15px;
-	margin:0 auto;
-	position: relative;
-	width:100%;
-}
-@media screen and (min-width: 568px) and (max-width: 767px){
-	.container{
-		max-width:568px;
-	}
-}
-@media screen and (min-width: 768px) and (max-width: 991px){
-	.container{
-		max-width:768px;
-		padding:0 20px;
-	}
-}
-@media screen and (min-width: 992px) and (max-width: 1199px){
-	.container{
-		max-width:992px;
-	}
-}
-@media screen and (min-width:1200px) and (max-width:1399px){
-	.container{
-		max-width:1200px;
-	}
-}
-@media screen and (min-width:1400px){
-	.container{
-		max-width:1400px;
-	}
-}
-/* = STYLE CONTAINER END = */
 
 @media screen and (max-width:1400px) {
 	.background{
@@ -283,5 +255,6 @@ app-home{
 		display: none;
 	}
 }
-@import "app/theme/fonts";
+@import "app/theme/grid.scss";
+
 

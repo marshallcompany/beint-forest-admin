@@ -50,7 +50,7 @@
             </mat-expansion-panel-header>
             <div class="subcategory-content">
               <div
-                class="flex"
+                class="flex-grid"
                 *ngFor="let item of form.get('formWorkArray').controls; let i = index"
                 [formGroupName]="i">
                 <div class="remove-fields">
@@ -74,13 +74,13 @@
                       placeholder="Arbeitgeber"
                       class="field-wrapper__input"
                       formControlName="field1">
-                    <div class="field-type">abc</div>
+                    <div class="field-wrapper__type">abc</div>
                     <div
                       class="field-wrapper__status"
                       [ngClass]="{invalid : !this.form.get('formWorkArray').controls[i].get('field1').value}"></div>
                   </div>
                 </div>
-                <div class="field">
+                <div class="field field_select">
                   <p class="field__label">Art der Anstellung</p>
                   <div class="field-wrapper">
                     <ng-select
@@ -98,15 +98,15 @@
                     <div class="field-wrapper__status"></div>
                   </div>
                 </div>
-                <div class="checkbox-wrapper">
+                <div class="field-checkbox">
                   <input
                     type="checkbox"
                     [id]="'subcategory1-checkbox_'+(i+1)"
-                    class="checkbox-wrapper__input"
+                    class="field-checkbox__input"
                     formControlName="checkbox">
                   <label
                     [for]="'subcategory1-checkbox_'+(i+1)"
-                    class="checkbox-wrapper__input">
+                    class="field-checkbox__label">
                     Führungskraft
                   </label>
                 </div>
@@ -118,13 +118,13 @@
                       placeholder="Ort"
                       class="field-wrapper__input"
                       formControlName="ort">
-                    <div class="field-type">abc</div>
+                    <div class="field-wrapper__type">abc</div>
                     <div
                       class="field-wrapper__status"
                       [ngClass]="{invalid : !this.form.get('formWorkArray').controls[i].get('ort').value}"></div>
                   </div>
                 </div>
-                <div class="field">
+                <div class="field field_select">
                   <p class="field__label">Branche</p>
                   <div class="field-wrapper">
                     <ng-select
@@ -146,13 +146,13 @@
                       placeholder="Job Bezeichnung"
                       class="field-wrapper__input"
                       formControlName="jobTitle">
-                    <div class="field-type">abc</div>
+                    <div class="field-wrapper__type">abc</div>
                     <div
                       class="field-wrapper__status"
                       [ngClass]="{invalid : !this.form.get('formWorkArray').controls[i].get('jobTitle').value}"></div>
                   </div>
                 </div>
-                <div class="field">
+                <div class="field field_select">
                   <p class="field__label">Geschäftebereich</p>
                   <div class="field-wrapper">
                     <ng-select
@@ -166,7 +166,7 @@
                     <div class="field-wrapper__status"></div>
                   </div>
                 </div>
-                <div class="field field_date">
+                <div class="field field_datapicker">
                   <p class="field__label">Von</p>
                   <div class="field-wrapper">
                     <div class="datepicker-wrp">
@@ -204,14 +204,14 @@
                       [ngClass]="{invalid : !this.form.get('formWorkArray').controls[i].get('bis').value}"></div>
                   </div>
                 </div>
-                <div class="field">
+                <div class="field field_textarea">
                   <p class="field__label">Job Bezeichnung</p>
                   <div class="field-wrapper field-wrapper_textarea">
                     <textarea
                       placeholder="Job Bezeichnung"
                       class="field-wrapper__input field-wrapper__input_textarea"
                       formControlName="description"></textarea>
-                    <div class="field-type">abc</div>
+                    <div class="field-wrapper__type">abc</div>
                     <div
                       class="field-wrapper__status"
                       [ngClass]="{invalid : !this.form.get('formWorkArray').controls[i].get('description').value}"></div>
@@ -222,9 +222,7 @@
                 <button
                   class="add-fields__button"
                   (click)="setFormGroup('newWorkFields')">
-                  <img
-                    src="../assets/image/plus.svg"
-                    alt>
+                  <img src="../assets/image/plus.svg">
                 </button>
               </div>
             </div>
@@ -254,7 +252,7 @@
             </mat-expansion-panel-header>
             <div class="subcategory-content">
               <div
-                class="flex"
+                class="flex-grid"
                 *ngFor="let item of form.get('formFreelanceArray').controls; let i = index"
                 [formGroupName]="i">
                 <div class="remove-fields">
@@ -278,7 +276,7 @@
                       placeholder="Bezeichnung"
                       class="field-wrapper__input"
                       formControlName="field1">
-                    <div class="field-type">abc</div>
+                    <div class="field-wrapper__type">abc</div>
                     <div
                       class="field-wrapper__status"
                       [ngClass]="{invalid : !this.form.get('formFreelanceArray').controls[i].get('field1').value}"></div>
@@ -292,25 +290,25 @@
                       placeholder="Name der Firma"
                       class="field-wrapper__input"
                       formControlName="field2">
-                    <div class="field-type">abc</div>
+                    <div class="field-wrapper__type">abc</div>
                     <div
                       class="field-wrapper__status"
                       [ngClass]="{invalid : !this.form.get('formFreelanceArray').controls[i].get('field2').value}"></div>
                   </div>
                 </div>
-                <div class="checkbox-wrapper">
+                <div class="field-checkbox">
                   <input
                     type="checkbox"
                     [id]="'subcategory1-checkbox_'+(i+1)"
-                    class="checkbox-wrapper__input"
+                    class="field-checkbox__input"
                     formControlName="checkbox">
                   <label
                     [for]="'subcategory1-checkbox_'+(i+1)"
-                    class="checkbox-wrapper__input">
+                    class="field-checkbox__label">
                     Führungskraft
                   </label>
                 </div>
-                <div class="field">
+                <div class="field field_select">
                   <p class="field__label">Branche</p>
                   <div class="field-wrapper">
                     <ng-select
@@ -332,13 +330,13 @@
                       placeholder="Ort"
                       class="field-wrapper__input"
                       formControlName="ort">
-                    <div class="field-type">abc</div>
+                    <div class="field-wrapper__type">abc</div>
                     <div
                       class="field-wrapper__status"
                       [ngClass]="{invalid : !this.form.get('formFreelanceArray').controls[i].get('ort').value}"></div>
                   </div>
                 </div>
-                <div class="field field_date">
+                <div class="field field_datapicker">
                   <p class="field__label">Von</p>
                   <div class="field-wrapper">
                     <div class="datepicker-wrp">
@@ -376,14 +374,14 @@
                       [ngClass]="{invalid : !this.form.get('formFreelanceArray').controls[i].get('bis').value}"></div>
                   </div>
                 </div>
-                <div class="field">
+                <div class="field field_textarea">
                   <p class="field__label">Job Bezeichnung</p>
                   <div class="field-wrapper field-wrapper_textarea">
                     <textarea
                       placeholder="Job Bezeichnung"
                       class="field-wrapper__input field-wrapper__input_textarea"
                       formControlName="description"></textarea>
-                    <div class="field-type">abc</div>
+                    <div class="field-wrapper__type">abc</div>
                     <div
                       class="field-wrapper__status"
                       [ngClass]="{invalid : !this.form.get('formFreelanceArray').controls[i].get('description').value}"></div>
@@ -394,9 +392,7 @@
                 <button
                   class="add-fields__button"
                   (click)="setFormGroup('newFreelanceFields')">
-                  <img
-                    src="../assets/image/plus.svg"
-                    alt>
+                  <img src="../assets/image/plus.svg">
                 </button>
               </div>
             </div>
@@ -426,7 +422,7 @@
             </mat-expansion-panel-header>
             <div class="subcategory-content">
               <div
-                class="flex"
+                class="flex-grid"
                 *ngFor="let item of form.get('formOtherArray').controls; let i = index"
                 [formGroupName]="i">
                 <div class="remove-fields">
@@ -450,7 +446,7 @@
                       placeholder="Bezeichnung"
                       class="field-wrapper__input"
                       formControlName="field1">
-                    <div class="field-type">abc</div>
+                    <div class="field-wrapper__type">abc</div>
                     <div
                       class="field-wrapper__status"
                       [ngClass]="{invalid : !this.form.get('formOtherArray').controls[i].get('field1').value}"></div>
@@ -464,13 +460,13 @@
                       placeholder="Ort"
                       class="field-wrapper__input"
                       formControlName="ort">
-                    <div class="field-type">abc</div>
+                    <div class="field-wrapper__type">abc</div>
                     <div
                       class="field-wrapper__status"
                       [ngClass]="{invalid : !this.form.get('formOtherArray').controls[i].get('ort').value}"></div>
                   </div>
                 </div>
-                <div class="field field_date">
+                <div class="field field_datapicker">
                   <p class="field__label">Von</p>
                   <div class="field-wrapper">
                     <div class="datepicker-wrp">
@@ -508,14 +504,14 @@
                       [ngClass]="{invalid : !this.form.get('formOtherArray').controls[i].get('bis').value}"></div>
                   </div>
                 </div>
-                <div class="field">
+                <div class="field field_textarea">
                   <p class="field__label">Job Bezeichnung</p>
                   <div class="field-wrapper field-wrapper_textarea">
                     <textarea
                       placeholder="Job Bezeichnung"
                       class="field-wrapper__input field-wrapper__input_textarea"
                       formControlName="description"></textarea>
-                    <div class="field-type">abc</div>
+                    <div class="field-wrapper__type">abc</div>
                     <div
                       class="field-wrapper__status"
                       [ngClass]="{invalid : !this.form.get('formOtherArray').controls[i].get('description').value}"></div>
@@ -526,9 +522,7 @@
                 <button
                   class="add-fields__button"
                   (click)="setFormGroup('newOtherFields')">
-                  <img
-                    src="../assets/image/plus.svg"
-                    alt>
+                  <img src="../assets/image/plus.svg">
                 </button>
               </div>
             </div>
