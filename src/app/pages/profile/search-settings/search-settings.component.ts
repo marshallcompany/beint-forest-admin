@@ -64,12 +64,6 @@ export class SearchSettingsComponent implements OnInit {
         benefits: this.fb.array([])
       })
     });
-
-    this.desiredEmploymentTypes = this.form.get('searchPreferences').get('desiredEmploymentTypes') as FormArray;
-    this.preferredBusinessAreas = this.form.get('searchPreferences').get('preferredBusinessAreas') as FormArray;
-    this.preferredWorkingHours = this.form.get('searchPreferences').get('preferredWorkingHours') as FormArray;
-    this.desiredIndustryBranches = this.form.get('searchPreferences').get('desiredIndustryBranches') as FormArray;
-    this.benefits = this.form.get('searchPreferences').get('benefits') as FormArray;
   }
 
   ngOnInit(): void {
@@ -115,18 +109,22 @@ export class SearchSettingsComponent implements OnInit {
   }
 
   pushData = (formArrayName: string, field: string, nameField?: string) => {
-    if (formArrayName) {
+
+    this.desiredEmploymentTypes = this.form.get('searchPreferences').get('desiredEmploymentTypes') as FormArray;
+    this.preferredBusinessAreas = this.form.get('searchPreferences').get('preferredBusinessAreas') as FormArray;
+    this.preferredWorkingHours = this.form.get('searchPreferences').get('preferredWorkingHours') as FormArray;
+    this.desiredIndustryBranches = this.form.get('searchPreferences').get('desiredIndustryBranches') as FormArray;
+    this.benefits = this.form.get('searchPreferences').get('benefits') as FormArray;
+
+    if (formArrayName && this[formArrayName]) {
       this[formArrayName].push(this.fb.control(field));
-      setTimeout(() => {
-        this.submit(nameField);
-      });
+      this.submit(nameField);
     } else {
       return false;
     }
   }
 
   public submit = (field?) => {
-    console.log('form', this.form);
     this.profileService.updateProfile(this.form.value)
       .pipe(
         switchMap(formData => {

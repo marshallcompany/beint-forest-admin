@@ -55,7 +55,7 @@
     margin-bottom:20px;
     &_select{
         .field-wrapper{
-            padding:0!important;
+            padding:0;
             background-color:inherit;
         }
     }
@@ -86,6 +86,7 @@
         width:100%;
         border:0;
         color:$black;
+        font-family: $gr;
         font-size: 17px;
         &::placeholder{
             color:#989898;
@@ -128,10 +129,16 @@
     }
 }
 @media screen and (max-width:768px){
+    .personal{
+        background-color:#f9f9f9;
+    }
+    .form-wrapper{
+        padding:0;
+    }
     .subcategory-item{
       margin-bottom:25px;
     }
-     .category-decor{
+    .category-decor{
         &__image{
             width: 80%;
             display: none;
@@ -140,28 +147,19 @@
             }
         }
     }
-    .personal{
-        background-color:#f9f9f9;
-    }
-    .form-wrapper{
-        padding:0;
+    .field{
+        width:100%;
     }
     .field-wrapper{
         &__input{
-            font-size: 14px;
+            font-size: 16px;
         }
         &__type{
             font-size: 14px;
         }
     }
     .custom-select{
-        font-size: 14px;
-        ::ng-deep .ng-placeholder{
-            font-size: 17px;
-        }
-    }
-    .field{
-        width:100%;
+        font-size: 16px;
     }
 }
 @media screen and (max-width:568px){
@@ -176,12 +174,6 @@
     }
     .field-wrapper{
         padding-left:10px;
-        mat-form-field {
-            select{
-                padding:10px;
-                font-size: 14px;
-            }
-        }
     }
 }
 /* = MEDIA END = */

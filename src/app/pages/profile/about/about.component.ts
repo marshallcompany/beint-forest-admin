@@ -34,12 +34,14 @@ export class AboutComponent implements OnInit {
     private profileService: ProfileService,
     private notificationService: NotificationService,
   ) {
-
     this.question = [
       { question: 'Was motiviert dich?' },
       { question: 'Welchen Witz würdest du in einem Vorstellungsgespräch erzählen?' },
       { question: 'Was ist deine Supermacht?' }
     ];
+    this.form = this.fb.group({
+      aboutAnswers: this.fb.array([])
+    });
   }
 
   ngOnInit(): void {
@@ -61,20 +63,13 @@ export class AboutComponent implements OnInit {
       .subscribe(
         res => {
           this.answerData = res;
-          this.formInit();
+          this.questionGroupInit(this.answerData);
           this.formData = this.form.value;
         },
         err => {
           console.log('ERROR', err);
         }
       );
-  }
-
-  public formInit = () => {
-    this.form = this.fb.group({
-      aboutAnswers: this.fb.array([])
-    });
-    this.questionGroupInit(this.answerData);
   }
 
   public createAnswerGroup = (index, question?, ): FormGroup => {
