@@ -8,7 +8,9 @@
       class="background__circle background__circle_02">
   </div>
   <app-category-nav-header [navSettings]="navSettings"></app-category-nav-header>
-  <div class="category-decor">
+  <div
+    class="category-decor"
+    *ngIf="!accordionsStatus">
     <div class="container">
       <img
         src="../assets/image/profile/professional-background/image-desktop.svg"
@@ -29,6 +31,8 @@
           formArrayName="formWorkArray">
           <mat-expansion-panel
             class="accordion"
+            (opened)="accordionsStatus = true"
+            (closed)="accordionChange()"
             #accordion01="matExpansionPanel">
             <mat-expansion-panel-header>
               <div class="subcategory-header">
@@ -49,12 +53,10 @@
                 class="flex"
                 *ngFor="let item of form.get('formWorkArray').controls; let i = index"
                 [formGroupName]="i">
-                <div
-                  class="remove-fields"
-                  *ngIf="this.form.get('formWorkArray').controls.length > 1">
+                <div class="remove-fields">
                   <button
                     class="remove-fields__button"
-                    (click)="remove('formWorkArray', i)">
+                    (click)="remove('formWorkArray', 'work', i)">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.765 21.765" class="remove-fields__icon">
                       <g transform="translate(0 -0.001)">
                         <g transform="translate(0 0.001)">
@@ -233,6 +235,8 @@
           formArrayName="formFreelanceArray">
           <mat-expansion-panel
             class="accordion"
+            (opened)="accordionsStatus = true"
+            (closed)="accordionChange()"
             #accordion02="matExpansionPanel">
             <mat-expansion-panel-header>
               <div class="subcategory-header">
@@ -253,12 +257,10 @@
                 class="flex"
                 *ngFor="let item of form.get('formFreelanceArray').controls; let i = index"
                 [formGroupName]="i">
-                <div
-                  class="remove-fields"
-                  *ngIf="this.form.get('formFreelanceArray').controls.length > 1">
+                <div class="remove-fields">
                   <button
                     class="remove-fields__button"
-                    (click)="remove('formFreelanceArray', i)">
+                    (click)="remove('formFreelanceArray', 'freelancing', i)">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.765 21.765" class="remove-fields__icon">
                       <g transform="translate(0 -0.001)">
                         <g transform="translate(0 0.001)">
@@ -405,6 +407,8 @@
           formArrayName="formOtherArray">
           <mat-expansion-panel
             class="accordion"
+            (opened)="accordionsStatus = true"
+            (closed)="accordionChange()"
             #accordion03="matExpansionPanel">
             <mat-expansion-panel-header>
               <div class="subcategory-header">
@@ -425,12 +429,10 @@
                 class="flex"
                 *ngFor="let item of form.get('formOtherArray').controls; let i = index"
                 [formGroupName]="i">
-                <div
-                  class="remove-fields"
-                  *ngIf="this.form.get('formOtherArray').controls.length > 1">
+                <div class="remove-fields">
                   <button
                     class="remove-fields__button"
-                    (click)="remove('formOtherArray', i)">
+                    (click)="remove('formOtherArray', 'other', i)">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.765 21.765" class="remove-fields__icon">
                       <g transform="translate(0 -0.001)">
                         <g transform="translate(0 0.001)">
