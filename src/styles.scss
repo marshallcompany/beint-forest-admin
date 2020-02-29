@@ -2,6 +2,8 @@
 @import "app/theme/variables.scss";
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 @import "~@ng-select/ng-select/themes/default.theme.css";
+@import "~ng-pick-datetime/assets/style/picker.min.css";
+@import "app/theme/calendar";
 @import "app/theme/fonts";
 
 html,
@@ -15,49 +17,6 @@ body{
 	background-color:#ffffff;
 	color:#313131;
 	font-family:Gilroy Regular, sans-serif;
-}
-.datepicker-wrp{
- position: relative;
- width: 100%;
- height: 100%;
- border-radius: 10px;
- overflow: hidden;
- cursor: pointer;
- .field-wrapper__input{
-     height: 100%;
- }
- &__icon{
-     position:absolute;
-     right:25px;
-     top:50%;
-     transform: translateY(-50%);
-     z-index: 1;
-     width:15px;
-     height:17px;
- }
- mat-datepicker-toggle{
-     z-index: 2;
-     position: absolute;
-     left:0;
-     top:0;
-     width:100%;
-     height:100%;
-     button{
-         position: absolute;
-         left:0;
-         top:0;
-         width:100%!important;
-         height:100%!important;
-         svg{
-             display:none;
-         }
-         .mat-button-focus-overlay,
-         .mat-button-wrapper,
-         .mat-button-ripple{
-             display: none;
-         }
-     }
- }
 }
 // STYLE SNACKBAR
 .snack {

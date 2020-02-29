@@ -168,41 +168,50 @@
                 </div>
                 <div class="field field_datapicker">
                   <p class="field__label">Von</p>
-                  <div class="field-wrapper">
-                    <div class="datepicker-wrp">
-                      <input
-                        [matDatepicker]="dateVon"
-                        placeholder="DD/MM/YYYY"
-                        class="field-wrapper__input"
-                        formControlName="von">
-                      <mat-datepicker-toggle [for]="dateVon"></mat-datepicker-toggle>
-                      <mat-datepicker #dateVon></mat-datepicker>
-                      <img
-                        class="datepicker-wrp__icon"
-                        src="../assets/image/calendar.svg">
+                  <div
+                    class="field-wrapper"
+                    [owlDateTimeTrigger]="dateVon">
+                    <input
+                      [owlDateTime]="dateVon"
+                      (dateTimeChange)="submit('Von')"
+                      class="field-wrapper__input"
+                      formControlName="von"
+                      placeholder="DD/MM/YYYY">
+                    <owl-date-time
+                      #dateVon
+                      pickerMode="dialog"
+                      pickerType="calendar"
+                      panelClass="calendar"></owl-date-time>
+                    <div class="field-wrapper__type">
+                      <img src="../assets/image/calendar.svg">
                     </div>
                     <div
                       class="field-wrapper__status"
                       [ngClass]="{invalid : !this.form.get('formWorkArray').controls[i].get('von').value}"></div>
                   </div>
                   <p class="field__label">Bis</p>
-                  <div class="field-wrapper">
-                    <div class="datepicker-wrp">
-                      <input
-                        [matDatepicker]="dateBis"
-                        placeholder="DD/MM/YYYY"
-                        class="field-wrapper__input"
-                        formControlName="bis">
-                      <mat-datepicker-toggle [for]="dateBis"></mat-datepicker-toggle>
-                      <mat-datepicker #dateBis></mat-datepicker>
-                      <img
-                        class="datepicker-wrp__icon"
-                        src="../assets/image/calendar.svg">
+                  <div
+                    class="field-wrapper"
+                    [owlDateTimeTrigger]="dateBis">
+                    <input
+                      [owlDateTime]="dateBis"
+                      (dateTimeChange)="submit('Bis')"
+                      class="field-wrapper__input"
+                      formControlName="bis"
+                      placeholder="DD/MM/YYYY">
+                    <owl-date-time
+                      #dateBis
+                      pickerMode="dialog"
+                      pickerType="calendar"
+                      panelClass="calendar"></owl-date-time>
+                    <div class="field-wrapper__type">
+                      <img src="../assets/image/calendar.svg">
                     </div>
                     <div
                       class="field-wrapper__status"
                       [ngClass]="{invalid : !this.form.get('formWorkArray').controls[i].get('bis').value}"></div>
                   </div>
+
                 </div>
                 <div class="field field_textarea">
                   <p class="field__label">Job Bezeichnung</p>
@@ -338,36 +347,44 @@
                 </div>
                 <div class="field field_datapicker">
                   <p class="field__label">Von</p>
-                  <div class="field-wrapper">
-                    <div class="datepicker-wrp">
-                      <input
-                        [matDatepicker]="dateVon"
-                        placeholder="DD/MM/YYYY"
-                        class="field-wrapper__input"
-                        formControlName="von">
-                      <mat-datepicker-toggle [for]="dateVon"></mat-datepicker-toggle>
-                      <mat-datepicker #dateVon></mat-datepicker>
-                      <img
-                        class="datepicker-wrp__icon"
-                        src="../assets/image/calendar.svg">
+                  <div
+                    class="field-wrapper"
+                    [owlDateTimeTrigger]="dateVon">
+                    <input
+                      [owlDateTime]="dateVon"
+                      (dateTimeChange)="submit('Von')"
+                      class="field-wrapper__input"
+                      formControlName="von"
+                      placeholder="DD/MM/YYYY">
+                    <owl-date-time
+                      #dateVon
+                      pickerMode="dialog"
+                      pickerType="calendar"
+                      panelClass="calendar"></owl-date-time>
+                    <div class="field-wrapper__type">
+                      <img src="../assets/image/calendar.svg">
                     </div>
                     <div
                       class="field-wrapper__status"
                       [ngClass]="{invalid : !this.form.get('formFreelanceArray').controls[i].get('von').value}"></div>
                   </div>
                   <p class="field__label">Bis</p>
-                  <div class="field-wrapper">
-                    <div class="datepicker-wrp">
-                      <input
-                        [matDatepicker]="dateBis"
-                        placeholder="DD/MM/YYYY"
-                        class="field-wrapper__input"
-                        formControlName="bis">
-                      <mat-datepicker-toggle [for]="dateBis"></mat-datepicker-toggle>
-                      <mat-datepicker #dateBis></mat-datepicker>
-                      <img
-                        class="datepicker-wrp__icon"
-                        src="../assets/image/calendar.svg">
+                  <div
+                    class="field-wrapper"
+                    [owlDateTimeTrigger]="dateBis">
+                    <input
+                      [owlDateTime]="dateBis"
+                      (dateTimeChange)="submit('Bis')"
+                      class="field-wrapper__input"
+                      formControlName="bis"
+                      placeholder="DD/MM/YYYY">
+                    <owl-date-time
+                      #dateBis
+                      pickerMode="dialog"
+                      pickerType="calendar"
+                      panelClass="calendar"></owl-date-time>
+                    <div class="field-wrapper__type">
+                      <img src="../assets/image/calendar.svg">
                     </div>
                     <div
                       class="field-wrapper__status"
@@ -468,36 +485,44 @@
                 </div>
                 <div class="field field_datapicker">
                   <p class="field__label">Von</p>
-                  <div class="field-wrapper">
-                    <div class="datepicker-wrp">
-                      <input
-                        [matDatepicker]="dateVon"
-                        placeholder="DD/MM/YYYY"
-                        class="field-wrapper__input"
-                        formControlName="von">
-                      <mat-datepicker-toggle [for]="dateVon"></mat-datepicker-toggle>
-                      <mat-datepicker #dateVon></mat-datepicker>
-                      <img
-                        class="datepicker-wrp__icon"
-                        src="../assets/image/calendar.svg">
+                  <div
+                    class="field-wrapper"
+                    [owlDateTimeTrigger]="dateVon">
+                    <input
+                      [owlDateTime]="dateVon"
+                      (dateTimeChange)="submit('Von')"
+                      class="field-wrapper__input"
+                      formControlName="von"
+                      placeholder="DD/MM/YYYY">
+                    <owl-date-time
+                      #dateVon
+                      pickerMode="dialog"
+                      pickerType="calendar"
+                      panelClass="calendar"></owl-date-time>
+                    <div class="field-wrapper__type">
+                      <img src="../assets/image/calendar.svg">
                     </div>
                     <div
                       class="field-wrapper__status"
                       [ngClass]="{invalid : !this.form.get('formOtherArray').controls[i].get('von').value}"></div>
                   </div>
                   <p class="field__label">Bis</p>
-                  <div class="field-wrapper">
-                    <div class="datepicker-wrp">
-                      <input
-                        [matDatepicker]="dateBis"
-                        placeholder="DD/MM/YYYY"
-                        class="field-wrapper__input"
-                        formControlName="bis">
-                      <mat-datepicker-toggle [for]="dateBis"></mat-datepicker-toggle>
-                      <mat-datepicker #dateBis></mat-datepicker>
-                      <img
-                        class="datepicker-wrp__icon"
-                        src="../assets/image/calendar.svg">
+                  <div
+                    class="field-wrapper"
+                    [owlDateTimeTrigger]="dateBis">
+                    <input
+                      [owlDateTime]="dateBis"
+                      (dateTimeChange)="submit('Bis')"
+                      class="field-wrapper__input"
+                      formControlName="bis"
+                      placeholder="DD/MM/YYYY">
+                    <owl-date-time
+                      #dateBis
+                      pickerMode="dialog"
+                      pickerType="calendar"
+                      panelClass="calendar"></owl-date-time>
+                    <div class="field-wrapper__type">
+                      <img src="../assets/image/calendar.svg">
                     </div>
                     <div
                       class="field-wrapper__status"

@@ -3,11 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule, MAT_EXPANSION_PANEL_DEFAULT_OPTIONS } from '@angular/material/expansion';
-
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSliderModule } from '@angular/material/slider';
@@ -19,10 +14,6 @@ import { MatSliderModule } from '@angular/material/slider';
     CommonModule,
     MatIconModule,
     MatExpansionModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatFormFieldModule,
     MatSnackBarModule,
     MatSidenavModule,
     MatSliderModule
@@ -30,10 +21,6 @@ import { MatSliderModule } from '@angular/material/slider';
   exports: [
     MatIconModule,
     MatExpansionModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatFormFieldModule,
     MatSnackBarModule,
     MatSidenavModule,
     MatSliderModule

@@ -4,9 +4,8 @@ import { Router, NavigationEnd } from '@angular/router';
 import { AuthService } from './services/auth.service';
 import { NotificationService } from './services/notification.service';
 import { filter } from 'rxjs/operators';
-
 import { TranslatesService } from './services/translates.service';
-
+import { DateTimeAdapter } from 'ng-pick-datetime';
 
 interface State {
   name: string;
@@ -32,7 +31,8 @@ export class AppComponent implements OnInit {
     public router: Router,
     private translatesService: TranslatesService,
     private authService: AuthService,
-    public notificationService: NotificationService
+    public notificationService: NotificationService,
+    public dateTimeAdapter: DateTimeAdapter<any>
   ) {
     this.stateRoute = [
       { name: 'Home', icon: '../assets/image/menu/home.svg', path: 'home', activeClass: 'route-active' },
@@ -47,6 +47,8 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.translatesService.initLanguage();
     this.checkRouterState();
+    this.dateTimeAdapter.setLocale('de');
+
   }
 
   private checkRouterState = () => {

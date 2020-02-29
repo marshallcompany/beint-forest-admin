@@ -19,6 +19,7 @@ import { NotificationService } from './services/notification.service';
 import { GlobalErrorService } from './services/global-error-service';
 
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
@@ -84,6 +85,8 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     HttpClientModule,
     SwiperModule,
     NgSelectModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
