@@ -122,35 +122,35 @@ export class ProfessionalBackgroundComponent implements OnInit {
     switch (nameGroup) {
       case 'work':
         return this.fb.group({
-          field1: [data.field1 ?? ''],
-          select1: [data.select1 ?? 'Vollzeit'],
-          checkbox: [data.checkbox ?? false],
-          von: [data.von ?? ''],
-          bis: [data.bis ?? ''],
-          ort: [data.ort ?? ''],
-          branch: [data.branch ?? 'Branche'],
-          jobTitle: [data.jobTitle ?? ''],
-          area: [data.area ?? 'Geschäftebereich'],
-          description: [data.description ?? '']
+          field1: [data.field1 ? data.field1 : ''],
+          select1: [data.select1 ? data.select1 : 'Vollzeit'],
+          checkbox: [data.checkbox ? data.checkbox : false],
+          von: [data.von ? data.von : ''],
+          bis: [data.bis ? data.bis : ''],
+          ort: [data.ort ? data.ort : ''],
+          branch: [data.branch ? data.branch : 'Branche'],
+          jobTitle: [data.jobTitle ? data.jobTitle : ''],
+          area: [data.area ? data.area : 'Geschäftebereich'],
+          description: [data.description ? data.description : '']
         });
       case 'freelancing':
         return this.fb.group({
-          field1: [data.field1 ?? ''],
-          field2: [data.field2 ?? ''],
-          checkbox: [data.checkbox ?? false],
-          von: [data.von ?? ''],
-          bis: [data.bis ?? ''],
-          ort: [data.ort ?? ''],
-          branch: [data.branch ?? 'Branche'],
-          description: [data.description ?? '']
+          field1: [data.field1 ? data.field1 : ''],
+          field2: [data.field2 ? data.field2 : ''],
+          checkbox: [data.checkbox ? data.checkbox : false],
+          von: [data.von ? data.von : ''],
+          bis: [data.bis ? data.bis : ''],
+          ort: [data.ort ? data.ort : ''],
+          branch: [data.branch ? data.branch : 'Branche'],
+          description: [data.description ? data.description : '']
         });
       case 'other':
         return this.fb.group({
-          field1: [data.field1 ?? ''],
-          von: [data.von ?? ''],
-          bis: [data.bis ?? ''],
-          ort: [data.ort ?? ''],
-          description: [data.description ?? '']
+          field1: [data.field1 ? data.field1 : ''],
+          von: [data.von ? data.von : ''],
+          bis: [data.bis ? data.bis : ''],
+          ort: [data.ort ? data.ort : ''],
+          description: [data.description ? data.description : '']
         });
       default:
         break;

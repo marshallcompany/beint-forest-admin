@@ -62,6 +62,12 @@
     &_datapicker{
         .field-wrapper{
             padding-right:0;
+            cursor: pointer;
+            &__input{
+                pointer-events: none;
+                height:100%;
+                border-radius: 10px;
+            }
         }
     }
     &__label{
