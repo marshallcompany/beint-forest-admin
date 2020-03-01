@@ -25,6 +25,9 @@ body{
 .mat-ripple.mat-button-ripple {
 	display:none;
 }
+.mat-button-focus-overlay{
+    display: none;
+}
 
 .mat-simple-snackbar-action{
   .mat-button{

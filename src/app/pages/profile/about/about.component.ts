@@ -2,12 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ProfileService } from '../../../services/profile.service';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { map, switchMap } from 'rxjs/operators';
-import { throwError, of } from 'rxjs';
+import { throwError, of, forkJoin } from 'rxjs';
 import { NotificationService } from 'src/app/services/notification.service';
-
-export interface Question {
-  question: string;
-}
 
 @Component({
   selector: 'app-about',
@@ -21,76 +17,81 @@ export class AboutComponent implements OnInit {
     nameCategory: 'Ich über mich',
     nextCategory: 'about'
   };
+
   public formData: any;
-  public answerData: any;
+  public questionsData: any;
+  public answersData: any;
 
   public form: FormGroup;
   public aboutAnswers: FormArray;
-
-  public question: Array<Question>;
 
   constructor(
     public fb: FormBuilder,
     private profileService: ProfileService,
     private notificationService: NotificationService,
-  ) {
-    this.question = [
-      { question: 'Was motiviert dich?' },
-      { question: 'Welchen Witz würdest du in einem Vorstellungsgespräch erzählen?' },
-      { question: 'Was ist deine Supermacht?' }
-    ];
-    this.form = this.fb.group({
-      aboutAnswers: this.fb.array([])
-    });
-  }
+  ) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.initForm();
     this.init();
   }
 
   public init = () => {
-    this.profileService.getProfile()
+    const question$ = this.profileService.getQuestion();
+    const profile$ = this.profileService.getProfile();
+    forkJoin(profile$, question$)
       .pipe(
-        map((profileDate: any) => {
-          if (profileDate && profileDate.profile && profileDate.profile.aboutAnswers) {
+        map(([profile, question]) => {
+          if (profile && profile.profile && profile.profile.aboutAnswers) {
             return {
-              answers: profileDate.profile.aboutAnswers
+              answers: profile.profile.aboutAnswers,
+              questions: question
             };
           }
-          return profileDate;
+          return [profile, question];
         })
       )
-      .subscribe(
-        res => {
-          this.answerData = res;
-          this.questionGroupInit(this.answerData);
-          this.formData = this.form.value;
-        },
+      .subscribe((res: any) => {
+        this.questionsData = res.questions;
+        this.answersData = res.answers;
+        this.questionGroupInit();
+        this.formData = this.form.value;
+        console.log('[ ABOUT INIT ]', res);
+      },
         err => {
           console.log('ERROR', err);
         }
       );
   }
 
-  public createAnswerGroup = (index, question?, ): FormGroup => {
-    return this.fb.group({
-      question: [question ? question.question : ''],
-      answer: [this.answerData && this.answerData.answers ? this.answerData.answers[index].answer : '']
+  public initForm = () => {
+    this.form = this.fb.group({
+      aboutAnswers: this.fb.array([])
     });
   }
 
-  public questionGroupInit = (answerData) => {
+  public createAnswerGroup = (question, answer): FormGroup => {
+    return this.fb.group({
+      question: [question && question._id ? question._id : ''],
+      answer: [answer && answer[0] && answer[0].answer ? answer[0].answer : '']
+    });
+  }
+
+  public questionGroupInit = () => {
     this.aboutAnswers = this.form.get('aboutAnswers') as FormArray;
     if (this.aboutAnswers) {
-      this.question.forEach((question, index) => {
-        this.aboutAnswers.push(this.createAnswerGroup(index, question));
+      this.questionsData.forEach((question, index) => {
+        this.aboutAnswers.push(this.createAnswerGroup(question, this.answersData.filter(e => e.question._id === question._id)));
       });
     }
   }
 
 
 
-  public submit = (field: string) => {
+  public submit = (i) => {
+    // const answer = {
+    //   aboutAnswers: this.form.get('aboutAnswers').value.filter(e => e.answer !== '')
+    // };
     this.profileService.updateProfile(this.form.value)
       .pipe(
         switchMap(formData => {
@@ -104,11 +105,13 @@ export class AboutComponent implements OnInit {
         res => {
           console.log('[ UPDATE PROFILE ]', res);
           this.formData = this.form.value;
-          this.notificationService.notify(`The answer to the question ${field} was saved successfully`, 'success');
+          this.notificationService.notify(`The answer to the question ${i + 1} was saved successfully`, 'success');
         },
         err => {
           console.log('[ ERROR UPDATE PROFILE ]', err);
         }
       );
   }
+
 }
+

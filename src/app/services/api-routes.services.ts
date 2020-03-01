@@ -12,6 +12,7 @@ export class ApiRoutesProvider {
   public readonly GET_JOB_DATA: string;
   public readonly GET_CANDIDATE_CV: string;
   public readonly GET_LANG: string;
+  public readonly GET_QUESTION: string;
 
   constructor() {
     this.BASE_API_URL = environment.BASE_API_URL;
@@ -22,5 +23,6 @@ export class ApiRoutesProvider {
     this.GET_JOB_DATA = `${this.BASE_API_URL}/api/v1/job-vacancy/:id`;
     this.GET_CANDIDATE_CV = `${this.BASE_API_URL}/api/v1/profile/pdf`;
     this.GET_LANG = `${this.BASE_API_URL}/api/v1/i18n/system-messages`;
+    this.GET_QUESTION = `${this.BASE_API_URL}/api/v1/profile/questions`;
   }
 }
