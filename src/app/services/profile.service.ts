@@ -17,6 +17,10 @@ export class ProfileService {
     return this.http.get<any>(this.apiRoutes.PROFILE);
   }
 
+  public getQuestion = () => {
+    return this.http.get<any>(this.apiRoutes.GET_QUESTION);
+  }
+
   public updateProfile(data) {
     return this.http.patch<any>(this.apiRoutes.PROFILE, data);
   }

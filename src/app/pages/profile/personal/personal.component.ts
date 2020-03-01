@@ -31,35 +31,10 @@ export class PersonalComponent implements OnInit {
     public formBuilder: FormBuilder,
     private profileService: ProfileService,
     private notificationService: NotificationService,
-  ) {
-    this.form = this.formBuilder.group({
-      personal: this.formBuilder.group({
-        academicTitle: [''],
-        birthPlace: [''],
-        dateBirth: [''],
-        firstName: [''],
-        gender: [''],
-        lastName: [''],
-        middleName: [''],
-        nationality: ['']
-      }),
-      contact: this.formBuilder.group({
-        facebook: [''],
-        instagram: [''],
-        linkedin: [''],
-        phoneNumberMobile: [''],
-        xing: [''],
-        residence: this.formBuilder.group({
-          houseNumber: [''],
-          place: [''],
-          street: [''],
-          zipCode: [''],
-        })
-      }),
-    });
-  }
+  ) { }
 
   ngOnInit() {
+    this.initForm();
     this.init();
   }
 
@@ -89,29 +64,56 @@ export class PersonalComponent implements OnInit {
       );
   }
 
+  public initForm = () => {
+    this.form = this.formBuilder.group({
+      personal: this.formBuilder.group({
+        academicTitle: [''],
+        birthPlace: [''],
+        dateBirth: [''],
+        firstName: [''],
+        gender: [''],
+        lastName: [''],
+        middleName: [''],
+        nationality: ['']
+      }),
+      contact: this.formBuilder.group({
+        facebook: [''],
+        instagram: [''],
+        linkedin: [''],
+        phoneNumberMobile: [''],
+        xing: [''],
+        residence: this.formBuilder.group({
+          houseNumber: [''],
+          place: [''],
+          street: [''],
+          zipCode: [''],
+        })
+      }),
+    });
+  }
   public patchFormValue = (personalData) => {
     this.form.patchValue({
       personal: {
-        academicTitle: personalData.personal.academicTitle ? personalData.personal.academicTitle : '',
-        birthPlace: personalData.personal.birthPlace ? personalData.personal.birthPlace : '',
-        dateBirth: personalData.personal.dateBirth ? personalData.personal.dateBirth : '',
-        firstName: personalData.personal.firstName ? personalData.personal.firstName : '',
-        gender: personalData.personal.gender ? personalData.personal.gender : null,
-        lastName: personalData.personal.lastName ? personalData.personal.lastName : '',
-        middleName: personalData.personal.middleName ? personalData.personal.middleName : '',
-        nationality: personalData.personal.nationality ? personalData.personal.nationality : ''
+        academicTitle: personalData.personal && personalData.personal.academicTitle ? personalData.personal.academicTitle : '',
+        birthPlace: personalData.personal && personalData.personal.birthPlace ? personalData.personal.birthPlace : '',
+        dateBirth: personalData.personal && personalData.personal.dateBirth ? personalData.personal.dateBirth : '',
+        firstName: personalData.personal && personalData.personal.firstName ? personalData.personal.firstName : '',
+        gender: personalData.personal && personalData.personal.gender ? personalData.personal.gender : null,
+        lastName: personalData.personal && personalData.personal.lastName ? personalData.personal.lastName : '',
+        middleName: personalData.personal && personalData.personal.middleName ? personalData.personal.middleName : '',
+        nationality: personalData.personal && personalData.personal.nationality ? personalData.personal.nationality : ''
       },
       contact: {
-        facebook: personalData.contact.facebook ? personalData.contact.facebook : '',
-        instagram: personalData.contact.instagram ? personalData.contact.instagram : '',
-        linkedin: personalData.contact.linkedin ? personalData.contact.linkedin : '',
-        phoneNumberMobile: personalData.contact.phoneNumberMobile ? personalData.contact.phoneNumberMobile : '',
-        xing: personalData.contact.xing ? personalData.contact.xing : '',
+        facebook: personalData.contact && personalData.contact.facebook ? personalData.contact.facebook : '',
+        instagram: personalData.contact && personalData.contact.instagram ? personalData.contact.instagram : '',
+        linkedin: personalData.contact && personalData.contact.linkedin ? personalData.contact.linkedin : '',
+        phoneNumberMobile: personalData.contact && personalData.contact.phoneNumberMobile ? personalData.contact.phoneNumberMobile : '',
+        xing: personalData.contact && personalData.contact.xing ? personalData.contact.xing : '',
         residence: {
-          houseNumber: personalData.contact.residence.houseNumber ? personalData.contact.residence.houseNumber : '',
-          place: personalData.contact.residence.place ? personalData.contact.residence.place : '',
-          street: personalData.contact.residence.street ? personalData.contact.residence.street : '',
-          zipCode: personalData.contact.residence.zipCode ? personalData.contact.residence.zipCode : '',
+          houseNumber: personalData.contact && personalData.contact.residence && personalData.contact.residence.houseNumber ? personalData.contact.residence.houseNumber : '',
+          place: personalData.contact && personalData.contact.residence && personalData.contact.residence.place ? personalData.contact.residence.place : '',
+          street: personalData.contact && personalData.contact.residence && personalData.contact.residence.street ? personalData.contact.residence.street : '',
+          zipCode: personalData.contact && personalData.contact.residence && personalData.contact.residence.zipCode ? personalData.contact.residence.zipCode : '',
         }
       },
     });
