@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule, MAT_EXPANSION_PANEL_DEFAULT_OPTIONS } from '@angular/material/expansion';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatSliderModule } from '@angular/material/slider';
+
 
 
 @NgModule({
@@ -15,15 +15,13 @@ import { MatSliderModule } from '@angular/material/slider';
     MatIconModule,
     MatExpansionModule,
     MatSnackBarModule,
-    MatSidenavModule,
-    MatSliderModule
+    MatSidenavModule
   ],
   exports: [
     MatIconModule,
     MatExpansionModule,
     MatSnackBarModule,
     MatSidenavModule,
-    MatSliderModule
   ],
   providers: [
     {

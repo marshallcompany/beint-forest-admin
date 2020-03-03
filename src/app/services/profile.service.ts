@@ -21,6 +21,11 @@ export class ProfileService {
     return this.http.get<any>(this.apiRoutes.GET_QUESTION);
   }
 
+  public getLocalBundle = (local) => {
+    const url = this.apiRoutes.GET_LOCAL_BUNDLE.replace(':lang', local);
+    return this.http.get<any>(url);
+  }
+
   public updateProfile(data) {
     return this.http.patch<any>(this.apiRoutes.PROFILE, data);
   }

@@ -23,7 +23,6 @@ export class AboutComponent implements OnInit {
   public answersData: any;
 
   public form: FormGroup;
-  public aboutAnswers: FormArray;
 
   constructor(
     public fb: FormBuilder,
@@ -70,6 +69,10 @@ export class AboutComponent implements OnInit {
     });
   }
 
+  public get aboutAnswers(): FormArray {
+    return this.form.get('aboutAnswers') as FormArray;
+  }
+
   public createAnswerGroup = (question, answer): FormGroup => {
     return this.fb.group({
       question: [question && question._id ? question._id : ''],
@@ -78,12 +81,9 @@ export class AboutComponent implements OnInit {
   }
 
   public questionGroupInit = () => {
-    this.aboutAnswers = this.form.get('aboutAnswers') as FormArray;
-    if (this.aboutAnswers) {
-      this.questionsData.forEach((question, index) => {
-        this.aboutAnswers.push(this.createAnswerGroup(question, this.answersData.filter(e => e.question._id === question._id)));
-      });
-    }
+    this.questionsData.forEach((question, index) => {
+      this.aboutAnswers.push(this.createAnswerGroup(question, this.answersData.filter(e => e.question._id === question._id)));
+    });
   }
 
 
@@ -114,4 +114,5 @@ export class AboutComponent implements OnInit {
   }
 
 }
+
 

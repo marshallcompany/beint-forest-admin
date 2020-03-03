@@ -13,6 +13,11 @@ export class ApiRoutesProvider {
   public readonly GET_CANDIDATE_CV: string;
   public readonly GET_LANG: string;
   public readonly GET_QUESTION: string;
+  public readonly GET_LOCAL_BUNDLE: string;
+  public readonly GET_BUSINESS_SCHEMA: string;
+  public readonly GET_INDUSTRY_SCHEMA: string;
+  public readonly GET_BENEFITS_SCHEMA: string;
+  public readonly GET_TOWNS_SCHEMA: string;
 
   constructor() {
     this.BASE_API_URL = environment.BASE_API_URL;
@@ -24,5 +29,11 @@ export class ApiRoutesProvider {
     this.GET_CANDIDATE_CV = `${this.BASE_API_URL}/api/v1/profile/pdf`;
     this.GET_LANG = `${this.BASE_API_URL}/api/v1/i18n/system-messages`;
     this.GET_QUESTION = `${this.BASE_API_URL}/api/v1/profile/questions`;
+    this.GET_LOCAL_BUNDLE = `${this.BASE_API_URL}/api/v1/i18n/locale-bundle/:lang`;
+    this.GET_BUSINESS_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/businessBranches/:lang?filter=`;
+    this.GET_INDUSTRY_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/industryBranches/:lang?filter=`;
+    this.GET_BENEFITS_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/benefits/:lang?filter=`;
+    this.GET_TOWNS_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/towns/:lang`;
+
   }
 }
