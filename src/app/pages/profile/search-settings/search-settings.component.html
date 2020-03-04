@@ -27,7 +27,7 @@
         <div
           class="flex-grid"
           formGroupName="searchPreferences">
-          <div class="field field_tag">
+          <div class="field field_select field_select-search">
             <p class="field__label">Wunsch Arbeitsorte</p>
             <div class="field-wrapper">
               <ng-select
@@ -74,7 +74,7 @@
               </label>
             </div>
           </div>
-          <div class="field field_tag">
+          <div class="field field_select field_select-search">
             <p class="field__label">Bevorzugter Geschäftsbereich</p>
             <div class="field-wrapper">
               <ng-select
@@ -106,7 +106,7 @@
               </div>
             </div>
           </div>
-          <div class="field field_tag">
+          <div class="field field_select field_select-search">
             <p class="field__label">Wunsch-Branche</p>
             <div class="field-wrapper">
               <ng-select
@@ -138,7 +138,7 @@
               </div>
             </div>
           </div>
-          <div class="field field_select">
+          <div class="field field_select field_select-multiselect">
             <p class="field__label">Gewünschte Art der Anstellung</p>
             <div class="field-wrapper">
               <ng-select
@@ -176,7 +176,7 @@
               </div>
             </div>
           </div>
-          <div class="field field_select">
+          <div class="field field_select field_select-multiselect">
             <p class="field__label">Präferierte Arbeitszeit</p>
             <div class="field-wrapper">
               <ng-select
@@ -214,7 +214,7 @@
               </div>
             </div>
           </div>
-          <div class="field field_select field_select-value">
+          <div class="field field_select">
             <p class="field__label">Reisebereitschaft</p>
             <div class="field-wrapper">
               <ng-select
@@ -310,13 +310,14 @@
                 [ngClass]="{invalid : !form.get('searchPreferences').get('readyToStartJobFrom').value }"></div>
             </div>
           </div>
-          <div class="field field_tag">
+          <div class="field field_select field_select-search">
             <p class="field__label">Benefits</p>
             <div class="field-wrapper">
               <ng-select
                 #searchBenefits
                 [clearable]="false"
                 [multiple]="true"
+                dropdownPosition="top"
                 [hideSelected]="true"
                 [items]="benefitsOptions$ | async"
                 [formControl]="benefitsControl"

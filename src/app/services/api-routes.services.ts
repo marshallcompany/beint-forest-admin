@@ -30,9 +30,9 @@ export class ApiRoutesProvider {
     this.GET_LANG = `${this.BASE_API_URL}/api/v1/i18n/system-messages`;
     this.GET_QUESTION = `${this.BASE_API_URL}/api/v1/profile/questions`;
     this.GET_LOCAL_BUNDLE = `${this.BASE_API_URL}/api/v1/i18n/locale-bundle/:lang`;
-    this.GET_BUSINESS_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/businessBranches/:lang?filter=`;
-    this.GET_INDUSTRY_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/industryBranches/:lang?filter=`;
-    this.GET_BENEFITS_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/benefits/:lang?filter=`;
+    this.GET_BUSINESS_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/businessBranches/:lang`;
+    this.GET_INDUSTRY_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/industryBranches/:lang`;
+    this.GET_BENEFITS_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/benefits/:lang`;
     this.GET_TOWNS_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/towns/:lang`;
 
   }

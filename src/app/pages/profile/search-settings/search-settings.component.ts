@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { ProfileService } from '../../../services/profile.service';
-import { SchemaService } from '../../../services/schema.service';
+import { SearchService } from '../../../services/search.service';
 import { FormGroup, FormArray, FormBuilder, FormGroupName, FormControl } from '@angular/forms';
 import { FormValidators } from '../../../validators/validators';
 import { map, switchMap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
@@ -51,7 +51,7 @@ export class SearchSettingsComponent implements OnInit, AfterViewInit {
   public dropdownOptions: any;
 
   constructor(
-    public schemaService: SchemaService,
+    public searchService: SearchService,
     public profileService: ProfileService,
     private fb: FormBuilder,
     private notificationService: NotificationService
@@ -67,15 +67,15 @@ export class SearchSettingsComponent implements OnInit, AfterViewInit {
     this.searchPlace.searchInput.nativeElement.placeholder = 'Wunsch Arbeitsorte';
     this.searchIndustry.searchInput.nativeElement.placeholder = 'Wunsch Arbeitsorte';
     this.searchBusiness.searchInput.nativeElement.placeholder = 'Bevorzugter Geschäftsbereich';
-    this.placeOptions$ = fromEvent<any>(this.searchPlace.searchInput.nativeElement, 'input')
 
+    this.placeOptions$ = fromEvent<any>(this.searchPlace.searchInput.nativeElement, 'input')
       .pipe(
         map(event => event.target.value),
         debounceTime(325),
         distinctUntilChanged(),
         switchMap(search => {
           if (search.length !== 0) {
-            return this.schemaService.getTowns('de', `${search}`);
+            return this.searchService.getTowns('de', `${search}`);
           }
           return of([]);
         })
@@ -87,7 +87,7 @@ export class SearchSettingsComponent implements OnInit, AfterViewInit {
         distinctUntilChanged(),
         switchMap(search => {
           if (search.length !== 0) {
-            return this.schemaService.getIndustryBranches(`de?filter=${search}`);
+            return this.searchService.getIndustryBranches('de', `${search}`);
           }
           return of([]);
         })
@@ -99,7 +99,7 @@ export class SearchSettingsComponent implements OnInit, AfterViewInit {
         distinctUntilChanged(),
         switchMap(search => {
           if (search.length !== 0) {
-            return this.schemaService.getBenefits(`de?filter=${search}`);
+            return this.searchService.getBenefits('de', `${search}`);
           }
           return of([]);
         })
@@ -111,7 +111,7 @@ export class SearchSettingsComponent implements OnInit, AfterViewInit {
         distinctUntilChanged(),
         switchMap(search => {
           if (search.length !== 0) {
-            return this.schemaService.getBusinessBranches(`de?filter=${search}`);
+            return this.searchService.getBusinessBranches('de', `${search}`);
           }
           return of([]);
         })
