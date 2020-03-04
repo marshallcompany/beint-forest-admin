@@ -34,7 +34,9 @@
               <p
                 class="field__label"
                 *ngIf="questionsData">{{ questionsData[i].questionText }}</p>
-              <div class="field-wrapper">
+              <div
+                class="field-wrapper"
+                [ngClass]="{notAnswer : this.form.get('aboutAnswers').controls[i].get('willNotAnswer').value}">
                 <textarea
                   type="text"
                   placeholder="die Antwort eingeben"
@@ -46,6 +48,14 @@
                 <div
                   class="field-wrapper__status"
                   [ngClass]="{invalid : !this.form.get('aboutAnswers').controls[i].get('answer').value}"></div>
+              </div>
+              <div class="will-not-answer-checkbox">
+                <input
+                  type="checkbox"
+                  formControlName="willNotAnswer"
+                  (change)="checkField(i)"
+                  class="will-not-answer-checkbox__input">
+                <p class="will-not-answer-checkbox__label">Möchte ich nicht beantworten</p>
               </div>
             </div>
           </div>

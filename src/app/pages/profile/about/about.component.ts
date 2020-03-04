@@ -73,22 +73,37 @@ export class AboutComponent implements OnInit {
     return this.form.get('aboutAnswers') as FormArray;
   }
 
-  public createAnswerGroup = (question, answer): FormGroup => {
+  public createAnswerGroup = (question, answer, index): FormGroup => {
     return this.fb.group({
       question: [question && question._id ? question._id : ''],
-      answer: [answer && answer[0] && answer[0].answer ? answer[0].answer : '']
+      answer: [answer && answer[0] && answer[0].answer ? answer[0].answer : ''],
+      willNotAnswer: [this.answersData && this.answersData[index] && this.answersData[index].willNotAnswer ?
+        this.answersData[index].willNotAnswer : false
+      ]
     });
   }
 
   public questionGroupInit = () => {
     this.questionsData.forEach((question, index) => {
-      this.aboutAnswers.push(this.createAnswerGroup(question, this.answersData.filter(e => e.question._id === question._id)));
+      this.aboutAnswers.push(this.createAnswerGroup(question, this.answersData.filter(e => e.question._id === question._id), index));
     });
   }
 
+  public checkField = (index) => {
+    if (this.aboutAnswers.at(index).value.answer.length !== 0) {
+      this.aboutAnswers.at(index).patchValue({
+        answer: ''
+      });
+      this.submit(index, true);
+    } else {
+      this.aboutAnswers.at(index).patchValue({
+        answer: this.answersData[index].answer
+      });
+      this.submit(index, true);
+    }
+  }
 
-
-  public submit = (i) => {
+  public submit = (index, statusField?: boolean) => {
     // const answer = {
     //   aboutAnswers: this.form.get('aboutAnswers').value.filter(e => e.answer !== '')
     // };
@@ -105,7 +120,11 @@ export class AboutComponent implements OnInit {
         res => {
           console.log('[ UPDATE PROFILE ]', res);
           this.formData = this.form.value;
-          this.notificationService.notify(`The answer to the question ${i + 1} was saved successfully`, 'success');
+          if (!statusField) {
+            this.notificationService.notify(`The answer to the question, by number ${index + 1} was saved successfully`, 'success');
+          } else {
+            this.notificationService.notify(`Status for question, by number ${index + 1} was saved successfully`, 'success');
+          }
         },
         err => {
           console.log('[ ERROR UPDATE PROFILE ]', err);
