@@ -50,26 +50,59 @@
         top:-5px;
     }
 }
+::ng-deep {
+    &.scroll-host::-webkit-scrollbar {
+        display: none;
+    }
+    &.ng-dropdown-panel.ng-select-top {
+        border-top-right-radius: 10px;
+        border-top-left-radius: 10px;
+        margin-top:0;
+        margin-bottom:2px;
+    }
+    &.ng-dropdown-panel.ng-select-bottom {
+        border-bottom-right-radius: 10px;
+        border-bottom-left-radius: 10px;
+    }
+    &.ng-select-container{
+        .ng-input{
+            input{
+                font-size: 17px;
+                font-family: $gr;
+                &::placeholder{
+                    color:#989898;
+                    opacity: .8;
+                    font-size: 17px;
+                } 
+            }
+        }
+    }
+    &.ng-input{
+        padding: 0!important;
+    }
+    &.ng-value-container {
+        padding:0!important;
+    }
+}
 .field{
     width:46.5%;
     padding-bottom:30px;
     position: relative;
-    &_tag{
+     &_select{
         .field-wrapper{
             padding:0;
+            background-color:inherit;
         }
-        .custom-select{
-            ::ng-deep {
-                .scroll-host::-webkit-scrollbar {
+        &-search{
+            ::ng-deep { 
+                &.ng-arrow-wrapper,
+                &.ng-value {
                     display: none;
                 }
-                .ng-arrow-wrapper,
-                .ng-value {
-                    display: none;
-                }
-                .ng-select-container{
+                
+                &.ng-select-container{
                     position: relative;
-                    .ng-input{
+                    &.ng-input{
                         padding:0;
                         position: absolute;
                         padding-left:19px;
@@ -78,59 +111,20 @@
                         left:0;
                         top:50%;
                         transform: translate(0, -50%);
-                        input{
-                            font-size: 17px;
-                            font-family: $gr;
-                            &::placeholder{
-                                color:#989898;
-                                opacity: .8;
-                                font-size: 17px;
-                            } 
-                        }
                     }
+                }
+            }
+        }
+        &-multiselect{
+            ::ng-deep{
+                &.ng-value {
+                    display: none;
                 }
             }
         }
     }
     &_group{
         padding:0;
-    }
-    &_select{
-        .field-wrapper{
-            padding:0;
-            background-color:inherit;
-        }
-        &-value{
-            .custom-select{
-                ::ng-deep {
-                    .ng-value {
-                        display: block!important;
-                    } 
-                }
-            }
-        }
-        .custom-select {
-            ::ng-deep {
-                .ng-value {
-                    display: none;
-                }
-                .scroll-host::-webkit-scrollbar {
-                    display: none;
-                }
-                .ng-input{
-                    padding: 0;
-                }
-                .ng-value-container {
-                    padding:0;
-                    .ng-input{
-                        input{
-                            font-size: 17px;
-                            font-family: $gr;
-                        }
-                    }
-                }
-            }
-        }
     }
     &_datapicker{
         .field-wrapper{
@@ -272,25 +266,15 @@
     }
     .field{
         width:100%;
-        &_tag{
-            .custom-select{
-                ::ng-deep {
-                    .ng-select-container{
-                        .ng-input{
-                            input{
-                                font-size: 16px;
-                            }
-                        }
-                    }
-                }
-            }
-        }
         &_checkbox{
             padding-left:19px;
         }
     }
     .checkbox-wrapper{
         padding:0;
+    }
+    ::ng-deep .ng-select-container .ng-input input {
+        font-size: 16px;
     }
     .salary-group{
         .field{
@@ -329,24 +313,17 @@
     .tags-wrapper{
         padding-left:10px;
     }
-    
-    .field{
-        &_tag{
-            .custom-select{
-                ::ng-deep {
-                    .ng-select-container{
-                        .ng-input{
-                            padding-left:10px;
-                            input{
-                                &::placeholder{
-                                    font-size: 14px;
-                                } 
-                            }
-                        }
-                    }
-                }
+    ::ng-deep .ng-select-container{
+        padding-left: 10px!important;
+    }
+    ::ng-deep .ng-select-container .ng-input {
+        input{
+            &::placeholder{
+                font-size: 14px;
             }
-        }
+        }        
+    }
+    .field{
         &_checkbox{
             padding-left:10px;
         }
