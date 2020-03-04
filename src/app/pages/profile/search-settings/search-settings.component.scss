@@ -9,6 +9,7 @@
   overflow: auto;
   overflow-x: hidden;
 }
+
 .category-decor{
     margin-bottom: 2vw;
     &__image{
@@ -25,23 +26,113 @@
     flex-wrap:wrap;
     justify-content: space-between;
 }
+.tags-wrapper{
+    display: flex;
+    padding-left:19px;
+    flex-wrap: wrap;
+    &__item{
+        border:1px solid $primary;
+        border-radius:10px;
+        padding:10px 15px;
+        margin:25px 20px 0 0;
+        position: relative;
+    }
+    &__label{
+        color:$primary;
+    }
+    &__remove{
+        width:20px;
+        height:20px;
+        background-color:$red;
+        border-radius:50%;
+        position:absolute;
+        right:-10px;
+        top:-5px;
+    }
+}
 .field{
     width:46.5%;
     padding-bottom:30px;
     position: relative;
-    &_checkbox{
-        display: flex;
-        align-items: center;
+    &_tag{
+        .field-wrapper{
+            padding:0;
+        }
+        .custom-select{
+            ::ng-deep {
+                .scroll-host::-webkit-scrollbar {
+                    display: none;
+                }
+                .ng-arrow-wrapper,
+                .ng-value {
+                    display: none;
+                }
+                .ng-select-container{
+                    position: relative;
+                    .ng-input{
+                        padding:0;
+                        position: absolute;
+                        padding-left:19px;
+                        padding-right:55px;
+                        width:100%;
+                        left:0;
+                        top:50%;
+                        transform: translate(0, -50%);
+                        input{
+                            font-size: 17px;
+                            font-family: $gr;
+                            &::placeholder{
+                                color:#989898;
+                                opacity: .8;
+                                font-size: 17px;
+                            } 
+                        }
+                    }
+                }
+            }
+        }
+    }
+    &_group{
+        padding:0;
     }
     &_select{
         .field-wrapper{
-            padding:0!important;
+            padding:0;
             background-color:inherit;
+        }
+        &-value{
+            .custom-select{
+                ::ng-deep {
+                    .ng-value {
+                        display: block!important;
+                    } 
+                }
+            }
+        }
+        .custom-select {
+            ::ng-deep {
+                .ng-value {
+                    display: none;
+                }
+                .scroll-host::-webkit-scrollbar {
+                    display: none;
+                }
+                .ng-input{
+                    padding: 0;
+                }
+                .ng-value-container {
+                    padding:0;
+                    .ng-input{
+                        input{
+                            font-size: 17px;
+                            font-family: $gr;
+                        }
+                    }
+                }
+            }
         }
     }
     &_datapicker{
-        width:100%;
-        padding:0;
         .field-wrapper{
             padding-right:0;
             cursor: pointer;
@@ -49,23 +140,6 @@
                 pointer-events: none;
                 height:100%;
                 border-radius: 10px;
-            }
-        }
-    }
-    &_textarea{
-        display: flex;
-        flex-direction: column;
-        .field-wrapper{
-            flex:1;
-            padding-top:15px;
-            .field-wrapper__input{
-                padding:0;
-                height: 100%;
-                font-family: $gr;
-                outline: none;
-                border:none;
-                resize: none;
-                font-size: 17px;
             }
         }
     }
@@ -111,6 +185,16 @@
            background-color: $yellow;
        }
     }
+    &__placeholder{
+        position: absolute;
+        left:19px;
+        top:50%;
+        width:calc(100% - 74px);
+        transform: translate(0, -50%);
+        color:#989898;
+        opacity: .8;
+        font-size: 17px;
+    }
     &__type{
         position: absolute;
         right:19px;
@@ -122,62 +206,10 @@
         text-align:center;
     }
 }
-.range-field{
-  width:100%;
-  padding:0 19px;
-  position: relative;
-  .mat-slider-horizontal{
-    width:100%;
-    min-width: inherit;
-  }
-  ::ng-deep .mat-slider-thumb{
-    background-color: $primary;
-  }
-  ::ng-deep .mat-slider-thumb-label {
-    background-color: $primary;
-  }
-  ::ng-deep .mat-slider-track-fill{
-    background-color: $primary;
-  }
-  ::ng-deep .mat-slider-horizontal {
-      height:52px;
-      padding:0;
-      .mat-slider-wrapper{
-        top:inherit;
-        bottom:4px;
-      }
-  }
-  ::ng-deep .mat-accent .mat-slider-thumb-label-text {
-    display: none;
-  }
-}
-.range-wrapper{
-  width:47%;
-  margin-bottom:15px;
-  &__label{
-    color:$black;
-    margin-bottom:11px;
-    margin-left:19px;
-    font-size: 18px;
-    font-family: $gr;
-    font-weight: normal;
-  }
-}
-
-.range-value{
-  display: flex;
-  justify-content: space-between;
-  position: absolute;
-  left:50%;
-  top:0;
-  width:calc(100% - 38px);
-  transform: translate(-50% , 0);
-  z-index: 10;
-}
 .checkbox-wrapper{
     display: flex;
     align-items:flex-end;
-    padding-top:25px;
+    padding-top:45px;
     &__input{
         width:20px;
         height:20px;
@@ -213,6 +245,21 @@
     .form-wrapper{
         padding:0;
     }
+    .tags-wrapper{
+        &__item{
+            padding:5px 10px;
+        }
+        &__label{
+            font-size: 16px;
+        }
+        &__remove{
+            right: -10px;
+            top: -10px;
+            img{
+                height: 10px;
+            }
+        }
+    }
     .category-decor{
         margin-bottom:5vw;
             &__image{
@@ -225,23 +272,25 @@
     }
     .field{
         width:100%;
+        &_tag{
+            .custom-select{
+                ::ng-deep {
+                    .ng-select-container{
+                        .ng-input{
+                            input{
+                                font-size: 16px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
         &_checkbox{
             padding-left:19px;
-        }
-        &_textarea{
-            .field-wrapper{
-                &__input{
-                min-height: 150px;
-                font-size: 16px!important;
-            }
-            }
         }
     }
     .checkbox-wrapper{
         padding:0;
-    }
-    .range-wrapper{
-        width:100%;
     }
     .salary-group{
         .field{
@@ -261,11 +310,43 @@
     }
 }
 @media screen and (max-width:568px){
-    .field-wrapper,
-    .range-field{
+    .search{
+        padding-bottom:25px;
+    }
+    .field-wrapper{
+        padding-left:10px;
+        &__placeholder{
+            left: 10px;
+            width: calc(100% - 65px);
+            font-size: 14px;
+        }
+        &__input{
+            &::placeholder{
+                font-size: 14px;
+            }
+        }
+    }
+    .tags-wrapper{
         padding-left:10px;
     }
+    
     .field{
+        &_tag{
+            .custom-select{
+                ::ng-deep {
+                    .ng-select-container{
+                        .ng-input{
+                            padding-left:10px;
+                            input{
+                                &::placeholder{
+                                    font-size: 14px;
+                                } 
+                            }
+                        }
+                    }
+                }
+            }
+        }
         &_checkbox{
             padding-left:10px;
         }

@@ -24,30 +24,32 @@
         [formGroup]="form"
         class="form"
         *ngIf="form">
-        <div
-          formArrayName="aboutAnswers"
-          *ngFor="let item of form.get('aboutAnswers').controls; let i = index;">
+        <ng-container *ngIf="form.get('aboutAnswers').controls.length > 0">
           <div
-            [formGroupName]="i"
-            class="field field_textarea">
-            <p
-              class="field__label"
-              *ngIf="questionsData">{{ questionsData[i].questionText }}</p>
-            <div class="field-wrapper">
-              <textarea
-                type="text"
-                placeholder="die Antwort eingeben"
-                class="field-wrapper__input"
-                formControlName="answer"
-                (blur)="submit(i)">
-              </textarea>
-              <div class="field-wrapper__type">abc</div>
-              <div
-                class="field-wrapper__status"
-                [ngClass]="{invalid : !this.form.get('aboutAnswers').controls[i].get('answer').value}"></div>
+            formArrayName="aboutAnswers"
+            *ngFor="let item of form.get('aboutAnswers').controls; let i = index;">
+            <div
+              [formGroupName]="i"
+              class="field field_textarea">
+              <p
+                class="field__label"
+                *ngIf="questionsData">{{ questionsData[i].questionText }}</p>
+              <div class="field-wrapper">
+                <textarea
+                  type="text"
+                  placeholder="die Antwort eingeben"
+                  class="field-wrapper__input"
+                  formControlName="answer"
+                  (blur)="submit(i)">
+                </textarea>
+                <div class="field-wrapper__type">abc</div>
+                <div
+                  class="field-wrapper__status"
+                  [ngClass]="{invalid : !this.form.get('aboutAnswers').controls[i].get('answer').value}"></div>
+              </div>
             </div>
           </div>
-        </div>
+        </ng-container>
       </form>
     </div>
   </section>

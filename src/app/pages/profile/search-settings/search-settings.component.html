@@ -27,15 +27,36 @@
         <div
           class="flex-grid"
           formGroupName="searchPreferences">
-          <div class="field">
+          <div class="field field_tag">
             <p class="field__label">Wunsch Arbeitsorte</p>
             <div class="field-wrapper">
-              <input
-                type="text"
-                placeholder="Wunsch Arbeitsorte"
-                class="field-wrapper__input">
+              <ng-select
+                #searchPlace
+                [clearable]="false"
+                [multiple]="true"
+                [hideSelected]="true"
+                [items]="placeOptions$ | async"
+                [formControl]="placeControl"
+                (change)="formArrayPush($event, 'desiredPlacesOfWorkArray', 'Wunsch Arbeitsorte')"
+                class="custom-select">
+              </ng-select>
               <div class="field-wrapper__type">abc</div>
-              <div class="field-wrapper__status"></div>
+              <div
+                [ngClass]="{invalid : form.get('searchPreferences').get('desiredPlacesOfWork').value.length === 0}"
+                class="field-wrapper__status"></div>
+            </div>
+            <div class="tags-wrapper">
+              <div
+                formArrayName="desiredPlacesOfWork"
+                *ngFor="let item of form.get('searchPreferences').get('desiredPlacesOfWork').controls; let i = index;"
+                class="tags-wrapper__item">
+                <p class="tags-wrapper__label">{{item.value}}</p>
+                <button
+                  class="tags-wrapper__remove"
+                  (click)="formArrayRemove(i, 'desiredPlacesOfWorkArray', 'Wunsch Arbeitsorte')">
+                  <img src="../assets/image/close.svg">
+                </button>
+              </div>
             </div>
           </div>
           <div class="field field_checkbox">
@@ -53,74 +74,106 @@
               </label>
             </div>
           </div>
-          <div class="range-wrapper">
-            <h2 class="range-wrapper__label">Umkreis Wunschort</h2>
-            <div class="range-field">
-              <div class="range-value">
-                <p>0 km</p>
-                <p *ngIf="valueRange">{{ valueRange }} km</p>
-              </div>
-              <mat-slider
-                (input)="rangeValue($event)"
-                (blur)="submit('Umkreis Wunschort')"
-                min="0"
-                max="100"
-                formControlName="desiredDestinationRadius">
-              </mat-slider>
-            </div>
-          </div>
-          <div class="field">
+          <div class="field field_tag">
             <p class="field__label">Bevorzugter Geschäftsbereich</p>
             <div class="field-wrapper">
-              <input
-                type="text"
-                placeholder="Bevorzugter Geschäftsbereich"
-                class="field-wrapper__input"
-                [(ngModel)]="preferredBusiness"
-                [ngModelOptions]="{standalone: true}"
-                (change)="pushData('preferredBusinessAreas', preferredBusiness, 'Bevorzugter Geschäftsbereich')">
+              <ng-select
+                #searchBusiness
+                [clearable]="false"
+                [multiple]="true"
+                [hideSelected]="true"
+                [items]="businessOptions$ | async"
+                [formControl]="businessBranchesControl"
+                (change)="formArrayPush($event, 'preferredBusinessArray', 'Bevorzugter Geschäftsbereich')"
+                class="custom-select">
+              </ng-select>
               <div class="field-wrapper__type">abc</div>
               <div
-                [ngClass]="{invalid : !preferredBusiness }"
+                [ngClass]="{invalid : form.get('searchPreferences').get('preferredBusinessAreas').value.length === 0}"
                 class="field-wrapper__status"></div>
             </div>
+            <div class="tags-wrapper">
+              <div
+                formArrayName="preferredBusinessAreas"
+                *ngFor="let item of form.get('searchPreferences').get('preferredBusinessAreas').controls; let i = index;"
+                class="tags-wrapper__item">
+                <p class="tags-wrapper__label">{{item.value}}</p>
+                <button
+                  class="tags-wrapper__remove"
+                  (click)="formArrayRemove(i, 'preferredBusinessArray', 'Bevorzugter Geschäftsbereich')">
+                  <img src="../assets/image/close.svg">
+                </button>
+              </div>
+            </div>
           </div>
-          <div class="field">
+          <div class="field field_tag">
             <p class="field__label">Wunsch-Branche</p>
             <div class="field-wrapper">
-              <input
-                type="text"
-                placeholder="Wunsch-Branche"
-                class="field-wrapper__input"
-                [(ngModel)]="branches"
-                [ngModelOptions]="{standalone: true}"
-                (change)="pushData('desiredIndustryBranches', branches, 'Wunsch-Branche')">
+              <ng-select
+                #searchIndustry
+                [items]="industryOptions$ | async"
+                [clearable]="false"
+                [multiple]="true"
+                [hideSelected]="true"
+                [formControl]="industryBranchesControl"
+                (change)="formArrayPush($event, 'industryBranchesArray', 'Wunsch-Branche')"
+                class="custom-select">
+              </ng-select>
               <div class="field-wrapper__type">abc</div>
               <div
-                [ngClass]="{invalid : !branches }"
+                [ngClass]="{invalid : form.get('searchPreferences').get('desiredIndustryBranches').value.length === 0}"
                 class="field-wrapper__status"></div>
+            </div>
+            <div class="tags-wrapper">
+              <div
+                formArrayName="desiredIndustryBranches"
+                *ngFor="let item of form.get('searchPreferences').get('desiredIndustryBranches').controls; let i = index;"
+                class="tags-wrapper__item">
+                <p class="tags-wrapper__label">{{item.value}}</p>
+                <button
+                  class="tags-wrapper__remove"
+                  (click)="formArrayRemove(i, 'industryBranchesArray', 'Wunsch-Branche')">
+                  <img src="../assets/image/close.svg">
+                </button>
+              </div>
             </div>
           </div>
           <div class="field field_select">
             <p class="field__label">Gewünschte Art der Anstellung</p>
             <div class="field-wrapper">
               <ng-select
-                [searchable]="false"
                 [clearable]="false"
-                placeholder="Wählen Sie aus der Liste"
-                [(ngModel)]="employmentTypes"
-                [ngModelOptions]="{standalone: true}"
-                (change)="pushData('desiredEmploymentTypes', employmentTypes, 'Gewünschte Art der Anstellung')"
+                [searchable]="false"
+                [multiple]="true"
+                [hideSelected]="true"
+                [formControl]="employmentTypesControl"
+                (change)="formArrayPush($event, 'employmentTypesArray', 'Gewünschte Art der Anstellung')"
                 class="custom-select">
-                <ng-option [value]="'Minijob'">Minijob</ng-option>
-                <ng-option [value]="'Aushilfe'">Aushilfe</ng-option>
-                <ng-option [value]="'Praktikum'">Praktikum</ng-option>
-                <ng-option [value]="'Ausbildung'">Ausbildung</ng-option>
-                <ng-option [value]="'Traineeprogramm'">Traineeprogramm</ng-option>
+                <ng-container *ngIf="dropdownOptions && dropdownOptions.employment_type">
+                  <ng-option
+                    [value]="option"
+                    *ngFor="let option of dropdownOptions.employment_type">
+                    {{option}}
+                  </ng-option>
+                </ng-container>
               </ng-select>
+              <p class="field-wrapper__placeholder">Wählen Sie aus der Liste</p>
               <div
-                [ngClass]="{invalid : !employmentTypes }"
+                [ngClass]="{invalid : form.get('searchPreferences').get('desiredEmploymentTypes').value.length === 0}"
                 class="field-wrapper__status"></div>
+            </div>
+            <div class="tags-wrapper">
+              <div
+                formArrayName="desiredEmploymentTypes"
+                *ngFor="let item of form.get('searchPreferences').get('desiredEmploymentTypes').controls; let i = index;"
+                class="tags-wrapper__item">
+                <p class="tags-wrapper__label">{{item.value}}</p>
+                <button
+                  class="tags-wrapper__remove"
+                  (click)="formArrayRemove(i, 'employmentTypesArray', 'Gewünschte Art der Anstellung')">
+                  <img src="../assets/image/close.svg">
+                </button>
+              </div>
             </div>
           </div>
           <div class="field field_select">
@@ -129,23 +182,39 @@
               <ng-select
                 [searchable]="false"
                 [clearable]="false"
-                placeholder="Wählen Sie aus der Liste"
-                [(ngModel)]="workingHours"
-                [ngModelOptions]="{standalone: true}"
-                (change)="pushData('preferredWorkingHours', workingHours, 'Gewünschte Art der Anstellung')"
+                [multiple]="true"
+                [hideSelected]="true"
+                [formControl]="workingHoursControl"
+                (change)="formArrayPush($event, 'preferredWorkingHoursArray', 'Präferierte Arbeitszeit')"
                 class="custom-select">
-                <ng-option [value]="'Vollzeit'">Vollzeit</ng-option>
-                <ng-option [value]="'Teilzeit (Vormittags)'">Teilzeit (Vormittags)</ng-option>
-                <ng-option [value]="'Teilzeit (Nachmittags)'">Teilzeit (Nachmittags)</ng-option>
-                <ng-option [value]="'Teilzeit (Flexibel)'">Teilzeit (Flexibel)</ng-option>
-                <ng-option [value]="'Alle'">Alle</ng-option>
+                <ng-container *ngIf="dropdownOptions && dropdownOptions.working_hours">
+                  <ng-option
+                    [value]="option"
+                    *ngFor="let option of dropdownOptions.working_hours">
+                    {{option}}
+                  </ng-option>
+                </ng-container>
               </ng-select>
+              <p class="field-wrapper__placeholder">Wählen Sie aus der Liste</p>
               <div
-                [ngClass]="{invalid : !workingHours }"
+                [ngClass]="{invalid : form.get('searchPreferences').get('preferredWorkingHours').value.length === 0}"
                 class="field-wrapper__status"></div>
             </div>
+            <div class="tags-wrapper">
+              <div
+                formArrayName="preferredWorkingHours"
+                *ngFor="let item of form.get('searchPreferences').get('preferredWorkingHours').controls; let i = index;"
+                class="tags-wrapper__item">
+                <p class="tags-wrapper__label">{{item.value}}</p>
+                <button
+                  class="tags-wrapper__remove"
+                  (click)="formArrayRemove(i, 'preferredWorkingHoursArray', 'Präferierte Arbeitszeit')">
+                  <img src="../assets/image/close.svg">
+                </button>
+              </div>
+            </div>
           </div>
-          <div class="field field_select">
+          <div class="field field_select field_select-value">
             <p class="field__label">Reisebereitschaft</p>
             <div class="field-wrapper">
               <ng-select
@@ -155,12 +224,13 @@
                 formControlName="travellingReady"
                 (change)="submit('Geschlecht')"
                 class="custom-select">
-                <ng-option [value]="'keine'">keine</ng-option>
-                <ng-option [value]="'max 1 Tag/Woche'">max 1 Tag/Woche</ng-option>
-                <ng-option [value]="'max 2 Tage/Woche'">max 2 Tage/Woche</ng-option>
-                <ng-option [value]="'max 3 Tage/Woche'">max 3 Tage/Wochet</ng-option>
-                <ng-option [value]="'max 4 Tage/Woche'">max 4 Tage/Woche</ng-option>
-                <ng-option [value]="'5 Tage/Woche'">5 Tage/Woche</ng-option>
+                <ng-container *ngIf="dropdownOptions && dropdownOptions.travelling">
+                  <ng-option
+                    [value]="option"
+                    *ngFor="let option of dropdownOptions.travelling">
+                    {{option}}
+                  </ng-option>
+                </ng-container>
               </ng-select>
               <div
                 [ngClass]="{invalid : !form.get('searchPreferences').get('travellingReady').value }"
@@ -215,44 +285,61 @@
                 </p>
               </div>
             </div>
-            <div class="field field_datapicker">
-              <p class="field__label">Bis</p>
-              <div
-                class="field-wrapper"
-                [owlDateTimeTrigger]="dt1">
-                <input
-                  [owlDateTime]="dt1"
-                  (dateTimeChange)="submit('Bis')"
-                  class="field-wrapper__input"
-                  formControlName="readyToStartJobFrom"
-                  placeholder="DD/MM/YYYY">
-                <owl-date-time
-                  #dt1
-                  pickerMode="dialog"
-                  pickerType="calendar"
-                  panelClass="calendar"></owl-date-time>
-                <div class="field-wrapper__type">
-                  <img src="../assets/image/calendar.svg">
-                </div>
-                <div
-                  class="field-wrapper__status"
-                  [ngClass]="{invalid : !form.get('searchPreferences').get('readyToStartJobFrom').value }"></div>
+          </div>
+          <div class="field field_datapicker">
+            <p class="field__label">Bis</p>
+            <div
+              class="field-wrapper"
+              [owlDateTimeTrigger]="dt1">
+              <input
+                [owlDateTime]="dt1"
+                (dateTimeChange)="submit('Bis')"
+                class="field-wrapper__input"
+                formControlName="readyToStartJobFrom"
+                placeholder="DD/MM/YYYY">
+              <owl-date-time
+                #dt1
+                pickerMode="dialog"
+                pickerType="calendar"
+                panelClass="calendar"></owl-date-time>
+              <div class="field-wrapper__type">
+                <img src="../assets/image/calendar.svg">
               </div>
+              <div
+                class="field-wrapper__status"
+                [ngClass]="{invalid : !form.get('searchPreferences').get('readyToStartJobFrom').value }"></div>
             </div>
           </div>
-          <div class="field field_textarea">
+          <div class="field field_tag">
             <p class="field__label">Benefits</p>
             <div class="field-wrapper">
-              <textarea
-                placeholder="Geben Sie die gewünschte ein"
-                class="field-wrapper__input"
-                [(ngModel)]="advantages"
-                [ngModelOptions]="{standalone: true}"
-                (change)="pushData('benefits', advantages, 'Benefits')"></textarea>
+              <ng-select
+                #searchBenefits
+                [clearable]="false"
+                [multiple]="true"
+                [hideSelected]="true"
+                [items]="benefitsOptions$ | async"
+                [formControl]="benefitsControl"
+                (change)="formArrayPush($event, 'benefitsArray', 'Benefits')"
+                class="custom-select">
+              </ng-select>
               <div class="field-wrapper__type">abc</div>
               <div
-                [ngClass]="{invalid : !advantages }"
+                [ngClass]="{invalid : form.get('searchPreferences').get('benefits').value.length === 0}"
                 class="field-wrapper__status"></div>
+            </div>
+            <div class="tags-wrapper">
+              <div
+                formArrayName="benefits"
+                *ngFor="let item of form.get('searchPreferences').get('benefits').controls; let i = index;"
+                class="tags-wrapper__item">
+                <p class="tags-wrapper__label">{{item.value}}</p>
+                <button
+                  class="tags-wrapper__remove"
+                  (click)="formArrayRemove(i, 'benefitsArray', 'Benefits')">
+                  <img src="../assets/image/close.svg">
+                </button>
+              </div>
             </div>
           </div>
         </div>
