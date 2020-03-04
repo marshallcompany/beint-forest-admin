@@ -137,19 +137,20 @@ export class SearchSettingsComponent implements OnInit, AfterViewInit {
         benefits: this.fb.array([]),
       })
     });
-    this.form.get('searchPreferences').valueChanges
-      .pipe()
-      .subscribe(
-        () => {
-          this.businessBranchesControl.patchValue(this.preferredBusinessArray.value.length !== 0 ? this.preferredBusinessArray.value : ['']);
-          this.industryBranchesControl.patchValue(this.industryBranchesArray.value.length !== 0 ? this.industryBranchesArray.value : ['']);
-          this.employmentTypesControl.patchValue(this.employmentTypesArray.value.length !== 0 ? this.employmentTypesArray.value : ['']);
-          this.workingHoursControl.patchValue(this.preferredWorkingHoursArray.value.length !== 0 ? this.preferredWorkingHoursArray.value : ['']);
-          this.benefitsControl.patchValue(this.benefitsArray.value.length !== 0 ? this.benefitsArray.value : ['']);
-          this.placeControl.patchValue(this.desiredPlacesOfWorkArray.value.length !== 0 ? this.desiredPlacesOfWorkArray.value : ['']);
-        }
-      );
-
+    if (this.form && this.form.get('searchPreferences')) {
+      this.form.get('searchPreferences').valueChanges
+        .pipe()
+        .subscribe(
+          () => {
+            this.businessBranchesControl.patchValue(this.preferredBusinessArray.value.length !== 0 ? this.preferredBusinessArray.value : ['']);
+            this.industryBranchesControl.patchValue(this.industryBranchesArray.value.length !== 0 ? this.industryBranchesArray.value : ['']);
+            this.employmentTypesControl.patchValue(this.employmentTypesArray.value.length !== 0 ? this.employmentTypesArray.value : ['']);
+            this.workingHoursControl.patchValue(this.preferredWorkingHoursArray.value.length !== 0 ? this.preferredWorkingHoursArray.value : ['']);
+            this.benefitsControl.patchValue(this.benefitsArray.value.length !== 0 ? this.benefitsArray.value : ['']);
+            this.placeControl.patchValue(this.desiredPlacesOfWorkArray.value.length !== 0 ? this.desiredPlacesOfWorkArray.value : ['']);
+          }
+        );
+    }
   }
 
   public get desiredPlacesOfWorkArray(): FormArray {
