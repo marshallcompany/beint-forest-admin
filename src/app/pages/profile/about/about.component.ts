@@ -97,7 +97,7 @@ export class AboutComponent implements OnInit {
       this.submit(index, true);
     } else {
       this.aboutAnswers.at(index).patchValue({
-        answer: this.answersData[index].answer
+        answer: this.answersData[index] ? this.answersData[index].answer : ''
       });
       this.submit(index, true);
     }
