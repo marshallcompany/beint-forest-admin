@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, FormGroupName} from '@angular/forms';
-import {ProfileService} from '../../../services/profile.service';
-import {map} from 'rxjs/internal/operators/map';
-import {NotificationService} from 'src/app/services/notification.service';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormGroupName } from '@angular/forms';
+import { ProfileService } from '../../../services/profile.service';
+import { map } from 'rxjs/internal/operators/map';
+import { NotificationService } from 'src/app/services/notification.service';
 
-import {debounceTime, share, switchMap} from 'rxjs/operators';
-import {throwError, of, Observable} from 'rxjs';
-import {SearchService} from '../../../services/search.service';
+import { debounceTime, share, switchMap, filter } from 'rxjs/operators';
+import { throwError, of, Observable } from 'rxjs';
+import { SearchService } from '../../../services/search.service';
 
 @Component({
   selector: 'app-personal',
@@ -27,6 +27,8 @@ export class PersonalComponent implements OnInit {
   public contact: FormGroupName;
   public residence: FormGroupName;
   public landList$: Observable<string[]>;
+  public cityList$: Observable<string[]>;
+  public zip$: Observable<string[]>;
 
   constructor(
     public formBuilder: FormBuilder,
@@ -90,7 +92,7 @@ export class PersonalComponent implements OnInit {
           place: [''],
           street: [''],
           zipCode: [''],
-          land: [null],
+          country: [null],
         })
       }),
     });
@@ -116,14 +118,14 @@ export class PersonalComponent implements OnInit {
         xing: personalData.contact && personalData.contact.xing ? personalData.contact.xing : '',
         residence: {
           houseNumber: personalData.contact && personalData.contact.residence && personalData.contact.residence.houseNumber ? personalData.contact.residence.houseNumber : '',
-          place: personalData.contact && personalData.contact.residence && personalData.contact.residence.place ? personalData.contact.residence.place : '',
+          place: personalData.contact && personalData.contact.residence && personalData.contact.residence.place ? personalData.contact.residence.place : null,
           street: personalData.contact && personalData.contact.residence && personalData.contact.residence.street ? personalData.contact.residence.street : '',
-          zipCode: personalData.contact && personalData.contact.residence && personalData.contact.residence.zipCode ? personalData.contact.residence.zipCode : '',
-          land: personalData.contact && personalData.contact.residence && personalData.contact.residence.land ? personalData.contact.residence.land : null,
+          zipCode: personalData.contact && personalData.contact.residence && personalData.contact.residence.zipCode ? personalData.contact.residence.zipCode : null,
+          country: personalData.contact && personalData.contact.residence && personalData.contact.residence.country ? personalData.contact.residence.country : null,
         }
       },
     });
-  };
+  }
 
   public submit = (field: string) => {
     console.log('FV: ', this.form.value);
@@ -148,7 +150,49 @@ export class PersonalComponent implements OnInit {
       );
   };
 
-  onChange($event) {
+  onChangeLand(formGroup) {
+    formGroup.get('zipCode').setValue(null);
+    formGroup.get('place').setValue(null);
+  }
+
+  searchCity(event) {
+    this.cityList$ = this.searchService.getTowns('de', `${event.term}`).pipe(debounceTime(400), share());
+  }
+
+  searchLand($event) {
     this.landList$ = this.searchService.getCountries('de', `${$event.term}`).pipe(debounceTime(400), share());
+  }
+
+  onChangeCity(formGroup: FormGroup) {
+    const place = formGroup.get('place').value;
+    const country = formGroup.get('country').value;
+    this.searchService.getZipCode('de', country, place, '')
+      .pipe()
+      .subscribe(
+        (zip: Array<string>) => {
+          if (zip.length) {
+            formGroup.get('zipCode').setValue(zip[0]);
+          }
+        }
+      );
+  }
+
+  onChangeZip(formGroup: FormGroup) {
+    const zip = formGroup.get('zipCode').value;
+    const cityControl = formGroup.get('place');
+    this.searchService.getTowns('de', '', zip)
+      .subscribe(
+        (res: Array<string>) => {
+          console.log('cities', res);
+          if (res.length) {
+            cityControl.setValue(res[0]);
+          }
+        }
+      );
+  }
+
+  searchZip($event, formGroup: FormGroup) {
+    const country = formGroup.get('country').value;
+    this.zip$ = this.searchService.getZipCode('de', `${country}`, '', `${$event.term}`);
   }
 }

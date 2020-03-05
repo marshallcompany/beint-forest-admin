@@ -9,7 +9,8 @@
   </div>
   <app-category-nav-header [navSettings]="navSettings"></app-category-nav-header>
   <div
-    class="category-decor" *ngIf="!accordionsStatus">
+    class="category-decor"
+    *ngIf="!accordionsStatus">
     <div class="container">
       <img
         src="../assets/image/profile/professional-background/image-desktop.svg"
@@ -50,10 +51,12 @@
             <ng-container formGroupName="employmentConditions">
               <div class="not-relevant">
                 <div class="not-relevant__item">
-                  <label class="checkbox-container">Für mich nicht relevant
-                    <input type="checkbox"
-                           class="not-relevant__checkbox"
-                           formControlName="isNotRelevant">
+                  <label class="checkbox-container">
+                    Für mich nicht relevant
+                    <input
+                      type="checkbox"
+                      class="not-relevant__checkbox"
+                      formControlName="isNotRelevant">
                     <span class="checkmark"></span>
                   </label>
                 </div>
@@ -227,11 +230,14 @@
             <ng-container formGroupName="independentExperience">
               <div class="not-relevant">
                 <div class="not-relevant__item">
-                  <input
-                    type="checkbox"
-                    class="not-relevant__checkbox"
-                    formControlName="isNotRelevant">
-                  <p class="not-relevant__label">Für mich nicht relevant</p>
+                  <label class="checkbox-container">
+                    Für mich nicht relevant
+                    <input
+                      type="checkbox"
+                      class="not-relevant__checkbox"
+                      formControlName="isNotRelevant">
+                    <span class="checkmark"></span>
+                  </label>
                 </div>
               </div>
               <div
@@ -280,13 +286,16 @@
                         [ngClass]="{invalid : !this.form.get('workExperience').get('independentExperience').get('items').controls[i].get('companyName').value}"></div>
                     </div>
                   </div>
-                  <div class="field-checkbox">
-                    <input
-                      (change)="submit('Freiberufler')"
-                      formControlName="isFreelancer"
-                      type="checkbox"
-                      class="field-checkbox__input">
-                    <p class="field-checkbox__label">Freiberufler</p>
+                  <div class="field field_checkbox">
+                    <label class="checkbox-container">
+                      Freiberufler
+                      <input
+                        type="checkbox"
+                        class="not-relevant__checkbox"
+                        (change)="submit('Freiberufler')"
+                        formControlName="isFreelancer">
+                      <span class="checkmark"></span>
+                    </label>
                   </div>
                   <div class="field field_select field_select-search">
                     <p class="field__label">Branche</p>
@@ -400,11 +409,15 @@
                         </div>
                       </div>
                       <div class="datapicker-checkbox">
-                        <input
-                          formControlName="tilToday"
-                          type="checkbox"
-                          class="datapicker-checkbox__input">
-                        <p class="datapicker-checkbox__label">bis heute</p>
+                        <label class="checkbox-container">
+                          bis heute
+                          <input
+                            type="checkbox"
+                            class="not-relevant__checkbox"
+                            (change)="submit('bis heute')"
+                            formControlName="tilToday">
+                          <span class="checkmark"></span>
+                        </label>
                       </div>
                     </div>
                   </div>

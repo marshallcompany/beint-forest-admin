@@ -50,12 +50,16 @@
                   [ngClass]="{invalid : !this.form.get('aboutAnswers').controls[i].get('answer').value}"></div>
               </div>
               <div class="will-not-answer-checkbox">
-                <input
-                  type="checkbox"
-                  formControlName="willNotAnswer"
-                  (change)="checkField(i)"
-                  class="will-not-answer-checkbox__input">
-                <p class="will-not-answer-checkbox__label">Möchte ich nicht beantworten</p>
+                <label class="checkbox-container">
+                  Möchte ich nicht beantworten
+                  <input
+                    type="checkbox"
+                    class="not-relevant__checkbox"
+                    formControlName="willNotAnswer"
+                    (change)="checkField(i)">
+                  <span class="checkmark"></span>
+                </label>
+
               </div>
             </div>
           </div>

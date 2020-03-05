@@ -39,12 +39,13 @@ export class SearchService {
       }
     });
   };
-  public getTowns = (lang, params) => {
+  public getTowns = (lang, params, zip = '') => {
     const url = this.apiRoutes.GET_TOWNS_SCHEMA.replace(':lang', lang);
     return this.http.get<any>(url, {
       params: {
         filter: params,
-        country: 'Deutschland'
+        country: 'Deutschland',
+        zip
       }
     });
   };
@@ -55,6 +56,20 @@ export class SearchService {
       params: {
         filter: query
       }
+    });
+  }
+
+  public getZipCode(lang, country: string, city: string = '', filter: string = ''): Observable<string[]> {
+    const url = this.apiRoutes.GET_ZIP_SCHEMA.replace(':lang', lang);
+    return this.http.get<any>(url, {
+      params: filter ? {
+        country,
+        filter,
+        city,
+      } : {
+          country,
+          city
+        }
     });
   }
 
