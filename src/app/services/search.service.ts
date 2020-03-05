@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
-import {ApiRoutesProvider} from './api-routes.services';
-import {Observable} from 'rxjs';
+import { ApiRoutesProvider } from './api-routes.services';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -43,7 +43,8 @@ export class SearchService {
     const url = this.apiRoutes.GET_TOWNS_SCHEMA.replace(':lang', lang);
     return this.http.get<any>(url, {
       params: {
-        filter: params
+        filter: params,
+        country: 'Deutschland'
       }
     });
   };

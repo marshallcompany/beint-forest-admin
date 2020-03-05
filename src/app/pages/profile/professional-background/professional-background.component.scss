@@ -176,11 +176,19 @@
     display: flex;
     justify-content: space-between;
     .field{
-        width:47%!important;
+        width:35%!important;
         margin-bottom:0;
     }
 }
-
+.datapicker-checkbox{
+    display: flex;
+    align-items:center;
+    &__input{
+        width:20px;
+        height:20px;
+        margin-right:10px;
+    }
+}
 .field{
     width:47%;
     margin-bottom:20px;
@@ -303,6 +311,30 @@
     }
     &__label{
         font-size: 17px;
+    }
+}
+.tags-wrapper{
+    display: flex;
+    padding-left:19px;
+    flex-wrap: wrap;
+    &__item{
+        border:1px solid $primary;
+        border-radius:10px;
+        padding:10px 15px;
+        margin:25px 20px 0 0;
+        position: relative;
+    }
+    &__label{
+        color:$primary;
+    }
+    &__remove{
+        width:20px;
+        height:20px;
+        background-color:$red;
+        border-radius:50%;
+        position:absolute;
+        right:-10px;
+        top:-5px;
     }
 }
 @media screen and (max-width:1500px){

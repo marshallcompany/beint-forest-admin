@@ -163,20 +163,7 @@
                         [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').get('items').controls[i].get('employmentType').value}"></div>
                     </div>
                   </div>
-                  <div class="field">
-                    <p class="field__label">Art der Anstellung</p>
-                    <div class="field-wrapper">
-                      <input
-                        type="text"
-                        placeholder="Art der Anstellung"
-                        class="field-wrapper__input"
-                        formControlName="employmentType">
-                      <div class="field-wrapper__type">abc</div>
-                      <div
-                        class="field-wrapper__status"
-                        [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').get('items').controls[i].get('employmentType').value}"></div>
-                    </div>
-                  </div>
+
                 </div>
                 <div class="add-fields">
                   <button
@@ -214,95 +201,168 @@
             </div>
           </div>
         </div>
-      </form>
-    </div>
-  </div>
-</section>
-<!-- <div class="field field_select">
+        <div
+          class="subcategory-item"
+          formGroupName="workExperience">
+          <mat-expansion-panel
+            class="accordion"
+            (opened)="accordionsStatus = true"
+            (closed)="accordionChange()"
+            #accordion02="matExpansionPanel">
+            <mat-expansion-panel-header>
+              <div class="subcategory-header">
+                <div class="subcategory-info">
+                  <img
+                    src="../assets/image/profile/professional-background/subcategory-02.svg"
+                    class="subcategory-info__icon">
+                  <p class="subcategory-info__label">Selbständigkeit</p>
+                </div>
+                <img
+                  src="../assets/image/profile/accordion-arrow.svg"
+                  [ngClass]="{ 'accordion-active' : accordion02.expanded }"
+                  class="subcategory-header__arrow">
+              </div>
+            </mat-expansion-panel-header>
+            <ng-container formGroupName="independentExperience">
+              <div class="not-relevant">
+                <div class="not-relevant__item">
+                  <input
+                    type="checkbox"
+                    class="not-relevant__checkbox"
+                    formControlName="isNotRelevant">
+                  <p class="not-relevant__label">Für mich nicht relevant</p>
+                </div>
+              </div>
+              <div
+                class="subcategory-content"
+                formArrayName="items">
+                <div
+                  class="flex-grid"
+                  *ngFor="let item of independentExperienceArray.controls; let i = index"
+                  [formGroupName]="i">
+                  <div class="remove-fields">
+                    <button
+                      class="remove-fields__button"
+                      (click)="remove('independentExperienceArray', 'independentExperience', i)">
+                      <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" class="remove-fields__icon">
+                        <path d="M0.050293 0.050293L9.94979 9.94979M9.94979 0.050293L0.0502933 9.94979" stroke-width="2" stroke-linecap="round"/>
+                      </svg>
+                    </button>
+                  </div>
+                  <div class="field">
+                    <p class="field__label">Bezeichnung</p>
+                    <div class="field-wrapper">
+                      <input
+                        type="text"
+                        placeholder="Bezeichnung"
+                        class="field-wrapper__input"
+                        formControlName="jobTitle"
+                        (change)="submit('Bezeichnung')">
+                      <div class="field-wrapper__type">abc</div>
+                      <div
+                        class="field-wrapper__status"
+                        [ngClass]="{invalid : !this.form.get('workExperience').get('independentExperience').get('items').controls[i].get('jobTitle').value}"></div>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <p class="field__label">Name der Firma</p>
+                    <div class="field-wrapper">
+                      <input
+                        type="text"
+                        placeholder="Name der Firma"
+                        class="field-wrapper__input"
+                        formControlName="companyName"
+                        (change)="submit('Name der Firma')">
+                      <div class="field-wrapper__type">abc</div>
+                      <div
+                        class="field-wrapper__status"
+                        [ngClass]="{invalid : !this.form.get('workExperience').get('independentExperience').get('items').controls[i].get('companyName').value}"></div>
+                    </div>
+                  </div>
+                  <div class="field-checkbox">
+                    <input
+                      (change)="submit('Freiberufler')"
+                      formControlName="isFreelancer"
+                      type="checkbox"
+                      class="field-checkbox__input">
+                    <p class="field-checkbox__label">Freiberufler</p>
+                  </div>
+                  <div class="field field_select field_select-search">
                     <p class="field__label">Branche</p>
                     <div class="field-wrapper">
                       <ng-select
-                        [searchable]="false"
                         [clearable]="false"
-                        placeholder="Branche"
-                        class="custom-select"
-                        formControlName="businessArea">
-                        <ng-option [value]="'Branche'">Branche</ng-option>
+                        [multiple]="true"
+                        [hideSelected]="true"
+                        [formControl]="independentBusinessAreaControl"
+                        (change)="formArrayPush($event, 'industryBranchesArray', 'Branche')"
+                        class="custom-select">
                       </ng-select>
-                      <div class="field-wrapper__status"></div>
+                      <div
+                        [ngClass]="{invalid : form.get('workExperience').get('independentExperience').get('items').controls[i].get('businessArea').value.length === 0}"
+                        class="field-wrapper__status"></div>
                     </div>
-                  </div> -->
-<!-- <div class="field">
+                    <div class="tags-wrapper">
+                      <div
+                        formArrayName="businessArea"
+                        *ngFor="let item of form.get('workExperience').get('independentExperience').get('items').controls[i].get('businessArea').controls; let i = index;"
+                        class="tags-wrapper__item">
+                        <p class="tags-wrapper__label">{{item.value}}</p>
+                        <button
+                          class="tags-wrapper__remove"
+                          (click)="formArrayRemove(i, 'independentExperienceArray', 'Branche')">
+                          <img src="../assets/image/close.svg">
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="field field_select field_select-search">
                     <p class="field__label">Land</p>
                     <div class="field-wrapper">
-                      <input
-                        type="text"
-                        placeholder="Land"
-                        class="field-wrapper__input"
-                        formControlName="country">
+                      <ng-select
+                        [clearable]="false"
+                        [multiple]="true"
+                        [hideSelected]="true"
+                        [formControl]="independentBusinessAreaControl"
+                        (change)="formArrayPush($event, 'industryBranchesArray', 'Branche')"
+                        class="custom-select">
+                      </ng-select>
                       <div class="field-wrapper__type">abc</div>
                       <div
                         class="field-wrapper__status"
-                        [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').controls[i].get('workPlace').value}"></div>
-                    </div>
-                  </div>
-                  <div class="field">
-                    <p class="field__label">Ort</p>
-                    <div class="field-wrapper">
-                      <input
-                        type="text"
-                        placeholder="Ort"
-                        class="field-wrapper__input"
-                        formControlName="workPlace">
-                      <div class="field-wrapper__type">abc</div>
-                      <div
-                        class="field-wrapper__status"
-                        [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').controls[i].get('workPlace').value}"></div>
-                    </div>
-                  </div>
-                  <div class="field">
-                    <p class="field__label">Job Bezeichnung</p>
-                    <div class="field-wrapper">
-                      <input
-                        type="text"
-                        placeholder="Job Bezeichnung"
-                        class="field-wrapper__input"
-                        formControlName="jobTitle">
-                      <div class="field-wrapper__type">abc</div>
-                      <div
-                        class="field-wrapper__status"
-                        [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').controls[i].get('jobTitle').value}"></div>
+                        [ngClass]="{invalid : !this.form.get('workExperience').get('independentExperience').get('items').controls[i].get('country').value}"></div>
                     </div>
                   </div>
                   <div class="field field_group">
-                    <div class="field field_select">
-                      <p class="field__label">Geschäftebereich</p>
+                    <div class="field">
+                      <p class="field__label">Ort</p>
                       <div class="field-wrapper">
-                        <ng-select
-                          [searchable]="false"
-                          [clearable]="false"
-                          placeholder="Geschäftebereiche"
-                          class="custom-select"
-                          formControlName="industryBranch">
-                          <ng-option [value]="'Geschäftebereich'">Geschäftebereich</ng-option>
-                        </ng-select>
-                        <div class="field-wrapper__status"></div>
+                        <input
+                          type="text"
+                          placeholder="Ort"
+                          class="field-wrapper__input"
+                          formControlName="workPlace"
+                          (change)="submit('Ort')">
+                        <div class="field-wrapper__type">abc</div>
+                        <div
+                          class="field-wrapper__status"
+                          [ngClass]="{invalid : !this.form.get('workExperience').get('independentExperience').get('items').controls[i].get('workPlace').value}"></div>
                       </div>
                     </div>
                     <div class="datepicker-group">
-                      <div class="field">
+                      <div class="field field_datapicker">
                         <p class="field__label">Von</p>
                         <div
                           class="field-wrapper"
-                          [owlDateTimeTrigger]="dateVon">
+                          [owlDateTimeTrigger]="dt1">
                           <input
-                            [owlDateTime]="dateVon"
+                            [owlDateTime]="dt1"
                             (dateTimeChange)="submit('Von')"
                             class="field-wrapper__input"
                             formControlName="dateStart"
                             placeholder="DD/MM/YYYY">
                           <owl-date-time
-                            #dateVon
+                            #dt1
                             pickerMode="dialog"
                             pickerType="calendar"
                             panelClass="calendar"></owl-date-time>
@@ -310,23 +370,23 @@
                             <img src="../assets/image/calendar.svg">
                           </div>
                           <div
-                            class="field-wrapper__status"
-                            [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').controls[i].get('dateStart').value}"></div>
+                            [ngClass]="{invalid : !form.get('workExperience').get('independentExperience').get('items').controls[i].get('dateStart').value }"
+                            class="field-wrapper__status"></div>
                         </div>
                       </div>
-                      <div class="field">
+                      <div class="field field_datapicker">
                         <p class="field__label">Bis</p>
                         <div
                           class="field-wrapper"
-                          [owlDateTimeTrigger]="dateBis">
+                          [owlDateTimeTrigger]="dt2">
                           <input
-                            [owlDateTime]="dateBis"
+                            [owlDateTime]="dt2"
                             (dateTimeChange)="submit('Bis')"
                             class="field-wrapper__input"
                             formControlName="dateEnd"
                             placeholder="DD/MM/YYYY">
                           <owl-date-time
-                            #dateBis
+                            #dt2
                             pickerMode="dialog"
                             pickerType="calendar"
                             panelClass="calendar"></owl-date-time>
@@ -334,22 +394,72 @@
                             <img src="../assets/image/calendar.svg">
                           </div>
                           <div
-                            class="field-wrapper__status"
-                            [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').controls[i].get('dateEnd').value}"></div>
+                            [ngClass]="{invalid : !form.get('workExperience').get('independentExperience').get('items').controls[i].get('dateEnd').value }"
+                            class="field-wrapper__status"></div>
                         </div>
+                      </div>
+                      <div class="datapicker-checkbox">
+                        <input
+                          formControlName="tilToday"
+                          type="checkbox"
+                          class="datapicker-checkbox__input">
+                        <p class="datapicker-checkbox__label">bis heute</p>
                       </div>
                     </div>
                   </div>
                   <div class="field field_textarea">
                     <p class="field__label">Beschreibung</p>
-                    <div class="field-wrapper field-wrapper_textarea">
+                    <div class="field-wrapper">
                       <textarea
+                        type="text"
                         placeholder="Beschreibung"
-                        class="field-wrapper__input field-wrapper__input_textarea"
-                        formControlName="jobDescription"></textarea>
+                        class="field-wrapper__input"
+                        formControlName="jobDescription"
+                        (change)="submit('Beschreibung')"></textarea>
                       <div class="field-wrapper__type">abc</div>
                       <div
-                        class="field-wrapper__status"
-                        [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').controls[i].get('jobDescription').value}"></div>
+                        [ngClass]="{invalid : !this.form.get('workExperience').get('independentExperience').get('items').controls[i].get('jobDescription').value}"
+                        class="field-wrapper__status"></div>
                     </div>
-                  </div> -->
+                  </div>
+                </div>
+                <div class="add-fields">
+                  <button
+                    class="add-fields__button"
+                    (click)="setFormGroup('newWorkFields')">
+                    <img src="../assets/image/plus.svg">
+                  </button>
+                </div>
+              </div>
+            </ng-container>
+          </mat-expansion-panel>
+          <div
+            class="subcategory-preview"
+            *ngIf="!accordion02.expanded">
+            <div
+              class="subcategory-preview-item"
+              *ngFor="let item of independentExperienceArray.value; let i = index">
+              <ng-container>
+                <div class="subcategory-preview-info">
+                  <p class="subcategory-preview-info__number">
+                  <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
+                </p>
+                  <p class="subcategory-preview-info__species">{{ item.jobTitle }}</p>
+                  <div class="subcategory-preview-info__circle"></div>
+                  <p class="subcategory-preview-info__date">08/2005 - 02/2009</p>
+                  <div class="subcategory-preview-info__circle"></div>
+                  <p class="subcategory-preview-info__scope">{{ item.companyName }}</p>
+                </div>
+                <button
+                  class="subcategory-preview-item__remove"
+                  (click)="remove('independentExperienceArray', 'independentExperience', i)">
+                  <img src="../assets/image/close.svg">
+                </button>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
