@@ -9,6 +9,9 @@
 }
 .subcategory-item{
     margin-bottom:10px;
+    border-radius: 10px;
+    box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.15);
+    background-color: #ffffff;
     &:last-child{
         margin-bottom:0;
     }
@@ -26,8 +29,8 @@
 }
 // ACCORDION HEADER
 .mat-expansion-panel{
-    border-radius: 10px;
-    box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.15);
+    background-color: transparent;
+    box-shadow: none;
 }
 .subcategory-header{
     width: 100%;
@@ -59,7 +62,53 @@
 .subcategory-content{
     padding-bottom:75px;
 }
-
+.subcategory-preview-item{
+    padding: 25px 50px 25px 30px;
+    border-top: 1px solid rgba(184, 177, 177, .8);
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+     &__remove{
+        background-color:$red;
+        width:20px;
+        height:20px;
+        border-radius: 50%;
+    }
+}
+.subcategory-preview-info{
+    display:flex;
+    align-items:center;
+    &__number{
+        width:40px;
+        display: flex;
+        justify-content: center;
+        margin-right:30px;
+    }
+    &__text{
+        display: inline-block;
+        border-radius:50%;
+        background-color: $primary;
+        width:24px;
+        height:24px;
+        text-align: center;
+        line-height: 24px;
+        color:#ffffff;
+        font-size: 17px;
+    }
+    &__circle{
+        width:4px;
+        height:4px;
+        background-color: $black;
+        opacity: .8;
+        margin:0 7px;
+        border-radius: 50%;
+    }
+    &__species,
+    &__scope,
+    &__date{
+        font-size: 17px;
+    }
+}
 ::ng-deep .accordion .mat-expansion-panel-body, .mat-expansion-panel-header {
     padding:0;
 }
@@ -104,9 +153,22 @@
         justify-content: center;
     }
 }
+.datepicker-group{
+    display: flex;
+    justify-content: space-between;
+    .field{
+        width:47%!important;
+        margin-bottom:0;
+    }
+}
 .field{
     width:47%;
     margin-bottom:20px;
+    &_group{
+        .field{
+            width:100%;
+        }
+    }
     &_select{
         .field-wrapper{
             padding:0!important;

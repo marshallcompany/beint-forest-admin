@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, FormGroupName } from '@angular/forms';
 import { ProfileService } from '../../../services/profile.service';
 import { map, switchMap } from 'rxjs/operators';
 
@@ -13,54 +13,6 @@ export class ProfessionalBackgroundComponent implements OnInit {
   @ViewChild('accordion01', { static: false }) accordion01;
   @ViewChild('accordion02', { static: false }) accordion02;
   @ViewChild('accordion03', { static: false }) accordion03;
-  public works = [
-    {
-      field1: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-      select1: 'Teilzeit',
-      checkbox: true,
-      von: '2010-11-11T22:00:00.000Z',
-      bis: '2012-11-11T22:00:00.000Z',
-      ort: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-      branch: 'Branche',
-      jobTitle: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-      area: 'Geschäftebereich',
-      description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.'
-    },
-    {
-      field1: 'Lorem ipsum dolor sit.',
-      select1: 'Teilzeit',
-      checkbox: false,
-      von: '2009-11-11T22:00:00.000Z',
-      bis: '2015-11-11T22:00:00.000Z',
-      ort: 'Lorem ipsum dolor sit.',
-      branch: 'Branche',
-      jobTitle: 'Lorem ipsum dolor sit.',
-      area: 'Geschäftebereich',
-      description: 'Lorem ipsum dolor sit.'
-    }
-  ];
-
-  public freelancing = [
-    {
-      field1: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-      field2: 'AAAAAAAAAAAAAAAAAa',
-      checkbox: true,
-      von: '2010-11-11T22:00:00.000Z',
-      bis: '2008-11-11T22:00:00.000Z',
-      ort: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-      branch: 'Branche',
-      description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.'
-    },
-  ];
-  public other = [
-    {
-      field1: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-      von: '2006-11-11T22:00:00.000Z',
-      bis: '2005-11-11T22:00:00.000Z',
-      ort: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-      description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.'
-    },
-  ];
 
   public navSettings = {
     iconCategory: '../assets/image/profile/category-03.svg',
@@ -69,9 +21,9 @@ export class ProfessionalBackgroundComponent implements OnInit {
   };
 
   public form: FormGroup;
-  public formWorkArray: FormArray;
-  public formFreelanceArray: FormArray;
-  public formOtherArray: FormArray;
+  public workExperience: FormGroupName;
+  public employmentConditions: FormGroupName;
+
 
   constructor(
     private fb: FormBuilder,
@@ -87,106 +39,85 @@ export class ProfessionalBackgroundComponent implements OnInit {
 
   public init = () => {
     this.profileService.getProfile()
-      .pipe()
+      .pipe(
+        map(profileData => {
+          if (profileData && profileData.profile.workExperience) {
+            return {
+              workExperience: profileData.profile.workExperience
+            };
+          }
+          return profileData;
+        })
+      )
       .subscribe(
         profileData => {
-          console.log('[ EDIT PROFILE DATA ]', profileData);
+          console.log('[ PROFESSIONAL BACKGROUND DATA ]', profileData);
         },
         err => {
-          console.log('[ ERROR EDIT PROFILE DATA ]', err);
-        },
-        () => {
-          console.log('[ EDIT PROFILE DATA DONE ]');
+          console.log('[ ERROR PROFESSIONAL BACKGROUND DATA ]', err);
         }
       );
   }
 
   public formInit = () => {
     this.form = this.fb.group({
-      formWorkArray: this.fb.array([]),
-      formFreelanceArray: this.fb.array([]),
-      formOtherArray: this.fb.array([])
-
+      workExperience: this.fb.group({
+        employmentConditions: this.fb.group({
+          isNotRelevant: [false],
+          items: this.fb.array([])
+        })
+      })
     });
     this.setFormGroup();
   }
 
-
   public accordionChange = () => {
-    if (!this.accordion01.expanded && !this.accordion02.expanded && !this.accordion03.expanded) {
+    if (!this.accordion01.expanded || !this.accordion02.expanded || !this.accordion03.expanded) {
       this.accordionsStatus = false;
     }
   }
 
+  public get employmentConditionsArray(): FormArray {
+    return this.form.get('workExperience').get('employmentConditions').get('items') as FormArray;
+  }
+
+  public get employmentBusinessAreaArray(): FormArray {
+    return this.form.get('workExperience').get('employmentConditions').get('items').get('businessArea') as FormArray;
+  }
+
   public createFormGroup = (data: any, nameGroup: string): FormGroup => {
     switch (nameGroup) {
-      case 'work':
+      case 'employmentConditions':
         return this.fb.group({
-          field1: [data.field1 ? data.field1 : ''],
-          select1: [data.select1 ? data.select1 : 'Vollzeit'],
-          checkbox: [data.checkbox ? data.checkbox : false],
-          von: [data.von ? data.von : ''],
-          bis: [data.bis ? data.bis : ''],
-          ort: [data.ort ? data.ort : ''],
-          branch: [data.branch ? data.branch : 'Branche'],
-          jobTitle: [data.jobTitle ? data.jobTitle : ''],
-          area: [data.area ? data.area : 'Geschäftebereich'],
-          description: [data.description ? data.description : '']
-        });
-      case 'freelancing':
-        return this.fb.group({
-          field1: [data.field1 ? data.field1 : ''],
-          field2: [data.field2 ? data.field2 : ''],
-          checkbox: [data.checkbox ? data.checkbox : false],
-          von: [data.von ? data.von : ''],
-          bis: [data.bis ? data.bis : ''],
-          ort: [data.ort ? data.ort : ''],
-          branch: [data.branch ? data.branch : 'Branche'],
-          description: [data.description ? data.description : '']
-        });
-      case 'other':
-        return this.fb.group({
-          field1: [data.field1 ? data.field1 : ''],
-          von: [data.von ? data.von : ''],
-          bis: [data.bis ? data.bis : ''],
-          ort: [data.ort ? data.ort : ''],
-          description: [data.description ? data.description : '']
+          company: ['company'],
+          dateStart: [null],
+          dateEnd: [null],
+          country: [''],
+          workPlace: [''],
+          jobTitle: [''],
+          careerLevel: [''],
+          businessArea: this.fb.array([]),
+          employmentType: ['employment type'],
+          industryBranch: [''],
+          jobDescription: [''],
+          tilToday: [false]
         });
       default:
         break;
     }
   }
 
-  public remove = (nameGroup, xx, i) => {
-    this[nameGroup].removeAt(i);
-    if (this[nameGroup].controls.length < 1) {
-      this[nameGroup].push(this.createFormGroup({}, xx));
+  public remove = (nameArray, nameCategory, index) => {
+    this[nameArray].removeAt(index);
+    if (this[nameArray].value.length < 1) {
+      this[nameArray].push(this.createFormGroup({}, nameCategory));
     }
   }
 
 
   public setFormGroup = (status?: string) => {
+    this.employmentConditionsArray.push(this.createFormGroup({}, 'employmentConditions'));
+    this.employmentConditionsArray.push(this.createFormGroup({}, 'employmentConditions'));
 
-    this.formWorkArray = this.form.get('formWorkArray') as FormArray;
-    this.formFreelanceArray = this.form.get('formFreelanceArray') as FormArray;
-    this.formOtherArray = this.form.get('formOtherArray') as FormArray;
-
-    if (!status) {
-      this.works.forEach(work => {
-        this.formWorkArray.push(this.createFormGroup(work, 'work'));
-      });
-      this.freelancing.forEach(freelancing => {
-        this.formFreelanceArray.push(this.createFormGroup(freelancing, 'freelancing'));
-      });
-      this.other.forEach(other => {
-        this.formOtherArray.push(this.createFormGroup(other, 'other'));
-      });
-    } else if (status === 'newWorkFields') {
-      this.formWorkArray.push(this.createFormGroup({}, 'work'));
-    } else if (status === 'newFreelanceFields') {
-      this.formFreelanceArray.push(this.createFormGroup({}, 'freelancing'));
-    } else if (status === 'newOtherFields') {
-      this.formOtherArray.push(this.createFormGroup({}, 'other'));
-    }
   }
 }

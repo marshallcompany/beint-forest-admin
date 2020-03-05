@@ -28,7 +28,7 @@
         *ngIf="form">
         <div
           class="subcategory-item"
-          formArrayName="formWorkArray">
+          formGroupName="workExperience">
           <mat-expansion-panel
             class="accordion"
             (opened)="accordionsStatus = true"
@@ -48,67 +48,82 @@
                   class="subcategory-header__arrow">
               </div>
             </mat-expansion-panel-header>
-            <div class="subcategory-content">
+            <ng-container formGroupName="employmentConditions">
               <div
-                class="flex-grid"
-                *ngFor="let item of form.get('formWorkArray').controls; let i = index"
-                [formGroupName]="i">
-                <div class="remove-fields">
-                  <button
-                    class="remove-fields__button"
-                    (click)="remove('formWorkArray', 'work', i)">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.765 21.765" class="remove-fields__icon">
-                      <g transform="translate(0 -0.001)">
-                        <g transform="translate(0 0.001)">
-                          <path class="a" d="M12.084,10.883l9.431-9.431a.85.85,0,0,0-1.2-1.2L10.882,9.681,1.451.25a.85.85,0,0,0-1.2,1.2L9.68,10.883.249,20.314a.85.85,0,0,0,1.2,1.2l9.431-9.431,9.431,9.431a.85.85,0,0,0,1.2-1.2Z" transform="translate(0 -0.001)"/>
+                class="subcategory-content"
+                formArrayName="items">
+                <div
+                  class="flex-grid"
+                  *ngFor="let item of employmentConditionsArray.value; let i = index"
+                  [formGroupName]="i">
+                  <div class="remove-fields">
+                    <button
+                      class="remove-fields__button"
+                      (click)="remove('employmentConditionsArray', 'employmentConditions', i)">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.765 21.765" class="remove-fields__icon">
+                        <g transform="translate(0 -0.001)">
+                          <g transform="translate(0 0.001)">
+                            <path class="a" d="M12.084,10.883l9.431-9.431a.85.85,0,0,0-1.2-1.2L10.882,9.681,1.451.25a.85.85,0,0,0-1.2,1.2L9.68,10.883.249,20.314a.85.85,0,0,0,1.2,1.2l9.431-9.431,9.431,9.431a.85.85,0,0,0,1.2-1.2Z" transform="translate(0 -0.001)"/>
+                          </g>
                         </g>
-                      </g>
-                    </svg>
-                  </button>
-                </div>
-                <div class="field">
-                  <p class="field__label">Arbeitgeber</p>
-                  <div class="field-wrapper">
-                    <input
-                      type="text"
-                      placeholder="Arbeitgeber"
-                      class="field-wrapper__input"
-                      formControlName="field1">
-                    <div class="field-wrapper__type">abc</div>
-                    <div
-                      class="field-wrapper__status"
-                      [ngClass]="{invalid : !this.form.get('formWorkArray').controls[i].get('field1').value}"></div>
+                      </svg>
+                    </button>
                   </div>
-                </div>
-                <div class="field field_select">
-                  <p class="field__label">Art der Anstellung</p>
+                  <div class="field">
+                    <p class="field__label">Arbeitgeber</p>
+                    <div class="field-wrapper">
+                      <input
+                        type="text"
+                        placeholder="Arbeitgeber"
+                        class="field-wrapper__input"
+                        formControlName="company">
+                      <div class="field-wrapper__type">abc</div>
+                      <div
+                        class="field-wrapper__status"
+                        [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').get('items').controls[i].get('company').value}"></div>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <p class="field__label">Art der Anstellung</p>
+                    <div class="field-wrapper">
+                      <input
+                        type="text"
+                        placeholder="Art der Anstellung"
+                        class="field-wrapper__input"
+                        formControlName="employmentType">
+                      <div class="field-wrapper__type">abc</div>
+                      <div
+                        class="field-wrapper__status"
+                        [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').get('items').controls[i].get('employmentType').value}"></div>
+                    </div>
+                  </div>
+                  <!-- <div class="field field_select">
+                  <p class="field__label">Branche</p>
                   <div class="field-wrapper">
                     <ng-select
                       [searchable]="false"
                       [clearable]="false"
-                      placeholder="Art der Anstellung"
-                      formControlName="select1"
-                      class="custom-select">
-                      <ng-option [value]="'Vollzeit'">Vollzeit</ng-option>
-                      <ng-option [value]="'Teilzeit'">Teilzeit</ng-option>
-                      <ng-option [value]="'Verschiebung'">Verschiebung</ng-option>
-                      <ng-option [value]="'Fernarbeit'">Fernarbeit</ng-option>
-                      <ng-option [value]="'Praktikum'">Praktikum</ng-option>
+                      placeholder="Branche"
+                      class="custom-select"
+                      formControlName="businessArea">
+                      <ng-option [value]="'Branche'">Branche</ng-option>
                     </ng-select>
                     <div class="field-wrapper__status"></div>
                   </div>
                 </div>
-                <div class="field-checkbox">
-                  <input
-                    type="checkbox"
-                    [id]="'subcategory1-checkbox_'+(i+1)"
-                    class="field-checkbox__input"
-                    formControlName="checkbox">
-                  <label
-                    [for]="'subcategory1-checkbox_'+(i+1)"
-                    class="field-checkbox__label">
-                    Führungskraft
-                  </label>
+                <div class="field">
+                  <p class="field__label">Land</p>
+                  <div class="field-wrapper">
+                    <input
+                      type="text"
+                      placeholder="Land"
+                      class="field-wrapper__input"
+                      formControlName="country">
+                    <div class="field-wrapper__type">abc</div>
+                    <div
+                      class="field-wrapper__status"
+                      [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').controls[i].get('workPlace').value}"></div>
+                  </div>
                 </div>
                 <div class="field">
                   <p class="field__label">Ort</p>
@@ -117,25 +132,11 @@
                       type="text"
                       placeholder="Ort"
                       class="field-wrapper__input"
-                      formControlName="ort">
+                      formControlName="workPlace">
                     <div class="field-wrapper__type">abc</div>
                     <div
                       class="field-wrapper__status"
-                      [ngClass]="{invalid : !this.form.get('formWorkArray').controls[i].get('ort').value}"></div>
-                  </div>
-                </div>
-                <div class="field field_select">
-                  <p class="field__label">Branche</p>
-                  <div class="field-wrapper">
-                    <ng-select
-                      [searchable]="false"
-                      [clearable]="false"
-                      placeholder="Branche"
-                      class="custom-select"
-                      formControlName="branch">
-                      <ng-option [value]="'Branche'">Branche</ng-option>
-                    </ng-select>
-                    <div class="field-wrapper__status"></div>
+                      [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').controls[i].get('workPlace').value}"></div>
                   </div>
                 </div>
                 <div class="field">
@@ -149,409 +150,124 @@
                     <div class="field-wrapper__type">abc</div>
                     <div
                       class="field-wrapper__status"
-                      [ngClass]="{invalid : !this.form.get('formWorkArray').controls[i].get('jobTitle').value}"></div>
+                      [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').controls[i].get('jobTitle').value}"></div>
                   </div>
                 </div>
-                <div class="field field_select">
-                  <p class="field__label">Geschäftebereich</p>
-                  <div class="field-wrapper">
-                    <ng-select
-                      [searchable]="false"
-                      [clearable]="false"
-                      placeholder="Geschäftebereiche"
-                      class="custom-select"
-                      formControlName="area">
-                      <ng-option [value]="'Geschäftebereich'">Geschäftebereich</ng-option>
-                    </ng-select>
-                    <div class="field-wrapper__status"></div>
-                  </div>
-                </div>
-                <div class="field field_datapicker">
-                  <p class="field__label">Von</p>
-                  <div
-                    class="field-wrapper"
-                    [owlDateTimeTrigger]="dateVon">
-                    <input
-                      [owlDateTime]="dateVon"
-                      (dateTimeChange)="submit('Von')"
-                      class="field-wrapper__input"
-                      formControlName="von"
-                      placeholder="DD/MM/YYYY">
-                    <owl-date-time
-                      #dateVon
-                      pickerMode="dialog"
-                      pickerType="calendar"
-                      panelClass="calendar"></owl-date-time>
-                    <div class="field-wrapper__type">
-                      <img src="../assets/image/calendar.svg">
+                <div class="field field_group">
+                  <div class="field field_select">
+                    <p class="field__label">Geschäftebereich</p>
+                    <div class="field-wrapper">
+                      <ng-select
+                        [searchable]="false"
+                        [clearable]="false"
+                        placeholder="Geschäftebereiche"
+                        class="custom-select"
+                        formControlName="industryBranch">
+                        <ng-option [value]="'Geschäftebereich'">Geschäftebereich</ng-option>
+                      </ng-select>
+                      <div class="field-wrapper__status"></div>
                     </div>
-                    <div
-                      class="field-wrapper__status"
-                      [ngClass]="{invalid : !this.form.get('formWorkArray').controls[i].get('von').value}"></div>
                   </div>
-                  <p class="field__label">Bis</p>
-                  <div
-                    class="field-wrapper"
-                    [owlDateTimeTrigger]="dateBis">
-                    <input
-                      [owlDateTime]="dateBis"
-                      (dateTimeChange)="submit('Bis')"
-                      class="field-wrapper__input"
-                      formControlName="bis"
-                      placeholder="DD/MM/YYYY">
-                    <owl-date-time
-                      #dateBis
-                      pickerMode="dialog"
-                      pickerType="calendar"
-                      panelClass="calendar"></owl-date-time>
-                    <div class="field-wrapper__type">
-                      <img src="../assets/image/calendar.svg">
+                  <div class="datepicker-group">
+                    <div class="field">
+                      <p class="field__label">Von</p>
+                      <div
+                        class="field-wrapper"
+                        [owlDateTimeTrigger]="dateVon">
+                        <input
+                          [owlDateTime]="dateVon"
+                          (dateTimeChange)="submit('Von')"
+                          class="field-wrapper__input"
+                          formControlName="dateStart"
+                          placeholder="DD/MM/YYYY">
+                        <owl-date-time
+                          #dateVon
+                          pickerMode="dialog"
+                          pickerType="calendar"
+                          panelClass="calendar"></owl-date-time>
+                        <div class="field-wrapper__type">
+                          <img src="../assets/image/calendar.svg">
+                        </div>
+                        <div
+                          class="field-wrapper__status"
+                          [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').controls[i].get('dateStart').value}"></div>
+                      </div>
                     </div>
-                    <div
-                      class="field-wrapper__status"
-                      [ngClass]="{invalid : !this.form.get('formWorkArray').controls[i].get('bis').value}"></div>
+                    <div class="field">
+                      <p class="field__label">Bis</p>
+                      <div
+                        class="field-wrapper"
+                        [owlDateTimeTrigger]="dateBis">
+                        <input
+                          [owlDateTime]="dateBis"
+                          (dateTimeChange)="submit('Bis')"
+                          class="field-wrapper__input"
+                          formControlName="dateEnd"
+                          placeholder="DD/MM/YYYY">
+                        <owl-date-time
+                          #dateBis
+                          pickerMode="dialog"
+                          pickerType="calendar"
+                          panelClass="calendar"></owl-date-time>
+                        <div class="field-wrapper__type">
+                          <img src="../assets/image/calendar.svg">
+                        </div>
+                        <div
+                          class="field-wrapper__status"
+                          [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').controls[i].get('dateEnd').value}"></div>
+                      </div>
+                    </div>
                   </div>
-
                 </div>
                 <div class="field field_textarea">
-                  <p class="field__label">Job Bezeichnung</p>
+                  <p class="field__label">Beschreibung</p>
                   <div class="field-wrapper field-wrapper_textarea">
                     <textarea
-                      placeholder="Job Bezeichnung"
+                      placeholder="Beschreibung"
                       class="field-wrapper__input field-wrapper__input_textarea"
-                      formControlName="description"></textarea>
+                      formControlName="jobDescription"></textarea>
                     <div class="field-wrapper__type">abc</div>
                     <div
                       class="field-wrapper__status"
-                      [ngClass]="{invalid : !this.form.get('formWorkArray').controls[i].get('description').value}"></div>
+                      [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').controls[i].get('jobDescription').value}"></div>
                   </div>
+                </div> -->
                 </div>
-              </div>
-              <div class="add-fields">
-                <button
-                  class="add-fields__button"
-                  (click)="setFormGroup('newWorkFields')">
-                  <img src="../assets/image/plus.svg">
-                </button>
-              </div>
-            </div>
-          </mat-expansion-panel>
-        </div>
-        <div
-          class="subcategory-item"
-          formArrayName="formFreelanceArray">
-          <mat-expansion-panel
-            class="accordion"
-            (opened)="accordionsStatus = true"
-            (closed)="accordionChange()"
-            #accordion02="matExpansionPanel">
-            <mat-expansion-panel-header>
-              <div class="subcategory-header">
-                <div class="subcategory-info">
-                  <img
-                    src="../assets/image/profile/professional-background/subcategory-02.svg"
-                    class="subcategory-info__icon">
-                  <p class="subcategory-info__label">Selbständigkeit</p>
-                </div>
-                <img
-                  src="../assets/image/profile/accordion-arrow.svg"
-                  [ngClass]="{ 'accordion-active' : accordion02.expanded }"
-                  class="subcategory-header__arrow">
-              </div>
-            </mat-expansion-panel-header>
-            <div class="subcategory-content">
-              <div
-                class="flex-grid"
-                *ngFor="let item of form.get('formFreelanceArray').controls; let i = index"
-                [formGroupName]="i">
-                <div class="remove-fields">
+                <div class="add-fields">
                   <button
-                    class="remove-fields__button"
-                    (click)="remove('formFreelanceArray', 'freelancing', i)">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.765 21.765" class="remove-fields__icon">
-                      <g transform="translate(0 -0.001)">
-                        <g transform="translate(0 0.001)">
-                          <path class="a" d="M12.084,10.883l9.431-9.431a.85.85,0,0,0-1.2-1.2L10.882,9.681,1.451.25a.85.85,0,0,0-1.2,1.2L9.68,10.883.249,20.314a.85.85,0,0,0,1.2,1.2l9.431-9.431,9.431,9.431a.85.85,0,0,0,1.2-1.2Z" transform="translate(0 -0.001)"/>
-                        </g>
-                      </g>
-                    </svg>
+                    class="add-fields__button"
+                    (click)="setFormGroup('newWorkFields')">
+                    <img src="../assets/image/plus.svg">
                   </button>
                 </div>
-                <div class="field">
-                  <p class="field__label">Bezeichnung</p>
-                  <div class="field-wrapper">
-                    <input
-                      type="text"
-                      placeholder="Bezeichnung"
-                      class="field-wrapper__input"
-                      formControlName="field1">
-                    <div class="field-wrapper__type">abc</div>
-                    <div
-                      class="field-wrapper__status"
-                      [ngClass]="{invalid : !this.form.get('formFreelanceArray').controls[i].get('field1').value}"></div>
-                  </div>
-                </div>
-                <div class="field">
-                  <p class="field__label">Name der Firma</p>
-                  <div class="field-wrapper">
-                    <input
-                      type="text"
-                      placeholder="Name der Firma"
-                      class="field-wrapper__input"
-                      formControlName="field2">
-                    <div class="field-wrapper__type">abc</div>
-                    <div
-                      class="field-wrapper__status"
-                      [ngClass]="{invalid : !this.form.get('formFreelanceArray').controls[i].get('field2').value}"></div>
-                  </div>
-                </div>
-                <div class="field-checkbox">
-                  <input
-                    type="checkbox"
-                    [id]="'subcategory1-checkbox_'+(i+1)"
-                    class="field-checkbox__input"
-                    formControlName="checkbox">
-                  <label
-                    [for]="'subcategory1-checkbox_'+(i+1)"
-                    class="field-checkbox__label">
-                    Führungskraft
-                  </label>
-                </div>
-                <div class="field field_select">
-                  <p class="field__label">Branche</p>
-                  <div class="field-wrapper">
-                    <ng-select
-                      [searchable]="false"
-                      [clearable]="false"
-                      placeholder="Branche"
-                      class="custom-select"
-                      formControlName="branch">
-                      <ng-option [value]="'Branche'">Branche</ng-option>
-                    </ng-select>
-                    <div class="field-wrapper__status"></div>
-                  </div>
-                </div>
-                <div class="field">
-                  <p class="field__label">Ort</p>
-                  <div class="field-wrapper">
-                    <input
-                      type="text"
-                      placeholder="Ort"
-                      class="field-wrapper__input"
-                      formControlName="ort">
-                    <div class="field-wrapper__type">abc</div>
-                    <div
-                      class="field-wrapper__status"
-                      [ngClass]="{invalid : !this.form.get('formFreelanceArray').controls[i].get('ort').value}"></div>
-                  </div>
-                </div>
-                <div class="field field_datapicker">
-                  <p class="field__label">Von</p>
-                  <div
-                    class="field-wrapper"
-                    [owlDateTimeTrigger]="dateVon">
-                    <input
-                      [owlDateTime]="dateVon"
-                      (dateTimeChange)="submit('Von')"
-                      class="field-wrapper__input"
-                      formControlName="von"
-                      placeholder="DD/MM/YYYY">
-                    <owl-date-time
-                      #dateVon
-                      pickerMode="dialog"
-                      pickerType="calendar"
-                      panelClass="calendar"></owl-date-time>
-                    <div class="field-wrapper__type">
-                      <img src="../assets/image/calendar.svg">
-                    </div>
-                    <div
-                      class="field-wrapper__status"
-                      [ngClass]="{invalid : !this.form.get('formFreelanceArray').controls[i].get('von').value}"></div>
-                  </div>
-                  <p class="field__label">Bis</p>
-                  <div
-                    class="field-wrapper"
-                    [owlDateTimeTrigger]="dateBis">
-                    <input
-                      [owlDateTime]="dateBis"
-                      (dateTimeChange)="submit('Bis')"
-                      class="field-wrapper__input"
-                      formControlName="bis"
-                      placeholder="DD/MM/YYYY">
-                    <owl-date-time
-                      #dateBis
-                      pickerMode="dialog"
-                      pickerType="calendar"
-                      panelClass="calendar"></owl-date-time>
-                    <div class="field-wrapper__type">
-                      <img src="../assets/image/calendar.svg">
-                    </div>
-                    <div
-                      class="field-wrapper__status"
-                      [ngClass]="{invalid : !this.form.get('formFreelanceArray').controls[i].get('bis').value}"></div>
-                  </div>
-                </div>
-                <div class="field field_textarea">
-                  <p class="field__label">Job Bezeichnung</p>
-                  <div class="field-wrapper field-wrapper_textarea">
-                    <textarea
-                      placeholder="Job Bezeichnung"
-                      class="field-wrapper__input field-wrapper__input_textarea"
-                      formControlName="description"></textarea>
-                    <div class="field-wrapper__type">abc</div>
-                    <div
-                      class="field-wrapper__status"
-                      [ngClass]="{invalid : !this.form.get('formFreelanceArray').controls[i].get('description').value}"></div>
-                  </div>
-                </div>
               </div>
-              <div class="add-fields">
-                <button
-                  class="add-fields__button"
-                  (click)="setFormGroup('newFreelanceFields')">
-                  <img src="../assets/image/plus.svg">
-                </button>
-              </div>
-            </div>
+            </ng-container>
           </mat-expansion-panel>
-        </div>
-        <div
-          class="subcategory-item"
-          formArrayName="formOtherArray">
-          <mat-expansion-panel
-            class="accordion"
-            (opened)="accordionsStatus = true"
-            (closed)="accordionChange()"
-            #accordion03="matExpansionPanel">
-            <mat-expansion-panel-header>
-              <div class="subcategory-header">
-                <div class="subcategory-info">
-                  <img
-                    src="../assets/image/profile/professional-background/subcategory-03.svg"
-                    class="subcategory-info__icon">
-                  <p class="subcategory-info__label">Sonstige Stationen</p>
+          <div
+            class="subcategory-preview"
+            *ngIf="!accordion01.expanded">
+            <div
+              class="subcategory-preview-item"
+              *ngFor="let item of employmentConditionsArray.value; let i = index">
+              <ng-container>
+                <div class="subcategory-preview-info">
+                  <p class="subcategory-preview-info__number">
+                  <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
+                </p>
+                  <p class="subcategory-preview-info__species">{{ item.company }}</p>
+                  <div class="subcategory-preview-info__circle"></div>
+                  <p class="subcategory-preview-info__date">08/2005 - 02/2009</p>
+                  <div class="subcategory-preview-info__circle"></div>
+                  <p class="subcategory-preview-info__scope">{{ item.employmentType }}</p>
                 </div>
-                <img
-                  src="../assets/image/profile/accordion-arrow.svg"
-                  [ngClass]="{ 'accordion-active' : accordion03.expanded }"
-                  class="subcategory-header__arrow">
-              </div>
-            </mat-expansion-panel-header>
-            <div class="subcategory-content">
-              <div
-                class="flex-grid"
-                *ngFor="let item of form.get('formOtherArray').controls; let i = index"
-                [formGroupName]="i">
-                <div class="remove-fields">
-                  <button
-                    class="remove-fields__button"
-                    (click)="remove('formOtherArray', 'other', i)">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.765 21.765" class="remove-fields__icon">
-                      <g transform="translate(0 -0.001)">
-                        <g transform="translate(0 0.001)">
-                          <path class="a" d="M12.084,10.883l9.431-9.431a.85.85,0,0,0-1.2-1.2L10.882,9.681,1.451.25a.85.85,0,0,0-1.2,1.2L9.68,10.883.249,20.314a.85.85,0,0,0,1.2,1.2l9.431-9.431,9.431,9.431a.85.85,0,0,0,1.2-1.2Z" transform="translate(0 -0.001)"/>
-                        </g>
-                      </g>
-                    </svg>
-                  </button>
-                </div>
-                <div class="field">
-                  <p class="field__label">Bezeichnung</p>
-                  <div class="field-wrapper">
-                    <input
-                      type="text"
-                      placeholder="Bezeichnung"
-                      class="field-wrapper__input"
-                      formControlName="field1">
-                    <div class="field-wrapper__type">abc</div>
-                    <div
-                      class="field-wrapper__status"
-                      [ngClass]="{invalid : !this.form.get('formOtherArray').controls[i].get('field1').value}"></div>
-                  </div>
-                </div>
-                <div class="field">
-                  <p class="field__label">Ort</p>
-                  <div class="field-wrapper">
-                    <input
-                      type="text"
-                      placeholder="Ort"
-                      class="field-wrapper__input"
-                      formControlName="ort">
-                    <div class="field-wrapper__type">abc</div>
-                    <div
-                      class="field-wrapper__status"
-                      [ngClass]="{invalid : !this.form.get('formOtherArray').controls[i].get('ort').value}"></div>
-                  </div>
-                </div>
-                <div class="field field_datapicker">
-                  <p class="field__label">Von</p>
-                  <div
-                    class="field-wrapper"
-                    [owlDateTimeTrigger]="dateVon">
-                    <input
-                      [owlDateTime]="dateVon"
-                      (dateTimeChange)="submit('Von')"
-                      class="field-wrapper__input"
-                      formControlName="von"
-                      placeholder="DD/MM/YYYY">
-                    <owl-date-time
-                      #dateVon
-                      pickerMode="dialog"
-                      pickerType="calendar"
-                      panelClass="calendar"></owl-date-time>
-                    <div class="field-wrapper__type">
-                      <img src="../assets/image/calendar.svg">
-                    </div>
-                    <div
-                      class="field-wrapper__status"
-                      [ngClass]="{invalid : !this.form.get('formOtherArray').controls[i].get('von').value}"></div>
-                  </div>
-                  <p class="field__label">Bis</p>
-                  <div
-                    class="field-wrapper"
-                    [owlDateTimeTrigger]="dateBis">
-                    <input
-                      [owlDateTime]="dateBis"
-                      (dateTimeChange)="submit('Bis')"
-                      class="field-wrapper__input"
-                      formControlName="bis"
-                      placeholder="DD/MM/YYYY">
-                    <owl-date-time
-                      #dateBis
-                      pickerMode="dialog"
-                      pickerType="calendar"
-                      panelClass="calendar"></owl-date-time>
-                    <div class="field-wrapper__type">
-                      <img src="../assets/image/calendar.svg">
-                    </div>
-                    <div
-                      class="field-wrapper__status"
-                      [ngClass]="{invalid : !this.form.get('formOtherArray').controls[i].get('bis').value}"></div>
-                  </div>
-                </div>
-                <div class="field field_textarea">
-                  <p class="field__label">Job Bezeichnung</p>
-                  <div class="field-wrapper field-wrapper_textarea">
-                    <textarea
-                      placeholder="Job Bezeichnung"
-                      class="field-wrapper__input field-wrapper__input_textarea"
-                      formControlName="description"></textarea>
-                    <div class="field-wrapper__type">abc</div>
-                    <div
-                      class="field-wrapper__status"
-                      [ngClass]="{invalid : !this.form.get('formOtherArray').controls[i].get('description').value}"></div>
-                  </div>
-                </div>
-              </div>
-              <div class="add-fields">
                 <button
-                  class="add-fields__button"
-                  (click)="setFormGroup('newOtherFields')">
-                  <img src="../assets/image/plus.svg">
+                  class="subcategory-preview-item__remove"
+                  (click)="remove('employmentConditionsArray', 'employmentConditions', i)">
+                  <img src="../assets/image/close.svg">
                 </button>
-              </div>
+              </ng-container>
             </div>
-          </mat-expansion-panel>
+          </div>
         </div>
       </form>
     </div>
