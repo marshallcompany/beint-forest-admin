@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
-import {environment} from '../../environments/environment';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class ApiRoutesProvider {
@@ -19,6 +19,7 @@ export class ApiRoutesProvider {
   public readonly GET_BENEFITS_SCHEMA: string;
   public readonly GET_TOWNS_SCHEMA: string;
   public readonly GET_COUNTRIES_SCHEMA: string;
+  public readonly GET_ZIP_SCHEMA: string;
 
   constructor() {
     this.BASE_API_URL = environment.BASE_API_URL;
@@ -36,6 +37,7 @@ export class ApiRoutesProvider {
     this.GET_BENEFITS_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/benefits/:lang`;
     this.GET_TOWNS_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/towns/:lang`;
     this.GET_COUNTRIES_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/countries/:lang`;
+    this.GET_ZIP_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/zipCodes/:lang`;
 
   }
 }
