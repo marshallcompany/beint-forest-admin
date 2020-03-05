@@ -1,9 +1,9 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup, FormArray, FormGroupName, FormControl} from '@angular/forms';
-import {ProfileService} from '../../../services/profile.service';
-import {debounceTime, map, share} from 'rxjs/operators';
-import {Observable} from 'rxjs';
-import {SearchService} from '../../../services/search.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, FormArray, FormGroupName, FormControl } from '@angular/forms';
+import { ProfileService } from '../../../services/profile.service';
+import { debounceTime, map, share } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { SearchService } from '../../../services/search.service';
 import * as moment from 'moment';
 import { forkJoin } from 'rxjs';
 
@@ -14,14 +14,15 @@ import { forkJoin } from 'rxjs';
 })
 export class ProfessionalBackgroundComponent implements OnInit {
   public accordionsStatus: boolean;
-  @ViewChild('accordion01', {static: false}) accordion01;
-  @ViewChild('accordion02', {static: false}) accordion02;
-  @ViewChild('accordion03', {static: false}) accordion03;
+  @ViewChild('accordion01', { static: false }) accordion01;
+  @ViewChild('accordion02', { static: false }) accordion02;
+  @ViewChild('accordion03', { static: false }) accordion03;
 
   public navSettings = {
     iconCategory: '../assets/image/profile/category-03.svg',
     nameCategory: 'Beruflicher Werdegang',
-    nextCategory: 'search-settings'
+    nextCategory: 'search-settings',
+    prevCategory: 'personal'
   };
 
   public form: FormGroup;
