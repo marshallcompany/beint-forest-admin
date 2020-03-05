@@ -169,7 +169,6 @@ export class ProfessionalBackgroundComponent implements OnInit {
 
   public setFormGroup = (status?: string) => {
     this.employmentConditionsArray.push(this.createFormGroup({}, 'employmentConditions'));
-  };
     this.independentExperienceArray.push(this.createFormGroup({}, 'independentExperience'));
   }
 
