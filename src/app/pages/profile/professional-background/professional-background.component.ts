@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, FormGroupName } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, FormGroupName, FormControl } from '@angular/forms';
 import { ProfileService } from '../../../services/profile.service';
 import { map, switchMap } from 'rxjs/operators';
 
@@ -23,6 +23,7 @@ export class ProfessionalBackgroundComponent implements OnInit {
   public form: FormGroup;
   public workExperience: FormGroupName;
   public employmentConditions: FormGroupName;
+  public businessArea = new FormControl();
 
 
   constructor(
@@ -81,15 +82,11 @@ export class ProfessionalBackgroundComponent implements OnInit {
     return this.form.get('workExperience').get('employmentConditions').get('items') as FormArray;
   }
 
-  public get employmentBusinessAreaArray(): FormArray {
-    return this.form.get('workExperience').get('employmentConditions').get('items').get('businessArea') as FormArray;
-  }
-
   public createFormGroup = (data: any, nameGroup: string): FormGroup => {
     switch (nameGroup) {
       case 'employmentConditions':
         return this.fb.group({
-          company: ['company'],
+          company: [''],
           dateStart: [null],
           dateEnd: [null],
           country: [''],
@@ -97,7 +94,7 @@ export class ProfessionalBackgroundComponent implements OnInit {
           jobTitle: [''],
           careerLevel: [''],
           businessArea: this.fb.array([]),
-          employmentType: ['employment type'],
+          employmentType: [''],
           industryBranch: [''],
           jobDescription: [''],
           tilToday: [false]

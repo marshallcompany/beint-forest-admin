@@ -49,23 +49,28 @@
               </div>
             </mat-expansion-panel-header>
             <ng-container formGroupName="employmentConditions">
+              <div class="not-relevant">
+                <div class="not-relevant__item">
+                  <input
+                    type="checkbox"
+                    class="not-relevant__checkbox"
+                    formControlName="isNotRelevant">
+                  <p class="not-relevant__label">Für mich nicht relevant</p>
+                </div>
+              </div>
               <div
                 class="subcategory-content"
                 formArrayName="items">
                 <div
                   class="flex-grid"
-                  *ngFor="let item of employmentConditionsArray.value; let i = index"
+                  *ngFor="let item of employmentConditionsArray.controls; let i = index"
                   [formGroupName]="i">
                   <div class="remove-fields">
                     <button
                       class="remove-fields__button"
                       (click)="remove('employmentConditionsArray', 'employmentConditions', i)">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.765 21.765" class="remove-fields__icon">
-                        <g transform="translate(0 -0.001)">
-                          <g transform="translate(0 0.001)">
-                            <path class="a" d="M12.084,10.883l9.431-9.431a.85.85,0,0,0-1.2-1.2L10.882,9.681,1.451.25a.85.85,0,0,0-1.2,1.2L9.68,10.883.249,20.314a.85.85,0,0,0,1.2,1.2l9.431-9.431,9.431,9.431a.85.85,0,0,0,1.2-1.2Z" transform="translate(0 -0.001)"/>
-                          </g>
-                        </g>
+                      <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" class="remove-fields__icon">
+                        <path d="M0.050293 0.050293L9.94979 9.94979M9.94979 0.050293L0.0502933 9.94979" stroke-width="2" stroke-linecap="round"/>
                       </svg>
                     </button>
                   </div>
@@ -83,6 +88,67 @@
                         [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').get('items').controls[i].get('company').value}"></div>
                     </div>
                   </div>
+                  <div class="field field_select">
+                    <p class="field__label">Land</p>
+                    <div class="field-wrapper">
+                      <ng-select
+                        [searchable]="true"
+                        [clearable]="false"
+                        placeholder="Land"
+                        class="custom-select"
+                        formControlName="country">
+                        <ng-option [value]="'Land'">Land</ng-option>
+                      </ng-select>
+                      <div class="field-wrapper__type">abc</div>
+                      <div
+                        class="field-wrapper__status"
+                        [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').get('items').controls[i].get('country').value}"></div>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <p class="field__label">Arbeitsort</p>
+                    <div class="field-wrapper">
+                      <input
+                        type="text"
+                        placeholder="Arbeitsort"
+                        class="field-wrapper__input"
+                        formControlName="workPlace">
+                      <div class="field-wrapper__type">abc</div>
+                      <div
+                        class="field-wrapper__status"
+                        [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').get('items').controls[i].get('workPlace').value}"></div>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <p class="field__label">Geschäftsbereich</p>
+                    <div class="field-wrapper">
+                      <input
+                        type="text"
+                        placeholder="Geschäftsbereich"
+                        class="field-wrapper__input"
+                        formControlName="industryBranch">
+                      <div class="field-wrapper__type">abc</div>
+                      <div
+                        class="field-wrapper__status"
+                        [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').get('items').controls[i].get('industryBranch').value}"></div>
+                    </div>
+                  </div>
+                  <div class="field field_select">
+                    <p class="field__label">Branche</p>
+                    <div class="field-wrapper">
+                      <ng-select
+                        [searchable]="false"
+                        [clearable]="false"
+                        placeholder="Branche"
+                        class="custom-select"
+                        [formControl]="businessArea">
+                        <ng-option [value]="'Branche'">Branche</ng-option>
+                      </ng-select>
+                      <div
+                        [ngClass]="{invalid : this.form.get('workExperience').get('employmentConditions').get('items').controls[i].get('businessArea').value.length === 0}"
+                        class="field-wrapper__status"></div>
+                    </div>
+                  </div>
                   <div class="field">
                     <p class="field__label">Art der Anstellung</p>
                     <div class="field-wrapper">
@@ -97,141 +163,20 @@
                         [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').get('items').controls[i].get('employmentType').value}"></div>
                     </div>
                   </div>
-                  <!-- <div class="field field_select">
-                  <p class="field__label">Branche</p>
-                  <div class="field-wrapper">
-                    <ng-select
-                      [searchable]="false"
-                      [clearable]="false"
-                      placeholder="Branche"
-                      class="custom-select"
-                      formControlName="businessArea">
-                      <ng-option [value]="'Branche'">Branche</ng-option>
-                    </ng-select>
-                    <div class="field-wrapper__status"></div>
-                  </div>
-                </div>
-                <div class="field">
-                  <p class="field__label">Land</p>
-                  <div class="field-wrapper">
-                    <input
-                      type="text"
-                      placeholder="Land"
-                      class="field-wrapper__input"
-                      formControlName="country">
-                    <div class="field-wrapper__type">abc</div>
-                    <div
-                      class="field-wrapper__status"
-                      [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').controls[i].get('workPlace').value}"></div>
-                  </div>
-                </div>
-                <div class="field">
-                  <p class="field__label">Ort</p>
-                  <div class="field-wrapper">
-                    <input
-                      type="text"
-                      placeholder="Ort"
-                      class="field-wrapper__input"
-                      formControlName="workPlace">
-                    <div class="field-wrapper__type">abc</div>
-                    <div
-                      class="field-wrapper__status"
-                      [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').controls[i].get('workPlace').value}"></div>
-                  </div>
-                </div>
-                <div class="field">
-                  <p class="field__label">Job Bezeichnung</p>
-                  <div class="field-wrapper">
-                    <input
-                      type="text"
-                      placeholder="Job Bezeichnung"
-                      class="field-wrapper__input"
-                      formControlName="jobTitle">
-                    <div class="field-wrapper__type">abc</div>
-                    <div
-                      class="field-wrapper__status"
-                      [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').controls[i].get('jobTitle').value}"></div>
-                  </div>
-                </div>
-                <div class="field field_group">
-                  <div class="field field_select">
-                    <p class="field__label">Geschäftebereich</p>
+                  <div class="field">
+                    <p class="field__label">Art der Anstellung</p>
                     <div class="field-wrapper">
-                      <ng-select
-                        [searchable]="false"
-                        [clearable]="false"
-                        placeholder="Geschäftebereiche"
-                        class="custom-select"
-                        formControlName="industryBranch">
-                        <ng-option [value]="'Geschäftebereich'">Geschäftebereich</ng-option>
-                      </ng-select>
-                      <div class="field-wrapper__status"></div>
-                    </div>
-                  </div>
-                  <div class="datepicker-group">
-                    <div class="field">
-                      <p class="field__label">Von</p>
+                      <input
+                        type="text"
+                        placeholder="Art der Anstellung"
+                        class="field-wrapper__input"
+                        formControlName="employmentType">
+                      <div class="field-wrapper__type">abc</div>
                       <div
-                        class="field-wrapper"
-                        [owlDateTimeTrigger]="dateVon">
-                        <input
-                          [owlDateTime]="dateVon"
-                          (dateTimeChange)="submit('Von')"
-                          class="field-wrapper__input"
-                          formControlName="dateStart"
-                          placeholder="DD/MM/YYYY">
-                        <owl-date-time
-                          #dateVon
-                          pickerMode="dialog"
-                          pickerType="calendar"
-                          panelClass="calendar"></owl-date-time>
-                        <div class="field-wrapper__type">
-                          <img src="../assets/image/calendar.svg">
-                        </div>
-                        <div
-                          class="field-wrapper__status"
-                          [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').controls[i].get('dateStart').value}"></div>
-                      </div>
-                    </div>
-                    <div class="field">
-                      <p class="field__label">Bis</p>
-                      <div
-                        class="field-wrapper"
-                        [owlDateTimeTrigger]="dateBis">
-                        <input
-                          [owlDateTime]="dateBis"
-                          (dateTimeChange)="submit('Bis')"
-                          class="field-wrapper__input"
-                          formControlName="dateEnd"
-                          placeholder="DD/MM/YYYY">
-                        <owl-date-time
-                          #dateBis
-                          pickerMode="dialog"
-                          pickerType="calendar"
-                          panelClass="calendar"></owl-date-time>
-                        <div class="field-wrapper__type">
-                          <img src="../assets/image/calendar.svg">
-                        </div>
-                        <div
-                          class="field-wrapper__status"
-                          [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').controls[i].get('dateEnd').value}"></div>
-                      </div>
+                        class="field-wrapper__status"
+                        [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').get('items').controls[i].get('employmentType').value}"></div>
                     </div>
                   </div>
-                </div>
-                <div class="field field_textarea">
-                  <p class="field__label">Beschreibung</p>
-                  <div class="field-wrapper field-wrapper_textarea">
-                    <textarea
-                      placeholder="Beschreibung"
-                      class="field-wrapper__input field-wrapper__input_textarea"
-                      formControlName="jobDescription"></textarea>
-                    <div class="field-wrapper__type">abc</div>
-                    <div
-                      class="field-wrapper__status"
-                      [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').controls[i].get('jobDescription').value}"></div>
-                  </div>
-                </div> -->
                 </div>
                 <div class="add-fields">
                   <button
@@ -273,3 +218,138 @@
     </div>
   </div>
 </section>
+<!-- <div class="field field_select">
+                    <p class="field__label">Branche</p>
+                    <div class="field-wrapper">
+                      <ng-select
+                        [searchable]="false"
+                        [clearable]="false"
+                        placeholder="Branche"
+                        class="custom-select"
+                        formControlName="businessArea">
+                        <ng-option [value]="'Branche'">Branche</ng-option>
+                      </ng-select>
+                      <div class="field-wrapper__status"></div>
+                    </div>
+                  </div> -->
+<!-- <div class="field">
+                    <p class="field__label">Land</p>
+                    <div class="field-wrapper">
+                      <input
+                        type="text"
+                        placeholder="Land"
+                        class="field-wrapper__input"
+                        formControlName="country">
+                      <div class="field-wrapper__type">abc</div>
+                      <div
+                        class="field-wrapper__status"
+                        [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').controls[i].get('workPlace').value}"></div>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <p class="field__label">Ort</p>
+                    <div class="field-wrapper">
+                      <input
+                        type="text"
+                        placeholder="Ort"
+                        class="field-wrapper__input"
+                        formControlName="workPlace">
+                      <div class="field-wrapper__type">abc</div>
+                      <div
+                        class="field-wrapper__status"
+                        [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').controls[i].get('workPlace').value}"></div>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <p class="field__label">Job Bezeichnung</p>
+                    <div class="field-wrapper">
+                      <input
+                        type="text"
+                        placeholder="Job Bezeichnung"
+                        class="field-wrapper__input"
+                        formControlName="jobTitle">
+                      <div class="field-wrapper__type">abc</div>
+                      <div
+                        class="field-wrapper__status"
+                        [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').controls[i].get('jobTitle').value}"></div>
+                    </div>
+                  </div>
+                  <div class="field field_group">
+                    <div class="field field_select">
+                      <p class="field__label">Geschäftebereich</p>
+                      <div class="field-wrapper">
+                        <ng-select
+                          [searchable]="false"
+                          [clearable]="false"
+                          placeholder="Geschäftebereiche"
+                          class="custom-select"
+                          formControlName="industryBranch">
+                          <ng-option [value]="'Geschäftebereich'">Geschäftebereich</ng-option>
+                        </ng-select>
+                        <div class="field-wrapper__status"></div>
+                      </div>
+                    </div>
+                    <div class="datepicker-group">
+                      <div class="field">
+                        <p class="field__label">Von</p>
+                        <div
+                          class="field-wrapper"
+                          [owlDateTimeTrigger]="dateVon">
+                          <input
+                            [owlDateTime]="dateVon"
+                            (dateTimeChange)="submit('Von')"
+                            class="field-wrapper__input"
+                            formControlName="dateStart"
+                            placeholder="DD/MM/YYYY">
+                          <owl-date-time
+                            #dateVon
+                            pickerMode="dialog"
+                            pickerType="calendar"
+                            panelClass="calendar"></owl-date-time>
+                          <div class="field-wrapper__type">
+                            <img src="../assets/image/calendar.svg">
+                          </div>
+                          <div
+                            class="field-wrapper__status"
+                            [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').controls[i].get('dateStart').value}"></div>
+                        </div>
+                      </div>
+                      <div class="field">
+                        <p class="field__label">Bis</p>
+                        <div
+                          class="field-wrapper"
+                          [owlDateTimeTrigger]="dateBis">
+                          <input
+                            [owlDateTime]="dateBis"
+                            (dateTimeChange)="submit('Bis')"
+                            class="field-wrapper__input"
+                            formControlName="dateEnd"
+                            placeholder="DD/MM/YYYY">
+                          <owl-date-time
+                            #dateBis
+                            pickerMode="dialog"
+                            pickerType="calendar"
+                            panelClass="calendar"></owl-date-time>
+                          <div class="field-wrapper__type">
+                            <img src="../assets/image/calendar.svg">
+                          </div>
+                          <div
+                            class="field-wrapper__status"
+                            [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').controls[i].get('dateEnd').value}"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="field field_textarea">
+                    <p class="field__label">Beschreibung</p>
+                    <div class="field-wrapper field-wrapper_textarea">
+                      <textarea
+                        placeholder="Beschreibung"
+                        class="field-wrapper__input field-wrapper__input_textarea"
+                        formControlName="jobDescription"></textarea>
+                      <div class="field-wrapper__type">abc</div>
+                      <div
+                        class="field-wrapper__status"
+                        [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').controls[i].get('jobDescription').value}"></div>
+                    </div>
+                  </div> -->
