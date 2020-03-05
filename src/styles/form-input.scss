@@ -34,6 +34,30 @@
   padding: 0 !important;
 }
 
+.field-group {
+  width: 46.5%;
+  position: relative;
+
+  .field {
+    width: 100%;
+  }
+
+  &.inline {
+    display: flex;
+    flex-wrap: wrap;
+    -webkit-box-pack: justify;
+
+    .field {
+      width: 33%;
+      margin-left: 25px;
+
+      &:first-child {
+        margin-left: 0px;
+      }
+    }
+  }
+}
+
 body .field {
   width: 46.5%;
   padding-bottom: 30px;
@@ -126,6 +150,19 @@ body .field {
   border-radius: 10px;
   display: flex;
   align-items: center;
+
+  &.textarea {
+    height: auto;
+
+    textarea {
+      resize: none;
+
+      &:hover, &:active, &:focus {
+        border: none;
+        outline: none;
+      }
+    }
+  }
 
   &__input {
     width: 100%;
