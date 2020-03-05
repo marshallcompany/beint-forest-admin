@@ -9,8 +9,7 @@
   </div>
   <app-category-nav-header [navSettings]="navSettings"></app-category-nav-header>
   <div
-    class="category-decor"
-    *ngIf="!accordionsStatus">
+    class="category-decor" *ngIf="!accordionsStatus">
     <div class="container">
       <img
         src="../assets/image/profile/professional-background/image-desktop.svg"
@@ -51,11 +50,12 @@
             <ng-container formGroupName="employmentConditions">
               <div class="not-relevant">
                 <div class="not-relevant__item">
-                  <input
-                    type="checkbox"
-                    class="not-relevant__checkbox"
-                    formControlName="isNotRelevant">
-                  <p class="not-relevant__label">Für mich nicht relevant</p>
+                  <label class="checkbox-container">Für mich nicht relevant
+                    <input type="checkbox"
+                           class="not-relevant__checkbox"
+                           formControlName="isNotRelevant">
+                    <span class="checkmark"></span>
+                  </label>
                 </div>
               </div>
               <div
@@ -70,7 +70,8 @@
                       class="remove-fields__button"
                       (click)="remove('employmentConditionsArray', 'employmentConditions', i)">
                       <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" class="remove-fields__icon">
-                        <path d="M0.050293 0.050293L9.94979 9.94979M9.94979 0.050293L0.0502933 9.94979" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M0.050293 0.050293L9.94979 9.94979M9.94979 0.050293L0.0502933 9.94979" stroke-width="2"
+                              stroke-linecap="round"/>
                       </svg>
                     </button>
                   </div>
@@ -184,8 +185,8 @@
               <ng-container>
                 <div class="subcategory-preview-info">
                   <p class="subcategory-preview-info__number">
-                  <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
-                </p>
+                    <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
+                  </p>
                   <p class="subcategory-preview-info__species">{{ item.company }}</p>
                   <div class="subcategory-preview-info__circle"></div>
                   <p class="subcategory-preview-info__date">08/2005 - 02/2009</p>
