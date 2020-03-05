@@ -1,10 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, FormArray, FormGroupName, FormControl} from '@angular/forms';
 import {ProfileService} from '../../../services/profile.service';
-import {debounceTime, map, share, switchMap} from 'rxjs/operators';
+import {debounceTime, map, share} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {SearchService} from '../../../services/search.service';
 import * as moment from 'moment';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-professional-background',
@@ -27,6 +28,7 @@ export class ProfessionalBackgroundComponent implements OnInit {
   public workExperience: FormGroupName;
   public employmentConditions: FormGroupName;
   public businessArea = new FormControl();
+  public independentBusinessAreaControl = new FormControl();
   public $countriesList: Observable<string[]>;
   currentDate = moment().toDate();
   previousDate = moment().add(-1, 'day').toDate();
@@ -46,31 +48,32 @@ export class ProfessionalBackgroundComponent implements OnInit {
   }
 
   public init = () => {
-    this.profileService.getProfile()
+    const profile$ = this.profileService.getProfile();
+    forkJoin([profile$])
       .pipe(
-        map(profileData => {
-          if (profileData && profileData.profile.workExperience) {
+        map(([profile]) => {
+          if (profile && profile.profile && profile.profile.workExperience) {
             return {
-              workExperience: profileData.profile.workExperience
+              workExperience: profile.profile.workExperience
             };
           }
-          return profileData;
+          return [profile];
         })
       )
-      .subscribe(
-        profileData => {
-          console.log('[ PROFESSIONAL BACKGROUND DATA ]', profileData);
-        },
-        err => {
-          console.log('[ ERROR PROFESSIONAL BACKGROUND DATA ]', err);
-        }
-      );
-  };
+      .subscribe((res: any) => {
+        // this.patchFormValue(res.searchPreferences);
+        console.log('res', res);
+      });
+  }
 
   public formInit = () => {
     this.form = this.fb.group({
       workExperience: this.fb.group({
         employmentConditions: this.fb.group({
+          isNotRelevant: [false],
+          items: this.fb.array([])
+        }),
+        independentExperience: this.fb.group({
           isNotRelevant: [false],
           items: this.fb.array([])
         })
@@ -106,6 +109,9 @@ export class ProfessionalBackgroundComponent implements OnInit {
   public get employmentConditionsArray(): FormArray {
     return this.form.get('workExperience').get('employmentConditions').get('items') as FormArray;
   }
+  public get independentExperienceArray(): FormArray {
+    return this.form.get('workExperience').get('independentExperience').get('items') as FormArray;
+  }
 
   public createFormGroup = (data: any, nameGroup: string): FormGroup => {
     switch (nameGroup) {
@@ -125,20 +131,49 @@ export class ProfessionalBackgroundComponent implements OnInit {
           jobDescription: [''],
           tilToday: [false]
         });
+      case 'independentExperience':
+        return this.fb.group({
+          jobTitle: ['jobTitle'],
+          companyName: ['companyName'],
+          dateStart: [null],
+          dateEnd: [null],
+          country: [''],
+          workPlace: [''],
+          jobDescription: [''],
+          isFreelancer: [false],
+          businessArea: this.fb.array(['xxxx', 'wwwww']),
+          tilToday: [false]
+        });
       default:
         break;
     }
-  };
+  }
 
   public remove = (nameArray, nameCategory, index) => {
     this[nameArray].removeAt(index);
     if (this[nameArray].value.length < 1) {
       this[nameArray].push(this.createFormGroup({}, nameCategory));
     }
-  };
+  }
 
+  public formArrayRemove = (index, formArrayName, field) => {
+    console.log(this[formArrayName]);
+    // if (index && formArrayName && field) {
+    //   this[formArrayName].removeAt(index);
+    //   this.submit(field);
+    // } else if (index === 0) {
+    //   this[formArrayName].removeAt();
+    //   this.submit(field);
+    // }
+  }
 
   public setFormGroup = (status?: string) => {
     this.employmentConditionsArray.push(this.createFormGroup({}, 'employmentConditions'));
   };
+    this.independentExperienceArray.push(this.createFormGroup({}, 'independentExperience'));
+  }
+
+  public submit = (fieldName) => {
+    console.log('submit', this.form.value);
+  }
 }
