@@ -1,8 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, FormGroupName, FormControl } from '@angular/forms';
-import { ProfileService } from '../../../services/profile.service';
-import { SearchService } from '../../../services/search.service';
-import { map, switchMap } from 'rxjs/operators';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {FormBuilder, FormGroup, FormArray, FormGroupName, FormControl} from '@angular/forms';
+import {ProfileService} from '../../../services/profile.service';
+import {debounceTime, map, share} from 'rxjs/operators';
+import {Observable} from 'rxjs';
+import {SearchService} from '../../../services/search.service';
+import * as moment from 'moment';
 import { forkJoin } from 'rxjs';
 
 @Component({
@@ -12,9 +14,9 @@ import { forkJoin } from 'rxjs';
 })
 export class ProfessionalBackgroundComponent implements OnInit {
   public accordionsStatus: boolean;
-  @ViewChild('accordion01', { static: false }) accordion01;
-  @ViewChild('accordion02', { static: false }) accordion02;
-  @ViewChild('accordion03', { static: false }) accordion03;
+  @ViewChild('accordion01', {static: false}) accordion01;
+  @ViewChild('accordion02', {static: false}) accordion02;
+  @ViewChild('accordion03', {static: false}) accordion03;
 
   public navSettings = {
     iconCategory: '../assets/image/profile/category-03.svg',
@@ -27,10 +29,15 @@ export class ProfessionalBackgroundComponent implements OnInit {
   public employmentConditions: FormGroupName;
   public businessArea = new FormControl();
   public independentBusinessAreaControl = new FormControl();
+  public $countriesList: Observable<string[]>;
+  currentDate = moment().toDate();
+  previousDate = moment().add(-1, 'day').toDate();
+
 
   constructor(
     private fb: FormBuilder,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private searchService: SearchService
   ) {
     this.accordionsStatus = false;
   }
@@ -73,12 +80,30 @@ export class ProfessionalBackgroundComponent implements OnInit {
       })
     });
     this.setFormGroup();
+  };
+
+  notRelevant(group: FormGroup) {
+    const isSet = group.get('tilToday').value;
+    if (isSet) {
+      group.get('dateEnd').setValue(this.currentDate.toDateString());
+    }
+  }
+
+  setTodayDate(group: FormGroup) {
+    const isSet = group.get('tilToday').value;
+    if (isSet) {
+      group.get('dateEnd').setValue(this.currentDate.toDateString());
+    }
   }
 
   public accordionChange = () => {
     if (!this.accordion01.expanded || !this.accordion02.expanded || !this.accordion03.expanded) {
       this.accordionsStatus = false;
     }
+  };
+
+  getCountryList(query: string) {
+    this.$countriesList = this.searchService.getCountries('de', query).pipe(debounceTime(500), share());
   }
 
   public get employmentConditionsArray(): FormArray {
@@ -93,12 +118,13 @@ export class ProfessionalBackgroundComponent implements OnInit {
       case 'employmentConditions':
         return this.fb.group({
           company: [''],
-          dateStart: [null],
-          dateEnd: [null],
-          country: [''],
+          dateStart: [],
+          dateEnd: [],
+          country: [],
           workPlace: [''],
           jobTitle: [''],
           careerLevel: [''],
+          descriptions: [''],
           businessArea: this.fb.array([]),
           employmentType: [''],
           industryBranch: [''],

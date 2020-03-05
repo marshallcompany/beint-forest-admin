@@ -92,16 +92,17 @@
                         [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').get('items').controls[i].get('company').value}"></div>
                     </div>
                   </div>
-                  <div class="field field_select">
+                  <div class="field field_select field_select-search single">
                     <p class="field__label">Land</p>
                     <div class="field-wrapper">
                       <ng-select
                         [searchable]="true"
+                        [items]="$countriesList | async"
                         [clearable]="false"
-                        placeholder="Land"
+                        [placeholder]="'Land'"
+                        (search)="getCountryList($event.term)"
                         class="custom-select"
                         formControlName="country">
-                        <ng-option [value]="'Land'">Land</ng-option>
                       </ng-select>
                       <div class="field-wrapper__type">abc</div>
                       <div
@@ -167,7 +168,109 @@
                         [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').get('items').controls[i].get('employmentType').value}"></div>
                     </div>
                   </div>
-
+                  <div class="field-group">
+                    <div class="field">
+                      <p class="field__label">Karrierelevel</p>
+                      <div class="field-wrapper">
+                        <input
+                          type="text"
+                          placeholder="Karrierelevel"
+                          class="field-wrapper__input"
+                          formControlName="careerLevel">
+                        <div class="field-wrapper__type">abc</div>
+                        <div
+                          class="field-wrapper__status"
+                          [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').get('items').controls[i].get('careerLevel').value}"></div>
+                      </div>
+                    </div>
+                    <div class="field">
+                      <p class="field__label">Job Bezeichnung</p>
+                      <div class="field-wrapper">
+                        <input
+                          type="text"
+                          placeholder="Job Bezeichnung"
+                          class="field-wrapper__input"
+                          formControlName="jobTitle">
+                        <div class="field-wrapper__type">abc</div>
+                        <div
+                          class="field-wrapper__status"
+                          [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').get('items').controls[i].get('jobTitle').value}"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <p class="field__label">Beschreibung</p>
+                    <div class="field-wrapper textarea">
+                      <textarea
+                        placeholder="Beschreibung"
+                        class="field-wrapper__input"
+                        rows="8"
+                        formControlName="descriptions"></textarea>
+                      <div class="field-wrapper__type">abc</div>
+                      <div
+                        class="field-wrapper__status"
+                        [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').get('items').controls[i].get('descriptions').value}"></div>
+                    </div>
+                  </div>
+                  <div class="field-group inline">
+                    <div class="field field_datapicker">
+                      <p class="field__label">Von</p>
+                      <div
+                        class="field-wrapper"
+                        [owlDateTimeTrigger]="dt1">
+                        <input
+                          [owlDateTime]="dt1"
+                          [max]="previousDate"
+                          class="field-wrapper__input"
+                          formControlName="dateStart"
+                          placeholder="DD/MM/YYYY">
+                        <owl-date-time
+                          #dt1
+                          pickerMode="dialog"
+                          pickerType="calendar"
+                          panelClass="calendar"></owl-date-time>
+                        <div class="field-wrapper__type">
+                          <img src="../assets/image/calendar.svg">
+                        </div>
+                        <div
+                          class="field-wrapper__status"
+                          [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').get('items').controls[i].get('dateStart').value}"></div>
+                      </div>
+                    </div>
+                    <div class="field field_datapicker">
+                      <p class="field__label">Bis</p>
+                      <div
+                        class="field-wrapper"
+                        [owlDateTimeTrigger]="dt2">
+                        <input
+                          [owlDateTime]="dt2"
+                          [max]="currentDate"
+                          class="field-wrapper__input"
+                          formControlName="dateEnd"
+                          placeholder="DD/MM/YYYY">
+                        <owl-date-time
+                          #dt2
+                          pickerMode="dialog"
+                          pickerType="calendar"
+                          panelClass="calendar"></owl-date-time>
+                        <div class="field-wrapper__type">
+                          <img src="../assets/image/calendar.svg">
+                        </div>
+                        <div
+                          class="field-wrapper__status"
+                          [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').get('items').controls[i].get('dateEnd').value}"></div>
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label class="checkbox-container">bis heute
+                        <input type="checkbox"
+                               class="not-relevant__checkbox"
+                               (change)="setTodayDate(this.form.get('workExperience').get('employmentConditions').get('items').controls[i])"
+                               formControlName="tilToday">
+                        <span class="checkmark"></span>
+                      </label>
+                    </div>
+                  </div>
                 </div>
                 <div class="add-fields">
                   <button
