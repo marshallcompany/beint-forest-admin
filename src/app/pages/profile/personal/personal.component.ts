@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormGroupName } from '@angular/forms';
-import { ProfileService } from '../../../services/profile.service';
-import { map } from 'rxjs/internal/operators/map';
-import { NotificationService } from 'src/app/services/notification.service';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, FormGroupName} from '@angular/forms';
+import {ProfileService} from '../../../services/profile.service';
+import {map} from 'rxjs/internal/operators/map';
+import {NotificationService} from 'src/app/services/notification.service';
 
-import { switchMap } from 'rxjs/operators';
-import { throwError, of } from 'rxjs';
+import {debounceTime, share, switchMap} from 'rxjs/operators';
+import {throwError, of, Observable} from 'rxjs';
+import {SearchService} from '../../../services/search.service';
 
 @Component({
   selector: 'app-personal',
@@ -25,13 +26,15 @@ export class PersonalComponent implements OnInit {
   public personal: FormGroupName;
   public contact: FormGroupName;
   public residence: FormGroupName;
+  public landList$: Observable<string[]>;
 
   constructor(
-
     public formBuilder: FormBuilder,
     private profileService: ProfileService,
     private notificationService: NotificationService,
-  ) { }
+    private searchService: SearchService
+  ) {
+  }
 
   ngOnInit() {
     this.initForm();
@@ -62,7 +65,7 @@ export class PersonalComponent implements OnInit {
         },
         () => console.log('[ EDIT PROFILE DATA DONE ]')
       );
-  }
+  };
 
   public initForm = () => {
     this.form = this.formBuilder.group({
@@ -87,10 +90,12 @@ export class PersonalComponent implements OnInit {
           place: [''],
           street: [''],
           zipCode: [''],
+          land: [null],
         })
       }),
     });
-  }
+  };
+
   public patchFormValue = (personalData) => {
     this.form.patchValue({
       personal: {
@@ -114,12 +119,14 @@ export class PersonalComponent implements OnInit {
           place: personalData.contact && personalData.contact.residence && personalData.contact.residence.place ? personalData.contact.residence.place : '',
           street: personalData.contact && personalData.contact.residence && personalData.contact.residence.street ? personalData.contact.residence.street : '',
           zipCode: personalData.contact && personalData.contact.residence && personalData.contact.residence.zipCode ? personalData.contact.residence.zipCode : '',
+          land: personalData.contact && personalData.contact.residence && personalData.contact.residence.land ? personalData.contact.residence.land : null,
         }
       },
     });
-  }
+  };
 
   public submit = (field: string) => {
+    console.log('FV: ', this.form.value);
     this.profileService.updateProfile(this.form.value)
       .pipe(
         switchMap(formData => {
@@ -139,5 +146,9 @@ export class PersonalComponent implements OnInit {
           console.log('[ ERROR UPDATE PROFILE ]', err);
         }
       );
+  };
+
+  onChange($event) {
+    this.landList$ = this.searchService.getCountries('de', `${$event.term}`).pipe(debounceTime(400), share());
   }
 }

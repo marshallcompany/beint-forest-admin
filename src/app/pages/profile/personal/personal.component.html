@@ -213,6 +213,43 @@
                 [ngClass]="{invalid : !form.get('contact').get('residence').get('zipCode').value}"></div>
             </div>
           </div>
+          <div class="field field_select field_select-search single"
+               formGroupName="residence">
+            <p class="field__label">Land</p>
+            <div class="field-wrapper">
+              <ng-select
+                [items]="landList$ | async"
+                [clearable]="false"
+                [multiple]="false"
+                [placeholder]="'Land eingeben'"
+                formControlName="land"
+                (search)="onChange($event)"
+                (blur)="submit('land')"
+                class="custom-select">
+              </ng-select>
+              <div class="field-wrapper__type">abc</div>
+              <div
+                [ngClass]="{invalid : !form.get('contact').get('residence').get('land').value && !form.get('contact').get('residence').get('land').value == ''}"
+                class="field-wrapper__status"></div>
+            </div>
+          </div>
+          <div
+            class="field"
+            formGroupName="residence">
+            <p class="field__label">Hausnummer</p>
+            <div class="field-wrapper">
+              <input
+                type="text"
+                placeholder="Hausnummer eingeben"
+                class="field-wrapper__input"
+                formControlName="houseNumber"
+                (blur)="submit('Hausnummer')">
+              <div class="field-wrapper__type">abc</div>
+              <div
+                class="field-wrapper__status"
+                [ngClass]="{invalid : !form.get('contact').get('residence').get('houseNumber').value}"></div>
+            </div>
+          </div>
           <div
             class="field"
             formGroupName="residence">
@@ -233,18 +270,14 @@
           <div
             class="field"
             formGroupName="residence">
-            <p class="field__label">Hausnummer</p>
+            <p class="field__label">Email</p>
             <div class="field-wrapper">
               <input
                 type="text"
-                placeholder="Hausnummer eingeben"
-                class="field-wrapper__input"
-                formControlName="houseNumber"
-                (blur)="submit('Hausnummer')">
+                placeholder="Email eingeben"
+                class="field-wrapper__input">
               <div class="field-wrapper__type">abc</div>
-              <div
-                class="field-wrapper__status"
-                [ngClass]="{invalid : !form.get('contact').get('residence').get('houseNumber').value}"></div>
+              <div class="field-wrapper__status"></div>
             </div>
           </div>
           <div class="field">
@@ -262,19 +295,6 @@
               <div
                 class="field-wrapper__status"
                 [ngClass]="{invalid : !form.get('contact').get('phoneNumberMobile').value}"></div>
-            </div>
-          </div>
-          <div
-            class="field"
-            formGroupName="residence">
-            <p class="field__label">Email</p>
-            <div class="field-wrapper">
-              <input
-                type="text"
-                placeholder="Email eingeben"
-                class="field-wrapper__input">
-              <div class="field-wrapper__type">abc</div>
-              <div class="field-wrapper__status"></div>
             </div>
           </div>
         </div>
