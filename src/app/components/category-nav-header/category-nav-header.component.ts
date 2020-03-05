@@ -72,7 +72,11 @@ export class CategoryNavHeaderComponent implements OnInit {
 
 
   public prevCategory = () => {
-    this.location.back();
+    if (this.navSettings && this.navSettings.prevCategory !== null) {
+      this.router.navigate([this.navSettings.prevCategory]);
+    } else {
+      return false;
+    }
   }
 
   public nextCategory = () => {

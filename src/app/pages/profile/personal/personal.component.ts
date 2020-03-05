@@ -18,7 +18,8 @@ export class PersonalComponent implements OnInit {
   public navSettings = {
     iconCategory: '../assets/image/menu/profile.svg',
     nameCategory: 'Persönliches & Kontakt',
-    nextCategory: 'professional-background'
+    nextCategory: 'professional-background',
+    prevCategory: null
   };
 
   public firstPersonalData: object;
