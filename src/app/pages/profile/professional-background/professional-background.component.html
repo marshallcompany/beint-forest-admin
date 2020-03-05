@@ -53,6 +53,7 @@
                   <label class="checkbox-container">Für mich nicht relevant
                     <input type="checkbox"
                            class="not-relevant__checkbox"
+                           (change)="notRelevant('workExperience', 'employmentConditionsArray', 'employmentConditions')"
                            formControlName="isNotRelevant">
                     <span class="checkmark"></span>
                   </label>
@@ -209,63 +210,65 @@
                         [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').get('items').controls[i].get('descriptions').value}"></div>
                     </div>
                   </div>
-                  <div class="field-group inline">
-                    <div class="field field_datapicker">
-                      <p class="field__label">Von</p>
-                      <div
-                        class="field-wrapper"
-                        [owlDateTimeTrigger]="dt1">
-                        <input
-                          [owlDateTime]="dt1"
-                          [max]="previousDate"
-                          class="field-wrapper__input"
-                          formControlName="dateStart"
-                          placeholder="DD/MM/YYYY">
-                        <owl-date-time
-                          #dt1
-                          pickerMode="dialog"
-                          pickerType="calendar"
-                          panelClass="calendar"></owl-date-time>
-                        <div class="field-wrapper__type">
-                          <img src="../assets/image/calendar.svg">
-                        </div>
+                  <div class="field field-group">
+                    <div class="datepicker-group">
+                      <div class="field field_datapicker">
+                        <p class="field__label">Von</p>
                         <div
-                          class="field-wrapper__status"
-                          [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').get('items').controls[i].get('dateStart').value}"></div>
-                      </div>
-                    </div>
-                    <div class="field field_datapicker">
-                      <p class="field__label">Bis</p>
-                      <div
-                        class="field-wrapper"
-                        [owlDateTimeTrigger]="dt2">
-                        <input
-                          [owlDateTime]="dt2"
-                          [max]="currentDate"
-                          class="field-wrapper__input"
-                          formControlName="dateEnd"
-                          placeholder="DD/MM/YYYY">
-                        <owl-date-time
-                          #dt2
-                          pickerMode="dialog"
-                          pickerType="calendar"
-                          panelClass="calendar"></owl-date-time>
-                        <div class="field-wrapper__type">
-                          <img src="../assets/image/calendar.svg">
+                          class="field-wrapper"
+                          [owlDateTimeTrigger]="dt1">
+                          <input
+                            [owlDateTime]="dt1"
+                            [max]="previousDate"
+                            class="field-wrapper__input"
+                            formControlName="dateStart"
+                            placeholder="DD/MM/YYYY">
+                          <owl-date-time
+                            #dt1
+                            pickerMode="dialog"
+                            pickerType="calendar"
+                            panelClass="calendar"></owl-date-time>
+                          <div class="field-wrapper__type">
+                            <img src="../assets/image/calendar.svg">
+                          </div>
+                          <div
+                            class="field-wrapper__status"
+                            [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').get('items').controls[i].get('dateStart').value}"></div>
                         </div>
-                        <div
-                          class="field-wrapper__status"
-                          [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').get('items').controls[i].get('dateEnd').value}"></div>
                       </div>
-                    </div>
-                    <div class="field">
-                      <label class="checkbox-container">bis heute
-                        <input type="checkbox"
-                               class="not-relevant__checkbox"
-                               (change)="setTodayDate(this.form.get('workExperience').get('employmentConditions').get('items').controls[i])"
-                               formControlName="tilToday">
-                        <span class="checkmark"></span>
-                      </label>
+                      <div class="field field_datapicker">
+                        <p class="field__label">Bis</p>
+                        <div
+                          class="field-wrapper"
+                          [owlDateTimeTrigger]="dt2">
+                          <input
+                            [owlDateTime]="dt2"
+                            [max]="currentDate"
+                            class="field-wrapper__input"
+                            formControlName="dateEnd"
+                            placeholder="DD/MM/YYYY">
+                          <owl-date-time
+                            #dt2
+                            pickerMode="dialog"
+                            pickerType="calendar"
+                            panelClass="calendar"></owl-date-time>
+                          <div class="field-wrapper__type">
+                            <img src="../assets/image/calendar.svg">
+                          </div>
+                          <div
+                            class="field-wrapper__status"
+                            [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').get('items').controls[i].get('dateEnd').value}"></div>
+                        </div>
+                      </div>
+                      <div class="datapicker-checkbox">
+                        <label class="checkbox-container">bis heute
+                          <input type="checkbox"
+                                 class="not-relevant__checkbox"
+                                 (change)="setTodayDate(this.form.get('workExperience').get('employmentConditions').get('items').controls[i])"
+                                 formControlName="tilToday">
+                          <span class="checkmark"></span>
+                        </label>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -349,7 +352,8 @@
                       class="remove-fields__button"
                       (click)="remove('independentExperienceArray', 'independentExperience', i)">
                       <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" class="remove-fields__icon">
-                        <path d="M0.050293 0.050293L9.94979 9.94979M9.94979 0.050293L0.0502933 9.94979" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M0.050293 0.050293L9.94979 9.94979M9.94979 0.050293L0.0502933 9.94979" stroke-width="2"
+                              stroke-linecap="round"/>
                       </svg>
                     </button>
                   </div>
@@ -546,8 +550,8 @@
               <ng-container>
                 <div class="subcategory-preview-info">
                   <p class="subcategory-preview-info__number">
-                  <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
-                </p>
+                    <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
+                  </p>
                   <p class="subcategory-preview-info__species">{{ item.jobTitle }}</p>
                   <div class="subcategory-preview-info__circle"></div>
                   <p class="subcategory-preview-info__date">08/2005 - 02/2009</p>
