@@ -23,6 +23,7 @@
     &_textarea{
         .field-wrapper{
             height: auto;
+            flex: unset;
             &__input{
                 width:100%;
                 border:0;

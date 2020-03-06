@@ -7,6 +7,10 @@
     overflow-x: hidden;
     padding-bottom:25px;
 }
+.disabled {
+  pointer-events: none;
+  filter: grayscale(1);
+}
 .subcategory-item{
     margin-bottom:10px;
     border-radius: 10px;
