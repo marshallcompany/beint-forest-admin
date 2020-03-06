@@ -535,6 +535,7 @@
                           [owlDateTimeTrigger]="dt1">
                           <input
                             [owlDateTime]="dt1"
+                            [max]="previousDate"
                             (dateTimeChange)="submit('Von')"
                             class="field-wrapper__input"
                             formControlName="dateStart"
@@ -559,6 +560,7 @@
                           [owlDateTimeTrigger]="dt2">
                           <input
                             [owlDateTime]="dt2"
+                            [max]="currentDate"
                             (dateTimeChange)="submit('Bis')"
                             class="field-wrapper__input"
                             formControlName="dateEnd"
@@ -752,6 +754,7 @@
                           [owlDateTimeTrigger]="dt1">
                           <input
                             [owlDateTime]="dt1"
+                            [max]="previousDate"
                             (dateTimeChange)="submit('Von')"
                             class="field-wrapper__input"
                             formControlName="dateStart"
@@ -776,6 +779,7 @@
                           [owlDateTimeTrigger]="dt2">
                           <input
                             [owlDateTime]="dt2"
+                            [max]="currentDate"
                             (dateTimeChange)="submit('Bis')"
                             class="field-wrapper__input"
                             formControlName="dateEnd"
