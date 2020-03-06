@@ -506,19 +506,25 @@
                     </div>
                   </div>
                   <div class="field field_group">
-                    <div class="field">
+                    <div class="field field_select field_select-search single"
+                         [ngClass]="{disabled : !this.form.get('workExperience').get('independentExperience').get('items').controls[i].get('country').value}">
                       <p class="field__label">Ort</p>
                       <div class="field-wrapper">
-                        <input
-                          type="text"
-                          placeholder="Ort"
-                          class="field-wrapper__input"
-                          formControlName="workPlace"
-                          (change)="submit('Ort')">
+                        <ng-select
+                          [searchable]="true"
+                          [items]="$citiesList | async"
+                          [clearable]="false"
+                          [placeholder]="'Ort'"
+                          (search)="getCityList($event.term)"
+                          (change)="submit('Ort')"
+                          class="custom-select"
+                          formControlName="workPlace">
+                        </ng-select>
                         <div class="field-wrapper__type">abc</div>
                         <div
                           class="field-wrapper__status"
-                          [ngClass]="{invalid : !this.form.get('workExperience').get('independentExperience').get('items').controls[i].get('workPlace').value}"></div>
+                          [ngClass]="{invalid : !this.form.get('workExperience').get('independentExperience').get('items').controls[i].get('country').value}">
+                        </div>
                       </div>
                     </div>
                     <div class="datepicker-group">

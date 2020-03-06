@@ -41,6 +41,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
   public businessAreaControl = new FormControl(['']);
   public independentBusinessAreaControl = new FormControl(['']);
   public $countriesList: Observable<string[]>;
+  public $citiesList: Observable<string[]>;
   currentDate = moment().toDate();
   previousDate = moment().add(-1, 'day').toDate();
 
@@ -171,6 +172,10 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
 
   getCountryList(query: string) {
     this.$countriesList = this.searchService.getCountries('de', query).pipe(debounceTime(500), share());
+  }
+
+  getCityList(query: string) {
+    this.$citiesList = this.searchService.getTowns('de', `${query}`).pipe(debounceTime(400), share());
   }
 
   public get employmentConditionsArray(): FormArray {
