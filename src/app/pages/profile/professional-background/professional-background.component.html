@@ -457,12 +457,16 @@
                     <p class="field__label">Branche</p>
                     <div class="field-wrapper">
                       <ng-select
-                        [clearable]="false"
+                        #ba2
+                        [items]="businessArea$ | async"
                         [multiple]="true"
+                        [searchable]="true"
+                        [clearable]="false"
                         [hideSelected]="true"
+                        class="custom-select"
+                        (search)="searchBusinessArea($event)"
                         [formControl]="independentBusinessAreaControl"
-                        (change)="formArrayPush($event, 'industryBranchesArray', 'Branche')"
-                        class="custom-select">
+                        (change)="formArrayPush($event, 'independentExperienceArray', 'businessArea', i)">
                       </ng-select>
                       <div
                         [ngClass]="{invalid : form.get('workExperience').get('independentExperience').get('items').controls[i].get('businessArea').value.length === 0}"
@@ -471,12 +475,12 @@
                     <div class="tags-wrapper">
                       <div
                         formArrayName="businessArea"
-                        *ngFor="let item of form.get('workExperience').get('independentExperience').get('items').controls[i].get('businessArea').controls; let i = index;"
+                        *ngFor="let item of form.get('workExperience').get('independentExperience').get('items').controls[i].get('businessArea').controls; let indexArr = index;"
                         class="tags-wrapper__item">
                         <p class="tags-wrapper__label">{{item.value}}</p>
                         <button
                           class="tags-wrapper__remove"
-                          (click)="formArrayRemove(i, 'independentExperienceArray', 'Branche')">
+                          (click)="formArrayRemove(i, indexArr,'independentExperienceArray','businessArea', 'Branche')">
                           <img src="../assets/image/close.svg">
                         </button>
                       </div>
