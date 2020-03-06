@@ -99,6 +99,10 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
         independentExperience: this.fb.group({
           isNotRelevant: [false],
           items: this.fb.array([])
+        }),
+        otherExperience: this.fb.group({
+          isNotRelevant: [false],
+          items: this.fb.array([])
         })
       })
     });
@@ -112,6 +116,9 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
         },
         independentExperience: {
           isNotRelevant: searchPreferences.independentExperience && searchPreferences.independentExperience.isNotRelevant ? searchPreferences.independentExperience.isNotRelevant : false,
+        },
+        otherExperience: {
+          isNotRelevant: searchPreferences.otherExperience && searchPreferences.otherExperience.isNotRelevant ? searchPreferences.otherExperience.isNotRelevant : false,
         }
       }
     });
@@ -123,6 +130,11 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
     if (!searchPreferences.independentExperience.isNotRelevant && searchPreferences.independentExperience.items.length) {
       searchPreferences.independentExperience.items.forEach(item => {
         this.independentExperienceArray.push(this.createFormGroup(item, 'independentExperience'));
+      });
+    }
+    if (!searchPreferences.otherExperience.isNotRelevant && searchPreferences.otherExperience.items.length) {
+      searchPreferences.otherExperience.items.forEach(item => {
+        this.otherExperienceArray.push(this.createFormGroup(item, 'otherExperience'));
       });
     }
   }
@@ -163,6 +175,9 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
   public get independentExperienceArray(): FormArray {
     return this.form.get('workExperience').get('independentExperience').get('items') as FormArray;
   }
+  public get otherExperienceArray(): FormArray {
+    return this.form.get('workExperience').get('otherExperience').get('items') as FormArray;
+  }
 
   public createFormGroup = (data: any, nameGroup: string): FormGroup => {
     switch (nameGroup) {
@@ -193,6 +208,16 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
           jobDescription: [data && data.jobDescription ? data.jobDescription : ''],
           isFreelancer: [data && data.isFreelancer ? data.isFreelancer : false],
           businessArea: this.fb.array(data && data.businessArea ? data.businessArea : ['']),
+          tilToday: [data && data.tilToday ? data.tilToday : false]
+        });
+      case 'otherExperience':
+        return this.fb.group({
+          jobTitle: [data && data.jobTitle ? data.jobTitle : ''],
+          dateStart: [data && data.dateStart ? data.dateStart : null],
+          dateEnd: [data && data.dateEnd ? data.dateEnd : null],
+          country: [data && data.country ? data.country : null],
+          workPlace: [data && data.workPlace ? data.workPlace : ''],
+          jobDescription: [data && data.jobDescription ? data.jobDescription : ''],
           tilToday: [data && data.tilToday ? data.tilToday : false]
         });
       default:

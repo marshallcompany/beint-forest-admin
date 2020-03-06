@@ -650,7 +650,7 @@
                   class="subcategory-header__arrow">
               </div>
             </mat-expansion-panel-header>
-            <ng-container formGroupName="independentExperience">
+            <ng-container formGroupName="otherExperience">
               <div class="not-relevant">
                 <div class="not-relevant__item">
                   <label class="checkbox-container">
@@ -668,7 +668,7 @@
                 formArrayName="items">
                 <div
                   class="flex-grid"
-                  *ngFor="let item of independentExperienceArray.controls; let i = index"
+                  *ngFor="let item of otherExperienceArray.controls; let i = index"
                   [formGroupName]="i">
                   <div class="remove-fields">
                     <button
@@ -692,7 +692,7 @@
                       <div class="field-wrapper__type">abc</div>
                       <div
                         class="field-wrapper__status"
-                        [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').get('items').controls[i].get('jobTitle').value}"></div>
+                        [ngClass]="{invalid : !this.form.get('workExperience').get('otherExperience').get('items').controls[i].get('jobTitle').value}"></div>
                     </div>
                   </div>
                   <div class="field field_select field_select-search">
@@ -702,14 +702,14 @@
                         [clearable]="false"
                         [multiple]="true"
                         [hideSelected]="true"
-                        [formControl]="independentBusinessAreaControl"
-                        (change)="formArrayPush($event, 'industryBranchesArray', 'Branche')"
+                        formControlName="country"
+                        (change)="formArrayPush($event, 'otherExperienceArray', 'Branche', i)"
                         class="custom-select">
                       </ng-select>
                       <div class="field-wrapper__type">abc</div>
                       <div
                         class="field-wrapper__status"
-                        [ngClass]="{invalid : !this.form.get('workExperience').get('independentExperience').get('items').controls[i].get('country').value}"></div>
+                        [ngClass]="{invalid : !this.form.get('workExperience').get('otherExperience').get('items').controls[i].get('country').value}"></div>
                     </div>
                   </div>
                   <div class="field field_group">
@@ -725,7 +725,7 @@
                         <div class="field-wrapper__type">abc</div>
                         <div
                           class="field-wrapper__status"
-                          [ngClass]="{invalid : !this.form.get('workExperience').get('independentExperience').get('items').controls[i].get('workPlace').value}"></div>
+                          [ngClass]="{invalid : !this.form.get('workExperience').get('otherExperience').get('items').controls[i].get('workPlace').value}"></div>
                       </div>
                     </div>
                     <div class="datepicker-group">
@@ -749,7 +749,7 @@
                             <img src="../assets/image/calendar.svg">
                           </div>
                           <div
-                            [ngClass]="{invalid : !form.get('workExperience').get('independentExperience').get('items').controls[i].get('dateStart').value }"
+                            [ngClass]="{invalid : !form.get('workExperience').get('otherExperience').get('items').controls[i].get('dateStart').value }"
                             class="field-wrapper__status"></div>
                         </div>
                       </div>
@@ -773,7 +773,7 @@
                             <img src="../assets/image/calendar.svg">
                           </div>
                           <div
-                            [ngClass]="{invalid : !form.get('workExperience').get('independentExperience').get('items').controls[i].get('dateEnd').value }"
+                            [ngClass]="{invalid : !form.get('workExperience').get('otherExperience').get('items').controls[i].get('dateEnd').value }"
                             class="field-wrapper__status"></div>
                         </div>
                       </div>
@@ -801,7 +801,7 @@
                         (change)="submit('Beschreibung')"></textarea>
                       <div class="field-wrapper__type">abc</div>
                       <div
-                        [ngClass]="{invalid : !this.form.get('workExperience').get('independentExperience').get('items').controls[i].get('jobDescription').value}"
+                        [ngClass]="{invalid : !this.form.get('workExperience').get('otherExperience').get('items').controls[i].get('jobDescription').value}"
                         class="field-wrapper__status"></div>
                     </div>
                   </div>
