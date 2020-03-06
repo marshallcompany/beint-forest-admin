@@ -16,7 +16,7 @@ import { GlobalErrorService } from 'src/app/services/global-error-service';
 })
 export class LoginComponent implements OnInit {
 
-  public validationError: object;
+  public validationError: any;
   public showPass: boolean;
   public form: FormGroup;
 
@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
     this.showPass = !this.showPass;
   }
 
-  public async submit() {
+  public async submit(form?) {
     try {
       await this.auth.login(this.form.value);
 
