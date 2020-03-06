@@ -7,10 +7,6 @@
     overflow-x: hidden;
     padding-bottom:25px;
 }
-.disabled {
-  pointer-events: none;
-  filter: grayscale(1);
-}
 .subcategory-item{
     margin-bottom:10px;
     border-radius: 10px;
@@ -335,6 +331,29 @@
         top:-5px;
     }
 }
+.notRelevant{
+    pointer-events: none;
+    .field-wrapper{
+        position: relative;
+        overflow: hidden;
+        &:before{
+            content:'';
+            position:absolute;
+            left:0;
+            top:0;
+            width:100%;
+            height:100%;
+            background-color:rgba(152, 152, 152, .2);
+            z-index: 1;
+        }
+        &__status{
+            background-color:#989898;
+        }
+        &__input{
+            background-color: transparent;
+        }
+    }
+}
 @media screen and (max-width:1500px){
     .subcategory{
         padding-left:5vw;
@@ -496,6 +515,9 @@
     .not-relevant{
         padding-left:10px;
         padding-right:10px;
+        &__item{
+            padding-left:10px;
+        }
     }
     .tags-wrapper{
         padding-left:10px;
@@ -504,6 +526,9 @@
         padding: 15px 10px 20px 10px;
     }
     .field{
+        &_checkbox{
+            padding-left:10px;
+        }
         &__label{
             margin-left:10px;
             font-size: 16px;
