@@ -1,13 +1,13 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, FormGroupName, FormControl } from '@angular/forms';
-import { ProfileService } from '../../../services/profile.service';
-import { debounceTime, map, share, switchMap } from 'rxjs/operators';
-import { Observable, of, throwError } from 'rxjs';
-import { SearchService } from '../../../services/search.service';
+import {Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
+import {FormBuilder, FormGroup, FormArray, FormGroupName, FormControl, Validators} from '@angular/forms';
+import {ProfileService} from '../../../services/profile.service';
+import {debounceTime, map, share, switchMap} from 'rxjs/operators';
+import {Observable, of, throwError} from 'rxjs';
+import {SearchService} from '../../../services/search.service';
 import * as moment from 'moment';
-import { forkJoin } from 'rxjs';
-import { NotificationService } from 'src/app/services/notification.service';
-import { MatExpansionPanel } from '@angular/material/expansion';
+import {forkJoin} from 'rxjs';
+import {NotificationService} from 'src/app/services/notification.service';
+import {MatExpansionPanel} from '@angular/material/expansion';
 
 @Component({
   selector: 'app-professional-background',
@@ -16,12 +16,12 @@ import { MatExpansionPanel } from '@angular/material/expansion';
 })
 export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
   public accordionsStatus: boolean;
-  @ViewChild('accordion01', { static: false }) accordion01: MatExpansionPanel;
-  @ViewChild('accordion02', { static: false }) accordion02: MatExpansionPanel;
-  @ViewChild('accordion03', { static: false }) accordion03: MatExpansionPanel;
+  @ViewChild('accordion01', {static: false}) accordion01: MatExpansionPanel;
+  @ViewChild('accordion02', {static: false}) accordion02: MatExpansionPanel;
+  @ViewChild('accordion03', {static: false}) accordion03: MatExpansionPanel;
 
-  @ViewChild('ba1', { static: false }) ba1;
-  @ViewChild('ba2', { static: false }) ba2;
+  @ViewChild('ba1', {static: false}) ba1;
+  @ViewChild('ba2', {static: false}) ba2;
 
   businessArea$: Observable<Array<string>>;
   dropdownOptions$: Observable<any>;
@@ -73,21 +73,27 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
     this.accordion01.opened
       .subscribe(
         ($event) => {
-          if (this.employmentConditionsArray.controls.length) return;
-          this.employmentConditionsArray.push((this.createFormGroup(null, 'employmentConditions')))
+          if (this.employmentConditionsArray.controls.length) {
+            return;
+          }
+          this.employmentConditionsArray.push((this.createFormGroup(null, 'employmentConditions')));
         }),
-    this.accordion02.opened
-      .subscribe(
-        ($event) => {
-          if (this.independentExperienceArray.controls.length) return;
-          this.independentExperienceArray.push(this.createFormGroup(null, 'independentExperience'));
-        }),
-    this.accordion03.opened
-      .subscribe(
-        ($event) => {
-          if (this.otherExperienceArray.controls.length) return;
-          this.otherExperienceArray.push(this.createFormGroup(null, 'otherExperience'));
-        })
+      this.accordion02.opened
+        .subscribe(
+          ($event) => {
+            if (this.independentExperienceArray.controls.length) {
+              return;
+            }
+            this.independentExperienceArray.push(this.createFormGroup(null, 'independentExperience'));
+          }),
+      this.accordion03.opened
+        .subscribe(
+          ($event) => {
+            if (this.otherExperienceArray.controls.length) {
+              return;
+            }
+            this.otherExperienceArray.push(this.createFormGroup(null, 'otherExperience'));
+          });
   }
 
   public init = () => {
@@ -217,18 +223,17 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
     switch (nameGroup) {
       case 'employmentConditions':
         return this.fb.group({
-          company: [data && data.company ? data.company : ''],
+          company: [data && data.company ? data.company : '', Validators.required],
           dateStart: [data && data.dateStart ? data.dateStart : null],
           dateEnd: [data && data.dateEnd ? data.dateEnd : null],
-          country: [data && data.country ? data.country : null],
-          workPlace: [data && data.workPlace ? data.workPlace : ''],
-          jobTitle: [data && data.jobTitle ? data.jobTitle : ''],
-          careerLevel: [data && data.careerLevel ? data.careerLevel : null],
-          descriptions: [data && data.descriptions ? data.descriptions : ''],
-          businessArea: this.fb.array(data && data.businessArea ? data.businessArea : []),
-          employmentType: [data && data.employmentType ? data.employmentType : null],
-          industryBranch: [data && data.employmentType ? data.employmentType : ''],
-          jobDescription: [data && data.jobDescription ? data.jobDescription : ''],
+          country: [data && data.country ? data.country : null, Validators.required],
+          workPlace: [data && data.workPlace ? data.workPlace : '', Validators.required],
+          jobTitle: [data && data.jobTitle ? data.jobTitle : '', Validators.required],
+          careerLevel: [data && data.careerLevel ? data.careerLevel : null, Validators.required],
+          descriptions: [data && data.descriptions ? data.descriptions : '', Validators.required],
+          businessArea: this.fb.array(data && data.businessArea ? data.businessArea : [], Validators.required),
+          employmentType: [data && data.employmentType ? data.employmentType : null, Validators.required],
+          industryBranch: [data && data.employmentType ? data.employmentType : '', Validators.required],
           tilToday: [data && data.tilToday ? data.tilToday : false]
         });
       case 'independentExperience':
@@ -286,7 +291,6 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
   };
 
   public submit = (field: string) => {
-    console.log('FV: ', this.form.value);
     this.profileService.updateProfile(this.form.value)
       .pipe(
         switchMap(formData => {
