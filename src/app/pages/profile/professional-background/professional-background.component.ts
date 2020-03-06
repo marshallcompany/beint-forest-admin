@@ -1,12 +1,13 @@
-import {Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
-import {FormBuilder, FormGroup, FormArray, FormGroupName, FormControl} from '@angular/forms';
-import {ProfileService} from '../../../services/profile.service';
-import {debounceTime, map, share, switchMap} from 'rxjs/operators';
-import {Observable, of, throwError} from 'rxjs';
-import {SearchService} from '../../../services/search.service';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormArray, FormGroupName, FormControl } from '@angular/forms';
+import { ProfileService } from '../../../services/profile.service';
+import { debounceTime, map, share, switchMap } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
+import { SearchService } from '../../../services/search.service';
 import * as moment from 'moment';
-import {forkJoin} from 'rxjs';
-import {NotificationService} from 'src/app/services/notification.service';
+import { forkJoin } from 'rxjs';
+import { NotificationService } from 'src/app/services/notification.service';
+import { MatExpansionPanel } from '@angular/material/expansion';
 
 @Component({
   selector: 'app-professional-background',
@@ -15,12 +16,12 @@ import {NotificationService} from 'src/app/services/notification.service';
 })
 export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
   public accordionsStatus: boolean;
-  @ViewChild('accordion01', {static: false}) accordion01;
-  @ViewChild('accordion02', {static: false}) accordion02;
-  @ViewChild('accordion03', {static: false}) accordion03;
+  @ViewChild('accordion01', { static: false }) accordion01: MatExpansionPanel;
+  @ViewChild('accordion02', { static: false }) accordion02: MatExpansionPanel;
+  @ViewChild('accordion03', { static: false }) accordion03: MatExpansionPanel;
 
-  @ViewChild('ba1', {static: false}) ba1;
-  @ViewChild('ba2', {static: false}) ba2;
+  @ViewChild('ba1', { static: false }) ba1;
+  @ViewChild('ba2', { static: false }) ba2;
 
   businessArea$: Observable<Array<string>>;
   dropdownOptions$: Observable<any>;
@@ -65,6 +66,28 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
       this.ba1.searchInput.nativeElement.placeholder = 'Branche';
       this.ba2.searchInput.nativeElement.placeholder = 'Branche';
     }, 500);
+    this.onOpenAccordion();
+  }
+
+  public onOpenAccordion() {
+    this.accordion01.opened
+      .subscribe(
+        ($event) => {
+          if (this.employmentConditionsArray.controls.length) return;
+          this.employmentConditionsArray.push((this.createFormGroup(null, 'employmentConditions')))
+        }),
+    this.accordion02.opened
+      .subscribe(
+        ($event) => {
+          if (this.independentExperienceArray.controls.length) return;
+          this.independentExperienceArray.push(this.createFormGroup(null, 'independentExperience'));
+        }),
+    this.accordion03.opened
+      .subscribe(
+        ($event) => {
+          if (this.otherExperienceArray.controls.length) return;
+          this.otherExperienceArray.push(this.createFormGroup(null, 'otherExperience'));
+        })
   }
 
   public init = () => {
