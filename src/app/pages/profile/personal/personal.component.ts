@@ -194,6 +194,6 @@ export class PersonalComponent implements OnInit {
 
   searchZip($event, formGroup: FormGroup) {
     const country = formGroup.get('country').value;
-    this.zip$ = this.searchService.getZipCode('de', `${country}`, '', `${$event.term}`);
+    this.zip$ = this.searchService.getZipCode('de', `${country}`, '', `${$event.term}`).pipe(debounceTime(400), share());
   }
 }

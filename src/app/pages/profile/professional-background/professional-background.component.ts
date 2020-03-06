@@ -1,22 +1,29 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormGroupName, FormControl } from '@angular/forms';
 import { ProfileService } from '../../../services/profile.service';
-import { debounceTime, map, share } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { debounceTime, map, share, switchMap } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
 import { SearchService } from '../../../services/search.service';
 import * as moment from 'moment';
-import {forkJoin} from 'rxjs';
+import { forkJoin } from 'rxjs';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-professional-background',
   templateUrl: './professional-background.component.html',
   styleUrls: ['./professional-background.component.scss']
 })
-export class ProfessionalBackgroundComponent implements OnInit {
+export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
   public accordionsStatus: boolean;
   @ViewChild('accordion01', { static: false }) accordion01;
   @ViewChild('accordion02', { static: false }) accordion02;
   @ViewChild('accordion03', { static: false }) accordion03;
+
+  @ViewChild('ba1', { static: false }) ba1;
+
+  businessArea$: Observable<Array<string>>;
+  dropdownOptions$: Observable<any>;
+  public dropdownOptions: any;
 
   public navSettings = {
     iconCategory: '../assets/image/profile/category-03.svg',
@@ -25,10 +32,12 @@ export class ProfessionalBackgroundComponent implements OnInit {
     prevCategory: 'personal'
   };
 
+  private firstPersonalData: object;
+
   public form: FormGroup;
   public workExperience: FormGroupName;
   public employmentConditions: FormGroupName;
-  public businessArea = new FormControl();
+  public businessAreaControl = new FormControl(['']);
   public independentBusinessAreaControl = new FormControl();
   public $countriesList: Observable<string[]>;
   currentDate = moment().toDate();
@@ -38,7 +47,8 @@ export class ProfessionalBackgroundComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private profileService: ProfileService,
-    private searchService: SearchService
+    private searchService: SearchService,
+    private notificationService: NotificationService
   ) {
     this.accordionsStatus = false;
   }
@@ -48,24 +58,36 @@ export class ProfessionalBackgroundComponent implements OnInit {
     this.formInit();
   }
 
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.ba1.searchInput.nativeElement.placeholder = 'Branche';
+    }, 500);
+  }
+
   public init = () => {
     const profile$ = this.profileService.getProfile();
-    forkJoin([profile$])
+    const dropdownOptions$ = this.profileService.getLocalBundle('de');
+    forkJoin([profile$, dropdownOptions$])
       .pipe(
-        map(([profile]) => {
-          if (profile && profile.profile && profile.profile.workExperience) {
+        map(([profile, dropdownOptions]) => {
+          if (profile && profile.profile && profile.profile.workExperience && dropdownOptions && dropdownOptions.dropdownOptions) {
             return {
-              workExperience: profile.profile.workExperience
+              workExperience: profile.profile.workExperience,
+              dropdownOptions: {
+                employment_type: dropdownOptions.dropdownOptions.employment_type,
+                career_level: dropdownOptions.dropdownOptions.career_level
+              }
             };
           }
-          return [profile];
+          return [profile, dropdownOptions];
         })
       )
       .subscribe((res: any) => {
-        // this.patchFormValue(res.searchPreferences);
         console.log('res', res);
+        this.dropdownOptions = res.dropdownOptions;
+        this.patchFormValue(res.workExperience);
       });
-  };
+  }
 
   public formInit = () => {
     this.form = this.fb.group({
@@ -80,8 +102,30 @@ export class ProfessionalBackgroundComponent implements OnInit {
         })
       })
     });
-    this.setFormGroup();
-  };
+  }
+
+  private patchFormValue(searchPreferences) {
+    this.form.patchValue({
+      workExperience: {
+        employmentConditions: {
+          isNotRelevant: searchPreferences.employmentConditions && searchPreferences.employmentConditions.isNotRelevant ? searchPreferences.employmentConditions.isNotRelevant : false,
+        },
+        independentExperience: {
+          isNotRelevant: searchPreferences.independentExperience && searchPreferences.independentExperience.isNotRelevant ? searchPreferences.independentExperience.isNotRelevant : false,
+        }
+      }
+    });
+    if (!searchPreferences.employmentConditions.isNotRelevant && searchPreferences.employmentConditions.items.length) {
+      searchPreferences.employmentConditions.items.forEach(item => {
+        this.employmentConditionsArray.push(this.createFormGroup(item, 'employmentConditions'));
+      });
+    }
+    if (!searchPreferences.independentExperience.isNotRelevant && searchPreferences.independentExperience.items.length) {
+      searchPreferences.independentExperience.items.forEach(item => {
+        this.independentExperienceArray.push(this.createFormGroup(item, 'independentExperience'));
+      });
+    }
+  }
 
   notRelevant(groupName: string, nameArray: string, nameCategory: string) {
     // console.log('IR: ', this.form.get(groupName).get(nameArray));
@@ -99,13 +143,14 @@ export class ProfessionalBackgroundComponent implements OnInit {
     if (isSet) {
       group.get('dateEnd').setValue(this.currentDate.toDateString());
     }
+    this.submit('bis heute');
   }
 
   public accordionChange = () => {
     if (!this.accordion01.expanded || !this.accordion02.expanded || !this.accordion03.expanded) {
       this.accordionsStatus = false;
     }
-  };
+  }
 
   getCountryList(query: string) {
     this.$countriesList = this.searchService.getCountries('de', query).pipe(debounceTime(500), share());
@@ -123,62 +168,85 @@ export class ProfessionalBackgroundComponent implements OnInit {
     switch (nameGroup) {
       case 'employmentConditions':
         return this.fb.group({
-          company: [''],
-          dateStart: [],
-          dateEnd: [],
-          country: [],
-          workPlace: [''],
-          jobTitle: [''],
-          careerLevel: [''],
-          descriptions: [''],
-          businessArea: this.fb.array([]),
-          employmentType: [''],
-          industryBranch: [''],
-          jobDescription: [''],
-          tilToday: [false]
+          company: [data && data.company ? data.company : ''],
+          dateStart: [data && data.dateStart ? data.dateStart : null],
+          dateEnd: [data && data.dateEnd ? data.dateEnd : null],
+          country: [data && data.country ? data.country : null],
+          workPlace: [data && data.workPlace ? data.workPlace : ''],
+          jobTitle: [data && data.jobTitle ? data.jobTitle : ''],
+          careerLevel: [data && data.careerLevel ? data.careerLevel : null],
+          descriptions: [data && data.descriptions ? data.descriptions : ''],
+          businessArea: this.fb.array(data && data.businessArea ? data.businessArea : ['']),
+          employmentType: [data && data.employmentType ? data.employmentType : null],
+          industryBranch: [data && data.employmentType ? data.employmentType : ''],
+          jobDescription: [data && data.jobDescription ? data.jobDescription : ''],
+          tilToday: [data && data.tilToday ? data.tilToday : false]
         });
       case 'independentExperience':
         return this.fb.group({
-          jobTitle: ['jobTitle'],
-          companyName: ['companyName'],
-          dateStart: [null],
-          dateEnd: [null],
-          country: [''],
-          workPlace: [''],
-          jobDescription: [''],
-          isFreelancer: [false],
-          businessArea: this.fb.array(['xxxx', 'wwwww']),
-          tilToday: [false]
+          jobTitle: [data && data.jobTitle ? data.jobTitle : ''],
+          companyName: [data && data.companyName ? data.companyName : ''],
+          dateStart: [data && data.dateStart ? data.dateStart : null],
+          dateEnd: [data && data.dateEnd ? data.dateEnd : null],
+          country: [data && data.country ? data.country : null],
+          workPlace: [data && data.workPlace ? data.workPlace : ''],
+          jobDescription: [data && data.jobDescription ? data.jobDescription : ''],
+          isFreelancer: [data && data.isFreelancer ? data.isFreelancer : false],
+          businessArea: this.fb.array(data && data.businessArea ? data.businessArea : ['']),
+          tilToday: [data && data.tilToday ? data.tilToday : false]
         });
       default:
         break;
     }
-  };
+  }
 
   public remove = (nameArray, nameCategory, index) => {
     this[nameArray].removeAt(index);
     if (this[nameArray].value.length < 1) {
       this[nameArray].push(this.createFormGroup({}, nameCategory));
     }
-  };
+  }
 
-  public formArrayRemove = (index, formArrayName, field) => {
-    console.log(this[formArrayName]);
-    // if (index && formArrayName && field) {
-    //   this[formArrayName].removeAt(index);
-    //   this.submit(field);
-    // } else if (index === 0) {
-    //   this[formArrayName].removeAt();
-    //   this.submit(field);
-    // }
-  };
+  public formArrayRemove = (index, itemIndex, formArrayName, field, message) => {
+    console.log(this[formArrayName].at(index).controls[field].removeAt(itemIndex));
+    this[formArrayName].at(index).controls[field].removeAt(itemIndex)
+    this.submit(message);
+  }
+
+  public formArrayPush = (value, formArrayName, field, index) => {
+    this[formArrayName].controls[index].controls[field].push(this.fb.control(value.slice(-1)[0]));
+    this.submit('field');
+  }
 
   public setFormGroup = (status?: string) => {
-    this.employmentConditionsArray.push(this.createFormGroup({}, 'employmentConditions'));
-    this.independentExperienceArray.push(this.createFormGroup({}, 'independentExperience'));
-  };
+    this[`${status}Array`].push(this.createFormGroup({}, status));
+  }
 
-  public submit = (fieldName) => {
-    console.log('submit', this.form.value);
-  };
+  public submit = (field: string) => {
+    console.log('FV: ', this.form.value);
+    this.profileService.updateProfile(this.form.value)
+      .pipe(
+        switchMap(formData => {
+          if (JSON.stringify(this.firstPersonalData) === JSON.stringify(this.form.value)) {
+            return throwError('[ Fields have not changed ]');
+          }
+          return of(formData);
+        })
+      )
+      .subscribe(
+        res => {
+          console.log('[ UPDATE PROFILE ]', res);
+          this.firstPersonalData = this.form.value;
+          this.notificationService.notify(`Field ${field} updated successfully!`, 'success');
+        },
+        err => {
+          console.log('[ ERROR UPDATE PROFILE ]', err);
+        }
+      );
+  }
+
+  searchBusinessArea($event) {
+    this.businessArea$ = this.searchService.getBusinessBranches('de', `${$event.term}`).pipe(debounceTime(400), share());
+  }
+
 }
