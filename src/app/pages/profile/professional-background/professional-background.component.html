@@ -72,7 +72,7 @@
                   <div class="remove-fields">
                     <button
                       class="remove-fields__button"
-                      (click)="remove('employmentConditionsArray', 'employmentConditions', i)">
+                      (click)="deleteFormGroup(employmentConditionsArray, i, 'employmentConditions')">
                       <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" class="remove-fields__icon">
                         <path d="M0.050293 0.050293L9.94979 9.94979M9.94979 0.050293L0.0502933 9.94979" stroke-width="2"
                               stroke-linecap="round"/>
@@ -378,7 +378,7 @@
                 </div>
                 <button
                   class="subcategory-preview-item__remove"
-                  (click)="remove('employmentConditionsArray', 'employmentConditions', i)">
+                  (click)="deleteFormGroup(employmentConditionsArray, i)">
                   <img src="../assets/image/close.svg">
                 </button>
               </ng-container>
@@ -441,7 +441,7 @@
                   <div class="remove-fields">
                     <button
                       class="remove-fields__button"
-                      (click)="remove('independentExperienceArray', 'independentExperience', i)">
+                      (click)="deleteFormGroup(independentExperienceArray, i, 'independentExperience')">
                       <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" class="remove-fields__icon">
                         <path d="M0.050293 0.050293L9.94979 9.94979M9.94979 0.050293L0.0502933 9.94979" stroke-width="2"
                               stroke-linecap="round"/>
@@ -693,7 +693,7 @@
                 </div>
                 <button
                   class="subcategory-preview-item__remove"
-                  (click)="remove('independentExperienceArray', 'independentExperience', i)">
+                  (click)="deleteFormGroup(independentExperienceArray, i)">
                   <img src="../assets/image/close.svg">
                 </button>
               </ng-container>
@@ -756,7 +756,7 @@
                   <div class="remove-fields">
                     <button
                       class="remove-fields__button"
-                      (click)="remove('otherExperienceArray', 'otherExperienc', i)">
+                      (click)="deleteFormGroup('otherExperienceArray', i, 'otherExperienc')">
                       <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" class="remove-fields__icon">
                         <path d="M0.050293 0.050293L9.94979 9.94979M9.94979 0.050293L0.0502933 9.94979" stroke-width="2"
                               stroke-linecap="round"/>
@@ -945,7 +945,7 @@
                 </div>
                 <button
                   class="subcategory-preview-item__remove"
-                  (click)="remove('otherExperienceArray', 'otherExperience', i)">
+                  (click)="deleteFormGroup(otherExperienceArray, i)">
                   <img src="../assets/image/close.svg">
                 </button>
               </ng-container>

@@ -60,62 +60,6 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.onOpenAccordion();
-    this.onCloseAccordion();
-  }
-
-  public onCloseAccordion() {
-    this.accordion01.closed
-      .subscribe(
-        ($event) => {
-          if (this.employmentConditionsArray.controls.length === 1) {
-            const val = this.employmentConditionsArray.controls[0].value;
-            let removeFormGroupItem = true;
-            Object.keys(val).forEach(key => {
-              if (val[key]) {
-                removeFormGroupItem = false;
-                console.log(key);
-                console.log(val[key]);
-              }
-            });
-            if (removeFormGroupItem) {
-              this.employmentConditionsArray.removeAt(0);
-            }
-          }
-        });
-    this.accordion02.closed
-      .subscribe(
-        ($event) => {
-          if (this.independentExperienceArray.controls.length === 1) {
-            const val = this.independentExperienceArray.controls[0].value;
-            let removeFormGroupItem = true;
-            Object.keys(val).forEach(key => {
-              if (val[key]) {
-                removeFormGroupItem = false;
-                console.log(val[key]);
-              }
-            });
-            if (removeFormGroupItem) {
-              this.independentExperienceArray.removeAt(0);
-            }
-          }
-        });
-    this.accordion03.closed
-      .subscribe(
-        ($event) => {
-          if (this.otherExperienceArray.controls.length === 1) {
-            const val = this.otherExperienceArray.controls[0].value;
-            let removeFormGroupItem = true;
-            Object.keys(val).forEach(key => {
-              if (val[key]) {
-                removeFormGroupItem = false;
-                console.log(val[key]);
-              }
-            });
-            if (removeFormGroupItem) {
-              this.otherExperienceArray.removeAt(0);
-            }
-          }
-        });
   }
 
   public onOpenAccordion() {
@@ -313,10 +257,14 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
     }
   };
 
-  public remove = (nameArray, nameCategory, index) => {
-    this[nameArray].removeAt(index);
-    if (this[nameArray].value.length < 1) {
-      this[nameArray].push(this.createFormGroup({}, nameCategory));
+  public deleteFormGroup = (nameArray: FormArray, index: number, formGroupName?: string) => {
+    if (nameArray && formGroupName && nameArray.controls.length < 2) {
+      nameArray.removeAt(index);
+      nameArray.push(this.createFormGroup({}, formGroupName));
+      this.submit('');
+    } else {
+      nameArray.removeAt(index);
+      this.submit('');
     }
   };
 
