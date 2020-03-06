@@ -191,7 +191,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
           jobTitle: [data && data.jobTitle ? data.jobTitle : ''],
           careerLevel: [data && data.careerLevel ? data.careerLevel : null],
           descriptions: [data && data.descriptions ? data.descriptions : ''],
-          businessArea: this.fb.array(data && data.businessArea ? data.businessArea : ['']),
+          businessArea: this.fb.array(data && data.businessArea ? data.businessArea : []),
           employmentType: [data && data.employmentType ? data.employmentType : null],
           industryBranch: [data && data.employmentType ? data.employmentType : ''],
           jobDescription: [data && data.jobDescription ? data.jobDescription : ''],
@@ -207,7 +207,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
           workPlace: [data && data.workPlace ? data.workPlace : ''],
           jobDescription: [data && data.jobDescription ? data.jobDescription : ''],
           isFreelancer: [data && data.isFreelancer ? data.isFreelancer : false],
-          businessArea: this.fb.array(data && data.businessArea ? data.businessArea : ['']),
+          businessArea: this.fb.array(data && data.businessArea ? data.businessArea : []),
           tilToday: [data && data.tilToday ? data.tilToday : false]
         });
       case 'otherExperience':

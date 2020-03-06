@@ -595,7 +595,7 @@
                 <div class="add-fields">
                   <button
                     class="add-fields__button"
-                    (click)="setFormGroup('newWorkFields')">
+                    (click)="setFormGroup('independentExperience')">
                     <img src="../assets/image/plus.svg">
                   </button>
                 </div>
@@ -673,7 +673,7 @@
                   <div class="remove-fields">
                     <button
                       class="remove-fields__button"
-                      (click)="remove('independentExperienceArray', 'independentExperience', i)">
+                      (click)="remove('otherExperienceArray', 'otherExperienc', i)">
                       <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" class="remove-fields__icon">
                         <path d="M0.050293 0.050293L9.94979 9.94979M9.94979 0.050293L0.0502933 9.94979" stroke-width="2"
                               stroke-linecap="round"/>
@@ -809,7 +809,7 @@
                 <div class="add-fields">
                   <button
                     class="add-fields__button"
-                    (click)="setFormGroup('newWorkFields')">
+                    (click)="setFormGroup('otherExperience')">
                     <img src="../assets/image/plus.svg">
                   </button>
                 </div>
@@ -818,10 +818,10 @@
           </mat-expansion-panel>
           <div
             class="subcategory-preview"
-            *ngIf="!accordion02.expanded">
+            *ngIf="!accordion03.expanded">
             <div
               class="subcategory-preview-item"
-              *ngFor="let item of independentExperienceArray.value; let i = index">
+              *ngFor="let item of otherExperienceArray.value; let i = index">
               <ng-container>
                 <div class="subcategory-preview-info">
                   <p class="subcategory-preview-info__number">
@@ -835,7 +835,7 @@
                 </div>
                 <button
                   class="subcategory-preview-item__remove"
-                  (click)="remove('independentExperienceArray', 'independentExperience', i)">
+                  (click)="remove('otherExperienceArray', 'otherExperience', i)">
                   <img src="../assets/image/close.svg">
                 </button>
               </ng-container>
