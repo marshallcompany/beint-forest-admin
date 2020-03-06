@@ -389,6 +389,7 @@
                     <input
                       type="checkbox"
                       class="not-relevant__checkbox"
+                      (change)="notRelevant('workExperience', 'independentExperienceArray', 'independentExperience')"
                       formControlName="isNotRelevant">
                     <span class="checkmark"></span>
                   </label>
@@ -660,6 +661,7 @@
                     <input
                       type="checkbox"
                       class="not-relevant__checkbox"
+                      (change)="notRelevant('workExperience', 'otherExperienceArray', 'otherExperience')"
                       formControlName="isNotRelevant">
                     <span class="checkmark"></span>
                   </label>

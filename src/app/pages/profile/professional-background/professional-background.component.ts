@@ -1,12 +1,12 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, FormGroupName, FormControl } from '@angular/forms';
-import { ProfileService } from '../../../services/profile.service';
-import { debounceTime, map, share, switchMap } from 'rxjs/operators';
-import { Observable, of, throwError } from 'rxjs';
-import { SearchService } from '../../../services/search.service';
+import {Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
+import {FormBuilder, FormGroup, FormArray, FormGroupName, FormControl} from '@angular/forms';
+import {ProfileService} from '../../../services/profile.service';
+import {debounceTime, map, share, switchMap} from 'rxjs/operators';
+import {Observable, of, throwError} from 'rxjs';
+import {SearchService} from '../../../services/search.service';
 import * as moment from 'moment';
-import { forkJoin } from 'rxjs';
-import { NotificationService } from 'src/app/services/notification.service';
+import {forkJoin} from 'rxjs';
+import {NotificationService} from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-professional-background',
@@ -15,11 +15,11 @@ import { NotificationService } from 'src/app/services/notification.service';
 })
 export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
   public accordionsStatus: boolean;
-  @ViewChild('accordion01', { static: false }) accordion01;
-  @ViewChild('accordion02', { static: false }) accordion02;
-  @ViewChild('accordion03', { static: false }) accordion03;
+  @ViewChild('accordion01', {static: false}) accordion01;
+  @ViewChild('accordion02', {static: false}) accordion02;
+  @ViewChild('accordion03', {static: false}) accordion03;
 
-  @ViewChild('ba1', { static: false }) ba1;
+  @ViewChild('ba1', {static: false}) ba1;
 
   businessArea$: Observable<Array<string>>;
   dropdownOptions$: Observable<any>;
@@ -87,7 +87,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
         this.dropdownOptions = res.dropdownOptions;
         this.patchFormValue(res.workExperience);
       });
-  }
+  };
 
   public formInit = () => {
     this.form = this.fb.group({
@@ -106,7 +106,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
         })
       })
     });
-  }
+  };
 
   private patchFormValue(searchPreferences) {
     this.form.patchValue({
@@ -140,14 +140,17 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
   }
 
   notRelevant(groupName: string, nameArray: string, nameCategory: string) {
-    // console.log('IR: ', this.form.get(groupName).get(nameArray));
-    // const isRelevant = this.form.get(groupName).get(nameArray).get('isNotRelevant').value;
-    // debugger;
-    // const length = this[nameArray].controls.length;
-    // for (let i = 0; i <= length; i++) {
-    //   this.remove(nameArray, nameCategory, i);
-    // }
-    // this[nameArray].controls[0].disable();
+    const isRelevant = this.form.get(groupName).get(nameCategory).get('isNotRelevant').value;
+    if (!isRelevant) {
+      this[nameArray].controls[0].enable();
+      return;
+    }
+    const length = this[nameArray].controls.length;
+    for (let i = 0; i < length; i++) {
+      this[nameArray].removeAt(0);
+    }
+    this[nameArray].push(this.createFormGroup({}, nameCategory));
+    this[nameArray].controls[0].disable();
   }
 
   setTodayDate(group: FormGroup) {
@@ -162,7 +165,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
     if (!this.accordion01.expanded || !this.accordion02.expanded || !this.accordion03.expanded) {
       this.accordionsStatus = false;
     }
-  }
+  };
 
   getCountryList(query: string) {
     this.$countriesList = this.searchService.getCountries('de', query).pipe(debounceTime(500), share());
@@ -175,6 +178,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
   public get independentExperienceArray(): FormArray {
     return this.form.get('workExperience').get('independentExperience').get('items') as FormArray;
   }
+
   public get otherExperienceArray(): FormArray {
     return this.form.get('workExperience').get('otherExperience').get('items') as FormArray;
   }
@@ -223,29 +227,33 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
       default:
         break;
     }
-  }
+  };
 
   public remove = (nameArray, nameCategory, index) => {
     this[nameArray].removeAt(index);
     if (this[nameArray].value.length < 1) {
       this[nameArray].push(this.createFormGroup({}, nameCategory));
     }
-  }
+  };
 
   public formArrayRemove = (index, itemIndex, formArrayName, field, message) => {
     console.log(this[formArrayName].at(index).controls[field].removeAt(itemIndex));
-    this[formArrayName].at(index).controls[field].removeAt(itemIndex)
+    this[formArrayName].at(index).controls[field].removeAt(itemIndex);
     this.submit(message);
-  }
+  };
 
   public formArrayPush = (value, formArrayName, field, index) => {
     this[formArrayName].controls[index].controls[field].push(this.fb.control(value.slice(-1)[0]));
     this.submit('field');
-  }
+  };
 
   public setFormGroup = (status?: string) => {
+    const isNotRelevant = this.form.get('workExperience').get(status).get('isNotRelevant').value;
+    if (isNotRelevant) {
+      return;
+    }
     this[`${status}Array`].push(this.createFormGroup({}, status));
-  }
+  };
 
   public submit = (field: string) => {
     console.log('FV: ', this.form.value);
@@ -268,7 +276,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
           console.log('[ ERROR UPDATE PROFILE ]', err);
         }
       );
-  }
+  };
 
   searchBusinessArea($event) {
     this.businessArea$ = this.searchService.getBusinessBranches('de', `${$event.term}`).pipe(debounceTime(400), share());
