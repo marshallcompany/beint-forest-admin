@@ -481,16 +481,18 @@
                       </div>
                     </div>
                   </div>
-                  <div class="field field_select field_select-search">
+                  <div class="field field_select field_select-search single">
                     <p class="field__label">Land</p>
                     <div class="field-wrapper">
                       <ng-select
+                        [searchable]="true"
+                        [items]="$countriesList | async"
                         [clearable]="false"
-                        [multiple]="true"
-                        [hideSelected]="true"
-                        [formControl]="independentBusinessAreaControl"
-                        (change)="formArrayPush($event, 'industryBranchesArray', 'Branche')"
-                        class="custom-select">
+                        [placeholder]="'Land'"
+                        (search)="getCountryList($event.term)"
+                        (change)="submit('Land')"
+                        class="custom-select"
+                        formControlName="country">
                       </ng-select>
                       <div class="field-wrapper__type">abc</div>
                       <div
@@ -695,16 +697,18 @@
                         [ngClass]="{invalid : !this.form.get('workExperience').get('otherExperience').get('items').controls[i].get('jobTitle').value}"></div>
                     </div>
                   </div>
-                  <div class="field field_select field_select-search">
+                  <div class="field field_select field_select-search single">
                     <p class="field__label">Land</p>
                     <div class="field-wrapper">
                       <ng-select
+                        [searchable]="true"
+                        [items]="$countriesList | async"
                         [clearable]="false"
-                        [multiple]="true"
-                        [hideSelected]="true"
-                        formControlName="country"
-                        (change)="formArrayPush($event, 'otherExperienceArray', 'Branche', i)"
-                        class="custom-select">
+                        [placeholder]="'Land'"
+                        (search)="getCountryList($event.term)"
+                        (change)="submit('Land')"
+                        class="custom-select"
+                        formControlName="country">
                       </ng-select>
                       <div class="field-wrapper__type">abc</div>
                       <div
