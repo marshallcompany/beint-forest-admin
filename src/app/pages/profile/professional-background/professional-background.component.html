@@ -635,17 +635,19 @@
             *ngIf="!accordion02.expanded">
             <div
               class="subcategory-preview-item"
-              *ngFor="let item of independentExperienceArray.value; let i = index">
-              <ng-container>
+              *ngFor="let item of this.form.get('workExperience').get('independentExperience').get('items').controls; let i = index">
+              <ng-container *ngIf="item.valid; else notValid">
                 <div class="subcategory-preview-info">
                   <p class="subcategory-preview-info__number">
                     <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
                   </p>
-                  <p class="subcategory-preview-info__species">{{ item.jobTitle }}</p>
-                  <div class="subcategory-preview-info__circle"></div>
-                  <p class="subcategory-preview-info__date">08/2005 - 02/2009</p>
-                  <div class="subcategory-preview-info__circle"></div>
-                  <p class="subcategory-preview-info__scope">{{ item.companyName }}</p>
+                  <div class="subcategory-preview-info__details">
+                    <p class="subcategory-preview-info__species">{{ item.get('companyName').value }}</p>
+                    <div class="subcategory-preview-info__circle"></div>
+                    <p class="subcategory-preview-info__date">{{ item.get('dateStart').value | date: 'dd/yyyy' }} - {{ item.get('dateEnd').value | date: 'dd/yyyy' }}</p>
+                    <div class="subcategory-preview-info__circle"></div>
+                    <p class="subcategory-preview-info__scope">{{ item.get('jobTitle').value }}</p>
+                  </div>
                 </div>
                 <button
                   class="subcategory-preview-item__remove"
@@ -653,6 +655,16 @@
                   <img src="../assets/image/close.svg">
                 </button>
               </ng-container>
+              <ng-template #notValid>
+                <div class="subcategory-preview-info">
+                  <p class="subcategory-preview-info__number">
+                  <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
+                </p>
+                  <div class="subcategory-preview-info__details">
+                    <p class="subcategory-preview-info__invalid">Unvollständige Angaben</p>
+                  </div>
+                </div>
+              </ng-template>
             </div>
           </div>
         </div>
@@ -743,8 +755,98 @@
                         [ngClass]="{invalid : !this.form.get('workExperience').get('otherExperience').get('items').controls[i].get('country').value}"></div>
                     </div>
                   </div>
-                  <div class="field field_select field_select-search single"
-                       [ngClass]="{disabled : !this.form.get('workExperience').get('otherExperience').get('items').controls[i].get('country').value}">
+
+                  <div class="field field_group">
+                    <div
+                      class="field field_select field_select-search single"
+                      [ngClass]="{disabled : !this.form.get('workExperience').get('otherExperience').get('items').controls[i].get('country').value}">
+                      <p class="field__label">Ort</p>
+                      <div class="field-wrapper">
+                        <ng-select
+                          [searchable]="true"
+                          [items]="$citiesList | async"
+                          [clearable]="false"
+                          [placeholder]="'Ort'"
+                          (search)="getCityList($event.term)"
+                          (change)="submit('Ort')"
+                          class="custom-select"
+                          formControlName="workPlace">
+                        </ng-select>
+                        <div class="field-wrapper__type">abc</div>
+                        <div
+                          class="field-wrapper__status"
+                          [ngClass]="{invalid : !this.form.get('workExperience').get('otherExperience').get('items').controls[i].get('country').value}">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="datepicker-group">
+                      <div class="field field_datapicker">
+                        <p class="field__label">Von</p>
+                        <div
+                          class="field-wrapper"
+                          [owlDateTimeTrigger]="dt1">
+                          <input
+                            [owlDateTime]="dt1"
+                            [max]="previousDate"
+                            (dateTimeChange)="submit('Von')"
+                            class="field-wrapper__input"
+                            formControlName="dateStart"
+                            placeholder="DD/MM/YYYY">
+                          <owl-date-time
+                            #dt1
+                            pickerMode="dialog"
+                            pickerType="calendar"
+                            panelClass="calendar"></owl-date-time>
+                          <div class="field-wrapper__type">
+                            <img src="../assets/image/calendar.svg">
+                          </div>
+                          <div
+                            [ngClass]="{invalid : !form.get('workExperience').get('otherExperience').get('items').controls[i].get('dateStart').value }"
+                            class="field-wrapper__status"></div>
+                        </div>
+                      </div>
+                      <div class="field field_datapicker">
+                        <p class="field__label">Bis</p>
+                        <div
+                          class="field-wrapper"
+                          [owlDateTimeTrigger]="dt2">
+                          <input
+                            [owlDateTime]="dt2"
+                            [max]="currentDate"
+                            (dateTimeChange)="submit('Bis')"
+                            class="field-wrapper__input"
+                            formControlName="dateEnd"
+                            placeholder="DD/MM/YYYY">
+                          <owl-date-time
+                            #dt2
+                            pickerMode="dialog"
+                            pickerType="calendar"
+                            panelClass="calendar"></owl-date-time>
+                          <div class="field-wrapper__type">
+                            <img src="../assets/image/calendar.svg">
+                          </div>
+                          <div
+                            [ngClass]="{invalid : !form.get('workExperience').get('otherExperience').get('items').controls[i].get('dateEnd').value }"
+                            class="field-wrapper__status"></div>
+                        </div>
+                      </div>
+                      <div class="datapicker-checkbox">
+                        <label class="checkbox-container">
+                          bis heute
+                          <input
+                            type="checkbox"
+                            class="not-relevant__checkbox"
+                            (change)="submit('bis heute')"
+                            formControlName="tilToday">
+                          <span class="checkmark"></span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- <div
+                    class="field field_select field_select-search single"
+                    [ngClass]="{disabled : !this.form.get('workExperience').get('otherExperience').get('items').controls[i].get('country').value}">
                     <p class="field__label">Ort</p>
                     <div class="field-wrapper">
                       <ng-select
@@ -763,7 +865,8 @@
                         [ngClass]="{invalid : !this.form.get('workExperience').get('otherExperience').get('items').controls[i].get('country').value}">
                       </div>
                     </div>
-                  </div>
+                  </div> -->
+
                   <div class="field field_textarea">
                     <p class="field__label">Beschreibung</p>
                     <div class="field-wrapper">
@@ -795,18 +898,18 @@
             *ngIf="!accordion03.expanded">
             <div
               class="subcategory-preview-item"
-              *ngFor="let item of otherExperienceArray.value; let i = index">
-              <ng-container>
+              *ngFor="let item of this.form.get('workExperience').get('otherExperience').get('items').controls; let i = index">
+              <ng-container *ngIf="item.valid; else notValid">
                 <div class="subcategory-preview-info">
                   <p class="subcategory-preview-info__number">
                     <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
                   </p>
                   <div class="subcategory-preview-info__details">
-                    <p class="subcategory-preview-info__species">{{ item.jobTitle }}</p>
+                    <p class="subcategory-preview-info__species">{{ item.get('jobTitle').value }}</p>
                     <div class="subcategory-preview-info__circle"></div>
-                    <p class="subcategory-preview-info__date">08/2005 - 02/2009</p>
+                    <p class="subcategory-preview-info__date">{{ item.get('dateStart').value | date: 'dd/yyyy' }} - {{ item.get('dateEnd').value | date: 'dd/yyyy' }}</p>
                     <div class="subcategory-preview-info__circle"></div>
-                    <p class="subcategory-preview-info__scope">{{ item.companyName }}</p>
+                    <p class="subcategory-preview-info__scope">{{ item.get('workPlace').value }}</p>
                   </div>
                 </div>
                 <button
@@ -815,6 +918,16 @@
                   <img src="../assets/image/close.svg">
                 </button>
               </ng-container>
+              <ng-template #notValid>
+                <div class="subcategory-preview-info">
+                  <p class="subcategory-preview-info__number">
+                  <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
+                </p>
+                  <div class="subcategory-preview-info__details">
+                    <p class="subcategory-preview-info__invalid">Unvollständige Angaben</p>
+                  </div>
+                </div>
+              </ng-template>
             </div>
           </div>
         </div>

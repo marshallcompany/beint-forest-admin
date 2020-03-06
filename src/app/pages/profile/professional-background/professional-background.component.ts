@@ -1,13 +1,13 @@
-import {Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
-import {FormBuilder, FormGroup, FormArray, FormGroupName, FormControl, Validators} from '@angular/forms';
-import {ProfileService} from '../../../services/profile.service';
-import {debounceTime, map, share, switchMap, tap} from 'rxjs/operators';
-import {Observable, of, throwError} from 'rxjs';
-import {SearchService} from '../../../services/search.service';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormArray, FormGroupName, FormControl, Validators } from '@angular/forms';
+import { ProfileService } from '../../../services/profile.service';
+import { debounceTime, map, share, switchMap, tap } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
+import { SearchService } from '../../../services/search.service';
 import * as moment from 'moment';
-import {forkJoin} from 'rxjs';
-import {NotificationService} from 'src/app/services/notification.service';
-import {MatExpansionPanel} from '@angular/material/expansion';
+import { forkJoin } from 'rxjs';
+import { NotificationService } from 'src/app/services/notification.service';
+import { MatExpansionPanel } from '@angular/material/expansion';
 
 @Component({
   selector: 'app-professional-background',
@@ -16,9 +16,9 @@ import {MatExpansionPanel} from '@angular/material/expansion';
 })
 export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
   public accordionsStatus: boolean;
-  @ViewChild('accordion01', {static: false}) accordion01: MatExpansionPanel;
-  @ViewChild('accordion02', {static: false}) accordion02: MatExpansionPanel;
-  @ViewChild('accordion03', {static: false}) accordion03: MatExpansionPanel;
+  @ViewChild('accordion01', { static: false }) accordion01: MatExpansionPanel;
+  @ViewChild('accordion02', { static: false }) accordion02: MatExpansionPanel;
+  @ViewChild('accordion03', { static: false }) accordion03: MatExpansionPanel;
 
   businessArea$: Observable<Array<string>>;
   dropdownOptions$: Observable<any>;
@@ -232,25 +232,25 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
         });
       case 'independentExperience':
         return this.fb.group({
-          jobTitle: [data && data.jobTitle ? data.jobTitle : ''],
-          companyName: [data && data.companyName ? data.companyName : ''],
-          dateStart: [data && data.dateStart ? data.dateStart : null],
-          dateEnd: [data && data.dateEnd ? data.dateEnd : null],
-          country: [data && data.country ? data.country : null],
-          workPlace: [data && data.workPlace ? data.workPlace : ''],
-          jobDescription: [data && data.jobDescription ? data.jobDescription : ''],
+          jobTitle: [data && data.jobTitle ? data.jobTitle : '', Validators.required],
+          companyName: [data && data.companyName ? data.companyName : '', Validators.required],
+          dateStart: [data && data.dateStart ? data.dateStart : null, Validators.required],
+          dateEnd: [data && data.dateEnd ? data.dateEnd : null, Validators.required],
+          country: [data && data.country ? data.country : null, Validators.required],
+          workPlace: [data && data.workPlace ? data.workPlace : '', Validators.required],
+          jobDescription: [data && data.jobDescription ? data.jobDescription : '', Validators.required],
           isFreelancer: [data && data.isFreelancer ? data.isFreelancer : false],
-          businessArea: this.fb.array(data && data.businessArea ? data.businessArea : []),
+          businessArea: this.fb.array(data && data.businessArea ? data.businessArea : [], Validators.required),
           tilToday: [data && data.tilToday ? data.tilToday : false]
         });
       case 'otherExperience':
         return this.fb.group({
-          jobTitle: [data && data.jobTitle ? data.jobTitle : ''],
-          dateStart: [data && data.dateStart ? data.dateStart : null],
-          dateEnd: [data && data.dateEnd ? data.dateEnd : null],
-          country: [data && data.country ? data.country : null],
-          workPlace: [data && data.workPlace ? data.workPlace : ''],
-          jobDescription: [data && data.jobDescription ? data.jobDescription : ''],
+          jobTitle: [data && data.jobTitle ? data.jobTitle : '', Validators.required],
+          dateStart: [data && data.dateStart ? data.dateStart : null, Validators.required],
+          dateEnd: [data && data.dateEnd ? data.dateEnd : null, Validators.required],
+          country: [data && data.country ? data.country : null, Validators.required],
+          workPlace: [data && data.workPlace ? data.workPlace : '', Validators.required],
+          jobDescription: [data && data.jobDescription ? data.jobDescription : '', Validators.required],
           tilToday: [data && data.tilToday ? data.tilToday : false]
         });
       default:
