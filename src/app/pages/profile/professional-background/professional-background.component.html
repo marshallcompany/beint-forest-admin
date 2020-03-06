@@ -249,12 +249,12 @@
                         placeholder="Beschreibung"
                         class="field-wrapper__input"
                         rows="8"
-                        formControlName="descriptions"
+                        formControlName="jobDescription"
                         (change)="submit('Beschreibung')"></textarea>
                       <div class="field-wrapper__type">abc</div>
                       <div
                         class="field-wrapper__status"
-                        [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').get('items').controls[i].get('descriptions').value}"></div>
+                        [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').get('items').controls[i].get('jobDescription').value}"></div>
                     </div>
                   </div>
                   <div class="field field-group">
@@ -738,83 +738,24 @@
                         [ngClass]="{invalid : !this.form.get('workExperience').get('otherExperience').get('items').controls[i].get('country').value}"></div>
                     </div>
                   </div>
-                  <div class="field field_group">
-                    <div class="field">
-                      <p class="field__label">Ort</p>
-                      <div class="field-wrapper">
-                        <input
-                          type="text"
-                          placeholder="Ort"
-                          class="field-wrapper__input"
-                          formControlName="workPlace"
-                          (change)="submit('Ort')">
-                        <div class="field-wrapper__type">abc</div>
-                        <div
-                          class="field-wrapper__status"
-                          [ngClass]="{invalid : !this.form.get('workExperience').get('otherExperience').get('items').controls[i].get('workPlace').value}"></div>
-                      </div>
-                    </div>
-                    <div class="datepicker-group">
-                      <div class="field field_datapicker">
-                        <p class="field__label">Von</p>
-                        <div
-                          class="field-wrapper"
-                          [owlDateTimeTrigger]="dt1">
-                          <input
-                            [owlDateTime]="dt1"
-                            [max]="previousDate"
-                            (dateTimeChange)="submit('Von')"
-                            class="field-wrapper__input"
-                            formControlName="dateStart"
-                            placeholder="DD/MM/YYYY">
-                          <owl-date-time
-                            #dt1
-                            pickerMode="dialog"
-                            pickerType="calendar"
-                            panelClass="calendar"></owl-date-time>
-                          <div class="field-wrapper__type">
-                            <img src="../assets/image/calendar.svg">
-                          </div>
-                          <div
-                            [ngClass]="{invalid : !form.get('workExperience').get('otherExperience').get('items').controls[i].get('dateStart').value }"
-                            class="field-wrapper__status"></div>
-                        </div>
-                      </div>
-                      <div class="field field_datapicker">
-                        <p class="field__label">Bis</p>
-                        <div
-                          class="field-wrapper"
-                          [owlDateTimeTrigger]="dt2">
-                          <input
-                            [owlDateTime]="dt2"
-                            [max]="currentDate"
-                            (dateTimeChange)="submit('Bis')"
-                            class="field-wrapper__input"
-                            formControlName="dateEnd"
-                            placeholder="DD/MM/YYYY">
-                          <owl-date-time
-                            #dt2
-                            pickerMode="dialog"
-                            pickerType="calendar"
-                            panelClass="calendar"></owl-date-time>
-                          <div class="field-wrapper__type">
-                            <img src="../assets/image/calendar.svg">
-                          </div>
-                          <div
-                            [ngClass]="{invalid : !form.get('workExperience').get('otherExperience').get('items').controls[i].get('dateEnd').value }"
-                            class="field-wrapper__status"></div>
-                        </div>
-                      </div>
-                      <div class="datapicker-checkbox">
-                        <label class="checkbox-container">
-                          bis heute
-                          <input
-                            type="checkbox"
-                            class="not-relevant__checkbox"
-                            (change)="submit('bis heute')"
-                            formControlName="tilToday">
-                          <span class="checkmark"></span>
-                        </label>
+                  <div class="field field_select field_select-search single"
+                       [ngClass]="{disabled : !this.form.get('workExperience').get('otherExperience').get('items').controls[i].get('country').value}">
+                    <p class="field__label">Ort</p>
+                    <div class="field-wrapper">
+                      <ng-select
+                        [searchable]="true"
+                        [items]="$citiesList | async"
+                        [clearable]="false"
+                        [placeholder]="'Ort'"
+                        (search)="getCityList($event.term)"
+                        (change)="submit('Ort')"
+                        class="custom-select"
+                        formControlName="workPlace">
+                      </ng-select>
+                      <div class="field-wrapper__type">abc</div>
+                      <div
+                        class="field-wrapper__status"
+                        [ngClass]="{invalid : !this.form.get('workExperience').get('otherExperience').get('items').controls[i].get('country').value}">
                       </div>
                     </div>
                   </div>

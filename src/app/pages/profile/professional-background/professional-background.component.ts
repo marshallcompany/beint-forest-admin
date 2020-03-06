@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
 import {FormBuilder, FormGroup, FormArray, FormGroupName, FormControl, Validators} from '@angular/forms';
 import {ProfileService} from '../../../services/profile.service';
-import {debounceTime, map, share, switchMap} from 'rxjs/operators';
+import {debounceTime, map, share, switchMap, tap} from 'rxjs/operators';
 import {Observable, of, throwError} from 'rxjs';
 import {SearchService} from '../../../services/search.service';
 import * as moment from 'moment';
@@ -19,9 +19,6 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
   @ViewChild('accordion01', {static: false}) accordion01: MatExpansionPanel;
   @ViewChild('accordion02', {static: false}) accordion02: MatExpansionPanel;
   @ViewChild('accordion03', {static: false}) accordion03: MatExpansionPanel;
-
-  @ViewChild('ba1', {static: false}) ba1;
-  @ViewChild('ba2', {static: false}) ba2;
 
   businessArea$: Observable<Array<string>>;
   dropdownOptions$: Observable<any>;
@@ -62,10 +59,6 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    setTimeout(() => {
-      this.ba1.searchInput.nativeElement.placeholder = 'Branche';
-      this.ba2.searchInput.nativeElement.placeholder = 'Branche';
-    }, 500);
     this.onOpenAccordion();
   }
 
@@ -183,6 +176,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
     }
     this[nameArray].push(this.createFormGroup({}, nameCategory));
     this[nameArray].controls[0].disable();
+    this.submit('Für mich nicht relevant');
   }
 
   setTodayDate(group: FormGroup) {
@@ -230,7 +224,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
           workPlace: [data && data.workPlace ? data.workPlace : '', Validators.required],
           jobTitle: [data && data.jobTitle ? data.jobTitle : '', Validators.required],
           careerLevel: [data && data.careerLevel ? data.careerLevel : null, Validators.required],
-          descriptions: [data && data.descriptions ? data.descriptions : '', Validators.required],
+          jobDescription: [data && data.jobDescription ? data.jobDescription : '', Validators.required],
           businessArea: this.fb.array(data && data.businessArea ? data.businessArea : [], Validators.required),
           employmentType: [data && data.employmentType ? data.employmentType : null, Validators.required],
           industryBranch: [data && data.employmentType ? data.employmentType : '', Validators.required],
@@ -272,7 +266,6 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
   };
 
   public formArrayRemove = (index, itemIndex, formArrayName, field, message) => {
-    console.log(this[formArrayName].at(index).controls[field].removeAt(itemIndex));
     this[formArrayName].at(index).controls[field].removeAt(itemIndex);
     this.submit(message);
   };
