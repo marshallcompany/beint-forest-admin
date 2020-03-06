@@ -20,6 +20,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
   @ViewChild('accordion03', {static: false}) accordion03;
 
   @ViewChild('ba1', {static: false}) ba1;
+  @ViewChild('ba2', {static: false}) ba2;
 
   businessArea$: Observable<Array<string>>;
   dropdownOptions$: Observable<any>;
@@ -38,7 +39,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
   public workExperience: FormGroupName;
   public employmentConditions: FormGroupName;
   public businessAreaControl = new FormControl(['']);
-  public independentBusinessAreaControl = new FormControl();
+  public independentBusinessAreaControl = new FormControl(['']);
   public $countriesList: Observable<string[]>;
   currentDate = moment().toDate();
   previousDate = moment().add(-1, 'day').toDate();
@@ -61,6 +62,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     setTimeout(() => {
       this.ba1.searchInput.nativeElement.placeholder = 'Branche';
+      this.ba2.searchInput.nativeElement.placeholder = 'Branche';
     }, 500);
   }
 
