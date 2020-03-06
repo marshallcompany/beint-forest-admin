@@ -21,6 +21,13 @@
         }
     }
 }
+.field{
+    &_group{
+        .field{
+            width:47%;
+        }
+    }
+}
 .field_checkbox{
     padding-top:45px;
 }
@@ -109,7 +116,7 @@
     .field{
         width:100%;
         &_checkbox{
-            padding-left:19px;
+            padding:0 0 20px 19px;
         }
     }
     .checkbox-wrapper{
