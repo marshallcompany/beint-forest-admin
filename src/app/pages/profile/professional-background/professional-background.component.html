@@ -563,7 +563,7 @@
                           [searchable]="true"
                           [items]="$citiesList | async"
                           [clearable]="false"
-                          [placeholder]="'Ort'"
+                          placeholder="Ort"
                           (search)="getCityList($event.term)"
                           (change)="submit('Ort')"
                           class="custom-select"
@@ -758,7 +758,7 @@
                   <div class="remove-fields">
                     <button
                       class="remove-fields__button"
-                      (click)="deleteFormGroup('otherExperienceArray', i, 'otherExperienc')">
+                      (click)="deleteFormGroup(otherExperienceArray, i, 'otherExperience')">
                       <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" class="remove-fields__icon">
                         <path d="M0.050293 0.050293L9.94979 9.94979M9.94979 0.050293L0.0502933 9.94979" stroke-width="2"
                               stroke-linecap="round"/>
@@ -814,7 +814,7 @@
                           [searchable]="true"
                           [items]="$citiesList | async"
                           [clearable]="false"
-                          [placeholder]="'Ort'"
+                          placeholder="Ort"
                           (search)="getCityList($event.term)"
                           (change)="submit('Ort')"
                           class="custom-select"

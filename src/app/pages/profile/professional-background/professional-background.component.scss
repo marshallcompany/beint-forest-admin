@@ -7,6 +7,11 @@
         display: none;
     }
 }
+.field_select-search.single {
+    ::ng-deep .ng-select .ng-has-value .ng-placeholder{
+        display: none;
+    }
+}
 .professional-background{
     background-color:$primary;
     position:relative;

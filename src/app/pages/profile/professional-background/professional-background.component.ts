@@ -131,13 +131,13 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
           dateStart: [data && data.dateStart ? data.dateStart : null],
           dateEnd: [data && data.dateEnd ? data.dateEnd : null],
           country: [data && data.country ? data.country : null, Validators.required],
-          workPlace: [data && data.workPlace ? data.workPlace : '', Validators.required],
+          workPlace: [data && data.workPlace ? data.workPlace : null, Validators.required],
           jobTitle: [data && data.jobTitle ? data.jobTitle : '', Validators.required],
           careerLevel: [data && data.careerLevel ? data.careerLevel : null, Validators.required],
           jobDescription: [data && data.jobDescription ? data.jobDescription : '', Validators.required],
           businessArea: this.fb.array(data && data.businessArea ? data.businessArea : [], Validators.required),
           employmentType: [data && data.employmentType ? data.employmentType : null, Validators.required],
-          industryBranch: [data && data.employmentType ? data.employmentType : '', Validators.required],
+          industryBranch: [data && data.industryBranch ? data.industryBranch : '', Validators.required],
           tilToday: [data && data.tilToday ? data.tilToday : false]
         });
       case 'independentExperience':
@@ -147,7 +147,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
           dateStart: [data && data.dateStart ? data.dateStart : null, Validators.required],
           dateEnd: [data && data.dateEnd ? data.dateEnd : null, Validators.required],
           country: [data && data.country ? data.country : null, Validators.required],
-          workPlace: [data && data.workPlace ? data.workPlace : '', Validators.required],
+          workPlace: [data && data.workPlace ? data.workPlace : null, Validators.required],
           jobDescription: [data && data.jobDescription ? data.jobDescription : '', Validators.required],
           isFreelancer: [data && data.isFreelancer ? data.isFreelancer : false],
           businessArea: this.fb.array(data && data.businessArea ? data.businessArea : [], Validators.required),
@@ -159,7 +159,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
           dateStart: [data && data.dateStart ? data.dateStart : null, Validators.required],
           dateEnd: [data && data.dateEnd ? data.dateEnd : null, Validators.required],
           country: [data && data.country ? data.country : null, Validators.required],
-          workPlace: [data && data.workPlace ? data.workPlace : '', Validators.required],
+          workPlace: [data && data.workPlace ? data.workPlace : null, Validators.required],
           jobDescription: [data && data.jobDescription ? data.jobDescription : '', Validators.required],
           tilToday: [data && data.tilToday ? data.tilToday : false]
         });
@@ -267,28 +267,44 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
   }
 
   public deleteFormGroup = (nameArray: FormArray, index: number, formGroupName?: string) => {
-    this.matDialog.open(ConfirmModalComponent).afterClosed()
-      .pipe(
-        switchMap(value => {
-          if (value === false) {
-            return throwError('Cancel dialog');
-          }
-          return of(value);
-        })
-      )
-      .subscribe(
-        res => {
-          if (nameArray && formGroupName && nameArray.controls.length < 2) {
-            nameArray.removeAt(index);
-            nameArray.push(this.createFormGroup({}, formGroupName));
-            this.submit('');
-          } else {
-            nameArray.removeAt(index);
-            this.submit('');
-          }
-        },
-        err => console.log('[ DELETE ERROR ]', err)
-      );
+    const FormGroupValue = nameArray.at(index).value;
+    let FormGroupStatus = false;
+    Object.keys(FormGroupValue).forEach(key => {
+      if (FormGroupValue[key] && FormGroupValue[key].length > 0 && typeof (FormGroupValue[key]) !== 'boolean') {
+        FormGroupStatus = true;
+      }
+    });
+    if (FormGroupStatus) {
+      this.matDialog.open(ConfirmModalComponent).afterClosed()
+        .pipe(
+          switchMap(value => {
+            if (value === false) {
+              return throwError('Cancel dialog');
+            }
+            return of(value);
+          })
+        )
+        .subscribe(
+          dialog => {
+            if (nameArray && formGroupName && nameArray.controls.length < 2) {
+              nameArray.removeAt(index);
+              nameArray.push(this.createFormGroup({}, formGroupName));
+              this.submit('');
+            } else {
+              nameArray.removeAt(index);
+              this.submit('');
+            }
+          },
+          err => console.log('[ DELETE ERROR ]', err)
+        );
+    } else {
+      if (nameArray && formGroupName && nameArray.controls.length < 2) {
+        nameArray.removeAt(index);
+        nameArray.push(this.createFormGroup({}, formGroupName));
+      } else {
+        nameArray.removeAt(index);
+      }
+    }
   };
 
   public deleteTags = (index, itemIndex, formArrayName, field, message) => {
