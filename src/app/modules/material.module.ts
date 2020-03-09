@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule, MAT_EXPANSION_PANEL_DEFAULT_OPTIONS } from '@angular/material/expansion';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatDialogModule } from '@angular/material';
 
 
 
@@ -15,13 +16,15 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     MatIconModule,
     MatExpansionModule,
     MatSnackBarModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatDialogModule
   ],
   exports: [
     MatIconModule,
     MatExpansionModule,
     MatSnackBarModule,
     MatSidenavModule,
+    MatDialogModule
   ],
   providers: [
     {

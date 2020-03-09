@@ -1,4 +1,12 @@
 @import "../../../theme/variables.scss";
+.field_select-search {
+    ::ng-deep .ng-select .ng-has-value .ng-placeholder{
+        display: block;
+    }
+    ::ng-deep .ng-select.ng-select-filtered .ng-placeholder {
+        display: none;
+    }
+}
 .professional-background{
     background-color:$primary;
     position:relative;

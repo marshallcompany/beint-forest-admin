@@ -163,10 +163,11 @@
                         [searchable]="true"
                         [clearable]="false"
                         [hideSelected]="true"
+                        placeholder="Branche"
                         class="custom-select"
-                        (search)="searchBusinessArea($event)"
+                        (search)="getBusinessArea($event)"
                         (change)="formArrayPush($event, 'employmentConditionsArray', 'businessArea', i)"
-                        [formControl]="businessAreaControl">
+                        [formControl]="employmentBusinessAreaControl">
                       </ng-select>
                       <div class="field-wrapper__type">abc</div>
                       <div
@@ -181,7 +182,7 @@
                         <p class="tags-wrapper__label">{{item.value}}</p>
                         <button
                           class="tags-wrapper__remove"
-                          (click)="formArrayRemove(i, indexArr,'employmentConditionsArray', 'businessArea', 'Branche')">
+                          (click)="deleteTags(i, indexArr,'employmentConditionsArray', 'businessArea', 'Branche')">
                           <img src="../assets/image/close.svg">
                         </button>
                       </div>
@@ -501,14 +502,15 @@
                     <p class="field__label">Branche</p>
                     <div class="field-wrapper">
                       <ng-select
-                        #ba2
+                        #independentBusinessArea
                         [items]="businessArea$ | async"
                         [multiple]="true"
                         [searchable]="true"
                         [clearable]="false"
                         [hideSelected]="true"
+                        placeholder="Branche"
                         class="custom-select"
-                        (search)="searchBusinessArea($event)"
+                        (search)="getBusinessArea($event)"
                         [formControl]="independentBusinessAreaControl"
                         (change)="formArrayPush($event, 'independentExperienceArray', 'businessArea', i)">
                       </ng-select>
@@ -524,7 +526,7 @@
                         <p class="tags-wrapper__label">{{item.value}}</p>
                         <button
                           class="tags-wrapper__remove"
-                          (click)="formArrayRemove(i, indexArr,'independentExperienceArray','businessArea', 'Branche')">
+                          (click)="deleteTags(i, indexArr,'independentExperienceArray','businessArea', 'Branche')">
                           <img src="../assets/image/close.svg">
                         </button>
                       </div>

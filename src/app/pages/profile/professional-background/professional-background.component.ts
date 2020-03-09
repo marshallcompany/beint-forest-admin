@@ -7,7 +7,11 @@ import { SearchService } from '../../../services/search.service';
 import * as moment from 'moment';
 import { forkJoin } from 'rxjs';
 import { NotificationService } from 'src/app/services/notification.service';
+
 import { MatExpansionPanel } from '@angular/material/expansion';
+import { MatDialog } from '@angular/material';
+import { ConfirmModalComponent } from 'src/app/modal/confirm/confirm-modal.component';
+
 
 @Component({
   selector: 'app-professional-background',
@@ -36,7 +40,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
   public form: FormGroup;
   public workExperience: FormGroupName;
   public employmentConditions: FormGroupName;
-  public businessAreaControl = new FormControl(['']);
+  public employmentBusinessAreaControl = new FormControl(['']);
   public independentBusinessAreaControl = new FormControl(['']);
   public $countriesList: Observable<string[]>;
   public $citiesList: Observable<string[]>;
@@ -48,7 +52,8 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
     private fb: FormBuilder,
     private profileService: ProfileService,
     private searchService: SearchService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private matDialog: MatDialog,
   ) {
     this.accordionsStatus = false;
   }
@@ -60,33 +65,6 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.onOpenAccordion();
-  }
-
-  public onOpenAccordion() {
-    this.accordion01.opened
-      .subscribe(
-        ($event) => {
-          if (this.employmentConditionsArray.controls.length) {
-            return;
-          }
-          this.employmentConditionsArray.push((this.createFormGroup(null, 'employmentConditions')));
-        }),
-      this.accordion02.opened
-        .subscribe(
-          ($event) => {
-            if (this.independentExperienceArray.controls.length) {
-              return;
-            }
-            this.independentExperienceArray.push(this.createFormGroup(null, 'independentExperience'));
-          }),
-      this.accordion03.opened
-        .subscribe(
-          ($event) => {
-            if (this.otherExperienceArray.controls.length) {
-              return;
-            }
-            this.otherExperienceArray.push(this.createFormGroup(null, 'otherExperience'));
-          });
   }
 
   public init = () => {
@@ -114,6 +92,18 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
       });
   };
 
+  public get employmentConditionsArray(): FormArray {
+    return this.form.get('workExperience').get('employmentConditions').get('items') as FormArray;
+  }
+
+  public get independentExperienceArray(): FormArray {
+    return this.form.get('workExperience').get('independentExperience').get('items') as FormArray;
+  }
+
+  public get otherExperienceArray(): FormArray {
+    return this.form.get('workExperience').get('otherExperience').get('items') as FormArray;
+  }
+
   public formInit = () => {
     this.form = this.fb.group({
       workExperience: this.fb.group({
@@ -132,6 +122,78 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
       })
     });
   };
+
+  public createFormGroup = (data: any, nameGroup: string): FormGroup => {
+    switch (nameGroup) {
+      case 'employmentConditions':
+        return this.fb.group({
+          company: [data && data.company ? data.company : '', Validators.required],
+          dateStart: [data && data.dateStart ? data.dateStart : null],
+          dateEnd: [data && data.dateEnd ? data.dateEnd : null],
+          country: [data && data.country ? data.country : null, Validators.required],
+          workPlace: [data && data.workPlace ? data.workPlace : '', Validators.required],
+          jobTitle: [data && data.jobTitle ? data.jobTitle : '', Validators.required],
+          careerLevel: [data && data.careerLevel ? data.careerLevel : null, Validators.required],
+          jobDescription: [data && data.jobDescription ? data.jobDescription : '', Validators.required],
+          businessArea: this.fb.array(data && data.businessArea ? data.businessArea : [], Validators.required),
+          employmentType: [data && data.employmentType ? data.employmentType : null, Validators.required],
+          industryBranch: [data && data.employmentType ? data.employmentType : '', Validators.required],
+          tilToday: [data && data.tilToday ? data.tilToday : false]
+        });
+      case 'independentExperience':
+        return this.fb.group({
+          jobTitle: [data && data.jobTitle ? data.jobTitle : '', Validators.required],
+          companyName: [data && data.companyName ? data.companyName : '', Validators.required],
+          dateStart: [data && data.dateStart ? data.dateStart : null, Validators.required],
+          dateEnd: [data && data.dateEnd ? data.dateEnd : null, Validators.required],
+          country: [data && data.country ? data.country : null, Validators.required],
+          workPlace: [data && data.workPlace ? data.workPlace : '', Validators.required],
+          jobDescription: [data && data.jobDescription ? data.jobDescription : '', Validators.required],
+          isFreelancer: [data && data.isFreelancer ? data.isFreelancer : false],
+          businessArea: this.fb.array(data && data.businessArea ? data.businessArea : [], Validators.required),
+          tilToday: [data && data.tilToday ? data.tilToday : false]
+        });
+      case 'otherExperience':
+        return this.fb.group({
+          jobTitle: [data && data.jobTitle ? data.jobTitle : '', Validators.required],
+          dateStart: [data && data.dateStart ? data.dateStart : null, Validators.required],
+          dateEnd: [data && data.dateEnd ? data.dateEnd : null, Validators.required],
+          country: [data && data.country ? data.country : null, Validators.required],
+          workPlace: [data && data.workPlace ? data.workPlace : '', Validators.required],
+          jobDescription: [data && data.jobDescription ? data.jobDescription : '', Validators.required],
+          tilToday: [data && data.tilToday ? data.tilToday : false]
+        });
+      default:
+        break;
+    }
+  };
+
+  public onOpenAccordion() {
+    this.accordion01.opened
+      .subscribe(
+        ($event) => {
+          if (this.employmentConditionsArray.controls.length) {
+            return;
+          }
+          this.employmentConditionsArray.push((this.createFormGroup(null, 'employmentConditions')));
+        }),
+      this.accordion02.opened
+        .subscribe(
+          ($event) => {
+            if (this.independentExperienceArray.controls.length) {
+              return;
+            }
+            this.independentExperienceArray.push(this.createFormGroup(null, 'independentExperience'));
+          }),
+      this.accordion03.opened
+        .subscribe(
+          ($event) => {
+            if (this.otherExperienceArray.controls.length) {
+              return;
+            }
+            this.otherExperienceArray.push(this.createFormGroup(null, 'otherExperience'));
+          });
+  }
 
   private patchFormValue(searchPreferences) {
     this.form.patchValue({
@@ -200,75 +262,36 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
     this.$citiesList = this.searchService.getTowns('de', `${query}`).pipe(debounceTime(400), share());
   }
 
-  public get employmentConditionsArray(): FormArray {
-    return this.form.get('workExperience').get('employmentConditions').get('items') as FormArray;
+  getBusinessArea($event) {
+    this.businessArea$ = this.searchService.getBusinessBranches('de', `${$event.term}`).pipe(debounceTime(400), share());
   }
-
-  public get independentExperienceArray(): FormArray {
-    return this.form.get('workExperience').get('independentExperience').get('items') as FormArray;
-  }
-
-  public get otherExperienceArray(): FormArray {
-    return this.form.get('workExperience').get('otherExperience').get('items') as FormArray;
-  }
-
-  public createFormGroup = (data: any, nameGroup: string): FormGroup => {
-    switch (nameGroup) {
-      case 'employmentConditions':
-        return this.fb.group({
-          company: [data && data.company ? data.company : '', Validators.required],
-          dateStart: [data && data.dateStart ? data.dateStart : null],
-          dateEnd: [data && data.dateEnd ? data.dateEnd : null],
-          country: [data && data.country ? data.country : null, Validators.required],
-          workPlace: [data && data.workPlace ? data.workPlace : '', Validators.required],
-          jobTitle: [data && data.jobTitle ? data.jobTitle : '', Validators.required],
-          careerLevel: [data && data.careerLevel ? data.careerLevel : null, Validators.required],
-          jobDescription: [data && data.jobDescription ? data.jobDescription : '', Validators.required],
-          businessArea: this.fb.array(data && data.businessArea ? data.businessArea : [], Validators.required),
-          employmentType: [data && data.employmentType ? data.employmentType : null, Validators.required],
-          industryBranch: [data && data.employmentType ? data.employmentType : '', Validators.required],
-          tilToday: [data && data.tilToday ? data.tilToday : false]
-        });
-      case 'independentExperience':
-        return this.fb.group({
-          jobTitle: [data && data.jobTitle ? data.jobTitle : '', Validators.required],
-          companyName: [data && data.companyName ? data.companyName : '', Validators.required],
-          dateStart: [data && data.dateStart ? data.dateStart : null, Validators.required],
-          dateEnd: [data && data.dateEnd ? data.dateEnd : null, Validators.required],
-          country: [data && data.country ? data.country : null, Validators.required],
-          workPlace: [data && data.workPlace ? data.workPlace : '', Validators.required],
-          jobDescription: [data && data.jobDescription ? data.jobDescription : '', Validators.required],
-          isFreelancer: [data && data.isFreelancer ? data.isFreelancer : false],
-          businessArea: this.fb.array(data && data.businessArea ? data.businessArea : [], Validators.required),
-          tilToday: [data && data.tilToday ? data.tilToday : false]
-        });
-      case 'otherExperience':
-        return this.fb.group({
-          jobTitle: [data && data.jobTitle ? data.jobTitle : '', Validators.required],
-          dateStart: [data && data.dateStart ? data.dateStart : null, Validators.required],
-          dateEnd: [data && data.dateEnd ? data.dateEnd : null, Validators.required],
-          country: [data && data.country ? data.country : null, Validators.required],
-          workPlace: [data && data.workPlace ? data.workPlace : '', Validators.required],
-          jobDescription: [data && data.jobDescription ? data.jobDescription : '', Validators.required],
-          tilToday: [data && data.tilToday ? data.tilToday : false]
-        });
-      default:
-        break;
-    }
-  };
 
   public deleteFormGroup = (nameArray: FormArray, index: number, formGroupName?: string) => {
-    if (nameArray && formGroupName && nameArray.controls.length < 2) {
-      nameArray.removeAt(index);
-      nameArray.push(this.createFormGroup({}, formGroupName));
-      this.submit('');
-    } else {
-      nameArray.removeAt(index);
-      this.submit('');
-    }
+    this.matDialog.open(ConfirmModalComponent).afterClosed()
+      .pipe(
+        switchMap(value => {
+          if (value === false) {
+            return throwError('Cancel dialog');
+          }
+          return of(value);
+        })
+      )
+      .subscribe(
+        res => {
+          if (nameArray && formGroupName && nameArray.controls.length < 2) {
+            nameArray.removeAt(index);
+            nameArray.push(this.createFormGroup({}, formGroupName));
+            this.submit('');
+          } else {
+            nameArray.removeAt(index);
+            this.submit('');
+          }
+        },
+        err => console.log('[ DELETE ERROR ]', err)
+      );
   };
 
-  public formArrayRemove = (index, itemIndex, formArrayName, field, message) => {
+  public deleteTags = (index, itemIndex, formArrayName, field, message) => {
     this[formArrayName].at(index).controls[field].removeAt(itemIndex);
     this.submit(message);
   };
@@ -307,9 +330,5 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
         }
       );
   };
-
-  searchBusinessArea($event) {
-    this.businessArea$ = this.searchService.getBusinessBranches('de', `${$event.term}`).pipe(debounceTime(400), share());
-  }
 
 }
