@@ -60,19 +60,15 @@
             </div>
           </div>
           <div class="field field_checkbox">
-            <div class="checkbox-wrapper">
+            <label class="checkbox-container">
+              Überall
               <input
                 type="checkbox"
-                id="checkbox"
-                class="checkbox-wrapper__input"
+                class="not-relevant__checkbox"
                 formControlName="willingToRelocate"
                 (change)="submit('Führungskraft')">
-              <label
-                for="checkbox"
-                class="checkbox-wrapper__label">
-                Überall
-              </label>
-            </div>
+              <span class="checkmark"></span>
+            </label>
           </div>
           <div class="field field_select field_select-search">
             <p class="field__label">Bevorzugter Geschäftsbereich</p>

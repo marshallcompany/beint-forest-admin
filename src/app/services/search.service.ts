@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
-import {ApiRoutesProvider} from './api-routes.services';
-import {Observable} from 'rxjs';
+import { ApiRoutesProvider } from './api-routes.services';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -39,11 +39,13 @@ export class SearchService {
       }
     });
   };
-  public getTowns = (lang, params) => {
+  public getTowns = (lang, params, zip = '') => {
     const url = this.apiRoutes.GET_TOWNS_SCHEMA.replace(':lang', lang);
     return this.http.get<any>(url, {
       params: {
-        filter: params
+        filter: params,
+        country: 'Deutschland',
+        zip
       }
     });
   };
@@ -54,6 +56,20 @@ export class SearchService {
       params: {
         filter: query
       }
+    });
+  }
+
+  public getZipCode(lang, country: string, city: string = '', filter: string = ''): Observable<string[]> {
+    const url = this.apiRoutes.GET_ZIP_SCHEMA.replace(':lang', lang);
+    return this.http.get<any>(url, {
+      params: filter ? {
+        country,
+        filter,
+        city,
+      } : {
+          country,
+          city
+        }
     });
   }
 

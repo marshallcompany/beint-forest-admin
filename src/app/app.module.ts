@@ -43,6 +43,7 @@ import { CategoryNavHeaderComponent } from './components/category-nav-header/cat
 import { AboutComponent } from './pages/profile/about/about.component';
 import { SearchSettingsComponent } from './pages/profile/search-settings/search-settings.component';
 import { ProfessionalBackgroundComponent } from './pages/profile/professional-background/professional-background.component';
+import { ConfirmModalComponent } from './modal/confirm/confirm-modal.component';
 
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -76,6 +77,7 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     AboutComponent,
     SearchSettingsComponent,
     ProfessionalBackgroundComponent,
+    ConfirmModalComponent
   ],
   imports: [
     RoutingModule,
@@ -115,6 +117,7 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     { provide: HTTP_INTERCEPTORS, useClass: Interceptors.contentType, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: Interceptors.accessToken, multi: true },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ConfirmModalComponent]
 })
 export class AppModule { }

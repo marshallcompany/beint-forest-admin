@@ -1,3 +1,65 @@
+// CUSTOM CHECKBOX
+/* Customize the label (the container) */
+.checkbox-container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  /* Hide the browser's default checkbox */
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+
+  /* Create a custom checkbox */
+  .checkmark {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    left: 0px;
+    top: calc(50% - 25px / 2 - 0.5px);
+    background: #FFFFFF;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.17);
+    border-radius: 6px;
+  }
+
+  /* On mouse-over, add a grey background color */
+  &:hover input ~ .checkmark {
+    background-color: #ccc;
+  }
+
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+
+  /* Show the checkmark when checked */
+  input:checked ~ .checkmark:after {
+    display: block;
+  }
+
+  /* Style the checkmark/indicator */
+  .checkmark:after {
+    position: absolute;
+    width: 19px;
+    height: 12.92px;
+    left: 3px;
+    top: 6px;
+    /* dark_grey_beint */
+    background-image: url("/assets/image/apply.svg");
+  }
+}
+// CUSTOM CHECKBOX END
 
 .scroll-host::-webkit-scrollbar {
   display: none;
@@ -34,10 +96,40 @@
   padding: 0 !important;
 }
 
-body .field {
+body .field-group {
   width: 46.5%;
+  position: relative;
+
+  .field {
+    width: 100%;
+  }
+
+  &.inline {
+    display: flex;
+    flex-wrap: wrap;
+    -webkit-box-pack: justify;
+
+    .field {
+      width: 33%;
+      margin-left: 25px;
+
+      &:first-child {
+        margin-left: 0px;
+      }
+    }
+  }
+}
+
+body .field {
+  width: 47%;
   padding-bottom: 30px;
   position: relative;
+
+  &_group{
+    .field{
+      width:100%;
+    }
+  }
 
   &_select {
     .field-wrapper {
@@ -46,6 +138,9 @@ body .field {
     }
 
     &-search {
+      .ng-arrow-wrapper {
+        display: none;
+      }
       .ng-arrow-wrapper,
       &:not(.single) {
         .ng-value {
@@ -68,6 +163,7 @@ body .field {
               position: absolute;
               padding-left: 19px;
               padding-right: 55px;
+              padding-bottom:0;
               width: 100%;
               left: 0;
               top: 50%;
@@ -94,24 +190,47 @@ body .field {
     padding: 0;
   }
 
-  &_datapicker {
-    .field-wrapper {
-      padding-right: 0;
+  &_datapicker{
+    .field-wrapper{
+      padding-right:0;
+      margin-bottom:20px;
       cursor: pointer;
-
-      &__input {
+      &:last-child{
+        margin-bottom:0;
+      }
+      &__input{
         pointer-events: none;
-        height: 100%;
+        height:100%;
         border-radius: 10px;
       }
     }
   }
-
-  &__label {
-    color: $black;
+  &_textarea{
+    display: flex;
+    flex-direction: column;
+    .field-wrapper{
+      flex:1;
+      padding-top:15px;
+      .field-wrapper__input{
+        padding:0;
+        height: 100%;
+        font-family: $gr;
+        outline: none;
+        border:none;
+        resize: none;
+        font-size: 17px;
+      }
+      &__type{
+        top:25px;
+        right:19px;
+      }
+    }
+  }
+  &__label{
+    color:$black;
     opacity: .5;
-    margin-bottom: 11px;
-    margin-left: 19px;
+    margin-bottom:11px;
+    margin-left:19px;
   }
 }
 
@@ -126,6 +245,19 @@ body .field {
   border-radius: 10px;
   display: flex;
   align-items: center;
+
+  &.textarea {
+    height: auto;
+
+    textarea {
+      resize: none;
+
+      &:hover, &:active, &:focus {
+        border: none;
+        outline: none;
+      }
+    }
+  }
 
   &__input {
     width: 100%;
@@ -294,3 +426,4 @@ body .ng-select.ng-select-multiple .ng-select-container .ng-value-container {
     padding-left: 10px;
   }
 }
+

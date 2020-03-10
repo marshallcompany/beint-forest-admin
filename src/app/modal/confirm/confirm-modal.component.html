@@ -1,0 +1,28 @@
+<div class="modal-body">
+  <button
+    class="modal-close-button"
+    (click)="close(false)">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.765 21.765" class="modal-close-button__icon">
+      <g transform="translate(0 -0.001)">
+        <g transform="translate(0 0.001)">
+          <path class="a" d="M12.084,10.883l9.431-9.431a.85.85,0,0,0-1.2-1.2L10.882,9.681,1.451.25a.85.85,0,0,0-1.2,1.2L9.68,10.883.249,20.314a.85.85,0,0,0,1.2,1.2l9.431-9.431,9.431,9.431a.85.85,0,0,0,1.2-1.2Z" transform="translate(0 -0.001)"/>
+        </g>
+      </g>
+    </svg>
+  </button>
+  <h2 class="modal-body__title">
+    Möchten Sie diese Informationen <br> wirklich löschen?
+  </h2>
+  <div class="event">
+    <button
+      class="event__button event__button_confirm"
+      (click)="save(true)">
+      entfernen
+    </button>
+    <button
+      class="event__button event__button_cancel"
+      (click)="close(false)">
+      abbrechen
+    </button>
+  </div>
+</div>

@@ -8,7 +8,7 @@ import { Router, ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router'
   styleUrls: ['./offer.component.scss']
 })
 export class OfferComponent implements OnInit {
-  public detalOffer: object;
+  public detalOffer: any;
   public acord: Array<any> = [
     {
       title: 'Front-end Developer',

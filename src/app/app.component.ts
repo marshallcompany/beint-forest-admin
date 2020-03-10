@@ -72,7 +72,7 @@ export class AppComponent implements OnInit {
     element.close();
   }
 
-  public navChange = (element) => {
+  public navChange = (element?) => {
     const navHamburgerButton: HTMLElement = document.getElementById('nav-hamburger-button');
     if (element) {
       navHamburgerButton.style.display = 'none';
