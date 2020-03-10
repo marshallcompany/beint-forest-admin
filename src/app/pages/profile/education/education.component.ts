@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, FormArray, FormGroupName } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, FormArray, FormGroupName, Validators } from '@angular/forms';
 import { ProfileService } from 'src/app/services/profile.service';
 import { NotificationService } from 'src/app/services/notification.service';
-import { map } from 'rxjs/operators';
-
+import { map, debounceTime, share, switchMap } from 'rxjs/operators';
+import { MatExpansionPanel, MatDialog } from '@angular/material';
+import { SearchService } from 'src/app/services/search.service';
+import { Observable, forkJoin, of, throwError } from 'rxjs';
+import * as moment from 'moment';
+import { ConfirmModalComponent } from 'src/app/modal/confirm/confirm-modal.component';
 
 @Component({
   selector: 'app-education',
@@ -13,210 +16,204 @@ import { map } from 'rxjs/operators';
 })
 export class EducationComponent implements OnInit {
 
-  form: FormGroup;
-  education: FormGroupName;
-  schools: FormArray;
-  universities: FormArray;
-  specialEducation: FormArray;
+  public navSettings = {
+    iconCategory: '../assets/image/profile/category-02.svg',
+    nameCategory: 'Berufliche Ausbildung',
+    nextCategory: 'professional-background',
+    prevCategory: 'personal'
+  };
 
-  public profile: any;
+  public accordionsStatus: boolean;
+  @ViewChild('accordion01', { static: false }) accordion01: MatExpansionPanel;
+
+  $countriesList: Observable<string[]>;
+  $citiesList: Observable<string[]>;
+
+  public form: FormGroup;
+  public education: FormGroupName;
+
+
+  currentDate = moment().toDate();
+  previousDate = moment().add(-1, 'day').toDate();
+
+  public dropdownOptions: object;
+  public educationData: any;
 
   constructor(
-    public formBuilder: FormBuilder,
-    private router: Router,
+    public fb: FormBuilder,
     private profileService: ProfileService,
-    private notificationService: NotificationService
+    private searchService: SearchService,
+    private notificationService: NotificationService,
+    private matDialog: MatDialog
   ) { }
 
   ngOnInit() {
     this.init();
+    this.formInit();
   }
 
   public init = () => {
-    this.profileService.getProfile()
+    const profile$ = this.profileService.getProfile();
+    const dropdownOptions$ = this.profileService.getLocalBundle('de');
+    forkJoin([profile$, dropdownOptions$])
       .pipe(
-        map((fullProfileData: any) => {
-          if (fullProfileData.profile && fullProfileData.profile.education) {
+        map(([profile, dropdownOptions]) => {
+          if (profile && profile.profile && profile.profile.education && dropdownOptions && dropdownOptions.dropdownOptions) {
             return {
-              education: fullProfileData.profile.education
+              education: profile.profile.education,
+              dropdownOptions: {
+                school_types: dropdownOptions.dropdownOptions.school_types,
+                school_graduation: dropdownOptions.dropdownOptions.school_graduation,
+                university_study_times: dropdownOptions.dropdownOptions.university_study_times
+              }
             };
           }
-          return fullProfileData;
+          return [profile, dropdownOptions];
         })
       )
       .subscribe(
-        profileData => {
-          this.profile = profileData;
-          this.formInit(profileData);
-          console.log('[ EDIT PROFILE DATA ]', profileData);
+        (data: any) => {
+          this.educationData = data.education;
+          this.dropdownOptions = data.dropdownOptions;
+          this.patchFormValue(data.education);
+          console.log('[ EDUCATION DATA ]', data);
         },
         err => {
-          console.log('[ ERROR EDIT PROFILE DATA ]', err);
-        },
-        () => {
-          console.log('[ EDIT PROFILE DATA DONE ]');
+          console.log('[ ERROR EDUCATION DATA ]', err);
         }
       );
   }
 
-  public formInit = (profileData) => {
-    this.form = this.formBuilder.group({
-      education: this.formBuilder.group({
-        schools: this.formBuilder.array([]),
-        universities: this.formBuilder.array([]),
-        specialEducation: this.formBuilder.array([]),
+  public formInit = () => {
+    this.form = this.fb.group({
+      education: this.fb.group({
+        schools: this.fb.array([])
       })
     });
+  }
 
-    this.schools = this.form.get('education').get('schools') as FormArray;
-    this.universities = this.form.get('education').get('universities') as FormArray;
-    this.specialEducation = this.form.get('education').get('specialEducation') as FormArray;
+  public get schoolsArray(): FormArray {
+    return this.form.get('education').get('schools') as FormArray;
+  }
 
-    this.schoolGroupInit(profileData);
-    this.specialEducationGroupInit(profileData);
-    this.universityGroupInit(profileData);
-  }
-  // SCHOOL GROUP
-  public createSchoolGroup = (schools?: any): FormGroup => {
-    if (schools) {
-      return this.formBuilder.group({
-        certificate: [null],
-        dateFinish: [!schools.dateFinish ? '' : schools.dateFinish],
-        degree: [!schools.degree ? '' : schools.degree],
-        note: [!schools.note ? '' : schools.note],
-        schoolName: [!schools.schoolName ? '' : schools.schoolName]
-      });
-    } else {
-      return this.formBuilder.group({
-        certificate: [null],
-        dateFinish: [''],
-        degree: [''],
-        note: [''],
-        schoolName: ['']
-      });
+  public createFormGroup = (data: any, nameGroup: string): FormGroup => {
+    switch (nameGroup) {
+      case 'schools':
+        return this.fb.group({
+          schoolType: [data && data.schoolType ? data.schoolType : null, Validators.required],
+          schoolName: [data && data.schoolName ? data.schoolName : '', Validators.required],
+          dateStart: [data && data.dateStart ? data.dateStart : null],
+          dateEnd: [data && data.dateEnd ? data.dateEnd : null],
+          country: [data && data.country ? data.country : null, Validators.required],
+          place: [data && data.place ? data.place : null, Validators.required],
+          tilToday: [data && data.tilToday ? data.tilToday : false],
+          graduation: [data && data.graduation ? data.graduation : null],
+          grade: [data && data.grade ? data.grade : '', Validators.required]
+        });
+      default:
+        break;
     }
   }
-  public addSchoolItem = (feild?: any) => {
-    if (feild) {
-      this.schools.push(this.createSchoolGroup(feild));
-    } else {
-      this.schools.push(this.createSchoolGroup());
-    }
-  }
-  public schoolGroupInit = (profileData) => {
-    if (profileData.education.schools.length !== 0) {
-      profileData.education.schools.forEach(element => {
-        this.addSchoolItem(element);
-      });
-    } else {
-      this.addSchoolItem();
-    }
-  }
-  // SPECIAL EDUCATION
-  public createSpecialEducationGroup = (specialEducation?: any): FormGroup => {
-    if (specialEducation) {
-      return this.formBuilder.group({
-        certificate: [null],
-        dateFinish: [!specialEducation.dateFinish ? '' : specialEducation.dateFinish],
-        isCompleted: [!specialEducation.isCompleted ? '' : specialEducation.isCompleted],
-        note: [!specialEducation.note ? '' : specialEducation.note],
-        professionalEducation: [!specialEducation.professionalEducation ? '' : specialEducation.professionalEducation],
-        trainingCompany: [!specialEducation.trainingCompany ? '' : specialEducation.trainingCompany],
-        trainingLocation: [!specialEducation.trainingLocation ? '' : specialEducation.trainingLocation],
-      });
-    } else {
-      return this.formBuilder.group({
-        certificate: [null],
-        dateFinish: [''],
-        isCompleted: [true],
-        note: [''],
-        professionalEducation: [''],
-        trainingCompany: [''],
-        trainingLocation: [''],
-      });
-    }
-  }
-  public addSpecialEducationItem = (feild?: any) => {
-    if (feild) {
-      this.specialEducation.push(this.createSpecialEducationGroup(feild));
-    } else {
-      this.specialEducation.push(this.createSpecialEducationGroup());
-    }
-  }
-  public specialEducationGroupInit = (profileData) => {
-    if (profileData.education.specialEducation.length !== 0) {
-      profileData.education.specialEducation.forEach(element => {
-        this.addSpecialEducationItem(element);
-      });
-    } else {
-      this.addSpecialEducationItem();
-    }
-  }
-  // UNIVERSITY
-  public createUniversityGroup = (university?: any): FormGroup => {
-    if (university) {
-      return this.formBuilder.group({
-        certificate: [null],
-        courseOfStudy: [!university.courseOfStudy ? '' : university.courseOfStudy],
-        dateFinish: [!university.dateFinish ? '' : university.dateFinish],
-        dateStart: [!university.dateStart ? '' : university.dateStart],
-        degree: [!university.degree ? '' : university.degree],
-        highestDegree: [!university.highestDegree ? '' : university.highestDegree],
-        note: [!university.note ? '' : university.note],
-        specialization: [!university.specialization ? '' : university.specialization],
-        titleThesis: [!university.titleThesis ? '' : university.titleThesis],
-        universityName: [!university.universityName ? '' : university.universityName],
-      });
-    } else {
-      return this.formBuilder.group({
-        certificate: [null],
-        courseOfStudy: [''],
-        dateFinish: [''],
-        dateStart: [''],
-        degree: [''],
-        highestDegree: [''],
-        note: [''],
-        specialization: [''],
-        titleThesis: [''],
-        universityName: [''],
+  private patchFormValue(education) {
+    if (education.schools.length) {
+      education.schools.forEach(item => {
+        this.schoolsArray.push(this.createFormGroup(item, 'schools'));
       });
     }
   }
 
-  public addUniversityItem = (feild?: any) => {
-    if (feild) {
-      this.universities.push(this.createUniversityGroup(feild));
+  public setFormGroup = (status: string, relevant: boolean) => {
+    if (relevant) {
+      const isNotRelevant = this.form.get('education').get(status).get('isNotRelevant').value;
+      if (isNotRelevant) {
+        return;
+      }
+    }
+    this[`${status}Array`].push(this.createFormGroup({}, status));
+  }
+
+  public deleteFormGroup = (nameArray: FormArray, index: number, formGroupName?: string) => {
+    const FormGroupValue = nameArray.at(index).value;
+    let FormGroupStatus = false;
+    Object.keys(FormGroupValue).forEach(key => {
+      if (FormGroupValue[key] && FormGroupValue[key].length > 0 && typeof (FormGroupValue[key]) !== 'boolean') {
+        FormGroupStatus = true;
+      }
+    });
+    if (FormGroupStatus) {
+      this.matDialog.open(ConfirmModalComponent).afterClosed()
+        .pipe(
+          switchMap(value => {
+            if (value === false) {
+              return throwError('Cancel dialog');
+            }
+            return of(value);
+          })
+        )
+        .subscribe(
+          dialog => {
+            if (nameArray && formGroupName && nameArray.controls.length < 2) {
+              nameArray.removeAt(index);
+              nameArray.push(this.createFormGroup({}, formGroupName));
+              this.submit('');
+            } else {
+              nameArray.removeAt(index);
+              this.submit('');
+            }
+          },
+          err => console.log('[ DELETE ERROR ]', err)
+        );
     } else {
-      this.universities.push(this.createUniversityGroup());
+      if (nameArray && formGroupName && nameArray.controls.length < 2) {
+        nameArray.removeAt(index);
+        nameArray.push(this.createFormGroup({}, formGroupName));
+      } else {
+        nameArray.removeAt(index);
+      }
     }
   }
 
-  public universityGroupInit = (profileData) => {
-    if (profileData.education.universities.length !== 0) {
-      profileData.education.universities.forEach(element => {
-        this.addUniversityItem(element);
-      });
-    } else {
-      this.addUniversityItem();
+  getCountryList(query: string) {
+    this.$countriesList = this.searchService.getCountries('de', query).pipe(debounceTime(500), share());
+  }
+
+  getCityList(query: string) {
+    this.$citiesList = this.searchService.getTowns('de', `${query}`).pipe(debounceTime(400), share());
+  }
+
+
+  setTodayDate(group: FormGroup) {
+    const isSet = group.get('tilToday').value;
+    if (isSet) {
+      group.get('dateEnd').setValue(this.currentDate);
+    }
+    this.submit('bis heute');
+  }
+
+  public accordionChange = () => {
+    if (!this.accordion01.expanded) {
+      this.accordionsStatus = false;
     }
   }
 
-  prev() {
-    this.router.navigate(['profile/personal&contact']);
-  }
-
-  submit(formValue, field) {
-    this.profileService.updateProfile(formValue)
+  public submit = (field: string) => {
+    this.profileService.updateProfile(this.form.value)
+      .pipe(
+        switchMap(formData => {
+          if (JSON.stringify(this.educationData) === JSON.stringify(this.form.value)) {
+            return throwError('[ Fields have not changed ]');
+          }
+          return of(formData);
+        })
+      )
       .subscribe(
         res => {
-          console.log('submit', res);
+          console.log('[ UPDATE PROFILE ]', res);
+          this.educationData = this.form.value;
           this.notificationService.notify(`Field ${field} updated successfully!`, 'success');
         },
         err => {
-          console.log('[ SUBMIT ERROR ]', err);
-        },
-        () => {
-          console.log('[ SUBMIT DONE ]');
+          console.log('[ ERROR UPDATE PROFILE ]', err);
         }
       );
   }

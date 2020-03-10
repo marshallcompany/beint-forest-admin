@@ -31,8 +31,8 @@ export class CategoryNavHeaderComponent implements OnInit {
       },
       {
         routerName: 'Berufliche Ausbildung',
-        routerLink: '/',
-        routerActive: ''
+        routerLink: '/education',
+        routerActive: 'active'
       },
       {
         routerName: 'Beruflicher Werdegang',

@@ -1,1 +1,301 @@
-
+<section class="education">
+  <div class="background">
+    <img
+      src="../assets/image/background-circle-01.png"
+      class="background__circle background__circle_01">
+    <img
+      src="../assets/image/background-circle-02.png"
+      class="background__circle background__circle_02">
+  </div>
+  <app-category-nav-header [navSettings]="navSettings"></app-category-nav-header>
+  <div
+    class="category-decor"
+    *ngIf="!accordionsStatus">
+    <div class="container">
+      <img
+        src="../assets/image/profile/education/image-desktop.svg"
+        class="category-decor__image">
+      <img
+        src="../assets/image/profile/education/image-mobile.svg"
+        class="category-decor__image category-decor__image_mobile">
+    </div>
+  </div>
+  <div class="subcategory">
+    <div class="container">
+      <form
+        class="form"
+        [formGroup]="form"
+        *ngIf="form">
+        <div
+          class="subcategory-item"
+          formGroupName="education">
+          <mat-expansion-panel
+            class="accordion"
+            (opened)="accordionsStatus = true"
+            (closed)="accordionChange()"
+            #accordion01="matExpansionPanel">
+            <mat-expansion-panel-header>
+              <div class="subcategory-header">
+                <div class="subcategory-info">
+                  <img
+                    src="../assets/image/profile/education/subcategory-01.svg"
+                    class="subcategory-info__icon">
+                  <p class="subcategory-info__label">Schule</p>
+                </div>
+                <img
+                  src="../assets/image/profile/accordion-arrow.svg"
+                  [ngClass]="{ 'accordion-active' : accordion01.expanded }"
+                  class="subcategory-header__arrow">
+              </div>
+            </mat-expansion-panel-header>
+            <ng-container>
+              <div
+                class="subcategory-content"
+                formArrayName="schools">
+                <div
+                  class="flex-grid"
+                  *ngFor="let item of schoolsArray.controls; let i = index"
+                  [formGroupName]="i">
+                  <div class="remove-fields">
+                    <button
+                      class="remove-fields__button"
+                      (click)="deleteFormGroup(schoolsArray, i, 'schools')">
+                      <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" class="remove-fields__icon">
+                        <path d="M0.050293 0.050293L9.94979 9.94979M9.94979 0.050293L0.0502933 9.94979" stroke-width="2"
+                              stroke-linecap="round"/>
+                      </svg>
+                    </button>
+                  </div>
+                  <div class="field field_select">
+                    <p class="field__label">Schultyp</p>
+                    <div class="field-wrapper">
+                      <ng-select
+                        [searchable]="false"
+                        [clearable]="false"
+                        placeholder="Schultyp"
+                        formControlName="schoolType"
+                        (change)="submit('Schultyp')"
+                        class="custom-select">
+                        <ng-option
+                          *ngFor="let option of dropdownOptions.school_types"
+                          [value]="option">
+                          {{option}}
+                        </ng-option>
+                      </ng-select>
+                      <div
+                        class="field-wrapper__status"
+                        [ngClass]="{invalid : !this.form.get('education').get('schools').controls[i].get('schoolType').value}"></div>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <p class="field__label">Name der Schule</p>
+                    <div class="field-wrapper">
+                      <input
+                        type="text"
+                        placeholder="Name der Schule"
+                        formControlName="schoolName"
+                        (change)="submit('Name der Schule')"
+                        class="field-wrapper__input">
+                      <div class="field-wrapper__type">abc</div>
+                      <div
+                        class="field-wrapper__status"
+                        [ngClass]="{invalid : !this.form.get('education').get('schools').controls[i].get('schoolName').value}"></div>
+                    </div>
+                  </div>
+                  <div class="field field_select field_select-search single">
+                    <p class="field__label">Land</p>
+                    <div class="field-wrapper">
+                      <ng-select
+                        [searchable]="true"
+                        [items]="$countriesList | async"
+                        [clearable]="false"
+                        [placeholder]="'Land'"
+                        (search)="getCountryList($event.term)"
+                        (change)="submit('Land')"
+                        class="custom-select"
+                        formControlName="country">
+                      </ng-select>
+                      <div class="field-wrapper__type">abc</div>
+                      <div
+                        class="field-wrapper__status"
+                        [ngClass]="{invalid : !this.form.get('education').get('schools').controls[i].get('country').value}"></div>
+                    </div>
+                  </div>
+                  <div
+                    class="field field_select field_select-search single"
+                    [ngClass]="{'invalid' : !this.form.get('education').get('schools').controls[i].get('country').value}">
+                    <p class="field__label">Ort</p>
+                    <div class="field-wrapper">
+                      <ng-select
+                        [searchable]="true"
+                        [items]="$citiesList | async"
+                        [clearable]="false"
+                        placeholder="Ort"
+                        (search)="getCityList($event.term)"
+                        (change)="submit('Ort')"
+                        class="custom-select"
+                        formControlName="place">
+                      </ng-select>
+                      <div class="field-wrapper__type">abc</div>
+                      <div
+                        class="field-wrapper__status"
+                        [ngClass]="{invalid : !this.form.get('education').get('schools').controls[i].get('place').value}">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <p class="field__label">Note</p>
+                    <div class="field-wrapper">
+                      <input
+                        type="tel"
+                        placeholder="Note"
+                        formControlName="grade"
+                        (change)="submit('Note')"
+                        class="field-wrapper__input">
+                      <div class="field-wrapper__type">abc</div>
+                      <div
+                        class="field-wrapper__status"
+                        [ngClass]="{invalid : !this.form.get('education').get('schools').controls[i].get('grade').value}"></div>
+                    </div>
+                  </div>
+                  <div class="field field_select">
+                    <p class="field__label">Abschluss</p>
+                    <div class="field-wrapper">
+                      <ng-select
+                        [searchable]="false"
+                        [clearable]="false"
+                        placeholder="Abschluss"
+                        class="custom-select"
+                        (change)="submit('Abschluss')"
+                        formControlName="graduation">
+                        <ng-option
+                          *ngFor="let option of dropdownOptions.school_graduation"
+                          [value]="option">
+                          {{option}}
+                        </ng-option>
+                      </ng-select>
+                      <div
+                        class="field-wrapper__status"
+                        [ngClass]="{invalid : !this.form.get('education').get('schools').controls[i].get('country').value}"></div>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <div class="datepicker-group">
+                      <div class="field field_datapicker">
+                        <p class="field__label">Von</p>
+                        <div
+                          class="field-wrapper"
+                          [owlDateTimeTrigger]="dt1">
+                          <input
+                            [owlDateTime]="dt1"
+                            [max]="previousDate"
+                            class="field-wrapper__input"
+                            formControlName="dateStart"
+                            (dateTimeChange)="submit('Von')"
+                            placeholder="DD/MM/YYYY">
+                          <owl-date-time
+                            #dt1
+                            pickerMode="dialog"
+                            pickerType="calendar"
+                            panelClass="calendar"></owl-date-time>
+                          <div class="field-wrapper__type">
+                            <img src="../assets/image/calendar.svg">
+                          </div>
+                          <div
+                            class="field-wrapper__status"
+                            [ngClass]="{invalid : !this.form.get('education').get('schools').controls[i].get('dateStart').value}"></div>
+                        </div>
+                      </div>
+                      <div class="field field_datapicker">
+                        <p class="field__label">Bis</p>
+                        <div
+                          class="field-wrapper"
+                          [owlDateTimeTrigger]="dt2">
+                          <input
+                            [owlDateTime]="dt2"
+                            [max]="currentDate"
+                            class="field-wrapper__input"
+                            formControlName="dateEnd"
+                            (dateTimeChange)="submit('Bis')"
+                            placeholder="DD/MM/YYYY">
+                          <owl-date-time
+                            #dt2
+                            pickerMode="dialog"
+                            pickerType="calendar"
+                            panelClass="calendar"></owl-date-time>
+                          <div class="field-wrapper__type">
+                            <img src="../assets/image/calendar.svg">
+                          </div>
+                          <div
+                            class="field-wrapper__status"
+                            [ngClass]="{invalid : !this.form.get('education').get('schools').controls[i].get('dateEnd').value}"></div>
+                        </div>
+                      </div>
+                      <div class="datapicker-checkbox">
+                        <label class="checkbox-container">
+                          bis heute
+                          <input
+                            type="checkbox"
+                            class="not-relevant__checkbox"
+                            (change)="setTodayDate(this.form.get('education').get('schools').controls[i])"
+                            formControlName="tilToday">
+                          <span class="checkmark"></span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="add-fields"
+                  *ngIf="accordion01.expanded">
+                  <button
+                    class="add-fields__button"
+                    (click)="setFormGroup('schools', false)">
+                    <img src="../assets/image/plus.svg">
+                  </button>
+                </div>
+              </div>
+            </ng-container>
+          </mat-expansion-panel>
+          <div
+            class="subcategory-preview"
+            *ngIf="!accordion01.expanded">
+            <div
+              class="subcategory-preview-item"
+              *ngFor="let item of form.get('education').get('schools').controls; let i = index">
+              <ng-container *ngIf="item.valid; else notValid">
+                <div class="subcategory-preview-info">
+                  <p class="subcategory-preview-info__number">
+                    <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
+                  </p>
+                  <div class="subcategory-preview-info__details">
+                    <p class="subcategory-preview-info__species">{{ item.get('schoolName').value }}</p>
+                    <div class="subcategory-preview-info__circle"></div>
+                    <p class="subcategory-preview-info__date">{{ item.get('dateStart').value | date: 'dd/yyyy' }} - {{ item.get('dateEnd').value | date: 'dd/yyyy' }}</p>
+                    <div class="subcategory-preview-info__circle"></div>
+                    <p class="subcategory-preview-info__scope">{{ item.get('schoolType').value }}</p>
+                  </div>
+                </div>
+                <button
+                  class="subcategory-preview-item__remove"
+                  (click)="deleteFormGroup(schoolsArray, i)">
+                  <img src="../assets/image/close.svg">
+                </button>
+              </ng-container>
+              <ng-template #notValid>
+                <div class="subcategory-preview-info">
+                  <p class="subcategory-preview-info__number">
+                  <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
+                </p>
+                  <div class="subcategory-preview-info__details">
+                    <p class="subcategory-preview-info__invalid">Unvollständige Angaben</p>
+                  </div>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
