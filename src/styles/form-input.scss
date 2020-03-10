@@ -59,6 +59,7 @@
     background-image: url("/assets/image/apply.svg");
   }
 }
+
 // CUSTOM CHECKBOX END
 
 .scroll-host::-webkit-scrollbar {
@@ -125,9 +126,9 @@ body .field {
   padding-bottom: 30px;
   position: relative;
 
-  &_group{
-    .field{
-      width:100%;
+  &_group {
+    .field {
+      width: 100%;
     }
   }
 
@@ -141,6 +142,7 @@ body .field {
       .ng-arrow-wrapper {
         display: none;
       }
+
       .ng-arrow-wrapper,
       &:not(.single) {
         .ng-value {
@@ -163,7 +165,7 @@ body .field {
               position: absolute;
               padding-left: 19px;
               padding-right: 55px;
-              padding-bottom:0;
+              padding-bottom: 0;
               width: 100%;
               left: 0;
               top: 50%;
@@ -190,47 +192,54 @@ body .field {
     padding: 0;
   }
 
-  &_datapicker{
-    .field-wrapper{
-      padding-right:0;
-      margin-bottom:20px;
+  &_datapicker {
+    .field-wrapper {
+      padding-right: 0;
+      margin-bottom: 20px;
       cursor: pointer;
-      &:last-child{
-        margin-bottom:0;
+
+      &:last-child {
+        margin-bottom: 0;
       }
-      &__input{
+
+      &__input {
         pointer-events: none;
-        height:100%;
+        height: 100%;
         border-radius: 10px;
       }
     }
   }
-  &_textarea{
+
+  &_textarea {
     display: flex;
     flex-direction: column;
-    .field-wrapper{
-      flex:1;
-      padding-top:15px;
-      .field-wrapper__input{
-        padding:0;
+
+    .field-wrapper {
+      flex: 1;
+      padding-top: 15px;
+
+      .field-wrapper__input {
+        padding: 0;
         height: 100%;
         font-family: $gr;
         outline: none;
-        border:none;
+        border: none;
         resize: none;
         font-size: 17px;
       }
-      &__type{
-        top:25px;
-        right:19px;
+
+      &__type {
+        top: 25px;
+        right: 19px;
       }
     }
   }
-  &__label{
-    color:$black;
+
+  &__label {
+    color: $black;
     opacity: .5;
-    margin-bottom:11px;
-    margin-left:19px;
+    margin-bottom: 11px;
+    margin-left: 19px;
   }
 }
 
@@ -333,6 +342,14 @@ body .field {
   color: $black;
   font-size: 17px;
   border-radius: 10px;
+
+  &[ng-reflect-is-disabled="true"] {
+    pointer-events: none;
+
+    .ng-select-container {
+      background: rgba(0,0,0,.2);
+    }
+  }
 
   .ng-select-container {
     padding: 0 19px;
