@@ -26,7 +26,7 @@ export class ProfileComponent implements OnInit {
   ) {
     this.categories = [
       { name: 'Persönliches & Kontakt', icon: '../assets/image/profile/category-01.svg', path: ['personal'] },
-      { name: 'Berufliche Ausbildung', icon: '../assets/image/profile/category-02.svg', path: ['personal'] },
+      { name: 'Berufliche Ausbildung', icon: '../assets/image/profile/category-02.svg', path: ['education'] },
       { name: 'Beruflicher Werdegang', icon: '../assets/image/profile/category-03.svg', path: ['professional-background'] },
       { name: 'Such-Präferenzen', icon: '../assets/image/profile/category-04.svg', path: ['search-settings'] },
       { name: 'Dokumente', icon: '../assets/image/profile/category-05.svg', path: ['personal'] },

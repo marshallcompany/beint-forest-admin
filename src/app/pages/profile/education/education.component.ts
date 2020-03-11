@@ -102,12 +102,12 @@ export class EducationComponent implements OnInit {
         return this.fb.group({
           schoolType: [data && data.schoolType ? data.schoolType : null, Validators.required],
           schoolName: [data && data.schoolName ? data.schoolName : '', Validators.required],
-          dateStart: [data && data.dateStart ? data.dateStart : null],
-          dateEnd: [data && data.dateEnd ? data.dateEnd : null],
+          dateStart: [data && data.dateStart ? data.dateStart : null, Validators.required],
+          dateEnd: [data && data.dateEnd ? data.dateEnd : null, Validators.required],
           country: [data && data.country ? data.country : null, Validators.required],
           place: [data && data.place ? data.place : null, Validators.required],
           tilToday: [data && data.tilToday ? data.tilToday : false],
-          graduation: [data && data.graduation ? data.graduation : null],
+          graduation: [data && data.graduation ? data.graduation : null, Validators.required],
           grade: [data && data.grade ? data.grade : '', Validators.required]
         });
       default:

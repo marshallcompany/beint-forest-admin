@@ -177,6 +177,13 @@
         margin-left:19px;
     }
 }
+.field-wrapper{
+    &__input{
+        &::placeholder{
+            font-size: 16px;
+        }
+    }
+}
 .invalid{
     pointer-events: none;
     .field-wrapper{
@@ -201,11 +208,66 @@
     }
 }
 .datepicker-group{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  &-item{
     display: flex;
-    justify-content: space-between;
-    align-items:center;
     .field{
-        width:35%!important;
-        margin-bottom:0;
+      margin-bottom:0;
+      flex-shrink: 0;
+      width:230px;
+    }
+  }
+}
+.datapicker-checkbox{
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-left:15px;
+}
+@media screen and (max-width:1500px){
+    .subcategory{
+        padding-left:5vw;
+        padding-right:5vw;
+    }
+    .datepicker-group{
+        width:100%;
+        &-item{
+            width:100%;
+            flex-wrap: wrap;
+            .field{
+                width:100%;
+            }
+        }
+    }
+}
+@media screen and (max-width:1200px){
+    .subcategory-header{
+       padding:20px 20px;
+    }
+    .subcategory-content{
+        padding-bottom:50px;
+    }
+    .flex-grid{
+        padding: 15px 20px 20px 20px;
+    }
+    .not-relevant{
+        padding-left:20px;
+        padding-right:20px;
+    }
+    .subcategory-preview-info{
+      &__number{
+        margin-right:25px;
+      }
+    }
+    .subcategory-preview-item{
+        padding:20px;
+    }
+    .subcategory-info{
+        &__icon{
+            height:35px;
+            margin-right:25px;
+        }
     }
 }

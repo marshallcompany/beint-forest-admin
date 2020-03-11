@@ -179,68 +179,71 @@
                         [ngClass]="{invalid : !this.form.get('education').get('schools').controls[i].get('country').value}"></div>
                     </div>
                   </div>
-                  <div class="field">
+                  <div class="field field_datapicker field_group">
                     <div class="datepicker-group">
-                      <div class="field field_datapicker">
-                        <p class="field__label">Von</p>
-                        <div
-                          class="field-wrapper"
-                          [owlDateTimeTrigger]="dt1">
-                          <input
-                            [owlDateTime]="dt1"
-                            [max]="previousDate"
-                            class="field-wrapper__input"
-                            formControlName="dateStart"
-                            (dateTimeChange)="submit('Von')"
-                            placeholder="DD/MM/YYYY">
-                          <owl-date-time
-                            #dt1
-                            pickerMode="dialog"
-                            pickerType="calendar"
-                            panelClass="calendar"></owl-date-time>
-                          <div class="field-wrapper__type">
-                            <img src="../assets/image/calendar.svg">
-                          </div>
+                      <div class="datepicker-group-item">
+                        <div class="field">
+                          <p class="field__label">Von</p>
                           <div
-                            class="field-wrapper__status"
-                            [ngClass]="{invalid : !this.form.get('education').get('schools').controls[i].get('dateStart').value}"></div>
+                            class="field-wrapper"
+                            [owlDateTimeTrigger]="dt1">
+                            <input
+                              [owlDateTime]="dt1"
+                              [max]="previousDate"
+                              class="field-wrapper__input"
+                              formControlName="dateStart"
+                              (dateTimeChange)="submit('Von')"
+                              placeholder="DD/MM/YYYY">
+                            <owl-date-time
+                              #dt1
+                              pickerMode="dialog"
+                              pickerType="calendar"
+                              panelClass="calendar"></owl-date-time>
+                            <div class="field-wrapper__type">
+                              <img src="../assets/image/calendar.svg">
+                            </div>
+                            <div
+                              class="field-wrapper__status"
+                              [ngClass]="{invalid : !this.form.get('education').get('schools').controls[i].get('dateStart').value}"></div>
+                          </div>
                         </div>
                       </div>
-                      <div class="field field_datapicker">
-                        <p class="field__label">Bis</p>
-                        <div
-                          class="field-wrapper"
-                          [owlDateTimeTrigger]="dt2">
-                          <input
-                            [owlDateTime]="dt2"
-                            [max]="currentDate"
-                            class="field-wrapper__input"
-                            formControlName="dateEnd"
-                            (dateTimeChange)="submit('Bis')"
-                            placeholder="DD/MM/YYYY">
-                          <owl-date-time
-                            #dt2
-                            pickerMode="dialog"
-                            pickerType="calendar"
-                            panelClass="calendar"></owl-date-time>
-                          <div class="field-wrapper__type">
-                            <img src="../assets/image/calendar.svg">
-                          </div>
+                      <div class="datepicker-group-item">
+                        <div class="field">
+                          <p class="field__label">Bis</p>
                           <div
-                            class="field-wrapper__status"
-                            [ngClass]="{invalid : !this.form.get('education').get('schools').controls[i].get('dateEnd').value}"></div>
+                            class="field-wrapper"
+                            [owlDateTimeTrigger]="dt2">
+                            <input
+                              [owlDateTime]="dt2"
+                              [max]="currentDate"
+                              class="field-wrapper__input"
+                              formControlName="dateEnd"
+                              (dateTimeChange)="submit('Bis')"
+                              placeholder="DD/MM/YYYY">
+                            <owl-date-time
+                              #dt2
+                              pickerMode="dialog"
+                              pickerType="calendar"
+                              panelClass="calendar"></owl-date-time>
+                            <div class="field-wrapper__type">
+                              <img src="../assets/image/calendar.svg">
+                            </div>
+                            <div
+                              class="field-wrapper__status"
+                              [ngClass]="{invalid : !this.form.get('education').get('schools').controls[i].get('dateEnd').value}"></div>
+                          </div>
                         </div>
-                      </div>
-                      <div class="datapicker-checkbox">
-                        <label class="checkbox-container">
-                          bis heute
-                          <input
-                            type="checkbox"
-                            class="not-relevant__checkbox"
-                            (change)="setTodayDate(this.form.get('education').get('schools').controls[i])"
-                            formControlName="tilToday">
-                          <span class="checkmark"></span>
-                        </label>
+                        <div class="datapicker-checkbox">
+                          <label class="checkbox-container">
+                            bis heute
+                            <input
+                              type="checkbox"
+                              (change)="setTodayDate(this.form.get('education').get('schools').controls[i])"
+                              formControlName="tilToday">
+                            <span class="checkmark"></span>
+                          </label>
+                        </div>
                       </div>
                     </div>
                   </div>
