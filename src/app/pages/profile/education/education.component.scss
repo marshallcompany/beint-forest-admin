@@ -63,6 +63,23 @@
 // ACCORDION CONTENT
 .subcategory-content{
     padding-bottom:75px;
+    border-top: 1px solid #989898;
+}
+.not-relevant{
+    padding: 30px 50px 0 30px;
+    &__item{
+        background-color:rgba(152, 152, 152, .1);
+        width:47%;
+        border-radius:10px;
+        display: flex;
+        align-items:center;
+        padding:30px 0 30px 19px;
+    }
+    &__checkbox{
+        margin-right:10px;
+        width:20px;
+        height:20px;
+    }
 }
 .flex-grid{
     display: flex;
@@ -70,9 +87,6 @@
     justify-content: space-between;
     border-bottom: 1px solid #989898;
     padding: 0 50px 20px 30px;
-    &:first-child{
-      border-top: 1px solid #989898;
-    }
     &:last-child{
         border:none;
     }
@@ -184,7 +198,8 @@
         }
     }
 }
-.invalid{
+.invalid,
+.notRelevant{
     pointer-events: none;
     .field-wrapper{
         position: relative;

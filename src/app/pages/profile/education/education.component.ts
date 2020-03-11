@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormGroupName, Validators } from '@angular/forms';
 import { ProfileService } from 'src/app/services/profile.service';
 import { NotificationService } from 'src/app/services/notification.service';
@@ -14,7 +14,7 @@ import { ConfirmModalComponent } from 'src/app/modal/confirm/confirm-modal.compo
   templateUrl: './education.component.html',
   styleUrls: ['./education.component.scss']
 })
-export class EducationComponent implements OnInit {
+export class EducationComponent implements OnInit, AfterViewInit {
 
   public navSettings = {
     iconCategory: '../assets/image/profile/category-02.svg',
@@ -25,9 +25,11 @@ export class EducationComponent implements OnInit {
 
   public accordionsStatus: boolean;
   @ViewChild('accordion01', { static: false }) accordion01: MatExpansionPanel;
+  @ViewChild('accordion02', { static: false }) accordion02: MatExpansionPanel;
 
   $countriesList: Observable<string[]>;
   $citiesList: Observable<string[]>;
+  $apprenticeshipList: Observable<string[]>;
 
   public form: FormGroup;
   public education: FormGroupName;
@@ -50,6 +52,10 @@ export class EducationComponent implements OnInit {
   ngOnInit() {
     this.init();
     this.formInit();
+  }
+
+  ngAfterViewInit() {
+    this.onOpenAccordion();
   }
 
   public init = () => {
@@ -87,13 +93,54 @@ export class EducationComponent implements OnInit {
   public formInit = () => {
     this.form = this.fb.group({
       education: this.fb.group({
-        schools: this.fb.array([])
+        schools: this.fb.array([]),
+        specialEducation: this.fb.group({
+          isNotRelevant: [false],
+          items: this.fb.array([])
+        })
       })
     });
   }
 
+  notRelevant(groupName: string, nameArray: string, nameCategory: string) {
+    const isRelevant = this.form.get(groupName).get(nameCategory).get('isNotRelevant').value;
+    if (!isRelevant) {
+      this[nameArray].controls[0].enable();
+      return;
+    }
+    const length = this[nameArray].controls.length;
+    for (let i = 0; i < length; i++) {
+      this[nameArray].removeAt(0);
+    }
+    this[nameArray].push(this.createFormGroup({}, nameCategory));
+    this.submit('Für mich nicht relevant');
+  }
+
+  public onOpenAccordion() {
+    this.accordion01.opened
+      .subscribe(
+        ($event) => {
+          if (this.schoolsArray.controls.length) {
+            return;
+          }
+          this.schoolsArray.push((this.createFormGroup(null, 'schools')));
+        }),
+      this.accordion02.opened
+        .subscribe(
+          ($event) => {
+            if (this.specialEducationArray.controls.length) {
+              return;
+            }
+            this.specialEducationArray.push(this.createFormGroup(null, 'specialEducation'));
+          });
+  }
+
   public get schoolsArray(): FormArray {
     return this.form.get('education').get('schools') as FormArray;
+  }
+
+  public get specialEducationArray(): FormArray {
+    return this.form.get('education').get('specialEducation').get('items') as FormArray;
   }
 
   public createFormGroup = (data: any, nameGroup: string): FormGroup => {
@@ -110,14 +157,39 @@ export class EducationComponent implements OnInit {
           graduation: [data && data.graduation ? data.graduation : null, Validators.required],
           grade: [data && data.grade ? data.grade : '', Validators.required]
         });
+      case 'specialEducation':
+        return this.fb.group({
+          professionalEducation: [data && data.professionalEducation ? data.professionalEducation : null, Validators.required],
+          company: [data && data.company ? data.company : '', Validators.required],
+          dateStart: [data && data.dateStart ? data.dateStart : null, Validators.required],
+          dateEnd: [data && data.dateEnd ? data.dateEnd : null, Validators.required],
+          country: [data && data.country ? data.country : null, Validators.required],
+          place: [data && data.place ? data.place : null, Validators.required],
+          tilToday: [data && data.tilToday ? data.tilToday : false],
+          professionalSchool: [data && data.professionalSchool ? data.professionalSchool : null, Validators.required],
+          grade: [data && data.grade ? data.grade : '', Validators.required],
+          isNoVocationTraining: [data && data.isNoVocationTraining ? data.isNoVocationTraining : false],
+        });
       default:
         break;
     }
   }
   private patchFormValue(education) {
+    this.form.patchValue({
+      education: {
+        specialEducation: {
+          isNotRelevant: education.specialEducation && education.specialEducation.isNotRelevant ? education.specialEducation.isNotRelevant : false
+        }
+      }
+    });
     if (education.schools.length) {
       education.schools.forEach(item => {
         this.schoolsArray.push(this.createFormGroup(item, 'schools'));
+      });
+    }
+    if (!education.specialEducation.isNotRelevant && education.specialEducation.items.length) {
+      education.specialEducation.items.forEach(item => {
+        this.specialEducationArray.push(this.createFormGroup(item, 'specialEducation'));
       });
     }
   }
@@ -144,7 +216,7 @@ export class EducationComponent implements OnInit {
       this.matDialog.open(ConfirmModalComponent).afterClosed()
         .pipe(
           switchMap(value => {
-            if (value === false) {
+            if (!value || value === undefined) {
               return throwError('Cancel dialog');
             }
             return of(value);
@@ -181,6 +253,9 @@ export class EducationComponent implements OnInit {
     this.$citiesList = this.searchService.getTowns('de', `${query}`).pipe(debounceTime(400), share());
   }
 
+  getApprenticeshipList(query: string) {
+    this.$apprenticeshipList = this.searchService.getProfessionalEducation('de', `${query}`).pipe(debounceTime(400), share());
+  }
 
   setTodayDate(group: FormGroup) {
     const isSet = group.get('tilToday').value;

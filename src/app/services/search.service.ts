@@ -59,6 +59,15 @@ export class SearchService {
     });
   }
 
+  public getProfessionalEducation(lang, query): Observable<string[]> {
+    const url = this.apiRoutes.GET_EDUCATION_SCHEMA.replace(':lang', lang);
+    return this.http.get<any>(url, {
+      params: {
+        filter: query
+      }
+    });
+  }
+
   public getZipCode(lang, country: string, city: string = '', filter: string = ''): Observable<string[]> {
     const url = this.apiRoutes.GET_ZIP_SCHEMA.replace(':lang', lang);
     return this.http.get<any>(url, {

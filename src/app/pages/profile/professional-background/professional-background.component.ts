@@ -278,7 +278,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
       this.matDialog.open(ConfirmModalComponent).afterClosed()
         .pipe(
           switchMap(value => {
-            if (value === false) {
+            if (!value || value === undefined) {
               return throwError('Cancel dialog');
             }
             return of(value);
