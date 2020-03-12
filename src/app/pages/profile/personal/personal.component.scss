@@ -17,10 +17,6 @@
         }
     }
 }
-.disabled{
-    pointer-events: none;
-    filter: grayscale(1);
-}
 .subcategory-item{
     margin-bottom:60px;
     &:last-child{
@@ -39,7 +35,7 @@
        background-color:#ffffff;
        display: flex;
        align-items:center;
-       justify-content: center; 
+       justify-content: center;
        margin-right:20px;
     }
     &__name{
@@ -113,7 +109,7 @@
        top:0;
        border-bottom-right-radius: 10px;
        border-top-right-radius: 10px;
-       background-color:$green; 
+       background-color:$green;
        &.invalid{
            background-color: $yellow;
        }

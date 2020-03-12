@@ -202,13 +202,13 @@
             </div>
           </div>
           <div
-            [ngClass]="{disabled : !form.get('contact').get('residence').get('country').value}"
             class="field field_select field_select-search single"
             formGroupName="residence">
             <p class="field__label">Wohnort</p>
             <div class="field-wrapper">
               <ng-select
                 [items]="cityList$ | async"
+                [disabled]="form.get('contact').get('residence').get('country').invalid"
                 [clearable]="false"
                 [multiple]="false"
                 [placeholder]="'Wohnort eingeben'"
@@ -225,13 +225,13 @@
             </div>
           </div>
           <div
-            [ngClass]="{disabled : !form.get('contact').get('residence').get('country').value}"
             class="field field_select field_select-search single"
             formGroupName="residence">
             <p class="field__label">PLZ</p>
             <div class="field-wrapper">
               <ng-select
                 [items]="zip$ | async"
+                [disabled]="form.get('contact').get('residence').get('country').invalid"
                 [clearable]="false"
                 [multiple]="false"
                 [placeholder]="'PLZ eingeben'"
