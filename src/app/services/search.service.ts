@@ -59,6 +59,24 @@ export class SearchService {
     });
   }
 
+  public getSpecializationUniversity(lang, query): Observable<string[]> {
+    const url = this.apiRoutes.GET_SPECIALIZATION_SCHEMA.replace(':lang', lang);
+    return this.http.get<any>(url, {
+      params: {
+        filter: query
+      }
+    });
+  }
+
+  public getDegreeUniversity(lang, query): Observable<string[]> {
+    const url = this.apiRoutes.GET_DEGREE_SCHEMA.replace(':lang', lang);
+    return this.http.get<any>(url, {
+      params: {
+        filter: query
+      }
+    });
+  }
+
   public getProfessionalEducation(lang, query): Observable<string[]> {
     const url = this.apiRoutes.GET_EDUCATION_SCHEMA.replace(':lang', lang);
     return this.http.get<any>(url, {

@@ -26,10 +26,13 @@ export class EducationComponent implements OnInit, AfterViewInit {
   public accordionsStatus: boolean;
   @ViewChild('accordion01', { static: false }) accordion01: MatExpansionPanel;
   @ViewChild('accordion02', { static: false }) accordion02: MatExpansionPanel;
+  @ViewChild('accordion03', { static: false }) accordion03: MatExpansionPanel;
 
   $countriesList: Observable<string[]>;
   $citiesList: Observable<string[]>;
   $apprenticeshipList: Observable<string[]>;
+  $specializationList: Observable<string[]>;
+  $degreeList: Observable<string[]>;
 
   public form: FormGroup;
   public education: FormGroupName;
@@ -97,6 +100,10 @@ export class EducationComponent implements OnInit, AfterViewInit {
         specialEducation: this.fb.group({
           isNotRelevant: [false],
           items: this.fb.array([])
+        }),
+        universities: this.fb.group({
+          isNotRelevant: [false],
+          items: this.fb.array([])
         })
       })
     });
@@ -133,6 +140,14 @@ export class EducationComponent implements OnInit, AfterViewInit {
             }
             this.specialEducationArray.push(this.createFormGroup({}, 'specialEducation'));
           });
+    this.accordion03.opened
+      .subscribe(
+        ($event) => {
+          if (this.universitiesArray.controls.length) {
+            return;
+          }
+          this.universitiesArray.push(this.createFormGroup({}, 'universities'));
+        });
   }
 
   public get schoolsArray(): FormArray {
@@ -141,6 +156,9 @@ export class EducationComponent implements OnInit, AfterViewInit {
 
   public get specialEducationArray(): FormArray {
     return this.form.get('education').get('specialEducation').get('items') as FormArray;
+  }
+  public get universitiesArray(): FormArray {
+    return this.form.get('education').get('universities').get('items') as FormArray;
   }
 
   public createFormGroup = (data: any, nameGroup: string): FormGroup => {
@@ -170,6 +188,22 @@ export class EducationComponent implements OnInit, AfterViewInit {
           grade: [data && data.grade ? data.grade : '', Validators.required],
           isNoVocationTraining: [data && data.isNoVocationTraining ? data.isNoVocationTraining : false],
         });
+      case 'universities':
+        return this.fb.group({
+          degreeProgramTitle: [data && data.degreeProgramTitle ? data.degreeProgramTitle : '', Validators.required],
+          specialization: [data && data.specialization ? data.specialization : null, Validators.required],
+          dateStart: [data && data.dateStart ? data.dateStart : null, Validators.required],
+          dateFinish: [data && data.dateFinish ? data.dateFinish : null, Validators.required],
+          country: [data && data.country ? data.country : null, Validators.required],
+          place: [data && data.place ? data.place : null, Validators.required],
+          tilToday: [data && data.tilToday ? data.tilToday : false],
+          typeOfDegree: [data && data.typeOfDegree ? data.typeOfDegree : null, Validators.required],
+          grade: [data && data.grade ? data.grade : '', Validators.required],
+          typeOfStudyTime: [data && data.typeOfStudyTime ? data.typeOfStudyTime : null, Validators.required],
+          universityName: [data && data.universityName ? data.universityName : '', Validators.required],
+          priorities: this.fb.array(data && data.priorities ? data.priorities : [], Validators.required),
+          titleThesis: [data && data.titleThesis ? data.titleThesis : '', Validators.required],
+        });
       default:
         break;
     }
@@ -179,6 +213,9 @@ export class EducationComponent implements OnInit, AfterViewInit {
       education: {
         specialEducation: {
           isNotRelevant: education.specialEducation && education.specialEducation.isNotRelevant ? education.specialEducation.isNotRelevant : false
+        },
+        universities: {
+          isNotRelevant: education.universities && education.universities.isNotRelevant ? education.universities.isNotRelevant : false
         }
       }
     });
@@ -190,6 +227,11 @@ export class EducationComponent implements OnInit, AfterViewInit {
     if (!education.specialEducation.isNotRelevant && education.specialEducation.items.length) {
       education.specialEducation.items.forEach(item => {
         this.specialEducationArray.push(this.createFormGroup(item, 'specialEducation'));
+      });
+    }
+    if (!education.universities.isNotRelevant && education.universities.items.length) {
+      education.universities.items.forEach(item => {
+        this.universitiesArray.push(this.createFormGroup(item, 'universities'));
       });
     }
   }
@@ -255,6 +297,14 @@ export class EducationComponent implements OnInit, AfterViewInit {
 
   getApprenticeshipList(query: string) {
     this.$apprenticeshipList = this.searchService.getProfessionalEducation('de', `${query}`).pipe(debounceTime(400), share());
+  }
+
+  getSpecializationList(query: string) {
+    this.$specializationList = this.searchService.getSpecializationUniversity('de', `${query}`).pipe(debounceTime(400), share());
+  }
+
+  getDegreeList(query: string) {
+    this.$degreeList = this.searchService.getDegreeUniversity('de', `${query}`).pipe(debounceTime(400), share());
   }
 
   setTodayDate(group: FormGroup) {

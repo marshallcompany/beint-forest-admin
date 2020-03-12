@@ -184,6 +184,24 @@
 }
 .field{
     width:47%;
+    &_textarea{
+        .field-wrapper{
+            flex: inherit;
+            .field-wrapper__input{
+                padding:0;
+                height: 145px;
+                font-family: $gr;
+                outline: none;
+                border:none;
+                resize: none;
+                font-size: 17px;
+            }
+            &__type{
+                top:25px;
+                right:19px;
+            }
+        }
+    }
     &__label{
         color:$black;
         opacity: .5;

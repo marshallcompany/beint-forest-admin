@@ -20,6 +20,8 @@ export class ApiRoutesProvider {
   public readonly GET_TOWNS_SCHEMA: string;
   public readonly GET_COUNTRIES_SCHEMA: string;
   public readonly GET_EDUCATION_SCHEMA: string;
+  public readonly GET_DEGREE_SCHEMA: string;
+  public readonly GET_SPECIALIZATION_SCHEMA: string;
   public readonly GET_ZIP_SCHEMA: string;
 
   constructor() {
@@ -40,6 +42,8 @@ export class ApiRoutesProvider {
     this.GET_COUNTRIES_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/countries/:lang`;
     this.GET_ZIP_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/zipCodes/:lang`;
     this.GET_EDUCATION_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/professionalEducation/:lang`;
+    this.GET_SPECIALIZATION_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/universitySpecialization/:lang`;
+    this.GET_DEGREE_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/universityDegree/:lang`;
 
   }
 }

@@ -591,6 +591,377 @@
             </div>
           </div>
         </div>
+        <div
+          class="subcategory-item"
+          formGroupName="education">
+          <mat-expansion-panel
+            class="accordion"
+            (opened)="accordionsStatus = true"
+            (closed)="accordionChange()"
+            #accordion03="matExpansionPanel">
+            <mat-expansion-panel-header>
+              <div class="subcategory-header">
+                <div class="subcategory-info">
+                  <img
+                    src="../assets/image/profile/education/subcategory-03.svg"
+                    class="subcategory-info__icon">
+                  <p class="subcategory-info__label">Universität</p>
+                </div>
+                <img
+                  src="../assets/image/profile/accordion-arrow.svg"
+                  [ngClass]="{ 'accordion-active' : accordion03.expanded }"
+                  class="subcategory-header__arrow">
+              </div>
+            </mat-expansion-panel-header>
+            <ng-container formGroupName="universities">
+              <div class="subcategory-content">
+                <div class="not-relevant">
+                  <div class="not-relevant__item">
+                    <label class="checkbox-container">
+                      Für mich nicht relevant
+                      <input
+                        type="checkbox"
+                        class="not-relevant__checkbox"
+                        (change)="notRelevant('education', 'universitiesArray', 'universities')"
+                        formControlName="isNotRelevant">
+                      <span class="checkmark"></span>
+                    </label>
+                  </div>
+                </div>
+                <div formArrayName="items">
+                  <div
+                    class="flex-grid"
+                    *ngFor="let item of universitiesArray.controls; let i = index"
+                    [formGroupName]="i">
+                    <div class="remove-fields">
+                      <button
+                        class="remove-fields__button"
+                        (click)="deleteFormGroup(universitiesArray, i, 'universities')">
+                        <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" class="remove-fields__icon">
+                          <path d="M0.050293 0.050293L9.94979 9.94979M9.94979 0.050293L0.0502933 9.94979" stroke-width="2"
+                              stroke-linecap="round"/>
+                        </svg>
+                      </button>
+                    </div>
+                    <div
+                      class="field"
+                      [ngClass]="{notRelevant : this.form.get('education').get('universities').get('isNotRelevant').value}">
+                      <p class="field__label">Name der Hochschule</p>
+                      <div class="field-wrapper">
+                        <input
+                          type="text"
+                          placeholder="Name der Hochschule"
+                          formControlName="universityName"
+                          (change)="submit('Name der Hochschule')"
+                          class="field-wrapper__input">
+                        <div class="field-wrapper__type">abc</div>
+                        <div
+                          class="field-wrapper__status"
+                          [ngClass]="{invalid : !this.form.get('education').get('universities').get('items').controls[i].get('universityName').value}"></div>
+                      </div>
+                    </div>
+                    <div
+                      class="field"
+                      [ngClass]="{notRelevant : this.form.get('education').get('universities').get('isNotRelevant').value}">
+                      <p class="field__label">Studiengang</p>
+                      <div class="field-wrapper">
+                        <input
+                          type="text"
+                          placeholder="Studiengang"
+                          formControlName="degreeProgramTitle"
+                          (change)="submit('Studiengang')"
+                          class="field-wrapper__input">
+                        <div class="field-wrapper__type">abc</div>
+                        <div
+                          class="field-wrapper__status"
+                          [ngClass]="{invalid : !this.form.get('education').get('universities').get('items').controls[i].get('degreeProgramTitle').value}"></div>
+                      </div>
+                    </div>
+                    <div
+                      class="field field_select field_select-search single"
+                      [ngClass]="{notRelevant : this.form.get('education').get('universities').get('isNotRelevant').value}">
+                      <p class="field__label">Land</p>
+                      <div class="field-wrapper">
+                        <ng-select
+                          [searchable]="true"
+                          [items]="$countriesList | async"
+                          [clearable]="false"
+                          [placeholder]="'Land'"
+                          (search)="getCountryList($event.term)"
+                          (change)="submit('Land')"
+                          class="custom-select"
+                          formControlName="country">
+                        </ng-select>
+                        <div class="field-wrapper__type">abc</div>
+                        <div
+                          class="field-wrapper__status"
+                          [ngClass]="{invalid : !this.form.get('education').get('universities').get('items').controls[i].get('country').value}"></div>
+                      </div>
+                    </div>
+                    <div
+                      class="field field_select field_select-search single"
+                      [ngClass]="{'invalid' : !this.form.get('education').get('universities').get('items').controls[i].get('country').value || this.form.get('education').get('specialEducation').get('isNotRelevant').value}">
+                      <p class="field__label">Ort</p>
+                      <div class="field-wrapper">
+                        <ng-select
+                          [searchable]="true"
+                          [items]="$citiesList | async"
+                          [clearable]="false"
+                          placeholder="Ort"
+                          (search)="getCityList($event.term)"
+                          (change)="submit('Ort')"
+                          class="custom-select"
+                          formControlName="place">
+                        </ng-select>
+                        <div class="field-wrapper__type">abc</div>
+                        <div
+                          class="field-wrapper__status"
+                          [ngClass]="{invalid : !this.form.get('education').get('universities').get('items').controls[i].get('place').value}">
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="field field_select"
+                      [ngClass]="{notRelevant : this.form.get('education').get('universities').get('isNotRelevant').value}">
+                      <p class="field__label">Art des Studiums</p>
+                      <div class="field-wrapper">
+                        <ng-select
+                          [searchable]="false"
+                          [clearable]="false"
+                          placeholder="Art des Studiums"
+                          (change)="submit('Art des Studiums')"
+                          class="custom-select"
+                          formControlName="typeOfStudyTime">
+                          <ng-option
+                            *ngFor="let option of dropdownOptions.university_study_times"
+                            [value]="option">
+                            {{ option }}
+                          </ng-option>
+                        </ng-select>
+                        <div
+                          class="field-wrapper__status"
+                          [ngClass]="{invalid : !this.form.get('education').get('universities').get('items').controls[i].get('typeOfStudyTime').value}"></div>
+                      </div>
+                    </div>
+                    <div
+                      class="field field_select field_select-search single"
+                      [ngClass]="{notRelevant : this.form.get('education').get('universities').get('isNotRelevant').value}">
+                      <p class="field__label">Fachrichtung</p>
+                      <div class="field-wrapper">
+                        <ng-select
+                          [searchable]="true"
+                          [items]="$specializationList | async"
+                          [clearable]="false"
+                          placeholder="Fachrichtung"
+                          (search)="getSpecializationList($event.term)"
+                          (change)="submit('Fachrichtung')"
+                          class="custom-select"
+                          formControlName="specialization">
+                        </ng-select>
+                        <div class="field-wrapper__type">abc</div>
+                        <div
+                          class="field-wrapper__status"
+                          [ngClass]="{invalid : !this.form.get('education').get('universities').get('items').controls[i].get('specialization').value}"></div>
+                      </div>
+                    </div>
+                    <div class="field field_group">
+                      <div
+                        class="field field_select field_select-search single"
+                        [ngClass]="{notRelevant : this.form.get('education').get('universities').get('isNotRelevant').value}">
+                        <p class="field__label">Art des Abschlusses</p>
+                        <div class="field-wrapper">
+                          <ng-select
+                            [searchable]="true"
+                            [items]="$degreeList | async"
+                            [clearable]="false"
+                            placeholder="Art des Abschlusses"
+                            (search)="getDegreeList($event.term)"
+                            (change)="submit('Art des Abschlusses')"
+                            class="custom-select"
+                            formControlName="typeOfDegree">
+                          </ng-select>
+                          <div
+                            class="field-wrapper__status"
+                            [ngClass]="{invalid : !this.form.get('education').get('universities').get('items').controls[i].get('typeOfDegree').value}"></div>
+                        </div>
+                      </div>
+                      <div
+                        class="field"
+                        [ngClass]="{notRelevant : this.form.get('education').get('universities').get('isNotRelevant').value}">
+                        <p class="field__label">Schwerpunkte</p>
+                        <div class="field-wrapper">
+                          <input
+                            type="text"
+                            placeholder="Schwerpunkte"
+                            (change)="submit('Schwerpunkte')"
+                            class="field-wrapper__input">
+                          <div class="field-wrapper__type">abc</div>
+                          <div
+                            class="field-wrapper__status"
+                            [ngClass]="{invalid : !this.form.get('education').get('universities').get('items').controls[i].get('degreeProgramTitle').value}"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="field field_textarea"
+                      [ngClass]="{notRelevant : this.form.get('education').get('universities').get('isNotRelevant').value}">
+                      <p class="field__label">Titel Abschlussarbeit</p>
+                      <div class="field-wrapper textarea">
+                        <textarea
+                          placeholder="Titel Abschlussarbeit"
+                          class="field-wrapper__input"
+                          rows="8"
+                          formControlName="titleThesis"
+                          (change)="submit('Titel Abschlussarbeit')"></textarea>
+                        <div class="field-wrapper__type">abc</div>
+                        <div
+                          class="field-wrapper__status"
+                          [ngClass]="{invalid : !this.form.get('education').get('universities').get('items').controls[i].get('titleThesis').value}"></div>
+                      </div>
+                    </div>
+                    <div class="field field_datapicker field_group">
+                      <div class="datepicker-group">
+                        <div class="datepicker-group-item">
+                          <div
+                            class="field"
+                            [ngClass]="{notRelevant : this.form.get('education').get('universities').get('isNotRelevant').value}">
+                            <p class="field__label">Von</p>
+                            <div
+                              class="field-wrapper"
+                              [owlDateTimeTrigger]="dt1">
+                              <input
+                                [owlDateTime]="dt1"
+                                [max]="previousDate"
+                                class="field-wrapper__input"
+                                formControlName="dateStart"
+                                (dateTimeChange)="submit('Von')"
+                                placeholder="DD/MM/YYYY">
+                              <owl-date-time
+                                #dt1
+                                pickerMode="dialog"
+                                pickerType="calendar"
+                                panelClass="calendar"></owl-date-time>
+                              <div class="field-wrapper__type">
+                                <img src="../assets/image/calendar.svg">
+                              </div>
+                              <div
+                                class="field-wrapper__status"
+                                [ngClass]="{invalid : !this.form.get('education').get('universities').get('items').controls[i].get('dateStart').value}"></div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="datepicker-group-item">
+                          <div
+                            class="field"
+                            [ngClass]="{notRelevant : this.form.get('education').get('universities').get('isNotRelevant').value}">
+                            <p class="field__label">Bis</p>
+                            <div
+                              class="field-wrapper"
+                              [owlDateTimeTrigger]="dt2">
+                              <input
+                                [owlDateTime]="dt2"
+                                [max]="currentDate"
+                                class="field-wrapper__input"
+                                formControlName="dateFinish"
+                                (dateTimeChange)="submit('Bis')"
+                                placeholder="DD/MM/YYYY">
+                              <owl-date-time
+                                #dt2
+                                pickerMode="dialog"
+                                pickerType="calendar"
+                                panelClass="calendar"></owl-date-time>
+                              <div class="field-wrapper__type">
+                                <img src="../assets/image/calendar.svg">
+                              </div>
+                              <div
+                                class="field-wrapper__status"
+                                [ngClass]="{invalid : !this.form.get('education').get('universities').get('items').controls[i].get('dateFinish').value}"></div>
+                            </div>
+                          </div>
+                          <div
+                            class="datapicker-checkbox"
+                            [ngClass]="{notRelevant : this.form.get('education').get('universities').get('isNotRelevant').value}">
+                            <label class="checkbox-container">
+                              bis heute
+                              <input
+                                type="checkbox"
+                                (change)="setTodayDate(this.form.get('education').get('universities').get('items').controls[i])"
+                                formControlName="tilToday">
+                              <span class="checkmark"></span>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="field"
+                      [ngClass]="{notRelevant : this.form.get('education').get('universities').get('isNotRelevant').value}">
+                      <p class="field__label">Note</p>
+                      <div class="field-wrapper">
+                        <input
+                          type="tel"
+                          placeholder="Note"
+                          formControlName="grade"
+                          (change)="submit('Note')"
+                          class="field-wrapper__input">
+                        <div class="field-wrapper__type">abc</div>
+                        <div
+                          class="field-wrapper__status"
+                          [ngClass]="{invalid : !this.form.get('education').get('universities').get('items').controls[i].get('grade').value}"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="add-fields"
+                    *ngIf="accordion03.expanded">
+                    <button
+                      class="add-fields__button"
+                      (click)="setFormGroup('universities', true)">
+                      <img src="../assets/image/plus.svg">
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </mat-expansion-panel>
+          <div
+            class="subcategory-preview"
+            *ngIf="!accordion03.expanded && !form.get('education').get('universities').get('isNotRelevant').value">
+            <div
+              class="subcategory-preview-item"
+              *ngFor="let item of form.get('education').get('universities').get('items').controls; let i = index">
+              <ng-container *ngIf="item.valid; else notValid">
+                <div class="subcategory-preview-info">
+                  <p class="subcategory-preview-info__number">
+                    <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
+                  </p>
+                  <div class="subcategory-preview-info__details">
+                    <p class="subcategory-preview-info__species">{{ item.get('universityName').value }}</p>
+                    <div class="subcategory-preview-info__circle"></div>
+                    <p class="subcategory-preview-info__date">{{ item.get('dateStart').value | date: 'dd/yyyy' }} - {{ item.get('dateFinish').value | date: 'dd/yyyy' }}</p>
+                    <div class="subcategory-preview-info__circle"></div>
+                    <p class="subcategory-preview-info__scope">{{ item.get('grade').value }}</p>
+                  </div>
+                </div>
+                <button
+                  class="subcategory-preview-item__remove"
+                  (click)="deleteFormGroup(universitiesArray, i)">
+                  <img src="../assets/image/close.svg">
+                </button>
+              </ng-container>
+              <ng-template #notValid>
+                <div class="subcategory-preview-info">
+                  <p class="subcategory-preview-info__number">
+                  <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
+                </p>
+                  <div class="subcategory-preview-info__details">
+                    <p class="subcategory-preview-info__invalid">Unvollständige Angaben</p>
+                  </div>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
       </form>
     </div>
   </div>
