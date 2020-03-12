@@ -555,7 +555,7 @@
           </mat-expansion-panel>
           <div
             class="subcategory-preview"
-            *ngIf="!accordion02.expanded">
+            *ngIf="!accordion02.expanded && !form.get('education').get('specialEducation').get('isNotRelevant').value">
             <div
               class="subcategory-preview-item"
               *ngFor="let item of form.get('education').get('specialEducation').get('items').controls; let i = index">

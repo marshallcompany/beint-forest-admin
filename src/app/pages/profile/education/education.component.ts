@@ -123,7 +123,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
           if (this.schoolsArray.controls.length) {
             return;
           }
-          this.schoolsArray.push((this.createFormGroup(null, 'schools')));
+          this.schoolsArray.push((this.createFormGroup({}, 'schools')));
         }),
       this.accordion02.opened
         .subscribe(
@@ -131,7 +131,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
             if (this.specialEducationArray.controls.length) {
               return;
             }
-            this.specialEducationArray.push(this.createFormGroup(null, 'specialEducation'));
+            this.specialEducationArray.push(this.createFormGroup({}, 'specialEducation'));
           });
   }
 
