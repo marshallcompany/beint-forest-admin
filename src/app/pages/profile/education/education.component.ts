@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, FormGroupName, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, FormGroupName, Validators, FormControl } from '@angular/forms';
 import { ProfileService } from 'src/app/services/profile.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { map, debounceTime, share, switchMap } from 'rxjs/operators';
@@ -36,6 +36,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
 
   public form: FormGroup;
   public education: FormGroupName;
+  public universityPrioritiesControl = new FormControl('', Validators.maxLength(100));
 
 
   currentDate = moment().toDate();
@@ -161,6 +162,22 @@ export class EducationComponent implements OnInit, AfterViewInit {
     return this.form.get('education').get('universities').get('items') as FormArray;
   }
 
+
+  public pushFormControl = (formArray: FormArray, nameArray: string, nameFormControl: FormControl, index: any, message: string) => {
+    const childArray = formArray.at(index).get(nameArray) as FormArray;
+    if (formArray && nameArray && nameFormControl && childArray) {
+      childArray.push(this.fb.control(nameFormControl.value));
+      nameFormControl.reset();
+      this.submit(message);
+    }
+    return;
+  }
+
+  public deleteTags = (index, itemIndex, formArrayName, field, message) => {
+    this[formArrayName].at(index).controls[field].removeAt(itemIndex);
+    this.submit(message);
+  }
+
   public createFormGroup = (data: any, nameGroup: string): FormGroup => {
     switch (nameGroup) {
       case 'schools':
@@ -232,6 +249,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
     if (!education.universities.isNotRelevant && education.universities.items.length) {
       education.universities.items.forEach(item => {
         this.universitiesArray.push(this.createFormGroup(item, 'universities'));
+        console.log('this form', this.form.value);
       });
     }
   }
