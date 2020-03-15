@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormGroupName, Validators, FormControl } from '@angular/forms';
+import { FormValidators } from '../../../validators/validators';
 import { ProfileService } from 'src/app/services/profile.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { map, debounceTime, share, switchMap } from 'rxjs/operators';
@@ -190,7 +191,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
           place: [data && data.place ? data.place : null, Validators.required],
           tilToday: [data && data.tilToday ? data.tilToday : false],
           graduation: [data && data.graduation ? data.graduation : null, Validators.required],
-          grade: [data && data.grade ? data.grade : '', Validators.required]
+          grade: [data && data.grade ? data.grade : '', [Validators.required, FormValidators.maxValueValidation]]
         });
       case 'specialEducation':
         return this.fb.group({
@@ -202,7 +203,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
           place: [data && data.place ? data.place : null, Validators.required],
           tilToday: [data && data.tilToday ? data.tilToday : false],
           professionalSchool: [data && data.professionalSchool ? data.professionalSchool : null, Validators.required],
-          grade: [data && data.grade ? data.grade : '', Validators.required],
+          grade: [data && data.grade ? data.grade : '', [Validators.required, FormValidators.maxValueValidation]],
           isNoVocationTraining: [data && data.isNoVocationTraining ? data.isNoVocationTraining : false],
         });
       case 'universities':
@@ -210,12 +211,12 @@ export class EducationComponent implements OnInit, AfterViewInit {
           degreeProgramTitle: [data && data.degreeProgramTitle ? data.degreeProgramTitle : '', Validators.required],
           specialization: [data && data.specialization ? data.specialization : null, Validators.required],
           dateStart: [data && data.dateStart ? data.dateStart : null, Validators.required],
-          dateFinish: [data && data.dateFinish ? data.dateFinish : null, Validators.required],
+          dateEnd: [data && data.dateEnd ? data.dateEnd : null, Validators.required],
           country: [data && data.country ? data.country : null, Validators.required],
           place: [data && data.place ? data.place : null, Validators.required],
           tilToday: [data && data.tilToday ? data.tilToday : false],
           typeOfDegree: [data && data.typeOfDegree ? data.typeOfDegree : null, Validators.required],
-          grade: [data && data.grade ? data.grade : '', Validators.required],
+          grade: [data && data.grade ? data.grade : '', [Validators.required, FormValidators.maxValueValidation]],
           typeOfStudyTime: [data && data.typeOfStudyTime ? data.typeOfStudyTime : null, Validators.required],
           universityName: [data && data.universityName ? data.universityName : '', Validators.required],
           priorities: this.fb.array(data && data.priorities ? data.priorities : [], Validators.required),
@@ -224,6 +225,9 @@ export class EducationComponent implements OnInit, AfterViewInit {
       default:
         break;
     }
+  }
+  ff(c) {
+    console.log('ccc', c);
   }
   private patchFormValue(education) {
     this.form.patchValue({

@@ -21,6 +21,7 @@ import { GlobalErrorService } from './services/global-error-service';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
+import { NgxMaskModule } from 'ngx-mask';
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
@@ -50,6 +51,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
   slidesPerView: 'auto'
 };
+
+
 
 export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRoutesProvider) => {
   return new HttpMultiLoaderServiceService(http, [
@@ -89,6 +92,9 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     NgSelectModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
+    NgxMaskModule.forRoot({
+      showMaskTyped: true,
+    }),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

@@ -148,6 +148,8 @@
                     <div class="field-wrapper">
                       <input
                         type="tel"
+                        mask="0.00"
+                        [dropSpecialCharacters]="false"
                         placeholder="Note"
                         formControlName="grade"
                         (change)="submit('Note')"
@@ -157,6 +159,11 @@
                         class="field-wrapper__status"
                         [ngClass]="{invalid : !this.form.get('education').get('schools').controls[i].get('grade').value}"></div>
                     </div>
+                    <p
+                      *ngIf="this.form.get('education').get('schools').controls[i].get('grade').hasError('maxValue')"
+                      class="error-box">
+                        <span class="error-box__text">Maximum value 6</span>
+                      </p>
                   </div>
                   <div class="field field_select">
                     <p class="field__label">Abschluss</p>
@@ -455,6 +462,8 @@
                       <div class="field-wrapper">
                         <input
                           type="tel"
+                          mask="0.00"
+                          [dropSpecialCharacters]="false"
                           placeholder="Note"
                           formControlName="grade"
                           (change)="submit('Note')"
@@ -464,6 +473,11 @@
                           class="field-wrapper__status"
                           [ngClass]="{invalid : !this.form.get('education').get('specialEducation').get('items').controls[i].get('grade').value}"></div>
                       </div>
+                      <p
+                        *ngIf="this.form.get('education').get('specialEducation').get('items').controls[i].get('grade').hasError('maxValue')"
+                        class="error-box">
+                        <span class="error-box__text">Maximum value 6</span>
+                      </p>
                     </div>
                     <div class="field field_datapicker field_group">
                       <div class="datepicker-group">
@@ -883,7 +897,7 @@
                                 [owlDateTime]="dt2"
                                 [max]="currentDate"
                                 class="field-wrapper__input"
-                                formControlName="dateFinish"
+                                formControlName="dateEnd"
                                 (dateTimeChange)="submit('Bis')"
                                 placeholder="DD/MM/YYYY">
                               <owl-date-time
@@ -896,7 +910,7 @@
                               </div>
                               <div
                                 class="field-wrapper__status"
-                                [ngClass]="{invalid : !this.form.get('education').get('universities').get('items').controls[i].get('dateFinish').value}"></div>
+                                [ngClass]="{invalid : !this.form.get('education').get('universities').get('items').controls[i].get('dateEnd').value}"></div>
                             </div>
                           </div>
                           <div
@@ -921,15 +935,23 @@
                       <div class="field-wrapper">
                         <input
                           type="tel"
+                          mask="0.00"
+                          [dropSpecialCharacters]="false"
                           placeholder="Note"
-                          formControlName="grade"
                           (change)="submit('Note')"
+                          (input)="ff(this.form.get('education').get('universities').get('items').controls[i].get('grade'))"
+                          formControlName="grade"
                           class="field-wrapper__input">
                         <div class="field-wrapper__type">abc</div>
                         <div
                           class="field-wrapper__status"
                           [ngClass]="{invalid : !this.form.get('education').get('universities').get('items').controls[i].get('grade').value}"></div>
                       </div>
+                      <p
+                        *ngIf="this.form.get('education').get('universities').get('items').controls[i].get('grade').hasError('maxValue')"
+                        class="error-box">
+                        <span class="error-box__text">Maximum value 6</span>
+                      </p>
                     </div>
                   </div>
                   <div
@@ -959,7 +981,7 @@
                   <div class="subcategory-preview-info__details">
                     <p class="subcategory-preview-info__species">{{ item.get('universityName').value }}</p>
                     <div class="subcategory-preview-info__circle"></div>
-                    <p class="subcategory-preview-info__date">{{ item.get('dateStart').value | date: 'dd/yyyy' }} - {{ item.get('dateFinish').value | date: 'dd/yyyy' }}</p>
+                    <p class="subcategory-preview-info__date">{{ item.get('dateStart').value | date: 'dd/yyyy' }} - {{ item.get('dateEnd').value | date: 'dd/yyyy' }}</p>
                     <div class="subcategory-preview-info__circle"></div>
                     <p class="subcategory-preview-info__scope">{{ item.get('grade').value }}</p>
                   </div>
