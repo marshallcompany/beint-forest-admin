@@ -226,9 +226,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
         break;
     }
   }
-  ff(c) {
-    console.log('ccc', c);
-  }
+
   private patchFormValue(education) {
     this.form.patchValue({
       education: {
@@ -253,7 +251,6 @@ export class EducationComponent implements OnInit, AfterViewInit {
     if (!education.universities.isNotRelevant && education.universities.items.length) {
       education.universities.items.forEach(item => {
         this.universitiesArray.push(this.createFormGroup(item, 'universities'));
-        console.log('this form', this.form.value);
       });
     }
   }
