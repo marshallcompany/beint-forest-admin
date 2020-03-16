@@ -51,6 +51,7 @@
             <ng-container>
               <div
                 class="subcategory-content"
+                *ngIf="schoolsArray.controls.length"
                 formArrayName="schools">
                 <div
                   class="flex-grid"
@@ -342,7 +343,9 @@
                     </label>
                   </div>
                 </div>
-                <div formArrayName="items">
+                <div
+                  formArrayName="items"
+                  *ngIf="specialEducationArray.controls.length">
                   <div
                     class="flex-grid"
                     *ngFor="let item of specialEducationArray.controls; let i = index"
@@ -642,7 +645,9 @@
                     </label>
                   </div>
                 </div>
-                <div formArrayName="items">
+                <div
+                  formArrayName="items"
+                  *ngIf="universitiesArray.controls.length">
                   <div
                     class="flex-grid"
                     *ngFor="let item of universitiesArray.controls; let i = index"
@@ -988,6 +993,217 @@
                 <button
                   class="subcategory-preview-item__remove"
                   (click)="deleteFormGroup(universitiesArray, i)">
+                  <img src="../assets/image/close.svg">
+                </button>
+              </ng-container>
+              <ng-template #notValid>
+                <div class="subcategory-preview-info">
+                  <p class="subcategory-preview-info__number">
+                  <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
+                </p>
+                  <div class="subcategory-preview-info__details">
+                    <p class="subcategory-preview-info__invalid">Unvollständige Angaben</p>
+                  </div>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+        <div
+          class="subcategory-item"
+          formGroupName="education">
+          <mat-expansion-panel
+            class="accordion"
+            (opened)="accordionsStatus = true"
+            (closed)="accordionChange()"
+            #accordion04="matExpansionPanel">
+            <mat-expansion-panel-header>
+              <div class="subcategory-header">
+                <div class="subcategory-info">
+                  <img
+                    src="../assets/image/profile/education/subcategory-04.svg"
+                    class="subcategory-info__icon">
+                  <p class="subcategory-info__label">Sontige ausbildung</p>
+                </div>
+                <img
+                  src="../assets/image/profile/accordion-arrow.svg"
+                  [ngClass]="{ 'accordion-active' : accordion04.expanded }"
+                  class="subcategory-header__arrow">
+              </div>
+            </mat-expansion-panel-header>
+            <ng-container formGroupName="additionalEducations">
+              <div class="subcategory-content">
+                <div class="not-relevant">
+                  <div class="not-relevant__item">
+                    <label class="checkbox-container">
+                      Für mich nicht relevant
+                      <input
+                        type="checkbox"
+                        class="not-relevant__checkbox"
+                        (change)="notRelevant('education', 'additionalEducationsArray', 'additionalEducations')"
+                        formControlName="isNotRelevant">
+                      <span class="checkmark"></span>
+                    </label>
+                  </div>
+                </div>
+                <div
+                  formArrayName="items"
+                  *ngIf="additionalEducationsArray.controls.length">
+                  <div
+                    class="flex-grid"
+                    *ngFor="let item of additionalEducationsArray.controls; let i = index"
+                    [formGroupName]="i">
+                    <div class="remove-fields">
+                      <button
+                        class="remove-fields__button"
+                        (click)="deleteFormGroup(additionalEducationsArray, i, 'additionalEducations')">
+                        <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" class="remove-fields__icon">
+                          <path d="M0.050293 0.050293L9.94979 9.94979M9.94979 0.050293L0.0502933 9.94979" stroke-width="2"
+                              stroke-linecap="round"/>
+                        </svg>
+                      </button>
+                    </div>
+                    <div class="field field_group">
+                      <div
+                        class="field"
+                        [ngClass]="{notRelevant : this.form.get('education').get('additionalEducations').get('isNotRelevant').value}">
+                        <p class="field__label">Art der Ausbildung</p>
+                        <div class="field-wrapper">
+                          <input
+                            class="field-wrapper__input"
+                            formControlName="trainingTitle"
+                            placeholder="Art der Ausbildung"
+                            (change)="submit('Art der Ausbildung')">
+                          <div
+                            class="field-wrapper__status"
+                            [ngClass]="{invalid : !this.form.get('education').get('additionalEducations').get('items').controls[i].get('trainingTitle').value}"></div>
+                        </div>
+                      </div>
+                      <div class="field field_datapicker field_group">
+                        <div class="datepicker-group">
+                          <div class="datepicker-group-item">
+                            <div
+                              class="field"
+                              [ngClass]="{notRelevant : this.form.get('education').get('additionalEducations').get('isNotRelevant').value}">
+                              <p class="field__label">Von</p>
+                              <div
+                                class="field-wrapper"
+                                [owlDateTimeTrigger]="dt1">
+                                <input
+                                  [owlDateTime]="dt1"
+                                  [max]="previousDate"
+                                  class="field-wrapper__input"
+                                  formControlName="dateStart"
+                                  (dateTimeChange)="submit('Von')"
+                                  placeholder="DD/MM/YYYY">
+                                <owl-date-time
+                                  #dt1
+                                  pickerMode="dialog"
+                                  pickerType="calendar"
+                                  panelClass="calendar"></owl-date-time>
+                                <div class="field-wrapper__type">
+                                  <img src="../assets/image/calendar.svg">
+                                </div>
+                                <div
+                                  class="field-wrapper__status"
+                                  [ngClass]="{invalid : !this.form.get('education').get('additionalEducations').get('items').controls[i].get('dateStart').value}"></div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="datepicker-group-item">
+                            <div
+                              class="field"
+                              [ngClass]="{notRelevant : this.form.get('education').get('additionalEducations').get('isNotRelevant').value}">
+                              <p class="field__label">Bis</p>
+                              <div
+                                class="field-wrapper"
+                                [owlDateTimeTrigger]="dt2">
+                                <input
+                                  [owlDateTime]="dt2"
+                                  [max]="currentDate"
+                                  class="field-wrapper__input"
+                                  formControlName="dateEnd"
+                                  (dateTimeChange)="submit('Bis')"
+                                  placeholder="DD/MM/YYYY">
+                                <owl-date-time
+                                  #dt2
+                                  pickerMode="dialog"
+                                  pickerType="calendar"
+                                  panelClass="calendar"></owl-date-time>
+                                <div class="field-wrapper__type">
+                                  <img src="../assets/image/calendar.svg">
+                                </div>
+                                <div
+                                  class="field-wrapper__status"
+                                  [ngClass]="{invalid : !this.form.get('education').get('additionalEducations').get('items').controls[i].get('dateEnd').value}"></div>
+                              </div>
+                            </div>
+                            <div
+                              class="datapicker-checkbox"
+                              [ngClass]="{notRelevant : this.form.get('education').get('additionalEducations').get('isNotRelevant').value}">
+                              <label class="checkbox-container">
+                                bis heute
+                                <input
+                                  type="checkbox"
+                                  (change)="setTodayDate(this.form.get('education').get('additionalEducations').get('items').controls[i])"
+                                  formControlName="tilToday">
+                                <span class="checkmark"></span>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="field field_textarea"
+                      [ngClass]="{notRelevant : this.form.get('education').get('additionalEducations').get('isNotRelevant').value}">
+                      <p class="field__label">Beschreibung</p>
+                      <div class="field-wrapper textarea">
+                        <textarea
+                          placeholder="Beschreibungt"
+                          class="field-wrapper__input"
+                          formControlName="trainingDescription"
+                          (change)="submit('Beschreibung')"></textarea>
+                        <div class="field-wrapper__type">abc</div>
+                        <div
+                          class="field-wrapper__status"
+                          [ngClass]="{invalid : !this.form.get('education').get('additionalEducations').get('items').controls[i].get('trainingDescription').value}"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="add-fields"
+                    *ngIf="accordion04.expanded">
+                    <button
+                      class="add-fields__button"
+                      (click)="setFormGroup('additionalEducations', true)">
+                      <img src="../assets/image/plus.svg">
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </mat-expansion-panel>
+          <div
+            class="subcategory-preview"
+            *ngIf="!accordion04.expanded && !form.get('education').get('additionalEducations').get('isNotRelevant').value">
+            <div
+              class="subcategory-preview-item"
+              *ngFor="let item of form.get('education').get('additionalEducations').get('items').controls; let i = index">
+              <ng-container *ngIf="item.valid; else notValid">
+                <div class="subcategory-preview-info">
+                  <p class="subcategory-preview-info__number">
+                    <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
+                  </p>
+                  <div class="subcategory-preview-info__details">
+                    <p class="subcategory-preview-info__species">{{ item.get('trainingTitle').value }}</p>
+                    <div class="subcategory-preview-info__circle"></div>
+                    <p class="subcategory-preview-info__date">{{ item.get('dateStart').value | date: 'dd/yyyy' }} - {{ item.get('dateEnd').value | date: 'dd/yyyy' }}</p>
+                  </div>
+                </div>
+                <button
+                  class="subcategory-preview-item__remove"
+                  (click)="deleteFormGroup(additionalEducationsArray, i)">
                   <img src="../assets/image/close.svg">
                 </button>
               </ng-container>

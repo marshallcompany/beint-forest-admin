@@ -333,6 +333,9 @@
 }
 @media screen and (max-width:992px){
  .field{
+      &_group{
+          width:100%;
+      }
       &_textarea{
           width:100%!important;
           .field-wrapper__input {

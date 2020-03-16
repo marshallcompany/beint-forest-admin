@@ -28,6 +28,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
   @ViewChild('accordion01', { static: false }) accordion01: MatExpansionPanel;
   @ViewChild('accordion02', { static: false }) accordion02: MatExpansionPanel;
   @ViewChild('accordion03', { static: false }) accordion03: MatExpansionPanel;
+  @ViewChild('accordion04', { static: false }) accordion04: MatExpansionPanel;
 
   $countriesList: Observable<string[]>;
   $citiesList: Observable<string[]>;
@@ -106,6 +107,10 @@ export class EducationComponent implements OnInit, AfterViewInit {
         universities: this.fb.group({
           isNotRelevant: [false],
           items: this.fb.array([])
+        }),
+        additionalEducations: this.fb.group({
+          isNotRelevant: [false],
+          items: this.fb.array([])
         })
       })
     });
@@ -150,6 +155,14 @@ export class EducationComponent implements OnInit, AfterViewInit {
           }
           this.universitiesArray.push(this.createFormGroup({}, 'universities'));
         });
+    this.accordion04.opened
+      .subscribe(
+        ($event) => {
+          if (this.additionalEducationsArray.controls.length) {
+            return;
+          }
+          this.additionalEducationsArray.push(this.createFormGroup({}, 'additionalEducations'));
+        });
   }
 
   public get schoolsArray(): FormArray {
@@ -163,6 +176,9 @@ export class EducationComponent implements OnInit, AfterViewInit {
     return this.form.get('education').get('universities').get('items') as FormArray;
   }
 
+  public get additionalEducationsArray(): FormArray {
+    return this.form.get('education').get('additionalEducations').get('items') as FormArray;
+  }
 
   public pushFormControl = (formArray: FormArray, nameArray: string, nameFormControl: FormControl, index: any, message: string) => {
     const childArray = formArray.at(index).get(nameArray) as FormArray;
@@ -222,6 +238,14 @@ export class EducationComponent implements OnInit, AfterViewInit {
           priorities: this.fb.array(data && data.priorities ? data.priorities : [], Validators.required),
           titleThesis: [data && data.titleThesis ? data.titleThesis : '', Validators.required],
         });
+      case 'additionalEducations':
+        return this.fb.group({
+          trainingTitle: [data && data.trainingTitle ? data.trainingTitle : '', Validators.required],
+          trainingDescription: [data && data.trainingDescription ? data.trainingDescription : '', Validators.required],
+          dateStart: [data && data.dateStart ? data.dateStart : null, Validators.required],
+          dateEnd: [data && data.dateEnd ? data.dateEnd : null, Validators.required],
+          tilToday: [data && data.tilToday ? data.tilToday : false]
+        });
       default:
         break;
     }
@@ -251,6 +275,11 @@ export class EducationComponent implements OnInit, AfterViewInit {
     if (!education.universities.isNotRelevant && education.universities.items.length) {
       education.universities.items.forEach(item => {
         this.universitiesArray.push(this.createFormGroup(item, 'universities'));
+      });
+    }
+    if (!education.additionalEducations.isNotRelevant && education.additionalEducations.items.length) {
+      education.additionalEducations.items.forEach(item => {
+        this.additionalEducationsArray.push(this.createFormGroup(item, 'additionalEducations'));
       });
     }
   }
