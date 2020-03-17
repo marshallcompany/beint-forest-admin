@@ -32,11 +32,11 @@ const routes: Routes = [
   { path: 'job-description', component: JobDescriptionComponent, canActivate: [AuthGuard] },
   { path: 'apply/:jobId/keep/:keep', component: JobDescriptionComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: '/home', pathMatch: 'full', canActivate: [AuthGuard] },
-  { path: 'personal', component: PersonalComponent },
-  { path: 'education', component: EducationComponent },
-  { path: 'about', component: AboutComponent },
-  { path: 'search-settings', component: SearchSettingsComponent },
-  { path: 'professional-background', component: ProfessionalBackgroundComponent },
+  { path: 'personal', component: PersonalComponent, canActivate: [AuthGuard] },
+  { path: 'education', component: EducationComponent, canActivate: [AuthGuard] },
+  { path: 'about', component: AboutComponent, canActivate: [AuthGuard] },
+  { path: 'search-settings', component: SearchSettingsComponent, canActivate: [AuthGuard] },
+  { path: 'professional-background', component: ProfessionalBackgroundComponent, canActivate: [AuthGuard] },
   { path: '**', component: NotFoundComponent }
 ];
 @NgModule({
