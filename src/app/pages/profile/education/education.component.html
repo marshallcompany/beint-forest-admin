@@ -799,6 +799,7 @@
                             class="custom-select"
                             formControlName="typeOfDegree">
                           </ng-select>
+                          <div class="field-wrapper__type">abc</div>
                           <div
                             class="field-wrapper__status"
                             [ngClass]="{invalid : !this.form.get('education').get('universities').get('items').controls[i].get('typeOfDegree').value}"></div>
@@ -1217,6 +1218,143 @@
                   </div>
                 </div>
               </ng-template>
+            </div>
+          </div>
+        </div>
+        <div
+          class="subcategory-item"
+          formGroupName="education">
+          <mat-expansion-panel
+            class="accordion"
+            (opened)="accordionsStatus = true"
+            (closed)="accordionChange()"
+            #accordion05="matExpansionPanel">
+            <mat-expansion-panel-header>
+              <div class="subcategory-header">
+                <div class="subcategory-info">
+                  <img
+                    src="../assets/image/profile/education/subcategory-05.svg"
+                    class="subcategory-info__icon">
+                  <p class="subcategory-info__label">Skills</p>
+                </div>
+                <img
+                  src="../assets/image/profile/accordion-arrow.svg"
+                  [ngClass]="{ 'accordion-active' : accordion05.expanded }"
+                  class="subcategory-header__arrow">
+              </div>
+            </mat-expansion-panel-header>
+            <ng-container formGroupName="skillsData">
+              <div class="subcategory-content subcategory-content_padding">
+                <div>
+                  <div class="flex-grid">
+                    <div class="remove-fields">
+                      <button
+                        class="remove-fields__button"
+                        (click)="clearArrayField(form.get('education').get('skillsData').value)">
+                        <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" class="remove-fields__icon">
+                          <path d="M0.050293 0.050293L9.94979 9.94979M9.94979 0.050293L0.0502933 9.94979" stroke-width="2"
+                              stroke-linecap="round"/>
+                        </svg>
+                      </button>
+                    </div>
+                    <div class="field field_select field_select-search">
+                      <p class="field__label">Deine drei Topskills</p>
+                      <div class="field-wrapper">
+                        <ng-select
+                          #primarySkillsElement
+                          [searchable]="true"
+                          [clearable]="false"
+                          [multiple]="true"
+                          [disabled]="primarySkillsArray.controls.length > 2"
+                          [hideSelected]="true"
+                          dropdownPosition="top"
+                          placeholder="Deine drei Topskills"
+                          [items]="$skillsList | async"
+                          [formControl]="primarySkillsControl"
+                          (search)="getSkillsList($event.term)"
+                          (change)="formArrayPush($event, primarySkillsArray, 'Deine drei Topskills', primarySkillsElement)"
+                          class="custom-select">
+                        </ng-select>
+                        <div class="field-wrapper__type">abc</div>
+                        <div
+                          class="field-wrapper__status"
+                          [ngClass]="{invalid : !primarySkillsArray.controls.length}"></div>
+                      </div>
+                      <div class="tags-wrapper">
+                        <div
+                          formArrayName="primarySkills"
+                          *ngFor="let item of form.get('education').get('skillsData').get('primarySkills').controls; let i = index;"
+                          class="tags-wrapper__item">
+                          <p class="tags-wrapper__label">{{item.value}}</p>
+                          <button
+                            class="tags-wrapper__remove"
+                            (click)="singleDeleteTags(i, primarySkillsArray, 'Deine drei Topskills')">
+                            <img src="../assets/image/close.svg">
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="field field_select field_select-search">
+                      <p class="field__label">Deine weiteren Skills</p>
+                      <div class="field-wrapper">
+                        <ng-select
+                          [searchable]="true"
+                          [clearable]="false"
+                          [multiple]="true"
+                          [hideSelected]="true"
+                          dropdownPosition="top"
+                          [items]="$skillsList | async"
+                          [formControl]="secondarySkillsControl"
+                          (search)="getSkillsList($event.term)"
+                          (change)="formArrayPush($event, secondarySkillsArray, 'Deine weiteren Skills')"
+                          placeholder="Deine weiteren Skills"
+                          class="custom-select">
+                        </ng-select>
+                        <div class="field-wrapper__type">abc</div>
+                        <div
+                          class="field-wrapper__status"
+                          [ngClass]="{invalid : !secondarySkillsArray.controls.length}"></div>
+                      </div>
+                      <div class="tags-wrapper">
+                        <div
+                          formArrayName="secondarySkills"
+                          *ngFor="let item of form.get('education').get('skillsData').get('secondarySkills').controls; let i = index;"
+                          class="tags-wrapper__item">
+                          <p class="tags-wrapper__label">{{item.value}}</p>
+                          <button
+                            class="tags-wrapper__remove"
+                            (click)="singleDeleteTags(i, secondarySkillsArray, 'Deine weiteren Skills')">
+                            <img src="../assets/image/close.svg">
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </mat-expansion-panel>
+          <div
+            class="subcategory-preview"
+            *ngIf="!accordion05.expanded && form.get('education').get('skillsData').get('primarySkills').controls.length">
+            <div class="subcategory-preview-item">
+              <ng-container>
+                <div class="subcategory-preview-info">
+                  <div class="subcategory-preview-info__details subcategory-preview-info__details_list">
+                    <p
+                      class="subcategory-preview-info__item"
+                      *ngFor="let item of form.get('education').get('skillsData').get('primarySkills').controls; let i = index">
+                        <span class="subcategory-preview-info__circle"></span>
+                        {{ item.value }}
+                    </p>
+                  </div>
+                </div>
+                <button
+                  class="subcategory-preview-item__remove"
+                  (click)="clearArrayField(form.get('education').get('skillsData').value)">
+                  <img src="../assets/image/close.svg">
+                </button>
+              </ng-container>
             </div>
           </div>
         </div>

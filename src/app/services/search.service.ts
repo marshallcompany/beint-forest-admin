@@ -86,6 +86,15 @@ export class SearchService {
     });
   }
 
+  public getSkills(lang, query): Observable<string[]> {
+    const url = this.apiRoutes.GET_SKILLS_SCHEMA.replace(':lang', lang);
+    return this.http.get<any>(url, {
+      params: {
+        filter: query
+      }
+    });
+  }
+
   public getZipCode(lang, country: string, city: string = '', filter: string = ''): Observable<string[]> {
     const url = this.apiRoutes.GET_ZIP_SCHEMA.replace(':lang', lang);
     return this.http.get<any>(url, {

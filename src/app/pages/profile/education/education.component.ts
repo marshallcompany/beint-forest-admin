@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormGroupName, Validators, FormControl } from '@angular/forms';
 import { FormValidators } from '../../../validators/validators';
 import { ProfileService } from 'src/app/services/profile.service';
@@ -35,10 +35,13 @@ export class EducationComponent implements OnInit, AfterViewInit {
   $apprenticeshipList: Observable<string[]>;
   $specializationList: Observable<string[]>;
   $degreeList: Observable<string[]>;
+  $skillsList: Observable<string[]>;
 
   public form: FormGroup;
   public education: FormGroupName;
   public universityPrioritiesControl = new FormControl('', Validators.maxLength(100));
+  public primarySkillsControl = new FormControl(['']);
+  public secondarySkillsControl = new FormControl(['']);
 
 
   currentDate = moment().toDate();
@@ -111,6 +114,10 @@ export class EducationComponent implements OnInit, AfterViewInit {
         additionalEducations: this.fb.group({
           isNotRelevant: [false],
           items: this.fb.array([])
+        }),
+        skillsData: this.fb.group({
+          primarySkills: this.fb.array([]),
+          secondarySkills: this.fb.array([])
         })
       })
     });
@@ -180,6 +187,14 @@ export class EducationComponent implements OnInit, AfterViewInit {
     return this.form.get('education').get('additionalEducations').get('items') as FormArray;
   }
 
+  public get primarySkillsArray(): FormArray {
+    return this.form.get('education').get('skillsData').get('primarySkills') as FormArray;
+  }
+
+  public get secondarySkillsArray(): FormArray {
+    return this.form.get('education').get('skillsData').get('secondarySkills') as FormArray;
+  }
+
   public pushFormControl = (formArray: FormArray, nameArray: string, nameFormControl: FormControl, index: any, message: string) => {
     const childArray = formArray.at(index).get(nameArray) as FormArray;
     if (formArray && nameArray && nameFormControl && childArray) {
@@ -190,8 +205,24 @@ export class EducationComponent implements OnInit, AfterViewInit {
     return;
   }
 
+  public formArrayPush = (value, formArrayName: FormArray, field, element?: any) => {
+    if (value && formArrayName && field) {
+      formArrayName.push(this.fb.control(value.slice(-1)[0]));
+      if (element && this.primarySkillsArray.controls.length > 2) {
+        element.searchInput.nativeElement.blur();
+      }
+      this.submit(field);
+    }
+    return;
+  }
+
   public deleteTags = (index, itemIndex, formArrayName, field, message) => {
     this[formArrayName].at(index).controls[field].removeAt(itemIndex);
+    this.submit(message);
+  }
+
+  public singleDeleteTags = (index, formArrayName: FormArray, message: string) => {
+    formArrayName.removeAt(index);
     this.submit(message);
   }
 
@@ -282,6 +313,16 @@ export class EducationComponent implements OnInit, AfterViewInit {
         this.additionalEducationsArray.push(this.createFormGroup(item, 'additionalEducations'));
       });
     }
+    if (education && education.skillsData && education.skillsData.primarySkills.length) {
+      education.skillsData.primarySkills.forEach(item => {
+        this.primarySkillsArray.push(this.fb.control(item));
+      });
+    }
+    if (education && education.skillsData && education.skillsData.secondarySkills) {
+      education.skillsData.secondarySkills.forEach(item => {
+        this.secondarySkillsArray.push(this.fb.control(item));
+      });
+    }
   }
 
   public setFormGroup = (status: string, relevant: boolean) => {
@@ -294,6 +335,36 @@ export class EducationComponent implements OnInit, AfterViewInit {
     this[`${status}Array`].push(this.createFormGroup({}, status));
   }
 
+  public clearArrayField = (formGroupValue) => {
+    let formArrayStatus = false;
+    Object.keys(formGroupValue).forEach(key => {
+      formGroupValue[key].forEach(element => {
+        formArrayStatus = true;
+      });
+    });
+    if (formArrayStatus) {
+      this.matDialog.open(ConfirmModalComponent).afterClosed()
+        .pipe(
+          switchMap(value => {
+            if (!value || value === undefined) {
+              return throwError('Cancel dialog');
+            }
+            return of(value);
+          })
+        )
+        .subscribe(
+          dialog => {
+            Object.keys(formGroupValue).forEach((key) => {
+              if (formGroupValue[key].length) {
+                this[key + 'Array'].clear();
+                this.submit('');
+              }
+            });
+          },
+          err => console.log('[ DELETE ERROR ]', err)
+        );
+    }
+  }
   public deleteFormGroup = (nameArray: FormArray, index: number, formGroupName?: string) => {
     const FormGroupValue = nameArray.at(index).value;
     let FormGroupStatus = false;
@@ -353,6 +424,10 @@ export class EducationComponent implements OnInit, AfterViewInit {
 
   getDegreeList(query: string) {
     this.$degreeList = this.searchService.getDegreeUniversity('de', `${query}`).pipe(debounceTime(400), share());
+  }
+
+  getSkillsList(query: string) {
+    this.$skillsList = this.searchService.getSkills('de', `${query}`).pipe(debounceTime(400), share());
   }
 
   setTodayDate(group: FormGroup) {

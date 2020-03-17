@@ -1,5 +1,17 @@
 @import "../../../theme/variables.scss";
-@import "../../../theme/variables.scss";
+.field_select-search {
+    ::ng-deep .ng-select .ng-has-value .ng-placeholder{
+        display: block;
+    }
+    ::ng-deep .ng-select.ng-select-filtered .ng-placeholder {
+        display: none;
+    }
+}
+.field_select-search.single {
+    ::ng-deep .ng-select .ng-has-value .ng-placeholder{
+        display: none;
+    }
+}
 
 .education{
     background-color:$primary;
@@ -64,6 +76,9 @@
 .subcategory-content{
     padding-bottom:75px;
     border-top: 1px solid #989898;
+    &_padding{
+        padding-bottom:0;
+    }
 }
 .not-relevant{
     padding: 30px 50px 0 30px;
@@ -111,6 +126,9 @@
     &__details{
         display: flex;
         align-items:center;
+        &_list{
+            padding-left:70px;
+        }
     }
     &__invalid{
         color:$red;
@@ -133,12 +151,25 @@
         font-size: 17px;
     }
     &__circle{
+        display: block;
         width:4px;
         height:4px;
         background-color: $black;
         opacity: .8;
         margin:0 7px;
         border-radius: 50%;
+    }
+    &__item{
+        font-size: 17px;
+        display: flex;
+        align-items:center;
+        &:first-child{
+            .subcategory-preview-info{
+                &__circle{
+                    display: none;
+                }
+            }
+        }
     }
     &__species,
     &__scope,
@@ -383,10 +414,31 @@
         }
     }
     .subcategory-preview-info{
+        &__invalid{
+            font-size: 16px;
+        }
+        &__item{
+            font-size: 16px;
+            &:first-child{
+                .subcategory-preview-info{
+                    &__circle{
+                        display: block;
+                    }
+                }
+            }
+        }
         &__details{
             flex-direction: column;
             justify-content: flex-start;
             align-items: flex-start;
+            &_list{
+                padding-left:60px;
+                .subcategory-preview-info{
+                    &__circle{
+                        display: block;
+                    }
+                }
+            }
         }
         &__circle{
             display: none;
@@ -498,6 +550,11 @@
 }
 @media screen and (max-width:375px){
     .subcategory-preview-info{
+        &__details{
+            &_list{
+            padding-left:35px;
+            }
+        }
         &__number{
             width:30px;
             margin-right:10px;
