@@ -29,6 +29,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
   @ViewChild('accordion02', { static: false }) accordion02: MatExpansionPanel;
   @ViewChild('accordion03', { static: false }) accordion03: MatExpansionPanel;
   @ViewChild('accordion04', { static: false }) accordion04: MatExpansionPanel;
+  @ViewChild('accordion06', { static: false }) accordion06: MatExpansionPanel;
 
   $countriesList: Observable<string[]>;
   $citiesList: Observable<string[]>;
@@ -36,6 +37,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
   $specializationList: Observable<string[]>;
   $degreeList: Observable<string[]>;
   $skillsList: Observable<string[]>;
+  $langList: Observable<string[]>;
 
   public form: FormGroup;
   public education: FormGroupName;
@@ -79,7 +81,8 @@ export class EducationComponent implements OnInit, AfterViewInit {
               dropdownOptions: {
                 school_types: dropdownOptions.dropdownOptions.school_types,
                 school_graduation: dropdownOptions.dropdownOptions.school_graduation,
-                university_study_times: dropdownOptions.dropdownOptions.university_study_times
+                university_study_times: dropdownOptions.dropdownOptions.university_study_times,
+                language_level: dropdownOptions.dropdownOptions.language_level
               }
             };
           }
@@ -118,7 +121,8 @@ export class EducationComponent implements OnInit, AfterViewInit {
         skillsData: this.fb.group({
           primarySkills: this.fb.array([]),
           secondarySkills: this.fb.array([])
-        })
+        }),
+        linguisticProficiency: this.fb.array([])
       })
     });
   }
@@ -170,6 +174,14 @@ export class EducationComponent implements OnInit, AfterViewInit {
           }
           this.additionalEducationsArray.push(this.createFormGroup({}, 'additionalEducations'));
         });
+    this.accordion06.opened
+      .subscribe(
+        ($event) => {
+          if (this.linguisticProficiencyArray.controls.length) {
+            return;
+          }
+          this.linguisticProficiencyArray.push(this.createFormGroup({}, 'linguisticProficiency'));
+        });
   }
 
   public get schoolsArray(): FormArray {
@@ -193,6 +205,10 @@ export class EducationComponent implements OnInit, AfterViewInit {
 
   public get secondarySkillsArray(): FormArray {
     return this.form.get('education').get('skillsData').get('secondarySkills') as FormArray;
+  }
+
+  public get linguisticProficiencyArray(): FormArray {
+    return this.form.get('education').get('linguisticProficiency') as FormArray;
   }
 
   public pushFormControl = (formArray: FormArray, nameArray: string, nameFormControl: FormControl, index: any, message: string) => {
@@ -277,6 +293,11 @@ export class EducationComponent implements OnInit, AfterViewInit {
           dateEnd: [data && data.dateEnd ? data.dateEnd : null, Validators.required],
           tilToday: [data && data.tilToday ? data.tilToday : false]
         });
+      case 'linguisticProficiency':
+        return this.fb.group({
+          skillLevel: [data && data.skillLevel ? data.skillLevel : null, Validators.required],
+          language: [data && data.language ? data.language : null, Validators.required]
+        });
       default:
         break;
     }
@@ -321,6 +342,11 @@ export class EducationComponent implements OnInit, AfterViewInit {
     if (education && education.skillsData && education.skillsData.secondarySkills) {
       education.skillsData.secondarySkills.forEach(item => {
         this.secondarySkillsArray.push(this.fb.control(item));
+      });
+    }
+    if (education && education.linguisticProficiency && education.linguisticProficiency.length) {
+      education.linguisticProficiency.forEach(item => {
+        this.linguisticProficiencyArray.push(this.createFormGroup(item, 'linguisticProficiency'));
       });
     }
   }
@@ -428,6 +454,10 @@ export class EducationComponent implements OnInit, AfterViewInit {
 
   getSkillsList(query: string) {
     this.$skillsList = this.searchService.getSkills('de', `${query}`).pipe(debounceTime(400), share());
+  }
+
+  getLangList(query: string) {
+    this.$langList = this.searchService.getLang('de', `${query}`).pipe(debounceTime(400), share());
   }
 
   setTodayDate(group: FormGroup) {

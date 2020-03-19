@@ -1358,6 +1358,140 @@
             </div>
           </div>
         </div>
+        <div
+          class="subcategory-item"
+          formGroupName="education">
+          <mat-expansion-panel
+            class="accordion"
+            (opened)="accordionsStatus = true"
+            (closed)="accordionChange()"
+            #accordion06="matExpansionPanel">
+            <mat-expansion-panel-header>
+              <div class="subcategory-header">
+                <div class="subcategory-info">
+                  <img
+                    src="../assets/image/profile/education/subcategory-06.svg"
+                    class="subcategory-info__icon">
+                  <p class="subcategory-info__label">Sprachen</p>
+                </div>
+                <img
+                  src="../assets/image/profile/accordion-arrow.svg"
+                  [ngClass]="{ 'accordion-active' : accordion06.expanded }"
+                  class="subcategory-header__arrow">
+              </div>
+            </mat-expansion-panel-header>
+            <ng-container>
+              <div
+                class="subcategory-content"
+                *ngIf="linguisticProficiencyArray.controls.length"
+                formArrayName="linguisticProficiency">
+                <div
+                  class="flex-grid"
+                  *ngFor="let item of linguisticProficiencyArray.controls; let i = index"
+                  [formGroupName]="i">
+                  <div class="remove-fields">
+                    <button
+                      class="remove-fields__button"
+                      (click)="deleteFormGroup(linguisticProficiencyArray, i, 'linguisticProficiency')">
+                      <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" class="remove-fields__icon">
+                        <path d="M0.050293 0.050293L9.94979 9.94979M9.94979 0.050293L0.0502933 9.94979" stroke-width="2"
+                              stroke-linecap="round"/>
+                      </svg>
+                    </button>
+                  </div>
+                  <div class="field field_select field_select-search single">
+                    <p class="field__label">Sprachen</p>
+                    <div class="field-wrapper">
+                      <ng-select
+                        [searchable]="true"
+                        [items]="$langList | async"
+                        [clearable]="false"
+                        dropdownPosition="top"
+                        placeholder="Sprachen"
+                        (search)="getLangList($event.term)"
+                        (change)="submit('Sprachen')"
+                        class="custom-select"
+                        formControlName="language">
+                      </ng-select>
+                      <div class="field-wrapper__type">abc</div>
+                      <div
+                        class="field-wrapper__status"
+                        [ngClass]="{invalid : !this.form.get('education').get('linguisticProficiency').controls[i].get('language').value}"></div>
+                    </div>
+                  </div>
+                  <div
+                    class="field field_select"
+                    [ngClass]="{'invalid' : !form.get('education').get('linguisticProficiency').controls[i].get('language').value}">
+                    <p class="field__label">Niveau</p>
+                    <div class="field-wrapper">
+                      <ng-select
+                        [searchable]="false"
+                        [clearable]="false"
+                        dropdownPosition="top"
+                        placeholder="Niveau"
+                        formControlName="skillLevel"
+                        (change)="submit('Niveau')"
+                        class="custom-select">
+                        <ng-option
+                          *ngFor="let option of dropdownOptions.language_level"
+                          [value]="option">
+                          {{option}}
+                        </ng-option>
+                      </ng-select>
+                      <div
+                        class="field-wrapper__status"
+                        [ngClass]="{invalid : !this.form.get('education').get('linguisticProficiency').controls[i].get('skillLevel').value}"></div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="add-fields"
+                  *ngIf="accordion06.expanded">
+                  <button
+                    class="add-fields__button"
+                    (click)="setFormGroup('linguisticProficiency', false)">
+                    <img src="../assets/image/plus.svg">
+                  </button>
+                </div>
+              </div>
+            </ng-container>
+          </mat-expansion-panel>
+          <div
+            class="subcategory-preview"
+            *ngIf="!accordion06.expanded">
+            <div
+              class="subcategory-preview-item"
+              *ngFor="let item of form.get('education').get('linguisticProficiency').controls; let i = index">
+              <ng-container *ngIf="item.valid; else notValid">
+                <div class="subcategory-preview-info">
+                  <p class="subcategory-preview-info__number">
+                    <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
+                  </p>
+                  <div class="subcategory-preview-info__details">
+                    <p class="subcategory-preview-info__species">{{ item.get('language').value }}</p>
+                    <div class="subcategory-preview-info__circle"></div>
+                    <p class="subcategory-preview-info__scope">{{ item.get('skillLevel').value }}</p>
+                  </div>
+                </div>
+                <button
+                  class="subcategory-preview-item__remove"
+                  (click)="deleteFormGroup(linguisticProficiencyArray, i)">
+                  <img src="../assets/image/close.svg">
+                </button>
+              </ng-container>
+              <ng-template #notValid>
+                <div class="subcategory-preview-info">
+                  <p class="subcategory-preview-info__number">
+                  <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
+                </p>
+                  <div class="subcategory-preview-info__details">
+                    <p class="subcategory-preview-info__invalid">Unvollständige Angaben</p>
+                  </div>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
       </form>
     </div>
   </div>

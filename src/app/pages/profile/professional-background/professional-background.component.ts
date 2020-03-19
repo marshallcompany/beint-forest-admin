@@ -32,7 +32,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
     iconCategory: '../assets/image/profile/category-03.svg',
     nameCategory: 'Beruflicher Werdegang',
     nextCategory: 'search-settings',
-    prevCategory: 'personal'
+    prevCategory: 'education'
   };
 
   private firstPersonalData: object;

@@ -165,6 +165,9 @@ body .field {
           position: relative;
 
           .ng-value-container {
+            .ng-value{
+               padding-right: 35px;
+            }
             .ng-input {
               position: absolute;
               padding-left: 19px;
