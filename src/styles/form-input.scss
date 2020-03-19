@@ -62,6 +62,10 @@
 
 // CUSTOM CHECKBOX END
 
+.ng-dropdown-panel .ng-dropdown-panel-items {
+    max-height: 185px!important;
+}
+
 .scroll-host::-webkit-scrollbar {
   display: none;
 }
@@ -161,6 +165,9 @@ body .field {
           position: relative;
 
           .ng-value-container {
+            .ng-value{
+               padding-right: 35px;
+            }
             .ng-input {
               position: absolute;
               padding-left: 19px;

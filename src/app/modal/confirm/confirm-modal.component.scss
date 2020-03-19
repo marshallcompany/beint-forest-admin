@@ -4,9 +4,6 @@
   padding:0;
   overflow: inherit;
 }
-::ng-deep .cdk-overlay-pane{
-  max-width: inherit!important;
-}
 .modal-body{
   padding:90px 0;
   width:500px;
@@ -58,9 +55,13 @@
   }
 }
 @media screen and (max-width:768px) {
+  ::ng-deep .mat-dialog-container{
+    width:320px!important;
+  }
+
   .modal-body{
     padding:50px 0;
-    width:320px;
+    width:100%;
   }
   .modal-close-button{
     right:10px;

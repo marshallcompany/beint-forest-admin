@@ -19,7 +19,12 @@ export class ApiRoutesProvider {
   public readonly GET_BENEFITS_SCHEMA: string;
   public readonly GET_TOWNS_SCHEMA: string;
   public readonly GET_COUNTRIES_SCHEMA: string;
+  public readonly GET_EDUCATION_SCHEMA: string;
+  public readonly GET_DEGREE_SCHEMA: string;
+  public readonly GET_SPECIALIZATION_SCHEMA: string;
   public readonly GET_ZIP_SCHEMA: string;
+  public readonly GET_SKILLS_SCHEMA: string;
+  public readonly GET_LANG_SCHEMA: string;
 
   constructor() {
     this.BASE_API_URL = environment.BASE_API_URL;
@@ -38,6 +43,10 @@ export class ApiRoutesProvider {
     this.GET_TOWNS_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/towns/:lang`;
     this.GET_COUNTRIES_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/countries/:lang`;
     this.GET_ZIP_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/zipCodes/:lang`;
-
+    this.GET_EDUCATION_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/professionalEducation/:lang`;
+    this.GET_SPECIALIZATION_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/universitySpecialization/:lang`;
+    this.GET_DEGREE_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/universityDegree/:lang`;
+    this.GET_SKILLS_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/skills/:lang`;
+    this.GET_LANG_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/languages/:lang`;
   }
 }

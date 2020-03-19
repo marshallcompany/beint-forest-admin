@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, FormGroupName, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, FormGroupName, Validators } from '@angular/forms';
 import { ProfileService } from '../../../services/profile.service';
 import { map } from 'rxjs/internal/operators/map';
 import { NotificationService } from 'src/app/services/notification.service';
@@ -18,7 +18,7 @@ export class PersonalComponent implements OnInit {
   public navSettings = {
     iconCategory: '../assets/image/menu/profile.svg',
     nameCategory: 'Persönliches & Kontakt',
-    nextCategory: 'professional-background',
+    nextCategory: 'education',
     prevCategory: null
   };
 

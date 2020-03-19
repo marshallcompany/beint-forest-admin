@@ -59,6 +59,51 @@ export class SearchService {
     });
   }
 
+  public getSpecializationUniversity(lang, query): Observable<string[]> {
+    const url = this.apiRoutes.GET_SPECIALIZATION_SCHEMA.replace(':lang', lang);
+    return this.http.get<any>(url, {
+      params: {
+        filter: query
+      }
+    });
+  }
+
+  public getDegreeUniversity(lang, query): Observable<string[]> {
+    const url = this.apiRoutes.GET_DEGREE_SCHEMA.replace(':lang', lang);
+    return this.http.get<any>(url, {
+      params: {
+        filter: query
+      }
+    });
+  }
+
+  public getProfessionalEducation(lang, query): Observable<string[]> {
+    const url = this.apiRoutes.GET_EDUCATION_SCHEMA.replace(':lang', lang);
+    return this.http.get<any>(url, {
+      params: {
+        filter: query
+      }
+    });
+  }
+
+  public getSkills(lang, query): Observable<string[]> {
+    const url = this.apiRoutes.GET_SKILLS_SCHEMA.replace(':lang', lang);
+    return this.http.get<any>(url, {
+      params: {
+        filter: query
+      }
+    });
+  }
+
+  public getLang(lang, query): Observable<string[]> {
+    const url = this.apiRoutes.GET_LANG_SCHEMA.replace(':lang', lang);
+    return this.http.get<any>(url, {
+      params: {
+        filter: query
+      }
+    });
+  }
+
   public getZipCode(lang, country: string, city: string = '', filter: string = ''): Observable<string[]> {
     const url = this.apiRoutes.GET_ZIP_SCHEMA.replace(':lang', lang);
     return this.http.get<any>(url, {

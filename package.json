@@ -32,6 +32,7 @@
     "moment": "^2.22.2",
     "ng-circle-progress": "^1.5.1",
     "ng-pick-datetime": "^7.0.0",
+    "ngx-mask": "^8.1.7",
     "ngx-swiper-wrapper": "^7.2.1",
     "rxjs": "~6.5.4",
     "tslib": "^1.9.0",

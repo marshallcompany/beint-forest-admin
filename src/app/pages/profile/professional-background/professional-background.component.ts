@@ -32,7 +32,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
     iconCategory: '../assets/image/profile/category-03.svg',
     nameCategory: 'Beruflicher Werdegang',
     nextCategory: 'search-settings',
-    prevCategory: 'personal'
+    prevCategory: 'education'
   };
 
   private firstPersonalData: object;
@@ -278,7 +278,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
       this.matDialog.open(ConfirmModalComponent).afterClosed()
         .pipe(
           switchMap(value => {
-            if (value === false) {
+            if (!value || value === undefined) {
               return throwError('Cancel dialog');
             }
             return of(value);

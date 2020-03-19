@@ -14,4 +14,10 @@ export class FormValidators {
         }
         return null;
     }
+    static maxValueValidation(control: FormControl) {
+        if (!control.value.match(/^([1-6]|[1-5](\.[0-9]{1}|.[0-9]{2}))$|^$/)) {
+            return { maxValue: true };
+        }
+        return null;
+    }
 }

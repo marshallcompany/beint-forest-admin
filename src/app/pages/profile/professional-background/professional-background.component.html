@@ -360,7 +360,7 @@
           </mat-expansion-panel>
           <div
             class="subcategory-preview"
-            *ngIf="!accordion01.expanded">
+            *ngIf="!accordion01.expanded && !form.get('workExperience').get('employmentConditions').get('isNotRelevant').value">
             <div
               class="subcategory-preview-item"
               *ngFor="let item of form.get('workExperience').get('employmentConditions').get('items').controls; let i = index">
@@ -676,7 +676,7 @@
           </mat-expansion-panel>
           <div
             class="subcategory-preview"
-            *ngIf="!accordion02.expanded">
+            *ngIf="!accordion02.expanded && !form.get('workExperience').get('independentExperience').get('isNotRelevant').value">
             <div
               class="subcategory-preview-item"
               *ngFor="let item of this.form.get('workExperience').get('independentExperience').get('items').controls; let i = index">
@@ -928,7 +928,7 @@
           </mat-expansion-panel>
           <div
             class="subcategory-preview"
-            *ngIf="!accordion03.expanded">
+            *ngIf="!accordion03.expanded && !form.get('workExperience').get('otherExperience').get('isNotRelevant').value">
             <div
               class="subcategory-preview-item"
               *ngFor="let item of this.form.get('workExperience').get('otherExperience').get('items').controls; let i = index">
