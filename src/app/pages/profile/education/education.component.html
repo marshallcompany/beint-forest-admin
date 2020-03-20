@@ -1257,7 +1257,9 @@
                         </svg>
                       </button>
                     </div>
-                    <div class="field field_select field_select-search">
+                    <div
+                      class="field field_select field_select-search"
+                      [ngClass]="{'invalid': primarySkillsArray.controls.length > 2}">
                       <p class="field__label">Deine drei Topskills</p>
                       <div class="field-wrapper">
                         <ng-select
@@ -1265,7 +1267,6 @@
                           [searchable]="true"
                           [clearable]="false"
                           [multiple]="true"
-                          [disabled]="primarySkillsArray.controls.length > 2"
                           [hideSelected]="true"
                           dropdownPosition="top"
                           placeholder="Deine drei Topskills"
