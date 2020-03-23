@@ -74,7 +74,7 @@
 }
 .subcategory-preview-item{
     padding: 25px 50px 25px 30px;
-    border-top: 1px solid rgba(184, 177, 177, .8);
+    border-top: 1px solid #E1E1E1;
     display: flex;
     justify-content: space-between;
     align-items:center;
@@ -134,7 +134,7 @@
     display: flex;
     flex-wrap:wrap;
     justify-content: space-between;
-    border-bottom: 1px solid #989898;
+    border-bottom: 1px solid #E1E1E1;
     padding: 0 50px 20px 30px;
     &:last-child{
         border:none;
@@ -142,7 +142,7 @@
 }
 .not-relevant{
     padding: 30px 50px 0 30px;
-    border-top: 1px solid #989898;
+    border-top: 1px solid #E1E1E1;
     &__item{
         background-color:rgba(152, 152, 152, .1);
         width:47%;

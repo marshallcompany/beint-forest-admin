@@ -311,6 +311,9 @@ export class EducationComponent implements OnInit, AfterViewInit {
         },
         universities: {
           isNotRelevant: education.universities && education.universities.isNotRelevant ? education.universities.isNotRelevant : false
+        },
+        additionalEducations: {
+          isNotRelevant: education.additionalEducations && education.additionalEducations.isNotRelevant ? education.additionalEducations.isNotRelevant : false
         }
       }
     });
@@ -319,17 +322,17 @@ export class EducationComponent implements OnInit, AfterViewInit {
         this.schoolsArray.push(this.createFormGroup(item, 'schools'));
       });
     }
-    if (!education.specialEducation.isNotRelevant && education.specialEducation.items.length) {
+    if (education.specialEducation.items.length) {
       education.specialEducation.items.forEach(item => {
         this.specialEducationArray.push(this.createFormGroup(item, 'specialEducation'));
       });
     }
-    if (!education.universities.isNotRelevant && education.universities.items.length) {
+    if (education.universities.items.length) {
       education.universities.items.forEach(item => {
         this.universitiesArray.push(this.createFormGroup(item, 'universities'));
       });
     }
-    if (!education.additionalEducations.isNotRelevant && education.additionalEducations.items.length) {
+    if (education.additionalEducations.items.length) {
       education.additionalEducations.items.forEach(item => {
         this.additionalEducationsArray.push(this.createFormGroup(item, 'additionalEducations'));
       });
