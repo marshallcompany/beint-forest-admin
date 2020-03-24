@@ -24,8 +24,18 @@
           [startFromZero]="false"
           [responsive]="true"></circle-progress>
         <img
+          *ngIf="!image"
           src="https://picsum.photos/id/1/350/350"
           class="profile-details__image">
+        <img
+          [src]="image"
+          *ngIf="image"
+          class="profile-details__image">
+        <button
+          (click)="takeProfilePicture()"
+          class="add-profile-picture">
+          +
+        </button>
       </div>
       <p class="profile-details__name">Hey <span *ngIf="profileDate">{{ profileDate.profile.personal.firstName }}</span>!</p>
       <p class="profile-details__description">

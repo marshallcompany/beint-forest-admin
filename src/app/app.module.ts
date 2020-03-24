@@ -45,6 +45,7 @@ import { AboutComponent } from './pages/profile/about/about.component';
 import { SearchSettingsComponent } from './pages/profile/search-settings/search-settings.component';
 import { ProfessionalBackgroundComponent } from './pages/profile/professional-background/professional-background.component';
 import { ConfirmModalComponent } from './modal/confirm/confirm-modal.component';
+import { ImageChoiceComponent } from './bottom-sheet/image-sheet/image-choice/image-choice.component';
 
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -80,7 +81,8 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     AboutComponent,
     SearchSettingsComponent,
     ProfessionalBackgroundComponent,
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    ImageChoiceComponent
   ],
   imports: [
     RoutingModule,
@@ -124,6 +126,6 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     { provide: HTTP_INTERCEPTORS, useClass: Interceptors.accessToken, multi: true },
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ConfirmModalComponent]
+  entryComponents: [ConfirmModalComponent, ImageChoiceComponent]
 })
 export class AppModule { }

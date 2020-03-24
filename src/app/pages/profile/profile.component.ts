@@ -3,6 +3,10 @@ import { Router } from '@angular/router';
 
 import { ProfileService } from '../../services/profile.service';
 import { GlobalErrorService } from 'src/app/services/global-error-service';
+import { MatBottomSheet } from '@angular/material';
+import { ImageChoiceComponent } from 'src/app/bottom-sheet/image-sheet/image-choice/image-choice.component';
+import { switchMap } from 'rxjs/operators';
+import { throwError, of } from 'rxjs';
 
 interface Category {
   name: string;
@@ -19,10 +23,11 @@ export class ProfileComponent implements OnInit {
 
   public profileDate;
   public categories: Array<Category>;
-
+  public image: string;
   constructor(
     private router: Router,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private bottomSheet: MatBottomSheet
   ) {
     this.categories = [
       { name: 'Persönliches & Kontakt', icon: '../assets/image/profile/category-01.svg', path: ['personal'] },
@@ -52,6 +57,31 @@ export class ProfileComponent implements OnInit {
         },
         () => {
           console.log('[ PROFILE DONE ]');
+        }
+      );
+  }
+
+  public takeProfilePicture = () => {
+    this.bottomSheet.open(ImageChoiceComponent).afterDismissed()
+      .pipe(
+        switchMap(value => {
+          if (!value || value === undefined) {
+            return throwError('[ NO FILE ]');
+          }
+          return of(value);
+        })
+      )
+      .subscribe(
+        event => {
+          const reader = new FileReader();
+          reader.onload = (e: any) => {
+            this.image = e.target.result;
+          };
+          reader.readAsDataURL(event.target.files[0]);
+          console.log('imgURL', reader);
+        },
+        err => {
+          console.log('ERROR', err);
         }
       );
   }
