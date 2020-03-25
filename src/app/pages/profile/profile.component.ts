@@ -5,8 +5,11 @@ import { ProfileService } from '../../services/profile.service';
 import { GlobalErrorService } from 'src/app/services/global-error-service';
 import { MatBottomSheet } from '@angular/material';
 import { ImageChoiceComponent } from 'src/app/bottom-sheet/image-sheet/image-choice/image-choice.component';
+
+import { MatDialog } from '@angular/material';
 import { switchMap } from 'rxjs/operators';
-import { throwError, of } from 'rxjs';
+import { throwError, of, Observable } from 'rxjs';
+import { CropperComponent } from 'src/app/modal/cropper/cropper.component';
 
 interface Category {
   name: string;
@@ -24,10 +27,12 @@ export class ProfileComponent implements OnInit {
   public profileDate;
   public categories: Array<Category>;
   public image: string;
+
   constructor(
     private router: Router,
     private profileService: ProfileService,
-    private bottomSheet: MatBottomSheet
+    private bottomSheet: MatBottomSheet,
+    private matDialog: MatDialog
   ) {
     this.categories = [
       { name: 'Persönliches & Kontakt', icon: '../assets/image/profile/category-01.svg', path: ['personal'] },
@@ -69,21 +74,24 @@ export class ProfileComponent implements OnInit {
             return throwError('[ NO FILE ]');
           }
           return of(value);
+        }),
+        switchMap(fileEvent => {
+          return this.openCropperDialog(fileEvent);
         })
       )
       .subscribe(
         event => {
-          const reader = new FileReader();
-          reader.onload = (e: any) => {
-            this.image = e.target.result;
-          };
-          reader.readAsDataURL(event.target.files[0]);
-          console.log('imgURL', reader);
+          this.image = event.base64;
+          console.log('CROPER EVENT', event);
         },
         err => {
           console.log('ERROR', err);
         }
       );
+  }
+
+  openCropperDialog(fileData): Observable<any> {
+    return this.matDialog.open(CropperComponent, { data: fileData }).afterClosed();
   }
 
   public showEditCategory = (router?: string) => {

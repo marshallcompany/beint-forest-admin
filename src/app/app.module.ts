@@ -26,6 +26,7 @@ import { SwiperModule } from 'ngx-swiper-wrapper';
 import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { MaterialModule } from './modules/material.module';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -46,6 +47,7 @@ import { SearchSettingsComponent } from './pages/profile/search-settings/search-
 import { ProfessionalBackgroundComponent } from './pages/profile/professional-background/professional-background.component';
 import { ConfirmModalComponent } from './modal/confirm/confirm-modal.component';
 import { ImageChoiceComponent } from './bottom-sheet/image-sheet/image-choice/image-choice.component';
+import { CropperComponent } from './modal/cropper/cropper.component';
 
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -82,7 +84,8 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     SearchSettingsComponent,
     ProfessionalBackgroundComponent,
     ConfirmModalComponent,
-    ImageChoiceComponent
+    ImageChoiceComponent,
+    CropperComponent
   ],
   imports: [
     RoutingModule,
@@ -94,6 +97,7 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     NgSelectModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
+    ImageCropperModule,
     NgxMaskModule.forRoot({
       showMaskTyped: true,
     }),
@@ -126,6 +130,6 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     { provide: HTTP_INTERCEPTORS, useClass: Interceptors.accessToken, multi: true },
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ConfirmModalComponent, ImageChoiceComponent]
+  entryComponents: [ConfirmModalComponent, ImageChoiceComponent, CropperComponent]
 })
 export class AppModule { }
