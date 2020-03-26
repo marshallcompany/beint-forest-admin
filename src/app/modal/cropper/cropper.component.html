@@ -5,9 +5,9 @@
       class="image-cropper__icon">
     <image-cropper
       #ImageCropperComponent
-      [imageChangedEvent]="data"
-      [cropperMinWidth]="300"
-      [cropperMinHeight]="300"
+      [imageFile]="data.target.files[0]"
+      [cropperMinWidth]="200"
+      [cropperMinHeight]="200"
       [autoCrop]="false"
       [roundCropper]="true"
       format="png,jpeg"

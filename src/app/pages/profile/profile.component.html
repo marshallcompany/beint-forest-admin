@@ -23,13 +23,14 @@
           [animationDuration]="1000"
           [startFromZero]="false"
           [responsive]="true"></circle-progress>
+        <div class="profile-details__image profile-details__image_default">
+          <img
+            src="../assets/image/icon-img.png"
+            class="image-cropper__icon">
+        </div>
         <img
-          *ngIf="!image"
-          src="https://picsum.photos/id/1/350/350"
-          class="profile-details__image">
-        <img
-          [src]="image"
-          *ngIf="image"
+          [src]="imageUrl"
+          *ngIf="imageUrl"
           class="profile-details__image">
         <button
           (click)="takeProfilePicture()"

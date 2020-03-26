@@ -126,7 +126,7 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
       provide: ErrorHandler,
       useClass: GlobalErrorService
     },
-    { provide: HTTP_INTERCEPTORS, useClass: Interceptors.contentType, multi: true },
+    // { provide: HTTP_INTERCEPTORS, useClass: Interceptors.contentType, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: Interceptors.accessToken, multi: true },
   ],
   bootstrap: [AppComponent],

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ProfileService } from '../../services/profile.service';
@@ -10,6 +10,8 @@ import { MatDialog } from '@angular/material';
 import { switchMap } from 'rxjs/operators';
 import { throwError, of, Observable } from 'rxjs';
 import { CropperComponent } from 'src/app/modal/cropper/cropper.component';
+import { UploadImageService } from 'src/app/services/upload-file.service';
+import { NotificationService } from 'src/app/services/notification.service';
 
 interface Category {
   name: string;
@@ -26,13 +28,17 @@ export class ProfileComponent implements OnInit {
 
   public profileDate;
   public categories: Array<Category>;
-  public image: string;
+  public imageUrl: string;
 
   constructor(
+    public rf: ChangeDetectorRef,
     private router: Router,
     private profileService: ProfileService,
     private bottomSheet: MatBottomSheet,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    private uploadImageService: UploadImageService,
+    private globalErrorService: GlobalErrorService,
+    private notificationService: NotificationService,
   ) {
     this.categories = [
       { name: 'Persönliches & Kontakt', icon: '../assets/image/profile/category-01.svg', path: ['personal'] },
@@ -55,7 +61,8 @@ export class ProfileComponent implements OnInit {
       .subscribe(
         res => {
           this.profileDate = res;
-          console.log(this.profileDate);
+          this.imageUrl = res.media.avatar.storagePath;
+          console.log(this.profileDate, this.imageUrl);
         },
         err => {
           console.log('[ PROFILE ERROR ]', err);
@@ -75,17 +82,47 @@ export class ProfileComponent implements OnInit {
           }
           return of(value);
         }),
-        switchMap(fileEvent => {
-          return this.openCropperDialog(fileEvent);
+        switchMap(targetFile => {
+          return this.openCropperDialog(targetFile);
+        }),
+        switchMap(cropperValue => {
+          if (!cropperValue || cropperValue === undefined) {
+            return throwError('[ CROPPER CLOSE ]');
+          }
+          return of(cropperValue);
+        }),
+        switchMap((base64: string) => {
+          return fetch(base64).then(base64Url => base64Url.blob());
         })
       )
       .subscribe(
-        event => {
-          this.image = event.base64;
-          console.log('CROPER EVENT', event);
+        res => {
+          this.uploadImage(res, res.type);
+          console.log('CROPPER EVENT', res);
         },
         err => {
           console.log('ERROR', err);
+        }
+      );
+  }
+
+  public uploadImage = (blob: Blob, type: string) => {
+    this.uploadImageService.getUploadLink()
+      .pipe(
+        switchMap(urlS3 => {
+          return this.uploadImageService.uploadImage(urlS3.signedUploadUrl, blob, type);
+        })
+      )
+      .subscribe(
+        res => {
+          console.log('UPLOAD IMAGE', res);
+          this.notificationService.notify(`Picture saved successfully!`, 'success');
+          this.init();
+          window.location.reload();
+        },
+        err => {
+          this.globalErrorService.handleError(err);
+          console.log('UPLOAD IMAGE ERROR', err);
         }
       );
   }

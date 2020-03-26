@@ -42,7 +42,7 @@ export class CropperComponent implements OnInit {
   }
 
   crop() {
-    this.matDialogRef.close(this.imageCropper.crop());
+    this.matDialogRef.close(this.imageCropper.crop().base64);
   }
 
   imageLoaded() {
