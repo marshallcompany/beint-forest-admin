@@ -8,9 +8,9 @@ import { ImageChoiceComponent } from 'src/app/bottom-sheet/image-sheet/image-cho
 
 import { MatDialog } from '@angular/material';
 import { switchMap } from 'rxjs/operators';
-import { throwError, of, Observable } from 'rxjs';
+import { throwError, of, Observable, forkJoin } from 'rxjs';
 import { CropperComponent } from 'src/app/modal/cropper/cropper.component';
-import { UploadImageService } from 'src/app/services/upload-file.service';
+import { UploadFileService } from 'src/app/services/upload-file.service';
 import { NotificationService } from 'src/app/services/notification.service';
 
 interface Category {
@@ -36,7 +36,7 @@ export class ProfileComponent implements OnInit {
     private profileService: ProfileService,
     private bottomSheet: MatBottomSheet,
     private matDialog: MatDialog,
-    private uploadImageService: UploadImageService,
+    private uploadFileService: UploadFileService,
     private globalErrorService: GlobalErrorService,
     private notificationService: NotificationService,
   ) {
@@ -62,7 +62,7 @@ export class ProfileComponent implements OnInit {
         res => {
           this.profileDate = res;
           this.imageUrl = res.media.avatar.storagePath;
-          console.log(this.profileDate, this.imageUrl);
+          console.log(this.profileDate);
         },
         err => {
           console.log('[ PROFILE ERROR ]', err);
@@ -107,18 +107,29 @@ export class ProfileComponent implements OnInit {
   }
 
   public uploadImage = (blob: Blob, type: string) => {
-    this.uploadImageService.getUploadLink()
+    this.uploadFileService.getUploadLink()
       .pipe(
         switchMap(urlS3 => {
-          return this.uploadImageService.uploadImage(urlS3.signedUploadUrl, blob, type);
+          const arr: Array<Observable<any>> = [
+            this.uploadFileService.uploadImage(urlS3.signedUploadUrl, blob, type),
+            of(urlS3)
+          ];
+          return forkJoin(arr);
+        }),
+        switchMap(([s3answer, urlS3]) => {
+          const avatar = {
+            filename: type,
+            mimeType: type,
+            storagePath: urlS3.storagePath
+          };
+          return this.uploadFileService.updateAvatarModel(avatar);
         })
       )
       .subscribe(
         res => {
           console.log('UPLOAD IMAGE', res);
-          this.notificationService.notify(`Picture saved successfully!`, 'success');
           this.init();
-          window.location.reload();
+          this.notificationService.notify(`Picture saved successfully!`, 'success');
         },
         err => {
           this.globalErrorService.handleError(err);

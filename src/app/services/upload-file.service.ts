@@ -6,7 +6,7 @@ import { ApiRoutesProvider } from './api-routes.services';
 @Injectable({
   providedIn: 'root'
 })
-export class UploadImageService {
+export class UploadFileService {
   constructor(
     private http: HttpClient,
     private apiRoutes: ApiRoutesProvider
@@ -20,6 +20,10 @@ export class UploadImageService {
     return this.http.put<any>(url, image, {
       headers: new HttpHeaders({ 'Content-Type': `${type}` })
     });
+  }
+
+  public updateAvatarModel = (data: object) => {
+    return this.http.post<any>(this.apiRoutes.UPDATE_AVATAR, data);
   }
 
 }
