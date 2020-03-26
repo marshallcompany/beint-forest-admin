@@ -62,7 +62,9 @@ export class ProfileComponent implements OnInit {
       .subscribe(
         res => {
           this.profileDate = res;
-          this.imageUrl = res.media.avatar.storagePath;
+          if (res && res.media && res.media.avatar && res.media.avatar.storagePath) {
+            this.imageUrl = res.media.avatar.storagePath;
+          }
           console.log(this.profileDate);
         },
         err => {

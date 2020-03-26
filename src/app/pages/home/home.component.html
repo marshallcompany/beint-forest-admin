@@ -25,7 +25,7 @@
         </div>
         <img
           [src]="user.media.avatar.storagePath"
-          *ngIf="user?.media.avatar.storagePath"
+          *ngIf="user && user.media && user.media.avatar && user.media.avatar.storagePath"
           class="user-avatar__img">
       </div>
       <p
