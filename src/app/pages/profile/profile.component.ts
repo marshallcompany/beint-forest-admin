@@ -7,7 +7,7 @@ import { MatBottomSheet } from '@angular/material';
 import { ImageChoiceComponent } from 'src/app/bottom-sheet/image-sheet/image-choice/image-choice.component';
 
 import { MatDialog } from '@angular/material';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, take, tap } from 'rxjs/operators';
 import { throwError, of, Observable, forkJoin } from 'rxjs';
 import { CropperComponent } from 'src/app/modal/cropper/cropper.component';
 import { UploadFileService } from 'src/app/services/upload-file.service';
@@ -29,6 +29,7 @@ export class ProfileComponent implements OnInit {
   public profileDate;
   public categories: Array<Category>;
   public imageUrl: string;
+  public spinner = false;
 
   constructor(
     public rf: ChangeDetectorRef,
@@ -76,18 +77,21 @@ export class ProfileComponent implements OnInit {
   public takeProfilePicture = () => {
     this.bottomSheet.open(ImageChoiceComponent).afterDismissed()
       .pipe(
-        switchMap(value => {
-          if (!value || value === undefined) {
-            return throwError('[ NO FILE ]');
+        switchMap(selectedFile => {
+          if (!selectedFile || selectedFile === undefined) {
+            return throwError('NO_FILE');
           }
-          return of(value);
+          if (selectedFile.target.files[0] && selectedFile.target.files[0].size > 5000000) {
+            return throwError(new Error('Sorry, the maximum file size is 5MB'));
+          }
+          return of(selectedFile);
         }),
         switchMap(targetFile => {
           return this.openCropperDialog(targetFile);
         }),
         switchMap(cropperValue => {
           if (!cropperValue || cropperValue === undefined) {
-            return throwError('[ CROPPER CLOSE ]');
+            return throwError('CROPPER_CLOSED');
           }
           return of(cropperValue);
         }),
@@ -102,11 +106,17 @@ export class ProfileComponent implements OnInit {
         },
         err => {
           console.log('ERROR', err);
+          if (err === 'NO_FILE' || err === 'CROPPER_CLOSED') {
+            return;
+          } else {
+            this.globalErrorService.handleError(err);
+          }
         }
       );
   }
 
   public uploadImage = (blob: Blob, type: string) => {
+    this.spinner = true;
     this.uploadFileService.getUploadLink()
       .pipe(
         switchMap(urlS3 => {
@@ -130,10 +140,12 @@ export class ProfileComponent implements OnInit {
           console.log('UPLOAD IMAGE', res);
           this.init();
           this.notificationService.notify(`Picture saved successfully!`, 'success');
+          this.spinner = false;
         },
         err => {
-          this.globalErrorService.handleError(err);
           console.log('UPLOAD IMAGE ERROR', err);
+          this.globalErrorService.handleError(err);
+          this.spinner = false;
         }
       );
   }

@@ -28,6 +28,13 @@
             src="../assets/image/icon-img.png"
             class="image-cropper__icon">
         </div>
+        <div
+          class="profile-details__image profile-details__image_loading"
+          *ngIf="spinner">
+          <img
+            src="../assets/image/spinner.svg"
+            class="image-cropper__icon">
+        </div>
         <img
           [src]="imageUrl"
           *ngIf="imageUrl"

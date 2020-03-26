@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatBottomSheet, MatBottomSheetRef } from '@angular/material';
+import { MatBottomSheetRef } from '@angular/material';
 
 @Component({
   selector: 'app-image-choice',
