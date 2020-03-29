@@ -38,3 +38,12 @@
     color:#ffffff;
   }
 }
+
+@media screen and (max-width:768px) {
+  .sheet-button{
+    padding:10px 0;
+    &__text{
+      font-size: 14px;
+    }
+  }
+}

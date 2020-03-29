@@ -3,6 +3,7 @@
   border-radius:10px;
   padding:0;
   overflow: inherit;
+  height: auto;
 }
 .modal-body{
   padding:90px 0;
@@ -55,13 +56,14 @@
   }
 }
 @media screen and (max-width:768px) {
-  ::ng-deep .mat-dialog-container{
-    width:320px!important;
-  }
-
   .modal-body{
     padding:50px 0;
-    width:100%;
+    max-width:100%;
+    width:414px;
+    &__title{
+      font-size: 14px;
+      margin-bottom:25px;
+    }
   }
   .modal-close-button{
     right:10px;
@@ -71,5 +73,9 @@
     &__button{
       width:80%;
     }
+  }
+  .event__button {
+    padding:10px 0;
+    font-size: 14px;
   }
 }
