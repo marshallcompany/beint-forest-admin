@@ -4,12 +4,12 @@ import { Router } from '@angular/router';
 import { ProfileService } from '../../services/profile.service';
 import { GlobalErrorService } from 'src/app/services/global-error-service';
 import { MatBottomSheet } from '@angular/material';
-import { ImageChoiceComponent } from 'src/app/bottom-sheet/image-sheet/image-choice/image-choice.component';
+import { ImageChoiceComponent } from 'src/app/components/sheet/image-choice/image-choice.component';
 
 import { MatDialog } from '@angular/material';
-import { switchMap, take, tap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 import { throwError, of, Observable, forkJoin } from 'rxjs';
-import { CropperComponent } from 'src/app/modal/cropper/cropper.component';
+import { CropperComponent } from 'src/app/components/modal/cropper/cropper.component';
 import { UploadFileService } from 'src/app/services/upload-file.service';
 import { NotificationService } from 'src/app/services/notification.service';
 

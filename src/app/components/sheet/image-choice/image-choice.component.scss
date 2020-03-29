@@ -1,0 +1,40 @@
+@import "../../../theme/variables.scss";
+
+::ng-deep .mat-bottom-sheet-container {
+  padding:0;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.image-choice-body{
+  padding:25px 0;
+}
+.file-input{
+  display:none;
+}
+.sheet-button{
+  display: block;
+  width:100%;
+  margin:0 auto;
+  margin-bottom: 20px;
+  padding:15px 0;
+  color:$primary;
+  font-size: 18px;
+  font-family: $gb;
+  border-radius: 50px;
+  background-color:rgba(67, 71, 132, .1);
+  box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.25);
+  width:70%;
+  &_select{
+    background-color: $blue;
+  }
+  &_cancel{
+    background-color:$primary;
+  }
+  &:last-child {
+    margin-bottom:0;
+  }
+  &__text{
+    text-transform: uppercase;
+    color:#ffffff;
+  }
+}
