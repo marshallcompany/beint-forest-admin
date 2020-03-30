@@ -48,6 +48,7 @@ import { ProfessionalBackgroundComponent } from './pages/profile/professional-ba
 import { ConfirmModalComponent } from './components/modal/confirm/confirm-modal.component';
 import { ImageChoiceComponent } from './components/sheet/image-choice/image-choice.component';
 import { CropperComponent } from './components/modal/cropper/cropper.component';
+import { DocumentComponent } from './pages/profile/document/document.component';
 
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -85,7 +86,8 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     ProfessionalBackgroundComponent,
     ConfirmModalComponent,
     ImageChoiceComponent,
-    CropperComponent
+    CropperComponent,
+    DocumentComponent
   ],
   imports: [
     RoutingModule,

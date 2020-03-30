@@ -1,0 +1,8 @@
+@import "../../../theme/variables.scss";
+.document{
+    background-color:$primary;
+    position:relative;
+    min-height: 100vh;
+    overflow: auto;
+	  overflow-x: hidden;
+}

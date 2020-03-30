@@ -46,7 +46,7 @@ export class ProfileComponent implements OnInit {
       { name: 'Berufliche Ausbildung', icon: '../assets/image/profile/category-02.svg', path: ['education'] },
       { name: 'Beruflicher Werdegang', icon: '../assets/image/profile/category-03.svg', path: ['professional-background'] },
       { name: 'Such-Präferenzen', icon: '../assets/image/profile/category-04.svg', path: ['search-settings'] },
-      { name: 'Dokumente', icon: '../assets/image/profile/category-05.svg', path: ['personal'] },
+      { name: 'Dokumente', icon: '../assets/image/profile/category-05.svg', path: ['document'] },
       { name: 'Sonstiges', icon: '../assets/image/profile/category-06.svg', path: ['personal'] },
       { name: 'Ich über mich', icon: '../assets/image/profile/category-07.svg', path: ['about'] }
     ];

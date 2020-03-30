@@ -46,8 +46,8 @@ export class CategoryNavHeaderComponent implements OnInit {
       },
       {
         routerName: 'Dokumente',
-        routerLink: '/',
-        routerActive: ''
+        routerLink: '/document',
+        routerActive: 'active'
       },
       {
         routerName: 'Sonstiges',

@@ -21,7 +21,7 @@ export class SearchSettingsComponent implements OnInit, AfterViewInit {
   public navSettings = {
     iconCategory: '../assets/image/profile/category-04.svg',
     nameCategory: 'Such-Präferenzen',
-    nextCategory: 'about',
+    nextCategory: 'document',
     prevCategory: 'professional-background'
   };
 
