@@ -8,7 +8,7 @@ import { MatExpansionPanel, MatDialog } from '@angular/material';
 import { SearchService } from 'src/app/services/search.service';
 import { Observable, forkJoin, of, throwError } from 'rxjs';
 import * as moment from 'moment';
-import { ConfirmModalComponent } from 'src/app/modal/confirm/confirm-modal.component';
+import { ConfirmModalComponent } from 'src/app/components/modal/confirm/confirm-modal.component';
 
 @Component({
   selector: 'app-education',

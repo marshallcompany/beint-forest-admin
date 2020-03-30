@@ -10,7 +10,7 @@ import { NotificationService } from 'src/app/services/notification.service';
 
 import { MatExpansionPanel } from '@angular/material/expansion';
 import { MatDialog } from '@angular/material';
-import { ConfirmModalComponent } from 'src/app/modal/confirm/confirm-modal.component';
+import { ConfirmModalComponent } from 'src/app/components/modal/confirm/confirm-modal.component';
 
 
 @Component({
@@ -90,7 +90,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
         this.dropdownOptions = res.dropdownOptions;
         this.patchFormValue(res.workExperience);
       });
-  };
+  }
 
   public get employmentConditionsArray(): FormArray {
     return this.form.get('workExperience').get('employmentConditions').get('items') as FormArray;
@@ -121,7 +121,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
         })
       })
     });
-  };
+  }
 
   public createFormGroup = (data: any, nameGroup: string): FormGroup => {
     switch (nameGroup) {
@@ -166,7 +166,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
       default:
         break;
     }
-  };
+  }
 
   public onOpenAccordion() {
     this.accordion01.opened
@@ -252,7 +252,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
     if (!this.accordion01.expanded || !this.accordion02.expanded || !this.accordion03.expanded) {
       this.accordionsStatus = false;
     }
-  };
+  }
 
   getCountryList(query: string) {
     this.$countriesList = this.searchService.getCountries('de', query).pipe(debounceTime(500), share());
@@ -305,17 +305,17 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
         nameArray.removeAt(index);
       }
     }
-  };
+  }
 
   public deleteTags = (index, itemIndex, formArrayName, field, message) => {
     this[formArrayName].at(index).controls[field].removeAt(itemIndex);
     this.submit(message);
-  };
+  }
 
   public formArrayPush = (value, formArrayName, field, index) => {
     this[formArrayName].controls[index].controls[field].push(this.fb.control(value.slice(-1)[0]));
     this.submit('field');
-  };
+  }
 
   public setFormGroup = (status?: string) => {
     const isNotRelevant = this.form.get('workExperience').get(status).get('isNotRelevant').value;
@@ -323,7 +323,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
       return;
     }
     this[`${status}Array`].push(this.createFormGroup({}, status));
-  };
+  }
 
   public submit = (field: string) => {
     this.profileService.updateProfile(this.form.value)
@@ -345,6 +345,6 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
           console.log('[ ERROR UPDATE PROFILE ]', err);
         }
       );
-  };
+  }
 
 }

@@ -45,9 +45,9 @@ import { CategoryNavHeaderComponent } from './components/category-nav-header/cat
 import { AboutComponent } from './pages/profile/about/about.component';
 import { SearchSettingsComponent } from './pages/profile/search-settings/search-settings.component';
 import { ProfessionalBackgroundComponent } from './pages/profile/professional-background/professional-background.component';
-import { ConfirmModalComponent } from './modal/confirm/confirm-modal.component';
-import { ImageChoiceComponent } from './bottom-sheet/image-sheet/image-choice/image-choice.component';
-import { CropperComponent } from './modal/cropper/cropper.component';
+import { ConfirmModalComponent } from './components/modal/confirm/confirm-modal.component';
+import { ImageChoiceComponent } from './components/sheet/image-choice/image-choice.component';
+import { CropperComponent } from './components/modal/cropper/cropper.component';
 
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
