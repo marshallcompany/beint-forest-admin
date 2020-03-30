@@ -13,6 +13,9 @@ services:
       - '../../.env'
     environment:
       - NGINX_PORT=80
+      - LETSENCRYPT_HOST=dev.candidate.beint.de
+      - LETSENCRYPT_EMAIL=vladislav@alphax-ds.de
+      - VIRTUAL_HOST=dev.candidate.beint.de
     ports:
       - "${LISTEN_HOST}:${GATEWAY_PORT_HTTP}:80"
       - "${LISTEN_HOST}:${GATEWAY_PORT_SSL}:443"
