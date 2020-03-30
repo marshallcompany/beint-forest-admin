@@ -119,7 +119,7 @@ export class ProfileComponent implements OnInit {
 
   public uploadImage = (blob: Blob, type: string) => {
     this.spinner = true;
-    this.uploadFileService.getUploadLink()
+    this.uploadFileService.getUploadAvatarLink()
       .pipe(
         switchMap(urlS3 => {
           const arr: Array<Observable<any>> = [

@@ -8,4 +8,36 @@
       class="background__circle background__circle_02">
   </div>
   <app-category-nav-header [navSettings]="navSettings"></app-category-nav-header>
+  <div class="document-wrapper">
+    <div class="container">
+      <br>
+      <br>
+      <input
+        #fileInput
+        type="file"
+        (change)="fileSelect($event)"
+        style="display: none;">
+      <button
+        style="width:50px; height:50px; background-color:green; border-radius: 50%; color:white; font-size: 20px;"
+        (click)="fileInput.click()">
+        +
+      </button>
+      <div class="doc">
+        <div
+          class="doc-item"
+          *ngFor="let item of profileDate?.documents;">
+          <br>
+          <br>
+          {{item.filename}}
+          <br>
+          <br>
+          <button
+            (click)="removeDocument(item._id)"
+            style="padding:20px; background-color:red; color:white; font-size: 20px;">
+            remove
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
