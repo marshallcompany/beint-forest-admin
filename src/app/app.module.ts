@@ -49,6 +49,7 @@ import { ConfirmModalComponent } from './components/modal/confirm/confirm-modal.
 import { ImageChoiceComponent } from './components/sheet/image-choice/image-choice.component';
 import { CropperComponent } from './components/modal/cropper/cropper.component';
 import { DocumentComponent } from './pages/profile/document/document.component';
+import { DocumentOptionComponent } from './components/sheet/document-option/document-option.component';
 
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -87,7 +88,8 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     ConfirmModalComponent,
     ImageChoiceComponent,
     CropperComponent,
-    DocumentComponent
+    DocumentComponent,
+    DocumentOptionComponent
   ],
   imports: [
     RoutingModule,
@@ -132,6 +134,6 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     { provide: HTTP_INTERCEPTORS, useClass: Interceptors.accessToken, multi: true },
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ConfirmModalComponent, ImageChoiceComponent, CropperComponent]
+  entryComponents: [ConfirmModalComponent, ImageChoiceComponent, CropperComponent, DocumentOptionComponent]
 })
 export class AppModule { }

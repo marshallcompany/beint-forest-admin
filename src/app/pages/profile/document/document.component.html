@@ -29,6 +29,7 @@
           <br>
           <br>
           {{item.filename}}
+          {{item.createdAt | date: 'dd.mm.yyyy'}}
           <br>
           <br>
           <button
@@ -36,6 +37,7 @@
             style="padding:20px; background-color:red; color:white; font-size: 20px;">
             remove
           </button>
+          <button (click)="documentOption(item)">open option</button>
         </div>
       </div>
     </div>

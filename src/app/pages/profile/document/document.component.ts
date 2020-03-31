@@ -1,8 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfileService } from 'src/app/services/profile.service';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 import { Observable, ReplaySubject, of, forkJoin, throwError } from 'rxjs';
 import { UploadFileService } from 'src/app/services/upload-file.service';
+import { MatBottomSheet, MatDialog } from '@angular/material';
+
+import { DocumentOptionComponent } from 'src/app/components/sheet/document-option/document-option.component';
+import { GlobalErrorService } from 'src/app/services/global-error-service';
+import { NotificationService } from 'src/app/services/notification.service';
+import { ConfirmModalComponent } from 'src/app/components/modal/confirm/confirm-modal.component';
 
 @Component({
   selector: 'app-document',
@@ -22,7 +28,11 @@ export class DocumentComponent implements OnInit {
 
   constructor(
     private profileService: ProfileService,
-    private uploadFileService: UploadFileService
+    private uploadFileService: UploadFileService,
+    private bottomSheet: MatBottomSheet,
+    private globalErrorService: GlobalErrorService,
+    private notificationService: NotificationService,
+    private matDialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -91,21 +101,64 @@ export class DocumentComponent implements OnInit {
       )
       .subscribe(
         res => {
-          console.log('upload document', res);
-          console.log('urlS3', urlFile);
+          console.log('[ UPLOAD DOCUMENT DONE ]', res);
           this.init();
+          this.notificationService.notify(`Document saved successfully!`, 'success');
         },
         err => {
           console.log('[ UPLOAD DOCUMENT ERROR ]', err);
         }
       );
   }
-  removeDocument(id) {
-    this.uploadFileService.removeDocument(id)
-      .pipe()
+
+
+  documentOption(document) {
+    let statusChange: string;
+    this.bottomSheet.open(DocumentOptionComponent).afterDismissed()
+      .pipe(
+        switchMap((value: any) => {
+          console.log(value);
+          if (value === undefined) {
+            return throwError('NO OPTION');
+          }
+          statusChange = value;
+          return of(value);
+        }),
+        switchMap((remove: string) => {
+          if (remove === 'remove') {
+            return this.matDialog.open(ConfirmModalComponent).afterClosed()
+              .pipe(
+                switchMap(value => {
+                  if (!value || value === undefined) {
+                    return throwError('NO OPTION');
+                  }
+                  return this.uploadFileService.removeDocument(document._id);
+                })
+              );
+          }
+          return of(remove);
+        }),
+        switchMap((open: string) => {
+          if (open === 'open') {
+            return of(window.open(document.storagePath));
+          }
+          return of(open);
+        })
+      )
       .subscribe(
         res => {
-          this.init();
+          console.log('res', res);
+          if (statusChange === 'remove' || statusChange === 'rename') {
+            this.init();
+          }
+        },
+        err => {
+          console.log('ERROR', err);
+          if (err === 'NO OPTION') {
+            return;
+          } else {
+            this.globalErrorService.handleError(err);
+          }
         }
       );
   }
