@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfileService } from 'src/app/services/profile.service';
-import { map, switchMap, take, tap } from 'rxjs/operators';
-import { Observable, ReplaySubject, of, forkJoin, throwError } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
+import { Observable, of, forkJoin, throwError } from 'rxjs';
 import { UploadFileService } from 'src/app/services/upload-file.service';
 import { MatBottomSheet, MatDialog } from '@angular/material';
-
 import { DocumentOptionComponent } from 'src/app/components/sheet/document-option/document-option.component';
+import { DocumentOptionModalComponent } from 'src/app/components/modal/document-option/document-option-modal.component';
 import { GlobalErrorService } from 'src/app/services/global-error-service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { ConfirmModalComponent } from 'src/app/components/modal/confirm/confirm-modal.component';
+import { FileRenameComponent } from 'src/app/components/modal/file-rename/file-rename.component';
 
 @Component({
   selector: 'app-document',
@@ -25,6 +26,7 @@ export class DocumentComponent implements OnInit {
   };
 
   public profileDate;
+  public documentOption$: Observable<any>;
 
   constructor(
     private profileService: ProfileService,
@@ -32,7 +34,7 @@ export class DocumentComponent implements OnInit {
     private bottomSheet: MatBottomSheet,
     private globalErrorService: GlobalErrorService,
     private notificationService: NotificationService,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
   ) { }
 
   ngOnInit() {
@@ -114,7 +116,12 @@ export class DocumentComponent implements OnInit {
 
   documentOption(document) {
     let statusChange: string;
-    this.bottomSheet.open(DocumentOptionComponent).afterDismissed()
+    if (window.innerWidth < 568) {
+      this.documentOption$ = this.bottomSheet.open(DocumentOptionComponent).afterDismissed();
+    } else {
+      this.documentOption$ = this.matDialog.open(DocumentOptionModalComponent).afterClosed();
+    }
+    this.documentOption$
       .pipe(
         switchMap((value: any) => {
           console.log(value);
@@ -137,6 +144,20 @@ export class DocumentComponent implements OnInit {
               );
           }
           return of(remove);
+        }),
+        switchMap((rename: string) => {
+          if (rename === 'rename') {
+            return this.matDialog.open(FileRenameComponent).afterClosed()
+              .pipe(
+                switchMap(value => {
+                  if (!value || value === undefined) {
+                    return throwError('NO OPTION');
+                  }
+                  return this.uploadFileService.updateDocument(document._id, { filename: value });
+                })
+              );
+          }
+          return of(rename);
         }),
         switchMap((open: string) => {
           if (open === 'open') {

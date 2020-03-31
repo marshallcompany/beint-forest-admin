@@ -16,6 +16,7 @@
         #fileInput
         type="file"
         (change)="fileSelect($event)"
+        accept=".xlsx,.xls,.doc, .docx,.ppt, .pptx,.txt,.pdf"
         style="display: none;">
       <button
         style="width:50px; height:50px; background-color:green; border-radius: 50%; color:white; font-size: 20px;"
@@ -32,11 +33,6 @@
           {{item.createdAt | date: 'dd.mm.yyyy'}}
           <br>
           <br>
-          <button
-            (click)="removeDocument(item._id)"
-            style="padding:20px; background-color:red; color:white; font-size: 20px;">
-            remove
-          </button>
           <button (click)="documentOption(item)">open option</button>
         </div>
       </div>

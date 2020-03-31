@@ -47,6 +47,10 @@ export class UploadFileService {
     return this.http.post<any>(this.apiRoutes.UPDATE_PROFILE_DOCUMENT, data);
   }
 
+  public updateDocument = (id: string, data: object) => {
+    const url = this.apiRoutes.REMOVE_DOCUMENT.replace(':id', id);
+    return this.http.patch<any>(url, data);
+  }
   public convertToBase64(fileToRead: File): Observable<any> {
     const base64Observable = new ReplaySubject<any>(1);
     const fileReader = new FileReader();

@@ -1,0 +1,20 @@
+<div class="document-option-body">
+  <h2 class="document-option-body__title">Was möchtest du mit deinem Dokument machen?</h2>
+  <div class="sheet-button-box">
+    <button
+      class="sheet-button sheet-button_remove"
+      (click)="sheetSelect('remove')">
+      <span class="sheet-button__text">Löschen</span>
+    </button>
+    <button
+      class="sheet-button sheet-button_rename"
+      (click)="sheetSelect('rename')">
+      <span class="sheet-button__text">Umbenennen</span>
+    </button>
+    <button
+      class="sheet-button sheet-button_open"
+      (click)="sheetSelect('open')">
+      <span class="sheet-button__text">Vorschau</span>
+    </button>
+  </div>
+</div>
