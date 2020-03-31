@@ -11,18 +11,21 @@
     </svg>
   </button>
   <h2 class="modal-body__title">
-    Möchten Sie diese Informationen <br> wirklich löschen?
+    <span *ngIf="!data">Möchten Sie diese Informationen <br> wirklich löschen?</span>
+    <span *ngIf="data && data.title">{{ data.title }}</span>
   </h2>
   <div class="event">
     <button
       class="event__button event__button_confirm"
       (click)="save(true)">
-      entfernen
+      <span *ngIf="!data">entfernen</span>
+      <span *ngIf="data && data.labelConfirmButton">{{ data.labelConfirmButton }}</span>
     </button>
     <button
       class="event__button event__button_cancel"
       (click)="close(false)">
-      abbrechen
+      <span *ngIf="!data">abbrechen</span>
+      <span *ngIf="data && data.labelCancelButton">{{ data.labelCancelButton }}</span>
     </button>
   </div>
 </div>

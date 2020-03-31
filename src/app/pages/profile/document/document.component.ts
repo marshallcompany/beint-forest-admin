@@ -116,6 +116,11 @@ export class DocumentComponent implements OnInit {
 
   documentOption(document) {
     let statusChange: string;
+    const confirmConfig = {
+      title: 'Wirklich löschen?',
+      labelConfirmButton: 'Löschen',
+      labelCancelButton: 'Abbrechen'
+    };
     if (window.innerWidth < 568) {
       this.documentOption$ = this.bottomSheet.open(DocumentOptionComponent).afterDismissed();
     } else {
@@ -133,7 +138,7 @@ export class DocumentComponent implements OnInit {
         }),
         switchMap((remove: string) => {
           if (remove === 'remove') {
-            return this.matDialog.open(ConfirmModalComponent).afterClosed()
+            return this.matDialog.open(ConfirmModalComponent, { data: confirmConfig }).afterClosed()
               .pipe(
                 switchMap(value => {
                   if (!value || value === undefined) {
@@ -170,6 +175,7 @@ export class DocumentComponent implements OnInit {
         res => {
           console.log('res', res);
           if (statusChange === 'remove' || statusChange === 'rename') {
+            this.notificationService.notify(`Document saved successfully!`, 'success');
             this.init();
           }
         },
