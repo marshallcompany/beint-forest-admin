@@ -18,5 +18,8 @@ export class DocumentOptionComponent implements OnInit {
   sheetSelect = ($event) => {
     this.bottomSheetRef.dismiss($event);
   }
+  sheetClose($event) {
+    this.bottomSheetRef.dismiss($event);
+  }
 
 }

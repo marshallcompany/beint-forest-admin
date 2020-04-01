@@ -16,16 +16,16 @@
   </h2>
   <div class="event">
     <button
-      class="event__button event__button_confirm"
-      (click)="save(true)">
-      <span *ngIf="!data">entfernen</span>
-      <span *ngIf="data && data.labelConfirmButton">{{ data.labelConfirmButton }}</span>
-    </button>
-    <button
       class="event__button event__button_cancel"
       (click)="close(false)">
       <span *ngIf="!data">abbrechen</span>
       <span *ngIf="data && data.labelCancelButton">{{ data.labelCancelButton }}</span>
+    </button>
+    <button
+      class="event__button event__button_confirm"
+      (click)="save(true)">
+      <span *ngIf="!data">entfernen</span>
+      <span *ngIf="data && data.labelConfirmButton">{{ data.labelConfirmButton }}</span>
     </button>
   </div>
 </div>

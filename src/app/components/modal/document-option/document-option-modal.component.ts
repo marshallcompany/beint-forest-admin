@@ -15,6 +15,10 @@ export class DocumentOptionModalComponent implements OnInit {
   ngOnInit() {
   }
 
+  closeDialog($event) {
+    this.matDialogRef.close($event);
+  }
+
   sheetSelect = ($event) => {
     this.matDialogRef.close($event);
   }

@@ -122,9 +122,9 @@ export class DocumentComponent implements OnInit {
       labelCancelButton: 'Abbrechen'
     };
     if (window.innerWidth < 568) {
-      this.documentOption$ = this.bottomSheet.open(DocumentOptionComponent).afterDismissed();
+      this.documentOption$ = this.bottomSheet.open(DocumentOptionComponent, { panelClass: 'document-option-sheet' }).afterDismissed();
     } else {
-      this.documentOption$ = this.matDialog.open(DocumentOptionModalComponent).afterClosed();
+      this.documentOption$ = this.matDialog.open(DocumentOptionModalComponent, { panelClass: 'document-option-dialog' }).afterClosed();
     }
     this.documentOption$
       .pipe(

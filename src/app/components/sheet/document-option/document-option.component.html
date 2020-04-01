@@ -1,20 +1,25 @@
-<div class="document-option-body">
-  <h2 class="document-option-body__title">Was möchtest du mit deinem Dokument machen?</h2>
-  <div class="sheet-button-box">
+<div class="sheet">
+  <h2 class="sheet__title">Was möchtest du mit deinem <br> Dokument machen?</h2>
+  <div class="button-wrapper">
     <button
-      class="sheet-button sheet-button_remove"
-      (click)="sheetSelect('remove')">
-      <span class="sheet-button__text">Löschen</span>
-    </button>
-    <button
-      class="sheet-button sheet-button_rename"
+      class="button-wrapper__item button-wrapper__item_rename"
       (click)="sheetSelect('rename')">
-      <span class="sheet-button__text">Umbenennen</span>
+      <span class="button-wrapper__text">Umbenennen</span>
     </button>
     <button
-      class="sheet-button sheet-button_open"
+      class="button-wrapper__item button-wrapper__item_open"
       (click)="sheetSelect('open')">
-      <span class="sheet-button__text">Vorschau</span>
+      <span class="button-wrapper__text">Vorschau</span>
+    </button>
+    <button
+      class="button-wrapper__item button-wrapper__item_remove"
+      (click)="sheetSelect('remove')">
+      <span class="button-wrapper__text">Löschen</span>
+    </button>
+    <button
+      class="button-wrapper__item button-wrapper__item_cancel"
+      (click)="sheetClose(false)">
+      <span class="button-wrapper__text">Cancel</span>
     </button>
   </div>
 </div>
