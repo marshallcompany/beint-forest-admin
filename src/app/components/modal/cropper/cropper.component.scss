@@ -2,6 +2,7 @@
 @import "../../../theme/variables.scss";
 ::ng-deep .cropper-modal {
   max-width: 100%!important;
+  height: 100%;
   .mat-dialog-container{
     padding:0;
     max-width: none !important;
@@ -17,10 +18,8 @@ image-cropper{
     --cropper-outline-color:rgba(0,0,0, .8);
 }
 .cropper-body{
-  max-width:100%;
-  max-height: 100%;
   width:100vw;
-  height: 100vh;
+  height: 100%;
   position:relative;
   display: flex;
   flex-direction: column;
