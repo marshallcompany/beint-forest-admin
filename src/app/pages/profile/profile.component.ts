@@ -153,7 +153,7 @@ export class ProfileComponent implements OnInit {
   }
 
   openCropperDialog(fileData): Observable<any> {
-    return this.matDialog.open(CropperComponent, { data: fileData }).afterClosed();
+    return this.matDialog.open(CropperComponent, { data: fileData, panelClass: 'cropper-modal' }).afterClosed();
   }
 
   public showEditCategory = (router?: string) => {
