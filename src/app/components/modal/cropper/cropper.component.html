@@ -1,0 +1,48 @@
+<section class="cropper-body">
+  <div class="image-cropper">
+    <img
+      src="../assets/image/icon-image.svg"
+      class="image-cropper__icon">
+    <image-cropper
+      #ImageCropperComponent
+      [imageFile]="data.target.files[0]"
+      [cropperMinWidth]="200"
+      [cropperMinHeight]="200"
+      [autoCrop]="false"
+      [roundCropper]="true"
+      format="png,jpeg,jpg"
+      [canvasRotation]="canvasRotation"></image-cropper>
+  </div>
+  <div class="navigation-box">
+    <button
+      class="navigation-box__button navigation-box__button_cancel"
+      (click)="closeCropper(false)">
+      Cancel
+    </button>
+    <div class="rotate-box">
+      <button
+        type="button"
+        class="rotate-box__button rotate-box__button_left"
+        (click)="rotateLeft()">
+        <img
+          src="../assets/image/rotate-left.svg"
+          class="rotate-box__icon">
+        <span class="rotate-box__text">Rotate left</span>
+      </button>
+      <button
+        type="button"
+        class="rotate-box__button rotate-box__button_right"
+        (click)="rotateRight()">
+        <span class="rotate-box__text">Rotate right</span>
+        <img
+          src="../assets/image/rotate-right.svg"
+          class="rotate-box__icon">
+      </button>
+    </div>
+    <button
+      (click)="crop()"
+      class="navigation-box__button navigation-box__button_save">
+      Save
+    </button>
+  </div>
+</section>

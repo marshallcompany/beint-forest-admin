@@ -25,6 +25,13 @@ export class ApiRoutesProvider {
   public readonly GET_ZIP_SCHEMA: string;
   public readonly GET_SKILLS_SCHEMA: string;
   public readonly GET_LANG_SCHEMA: string;
+  public readonly GET_LINK_IMAGE: string;
+  public readonly UPDATE_PROFILE_AVATAR: string;
+  public readonly GET_LINK_DOCUMENT: string;
+  public readonly UPDATE_PROFILE_DOCUMENT: string;
+  public readonly UPDATE_DOCUMENT: string;
+  public readonly REMOVE_DOCUMENT: string;
+
 
   constructor() {
     this.BASE_API_URL = environment.BASE_API_URL;
@@ -48,5 +55,11 @@ export class ApiRoutesProvider {
     this.GET_DEGREE_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/universityDegree/:lang`;
     this.GET_SKILLS_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/skills/:lang`;
     this.GET_LANG_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/languages/:lang`;
+    this.GET_LINK_IMAGE = `${this.BASE_API_URL}/api/v1/profile/avatar`;
+    this.UPDATE_PROFILE_AVATAR = `${this.BASE_API_URL}/api/v1/profile/avatar`;
+    this.GET_LINK_DOCUMENT = `${this.BASE_API_URL}/api/v1/profile/documents`;
+    this.UPDATE_PROFILE_DOCUMENT = `${this.BASE_API_URL}/api/v1/profile/documents`;
+    this.UPDATE_DOCUMENT = `${this.BASE_API_URL}/api/v1/profile/documents/:id`;
+    this.REMOVE_DOCUMENT = `${this.BASE_API_URL}/api/v1/profile/documents/:id`;
   }
 }

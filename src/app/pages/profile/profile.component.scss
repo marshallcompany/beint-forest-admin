@@ -43,6 +43,26 @@
         transform: translate(-50%, -50%);
         height:85%;
         width: 85%;
+        &_default{
+             background-color: #f9f9f9;
+             img{
+                 position: absolute;
+                 left:50%;
+                 top:50%;
+                 transform: translate(-50%, -50%);
+                 height: 30px;
+             }
+        }
+        &_loading{
+            z-index: 1;
+            img{
+                position: absolute;
+                left:50%;
+                top:50%;
+                transform: translate(-50%, -50%);
+                height: 100px;
+            }
+        }
     }
     &__name{
         color:$blue;
@@ -61,7 +81,43 @@
         margin-bottom:50px;
     }
 }
-
+.add-profile-picture{
+    position: absolute;
+    left:50%;
+    bottom:-5px;
+    color:$blue;
+    font-weight: bold;
+    font-size: 25px;
+    transform: translate(-50%, 0);
+    width:30px;
+    height:30px;
+    border-radius: 50%;
+    background-color:#EBBE00;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.17);
+    &.edit-picture {
+        background-color:$green;
+        .add-profile-picture{
+            &__icon{
+                &_plus{
+                    display: none;
+                }
+                &_edit{
+                    display: block;
+                }
+            }
+        }
+    }
+    &__icon{
+        height:15px;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        left:50%;
+        top:50%;
+        &_edit{
+            display: none;
+        }
+    }
+}
 
 
 // PROFILE CATEGORY

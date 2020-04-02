@@ -93,4 +93,8 @@ export class AppComponent implements OnInit {
     this.router.navigate([`${name}`]);
   }
 
+  public logout = () => {
+    this.authService.logout();
+    window.location.reload();
+  }
 }

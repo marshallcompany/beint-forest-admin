@@ -1,0 +1,20 @@
+<div class="image-choice-body">
+  <input
+    #fileInput
+    type="file"
+    (change)="selectFile($event)"
+    accept=".png,.jpeg,.jpg"
+    class="file-input">
+  <div class="sheet-button-box">
+    <button
+      (click)="sheetDismiss(false)"
+      class="sheet-button sheet-button_cancel">
+      <span class="sheet-button__text">Cancel</span>
+    </button>
+    <button
+      (click)="fileInput.click()"
+      class="sheet-button sheet-button_select">
+      <span class="sheet-button__text">Select File</span>
+    </button>
+  </div>
+</div>

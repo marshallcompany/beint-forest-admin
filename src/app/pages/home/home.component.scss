@@ -1,4 +1,14 @@
 @import "../../theme/variables.scss";
+::ng-deep circle-progress{
+    svg{
+        path.ng-star-inserted{
+            stroke:#54c0ae;
+        }
+        circle.ng-star-inserted {
+            stroke: #cbe8e4;
+        }
+    }
+}
 // USER INFORMATION
 .user-information-wrp{
   padding-bottom:75px;
@@ -94,11 +104,22 @@
     transform: translate(-50%, -50%);
     height: calc(100% - 47px);
     width: calc(100% - 47px);
+    &_default{
+      background-color: #f9f9f9;
+        img{
+          position: absolute;
+          left:50%;
+          top:50%;
+          transform: translate(-50%, -50%);
+          height: 40px;
+        }
+    }
   }
 }
 // USER ACTIONS
 .user-actions{
   padding:40px 0;
+  overflow-x: hidden;
 }
 .actions-icon{
   background-color:$primary;

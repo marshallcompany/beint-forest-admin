@@ -1,0 +1,27 @@
+<div class="sheet">
+  <h2 class="sheet__title">Was möchtest du mit deinem <br> Dokument machen?</h2>
+  <div class="button-wrapper">
+    <button
+      class="button-wrapper__item button-wrapper__item_rename"
+      (click)="sheetSelect('rename')">
+      <span class="button-wrapper__text">Umbenennen</span>
+    </button>
+    <a
+      [href]="data"
+      target="_blank"
+      class="button-wrapper__item button-wrapper__item_open"
+      (click)="sheetSelect('OPEN DOCUMENT')">
+      <span class="button-wrapper__text">Vorschau</span>
+    </a>
+    <button
+      class="button-wrapper__item button-wrapper__item_remove"
+      (click)="sheetSelect('remove')">
+      <span class="button-wrapper__text">Löschen</span>
+    </button>
+    <button
+      class="button-wrapper__item button-wrapper__item_cancel"
+      (click)="sheetClose(false)">
+      <span class="button-wrapper__text">Cancel</span>
+    </button>
+  </div>
+</div>

@@ -6,6 +6,7 @@ import { MatExpansionModule, MAT_EXPANSION_PANEL_DEFAULT_OPTIONS } from '@angula
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDialogModule } from '@angular/material';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 
 
 
@@ -17,14 +18,16 @@ import { MatDialogModule } from '@angular/material';
     MatExpansionModule,
     MatSnackBarModule,
     MatSidenavModule,
-    MatDialogModule
+    MatDialogModule,
+    MatBottomSheetModule
   ],
   exports: [
     MatIconModule,
     MatExpansionModule,
     MatSnackBarModule,
     MatSidenavModule,
-    MatDialogModule
+    MatDialogModule,
+    MatBottomSheetModule
   ],
   providers: [
     {

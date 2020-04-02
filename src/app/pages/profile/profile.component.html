@@ -23,9 +23,33 @@
           [animationDuration]="1000"
           [startFromZero]="false"
           [responsive]="true"></circle-progress>
+        <div class="profile-details__image profile-details__image_default">
+          <img
+            src="../assets/image/icon-image.svg"
+            class="image-cropper__icon">
+        </div>
         <img
-          src="https://picsum.photos/id/1/350/350"
+          [src]="imageUrl"
+          *ngIf="imageUrl"
           class="profile-details__image">
+        <div
+          class="profile-details__image profile-details__image_loading"
+          *ngIf="spinner || !profileDate">
+          <img
+            src="../assets/image/spinner.svg"
+            class="image-cropper__icon">
+        </div>
+        <button
+          [ngClass]="{'edit-picture' : imageUrl}"
+          (click)="takeProfilePicture()"
+          class="add-profile-picture">
+          <img
+            src="../assets/image/plus.svg"
+            class="add-profile-picture__icon add-profile-picture__icon_plus">
+          <img
+            src="../assets/image/profile/pencil.svg"
+            class="add-profile-picture__icon add-profile-picture__icon_edit">
+        </button>
       </div>
       <p class="profile-details__name">Hey <span *ngIf="profileDate">{{ profileDate.profile.personal.firstName }}</span>!</p>
       <p class="profile-details__description">
@@ -33,7 +57,6 @@
       </p>
     </div>
   </section>
-
   <section class="categories">
     <div class="container">
       <div class="categories-wrapper">

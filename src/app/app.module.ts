@@ -26,6 +26,7 @@ import { SwiperModule } from 'ngx-swiper-wrapper';
 import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { MaterialModule } from './modules/material.module';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -44,7 +45,13 @@ import { CategoryNavHeaderComponent } from './components/category-nav-header/cat
 import { AboutComponent } from './pages/profile/about/about.component';
 import { SearchSettingsComponent } from './pages/profile/search-settings/search-settings.component';
 import { ProfessionalBackgroundComponent } from './pages/profile/professional-background/professional-background.component';
-import { ConfirmModalComponent } from './modal/confirm/confirm-modal.component';
+import { ConfirmModalComponent } from './components/modal/confirm/confirm-modal.component';
+import { ImageChoiceComponent } from './components/sheet/image-choice/image-choice.component';
+import { CropperComponent } from './components/modal/cropper/cropper.component';
+import { DocumentComponent } from './pages/profile/document/document.component';
+import { DocumentOptionComponent } from './components/sheet/document-option/document-option.component';
+import { FileRenameComponent } from './components/modal/file-rename/file-rename.component';
+import { DocumentOptionModalComponent } from './components/modal/document-option/document-option-modal.component';
 
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -80,7 +87,13 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     AboutComponent,
     SearchSettingsComponent,
     ProfessionalBackgroundComponent,
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    ImageChoiceComponent,
+    CropperComponent,
+    DocumentComponent,
+    DocumentOptionComponent,
+    DocumentOptionModalComponent,
+    FileRenameComponent
   ],
   imports: [
     RoutingModule,
@@ -92,6 +105,7 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     NgSelectModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
+    ImageCropperModule,
     NgxMaskModule.forRoot({
       showMaskTyped: true,
     }),
@@ -120,10 +134,17 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
       provide: ErrorHandler,
       useClass: GlobalErrorService
     },
-    { provide: HTTP_INTERCEPTORS, useClass: Interceptors.contentType, multi: true },
+    // { provide: HTTP_INTERCEPTORS, useClass: Interceptors.contentType, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: Interceptors.accessToken, multi: true },
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ConfirmModalComponent]
+  entryComponents: [
+    ConfirmModalComponent,
+    ImageChoiceComponent,
+    CropperComponent,
+    DocumentOptionComponent,
+    DocumentOptionModalComponent,
+    FileRenameComponent
+  ]
 })
 export class AppModule { }
