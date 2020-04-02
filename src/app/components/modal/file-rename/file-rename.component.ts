@@ -7,7 +7,7 @@ import { MatDialogRef } from '@angular/material';
   styleUrls: ['./file-rename.component.scss']
 })
 export class FileRenameComponent implements OnInit {
-  public xxx;
+  public fileName;
   constructor(
     private matDialogRef: MatDialogRef<FileRenameComponent>
   ) { }
@@ -15,7 +15,11 @@ export class FileRenameComponent implements OnInit {
   ngOnInit() {
   }
 
-  cv(value) {
+  save(value) {
     this.matDialogRef.close(value);
+  }
+
+  closeDialog($event) {
+    this.matDialogRef.close($event);
   }
 }

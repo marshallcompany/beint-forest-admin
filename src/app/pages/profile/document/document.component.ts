@@ -152,7 +152,7 @@ export class DocumentComponent implements OnInit {
         }),
         switchMap((rename: string) => {
           if (rename === 'rename') {
-            return this.matDialog.open(FileRenameComponent).afterClosed()
+            return this.matDialog.open(FileRenameComponent, { panelClass: 'file-rename-dialog' }).afterClosed()
               .pipe(
                 switchMap(value => {
                   if (!value || value === undefined) {
