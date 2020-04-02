@@ -155,16 +155,15 @@
 @media screen and (max-width:1500px){
     .document-wrapper{
         padding-left:5vw;
-        padding-right:5vw;
+    }
+    .document-cards-item{
+        width:220px;
+        height:220px;
     }
 }
 @media screen and (max-width:992px) {
     .document-information{
         align-items: flex-start;
-    }
-    .document-cards-item{
-        width:225px;
-        height:225px;
     }
 }
 @media screen and (max-width:768px) {
@@ -216,7 +215,8 @@
     }
     .document-actions{
         &__icon{
-            width:23px;
+            width:inherit;
+            height: 7vw;
         }
     }
 }

@@ -43,8 +43,6 @@ export class DocumentComponent implements OnInit {
       '.xls',
       '.doc',
       '.docx',
-      '.ppt',
-      '.pptx',
       '.txt',
       '.pdf'
     ];
