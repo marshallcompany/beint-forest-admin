@@ -27,6 +27,8 @@ export class DocumentComponent implements OnInit {
 
   public profileDate;
   public documentOption$: Observable<any>;
+  public spinner = false;
+  public fileTypeConfig: Array<any>;
 
   constructor(
     private profileService: ProfileService,
@@ -35,7 +37,18 @@ export class DocumentComponent implements OnInit {
     private globalErrorService: GlobalErrorService,
     private notificationService: NotificationService,
     private matDialog: MatDialog,
-  ) { }
+  ) {
+    this.fileTypeConfig = [
+      '.xlsx',
+      '.xls',
+      '.doc',
+      '.docx',
+      '.ppt',
+      '.pptx',
+      '.txt',
+      '.pdf'
+    ];
+  }
 
   ngOnInit() {
     this.init();
@@ -75,7 +88,13 @@ export class DocumentComponent implements OnInit {
     this.uploadFileService.convertToBase64($event.target.files[0])
       .pipe(
         switchMap((base64: string) => {
-          return fetch(base64).then(base64Url => base64Url.blob());
+          // tslint:disable-next-line:prefer-for-of
+          for (let i = 0; i < this.fileTypeConfig.length; i++) {
+            if ($event.target.files[0].name.includes(this.fileTypeConfig[i])) {
+              return fetch(base64).then(base64Url => base64Url.blob());
+            }
+          }
+          return throwError(new Error('Sorry, you are uploading the wrong file format'));
         }),
         switchMap((blob: Blob) => {
           const arr: Array<Observable<any>> = [
@@ -87,6 +106,7 @@ export class DocumentComponent implements OnInit {
         switchMap(([urlS3, blob]) => {
           urlFile = urlS3.storagePath;
           typeFile = blob.type;
+          this.spinner = true;
           return this.uploadFileService.uploadDocument(urlS3.signedUploadUrl, blob, blob.type);
         }),
         switchMap(answerS3 => {
@@ -103,16 +123,18 @@ export class DocumentComponent implements OnInit {
       )
       .subscribe(
         res => {
-          console.log('[ UPLOAD DOCUMENT DONE ]', res);
           this.init();
           this.notificationService.notify(`Document saved successfully!`, 'success');
+          this.spinner = false;
+          console.log('[ UPLOAD DOCUMENT DONE ]', res);
         },
         err => {
+          this.spinner = false;
+          this.globalErrorService.handleError(err);
           console.log('[ UPLOAD DOCUMENT ERROR ]', err);
         }
       );
   }
-
 
   documentOption(document) {
     let statusChange: string;
