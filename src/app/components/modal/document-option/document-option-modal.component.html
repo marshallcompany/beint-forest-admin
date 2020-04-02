@@ -17,11 +17,13 @@
       (click)="sheetSelect('rename')">
       <span class="button-wrapper__text">Umbenennen</span>
     </button>
-    <button
+    <a
+      [href]="data"
+      target="_blank"
       class="button-wrapper__item button-wrapper__item_open"
-      (click)="sheetSelect('open')">
+      (click)="sheetSelect('OPEN DOCUMENT')">
       <span class="button-wrapper__text">Vorschau</span>
-    </button>
+    </a>
     <button
       class="button-wrapper__item button-wrapper__item_remove"
       (click)="sheetSelect('remove')">

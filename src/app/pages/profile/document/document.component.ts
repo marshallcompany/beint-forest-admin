@@ -146,9 +146,9 @@ export class DocumentComponent implements OnInit {
       labelCancelButton: 'Abbrechen'
     };
     if (window.innerWidth < 568) {
-      this.documentOption$ = this.bottomSheet.open(DocumentOptionComponent, { panelClass: 'document-option-sheet' }).afterDismissed();
+      this.documentOption$ = this.bottomSheet.open(DocumentOptionComponent, { data: document.storagePath, panelClass: 'document-option-sheet' }).afterDismissed();
     } else {
-      this.documentOption$ = this.matDialog.open(DocumentOptionModalComponent, { panelClass: 'document-option-dialog' }).afterClosed();
+      this.documentOption$ = this.matDialog.open(DocumentOptionModalComponent, { data: document.storagePath, panelClass: 'document-option-dialog' }).afterClosed();
     }
     this.documentOption$
       .pipe(
@@ -188,12 +188,6 @@ export class DocumentComponent implements OnInit {
           }
           return of(rename);
         }),
-        switchMap((open: string) => {
-          if (open === 'open') {
-            return of(window.open().location = document.storagePath);
-          }
-          return of(open);
-        })
       )
       .subscribe(
         res => {
