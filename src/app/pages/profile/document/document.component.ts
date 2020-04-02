@@ -80,7 +80,7 @@ export class DocumentComponent implements OnInit {
       );
   }
 
-  public fileSelect = ($event) => {
+  public fileSelect = ($event, inputFile) => {
     let urlFile: string;
     let typeFile: string;
     let nameFile: string;
@@ -126,10 +126,12 @@ export class DocumentComponent implements OnInit {
           this.init();
           this.notificationService.notify(`Document saved successfully!`, 'success');
           this.spinner = false;
+          inputFile.value = '';
           console.log('[ UPLOAD DOCUMENT DONE ]', res);
         },
         err => {
           this.spinner = false;
+          inputFile.value = '';
           this.globalErrorService.handleError(err);
           console.log('[ UPLOAD DOCUMENT ERROR ]', err);
         }
@@ -188,7 +190,7 @@ export class DocumentComponent implements OnInit {
         }),
         switchMap((open: string) => {
           if (open === 'open') {
-            return of(window.open(document.storagePath));
+            return of(window.open().location = document.storagePath);
           }
           return of(open);
         })

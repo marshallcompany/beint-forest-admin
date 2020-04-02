@@ -34,7 +34,7 @@
         <input
           #fileInput
           type="file"
-          (change)="fileSelect($event)"
+          (change)="fileSelect($event, fileInput)"
           accept=".xlsx,.xls,.doc,.docx,.ppt,.pptx,.txt,.pdf"
           style="display: none;">
         <div
@@ -75,7 +75,7 @@
           *ngFor="let document of profileDate?.documents;">
           <div class="document-cards-information">
             <p class="document-cards-information__name">{{ document.filename }}</p>
-            <p class="document-cards-information__date">{{ document.createdAt | date: 'dd.mm.yyyy' }}</p>
+            <p class="document-cards-information__date">{{ document.createdAt | date: 'MM.dd.yyyy' }}</p>
           </div>
           <div class="document-actions">
             <svg viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg" class="document-actions__icon">
