@@ -122,7 +122,7 @@ export class DocumentComponent implements OnInit {
       .subscribe(
         res => {
           this.init();
-          this.notificationService.notify(`Document saved successfully!`, 'success');
+          this.notificationService.notify(`Document added successfully!`, 'success');
           this.spinner = false;
           inputFile.value = '';
           console.log('[ UPLOAD DOCUMENT DONE ]', res);
@@ -190,8 +190,12 @@ export class DocumentComponent implements OnInit {
       .subscribe(
         res => {
           console.log('res', res);
-          if (statusChange === 'remove' || statusChange === 'rename') {
+          if (statusChange === 'rename') {
             this.notificationService.notify(`Document saved successfully!`, 'success');
+            this.init();
+          }
+          if (statusChange === 'remove') {
+            this.notificationService.notify(`Document deleted successfully!`, 'success');
             this.init();
           }
         },

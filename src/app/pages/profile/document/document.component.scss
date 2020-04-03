@@ -7,6 +7,9 @@
 	overflow-x: hidden;
 }
 
+.document-wrapper{
+    padding-bottom:25px;
+}
 .document-information{
     display: flex;
     align-items:center;
@@ -70,7 +73,7 @@
     }
     &__title{
         margin-bottom:20px;
-        font-family: $gb;
+        font-family: $workSansSemiBold;
         font-size: 17px;
     }
     &__button{
@@ -81,7 +84,7 @@
         color:#ffffff;
         font-size: 16px;
         padding:15px 0;
-        font-family: $gb;
+        font-family: $workSansSemiBold;
         letter-spacing: 1px;
     }
 }
@@ -161,22 +164,22 @@
         height:220px;
     }
 }
-@media screen and (max-width:992px) {
-    .document-information{
-        align-items: flex-start;
-    }
-}
 @media screen and (max-width:768px) {
     .document-wrapper{
-        padding:0;
+        padding-left:0;
     }
     .document{
         background-color:#ffffff;
     }
     .document-information{
-        align-items: flex-start;
         margin-top: -35px;
         z-index: 1;
+        padding-right: 35px;
+        &__icon{
+            width:33px;
+            height:33px;
+            margin-right:10px;
+        }
         &__text{
             font-size: 14px;
         }
@@ -191,18 +194,20 @@
         }
     }
     .document-cards{
-        justify-content: flex-start;
+        justify-content: center;
     }
 }
 @media screen and (max-width: 568px) {
-    .document-cards{
-        justify-content: space-between;
+    .document-wrapper{
+        .container{
+          padding:0 20px;  
+        }
     }
     .document-cards-item{
         padding:10px;
         margin-right:0;
-        width:45vw;
-        height: 45vw;
+        width: 44.5vw;
+        height: 44.5vw;
     }
     .document-cards-information{
         &__name{
@@ -216,18 +221,14 @@
     .document-actions{
         &__icon{
             width:inherit;
-            height: 7vw;
+            height: 9vw;
         }
     }
 }
 @media screen and (max-width:480px) {
     .document-information{
-        &__icon{
-            width:33px;
-            margin-right:10px;
-        }
         &__text{
-            font-size: 10px;
+            font-size: 12px;
         }
     }
     .no-document{
@@ -240,16 +241,29 @@
             font-size: 14px;
         }
     }
+    .document-cards-item{
+        width: 43.85vw;
+        height: 43.85vw;
+    }
 }
 @media screen and (max-width:414px) {
     .document-cards-item{
-        width:44vw;
-        height: 44vw;
+        width:43.25vw;
+        height: 43.25vw;
     }
 }
-@media screen and (max-width:335px) {
+@media screen and (max-width:375px) {
+    .document-information{
+        &__text{
+            font-size: 10px;
+        }
+    }
     .document-cards-item{
-        width:43.5vw;
-        height: 43.5vw;
+        width:42.5vw;
+        height: 42.5vw;
+    }
+    .document-cards-item:nth-child(odd){
+        margin-right:5px;
+        margin-bottom: 5px;
     }
 }

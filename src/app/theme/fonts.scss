@@ -19,5 +19,15 @@
     font-weight: normal;
     font-style: normal;
   }
+
+  @font-face {
+    font-family: "WorkSans SemiBold";
+    src: url("assets/fonts/WorkSans/SemiBold/Worksanssemibold.ttf");
+    src: url("assets/fonts/WorkSans/SemiBold/Worksanssemibold.woff")
+        format("woff"),
+      url("assets/fonts/WorkSans/SemiBold/Worksanssemibold.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+  }
   /* = FONTS END = */
   
