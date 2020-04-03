@@ -1,9 +1,12 @@
 @import "../../../theme/variables.scss";
-::ng-deep .mat-dialog-container {
-  border-radius:10px;
-  padding:0;
-  overflow: inherit;
-  height: auto;
+
+::ng-deep .confirm-dialog{
+   .mat-dialog-container {
+    border-radius:10px;
+    padding:0;
+    overflow: inherit;
+    height: auto;
+  }
 }
 .modal-body{
   padding:90px 0;
@@ -73,5 +76,42 @@
   }
   .event__button {
     font-size: 14px;
+  }
+}
+@media screen and (max-width: 568px) {
+  ::ng-deep .confirm-dialog{
+    .modal-close-button{
+      display: none;
+    }
+    .mat-dialog-container {
+      border-radius:0;
+      border-top-left-radius:10px;
+      border-top-right-radius:10px;
+      position: absolute;
+      left:0;
+      bottom:0;
+      overflow: hidden;
+    }
+    .modal-body {
+      width: 100%;
+      padding:40px 0;
+      &__title{
+        font-size: 16px;
+      }
+    }
+    .event{
+      &__button{
+        width:320px;
+      }
+    }
+  }
+}
+@media screen and (max-width: 480px){
+  ::ng-deep .confirm-dialog{
+    .event{
+      &__button{
+        width:270px;
+      }
+    }
   }
 }

@@ -160,7 +160,7 @@ export class DocumentComponent implements OnInit {
         }),
         switchMap((remove: string) => {
           if (remove === 'remove') {
-            return this.matDialog.open(ConfirmModalComponent, { data: confirmConfig }).afterClosed()
+            return this.matDialog.open(ConfirmModalComponent, { data: confirmConfig, panelClass: 'confirm-dialog' }).afterClosed()
               .pipe(
                 switchMap(value => {
                   if (!value || value === undefined) {
