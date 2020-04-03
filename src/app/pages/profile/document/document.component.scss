@@ -138,7 +138,7 @@
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
-        align-items: center;
+        align-items: flex-end;
         width:20px;
         height:30px;
         background-color: transparent;
@@ -204,7 +204,6 @@
         }
     }
     .document-cards-item{
-        padding:10px;
         margin-right:0;
         width: 44.5vw;
         height: 44.5vw;
@@ -212,6 +211,7 @@
     .document-cards-information{
         &__name{
             font-size: 14px;
+            margin-bottom:8px;
 
         }
         &__date{
@@ -221,7 +221,7 @@
     .document-actions{
         &__icon{
             width:inherit;
-            height: 9vw;
+            height: 40px;
         }
     }
 }
@@ -252,11 +252,20 @@
         height: 43.25vw;
     }
 }
-@media screen and (max-width:375px) {
+@media screen and (max-width:374px) {
     .document-information{
         &__text{
             font-size: 10px;
         }
+    }
+    .document-actions{
+        &__icon{
+            width:inherit;
+            height: 30px;
+        }
+    }
+    .document-cards-item{
+        padding:10px;
     }
     .document-cards-item{
         width:42.5vw;
