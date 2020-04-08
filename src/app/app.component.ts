@@ -23,16 +23,15 @@ export class AppComponent implements OnInit {
 
   public stateRoute: Array<State>;
 
-  public routerStatus: boolean;
-  public activeRouter: string;
-  private history = [];
+  // public routerStatus: boolean;
+  // private history = [];
 
   constructor(
     public router: Router,
-    private translatesService: TranslatesService,
-    private authService: AuthService,
+    public authService: AuthService,
     public notificationService: NotificationService,
-    public dateTimeAdapter: DateTimeAdapter<any>
+    public dateTimeAdapter: DateTimeAdapter<any>,
+    private translatesService: TranslatesService
   ) {
     this.stateRoute = [
       { name: 'Home', icon: '../assets/image/menu/home.svg', path: 'home', activeClass: 'route-active' },
@@ -46,27 +45,27 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.translatesService.initLanguage();
-    this.checkRouterState();
+    // this.checkRouterState();
     this.dateTimeAdapter.setLocale('de');
 
   }
 
-  private checkRouterState = () => {
-    this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe(
-        ({ urlAfterRedirects }: NavigationEnd) => {
-          this.activeRouter = urlAfterRedirects;
-          this.history = [...this.history, urlAfterRedirects];
-          const routerStateHistory = this.history[this.history.length - 2] || '/index';
-          if (routerStateHistory === '/job-description' || routerStateHistory.includes('/apply/')) {
-            this.routerStatus = true;
-          } else {
-            this.routerStatus = false;
-          }
-        }
-      );
-  }
+  // private checkRouterState = () => {
+  //   this.router.events
+  //     .pipe(filter(event => event instanceof NavigationEnd))
+  //     .subscribe(
+  //       ({ urlAfterRedirects }: NavigationEnd) => {
+  //         this.activeRouter = urlAfterRedirects;
+  //         this.history = [...this.history, urlAfterRedirects];
+  //         const routerStateHistory = this.history[this.history.length - 2] || '/index';
+  //         if (routerStateHistory === '/job-description' || routerStateHistory.includes('/apply/')) {
+  //           this.routerStatus = true;
+  //         } else {
+  //           this.routerStatus = false;
+  //         }
+  //       }
+  //     );
+  // }
 
   public menuClose = (element) => {
     element.close();
@@ -89,12 +88,9 @@ export class AppComponent implements OnInit {
     }
   }
 
-  public goToComponent = (name: string) => {
-    this.router.navigate([`${name}`]);
-  }
-
   public logout = () => {
     this.authService.logout();
     window.location.reload();
   }
+
 }
