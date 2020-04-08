@@ -12,7 +12,7 @@
   transform:translate(-50%, 0);
   background-color: #ffffff;
   z-index: 1000;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: flex-end;
 }
 .navigation-btn{
@@ -30,22 +30,26 @@
        fill:#313131;
        height: 30px;
     }
+    &_search,
+    &_profile{
+      margin-right:23px;
+    }
     &_home{
     width:65px;
     height:65px;
     border-radius:50%;
     padding:0;
+    margin:0 32px 0 29px;
     background-color: #313131;
+    flex-shrink: 0;
     &:disabled{
       opacity: 1;
     }
     &.active{
       background-color: $primary;
     }
-    span{
-      font-size: 45px;
-      color:#ffffff;
-      font-family: $gb;
+    svg{
+      height: 35px;
     }
   }
 }
@@ -57,5 +61,18 @@
 @media screen and (max-width:568px){
   .custom-navigation{
     width:100%;
+  }
+}
+@media screen and (max-width:375px){
+  .custom-navigation{
+    width:100%;
+    justify-content: space-evenly;
+  }
+  .navigation-btn{
+    &_home,
+    &_search,
+    &_profile{
+      margin:0;
+    }
   }
 }

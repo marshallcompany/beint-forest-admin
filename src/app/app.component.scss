@@ -115,6 +115,11 @@
 		flex: 1;
 	}
 }
+.router{
+	&-home{
+		background-color:#f9f9f9;
+	}
+}
 @media screen and (max-width:1200px) {
   .nav-header__hamburger{
 		margin: 3px 0 0 3px;

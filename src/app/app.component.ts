@@ -25,6 +25,7 @@ export class AppComponent implements OnInit {
 
   // public routerStatus: boolean;
   // private history = [];
+  public routerClass: string;
 
   constructor(
     public router: Router,
@@ -45,27 +46,28 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.translatesService.initLanguage();
-    // this.checkRouterState();
+    this.checkRouterState();
     this.dateTimeAdapter.setLocale('de');
 
   }
 
-  // private checkRouterState = () => {
-  //   this.router.events
-  //     .pipe(filter(event => event instanceof NavigationEnd))
-  //     .subscribe(
-  //       ({ urlAfterRedirects }: NavigationEnd) => {
-  //         this.activeRouter = urlAfterRedirects;
-  //         this.history = [...this.history, urlAfterRedirects];
-  //         const routerStateHistory = this.history[this.history.length - 2] || '/index';
-  //         if (routerStateHistory === '/job-description' || routerStateHistory.includes('/apply/')) {
-  //           this.routerStatus = true;
-  //         } else {
-  //           this.routerStatus = false;
-  //         }
-  //       }
-  //     );
-  // }
+  private checkRouterState = () => {
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(
+        ({ urlAfterRedirects }: NavigationEnd) => {
+          // this.activeRouter = urlAfterRedirects;
+          // this.history = [...this.history, urlAfterRedirects];
+          // const routerStateHistory = this.history[this.history.length - 2] || '/index';
+          // if (routerStateHistory === '/job-description' || routerStateHistory.includes('/apply/')) {
+          //   this.routerStatus = true;
+          // } else {
+          //   this.routerStatus = false;
+          // }
+          this.routerClass = 'router-' + urlAfterRedirects.replace('/', '');
+        }
+      );
+  }
 
   public menuClose = (element) => {
     element.close();

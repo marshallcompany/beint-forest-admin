@@ -21,8 +21,8 @@ export class DocumentComponent implements OnInit {
   public navSettings = {
     iconCategory: '../assets/image/profile/category-05.svg',
     nameCategory: 'Dokumente',
-    nextCategory: 'about',
-    prevCategory: 'search-settings'
+    nextCategory: 'profile/about',
+    prevCategory: 'profile/search-settings'
   };
 
   public profileDate;

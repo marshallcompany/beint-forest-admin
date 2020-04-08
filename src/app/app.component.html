@@ -57,7 +57,9 @@
           class="nav-header__image nav-header__image_hamburger">
       </button>
     </div>
-    <div class="router-wrapper">
+    <div
+      class="router-wrapper"
+      [ngClass]="routerClass">
       <div class="router-wrapper__item">
         <router-outlet></router-outlet>
       </div>

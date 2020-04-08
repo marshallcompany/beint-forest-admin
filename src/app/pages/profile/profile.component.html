@@ -1,4 +1,6 @@
-<div class="profile">
+<div
+  class="profile"
+  *ngIf="!childrenRoutes">
   <div class="background">
     <img
       src="../assets/image/background-circle-01.png"
@@ -69,3 +71,7 @@
     </div>
   </section>
 </div>
+<router-outlet
+  (activate)="onActivate()"
+  (deactivate)="onDeactivate()">
+</router-outlet>

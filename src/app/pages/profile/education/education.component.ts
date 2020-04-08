@@ -20,8 +20,8 @@ export class EducationComponent implements OnInit, AfterViewInit {
   public navSettings = {
     iconCategory: '../assets/image/profile/category-02.svg',
     nameCategory: 'Berufliche Ausbildung',
-    nextCategory: 'professional-background',
-    prevCategory: 'personal'
+    nextCategory: 'profile/professional-background',
+    prevCategory: 'profile/personal'
   };
 
   public accordionsStatus: boolean;
