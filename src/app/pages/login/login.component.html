@@ -1,7 +1,16 @@
 <section class="login">
+  <img
+    src="../assets/image/background-circle-01.png"
+    class="circle circle_01">
+  <img
+    src="../assets/image/background-circle-02.png"
+    class="circle circle_02">
+  <img
+    src="../assets/image/background-circle-03.png"
+    class="circle circle_03">
   <div class="container">
     <div class="login-wrapper">
-      <h2 class="login-wrapper__title">Einloggen mit Email</h2>
+      <h2 class="auth-title">Einloggen mit Email</h2>
       <form
         class="form"
         [formGroup]="form"
@@ -13,7 +22,8 @@
               formControlName="email"
               #email
               (blur)="triggerValidation('email')"
-              placeholder="Beschreibung eingeben"
+              (input)="hideCredentialsError()"
+              placeholder="Emailadresse"
               type="email"
               class="form-field__input">
             <div class="form-field-type">
@@ -38,8 +48,9 @@
               formControlName="password"
               #password
               (blur)="triggerValidation('password')"
+              (input)="hideCredentialsError()"
               [type]="showPass ? 'text' : 'password'"
-              placeholder="Beschreibung eingeben"
+              placeholder="Passwort eingeben"
               class="form-field__input"
               [ngClass]="{'input-valid': form.get('password').valid}">
             <div class="form-field-type">
@@ -65,6 +76,13 @@
               *ngIf="form.value.password && form.get('password').hasError('minlength')">{{ 'local_error.LENGTH_PASS' | translate }}</p>
           </div>
         </div>
+        <div class="incorrect-credentials-wrapper">
+          <p
+            class="incorrect-credentials-wrapper__text"
+            *ngIf="incorrectCredentials">
+            Emailadresse oder Passwort falsch
+          </p>
+        </div>
         <button
           type="submit"
           [disabled]="!form.valid"
@@ -72,6 +90,10 @@
           {{ 'login.SIGN_IN_BUTTON' | translate }}
         </button>
       </form>
+      <div class="data-reset">
+        <button class="data-reset__button">Email / Passwort vergessen</button>
+      </div>
+      <button class="create-account-button">Account erstellen</button>
     </div>
   </div>
 </section>

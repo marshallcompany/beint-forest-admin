@@ -1,10 +1,23 @@
 @import "../../theme/variables.scss";
 .login{
-    min-height: 100vh;
     background-color: #f9f9f9;
     position: relative;
-    overflow: auto;
-	overflow-x: hidden;
+}
+.circle{
+    position:absolute;
+    &_01{
+        left:0;
+        top:0;
+        height:30vw;
+    }
+    &_02{
+        right:0;
+        bottom:0;
+        height:26vw;
+    }
+    &_03{
+        display: none;
+    }
 }
 .container{
     position: relative;
@@ -13,23 +26,24 @@
     align-items: center;
     height: 100%;
 }
+.login-wrapper{
+    width:360px;
+}
+
 .form{
     margin-bottom:0;
 }
-.login-wrapper{
-    width:360px;
-    &__title{
-        font-family: $workSansBold;
-        color:$primary;
-        font-size: 17px;
-        margin-bottom:30px;
-        text-align: center;
-    }
+.auth-title{
+    font-family: $workSansBold;
+    color:$primary;
+    font-size: 17px;
+    margin-bottom:30px;
+    text-align: center;
 }
 .form-item{
     margin-bottom:20px;
     &:nth-child(2){
-        margin-bottom:50px;
+        margin-bottom:0;
     }
     &__label{
         padding-left: 19px;
@@ -92,6 +106,21 @@
         height: 100%;
     }
 }
+.incorrect-credentials-wrapper{
+    height:55px;
+    position: relative;
+    &__text{
+        color:#D53D3D;
+        font-size: 14px;
+        text-align: center;
+        font-family: $workSansRegular;
+        position: absolute;
+        left:50%;
+        bottom:10px;
+        transform:translate(-50%, 0);
+        width: 99.99%;
+    }
+}
 .form-submit-button{
     width:100%;
     height:50px;
@@ -104,5 +133,90 @@
     color:#ffffff;
     &:disabled{
         background-color:#989898;
+    }
+}
+.data-reset{
+    margin:20px 0 30px 0;
+    &__button{
+        width:100%;
+        text-align:center;
+        color:$blue;
+        font-size: 14px;
+        font-family: $workSansRegular;
+        background-color: transparent;
+    }
+}
+.create-account-button{
+    width:100%;
+    height:50px;
+    border-radius: 50px;
+    background-color:$blue;
+    color:#ffffff;
+    text-transform: uppercase;
+    font-family: $workSansSemiBold;
+    font-size: 16px;
+}
+// .error-box{
+//     position: relative;
+//     margin:0;
+//     padding:0;
+//     width:100%;
+//     &__text{
+//         position: absolute;
+//         left: 19px;
+//         top:10px;
+//         width:calc(100% - 19px);
+//     }
+// }
+@media screen and (max-width:992px) {
+    .circle{
+        &_01{
+            height:35vw;
+        }
+        &_02{
+            height:35vw;
+        }
+    }
+}
+@media screen and (max-width: 568px) {
+    .form-item{
+        margin-bottom:10px;
+    }
+    .circle{
+        &_01{
+            height:55vw;
+        }
+        &_02{
+            display: none;
+        }
+        &_03{
+            display: block;
+            right:0;
+            top:0;
+            height:40vw;
+        }
+    }
+}
+@media screen and (max-width: 480px) {
+    .circle{
+        &_01{
+            height:65vw;
+        }
+        &_03{
+            display: block;
+            right:0;
+            top:0;
+            height:40vw;
+        }
+    }
+}
+@media screen and (min-width:375px) and (max-width:413px){
+    .login-wrapper{
+        width:300px;
+    }
+}
+@media screen and (min-width:320px) and (max-width:374px){
+    .login-wrapper{
+        width:270px;
     }
 }

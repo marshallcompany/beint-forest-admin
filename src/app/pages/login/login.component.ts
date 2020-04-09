@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
 
   public validationError: any;
   public showPass: boolean;
+  public incorrectCredentials: boolean;
   public form: FormGroup;
 
   constructor(
@@ -28,6 +29,7 @@ export class LoginComponent implements OnInit {
     private globalErrorService: GlobalErrorService
   ) {
     this.showPass = false;
+    this.incorrectCredentials = false;
     this.validationError = {
       email: false,
       password: false
@@ -56,8 +58,17 @@ export class LoginComponent implements OnInit {
 
     } catch (error) {
       console.log('error', error);
-      this.globalErrorService.handleError(error);
+      if (error.status === 401 && error.error.message === 'CREDENTIALS_NOT_VALID') {
+        this.incorrectCredentials = true;
+      }
     }
+  }
+
+  public hideCredentialsError = () => {
+    if (this.incorrectCredentials) {
+      this.incorrectCredentials = false;
+    }
+    return;
   }
 
   public triggerValidation(field: string) {

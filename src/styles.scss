@@ -178,7 +178,13 @@ app-home {
     display: none;
   }
 }
-
+@media screen and (max-width: 414px) {
+	.error-box{
+    &__text{
+      font-size: 12px;
+    }
+  }
+}
 @import "app/theme/grid.scss";
 
 
