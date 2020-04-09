@@ -120,9 +120,7 @@
 		background-color:#f9f9f9;
 	}
 }
-.router-padding{
-	padding-bottom:80px;
-}
+
 @media screen and (max-width:1200px) {
   .nav-header__hamburger{
 		margin: 3px 0 0 3px;
@@ -131,5 +129,8 @@
 @media screen and (max-width:768px) {
 	.nav-header{
 		display: none;
+	}
+	.router-padding{
+		padding-bottom:80px;
 	}
 }
