@@ -1,217 +1,108 @@
 @import "../../theme/variables.scss";
 .login{
-    background: linear-gradient(to top, rgba(80, 180, 164,.35), #ffffff 45%);
-    min-height: 100%;
+    min-height: 100vh;
+    background-color: #f9f9f9;
+    position: relative;
     overflow: auto;
+	overflow-x: hidden;
 }
 .container{
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100%;
 }
-.header-logo{
-    padding:25px 0;
-    margin-bottom:75px;
-    text-align: center;
-    &__text{
-        display: inline-block;
-        font-size: 100px;
-        font-weight:700;
-        font-family: $gb;
-        text-align: center;
-        .custom-text {
-            color:$primary;
-        }
-        .letter-position{
-            display:inline-block;
-            margin-left:-10.1%;
-        }
-    }
+.form{
+    margin-bottom:0;
 }
 .login-wrapper{
-    background: linear-gradient(to bottom, rgba(80, 180, 164,.35), rgba(80, 180, 164,.85));
-    padding:0 50px;
-    height: 450px;
-    width:350px;
-    box-sizing: content-box;
-    border-top-left-radius: 150px;
-    border-bottom-right-radius: 150px;
-    display: flex;
-    flex-direction: column;
-    align-items:center;
-    justify-content: center;
-    position: relative;
-    z-index: 1;
-    flex-shrink: 0;
-    &:before{
-        content:'';
-        width:95%;
-        height:95%;
-        position:absolute;
-        left:50%;
-        top:50%;
-        transform:translate(-50%, -50%);
-        background-color:#ffffff;
-        border-top-left-radius: 150px;
-        border-bottom-right-radius: 150px;
-        z-index: -1;
-    }
-    .wpr{
-        width:100%;
-    }
+    width:360px;
     &__title{
-        text-align:center;
+        font-family: $workSansBold;
+        color:$primary;
+        font-size: 17px;
         margin-bottom:30px;
-        font-size: 40px;
+        text-align: center;
     }
 }
-.login-item{
-    display: flex;
-    flex-direction:column;
-    margin-bottom:25px;
-    position: relative;
-    &:nth-of-type(2){
-        margin-bottom: 35px;
+.form-item{
+    margin-bottom:20px;
+    &:nth-child(2){
+        margin-bottom:50px;
     }
     &__label{
-        font-size: 16px;
-        margin-bottom:10px;
-        font-family: $gb;
-    }
-    &__input{
-        border:none;
-        box-shadow:0 0 0 1.5px #000000;
-        border-radius: 20px;
-        padding:10px 10px;
-        font-size: 16px;
-        width:100%;
-    }
-}
-.pass-show{
-    position: relative;
-    .login-item{
-        &__input{
-            padding-right:40px;
-        }
-    }
-    &__button{
-        position:absolute;
-        right:10px;
-        top:50%;
-        transform:translate(0, -50%);
-        background-color:transparent;
-        height:25px;
-        width:25px;
-        .eye{
-            height: 100%;
-        }
-    }
-}
-.login-button{
-    display:block;
-    width:150px;
-    margin:0 auto;
-    height:50px;
-    border-radius:5px;
-    font-size: 16px;
-    background-color:$primary;
-    color:#ffffff;
-    text-transform: uppercase;
-    font-family: $gb;
-    &:disabled{
-        background-color: $red;
-    }
-}
-/* = MEDIA = */
-@media screen and (max-width:480px){
-    .header-logo{
-        margin-bottom:50px;
-        &__text{
-            font-size: 75px;
-        }
-        
-    }
-    .login-wrapper{
-        width:375px;
-        height:375px;
-        padding:0 25px;
-        box-sizing: border-box;
-        &:before{
-            width:97%;
-            height:97%;
-        }
-        .wpr{
-            width:85%;
-        }
-        &__title{
-            font-size: 30px;
-            margin-bottom: 20px;
-        }
-    }
-    .login-item{
-        &:nth-of-type(2){
-            margin-bottom:25px;
-        }
-        &__label{
-            font-size: 14px;
-            margin-bottom:5px;
-        }
-        &__input{
-            padding:7.5px 10px;
-            font-size: 14px;
-        }
-    }
-    .pass-show{
-        .login-item{
-            &__input{
-                padding-right:35px;
-            }
-        }
-        &__button{
-            height:20px;
-            width:20px;
-        }
-    }
-    .login-button{
-        height:40px;
+        padding-left: 19px;
         font-size: 14px;
-        width:100px;
+        margin-bottom:10px;
+        color:$black;
+        opacity: 0.5;
+        font-family: $workSansRegular;
     }
 }
-@media screen and (max-width:375px){
-    .header-logo{
-        margin-bottom:35px;
-        &__text{
-            font-size: 65px;
+.form-field{
+    padding:0 50px 0 19px;
+    height:50px;
+    background: #FFFFFF;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.17);
+    border-radius: 10px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    &__input{
+        width:100%;
+        border:none;
+        color: #313131;
+        opacity: 0.8;
+        font-size: 17px;
+        padding:0;
+        font-family: $workSansRegular;
+        transition: ease .5s;
+        &[type="password"]{
+            letter-spacing: 5px;
         }
-        
-    }
-    .login-wrapper{
-        width:320px;
-        height:350px;
-        padding:0 15px;
-        border-top-left-radius: 100px;
-        border-bottom-right-radius: 100px;
-        .wpr{
-            width: 95%;
+        &::placeholder{
+            color: #989898;
+            opacity: .8;
+            font-size: 17px;
+            font-family: $workSansRegular;
+            letter-spacing: 0;
         }
-        &::before{
-            border-top-left-radius: 100px;
-            border-bottom-right-radius: 100px;
-        }
-    }
-}
-@media screen and (max-width:320px){
-    .login-wrapper{
-        width: 300px;
-    }
-    .header-logo{
-        margin-bottom:0;
-        &__text{
-            font-size: 50px;
-        }
-        
     }
 }
-/* = MEDIA END = */
+.form-field-type{
+    width:30px;
+    position: absolute;
+    top:50%;
+    right:16px;
+    transform: translate(0, -50%);
+    &__text{
+        font-size: 17px;
+        color: #989898;
+        opacity: .8;
+        font-family: $workSansRegular;
+    }
+}
+.show-pass-button{
+    width: 100%;
+    height: 20px;
+    text-align: center;
+    background-color:transparent;
+    &__icon{
+        height: 100%;
+    }
+}
+.form-submit-button{
+    width:100%;
+    height:50px;
+    border-radius: 50px;
+    text-align: center;
+    background-color:$primary;
+    text-transform: uppercase;
+    font-family: $workSansSemiBold;
+    font-size: 16px;
+    color:#ffffff;
+    &:disabled{
+        background-color:#989898;
+    }
+}

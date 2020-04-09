@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
     this.showPass = !this.showPass;
   }
 
-  public async submit(form?) {
+  public async submit() {
     try {
       await this.auth.login(this.form.value);
 

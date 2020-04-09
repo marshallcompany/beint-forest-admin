@@ -59,11 +59,12 @@
     </div>
     <div
       class="router-wrapper"
-      [ngClass]="routerClass">
-      <div class="router-wrapper__item">
-        <router-outlet></router-outlet>
-      </div>
-      <app-bottom-navigation></app-bottom-navigation>
+      [ngClass]="routerClass"></div>
+    <div
+      class="router-wrapper__item"
+      [ngClass]="{'router-padding' : authService.getAuthData()}">
+      <router-outlet></router-outlet>
     </div>
+    <app-bottom-navigation></app-bottom-navigation>
   </mat-sidenav-content>
 </mat-sidenav-container>
