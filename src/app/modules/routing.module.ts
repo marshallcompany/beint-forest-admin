@@ -19,6 +19,7 @@ import { AboutComponent } from '../pages/profile/about/about.component';
 import { SearchSettingsComponent } from '../pages/profile/search-settings/search-settings.component';
 import { ProfessionalBackgroundComponent } from '../pages/profile/professional-background/professional-background.component';
 import { DocumentComponent } from '../pages/profile/document/document.component';
+import { SettingsComponent } from '../pages/settings/settings.component';
 
 
 
@@ -43,6 +44,7 @@ const routes: Route[] = [
   { path: 'job-description', component: JobDescriptionComponent, canActivate: [AuthGuard] },
   { path: 'apply/:jobId/keep/:keep', component: JobDescriptionComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: '/home', pathMatch: 'full', canActivate: [AuthGuard] },
+  { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
   { path: '**', component: NotFoundComponent }
 ];
 @NgModule({

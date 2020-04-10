@@ -53,6 +53,7 @@ import { DocumentOptionComponent } from './components/sheet/document-option/docu
 import { FileRenameComponent } from './components/modal/file-rename/file-rename.component';
 import { DocumentOptionModalComponent } from './components/modal/document-option/document-option-modal.component';
 import { BottomNavigationComponent } from './components/bottom-navigation/bottom-navigation.component';
+import { SettingsComponent } from './pages/settings/settings.component';
 
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -95,7 +96,8 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     DocumentOptionComponent,
     DocumentOptionModalComponent,
     FileRenameComponent,
-    BottomNavigationComponent
+    BottomNavigationComponent,
+    SettingsComponent
   ],
   imports: [
     RoutingModule,

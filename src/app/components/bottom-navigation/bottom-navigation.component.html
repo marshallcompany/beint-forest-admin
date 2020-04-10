@@ -53,7 +53,11 @@
       </g>
     </svg>
   </button>
-  <button class="navigation-btn">
+  <button
+    class="navigation-btn"
+    (click)="goToComponent('/settings')"
+    [disabled]="activeRouter?.includes('/settings')"
+    [ngClass]="{'active': activeRouter?.includes('/settings')}">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" class="navigation-btn__icon">
       <g transform="translate(8.203 8.203)">
         <path class="a" d="M146.8,140a6.8,6.8,0,1,0,2.053,13.278,1.172,1.172,0,0,0-.707-2.235,4.447,4.447,0,1,1,2.929-2.993,1.172,1.172,0,0,0,2.25.658A6.8,6.8,0,0,0,146.8,140Z" transform="translate(-140 -140)"/>
