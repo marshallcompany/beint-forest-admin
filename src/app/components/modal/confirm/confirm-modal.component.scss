@@ -49,6 +49,7 @@
     }
     &_confirm{
       background-color: $red;
+      transition: none;
     }
     &_cancel{
       background-color: #30BFAE;
@@ -110,7 +111,7 @@
   ::ng-deep .confirm-dialog{
     .event{
       &__button{
-        width:270px;
+        width:300px;
       }
     }
   }

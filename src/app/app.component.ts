@@ -82,17 +82,15 @@ export class AppComponent implements OnInit {
         navHamburgerButton.style.display = 'block';
         navHamburgerButton.style.pointerEvents = 'none';
       }, 50);
-    } else {
+    } else if (!element && navHamburgerButton) {
       navHamburgerButton.style.opacity = '1';
       navHamburgerButton.style.pointerEvents = 'auto';
-
-
     }
   }
 
-  public logout = () => {
+  public logOut = (element) => {
+    this.menuClose(element);
     this.authService.logout();
-    window.location.reload();
   }
 
 }

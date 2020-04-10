@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { ApiRoutesProvider } from './api-routes.services';
 import { TranslatesService } from './translates.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthService {
@@ -13,7 +14,8 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private apiRoutes: ApiRoutesProvider,
-    private translatesService: TranslatesService
+    private translatesService: TranslatesService,
+    private router: Router
   ) {
     this.STORAGE_TOKEN_KEY = 'JWT_TOKEN';
     this.STORAGE_REFRESH_TOKEN = 'REFRESH_TOKEN';
@@ -39,6 +41,7 @@ export class AuthService {
   public logout = () => {
     localStorage.clear();
     this.translatesService.initLanguage();
+    this.router.navigate(['/login']);
   }
 
 }
