@@ -85,7 +85,7 @@
         </div>
         <button
           type="submit"
-          [disabled]="!form.valid"
+          [disabled]="!form.valid || incorrectCredentials"
           class="form-submit-button">
           {{ 'login.SIGN_IN_BUTTON' | translate }}
         </button>
