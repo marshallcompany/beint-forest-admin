@@ -11,13 +11,85 @@
     </p>
   </div>
   <div class="container">
-    <br>
-    <br>
-    <br>
-    <button
-      (click)="logOut()"
-      style="padding:20px;">
-      Log Out
-    </button>
+    <div class="setting-group">
+      <button class="setting-button">
+        <img
+          src="../assets/image/settings/icon-01.svg"
+          class="setting-button__icon">
+        <span class="setting-button__label">Passwort ändern</span>
+        <img
+          src="../assets/image/settings/arrow.svg"
+          class="setting-button__arrow">
+      </button>
+      <button class="setting-button">
+        <img
+          src="../assets/image/settings/icon-02.svg"
+          class="setting-button__icon">
+        <span class="setting-button__label">Email Adresse ändern</span>
+        <img
+          src="../assets/image/settings/arrow.svg"
+          class="setting-button__arrow">
+      </button>
+    </div>
+    <div class="setting-group">
+      <button class="setting-button">
+        <img
+          src="../assets/image/settings/icon-03.svg"
+          class="setting-button__icon">
+        <span class="setting-button__label">Nutzungsbedingungen</span>
+        <img
+          src="../assets/image/settings/arrow.svg"
+          class="setting-button__arrow">
+      </button>
+      <button class="setting-button">
+        <img
+          src="../assets/image/settings/icon-04.svg"
+          class="setting-button__icon">
+        <span class="setting-button__label">Datenschutzbestimmungen</span>
+        <img
+          src="../assets/image/settings/arrow.svg"
+          class="setting-button__arrow">
+      </button>
+      <button class="setting-button">
+        <img
+          src="../assets/image/settings/icon-05.svg"
+          class="setting-button__icon">
+        <span class="setting-button__label">Support und Feedback</span>
+        <img
+          src="../assets/image/settings/arrow.svg"
+          class="setting-button__arrow">
+      </button>
+      <button class="setting-button">
+        <img
+          src="../assets/image/settings/icon-06.svg"
+          class="setting-button__icon">
+        <span class="setting-button__label">Benachrictigungen</span>
+        <img
+          src="../assets/image/settings/arrow.svg"
+          class="setting-button__arrow">
+      </button>
+    </div>
+    <div class="setting-group">
+      <button
+        class="setting-button"
+        (click)="logOut()">
+        <img
+          src="../assets/image/settings/icon-07.svg"
+          class="setting-button__icon">
+        <span class="setting-button__label">Abmelden</span>
+        <img
+          src="../assets/image/settings/arrow.svg"
+          class="setting-button__arrow">
+      </button>
+      <button class="setting-button remove-account">
+        <img
+          src="../assets/image/settings/icon-08.svg"
+          class="setting-button__icon">
+        <span class="setting-button__label">Konto löschen</span>
+        <img
+          src="../assets/image/settings/arrow.svg"
+          class="setting-button__arrow">
+      </button>
+    </div>
   </div>
 </section>

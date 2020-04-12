@@ -40,7 +40,7 @@
     }
     &__name{
         font-size: 17px;
-        font-family: $gb;
+        font-family: $workSansBold;
         opacity: .8;
     }
 }
@@ -92,7 +92,7 @@
         width:100%;
         border:0;
         color:$black;
-        font-family: $gr;
+        font-family: $workSansRegular;
         font-size: 17px;
         &::placeholder{
             color:#989898;

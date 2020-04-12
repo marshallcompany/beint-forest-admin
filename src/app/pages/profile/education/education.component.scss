@@ -69,7 +69,7 @@
       }
       &__label{
           font-size: 17px;
-          font-family: $gb;
+          font-family: $workSansBold;
       }
   }
 // ACCORDION CONTENT
@@ -230,7 +230,7 @@
             .field-wrapper__input{
                 padding:0;
                 height: 145px;
-                font-family: $gr;
+                font-family: $workSansRegular;
                 outline: none;
                 border:none;
                 resize: none;
