@@ -47,7 +47,7 @@
     <div
       class="nav-header"
       id="nav-header"
-      *ngIf="authService.getAuthData()">
+      *ngIf="authService.getAuthData() && router.routerState.snapshot.url !== '/apply'">
       <button
         class="nav-header__hamburger"
         (click)="sidemenu.toggle()"
@@ -65,6 +65,7 @@
       [ngClass]="{'router-padding' : authService.getAuthData()}">
       <router-outlet></router-outlet>
     </div>
-    <app-bottom-navigation></app-bottom-navigation>
+    <app-bottom-navigation *ngIf="router.routerState.snapshot.url !== '/apply'">
+    </app-bottom-navigation>
   </mat-sidenav-content>
 </mat-sidenav-container>
