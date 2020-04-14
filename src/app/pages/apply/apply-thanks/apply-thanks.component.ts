@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ApplicationService } from 'src/app/services/application-service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-apply-thanks',
@@ -7,9 +10,39 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ApplyThanksComponent implements OnInit {
 
-  constructor() { }
+  public vacancyData;
+  public jobId;
+  constructor(
+    public route: ActivatedRoute,
+    public applicationService: ApplicationService,
+  ) { }
 
   ngOnInit(): void {
+    this.getJobData();
   }
 
+  public getJobData = () => {
+    this.jobId = this.route.snapshot.paramMap.get('jobId');
+    this.applicationService.getJobData(this.jobId)
+      .pipe(
+        map((fullJobData: any) => {
+          if (fullJobData && fullJobData.vacancy) {
+            return {
+              companyName: fullJobData.vacancy.company.profile.general.companyName,
+            };
+          }
+          return fullJobData;
+        })
+      )
+      .subscribe(
+        data => {
+          console.log('DATA JOB', data);
+          this.vacancyData = data;
+        },
+        err => {
+          console.log('error', err);
+        },
+        () => console.log('[ DATA JOB DONE ]')
+      );
+  }
 }

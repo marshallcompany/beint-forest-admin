@@ -5,6 +5,8 @@ import { ProfileService } from 'src/app/services/profile.service';
 import { map } from 'rxjs/operators';
 import { ApplicationService } from 'src/app/services/application-service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog } from '@angular/material';
+import { PrivacyPolicyComponent } from 'src/app/components/modal/privacy-policy/privacy-policy.component';
 
 @Component({
   selector: 'app-apply',
@@ -24,6 +26,7 @@ export class ApplyComponent implements OnInit {
     public route: ActivatedRoute,
     public router: Router,
     public applicationService: ApplicationService,
+    public matDialog: MatDialog,
     private profileService: ProfileService,
   ) {
   }
@@ -122,6 +125,10 @@ export class ApplyComponent implements OnInit {
 
   public applyVacancy = () => {
     this.router.navigate([`/apply-thanks/${this.jobId}/keep/true`]);
+  }
+
+  public openPrivacyDialog = () => {
+    this.matDialog.open(PrivacyPolicyComponent, { panelClass: 'privacy-policy-dialog' });
   }
 
   public downloadCvFile = () => {

@@ -55,6 +55,7 @@ import { DocumentOptionModalComponent } from './components/modal/document-option
 import { BottomNavigationComponent } from './components/bottom-navigation/bottom-navigation.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { FormLoginComponent } from './components/form-login/form-login.component';
+import { PrivacyPolicyComponent } from './components/modal/privacy-policy/privacy-policy.component';
 
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -99,7 +100,8 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     FileRenameComponent,
     BottomNavigationComponent,
     SettingsComponent,
-    FormLoginComponent
+    FormLoginComponent,
+    PrivacyPolicyComponent
   ],
   imports: [
     RoutingModule,
@@ -150,7 +152,8 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     CropperComponent,
     DocumentOptionComponent,
     DocumentOptionModalComponent,
-    FileRenameComponent
+    FileRenameComponent,
+    PrivacyPolicyComponent
   ]
 })
 export class AppModule { }
