@@ -53,8 +53,8 @@ export class FormLoginComponent implements OnInit {
     try {
       await this.auth.login(this.form.value);
       this.loginChanges.emit();
-      if (this.applicationService.getJobId() || this.router.routerState.snapshot.url === '/apply') {
-        this.router.navigate(['/apply']);
+      if (this.applicationService.getJobId() || this.router.routerState.snapshot.url.includes('/apply')) {
+        this.router.navigate([this.router.routerState.snapshot.url]);
       } else {
         this.router.navigate(['/profile']);
       }

@@ -12,8 +12,6 @@
 .apply{
     background-color: #f9f9f9;
     position: relative;
-    height: 100%;
-    padding:50px 0;
 }
 .circle{
     position:absolute;
@@ -34,19 +32,17 @@
 
 // 
 .apply-wrapper{
-  height: 100%;
-  .container{
-    height: 100%;
-  }
+  padding:50px 0;
 }
 .apply-content{
   display: flex;
-  height: 100%;
   align-items:center;
   justify-content: space-between;
 }
 .apply-content-left{
   width:360px;
+  margin-right:180px;
+  flex-shrink: 0;
 }
 .login-header{
   text-align: center;
@@ -166,9 +162,151 @@
     cursor: pointer;
   }
 }
+// VACANCY DESCRIPTION
 .apply-content-right{
-  width:825px;
-  max-height:900px;
+  width:100%;
+}
+.vacancy-description{
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.17);
+  border-radius: 10px;
+  background-color:#ffffff;
+  padding:20px 25px 20px 30px;
+  width:100%;
+}
+.vacancy-header{
+  margin-bottom:30px;
+  position: relative;
+  &__logo{
+    height: 40px;
+    margin-bottom:20px;
+  }
+  &__date{
+    font-size: 14px;
+    opacity: .5;
+    margin-bottom:5px;
+  }
+  &__name{
+    font-size: 17px;
+    font-family: $workSansBold;
+    margin-bottom:5px;
+  }
+  &__type{
+    font-size: 17px;
+    margin-bottom:15px;
+  }
+  &__company{
+    display: flex;
+    align-items:center;
+    svg{
+      fill:$black;
+      height:19px;
+      margin-right:10px;
+      flex-shrink: 0;
+    }
+    span{
+      font-size: 17px;
+    }
+  }
+  &__status{
+    height:25px;
+    width:25px;
+    border-radius: 50%;
+    background-color:$blue;
+    position: absolute;
+    right:0;
+    top:0;
+  }
+}
+.vacancy-row{
+  display: flex;
+  justify-content: space-between;
+  height:65px;
+  &:first-child{
+    .vacancy-item{
+      border-top:1px solid #EAEAEA;
+    }
+  }
+}
+.vacancy-item{
+  width:48%;
   height: 100%;
-  background-color:$grey;
+  border-bottom:1px solid #EAEAEA;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding:0 10px 0 6px;
+  &__label{
+    font-size: 17px;
+    color: #989898;
+    margin-bottom:5px;
+  }
+  &__details{
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+  }
+  &__status{
+    height: 15px;
+    width:15px;
+    border-radius: 50%;
+    background-color:$blue;
+    flex-shrink: 0;
+    margin-left:5px;
+    &.no-value{
+      background-color:$grey;
+    }
+  }
+}
+.vacancy-skills-row{
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom:1px solid #EAEAEA;
+  padding:10px 10px 10px 6px;
+  min-height: 65px;
+  &:last-child{
+    border:none;
+    padding-bottom: 0;
+  }
+  &__label{
+    font-size: 17px;
+    color: #989898;
+    margin-bottom:10px;
+    width:100%;
+  }
+}
+.vacancy-skills-item{
+  border-radius: 6px;
+  border:1px solid $blue;
+  padding:11px 15px;
+  margin-bottom:10px;
+  margin-right:10px;
+  display: flex;
+  align-items:center;
+  &.language{
+    padding-bottom:5px;
+  }
+  &:last-child{
+    margin-right:0;
+  }
+  &__name{
+    color:$blue;
+    font-size: 17px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  &__status{
+    width:15px;
+    height:15px;
+    border-radius: 50%;
+    background-color: $blue;
+    margin-right:10px;
+  }
+}
+.language-level{
+  font-size: 8px;
+  color:$black;
+  &::first-letter{
+    text-transform: uppercase;
+  }
 }

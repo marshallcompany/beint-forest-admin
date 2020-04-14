@@ -47,7 +47,7 @@
     <div
       class="nav-header"
       id="nav-header"
-      *ngIf="authService.getAuthData() && router.routerState.snapshot.url !== '/apply'">
+      *ngIf="authService.getAuthData() && !router.routerState.snapshot.url.includes('/keep')">
       <button
         class="nav-header__hamburger"
         (click)="sidemenu.toggle()"
@@ -59,13 +59,13 @@
     </div>
     <div
       class="router-wrapper"
-      [ngClass]="routerClass"></div>
-    <div
-      class="router-wrapper__item"
-      [ngClass]="{'router-padding' : authService.getAuthData()}">
-      <router-outlet></router-outlet>
+      [ngClass]="routerClass">
+      <div
+        class="router-wrapper__item"
+        [ngClass]="{'router-padding' : authService.getAuthData() && !router.routerState.snapshot.url.includes('/keep')}">
+        <router-outlet></router-outlet>
+      </div>
     </div>
-    <app-bottom-navigation *ngIf="router.routerState.snapshot.url !== '/apply'">
-    </app-bottom-navigation>
+    <app-bottom-navigation *ngIf="!router.routerState.snapshot.url.includes('/keep')"></app-bottom-navigation>
   </mat-sidenav-content>
 </mat-sidenav-container>
