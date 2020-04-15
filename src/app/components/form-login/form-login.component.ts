@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Router } from '@angular/router';
@@ -15,7 +15,7 @@ import { GlobalErrorService } from 'src/app/services/global-error-service';
   styleUrls: ['./form-login.component.scss']
 })
 export class FormLoginComponent implements OnInit {
-
+  @Input() titleStatus: boolean;
   @Output() loginChanges = new EventEmitter();
 
   public validationError: any;
@@ -42,8 +42,7 @@ export class FormLoginComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   public showPassword = () => {
     this.showPass = !this.showPass;

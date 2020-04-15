@@ -1,4 +1,6 @@
-<h2 class="auth-title">Einloggen mit Email</h2>
+<h2
+  class="auth-title"
+  [ngClass]="{'auth-title_hide' : titleStatus}">Einloggen mit Email</h2>
 <form
   class="form"
   [formGroup]="form"

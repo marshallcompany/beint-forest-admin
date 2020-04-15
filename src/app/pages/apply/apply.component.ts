@@ -64,7 +64,15 @@ export class ApplyComponent implements OnInit {
     return;
   }
 
-  // http://localhost:4200/apply/5e95ba609f63ad003d37d1ae/keep/true
+  public openGroup = (e) => {
+    e.classList.add('acord-active');
+  }
+
+  public closeGroup = (e) => {
+    e.classList.remove('acord-active');
+  }
+
+  // http://localhost:4200/apply/5e96d42aac963a003d155606/keep/true
 
   public getJobData = () => {
     this.jobId = this.route.snapshot.paramMap.get('jobId');
@@ -78,7 +86,7 @@ export class ApplyComponent implements OnInit {
               companyLogo: fullJobData.vacancy.company.media.logo.storagePath,
               activationDate: fullJobData.vacancy.details.activationDate,
               industryBranch: fullJobData.vacancy.details.industryBranch,
-              businessAreas: fullJobData.vacancy.details.businessAreas,
+              businessArea: fullJobData.vacancy.details.businessArea,
               employmentType: fullJobData.vacancy.details.employmentType,
               workingHours: fullJobData.vacancy.details.workingHours,
               jobTitle: fullJobData.vacancy.details.title,

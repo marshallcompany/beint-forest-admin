@@ -372,7 +372,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
       });
     });
     if (formArrayStatus) {
-      this.matDialog.open(ConfirmModalComponent).afterClosed()
+      this.matDialog.open(ConfirmModalComponent, { panelClass: 'confirm-dialog' }).afterClosed()
         .pipe(
           switchMap(value => {
             if (!value || value === undefined) {
@@ -403,7 +403,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
       }
     });
     if (FormGroupStatus) {
-      this.matDialog.open(ConfirmModalComponent).afterClosed()
+      this.matDialog.open(ConfirmModalComponent, { panelClass: 'confirm-dialog' }).afterClosed()
         .pipe(
           switchMap(value => {
             if (!value || value === undefined) {
