@@ -7,6 +7,7 @@ import { ApplicationService } from 'src/app/services/application-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { PrivacyPolicyComponent } from 'src/app/components/modal/privacy-policy/privacy-policy.component';
+import { GlobalErrorService } from 'src/app/services/global-error-service';
 
 @Component({
   selector: 'app-apply',
@@ -28,6 +29,7 @@ export class ApplyComponent implements OnInit {
     public applicationService: ApplicationService,
     public matDialog: MatDialog,
     private profileService: ProfileService,
+    private globalErrorService: GlobalErrorService
   ) {
   }
 
@@ -79,11 +81,14 @@ export class ApplyComponent implements OnInit {
     this.applicationService.getJobData(this.jobId)
       .pipe(
         map((fullJobData: any) => {
+          console.log('FULL VACANCY DATA', fullJobData);
           if (fullJobData && fullJobData.vacancy) {
             return {
               companyName: fullJobData.vacancy.company.profile.general.companyName,
               place: fullJobData.vacancy.company.profile.contact.place,
-              companyLogo: fullJobData.vacancy.company.media.logo.storagePath,
+              companyLogo: fullJobData.vacancy.company && fullJobData.vacancy.company.media && fullJobData.vacancy.company.media.logo &&
+                fullJobData.vacancy.company.media.logo.storagePath
+                ? fullJobData.vacancy.company.media.logo.storagePath : '',
               activationDate: fullJobData.vacancy.details.activationDate,
               industryBranch: fullJobData.vacancy.details.industryBranch,
               businessArea: fullJobData.vacancy.details.businessArea,
@@ -121,18 +126,32 @@ export class ApplyComponent implements OnInit {
       )
       .subscribe(
         data => {
-          console.log('DATA JOB', data);
+          console.log('VACANCY DATA', data);
           this.vacancyData = data;
         },
         err => {
-          console.log('error', err);
-        },
-        () => console.log('[ DATA JOB DONE ]')
+          console.log('VACANCY DATA ERROR', err);
+          this.globalErrorService.handleError(err);
+        }
       );
   }
 
   public applyVacancy = () => {
-    this.router.navigate([`/apply-thanks/${this.jobId}/keep/true`]);
+    const jobApply$ = this.applicationService.jobApply(this.jobId);
+    jobApply$
+      .pipe()
+      .subscribe(
+        res => {
+          this.applicationService.removeJobId();
+          this.router.navigate([`/apply-thanks/${this.jobId}/keep/true`]);
+        },
+        err => {
+          console.log('[ ERROR APPLY JOB ]', err);
+          this.applicationService.removeJobId();
+          this.globalErrorService.handleError(err);
+        },
+        () => console.log('[ DONE APPLY JOB ]')
+      );
   }
 
   public openPrivacyDialog = () => {

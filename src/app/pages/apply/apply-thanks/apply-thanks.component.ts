@@ -38,6 +38,9 @@ export class ApplyThanksComponent implements OnInit {
         data => {
           console.log('DATA JOB', data);
           this.vacancyData = data;
+          setTimeout(() => {
+            window.close();
+          }, 5000);
         },
         err => {
           console.log('error', err);

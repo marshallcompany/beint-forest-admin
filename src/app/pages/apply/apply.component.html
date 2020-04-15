@@ -1,13 +1,16 @@
 <section class="apply">
+  <div
+    class="top-overlay"
+    [ngClass]="{'auth': authService.getAuthData()}">
+    <div class="top-overlay__circle top-overlay__circle-01"></div>
+    <div class="top-overlay__circle top-overlay__circle-02"></div>
+  </div>
   <img
     src="../assets/image/background-circle-01.png"
     class="circle circle_01">
   <img
     src="../assets/image/background-circle-02.png"
     class="circle circle_02">
-  <img
-    src="../assets/image/background-circle-03.png"
-    class="circle circle_03">
   <div class="apply-wrapper">
     <svg viewBox="0 0 133 51" xmlns="http://www.w3.org/2000/svg" class="beint-logo" *ngIf="authService.getAuthData()">
       <path class="point" d="M89.4038 5.939C89.4092 6.64531 89.2666 7.34492 88.985 7.99272C88.7141 8.61525 88.3262 9.17996 87.8423 9.65616C87.3525 10.133 86.7789 10.5153 86.1503 10.7837C84.8289 11.3423 83.3377 11.3423 82.0163 10.7837C80.7553 10.2514 79.7498 9.25096 79.2111 7.99272C78.9291 7.34506 78.7864 6.64536 78.7922 5.939C78.7895 5.23783 78.9323 4.54371 79.2115 3.90054C79.7441 2.63481 80.751 1.62788 82.0168 1.09532C83.3382 0.536688 84.8294 0.536688 86.1508 1.09532C86.7794 1.36389 87.3531 1.74631 87.8428 2.22331C88.3291 2.70295 88.7173 3.27283 88.9855 3.90103C89.2641 4.5444 89.4067 5.2384 89.4043 5.93949"/>
@@ -259,18 +262,18 @@
                   <div class="vacancy-info-item">
                     <h3 class="vacancy-info-item__label">Führerschein</h3>
                     <p class="vacancy-info-item__text">
-                      <span *ngIf="!vacancyData?.driverLicenses.length">-</span>
+                      <span *ngIf="!vacancyData?.driverLicenses || !vacancyData?.driverLicenses.length">-</span>
                       {{ vacancyData?.driverLicenses }}
                       <span
                         class="vacancy-info-item__status"
-                        [ngClass]="{'empty' : !vacancyData?.driverLicenses.length }"></span>
+                        [ngClass]="{'empty' : !vacancyData?.driverLicenses || !vacancyData?.driverLicenses.length }"></span>
                     </p>
                   </div>
                   <div class="vacancy-info-item options">
                     <h3 class="vacancy-info-item__label">Top Skills</h3>
                     <p
                       class="vacancy-info-item__text"
-                      *ngIf="!vacancyData?.topSkills.length">-</p>
+                      *ngIf="!vacancyData?.topSkills || !vacancyData?.topSkills.length">-</p>
                     <div
                       class="vacancy-skills-item top-skills"
                       *ngFor="let topSkill of vacancyData?.topSkills">
@@ -282,7 +285,7 @@
                     <h3 class="vacancy-info-item__label">Skills</h3>
                     <p
                       class="vacancy-info-item__text"
-                      *ngIf="!vacancyData?.skills.length">-</p>
+                      *ngIf="!vacancyData?.skills || !vacancyData?.skills.length">-</p>
                     <div
                       class="vacancy-skills-item skills"
                       *ngFor="let skill of vacancyData?.skills">
@@ -294,7 +297,7 @@
                     <h3 class="vacancy-info-item__label">Sprachen</h3>
                     <p
                       class="vacancy-info-item__text"
-                      *ngIf="!vacancyData?.languages.length">-</p>
+                      *ngIf="!vacancyData?.languages || !vacancyData?.languages.length">-</p>
                     <div
                       class="vacancy-skills-item language"
                       *ngFor="let language of vacancyData?.languages">
@@ -318,10 +321,12 @@
               </svg>
             </button>
           </div>
-          <app-form-login
-            *ngIf="!authService.getAuthData()"
-            (loginChanges)="dataRefresh()"
-            [titleStatus]="true"></app-form-login>
+          <div class="login-wrapper">
+            <app-form-login
+              *ngIf="!authService.getAuthData()"
+              (loginChanges)="dataRefresh()"
+              [titleStatus]="true"></app-form-login>
+          </div>
           <div
             class="apply-vacancy"
             *ngIf="authService.getAuthData()">
@@ -550,18 +555,18 @@
                   <p class="vacancy-item__label">Führerschein</p>
                   <p class="vacancy-item__details">
                     <span class="vacancy-item__text">
-                      <span *ngIf="!vacancyData?.driverLicenses.length">-</span>
+                      <span *ngIf="!vacancyData?.driverLicenses || !vacancyData?.driverLicenses.length">-</span>
                       {{ vacancyData?.driverLicenses }}
                     </span>
                     <span
                       class="vacancy-item__status"
-                      [ngClass]="{ 'no-value' : !vacancyData?.driverLicenses.length }"></span>
+                      [ngClass]="{ 'no-value' : !vacancyData?.driverLicenses || !vacancyData?.driverLicenses.length }"></span>
                   </p>
                 </div>
               </div>
               <div class="vacancy-skills-row">
                 <p class="vacancy-skills-row__label">Top Skills</p>
-                <p *ngIf="!vacancyData?.topSkills.length">-</p>
+                <p *ngIf="!vacancyData?.topSkills || !vacancyData?.topSkills.length">-</p>
                 <div
                   class="vacancy-skills-item top-skills"
                   *ngFor="let topSkill of vacancyData?.topSkills">
@@ -571,7 +576,7 @@
               </div>
               <div class="vacancy-skills-row">
                 <p class="vacancy-skills-row__label">Skills</p>
-                <p *ngIf="!vacancyData?.skills.length">-</p>
+                <p *ngIf="!vacancyData?.skills || !vacancyData?.skills.length">-</p>
                 <div
                   class="vacancy-skills-item skills"
                   *ngFor="let skill of vacancyData?.skills">
@@ -581,7 +586,7 @@
               </div>
               <div class="vacancy-skills-row">
                 <p class="vacancy-skills-row__label">Sprachen</p>
-                <p *ngIf="!vacancyData?.languages.length">-</p>
+                <p *ngIf="!vacancyData?.languages || !vacancyData?.languages.length">-</p>
                 <div
                   class="vacancy-skills-item language"
                   *ngFor="let language of vacancyData?.languages">

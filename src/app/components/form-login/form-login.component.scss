@@ -125,3 +125,10 @@
     font-family: $workSansSemiBold;
     font-size: 16px;
 }
+@media screen and (max-width: 992px) {
+    .auth-title{
+        &_hide{
+            display: none;
+        }
+    }
+}
