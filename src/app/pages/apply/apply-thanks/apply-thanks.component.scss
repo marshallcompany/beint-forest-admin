@@ -1,11 +1,19 @@
 @import "../../../theme/variables.scss";
+.apply-thanks{
+  position: relative;
+}
+.logo{
+  fill: #ffffff;
+  height:50px;
+  position: absolute;
+  left:5vw;
+  top:65px;
+  z-index: 1;
+}
 .header{
-  padding:65px 0 80px 90px;
+  height:195px;
   background-color: $blue;
-  &__logo{
-    fill: #ffffff;
-    height:50px;
-  }
+  position: relative;
 }
 .thanks-description{
   border-top-left-radius: 18px;
@@ -69,13 +77,18 @@
   }
 }
 /* = MEDIA = */
-@media screen and (max-width:1200px){}
+@media screen and (max-width:1200px){
+  .logo{
+    height:40px;
+  }
+}
 @media screen and (max-width:992px){
   .header{
-    padding:45px 0 55px 45px;
-    &__logo{
-      height:40px;
-    }
+    height: 160px;
+  }
+  .logo{
+    top:30px;
+    left: 7vw;
   }
   .thanks-box{
     transform: translateY(-75px);
@@ -90,10 +103,11 @@
 @media screen and (max-width:640px){}
 @media screen and (max-width:568px){
   .header{
-    padding:30px 0 80px 20px;
-    &__logo{
-      height:30px;
-    }
+    height:150px;
+  }
+  .logo{
+    left:6vw;
+    height:26px;
   }
   .thanks-box{
     transform: translateY(-65px);
@@ -109,11 +123,6 @@
 @media screen and (max-width:480px){}
 @media screen and (max-width:414px){}
 @media screen and (max-width:375px){
-  .header{
-    &__logo{
-      height:25px;
-    }
-  }
   .thanks-box{
     &__text{
       margin:0 20px 30px 20px;

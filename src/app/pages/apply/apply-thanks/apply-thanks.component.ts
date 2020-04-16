@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApplicationService } from 'src/app/services/application-service';
 import { map } from 'rxjs/operators';
 
@@ -10,15 +10,19 @@ import { map } from 'rxjs/operators';
 })
 export class ApplyThanksComponent implements OnInit {
 
+  @ViewChild('scrollToTop', { static: true }) scrollToTop;
+
   public vacancyData;
   public jobId;
   constructor(
     public route: ActivatedRoute,
+    public router: Router,
     public applicationService: ApplicationService,
   ) { }
 
   ngOnInit(): void {
     this.getJobData();
+    this.scrollToTop.nativeElement.scrollIntoView({ block: 'start', behavior: 'smooth' });
   }
 
   public getJobData = () => {
@@ -48,4 +52,9 @@ export class ApplyThanksComponent implements OnInit {
         () => console.log('[ DATA JOB DONE ]')
       );
   }
+
+  public goToHome = () => {
+    this.router.navigate(['/home']);
+  }
+
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { DownloadFileService } from 'src/app/services/download-file.service';
 import { ProfileService } from 'src/app/services/profile.service';
@@ -15,6 +15,8 @@ import { GlobalErrorService } from 'src/app/services/global-error-service';
   styleUrls: ['./apply.component.scss']
 })
 export class ApplyComponent implements OnInit {
+
+  @ViewChild('scrollToTop', { static: true }) scrollToTop;
 
   public profileData: object;
   public privacyPolicy;
@@ -40,6 +42,7 @@ export class ApplyComponent implements OnInit {
 
   dataRefresh = () => {
     this.getUserProfile();
+    this.scrollToTop.nativeElement.scrollIntoView({ block: 'start', behavior: 'smooth' });
   }
 
   public getUserProfile = () => {
@@ -73,8 +76,6 @@ export class ApplyComponent implements OnInit {
   public closeGroup = (e) => {
     e.classList.remove('acord-active');
   }
-
-  // http://localhost:4200/apply/5e96d42aac963a003d155606/keep/true
 
   public getJobData = () => {
     this.jobId = this.route.snapshot.paramMap.get('jobId');
@@ -156,6 +157,10 @@ export class ApplyComponent implements OnInit {
 
   public openPrivacyDialog = () => {
     this.matDialog.open(PrivacyPolicyComponent, { panelClass: 'privacy-policy-dialog' });
+  }
+
+  public goToHome = () => {
+    this.router.navigate(['/home']);
   }
 
   public downloadCvFile = () => {
