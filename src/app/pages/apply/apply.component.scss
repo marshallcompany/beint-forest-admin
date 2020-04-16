@@ -14,6 +14,7 @@
     position: relative;
     z-index: 1;
     min-height:100vh;
+    overflow-x: hidden;
 }
 
 .top-overlay{
@@ -26,7 +27,6 @@
   background-color: $primary;
   z-index: -1;
   border-bottom-left-radius: 50px;
-  overflow: hidden;
   &.auth{
     background-color: transparent;
     .top-overlay__circle{
@@ -38,16 +38,16 @@
     border-radius: 50%;
     background:rgba(255, 255, 255, 0.1);
     &-01{
-      left: -115px;
-      top: -210px;
-      width:500px;
-      height:500px;
+      left: -40vw;
+      top: -50vw;
+      width: 100vw;
+      height: 100vw;
     }
     &-02{
-      right: -90px;
-      top: -180px;
-      width:400px;
-      height:400px;
+      right: -5vw;
+      top: -30vw;
+      width: 60vw;
+      height: 60vw;
     }
   }
 }
@@ -666,23 +666,29 @@
     margin-top:20px;
   }
 }
-@media screen and (max-width:768px){}
+@media screen and (max-width:768px){
+  .top-overlay{
+    &__circle{
+      &-01{
+        left: -10vw;
+        top: -12vw;
+        width: 65vw;
+        height: 65vw;
+      }
+      &-02{
+        right: -5vw;
+        top: -25vw;
+        width: 60vw;
+        height: 60vw;
+      }
+    }
+  }
+}
 @media screen and (max-width:667px){}
 @media screen and (max-width:640px){}
 @media screen and (max-width:568px){
   .container{
     padding:0 8.5px;
-  }
-  .top-overlay{
-    &__circle{
-      &-01{
-        left: -200px;
-        top: -205px;
-      }
-      &-02{
-        right:-130px;
-      }
-    }
   }
   .logo{
     left:6vw;
@@ -721,21 +727,37 @@
       height:50px;
     }
   }
+  .top-overlay{
+    &__circle{
+      &-01{
+        left: -25vw;
+        top: -18vw;
+        width: 80vw;
+        height: 80vw;
+      }
+      &-02{
+        right: -10vw;
+        top: -20vw;
+        width: 65vw;
+        height: 65vw;
+      }
+    }
+  }
 }
 @media screen and (max-width:414px){
   .top-overlay{
     &__circle{
       &-01{
-        left: -225px;
-        top: -160px;
-        height:450px;
-        width:450px;
+        left: -38vw;
+        top: -25vw;
+        width: 100vw;
+        height: 100vw;
       }
       &-02{
-        right:-25px;
-        top: -65px;
-        height:250px;
-        width:250px;
+        right: -20vw;
+        top: -31vw;
+        width: 80vw;
+        height: 80vw;
       }
     }
   }
@@ -754,20 +776,6 @@
 }
 @media screen and (max-width:375px){}
 @media screen and (max-width:360px){
-  .top-overlay{
-    &__circle{
-      &-01{
-        left: -225px;
-        top: -125px;
-        height: 415px;
-        width: 415px;
-      }
-      &-02{
-        right: -65px;
-        top: -40px;
-      }
-    }
-  }
   .profile-details{
     &__user-name{
       font-size: 17px;
