@@ -52,27 +52,12 @@
               </svg>
             </ng-template>
           </div>
-          {{ router.icon }}
           <p class="tab-navigation__text">
             {{ router.routerName }}
           </p>
         </button>
       </div>
       <div class="category-detail">
-        <button
-          class="category-detail__back category-detail__back_mobile"
-          (click)="prevCategory()">
-          <svg viewBox="0 0 9 24"  xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M7.83442 23.8537C8.42181 23.5354 8.63997 22.8012 8.32168 22.2138L2.59664 11.6483L8.30426 1.81724C8.6397 1.23947 8.44324 0.499163 7.86547 0.163727C7.2877 -0.171709 6.5474 0.024744 6.21196 0.602516L0.163582 11.0205C-0.0480747 11.3851 -0.0546751 11.8336 0.146161 12.2042L6.19454 23.3664C6.51283 23.9538 7.24703 24.172 7.83442 23.8537Z" />
-          </svg>
-        </button>
-        <button
-          class="category-detail__back category-detail__next_mobile"
-          (click)="nextCategory()">
-          <svg viewBox="0 0 9 24"  xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M1.10162 23.8537C0.514221 23.5354 0.296067 22.8012 0.614355 22.2138L6.33939 11.6483L0.631776 1.81724C0.29634 1.23947 0.492792 0.499163 1.07056 0.163727C1.64834 -0.171709 2.38864 0.024744 2.72407 0.602516L8.77245 11.0205C8.98411 11.3851 8.99071 11.8336 8.78987 12.2042L2.7415 23.3664C2.42321 23.9538 1.68901 24.172 1.10162 23.8537Z" />
-          </svg>
-        </button>
         <div class="category-detail__icon">
           <img
             [src]="navSettings.iconCategory"
@@ -89,6 +74,28 @@
             <img src="../assets/image/next.svg">
           </button>
         </div> -->
+      </div>
+      <div class="mobile-navigation">
+        <button
+          class="mobile-navigation__button mobile-navigation__button_prev"
+          (click)="prevCategory()">
+          <svg viewBox="0 0 9 24"  xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M7.83442 23.8537C8.42181 23.5354 8.63997 22.8012 8.32168 22.2138L2.59664 11.6483L8.30426 1.81724C8.6397 1.23947 8.44324 0.499163 7.86547 0.163727C7.2877 -0.171709 6.5474 0.024744 6.21196 0.602516L0.163582 11.0205C-0.0480747 11.3851 -0.0546751 11.8336 0.146161 12.2042L6.19454 23.3664C6.51283 23.9538 7.24703 24.172 7.83442 23.8537Z" />
+          </svg>
+        </button>
+        <div class="mobile-category-information">
+          <img
+            [src]="navSettings.iconCategory"
+            class="mobile-category-information__icon">
+          <p class="mobile-category-information__label">{{ navSettings.nameCategory }}</p>
+        </div>
+        <button
+          class="mobile-navigation__button mobile-navigation__button_next"
+          (click)="nextCategory()">
+          <svg viewBox="0 0 9 24"  xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M1.10162 23.8537C0.514221 23.5354 0.296067 22.8012 0.614355 22.2138L6.33939 11.6483L0.631776 1.81724C0.29634 1.23947 0.492792 0.499163 1.07056 0.163727C1.64834 -0.171709 2.38864 0.024744 2.72407 0.602516L8.77245 11.0205C8.98411 11.3851 8.99071 11.8336 8.78987 12.2042L2.7415 23.3664C2.42321 23.9538 1.68901 24.172 1.10162 23.8537Z" />
+          </svg>
+        </button>
       </div>
       <!-- <div class="category-close">
         <button

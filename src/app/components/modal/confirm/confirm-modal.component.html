@@ -22,6 +22,7 @@
       <span *ngIf="data && data.labelCancelButton">{{ data.labelCancelButton }}</span>
     </button>
     <button
+      [ngStyle]="{'background-color': data?.confirmButtonColor}"
       class="event__button event__button_confirm"
       (click)="save(true)">
       <span *ngIf="!data">entfernen</span>

@@ -19,7 +19,9 @@ export class ConfirmModalComponent implements OnInit {
   public close = ($event) => {
     this.matDialogRef.close($event);
   }
+
   public save = ($event) => {
     this.matDialogRef.close($event);
   }
+
 }

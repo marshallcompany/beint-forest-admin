@@ -43,6 +43,7 @@
     }
     &__text{
         font-size: 17px;
+        font-family: $workSansRegular;
     }
 }
 .category-detail{
@@ -63,7 +64,7 @@
     }
     &__label{
         color:$blue;
-        font-family: $gb;
+        font-family: $workSansRegular;
         font-size: 30px;
         margin-right:50px;
     }
@@ -107,6 +108,39 @@
     &__icon{
         height:100%;
         fill:$black;
+    }
+}
+// MOBILE NAVIGATION
+.mobile-navigation{
+    height: 100%;
+    position: relative;
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    &__button{
+        height: 24px;
+        width: 9px;
+        background-color: transparent;
+    }
+}
+.mobile-category-information{
+    display: flex;
+    align-items:center;
+    width: 90%;
+    justify-content: center;
+    position: absolute;
+    left:50%;
+    top:50%;
+    transform: translate(-50%, -50%);
+    &__icon{
+        height:50px;
+        margin-right:20px;
+    }
+    &__label{
+        color: #FFFFFF;
+        font-size:24px;
+        font-family: $workSansBold;
+        width:160px;
     }
 }
 /* = MEDIA = */
@@ -197,42 +231,27 @@
     }
     .category-header{
         position: relative;
-        padding:30px 0;
+        padding:0;
+        height:120px;
         z-index: 1;
         background-color:$primary;
         margin-bottom:25px;
-        border-bottom-left-radius: 50px;
+        border-bottom-left-radius: 40px;
+        .container{
+            height: 100%;
+        }
     }
-
+    .category-header-wrapper{
+        height:100%;
+    }
     .category-detail{
-        width: 100%;
-        display:flex;
-        justify-content: center;
-        align-items: center;
-        &__image{
-            height:55px;
-        }
-        &__label{
-          margin:0;
-          width:125px;
-          color:#ffffff;
-        }
-        &__navigation{
-            display: none;
-        }
-        &__next{
-            &_mobile{
-                display: block;
-            }
-        }
-        &__back{
-            &_mobile{
-                display: block;
-            }
-        }
+        display: none;
     }
     .category-close-button{
         display: none;
+    }
+    .mobile-navigation{
+        display: flex;
     }
 }
 @media screen and (max-width:667px){}
@@ -251,6 +270,16 @@
 }
 @media screen and (max-width:414px){}
 @media screen and (max-width:375px){}
-@media screen and (max-width:360px){}
+@media screen and (max-width:360px){
+    .mobile-category-information{
+        &__icon{
+            height:40px;
+        }
+        &__label{
+            font-size: 17px;
+            width:115px;
+        }
+    }
+}
 @media screen and (max-width:320px){}
 /* = MEDIA END = */

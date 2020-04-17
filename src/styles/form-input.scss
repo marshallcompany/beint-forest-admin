@@ -86,7 +86,7 @@
   .ng-input {
     input {
       font-size: 17px;
-      font-family: $gr;
+      font-family: $workSansRegular;
 
       &::placeholder {
         color: #989898;
@@ -228,7 +228,7 @@ body .field {
       .field-wrapper__input {
         padding: 0;
         height: 100%;
-        font-family: $gr;
+        font-family: $workSansRegular;
         outline: none;
         border: none;
         resize: none;
@@ -390,7 +390,7 @@ body .field {
     border: none;
     height: 100% !important;
     min-height: auto !important;
-    font-family: $gr;
+    font-family: $workSansRegular;
 
     .ng-value-container {
       padding: 0;
@@ -444,7 +444,7 @@ body .field {
   border-radius: 10px;
   overflow: hidden;
   margin-top: 2px !important;
-  font-family: $gr;
+  font-family: $workSansRegular;
 }
 
 body .ng-select.ng-select-multiple .ng-select-container .ng-value-container {

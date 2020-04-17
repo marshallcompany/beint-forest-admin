@@ -30,6 +30,7 @@ export class ProfileComponent implements OnInit {
   public categories: Array<Category>;
   public imageUrl: string;
   public spinner = false;
+  public childrenRoutes: boolean;
 
   constructor(
     public rf: ChangeDetectorRef,
@@ -41,19 +42,27 @@ export class ProfileComponent implements OnInit {
     private globalErrorService: GlobalErrorService,
     private notificationService: NotificationService,
   ) {
+    this.childrenRoutes = false;
     this.categories = [
-      { name: 'Persönliches & Kontakt', icon: '../assets/image/profile/category-01.svg', path: ['personal'] },
-      { name: 'Berufliche Ausbildung', icon: '../assets/image/profile/category-02.svg', path: ['education'] },
-      { name: 'Beruflicher Werdegang', icon: '../assets/image/profile/category-03.svg', path: ['professional-background'] },
-      { name: 'Such-Präferenzen', icon: '../assets/image/profile/category-04.svg', path: ['search-settings'] },
-      { name: 'Dokumente', icon: '../assets/image/profile/category-05.svg', path: ['document'] },
-      { name: 'Sonstiges', icon: '../assets/image/profile/category-06.svg', path: ['personal'] },
-      { name: 'Ich über mich', icon: '../assets/image/profile/category-07.svg', path: ['about'] }
+      { name: 'Persönliches & Kontakt', icon: '../assets/image/profile/category-01.svg', path: ['profile/personal'] },
+      { name: 'Berufliche Ausbildung', icon: '../assets/image/profile/category-02.svg', path: ['profile/education'] },
+      { name: 'Beruflicher Werdegang', icon: '../assets/image/profile/category-03.svg', path: ['profile/professional-background'] },
+      { name: 'Such-Präferenzen', icon: '../assets/image/profile/category-04.svg', path: ['profile/search-settings'] },
+      { name: 'Dokumente', icon: '../assets/image/profile/category-05.svg', path: ['profile/document'] },
+      { name: 'Sonstiges', icon: '../assets/image/profile/category-06.svg', path: ['profile/personal'] },
+      { name: 'Ich über mich', icon: '../assets/image/profile/category-07.svg', path: ['profile/about'] }
     ];
   }
 
   ngOnInit() {
     this.init();
+  }
+
+  onActivate() {
+    this.childrenRoutes = !this.childrenRoutes;
+  }
+  onDeactivate() {
+    this.childrenRoutes = !this.childrenRoutes;
   }
 
   public init = () => {

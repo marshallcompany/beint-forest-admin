@@ -13,9 +13,9 @@
     "SIGN_IN_BUTTON": "Login"
   },
   "local_error": {
-    "FIELD_REQUIRED": "This field is required.",
-    "INVALID_EMAIL": "Invalid E-Mail format.",
-    "LENGTH_PASS": "Password must be at least 8 characters."
+    "FIELD_REQUIRED": "This field is required",
+    "INVALID_EMAIL": "Invalid Email format",
+    "LENGTH_PASS": "Password must be at least 8 characters"
   },
   "profile": {
     "PROFILE_TTL": "Profile"

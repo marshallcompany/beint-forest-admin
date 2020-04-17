@@ -23,16 +23,16 @@ export class AppComponent implements OnInit {
 
   public stateRoute: Array<State>;
 
-  public routerStatus: boolean;
-  public activeRouter: string;
-  private history = [];
+  // public routerStatus: boolean;
+  // private history = [];
+  public routerClass: string;
 
   constructor(
     public router: Router,
-    private translatesService: TranslatesService,
-    private authService: AuthService,
+    public authService: AuthService,
     public notificationService: NotificationService,
-    public dateTimeAdapter: DateTimeAdapter<any>
+    public dateTimeAdapter: DateTimeAdapter<any>,
+    private translatesService: TranslatesService
   ) {
     this.stateRoute = [
       { name: 'Home', icon: '../assets/image/menu/home.svg', path: 'home', activeClass: 'route-active' },
@@ -56,14 +56,15 @@ export class AppComponent implements OnInit {
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(
         ({ urlAfterRedirects }: NavigationEnd) => {
-          this.activeRouter = urlAfterRedirects;
-          this.history = [...this.history, urlAfterRedirects];
-          const routerStateHistory = this.history[this.history.length - 2] || '/index';
-          if (routerStateHistory === '/job-description' || routerStateHistory.includes('/apply/')) {
-            this.routerStatus = true;
-          } else {
-            this.routerStatus = false;
-          }
+          // this.activeRouter = urlAfterRedirects;
+          // this.history = [...this.history, urlAfterRedirects];
+          // const routerStateHistory = this.history[this.history.length - 2] || '/index';
+          // if (routerStateHistory === '/job-description' || routerStateHistory.includes('/apply/')) {
+          //   this.routerStatus = true;
+          // } else {
+          //   this.routerStatus = false;
+          // }
+          this.routerClass = 'router-' + urlAfterRedirects.replace('/', '');
         }
       );
   }
@@ -81,20 +82,15 @@ export class AppComponent implements OnInit {
         navHamburgerButton.style.display = 'block';
         navHamburgerButton.style.pointerEvents = 'none';
       }, 50);
-    } else {
+    } else if (!element && navHamburgerButton) {
       navHamburgerButton.style.opacity = '1';
       navHamburgerButton.style.pointerEvents = 'auto';
-
-
     }
   }
 
-  public goToComponent = (name: string) => {
-    this.router.navigate([`${name}`]);
+  public logOut = (element) => {
+    this.menuClose(element);
+    this.authService.logout();
   }
 
-  public logout = () => {
-    this.authService.logout();
-    window.location.reload();
-  }
 }

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, Route } from '@angular/router';
 
 import { AuthGuard } from '../guards/auth.guard';
 import { WelcomeGuard } from '../guards/welcome.guard';
@@ -19,26 +19,32 @@ import { AboutComponent } from '../pages/profile/about/about.component';
 import { SearchSettingsComponent } from '../pages/profile/search-settings/search-settings.component';
 import { ProfessionalBackgroundComponent } from '../pages/profile/professional-background/professional-background.component';
 import { DocumentComponent } from '../pages/profile/document/document.component';
+import { SettingsComponent } from '../pages/settings/settings.component';
 
 
 
-const routes: Routes = [
-  { path: 'login', component: LoginComponent, canActivate: [WelcomeGuard] },
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
-  { path: 'apply', component: ApplyComponent },
-  { path: 'apply-thanks', component: ApplyThanksComponent },
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
-  { path: 'offer/:jobId', component: OfferComponent, canActivate: [AuthGuard] },
-  { path: 'offer-thanks', component: OfferThanksComponent, canActivate: [AuthGuard] },
-  { path: 'job-description', component: JobDescriptionComponent, canActivate: [AuthGuard] },
-  { path: 'apply/:jobId/keep/:keep', component: JobDescriptionComponent, canActivate: [AuthGuard] },
-  { path: '', redirectTo: '/home', pathMatch: 'full', canActivate: [AuthGuard] },
+
+const profileChildren: Routes = [
   { path: 'personal', component: PersonalComponent, canActivate: [AuthGuard] },
   { path: 'education', component: EducationComponent, canActivate: [AuthGuard] },
   { path: 'about', component: AboutComponent, canActivate: [AuthGuard] },
   { path: 'search-settings', component: SearchSettingsComponent, canActivate: [AuthGuard] },
   { path: 'professional-background', component: ProfessionalBackgroundComponent, canActivate: [AuthGuard] },
   { path: 'document', component: DocumentComponent, canActivate: [AuthGuard] },
+];
+
+const routes: Route[] = [
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard], children: profileChildren },
+  { path: 'login', component: LoginComponent, canActivate: [WelcomeGuard] },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'apply/:jobId/keep/:keep', component: ApplyComponent },
+  { path: 'apply-thanks/:jobId/keep/:keep', component: ApplyThanksComponent },
+  { path: 'offer/:jobId', component: OfferComponent, canActivate: [AuthGuard] },
+  { path: 'offer-thanks', component: OfferThanksComponent, canActivate: [AuthGuard] },
+  { path: 'job-description', component: JobDescriptionComponent, canActivate: [AuthGuard] },
+  // { path: 'apply/:jobId/keep/:keep', component: JobDescriptionComponent, canActivate: [AuthGuard] },
+  { path: '', redirectTo: '/home', pathMatch: 'full', canActivate: [AuthGuard] },
+  { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
   { path: '**', component: NotFoundComponent }
 ];
 @NgModule({

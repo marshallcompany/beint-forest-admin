@@ -31,8 +31,8 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
   public navSettings = {
     iconCategory: '../assets/image/profile/category-03.svg',
     nameCategory: 'Beruflicher Werdegang',
-    nextCategory: 'search-settings',
-    prevCategory: 'education'
+    nextCategory: 'profile/search-settings',
+    prevCategory: 'profile/education'
   };
 
   private firstPersonalData: object;
@@ -275,7 +275,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
       }
     });
     if (FormGroupStatus) {
-      this.matDialog.open(ConfirmModalComponent).afterClosed()
+      this.matDialog.open(ConfirmModalComponent, { panelClass: 'confirm-dialog' }).afterClosed()
         .pipe(
           switchMap(value => {
             if (!value || value === undefined) {

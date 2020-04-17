@@ -26,27 +26,27 @@ export class CategoryNavHeaderComponent implements OnInit {
     this.routers = [
       {
         routerName: 'Persönliches & Kontakt',
-        routerLink: '/personal',
+        routerLink: '/profile/personal',
         routerActive: 'active'
       },
       {
         routerName: 'Berufliche Ausbildung',
-        routerLink: '/education',
+        routerLink: '/profile/education',
         routerActive: 'active'
       },
       {
         routerName: 'Beruflicher Werdegang',
-        routerLink: '/professional-background',
+        routerLink: '/profile/professional-background',
         routerActive: 'active'
       },
       {
         routerName: 'Such-Präferenzen',
-        routerLink: '/search-settings',
+        routerLink: '/profile/search-settings',
         routerActive: 'active'
       },
       {
         routerName: 'Dokumente',
-        routerLink: '/document',
+        routerLink: '/profile/document',
         routerActive: 'active'
       },
       {
@@ -56,7 +56,7 @@ export class CategoryNavHeaderComponent implements OnInit {
       },
       {
         routerName: 'Ich über mich',
-        routerLink: '/about',
+        routerLink: '/profile/about',
         routerActive: 'active'
       }
     ];

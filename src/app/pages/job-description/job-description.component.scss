@@ -55,7 +55,7 @@
   background-color: $primary;
   padding:15px 0;
   width:300px;
-  font-family: $gb;
+  font-family: $workSansBold;
   color:#ffffff;
   position: relative;
     &:before{
@@ -90,7 +90,7 @@
         letter-spacing: 1px;
         display: inline-block;
         position: relative;
-        font-family: $gb;
+        font-family: $workSansBold;
         background: linear-gradient(90deg,  rgb(11, 33, 85) 10%,  rgb(7, 77, 117));
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -109,7 +109,7 @@
         }
     }
     &__text{
-        font-family: $gb;
+        font-family: $workSansBold;
         color:#ffffff;
         font-size: 18px;
         text-align: center;
@@ -122,7 +122,7 @@
   &__title{
     text-align:center;
     width:100%;
-    font-family: $gb;
+    font-family: $workSansBold;
   }
 }
 .offer-rating-wrp{
@@ -146,7 +146,7 @@
     top:50%;
     transform:translate(-50%, -50%);
     color:$blue;
-    font-family: $gb;
+    font-family: $workSansBold;
     letter-spacing: 2px;
     &.change-color{
       color:#ffffff;

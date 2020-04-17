@@ -1,72 +1,16 @@
 <section class="login">
-  <div class="header-logo">
-    <p class="header-logo__text">be<span class="custom-text">i</span><span class="letter-position">nt</span></p>
-  </div>
+  <img
+    src="../assets/image/background-circle-01.png"
+    class="circle circle_01">
+  <img
+    src="../assets/image/background-circle-02.png"
+    class="circle circle_02">
+  <img
+    src="../assets/image/background-circle-03.png"
+    class="circle circle_03">
   <div class="container">
     <div class="login-wrapper">
-      <div class="wpr">
-        <h1 class="login-wrapper__title">{{ 'login.SIGN_IN' | translate }}</h1>
-        <form
-          [formGroup]="form"
-          (ngSubmit)="submit(form)">
-          <div class="login-item">
-            <span class="login-item__label">E-mail</span>
-            <input
-              formControlName="email"
-              #email
-              (blur)="triggerValidation('email')"
-              type="email"
-              class="login-item__input">
-            <div
-              class="error-box"
-              *ngIf="(form.get('email').touched || form.get('email').dirty) && form.get('email').invalid && validationError.email">
-              <p
-                class="error-box__text"
-                *ngIf="form.get('email').hasError('required')">{{ 'local_error.FIELD_REQUIRED' | translate }}</p>
-              <p
-                class="error-box__text"
-                *ngIf="form.get('email').hasError('invalidEmailAddress') && !form.get('email').hasError('required')">{{ 'local_error.INVALID_EMAIL' | translate }}</p>
-            </div>
-          </div>
-          <div class="login-item">
-            <span class="login-item__label">Password</span>
-            <div class="pass-show">
-              <input
-                formControlName="password"
-                #password
-                (blur)="triggerValidation('password')"
-                [type]="showPass ? 'text' : 'password'"
-                class="login-item__input"
-                [ngClass]="{'input-valid': form.get('password').valid}">
-              <button
-                type="button"
-                class="pass-show__button"
-                (click)="showPassword()">
-                <img
-                  src="../assets/image/eye.svg"
-                  alt
-                  class="eye">
-              </button>
-            </div>
-            <div
-              class="error-box"
-              *ngIf="(form.get('password').touched || form.get('password').dirty) && form.get('password').invalid && validationError.password">
-              <p
-                class="error-box__text"
-                *ngIf="form.get('password').hasError('required')">{{ 'local_error.FIELD_REQUIRED' | translate }}</p>
-              <p
-                class="error-box__text"
-                *ngIf="form.value.password && form.get('password').hasError('minlength')">{{ 'local_error.LENGTH_PASS' | translate }}</p>
-            </div>
-          </div>
-          <button
-            type="submit"
-            [disabled]="!form.valid"
-            class="login-button">
-            {{ 'login.SIGN_IN_BUTTON' | translate }}
-          </button>
-        </form>
-      </div>
+      <app-form-login></app-form-login>
     </div>
   </div>
 </section>

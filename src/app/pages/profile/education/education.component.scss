@@ -69,7 +69,7 @@
       }
       &__label{
           font-size: 17px;
-          font-family: $gb;
+          font-family: $workSansBold;
       }
   }
 // ACCORDION CONTENT
@@ -230,7 +230,7 @@
             .field-wrapper__input{
                 padding:0;
                 height: 145px;
-                font-family: $gr;
+                font-family: $workSansRegular;
                 outline: none;
                 border:none;
                 resize: none;
@@ -376,7 +376,7 @@
 }
 @media screen and (max-width:768px){
     .education{
-        background-color:#ffffff;
+        background-color:#F9F9F9;
     }
     .not-relevant{
         &__item{
@@ -403,7 +403,7 @@
             font-size: 16px;
         }
         &__item{
-            font-size: 16px;
+            font-size: 14px;
             &:first-child{
                 .subcategory-preview-info{
                     &__circle{

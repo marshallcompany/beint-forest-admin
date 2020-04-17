@@ -62,11 +62,11 @@ image-cropper{
     width:150px;
     flex-shrink: 0;
     &_cancel{
-      font-family: $gb;
+      font-family: $workSansBold;
     }
     &_save{
       background-color: $primary;
-      font-family: $gb;
+      font-family: $workSansBold;
     }
   }
 }

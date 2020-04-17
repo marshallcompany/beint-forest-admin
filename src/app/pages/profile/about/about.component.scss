@@ -33,7 +33,7 @@
                 resize: none;
                 outline: none;
                 height: 150px;
-                font-family: $gr;
+                font-family: $workSansRegular;
                 padding:0;
                 background-color: transparent;
                 &::placeholder{
@@ -111,7 +111,7 @@
 
 @media screen and (max-width:768px){
     .about{
-        background-color:#ffffff;
+        background-color:#F9F9F9;
     }
     .form-wrapper{
         padding:0;

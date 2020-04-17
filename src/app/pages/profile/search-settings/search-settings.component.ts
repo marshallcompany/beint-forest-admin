@@ -21,8 +21,8 @@ export class SearchSettingsComponent implements OnInit, AfterViewInit {
   public navSettings = {
     iconCategory: '../assets/image/profile/category-04.svg',
     nameCategory: 'Such-Präferenzen',
-    nextCategory: 'document',
-    prevCategory: 'professional-background'
+    nextCategory: 'profile/document',
+    prevCategory: 'profile/professional-background'
   };
 
   @ViewChild('searchBusiness', { static: false }) searchBusiness;

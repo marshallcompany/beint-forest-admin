@@ -1,31 +1,19 @@
  /* = FONTS = */
   @font-face {
-    font-family: "Gilroy Regular";
-    src: url("assets/fonts/Gilroy/Regular/Gilroy-Regular.eot");
-    src: url("assets/fonts/Gilroy/Regular/Gilroy-Regular.eot?#iefix")
-        format("embedded-opentype"),
-      url("assets/fonts/Gilroy/Regular/Gilroy-Regular.woff") format("woff"),
-      url("assets/fonts/Gilroy/Regular/Gilroy-Regular.ttf") format("truetype");
-    font-weight: normal;
-    font-style: normal;
-  }
-  @font-face {
-    font-family: "Gilroy Bold";
-    src: url("assets/fonts/Gilroy/Bold/Gilroy-Bold.eot");
-    src: url("assets/fonts/Gilroy/Bold/Gilroy-Bold.eot?#iefix")
-        format("embedded-opentype"),
-      url("assets/fonts/Gilroy/Bold/Gilroy-Bold.woff") format("woff"),
-      url("assets/fonts/Gilroy/Bold/Gilroy-Bold.ttf") format("truetype");
-    font-weight: normal;
-    font-style: normal;
-  }
-
-  @font-face {
     font-family: "WorkSans SemiBold";
-    src: url("assets/fonts/WorkSans/SemiBold/Worksanssemibold.ttf");
-    src: url("assets/fonts/WorkSans/SemiBold/Worksanssemibold.woff")
-        format("woff"),
-      url("assets/fonts/WorkSans/SemiBold/Worksanssemibold.woff2") format("woff2");
+    src: url("assets/fonts/WorkSans/SemiBold/WorkSans-SemiBold.ttf");
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "WorkSans Bold";
+    src: url("assets/fonts/WorkSans/Bold/WorkSans-Bold.ttf");
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "WorkSans Regular";
+    src: url("assets/fonts/WorkSans/Regular/WorkSans-Regular.ttf");
     font-weight: normal;
     font-style: normal;
   }

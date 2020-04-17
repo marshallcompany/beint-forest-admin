@@ -52,6 +52,10 @@ import { DocumentComponent } from './pages/profile/document/document.component';
 import { DocumentOptionComponent } from './components/sheet/document-option/document-option.component';
 import { FileRenameComponent } from './components/modal/file-rename/file-rename.component';
 import { DocumentOptionModalComponent } from './components/modal/document-option/document-option-modal.component';
+import { BottomNavigationComponent } from './components/bottom-navigation/bottom-navigation.component';
+import { SettingsComponent } from './pages/settings/settings.component';
+import { FormLoginComponent } from './components/form-login/form-login.component';
+import { PrivacyPolicyComponent } from './components/modal/privacy-policy/privacy-policy.component';
 
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -93,7 +97,11 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     DocumentComponent,
     DocumentOptionComponent,
     DocumentOptionModalComponent,
-    FileRenameComponent
+    FileRenameComponent,
+    BottomNavigationComponent,
+    SettingsComponent,
+    FormLoginComponent,
+    PrivacyPolicyComponent
   ],
   imports: [
     RoutingModule,
@@ -144,7 +152,8 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     CropperComponent,
     DocumentOptionComponent,
     DocumentOptionModalComponent,
-    FileRenameComponent
+    FileRenameComponent,
+    PrivacyPolicyComponent
   ]
 })
 export class AppModule { }

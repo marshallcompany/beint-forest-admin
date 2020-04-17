@@ -16,7 +16,8 @@
     margin-bottom:50px;
     font-size: 17px;
     text-align:center;
-    font-family:$gb;
+    font-family:$workSansBold;
+    letter-spacing: .2px;
   }
 }
 .modal-close-button{
@@ -42,13 +43,14 @@
     margin-bottom:20px;
     border-radius: 50px;
     color:#ffffff;
-    font-family:$gb;
+    font-family:$workSansBold;
     font-size: 16px;
     &:last-child{
       margin-bottom:0;
     }
     &_confirm{
       background-color: $red;
+      transition: none;
     }
     &_cancel{
       background-color: #30BFAE;
@@ -110,7 +112,7 @@
   ::ng-deep .confirm-dialog{
     .event{
       &__button{
-        width:270px;
+        width:300px;
       }
     }
   }
