@@ -50,7 +50,6 @@ export class ApplyComponent implements OnInit {
       this.profileService.getProfile()
         .pipe(
           map((fullUserProfile: any) => {
-            console.log('cccc', fullUserProfile);
             if (fullUserProfile) {
               return {
                 firstName: fullUserProfile.profile.personal.firstName,
