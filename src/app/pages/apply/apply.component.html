@@ -405,7 +405,7 @@
                   <p class="vacancy-item__details">
                     <span class="vacancy-item__text">
                       <span *ngIf="!vacancyData?.occupyAt">-</span>
-                      {{ vacancyData?.occupyAt }}
+                      {{ vacancyData?.occupyAt | date: 'MM.dd.yyyy' }}
                     </span>
                     <span
                       class="vacancy-item__status"
