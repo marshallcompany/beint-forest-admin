@@ -149,7 +149,7 @@
                       <span
                         class="vacancy-info-item__status"
                         [ngClass]="{'empty' : !vacancyData?.occupyAt }"></span>
-                      {{ vacancyData?.occupyAt }}
+                      {{ vacancyData?.occupyAt | date: 'MM.dd.yyyy' }}
                     </p>
                   </div>
                   <div class="vacancy-info-item">

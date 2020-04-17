@@ -50,10 +50,11 @@ export class ApplyComponent implements OnInit {
       this.profileService.getProfile()
         .pipe(
           map((fullUserProfile: any) => {
+            console.log('cccc', fullUserProfile);
             if (fullUserProfile) {
               return {
                 firstName: fullUserProfile.profile.personal.firstName,
-                avatar: fullUserProfile.media.avatar.storagePath
+                avatar: fullUserProfile.media && fullUserProfile.media.avatar && fullUserProfile.media.avatar.storagePath ? fullUserProfile.media.avatar.storagePath : ''
               };
             }
             return fullUserProfile;
