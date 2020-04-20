@@ -239,6 +239,9 @@
     object-fit: contain;
     object-position: center;
     margin-bottom:20px;
+    &_default{
+      height:40px;
+    }
   }
   &__date{
     font-size: 14px;
@@ -411,6 +414,9 @@
     object-fit: contain;
     object-position: center;
     margin-bottom:22px;
+    &.default{
+      height:40px;
+    }
   }
   &-date{
     opacity: .5;
