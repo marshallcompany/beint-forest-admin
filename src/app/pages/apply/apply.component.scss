@@ -234,8 +234,14 @@
   margin-bottom:30px;
   position: relative;
   &__logo{
-    height: 40px;
+    max-height: 40px;
+    max-width: 130px;
+    object-fit: contain;
+    object-position: center;
     margin-bottom:20px;
+    &_default{
+      height:40px;
+    }
   }
   &__date{
     font-size: 14px;
@@ -245,15 +251,11 @@
   &__name{
     font-size: 17px;
     font-family: $workSansBold;
-    margin-bottom:5px;
-  }
-  &__type{
-    font-size: 17px;
-    margin-bottom:15px;
   }
   &__company{
     display: flex;
     align-items:center;
+    margin-bottom:15px;
     svg{
       fill:$black;
       height:19px;
@@ -293,20 +295,23 @@
     font-size: 17px;
     color: #989898;
     margin-bottom:5px;
-    flex: 1;
   }
   &__details{
-    display: flex;
-    justify-content: space-between;
-    align-items:center;
+    padding-right:20px;
+    position: relative;
+    flex:1;
+  }
+  &__text{
+    word-break: break-all;
   }
   &__status{
     height: 15px;
     width:15px;
     border-radius: 50%;
     background-color:$blue;
-    flex-shrink: 0;
-    margin-left:5px;
+    position: absolute;
+    right:0;
+    top:0px;
     &.no-value{
       background-color:$grey;
     }
@@ -404,8 +409,14 @@
     background-color: $blue;
   }
   &-company-logo{
-    height:40px;
+    max-height:40px;
+    max-width: 130px;
+    object-fit: contain;
+    object-position: center;
     margin-bottom:22px;
+    &.default{
+      height:40px;
+    }
   }
   &-date{
     opacity: .5;
@@ -415,16 +426,12 @@
   &-name{
     font-size: 17px;
     font-family: $workSansBold;
-    margin-bottom:5px;
-  }
-  &-type{
-    font-size: 17px;
     margin-bottom:15px;
   }
   &-company{
     display: flex;
     align-items: flex-start;
-    margin-bottom:12px;
+    margin-bottom:15px;
     svg{
       height: 19px;
       width: 20px;
@@ -485,6 +492,7 @@
     position: relative;
     width: 100%;
     padding-right:20px;
+    word-break: break-all
   }
   &__status{
     display: block;
@@ -542,9 +550,6 @@
       margin-bottom: 10px;
     }
     &__name{
-      font-size: 15px;
-    }
-    &__type{
       font-size: 15px;
     }
     &__company{
