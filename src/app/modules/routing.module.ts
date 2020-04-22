@@ -7,7 +7,6 @@ import { WelcomeGuard } from '../guards/welcome.guard';
 import { LoginComponent } from '../pages/login/login.component';
 import { ProfileComponent } from '../pages/profile/profile.component';
 import { NotFoundComponent } from '../pages/not-found/not-found.component';
-import { JobDescriptionComponent } from '../pages/job-description/job-description.component';
 import { HomeComponent } from '../pages/home/home.component';
 import { PersonalComponent } from '../pages/profile/personal/personal.component';
 import { EducationComponent } from '../pages/profile/education/education.component';
@@ -41,8 +40,6 @@ const routes: Route[] = [
   { path: 'apply-thanks/:jobId/keep/:keep', component: ApplyThanksComponent },
   { path: 'offer/:jobId', component: OfferComponent, canActivate: [AuthGuard] },
   { path: 'offer-thanks', component: OfferThanksComponent, canActivate: [AuthGuard] },
-  { path: 'job-description', component: JobDescriptionComponent, canActivate: [AuthGuard] },
-  // { path: 'apply/:jobId/keep/:keep', component: JobDescriptionComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: '/home', pathMatch: 'full', canActivate: [AuthGuard] },
   { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
   { path: '**', component: NotFoundComponent }

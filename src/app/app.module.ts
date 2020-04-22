@@ -32,7 +32,6 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
-import { JobDescriptionComponent } from './pages/job-description/job-description.component';
 import { PersonalComponent } from './pages/profile/personal/personal.component';
 import { EducationComponent } from './pages/profile/education/education.component';
 import { OfferComponent } from './pages/offer/offer.component';
@@ -78,7 +77,6 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     LoginComponent,
     ProfileComponent,
     NotFoundComponent,
-    JobDescriptionComponent,
     HomeComponent,
     PersonalComponent,
     EducationComponent,
