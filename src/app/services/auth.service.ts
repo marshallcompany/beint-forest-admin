@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { ApiRoutesProvider } from './api-routes.services';
 import { TranslatesService } from './translates.service';
 import { Router } from '@angular/router';
+import { tap } from 'rxjs/operators';
 
 @Injectable()
 export class AuthService {
@@ -28,6 +29,16 @@ export class AuthService {
 
   public getAuthData(): string {
     return localStorage.getItem(this.STORAGE_TOKEN_KEY);
+  }
+
+  public refreshToken = () => {
+    const url = this.apiRoutes.REFRESH_TOKEN.replace(':refreshTokenId', localStorage.getItem('REFRESH_TOKEN'));
+    return this.http.post<any>(url, {})
+      .pipe(
+        tap(authResult => {
+          this.saveAuthData(authResult);
+        })
+      );
   }
 
   public async login({ email, password }): Promise<any> {
