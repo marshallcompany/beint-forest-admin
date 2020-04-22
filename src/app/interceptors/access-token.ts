@@ -36,6 +36,9 @@ export class AccessTokenInterceptor implements HttpInterceptor {
       .pipe(
         catchError(error => {
           console.log('intercept error', error);
+          if (error && error.status === 401 && error.error.message === 'CREDENTIALS_NOT_VALID') {
+            return throwError(error);
+          }
           if (error && error.status !== 401) {
             return throwError(error);
           }
@@ -58,8 +61,11 @@ export class AccessTokenInterceptor implements HttpInterceptor {
                 }),
                 catchError(err => {
                   this.refreshTokenInProgress = false;
-                  this.auth.logout();
-                  return throwError(err);
+                  if (err.status === 403 || err.status === 401) {
+                    this.auth.logout();
+                  } else {
+                    return next.handle(this.addAuthenticationToken(req));
+                  }
                 })
               );
           }

@@ -78,6 +78,7 @@ export class ProfileComponent implements OnInit {
         },
         err => {
           console.log('[ PROFILE ERROR ]', err);
+          this.globalErrorService.handleError(err);
         },
         () => {
           console.log('[ PROFILE DONE ]');
