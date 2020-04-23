@@ -39,11 +39,23 @@
       </div>
       <div class="setting-content">
         <div
-          class="setting-content-wrapper"
+          class="setting-content-default"
+          *ngIf="!selectedIndex">
+          <h2 class="setting-content-default__title">Kontoverwaltung / Einstellungen</h2>
+          <img
+            src="../assets/image/settings/icon-default.svg"
+            class="setting-content-default__image">
+        </div>
+        <div
+          class="setting-content-primary"
           *ngIf="selectedIndex">
           <app-privacy *ngIf="selectedIndex === 4"></app-privacy>
+          <app-remove-account
+            *ngIf="selectedIndex === 8"
+            (removeChanges)="removeAccountCancel($event)"></app-remove-account>
         </div>
       </div>
     </div>
   </div>
 </section>
+<!-- http://localhost:4200/apply/5e998d22d5ea86003d1d5e86/keep/true -->

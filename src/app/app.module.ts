@@ -56,6 +56,7 @@ import { SettingsComponent } from './pages/settings/settings.component';
 import { FormLoginComponent } from './components/form-login/form-login.component';
 import { PrivacyPolicyComponent } from './components/modal/privacy-policy/privacy-policy.component';
 import { PrivacyComponent } from './pages/settings/privacy/privacy.component';
+import { RemoveAccountComponent } from './pages/settings/remove-account/remove-account.component';
 
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -101,7 +102,8 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     SettingsComponent,
     FormLoginComponent,
     PrivacyPolicyComponent,
-    PrivacyComponent
+    PrivacyComponent,
+    RemoveAccountComponent
   ],
   imports: [
     RoutingModule,
