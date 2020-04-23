@@ -50,7 +50,8 @@ export class AuthService {
   }
 
   public logout = () => {
-    localStorage.clear();
+    localStorage.removeItem(this.STORAGE_TOKEN_KEY);
+    localStorage.removeItem(this.STORAGE_REFRESH_TOKEN);
     this.translatesService.initLanguage();
     this.router.navigate(['/login']);
   }

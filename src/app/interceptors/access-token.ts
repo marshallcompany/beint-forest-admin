@@ -10,6 +10,7 @@ import { Observable, throwError, BehaviorSubject } from 'rxjs';
 
 import { AuthService } from '../services/auth.service';
 import { catchError, filter, take, switchMap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable()
 
@@ -20,6 +21,7 @@ export class AccessTokenInterceptor implements HttpInterceptor {
   private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   constructor(
+    public router: Router,
     private auth: AuthService,
 
   ) { }
@@ -62,7 +64,13 @@ export class AccessTokenInterceptor implements HttpInterceptor {
                 catchError(err => {
                   this.refreshTokenInProgress = false;
                   if (err.status === 404 || err.status === 403 || err.status === 401) {
-                    this.auth.logout();
+                    if (this.router.routerState.snapshot.url.includes('/keep')) {
+                      localStorage.removeItem('JWT_TOKEN');
+                      localStorage.removeItem('REFRESH_TOKEN');
+                      window.location.reload();
+                    } else {
+                      this.auth.logout();
+                    }
                   } else {
                     return next.handle(this.addAuthenticationToken(req));
                   }
