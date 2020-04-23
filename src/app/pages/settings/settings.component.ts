@@ -40,7 +40,7 @@ export class SettingsComponent implements OnInit {
   }
 
   public clickEvent = (event, index) => {
-    this.selectedIndex = index;
+    this.selectedIndex = index + 1;
     switch (event) {
       case 'logout':
         this.logOut();

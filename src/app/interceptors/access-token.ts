@@ -61,7 +61,7 @@ export class AccessTokenInterceptor implements HttpInterceptor {
                 }),
                 catchError(err => {
                   this.refreshTokenInProgress = false;
-                  if (err.status === 403 || err.status === 401) {
+                  if (err.status === 404 || err.status === 403 || err.status === 401) {
                     this.auth.logout();
                   } else {
                     return next.handle(this.addAuthenticationToken(req));

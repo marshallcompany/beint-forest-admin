@@ -24,7 +24,7 @@
     <div class="container">
       <div class="setting-group">
         <button
-          [ngClass]="{'selected': selectedIndex === index}"
+          [ngClass]="{'selected': selectedIndex === index + 1}"
           [class]="tab.class"
           (click)="clickEvent(tab.event, index)"
           *ngFor="let tab of setting; let index = index">
@@ -36,6 +36,13 @@
             src="../assets/image/settings/arrow.svg"
             class="setting-button__arrow">
         </button>
+      </div>
+      <div class="setting-content">
+        <div
+          class="setting-content-wrapper"
+          *ngIf="selectedIndex">
+          <app-privacy *ngIf="selectedIndex === 4"></app-privacy>
+        </div>
       </div>
     </div>
   </div>
