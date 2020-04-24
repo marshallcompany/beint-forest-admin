@@ -120,15 +120,16 @@
 }
 .setting-content-default{
   text-align: right;
-  margin-right: 150px;
   &__title{
     color:$blue;
-    font-size: 30px;
+    font-size: 40px;
     margin-bottom:120px;
     font-family: $workSansBold;
+    text-align: center;
   }
   &__image{
     height:580px;
+    margin-right: 10vw;
   }
 }
 .setting-content-primary{
@@ -156,6 +157,105 @@
         padding-left:5vw;
     }
 }
+@media screen and (max-width: 1400px) {
+  .settings{
+    padding-top: 100px;
+  }
+  .setting-content-default{
+    &__title{
+      font-size: 35px;
+      margin-bottom:100px;
+    }
+    &__image{
+      height:470px;
+    }
+  }
+  .setting-group{
+    padding-right:20px;
+    width:400px;
+  }
+  .setting-content{
+    height:650px;
+    margin-left:20px;
+  }
+  .setting-button{
+    height:55px;
+    &__label{
+      font-size: 17px;
+    }
+    &__icon{
+      height:27px;
+      width:27px;
+    }
+    &:nth-child(2){
+      margin-bottom:100px;
+    }
+    &:nth-child(6){
+      margin-bottom:100px;
+    }
+  }
+}
+@media screen and (max-width: 1200px) {
+    .setting-content-default{
+      &__image{
+        margin-right:5vw;
+      }
+    }
+    .setting-group{
+      width:320px;
+    }
+    .setting-button{
+      &__label{
+        font-size: 15px;
+      }
+      &__icon{
+        height:24px;
+        width:24px;
+      }
+    }
+}
+@media screen and (max-width: 992px) {
+  .setting-group{
+    width:250px;
+    padding-right:10px;
+  }
+  .setting-content{
+    height:600px;
+    margin-left:10px;
+  }
+  .setting-button{
+    padding-left:8px;
+    &__label{
+      font-size: 13px;
+    }
+    &__icon{
+      height:22px;
+      width:22px;
+      margin-right:5px;
+    }
+    &:nth-child(2){
+      margin-bottom:76px;
+    }
+    &:nth-child(6){
+      margin-bottom:76px;
+    }
+  }
+  .setting-content-primary{
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+  }
+  .setting-content-default{
+    &__title{
+      padding-top:10px;
+      margin-bottom:125px;
+      font-size: 30px;
+    }
+    &__image{
+      height: 360px;
+    }
+  }
+}
 @media screen and (max-width: 768px) {
   .settings{
     background-color: #f9f9f9;
@@ -169,12 +269,14 @@
   .setting-button{
     height:55px;
     margin-bottom:4px;
+    padding-left:16px;
     &__label{
       font-size: 17px;
     }
     &__icon{
       height:24px;
       width:24px;
+      margin-right:11px;
     }
     &.logout{
       display: flex;

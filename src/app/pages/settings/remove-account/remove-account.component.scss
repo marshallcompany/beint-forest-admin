@@ -37,3 +37,18 @@
     }
   }
 }
+@media screen and (max-width: 1200px) {
+  .message-remove{
+    &__title{
+      font-size: 20px;
+    }
+  }
+}
+@media screen and (max-width: 992px) {
+  .message-remove{
+    width:320px;
+    &__title{
+      font-size: 17px;
+    }
+  }
+}

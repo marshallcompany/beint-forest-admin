@@ -2,3 +2,17 @@
   padding:40px;
   background-color:#ffffff;
 }
+
+@media screen and (max-width:1200px) {
+  .privacy{
+    padding:20px;
+  }
+  p{
+    font-size: 17px;
+  }
+}
+@media screen and (max-width:992px) {
+  p{
+    font-size: 15px;
+  }
+}
