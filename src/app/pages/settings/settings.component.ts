@@ -3,6 +3,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ConfirmModalComponent } from 'src/app/components/modal/confirm/confirm-modal.component';
 import { MatDialog } from '@angular/material';
 import { PrivacyPolicyComponent } from 'src/app/components/modal/privacy-policy/privacy-policy.component';
+import { switchMap } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 interface Setting {
   icon: string;
@@ -55,6 +57,11 @@ export class SettingsComponent implements OnInit {
           this.matDialog.open(PrivacyPolicyComponent, { panelClass: 'privacy-policy-dialog' });
         }
         break;
+      case 'removeAccount':
+        if (window.innerWidth <= 768) {
+          this.removeAccount();
+        }
+        break;
       default:
         break;
     }
@@ -82,6 +89,47 @@ export class SettingsComponent implements OnInit {
             this.authService.logout();
           }
           this.selectedIndex = null;
+        }
+      );
+  }
+
+  public removeAccount = () => {
+    const removeAccountConfirmOne = {
+      title: 'Möchtest Du Dein Konto wirklich löschen? Bitte beachte, dass sich Deine Daten dann nicht mehr wieder herstellen lassen!',
+      labelCancelButton: 'Abbrechen',
+      labelConfirmButton: 'KONTO LÖSCHEN',
+      confirmButtonColor: '#434784'
+
+    };
+    const removeAccountConfirmTwo = {
+      title: 'DEIN KONTO WIRD JETZT UNWIDERRUFLICH GELÖSCHT!',
+      labelCancelButton: 'Abbrechen',
+      labelConfirmButton: 'KONTO LÖSCHEN',
+      confirmButtonColor: '#434784'
+
+    };
+    this.matDialog.open(ConfirmModalComponent, { data: removeAccountConfirmOne, panelClass: 'confirm-dialog' }).afterClosed()
+      .pipe(
+        switchMap((confirmEventOne: boolean) => {
+          if (confirmEventOne) {
+            return this.matDialog.open(ConfirmModalComponent, { data: removeAccountConfirmTwo, panelClass: 'confirm-dialog' }).afterClosed();
+          }
+          return throwError(`REMOVE ACCOUNT ${confirmEventOne}`);
+        }),
+        switchMap((confirmEventTwo: boolean) => {
+          if (confirmEventTwo) {
+            return this.authService.removeAccount();
+          }
+          return throwError(`REMOVE ACCOUNT ${confirmEventTwo}`);
+        })
+      )
+      .subscribe(
+        res => {
+          console.log('[ REMOVE ACCOUNT RESULT]', res);
+          this.authService.logout();
+        },
+        error => {
+          console.log('[ REMOVE ACCOUNT ERROR ]', error);
         }
       );
   }

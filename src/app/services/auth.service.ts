@@ -41,6 +41,10 @@ export class AuthService {
       );
   }
 
+  public removeAccount = () => {
+    return this.http.delete<any>(this.apiRoutes.REMOVE_ACCOUNT);
+  }
+
   public async login({ email, password }): Promise<any> {
     const authData = await this.http.post<any>(this.apiRoutes.LOGIN, { email, password }).toPromise();
     if (authData && authData.refreshToken && authData.token) {

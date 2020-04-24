@@ -1,4 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
+import { GlobalErrorService } from 'src/app/services/global-error-service';
 
 @Component({
   selector: 'app-remove-account',
@@ -10,7 +12,10 @@ export class RemoveAccountComponent implements OnInit {
   @Output() removeChanges = new EventEmitter();
 
   public removeAccountSteps: boolean;
-  constructor() {
+  constructor(
+    public auth: AuthService,
+    private globalErrorService: GlobalErrorService
+  ) {
     this.removeAccountSteps = false;
   }
 
@@ -29,8 +34,22 @@ export class RemoveAccountComponent implements OnInit {
       return;
     }
     if (this.removeAccountSteps) {
-      console.log('Remove account');
+      this.removeAccount();
     }
   }
 
+  public removeAccount = () => {
+    this.auth.removeAccount()
+      .pipe()
+      .subscribe(
+        res => {
+          console.log('[ REMOVE ACCOUNT ]', res);
+          this.auth.logout();
+        },
+        error => {
+          console.log('[ REMOVE ACCOUNT ERROR ]', error);
+          this.globalErrorService.handleError(error);
+        }
+      );
+  }
 }
