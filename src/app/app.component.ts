@@ -39,7 +39,7 @@ export class AppComponent implements OnInit {
       { name: 'Pipeline', icon: '../assets/image/menu/file.svg', path: '*', activeClass: 'route-active' },
       { name: 'Profile', icon: '../assets/image/menu/profile.svg', path: 'profile', activeClass: 'route-active' },
       { name: 'Settings', icon: '../assets/image/menu/settings.svg', path: 'settings', activeClass: 'route-active' },
-      { name: 'Search', icon: '../assets/image/menu/search.svg', path: '***', activeClass: 'route-active' }
+      { name: 'Search', icon: '../assets/image/menu/search.svg', path: 'search', activeClass: 'route-active' }
     ];
   }
 

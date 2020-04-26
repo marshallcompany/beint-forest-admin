@@ -33,6 +33,7 @@ export class ApiRoutesProvider {
   public readonly REMOVE_DOCUMENT: string;
   public readonly REFRESH_TOKEN: string;
   public readonly REMOVE_ACCOUNT: string;
+  public readonly GET_VACANCIES: string;
 
 
   constructor() {
@@ -64,5 +65,6 @@ export class ApiRoutesProvider {
     this.REMOVE_DOCUMENT = `${this.BASE_API_URL}/api/v1/profile/documents/:id`;
     this.REFRESH_TOKEN = `${this.BASE_API_URL}/api/v1/auth/refresh/:refreshTokenId`;
     this.REMOVE_ACCOUNT = `${this.BASE_API_URL}/api/v1/profile`;
+    this.GET_VACANCIES = `${this.BASE_API_URL}/api/v1/job-vacancy/all/?page=1&limit=100&title`;
   }
 }

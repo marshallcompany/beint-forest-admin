@@ -19,6 +19,7 @@ import { SearchSettingsComponent } from '../pages/profile/search-settings/search
 import { ProfessionalBackgroundComponent } from '../pages/profile/professional-background/professional-background.component';
 import { DocumentComponent } from '../pages/profile/document/document.component';
 import { SettingsComponent } from '../pages/settings/settings.component';
+import { SearchComponent } from '../pages/search/search.component';
 
 
 
@@ -42,6 +43,7 @@ const routes: Route[] = [
   { path: 'offer-thanks', component: OfferThanksComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: '/home', pathMatch: 'full', canActivate: [AuthGuard] },
   { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
+  { path: 'search', component: SearchComponent, canActivate: [AuthGuard] },
   { path: '**', component: NotFoundComponent }
 ];
 @NgModule({

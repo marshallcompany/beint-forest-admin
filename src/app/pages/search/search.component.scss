@@ -1,0 +1,9 @@
+@import "../../theme/variables.scss";
+
+.search{
+  min-height: 100vh;
+  background-color: $primary;
+  position: relative;
+  overflow: hidden;
+  overflow-y: auto;
+}

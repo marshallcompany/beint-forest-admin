@@ -39,5 +39,9 @@ export class ApplicationService {
     return this.http.get<any>(url, {});
   }
 
+  public getAllJob = () => {
+    return this.http.get<any>(this.apiRoutes.GET_VACANCIES);
+  }
+
 }
 
