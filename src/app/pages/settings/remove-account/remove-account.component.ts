@@ -44,7 +44,9 @@ export class RemoveAccountComponent implements OnInit {
       .subscribe(
         res => {
           console.log('[ REMOVE ACCOUNT ]', res);
-          this.auth.logout();
+          localStorage.removeItem('JWT_TOKEN');
+          localStorage.removeItem('REFRESH_TOKEN');
+          window.location.replace('http://www.beint.de/');
         },
         error => {
           console.log('[ REMOVE ACCOUNT ERROR ]', error);

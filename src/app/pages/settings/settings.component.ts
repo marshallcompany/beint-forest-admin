@@ -126,7 +126,9 @@ export class SettingsComponent implements OnInit {
       .subscribe(
         res => {
           console.log('[ REMOVE ACCOUNT RESULT]', res);
-          this.authService.logout();
+          localStorage.removeItem('JWT_TOKEN');
+          localStorage.removeItem('REFRESH_TOKEN');
+          window.location.replace('http://www.beint.de/');
         },
         error => {
           console.log('[ REMOVE ACCOUNT ERROR ]', error);
