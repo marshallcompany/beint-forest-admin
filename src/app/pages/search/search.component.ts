@@ -33,6 +33,11 @@ export class SearchComponent implements OnInit {
                 {
                   vacancyId: vacancy._id,
                   vacancyInternalUrl: vacancy.__vacancyInternalUrl,
+                  companyName: vacancy.company.profile.general.companyName,
+                  place: vacancy.company.profile.contact.place,
+                  companyLogo: vacancy.company && vacancy.company.media && vacancy.company.media.logo &&
+                    vacancy.company.media.logo.storagePath
+                    ? vacancy.company.media.logo.storagePath : '',
                   activationDate: vacancy.details.activationDate,
                   industryBranch: vacancy.details.industryBranch,
                   businessArea: vacancy.details.businessArea,
