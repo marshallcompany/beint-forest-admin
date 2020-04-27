@@ -1,0 +1,139 @@
+@import "../../theme/variables.scss";
+.vacancy-header{
+  margin-bottom:30px;
+  position: relative;
+  &__logo{
+    max-height: 40px;
+    max-width: 130px;
+    object-fit: contain;
+    object-position: center;
+    margin-bottom:20px;
+    &_default{
+      height:40px;
+    }
+  }
+  &__date{
+    font-size: 14px;
+    opacity: .5;
+    margin-bottom:5px;
+  }
+  &__name{
+    font-size: 17px;
+    font-family: $workSansBold;
+  }
+  &__company{
+    display: flex;
+    align-items:center;
+    margin-bottom:15px;
+    svg{
+      fill:$black;
+      height:19px;
+      margin-right:10px;
+      flex-shrink: 0;
+    }
+    span{
+      font-size: 17px;
+    }
+  }
+  &__status{
+    height:25px;
+    width:25px;
+    border-radius: 50%;
+    background-color:$blue;
+    position: absolute;
+    right:0;
+    top:0;
+  }
+}
+.vacancy-row{
+  display: flex;
+  justify-content: space-between;
+  &:first-child{
+    .vacancy-item{
+      border-top:1px solid #EAEAEA;
+    }
+  }
+}
+.vacancy-item{
+  width:48%;
+  border-bottom:1px solid #EAEAEA;
+  display: flex;
+  flex-direction: column;
+  padding:11px 10px 11px 6px;
+  &__label{
+    font-size: 17px;
+    color: #989898;
+    margin-bottom:5px;
+  }
+  &__details{
+    padding-right:20px;
+    position: relative;
+    flex:1;
+  }
+  &__text{
+    word-break: break-all;
+  }
+  &__status{
+    height: 15px;
+    width:15px;
+    border-radius: 50%;
+    background-color:$blue;
+    position: absolute;
+    right:0;
+    top:0px;
+    &.no-value{
+      background-color:$grey;
+    }
+  }
+}
+.vacancy-skills-row{
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom:1px solid #EAEAEA;
+  padding:10px 10px 10px 6px;
+  min-height: 65px;
+  &:last-child{
+    border:none;
+    padding-bottom: 0;
+  }
+  &__label{
+    font-size: 17px;
+    color: #989898;
+    margin-bottom:10px;
+    width:100%;
+  }
+}
+.vacancy-skills-item{
+  border-radius: 6px;
+  border:1px solid $blue;
+  padding:0 15px;
+  height: 40px;
+  margin-bottom:10px;
+  margin-right:10px;
+  display: flex;
+  align-items:center;
+  &:last-child{
+    margin-right:0;
+  }
+  &__name{
+    color:$blue;
+    font-size: 17px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  &__status{
+    width:15px;
+    height:15px;
+    border-radius: 50%;
+    background-color: $blue;
+    margin-right:10px;
+  }
+}
+.language-level{
+  font-size: 8px;
+  color:$black;
+  &::first-letter{
+    text-transform: uppercase;
+  }
+}

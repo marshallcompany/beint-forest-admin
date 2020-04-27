@@ -1,4 +1,6 @@
-<section class="search">
+<section
+  class="search"
+  #scrollToTop>
   <div class="background">
     <img
       src="../assets/image/background-circle-01.png"
@@ -71,11 +73,10 @@
           </div>
         </div>
         <div class="vacancy-details">
-          <div class="vacancy-details-item">
-            <app-details-vacancy
-              [vacancyData]="vacancyData"
-              *ngIf="vacancyData">
-            </app-details-vacancy>
+          <div
+            class="vacancy-details-item"
+            *ngIf="vacancyData">
+            <app-details-vacancy [vacancyData]="vacancyData"></app-details-vacancy>
           </div>
         </div>
       </div>

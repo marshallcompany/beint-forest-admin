@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApplicationService } from 'src/app/services/application-service';
 import { map } from 'rxjs/operators';
 
@@ -8,6 +8,8 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
+
+  @ViewChild('scrollToTop', { static: false }) scrollToTop;
 
   public listJobVacancy: Array<any>;
   public selectedIndex = 0;
@@ -89,6 +91,6 @@ export class SearchComponent implements OnInit {
   public selectedVacancy = (index) => {
     this.selectedIndex = index;
     this.vacancyData = this.listJobVacancy[index];
-    console.log('data', this.vacancyData);
+    this.scrollToTop.nativeElement.scrollIntoView({ block: 'start', behavior: 'smooth' });
   }
 }
