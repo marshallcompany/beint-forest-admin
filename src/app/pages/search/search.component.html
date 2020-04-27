@@ -7,4 +7,26 @@
       src="../assets/image/background-circle-02.png"
       class="background__circle background__circle_02">
   </div>
+  <div class="container">
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <p
+      *ngFor="let vacancy of listJobVacancy; let i = index"
+      (click)="selectedVacancy(i)"
+      [ngClass]="{'active': selectedIndex == i}">
+      {{ vacancy.vacancyInternalUrl }}
+      {{ vacancy.vacancyId }}
+    </p>
+    <br>
+    <br>
+    <br>
+    <br>
+    <app-details-vacancy
+      [vacancyData]="vacancyData"
+      *ngIf="vacancyData"></app-details-vacancy>
+  </div>
 </section>
