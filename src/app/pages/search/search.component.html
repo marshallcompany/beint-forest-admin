@@ -70,6 +70,14 @@
             </p>
           </div>
         </div>
+        <div class="vacancy-details">
+          <div class="vacancy-details-item">
+            <app-details-vacancy
+              [vacancyData]="vacancyData"
+              *ngIf="vacancyData">
+            </app-details-vacancy>
+          </div>
+        </div>
       </div>
     </div>
   </div>
