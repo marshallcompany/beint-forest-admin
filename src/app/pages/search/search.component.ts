@@ -34,7 +34,7 @@ export class SearchComponent implements OnInit {
               this.listJobVacancy.push(
                 {
                   vacancyId: vacancy._id,
-                  vacancyInternalUrl: vacancy.__vacancyInternalUrl,
+                  vacancyUrl: vacancy.details.vacancyExternalUrl,
                   companyName: vacancy.company.profile.general.companyName,
                   place: vacancy.company.profile.contact.place,
                   companyLogo: vacancy.company && vacancy.company.media && vacancy.company.media.logo &&

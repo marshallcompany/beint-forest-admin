@@ -48,4 +48,10 @@ export class DetailsVacancyComponent implements OnInit {
         () => console.log('[ DONE APPLY JOB ]')
       );
   }
+  public goToVacancyUrl = (url: string) => {
+    if (url) {
+      window.open(url, '_blank');
+    }
+    return;
+  }
 }

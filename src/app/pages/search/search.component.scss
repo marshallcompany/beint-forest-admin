@@ -46,7 +46,6 @@
   max-width:530px;
   width:100%;
   padding-right:25px;
-  flex-shrink: 0;
 }
 .vacancy-txt{
   font-size: 17px;
@@ -55,7 +54,7 @@
   position: absolute;
   right:20px;
   top:20px;
-  width:calc(100% - 20px);
+  width:calc(100% - 40px);
   display: flex;
   flex-wrap: wrap;
   align-items: center;
