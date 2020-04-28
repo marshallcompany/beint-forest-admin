@@ -43,8 +43,8 @@
 }
 // VACANCY PREVIEW
 .vacancy-tab{
-  max-width:530px;
-  width:100%;
+  width:530px;
+  flex-shrink: 0;
   padding-right:25px;
 }
 .vacancy-txt{
@@ -86,7 +86,7 @@
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.17);
   border-radius: 10px;
   padding:20px;
-  padding-right:83px;
+  padding-right:35px;
   word-break: break-all;
   border: 2px solid transparent;
   position: relative;
@@ -166,6 +166,53 @@
     .search{
         padding-left:5vw;
     }
+    .vacancy-tab{
+      width: 450px;
+    }
+}
+@media screen and (max-width: 1400px){
+  .vacancy-tab{
+    padding-right:10px;
+    width:400px;
+  }
+  .vacancy-details{
+    padding-left:10px;
+  }
+  .vacancy-details-item{
+    &:before{
+      left:-10px;
+    }
+  }
+}
+@media screen and (max-width: 1200px) {
+  .vacancy-tab{
+    width:350px;
+  }
+  .vacancy-item{
+    margin-bottom:10px;
+    padding:10px;
+    padding-right:25px;
+    &__logo{
+      margin-bottom:10px;
+    }
+    &__arrow{
+      right:10px;
+    }
+    &__name{
+      font-size: 15px;
+    }
+  }
+  .vacancy-txt{
+    font-size: 15px;
+  }
+  .vacancy-info{
+    right:10px;
+    top:10px;
+    width:calc(100% - 20px);
+  }
+  .vacancy-details-item{
+    padding:10px 15px 15px 15px;
+  }
 }
 @media screen and (max-width: 768px) {
   .search{
