@@ -76,7 +76,9 @@
           <div
             class="vacancy-details-item"
             *ngIf="vacancyData">
-            <app-details-vacancy [vacancyData]="vacancyData"></app-details-vacancy>
+            <app-details-vacancy
+              [vacancyData]="vacancyData"
+              [newVacancyDesign]="true"></app-details-vacancy>
           </div>
         </div>
       </div>

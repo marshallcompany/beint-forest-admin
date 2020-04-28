@@ -1,5 +1,19 @@
 <div class="vacancy-header">
-  <div class="vacancy-header__status"></div>
+  <div
+    class="vacancy-header__status"
+    *ngIf="!newVacancyDesign"></div>
+  <div
+    class="vacancy-info"
+    *ngIf="newVacancyDesign">
+    <button class="vacancy-info__link">
+      <img src="../assets/image/link.svg">
+    </button>
+    <div class="vacancy-info__status"></div>
+    <p class="vacancy-info__date">
+      <span *ngIf="!vacancyData?.activationDate">-</span>
+      {{ vacancyData?.activationDate | date: 'dd.MM.yyyy' }}
+    </p>
+  </div>
   <img
     [src]="vacancyData.companyLogo"
     *ngIf="vacancyData?.companyLogo"
@@ -7,22 +21,71 @@
   <svg viewBox="0 0 27 35" xmlns="http://www.w3.org/2000/svg" class="vacancy-header__logo vacancy-header__logo_default" *ngIf="!vacancyData?.companyLogo">
     <path d="M13.4998 7.86743C10.8902 7.86743 8.43113 8.62392 6.37353 9.88473V0H0V21.4337C0 28.9481 6.07242 35 13.4998 35C20.9273 35 26.9997 28.8977 26.9997 21.4337C27.0499 13.9193 20.9775 7.86743 13.4998 7.86743ZM13.4998 28.5951C9.58539 28.5951 6.37353 25.4179 6.37353 21.4337C6.37353 17.5 9.53521 14.2723 13.4998 14.2723C17.4645 14.2723 20.6262 17.4496 20.6262 21.4337C20.6262 25.3674 17.4645 28.5951 13.4998 28.5951Z" fill="#30BFAE"/>
   </svg>
-  <p class="vacancy-header__company">
-    <svg viewBox="0 0 115 106" xmlns="http://www.w3.org/2000/svg"><path d="M110.09 69.7008C112.539 69.7008 114.543 67.6967 114.543 65.2472V35.8538C114.543 26.0337 106.55 18.0396 96.7307 18.0396H77.56V12.25C77.56 5.50282 72.0604 0.00268555 65.3139 0.00268555H49.7502C43.0038 0.00268555 37.5042 5.50282 37.5042 12.25V18.0396H18.3557C8.53657 18.0396 0.543213 26.0337 0.543213 35.8538V87.7377C0.543213 97.5577 8.53657 105.552 18.3557 105.552H96.7307C106.55 105.552 114.543 97.5577 114.543 87.7377C114.543 85.2882 112.539 83.2841 110.09 83.2841C107.641 83.2841 105.637 85.2882 105.637 87.7377C105.637 92.6588 101.651 96.6448 96.7307 96.6448H18.3557C13.435 96.6448 9.44946 92.6588 9.44946 87.7377V56.1174H53.3127V62.7978C53.3127 65.2472 55.3167 67.2513 57.7659 67.2513C60.2151 67.2513 62.219 65.2472 62.219 62.7978V56.1174H105.637V65.2472C105.637 67.7189 107.641 69.7008 110.09 69.7008ZM46.4327 12.25C46.4327 10.4017 47.9245 8.90979 49.7725 8.90979H65.3362C67.1842 8.90979 68.676 10.4017 68.676 12.25V18.0396H46.4327V12.25ZM9.44946 47.2103V35.8538C9.44946 30.9326 13.435 26.9467 18.3557 26.9467H96.7307C101.651 26.9467 105.637 30.9326 105.637 35.8538V47.2103H9.44946Z" />
-    </svg>
-    <span>
-      <span *ngIf="!vacancyData?.companyName">-</span>
-      {{ vacancyData?.companyName }}
-    </span>
-  </p>
-  <p class="vacancy-header__date">
-    <span *ngIf="!vacancyData?.activationDate">-</span>
-    {{ vacancyData?.activationDate | date: 'dd.MM.yyyy' }}
-  </p>
-  <p class="vacancy-header__name">
-    <span *ngIf="!vacancyData?.jobTitle">-</span>
-    {{ vacancyData?.jobTitle }}
-  </p>
+  <div
+    class="new"
+    *ngIf="newVacancyDesign">
+    <p
+      class="vacancy-header__name"
+      style="margin-bottom:15px;">
+        <span *ngIf="!vacancyData?.jobTitle">-</span>
+        {{ vacancyData?.jobTitle }}
+      </p>
+    <p class="vacancy-header__company">
+      <svg viewBox="0 0 115 106" xmlns="http://www.w3.org/2000/svg"><path d="M110.09 69.7008C112.539 69.7008 114.543 67.6967 114.543 65.2472V35.8538C114.543 26.0337 106.55 18.0396 96.7307 18.0396H77.56V12.25C77.56 5.50282 72.0604 0.00268555 65.3139 0.00268555H49.7502C43.0038 0.00268555 37.5042 5.50282 37.5042 12.25V18.0396H18.3557C8.53657 18.0396 0.543213 26.0337 0.543213 35.8538V87.7377C0.543213 97.5577 8.53657 105.552 18.3557 105.552H96.7307C106.55 105.552 114.543 97.5577 114.543 87.7377C114.543 85.2882 112.539 83.2841 110.09 83.2841C107.641 83.2841 105.637 85.2882 105.637 87.7377C105.637 92.6588 101.651 96.6448 96.7307 96.6448H18.3557C13.435 96.6448 9.44946 92.6588 9.44946 87.7377V56.1174H53.3127V62.7978C53.3127 65.2472 55.3167 67.2513 57.7659 67.2513C60.2151 67.2513 62.219 65.2472 62.219 62.7978V56.1174H105.637V65.2472C105.637 67.7189 107.641 69.7008 110.09 69.7008ZM46.4327 12.25C46.4327 10.4017 47.9245 8.90979 49.7725 8.90979H65.3362C67.1842 8.90979 68.676 10.4017 68.676 12.25V18.0396H46.4327V12.25ZM9.44946 47.2103V35.8538C9.44946 30.9326 13.435 26.9467 18.3557 26.9467H96.7307C101.651 26.9467 105.637 30.9326 105.637 35.8538V47.2103H9.44946Z" />
+      </svg>
+      <span>
+        <span *ngIf="!vacancyData?.companyName">-</span>
+        {{ vacancyData?.companyName }}
+      </span>
+    </p>
+    <div class="actions">
+      <div class="actions-apply">
+        <button
+          (click)="applyVacancy(vacancyData.vacancyId)"
+          class="actions-apply__button"
+          [disabled]="!privacyPolicy">
+          Jetzt bewerben
+        </button>
+        <div class="privacy-policy">
+          <label class="checkbox-container">
+            <input
+              type="checkbox"
+              [(ngModel)]="privacyPolicy">
+            <span class="checkmark"></span>
+          </label>
+          <p
+            class="privacy-policy__text"
+            [ngClass]="{'privacy-policy__text_red': !privacyPolicy }">
+            Stimme den <br>
+            <span
+              class="privacy-policy__details"
+              (click)="openPrivacyDialog()">Datenschutzbestimmungen</span>
+            zu
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="old"
+    *ngIf="!newVacancyDesign">
+    <p class="vacancy-header__company">
+      <svg viewBox="0 0 115 106" xmlns="http://www.w3.org/2000/svg"><path d="M110.09 69.7008C112.539 69.7008 114.543 67.6967 114.543 65.2472V35.8538C114.543 26.0337 106.55 18.0396 96.7307 18.0396H77.56V12.25C77.56 5.50282 72.0604 0.00268555 65.3139 0.00268555H49.7502C43.0038 0.00268555 37.5042 5.50282 37.5042 12.25V18.0396H18.3557C8.53657 18.0396 0.543213 26.0337 0.543213 35.8538V87.7377C0.543213 97.5577 8.53657 105.552 18.3557 105.552H96.7307C106.55 105.552 114.543 97.5577 114.543 87.7377C114.543 85.2882 112.539 83.2841 110.09 83.2841C107.641 83.2841 105.637 85.2882 105.637 87.7377C105.637 92.6588 101.651 96.6448 96.7307 96.6448H18.3557C13.435 96.6448 9.44946 92.6588 9.44946 87.7377V56.1174H53.3127V62.7978C53.3127 65.2472 55.3167 67.2513 57.7659 67.2513C60.2151 67.2513 62.219 65.2472 62.219 62.7978V56.1174H105.637V65.2472C105.637 67.7189 107.641 69.7008 110.09 69.7008ZM46.4327 12.25C46.4327 10.4017 47.9245 8.90979 49.7725 8.90979H65.3362C67.1842 8.90979 68.676 10.4017 68.676 12.25V18.0396H46.4327V12.25ZM9.44946 47.2103V35.8538C9.44946 30.9326 13.435 26.9467 18.3557 26.9467H96.7307C101.651 26.9467 105.637 30.9326 105.637 35.8538V47.2103H9.44946Z" />
+      </svg>
+      <span>
+        <span *ngIf="!vacancyData?.companyName">-</span>
+        {{ vacancyData?.companyName }}
+      </span>
+    </p>
+    <p class="vacancy-header__date">
+      <span *ngIf="!vacancyData?.activationDate">-</span>
+      {{ vacancyData?.activationDate | date: 'dd.MM.yyyy' }}
+    </p>
+    <p class="vacancy-header__name">
+      <span *ngIf="!vacancyData?.jobTitle">-</span>
+      {{ vacancyData?.jobTitle }}
+    </p>
+  </div>
 </div>
 <div class="vacancy-body">
   <div class="vacancy-row">
