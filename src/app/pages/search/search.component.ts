@@ -1,6 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApplicationService } from 'src/app/services/application-service';
 import { map } from 'rxjs/operators';
+import { PrivacyPolicyComponent } from 'src/app/components/modal/privacy-policy/privacy-policy.component';
+import { MatDialog } from '@angular/material';
+import { GlobalErrorService } from 'src/app/services/global-error-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search',
@@ -12,13 +16,18 @@ export class SearchComponent implements OnInit {
   @ViewChild('scrollToTop', { static: false }) scrollToTop;
 
   public listJobVacancy: Array<any>;
+  public listCheckboxPrivacy: Array<any>;
   public selectedIndex = 0;
   public vacancyData: object;
 
   constructor(
+    public matDialog: MatDialog,
+    public globalErrorService: GlobalErrorService,
+    public router: Router,
     public applicationService: ApplicationService
   ) {
     this.listJobVacancy = [];
+    this.listCheckboxPrivacy = [];
   }
 
   ngOnInit() {
@@ -83,8 +92,31 @@ export class SearchComponent implements OnInit {
           console.log('[ ALL JOB VACANCY ]', res);
           if (this.listJobVacancy && this.listJobVacancy.length) {
             this.vacancyData = this.listJobVacancy[0];
+            this.listJobVacancy.forEach(vacancy => {
+              this.listCheckboxPrivacy.push(
+                { status: false }
+              );
+            });
           }
         }
+      );
+  }
+
+  public applyVacancy = (id: string) => {
+    const jobApply$ = this.applicationService.jobApply(id);
+    jobApply$
+      .pipe()
+      .subscribe(
+        res => {
+          this.applicationService.removeJobId();
+          this.router.navigate([`/apply-thanks/${id}/keep/true`]);
+        },
+        err => {
+          console.log('[ ERROR APPLY JOB ]', err);
+          this.applicationService.removeJobId();
+          this.globalErrorService.handleError(err);
+        },
+        () => console.log('[ DONE APPLY JOB ]')
       );
   }
 
@@ -93,4 +125,17 @@ export class SearchComponent implements OnInit {
     this.vacancyData = this.listJobVacancy[index];
     this.scrollToTop.nativeElement.scrollIntoView({ block: 'start', behavior: 'smooth' });
   }
+
+  public openGroup = (e) => {
+    e.classList.add('acord-active');
+  }
+
+  public closeGroup = (e) => {
+    e.classList.remove('acord-active');
+  }
+
+  public openPrivacyDialog = () => {
+    this.matDialog.open(PrivacyPolicyComponent, { panelClass: 'privacy-policy-dialog' });
+  }
+
 }

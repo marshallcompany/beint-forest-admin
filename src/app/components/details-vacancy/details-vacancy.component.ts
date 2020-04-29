@@ -1,16 +1,17 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChange } from '@angular/core';
 import { PrivacyPolicyComponent } from '../modal/privacy-policy/privacy-policy.component';
 import { MatDialog } from '@angular/material';
 import { GlobalErrorService } from 'src/app/services/global-error-service';
 import { ApplicationService } from 'src/app/services/application-service';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-details-vacancy',
   templateUrl: './details-vacancy.component.html',
   styleUrls: ['./details-vacancy.component.scss']
 })
-export class DetailsVacancyComponent implements OnInit {
+export class DetailsVacancyComponent implements OnInit, OnChanges {
 
   @Input() vacancyData;
   @Input() newVacancyDesign;
@@ -27,6 +28,9 @@ export class DetailsVacancyComponent implements OnInit {
   ngOnInit() {
   }
 
+  ngOnChanges(changes: { [propertyName: string]: SimpleChange }) {
+    this.privacyPolicy = false;
+  }
   public openPrivacyDialog = () => {
     this.matDialog.open(PrivacyPolicyComponent, { panelClass: 'privacy-policy-dialog' });
   }
