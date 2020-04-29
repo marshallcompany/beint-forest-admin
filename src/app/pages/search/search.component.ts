@@ -19,6 +19,8 @@ export class SearchComponent implements OnInit {
   public listCheckboxPrivacy: Array<any>;
   public selectedIndex = 0;
   public vacancyData: object;
+  public noJobVacancy: boolean;
+  public spinner: boolean;
 
   constructor(
     public matDialog: MatDialog,
@@ -28,6 +30,7 @@ export class SearchComponent implements OnInit {
   ) {
     this.listJobVacancy = [];
     this.listCheckboxPrivacy = [];
+    this.spinner = true;
   }
 
   ngOnInit() {
@@ -90,14 +93,22 @@ export class SearchComponent implements OnInit {
       .subscribe(
         res => {
           console.log('[ ALL JOB VACANCY ]', res);
+          this.spinner = false;
           if (this.listJobVacancy && this.listJobVacancy.length) {
             this.vacancyData = this.listJobVacancy[0];
+            this.noJobVacancy = false;
             this.listJobVacancy.forEach(vacancy => {
               this.listCheckboxPrivacy.push(
                 { status: false }
               );
             });
+          } else {
+            this.noJobVacancy = true;
           }
+        },
+        error => {
+          console.log('[ GET ALL JOB VACANCY ERROR ]', error);
+          this.spinner = false;
         }
       );
   }
