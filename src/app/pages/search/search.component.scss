@@ -13,6 +13,7 @@
 .vacancy{
   flex:1;
   display: flex;
+  display: -webkit-box;
   flex-direction: column;
   .container{
     flex:1;
