@@ -59,6 +59,7 @@ import { PrivacyComponent } from './pages/settings/privacy/privacy.component';
 import { RemoveAccountComponent } from './pages/settings/remove-account/remove-account.component';
 import { SearchComponent } from './pages/search/search.component';
 import { DetailsVacancyComponent } from './components/details-vacancy/details-vacancy.component';
+import { PipelineComponent } from './pages/pipeline/pipeline.component';
 
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -107,7 +108,8 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     PrivacyComponent,
     RemoveAccountComponent,
     SearchComponent,
-    DetailsVacancyComponent
+    DetailsVacancyComponent,
+    PipelineComponent
   ],
   imports: [
     RoutingModule,

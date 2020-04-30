@@ -20,6 +20,7 @@ import { ProfessionalBackgroundComponent } from '../pages/profile/professional-b
 import { DocumentComponent } from '../pages/profile/document/document.component';
 import { SettingsComponent } from '../pages/settings/settings.component';
 import { SearchComponent } from '../pages/search/search.component';
+import { PipelineComponent } from '../pages/pipeline/pipeline.component';
 
 
 
@@ -44,6 +45,7 @@ const routes: Route[] = [
   { path: '', redirectTo: '/home', pathMatch: 'full', canActivate: [AuthGuard] },
   { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
   { path: 'search', component: SearchComponent, canActivate: [AuthGuard] },
+  { path: 'pipeline', component: PipelineComponent, canActivate: [AuthGuard] },
   { path: '**', component: NotFoundComponent }
 ];
 @NgModule({
