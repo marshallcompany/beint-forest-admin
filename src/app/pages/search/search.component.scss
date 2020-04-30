@@ -1,7 +1,8 @@
 @import "../../theme/variables.scss";
 
 .search{
-  min-height: 100vh;
+  min-height: 100%;
+  height: 100%;
   background-color: $primary;
   position: relative;
   padding:50px 0;
@@ -580,9 +581,8 @@
   .search{
     background-color: #f9f9f9;
     padding-top:0;
+    padding-bottom:0;
     padding-left:0;
-    min-height: inherit;
-    height: calc(100vh - 80px);
   }
   .no-vacancy{
     height:  calc(100vh - 270px);
