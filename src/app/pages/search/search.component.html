@@ -1,0 +1,440 @@
+<section
+  class="search"
+  #scrollToTop>
+  <div class="background">
+    <img
+      src="../assets/image/background-circle-01.png"
+      class="background__circle background__circle_01">
+    <img
+      src="../assets/image/background-circle-02.png"
+      class="background__circle background__circle_02">
+  </div>
+  <div class="search-header">
+    <div class="category-detail">
+      <div class="category-detail__icon">
+        <svg viewBox="0 0 24 25" xmlns="http://www.w3.org/2000/svg" class="category-detail__image">
+          <path d="M20.2238 11.9523C19.677 11.8191 19.1262 12.1523 18.9863 12.7019C18.4434 14.9523 17.0535 16.8585 15.073 18.0695C13.0926 19.2804 10.7621 19.6507 8.51172 19.1039C3.85938 17.9804 0.987892 13.2812 2.11055 8.62886C3.2332 3.98042 7.92813 1.10894 12.5852 2.22729C15.859 3.01792 18.4012 5.66284 19.0605 8.96636C19.1152 9.23198 19.2699 9.4605 19.4957 9.60972C19.7238 9.76128 19.998 9.81284 20.2582 9.75776C20.802 9.64683 21.1574 9.11401 21.052 8.56987C20.0816 3.62925 15.7238 0.0276856 10.6898 0.00541995L10.6305 0.00463867C7.78985 0.00581051 5.11953 1.11362 3.11133 3.123C1.10352 5.13315 -0.00156091 7.80425 1.65481e-06 10.6449C0.00273605 16.5039 4.77149 21.2726 10.6305 21.2757C15.5355 21.275 19.7824 17.9484 20.9582 13.1875C21.0965 12.6441 20.7668 12.0902 20.2238 11.9523Z" />
+          <path d="M23.707 22.2976L18.3672 16.9593C17.9781 16.5703 17.3422 16.5703 16.9531 16.9593C16.5633 17.3492 16.5633 17.9835 16.9531 18.3734L22.293 23.7117C22.482 23.9007 22.7336 24.0046 23 24.0046C23.2664 24.0046 23.518 23.9007 23.707 23.7117C23.8961 23.5234 24 23.2718 24 23.0046C24 22.7375 23.8961 22.4859 23.707 22.2976Z" />
+        </svg>
+      </div>
+      <p class="category-detail__label">
+        Search and Match
+    </p>
+    </div>
+  </div>
+  <div class="vacancy">
+    <div class="container">
+      <div class="vacancy-wrapper">
+        <div
+          class="no-vacancy"
+          *ngIf="noJobVacancy">
+          <img
+            src="../assets/image/search/no-vacancy.png"
+            class="no-vacancy__image">
+        </div>
+        <div
+          class="spinner"
+          *ngIf="spinner">
+          <img
+            src="../assets/image/spinner.svg"
+            class="spinner__icon">
+        </div>
+        <div
+          class="vacancy-accordion"
+          *ngFor="let vacancy of listJobVacancy; let index = index">
+          <mat-expansion-panel
+            (opened)="openGroup(i)"
+            (closed)="closeGroup(i)"
+            #mep="matExpansionPanel">
+            <mat-expansion-panel-header>
+              <!-- vacancy preview -->
+              <div class="vacancy-accordion-header">
+                <div class="vacancy-info">
+                  <button
+                    class="vacancy-info__link"
+                    *ngIf="!mep.expanded">
+                    <img src="../assets/image/link.svg">
+                  </button>
+                  <div class="vacancy-info__status"></div>
+                </div>
+                <img
+                  [src]="vacancy.companyLogo"
+                  *ngIf="vacancy?.companyLogo"
+                  class="vacancy-company-logo">
+                <svg viewBox="0 0 27 35" xmlns="http://www.w3.org/2000/svg" class="vacancy-company-logo default" *ngIf="!vacancy?.companyLogo">
+                  <path d="M13.4998 7.86743C10.8902 7.86743 8.43113 8.62392 6.37353 9.88473V0H0V21.4337C0 28.9481 6.07242 35 13.4998 35C20.9273 35 26.9997 28.8977 26.9997 21.4337C27.0499 13.9193 20.9775 7.86743 13.4998 7.86743ZM13.4998 28.5951C9.58539 28.5951 6.37353 25.4179 6.37353 21.4337C6.37353 17.5 9.53521 14.2723 13.4998 14.2723C17.4645 14.2723 20.6262 17.4496 20.6262 21.4337C20.6262 25.3674 17.4645 28.5951 13.4998 28.5951Z" fill="#30BFAE"/>
+                </svg>
+                <p class="vacancy-company">
+                    <svg viewBox="0 0 115 106" xmlns="http://www.w3.org/2000/svg"><path d="M110.09 69.7008C112.539 69.7008 114.543 67.6967 114.543 65.2472V35.8538C114.543 26.0337 106.55 18.0396 96.7307 18.0396H77.56V12.25C77.56 5.50282 72.0604 0.00268555 65.3139 0.00268555H49.7502C43.0038 0.00268555 37.5042 5.50282 37.5042 12.25V18.0396H18.3557C8.53657 18.0396 0.543213 26.0337 0.543213 35.8538V87.7377C0.543213 97.5577 8.53657 105.552 18.3557 105.552H96.7307C106.55 105.552 114.543 97.5577 114.543 87.7377C114.543 85.2882 112.539 83.2841 110.09 83.2841C107.641 83.2841 105.637 85.2882 105.637 87.7377C105.637 92.6588 101.651 96.6448 96.7307 96.6448H18.3557C13.435 96.6448 9.44946 92.6588 9.44946 87.7377V56.1174H53.3127V62.7978C53.3127 65.2472 55.3167 67.2513 57.7659 67.2513C60.2151 67.2513 62.219 65.2472 62.219 62.7978V56.1174H105.637V65.2472C105.637 67.7189 107.641 69.7008 110.09 69.7008ZM46.4327 12.25C46.4327 10.4017 47.9245 8.90979 49.7725 8.90979H65.3362C67.1842 8.90979 68.676 10.4017 68.676 12.25V18.0396H46.4327V12.25ZM9.44946 47.2103V35.8538C9.44946 30.9326 13.435 26.9467 18.3557 26.9467H96.7307C101.651 26.9467 105.637 30.9326 105.637 35.8538V47.2103H9.44946Z" fill="#313131"/>
+                  </svg>
+                    <span class="vacancy-company__text">
+                      <span *ngIf="!vacancy?.companyName">-</span>
+                      {{ vacancy?.companyName }}
+                    </span>
+                </p>
+                <p class="vacancy-date">
+                    <span *ngIf="!vacancy?.activationDate">-</span>
+                    {{ vacancy?.activationDate | date: 'dd.MM.yyyy' }}
+                </p>
+                <p class="vacancy-name">
+                    <span *ngIf="!vacancy?.jobTitle">-</span>
+                    {{ vacancy?.jobTitle }}
+                </p>
+                <p
+                  class="vacancy-place"
+                  *ngIf="!mep.expanded">
+                    <svg viewBox="0 0 17 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.5 3.125C5.81122 3.125 3.62195 5.31641 3.62195 8.00781C3.62195 10.6992 5.81122 12.8906 8.5 12.8906C8.95268 12.8906 9.40537 12.8281 9.83854 12.7031C10.2522 12.5859 10.4941 12.1523 10.3771 11.7383C10.26 11.3242 9.82683 11.082 9.41317 11.1992C9.12049 11.2812 8.8122 11.3242 8.5039 11.3242C6.67366 11.3242 5.18683 9.83594 5.18683 8.00391C5.18683 6.17187 6.67366 4.68359 8.5039 4.68359C10.3341 4.68359 11.821 6.17187 11.821 8.00391C11.821 8.32812 11.7741 8.65234 11.6805 8.96094C11.5556 9.375 11.7898 9.80859 12.2034 9.93359C12.6171 10.0586 13.0502 9.82422 13.1751 9.41016C13.3117 8.95703 13.382 8.48438 13.382 8.00391C13.378 5.31641 11.1888 3.125 8.5 3.125Z" fill="#313131"/><path d="M14.1546 2.34375C12.6444 0.832031 10.6346 0 8.5 0C6.36537 0 4.35561 0.832031 2.84537 2.34375C1.33512 3.85156 0.503902 5.86328 0.5 8C0.5 9.55859 0.933171 11.0156 1.81902 12.4648C2.5878 13.7188 3.58683 14.8125 4.64049 15.9727C5.67463 17.1094 6.74781 18.2812 7.60244 19.6367C7.74683 19.8633 7.99268 20 8.26195 20H8.73024C8.99951 20 9.24537 19.8633 9.38976 19.6367C10.2444 18.2812 11.3176 17.1094 12.3517 15.9727C13.4093 14.8164 14.4044 13.7188 15.1732 12.4648C16.0668 11.0156 16.5 9.55859 16.5 8C16.4961 5.86328 15.6649 3.85156 14.1546 2.34375ZM11.2044 14.918C10.2834 15.9258 9.33512 16.9648 8.5 18.1602C7.66488 16.9648 6.71659 15.9258 5.79561 14.918C3.79366 12.7227 2.06488 10.8281 2.06098 8C2.06488 4.44922 4.95268 1.5625 8.5 1.5625C12.0473 1.5625 14.9351 4.44922 14.939 8C14.9351 10.8281 13.2063 12.7227 11.2044 14.918Z" fill="#313131"/>
+                  </svg>
+                    <span class="vacancy-place__text">
+                      <span *ngIf="!vacancy?.place">-</span>
+                      {{ vacancy?.place }}
+                    </span>
+                </p>
+              </div>
+            </mat-expansion-panel-header>
+            <!-- vacancy details -->
+            <div class="actions">
+              <div class="actions-apply">
+                <button
+                  (click)="applyVacancy(vacancy.vacancyId)"
+                  class="actions-apply__button"
+                  [disabled]="!listCheckboxPrivacy[index].status">
+                  Jetzt bewerben
+                </button>
+                <div class="privacy-policy">
+                  <label class="checkbox-container">
+                    <input
+                      type="checkbox"
+                      [checked]="listCheckboxPrivacy[index].status"
+                      (change)="listCheckboxPrivacy[index].status = !listCheckboxPrivacy[index].status">
+                    <span class="checkmark"></span>
+                  </label>
+                  <p
+                    class="privacy-policy__text"
+                    [ngClass]="{'privacy-policy__text_red': !listCheckboxPrivacy[index].status }">
+                        <span
+                      class="privacy-policy__details"
+                      (click)="openPrivacyDialog()">Datenschutzbestimmungen</span>
+                      </p>
+                </div>
+              </div>
+              <a
+                [href]="vacancy.vacancyUrl"
+                target="_blank"
+                class="actions-link"
+                *ngIf="vacancy && vacancy.vacancyUrl">
+                <img
+                  src="../assets/image/link.svg"
+                  class="actions-link__icon">
+                <p class="actions-link__info">
+                      <span class="actions-link__text">Zur original Stellenanzeige</span>
+                      <span class="actions-link__url">{{ vacancy.vacancyUrl }}</span>
+                    </p>
+                <svg viewBox="0 0 9 13" xmlns="http://www.w3.org/2000/svg" class="actions-link__arrow">
+                  <path d="M7.87641 5.68912C8.42947 6.08825 8.42946 6.91175 7.8764 7.31088L1.5852 11.8512C0.923839 12.3285 -5.61949e-07 11.8559 -5.26297e-07 11.0403L-1.29373e-07 1.95972C-9.3722e-08 1.14411 0.923841 0.671534 1.58521 1.14883L7.87641 5.68912Z" fill="#434784"/>
+                </svg>
+              </a>
+            </div>
+            <div class="vacancy-accordion-body">
+              <div class="vacancy-accordion-info">
+                <div class="vacancy-info-item">
+                  <h3 class="vacancy-info-item__label">Ort</h3>
+                  <p class="vacancy-info-item__text">
+                      <span *ngIf="!vacancy?.place">-</span>
+                      <span
+                      class="vacancy-info-item__status"
+                      [ngClass]="{'empty' : !vacancy?.place }"></span>
+                      {{ vacancy?.place }}
+                    </p>
+                </div>
+                <div class="vacancy-info-item">
+                  <h3 class="vacancy-info-item__label">Zu besetzen ab</h3>
+                  <p class="vacancy-info-item__text">
+                      <span *ngIf="!vacancy?.occupyAt">-</span>
+                      <span
+                      class="vacancy-info-item__status"
+                      [ngClass]="{'empty' : !vacancy?.occupyAt }"></span>
+                      {{ vacancy?.occupyAt | date: 'dd.MM.yyyy' }}
+                    </p>
+                </div>
+                <div class="vacancy-info-item">
+                  <h3 class="vacancy-info-item__label">Branche</h3>
+                  <p class="vacancy-info-item__text">
+                      <span *ngIf="!vacancy?.industryBranch">-</span>
+                      <span
+                      class="vacancy-info-item__status"
+                      [ngClass]="{'empty' : !vacancy?.industryBranch }"></span>
+                      {{ vacancy?.industryBranch }}
+                    </p>
+                </div>
+                <div class="vacancy-info-item">
+                  <h3 class="vacancy-info-item__label">Geschäftsbereich</h3>
+                  <p class="vacancy-info-item__text">
+                      <span *ngIf="!vacancy?.businessArea">-</span>
+                      <span
+                      class="vacancy-info-item__status"
+                      [ngClass]="{'empty' : !vacancy?.businessArea }"></span>
+                      {{ vacancy?.businessArea }}
+                    </p>
+                </div>
+                <div class="vacancy-info-item">
+                  <h3 class="vacancy-info-item__label">Art der Anstellung</h3>
+                  <p class="vacancy-info-item__text">
+                      <span *ngIf="!vacancy?.employmentType">-</span>
+                      <span
+                      class="vacancy-info-item__status"
+                      [ngClass]="{'empty' : !vacancy?.employmentType }"></span>
+                      {{ vacancy?.employmentType }}
+                    </p>
+                </div>
+                <div class="vacancy-info-item">
+                  <h3 class="vacancy-info-item__label">Arbeitzeit</h3>
+                  <p class="vacancy-info-item__text">
+                      <span *ngIf="!vacancy?.workingHours">-</span>
+                      <span
+                      class="vacancy-info-item__status"
+                      [ngClass]="{'empty' : !vacancy?.workingHours }"></span>
+                      {{ vacancy?.workingHours }}
+                    </p>
+                </div>
+                <div class="vacancy-info-item">
+                  <h3 class="vacancy-info-item__label">Befristung</h3>
+                  <p class="vacancy-info-item__text">
+                      <span *ngIf="!vacancy">-</span>
+                      <span *ngIf="vacancy && vacancy.timeLimit && !vacancy.timeLimit.isTimeLimited">Unbefristet</span>
+                      <span *ngIf="vacancy?.timeLimit.isTimeLimited && vacancy?.timeLimit.timeLimitUntil">
+                        {{ vacancy.timeLimit.timeLimitUntil | date: 'MM.dd.yyyy' }}
+                      </span>
+                      <span *ngIf="vacancy?.timeLimit.isTimeLimited && vacancy?.timeLimit.timeLimitInMonths">
+                        Befristet auf {{ vacancy.timeLimit.timeLimitInMonths }} Monate
+                      </span>
+                      <span
+                      class="vacancy-info-item__status"
+                      [ngClass]="{'empty' : !vacancy}"></span>
+                    </p>
+                </div>
+                <div class="vacancy-info-item">
+                  <h3 class="vacancy-info-item__label">Karrierelevel</h3>
+                  <p class="vacancy-info-item__text">
+                      <span *ngIf="!vacancy?.careerLevel">-</span>
+                      <span
+                      class="vacancy-info-item__status"
+                      [ngClass]="{'empty' : !vacancy?.careerLevel }"></span>
+                      {{ vacancy?.careerLevel }}
+                    </p>
+                </div>
+                <div class="vacancy-info-item">
+                  <h3 class="vacancy-info-item__label">Notwendige Berufserfahrung</h3>
+                  <p class="vacancy-info-item__text">
+                      <span *ngIf="!vacancy">-</span>
+                      <span *ngIf="vacancy && vacancy.workExperience && !vacancy.workExperience.isWorkExperienceRequired">Keine</span>
+                      <span *ngIf="vacancy?.workExperience.isWorkExperienceRequired">Mindestens {{ vacancy?.workExperience.workExperienceInYears }} Jahre</span>
+                      <span
+                      class="vacancy-info-item__status"
+                      [ngClass]="{'empty' : !vacancy }"></span>
+                    </p>
+                </div>
+                <div class="vacancy-info-item">
+                  <h3 class="vacancy-info-item__label">Notwendiger Abschluss</h3>
+                  <p class="vacancy-info-item__text">
+                      <span *ngIf="!vacancy?.typeOfDegree.typeOfDegree">-</span>
+                      {{ vacancy?.typeOfDegree.typeOfDegree }}
+                      <span *ngIf="vacancy?.typeOfDegree.isComparableDegreeType"> o. vglb.</span>
+                      <span
+                      class="vacancy-info-item__status"
+                      [ngClass]="{'empty' : !vacancy?.typeOfDegree.typeOfDegree }"></span>
+                    </p>
+                </div>
+                <div class="vacancy-info-item">
+                  <h3 class="vacancy-info-item__label">Geforderte Farchrichtung</h3>
+                  <p class="vacancy-info-item__text">
+                      <span *ngIf="!vacancy?.specialization.specialization">-</span>
+                      {{ vacancy?.specialization.specialization }}
+                      <span *ngIf="vacancy?.specialization.isComparableSpecialization"> o. vglb.</span>
+                      <span
+                      class="vacancy-info-item__status"
+                      [ngClass]="{'empty' : !vacancy?.specialization.specialization }"></span>
+                    </p>
+                </div>
+                <div class="vacancy-info-item">
+                  <h3 class="vacancy-info-item__label">Notwendige Reisebereitschaft</h3>
+                  <p class="vacancy-info-item__text">
+                      <span *ngIf="!vacancy?.travellingReady">-</span>
+                      {{ vacancy?.travellingReady }}
+                      <span
+                      class="vacancy-info-item__status"
+                      [ngClass]="{'empty' : !vacancy?.travellingReady }"></span>
+                    </p>
+                </div>
+                <div class="vacancy-info-item">
+                  <h3 class="vacancy-info-item__label">Führerschein</h3>
+                  <p class="vacancy-info-item__text">
+                      <span *ngIf="!vacancy?.driverLicenses || !vacancy?.driverLicenses.length">-</span>
+                      {{ vacancy?.driverLicenses }}
+                      <span
+                      class="vacancy-info-item__status"
+                      [ngClass]="{'empty' : !vacancy?.driverLicenses || !vacancy?.driverLicenses.length }"></span>
+                    </p>
+                </div>
+                <div class="vacancy-info-item options">
+                  <h3 class="vacancy-info-item__label">Top Skills</h3>
+                  <p
+                    class="vacancy-info-item__text"
+                    *ngIf="!vacancy?.topSkills || !vacancy?.topSkills.length">-</p>
+                  <div
+                    class="vacancy-skills-item top-skills"
+                    *ngFor="let topSkill of vacancy?.topSkills">
+                    <div class="vacancy-skills-item__status"></div>
+                    <p class="vacancy-skills-item__name">{{ topSkill }}</p>
+                  </div>
+                </div>
+                <div class="vacancy-info-item options">
+                  <h3 class="vacancy-info-item__label">Skills</h3>
+                  <p
+                    class="vacancy-info-item__text"
+                    *ngIf="!vacancy?.skills || !vacancy?.skills.length">-</p>
+                  <div
+                    class="vacancy-skills-item skills"
+                    *ngFor="let skill of vacancy?.skills">
+                    <div class="vacancy-skills-item__status"></div>
+                    <p class="vacancy-skills-item__name">{{ skill }}</p>
+                  </div>
+                </div>
+                <div class="vacancy-info-item options">
+                  <h3 class="vacancy-info-item__label">Sprachen</h3>
+                  <p
+                    class="vacancy-info-item__text"
+                    *ngIf="!vacancy?.languages || !vacancy?.languages.length">-</p>
+                  <div
+                    class="vacancy-skills-item language"
+                    *ngFor="let language of vacancy?.languages">
+                    <div class="vacancy-skills-item__status"></div>
+                    <p class="vacancy-skills-item__name">
+                        <span class="language-name">{{ language.language }}</span>
+                        <span class="language-level">{{ language.skillLevel }}</span>
+                      </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="actions">
+              <div class="actions-apply">
+                <button
+                  (click)="applyVacancy(vacancy.vacancyId)"
+                  class="actions-apply__button"
+                  [disabled]="!listCheckboxPrivacy[index].status">
+                  Jetzt bewerben
+                </button>
+                <div class="privacy-policy">
+                  <label class="checkbox-container">
+                    <input
+                      type="checkbox"
+                      [checked]="listCheckboxPrivacy[index].status"
+                      (change)="listCheckboxPrivacy[index].status = !listCheckboxPrivacy[index].status">
+                    <span class="checkmark"></span>
+                  </label>
+                  <p
+                    class="privacy-policy__text"
+                    [ngClass]="{'privacy-policy__text_red': !listCheckboxPrivacy[index].status }">
+                      Stimme den <br>
+                      <span
+                      class="privacy-policy__details"
+                      (click)="openPrivacyDialog()">Datenschutzbestimmungen</span>
+                      zu
+                  </p>
+                </div>
+              </div>
+              <a
+                [href]="vacancy.vacancyUrl"
+                target="_blank"
+                class="actions-link"
+                *ngIf="vacancy && vacancy.vacancyUrl">
+                <img
+                  src="../assets/image/link.svg"
+                  class="actions-link__icon">
+                <p class="actions-link__info">
+                      <span class="actions-link__text">Zur original Stellenanzeige</span>
+                      <span class="actions-link__url">{{ vacancy.vacancyUrl }}</span>
+                    </p>
+                <svg viewBox="0 0 9 13" xmlns="http://www.w3.org/2000/svg" class="actions-link__arrow">
+                  <path d="M7.87641 5.68912C8.42947 6.08825 8.42946 6.91175 7.8764 7.31088L1.5852 11.8512C0.923839 12.3285 -5.61949e-07 11.8559 -5.26297e-07 11.0403L-1.29373e-07 1.95972C-9.3722e-08 1.14411 0.923841 0.671534 1.58521 1.14883L7.87641 5.68912Z" fill="#434784"/>
+                </svg>
+              </a>
+            </div>
+          </mat-expansion-panel>
+          <!-- show vacancy button -->
+          <button
+            class="show-vacancy-button"
+            (click)="mep.expanded = !mep.expanded"
+            #i>
+            <svg viewBox="0 0 17 7" fill="none" xmlns="http://www.w3.org/2000/svg" class="show-vacancy-button__arrow">
+              <path d="M1 1L8.75862 6L16 1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+        <div
+          class="vacancy-tab"
+          *ngIf="listJobVacancy.length">
+          <div
+            class="vacancy-item"
+            *ngFor="let vacancy of listJobVacancy; let i = index"
+            (click)="selectedVacancy(i)"
+            [ngClass]="{'active': selectedIndex == i}">
+            <svg viewBox="0 0 9 24"xmlns="http://www.w3.org/2000/svg" class="vacancy-item__arrow">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M1.10162 23.8537C0.514221 23.5354 0.296067 22.8012 0.614355 22.2138L6.33939 11.6483L0.631776 1.81724C0.29634 1.23947 0.492792 0.499163 1.07056 0.163727C1.64834 -0.171709 2.38864 0.024744 2.72407 0.602516L8.77245 11.0205C8.98411 11.3851 8.99071 11.8336 8.78987 12.2042L2.7415 23.3664C2.42321 23.9538 1.68901 24.172 1.10162 23.8537Z" />
+            </svg>
+            <div class="vacancy-info">
+              <button class="vacancy-info__link">
+                <img src="../assets/image/link.svg">
+              </button>
+              <div class="vacancy-info__status"></div>
+              <p class="vacancy-info__date">
+                <span *ngIf="!vacancy?.activationDate">-</span>
+                {{ vacancy?.activationDate | date: 'dd.MM.yyyy' }}
+              </p>
+            </div>
+            <img
+              [src]="vacancy.companyLogo"
+              *ngIf="vacancy?.companyLogo"
+              class="vacancy-item__logo">
+            <svg viewBox="0 0 27 35" xmlns="http://www.w3.org/2000/svg" class="vacancy-item__logo default" *ngIf="!vacancy?.companyLogo">
+              <path d="M13.4998 7.86743C10.8902 7.86743 8.43113 8.62392 6.37353 9.88473V0H0V21.4337C0 28.9481 6.07242 35 13.4998 35C20.9273 35 26.9997 28.8977 26.9997 21.4337C27.0499 13.9193 20.9775 7.86743 13.4998 7.86743ZM13.4998 28.5951C9.58539 28.5951 6.37353 25.4179 6.37353 21.4337C6.37353 17.5 9.53521 14.2723 13.4998 14.2723C17.4645 14.2723 20.6262 17.4496 20.6262 21.4337C20.6262 25.3674 17.4645 28.5951 13.4998 28.5951Z" fill="#30BFAE"/>
+            </svg>
+            <p class="vacancy-item__name">
+                <span *ngIf="!vacancy?.jobTitle">-</span>
+                {{ vacancy?.jobTitle }}
+            </p>
+            <p class="vacancy-item__company">
+                <svg viewBox="0 0 115 106" xmlns="http://www.w3.org/2000/svg"><path d="M110.09 69.7008C112.539 69.7008 114.543 67.6967 114.543 65.2472V35.8538C114.543 26.0337 106.55 18.0396 96.7307 18.0396H77.56V12.25C77.56 5.50282 72.0604 0.00268555 65.3139 0.00268555H49.7502C43.0038 0.00268555 37.5042 5.50282 37.5042 12.25V18.0396H18.3557C8.53657 18.0396 0.543213 26.0337 0.543213 35.8538V87.7377C0.543213 97.5577 8.53657 105.552 18.3557 105.552H96.7307C106.55 105.552 114.543 97.5577 114.543 87.7377C114.543 85.2882 112.539 83.2841 110.09 83.2841C107.641 83.2841 105.637 85.2882 105.637 87.7377C105.637 92.6588 101.651 96.6448 96.7307 96.6448H18.3557C13.435 96.6448 9.44946 92.6588 9.44946 87.7377V56.1174H53.3127V62.7978C53.3127 65.2472 55.3167 67.2513 57.7659 67.2513C60.2151 67.2513 62.219 65.2472 62.219 62.7978V56.1174H105.637V65.2472C105.637 67.7189 107.641 69.7008 110.09 69.7008ZM46.4327 12.25C46.4327 10.4017 47.9245 8.90979 49.7725 8.90979H65.3362C67.1842 8.90979 68.676 10.4017 68.676 12.25V18.0396H46.4327V12.25ZM9.44946 47.2103V35.8538C9.44946 30.9326 13.435 26.9467 18.3557 26.9467H96.7307C101.651 26.9467 105.637 30.9326 105.637 35.8538V47.2103H9.44946Z" fill="#313131"/>
+              </svg>
+              <span class="vacancy-txt">
+                <span *ngIf="!vacancy?.companyName">-</span>
+                {{ vacancy?.companyName }}
+              </span>
+            </p>
+            <p class="vacancy-item__place">
+              <svg viewBox="0 0 17 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.5 3.125C5.81122 3.125 3.62195 5.31641 3.62195 8.00781C3.62195 10.6992 5.81122 12.8906 8.5 12.8906C8.95268 12.8906 9.40537 12.8281 9.83854 12.7031C10.2522 12.5859 10.4941 12.1523 10.3771 11.7383C10.26 11.3242 9.82683 11.082 9.41317 11.1992C9.12049 11.2812 8.8122 11.3242 8.5039 11.3242C6.67366 11.3242 5.18683 9.83594 5.18683 8.00391C5.18683 6.17187 6.67366 4.68359 8.5039 4.68359C10.3341 4.68359 11.821 6.17187 11.821 8.00391C11.821 8.32812 11.7741 8.65234 11.6805 8.96094C11.5556 9.375 11.7898 9.80859 12.2034 9.93359C12.6171 10.0586 13.0502 9.82422 13.1751 9.41016C13.3117 8.95703 13.382 8.48438 13.382 8.00391C13.378 5.31641 11.1888 3.125 8.5 3.125Z" fill="#313131"/><path d="M14.1546 2.34375C12.6444 0.832031 10.6346 0 8.5 0C6.36537 0 4.35561 0.832031 2.84537 2.34375C1.33512 3.85156 0.503902 5.86328 0.5 8C0.5 9.55859 0.933171 11.0156 1.81902 12.4648C2.5878 13.7188 3.58683 14.8125 4.64049 15.9727C5.67463 17.1094 6.74781 18.2812 7.60244 19.6367C7.74683 19.8633 7.99268 20 8.26195 20H8.73024C8.99951 20 9.24537 19.8633 9.38976 19.6367C10.2444 18.2812 11.3176 17.1094 12.3517 15.9727C13.4093 14.8164 14.4044 13.7188 15.1732 12.4648C16.0668 11.0156 16.5 9.55859 16.5 8C16.4961 5.86328 15.6649 3.85156 14.1546 2.34375ZM11.2044 14.918C10.2834 15.9258 9.33512 16.9648 8.5 18.1602C7.66488 16.9648 6.71659 15.9258 5.79561 14.918C3.79366 12.7227 2.06488 10.8281 2.06098 8C2.06488 4.44922 4.95268 1.5625 8.5 1.5625C12.0473 1.5625 14.9351 4.44922 14.939 8C14.9351 10.8281 13.2063 12.7227 11.2044 14.918Z" fill="#313131"/>
+              </svg>
+              <span class="vacancy-txt">
+                  <span *ngIf="!vacancy?.place">-</span>
+                  {{ vacancy?.place }}
+              </span>
+            </p>
+          </div>
+        </div>
+        <div
+          class="vacancy-details"
+          *ngIf="listJobVacancy.length">
+          <div
+            class="vacancy-details-item"
+            *ngIf="vacancyData">
+            <app-details-vacancy
+              [vacancyData]="vacancyData"
+              [newVacancyDesign]="true"></app-details-vacancy>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>

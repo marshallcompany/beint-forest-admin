@@ -13,11 +13,14 @@
   width:500px;
   position: relative;
   &__title{
-    margin-bottom:50px;
     font-size: 17px;
     text-align:center;
     font-family:$workSansBold;
     letter-spacing: .2px;
+    max-width: 280px;
+    width:100%;
+    margin:0 auto;
+    margin-bottom:50px;
   }
 }
 .modal-close-button{

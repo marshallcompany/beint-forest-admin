@@ -1,0 +1,54 @@
+@import "../../../theme/variables.scss";
+
+.remove-account{
+  position: relative;
+  min-height: 100%;
+  background-color:#ffffff;
+}
+.message-remove{
+  width:360px;
+  position: absolute;
+  left:50%;
+  top:50%;
+  transform: translate(-50%, -50%);
+  &__title{
+    font-size: 28px;
+    font-family: $workSansBold;
+    margin-bottom:60px;
+    text-align: center;
+    &_uppercase{
+      text-transform: uppercase;
+    }
+  }
+  &__button{
+    height:50px;
+    width:100%;
+    color:#ffffff;
+    font-size: 16px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    font-family: $workSansBold;
+    &_cancel{
+      background-color: $primary;
+      margin-bottom:20px;
+    }
+    &_confirm{
+      background-color: $blue;
+    }
+  }
+}
+@media screen and (max-width: 1200px) {
+  .message-remove{
+    &__title{
+      font-size: 20px;
+    }
+  }
+}
+@media screen and (max-width: 992px) {
+  .message-remove{
+    width:320px;
+    &__title{
+      font-size: 17px;
+    }
+  }
+}

@@ -57,4 +57,7 @@ export class ApplyThanksComponent implements OnInit {
     this.router.navigate(['/home']);
   }
 
+  public goToHistory = () => {
+    this.router.navigate(['/pipeline']);
+  }
 }

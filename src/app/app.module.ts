@@ -32,7 +32,6 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
-import { JobDescriptionComponent } from './pages/job-description/job-description.component';
 import { PersonalComponent } from './pages/profile/personal/personal.component';
 import { EducationComponent } from './pages/profile/education/education.component';
 import { OfferComponent } from './pages/offer/offer.component';
@@ -56,6 +55,11 @@ import { BottomNavigationComponent } from './components/bottom-navigation/bottom
 import { SettingsComponent } from './pages/settings/settings.component';
 import { FormLoginComponent } from './components/form-login/form-login.component';
 import { PrivacyPolicyComponent } from './components/modal/privacy-policy/privacy-policy.component';
+import { PrivacyComponent } from './pages/settings/privacy/privacy.component';
+import { RemoveAccountComponent } from './pages/settings/remove-account/remove-account.component';
+import { SearchComponent } from './pages/search/search.component';
+import { DetailsVacancyComponent } from './components/details-vacancy/details-vacancy.component';
+import { PipelineComponent } from './pages/pipeline/pipeline.component';
 
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -78,7 +82,6 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     LoginComponent,
     ProfileComponent,
     NotFoundComponent,
-    JobDescriptionComponent,
     HomeComponent,
     PersonalComponent,
     EducationComponent,
@@ -101,7 +104,12 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     BottomNavigationComponent,
     SettingsComponent,
     FormLoginComponent,
-    PrivacyPolicyComponent
+    PrivacyPolicyComponent,
+    PrivacyComponent,
+    RemoveAccountComponent,
+    SearchComponent,
+    DetailsVacancyComponent,
+    PipelineComponent
   ],
   imports: [
     RoutingModule,

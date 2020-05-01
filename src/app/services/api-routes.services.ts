@@ -31,11 +31,13 @@ export class ApiRoutesProvider {
   public readonly UPDATE_PROFILE_DOCUMENT: string;
   public readonly UPDATE_DOCUMENT: string;
   public readonly REMOVE_DOCUMENT: string;
+  public readonly REFRESH_TOKEN: string;
+  public readonly REMOVE_ACCOUNT: string;
+  public readonly GET_VACANCIES: string;
 
 
   constructor() {
     this.BASE_API_URL = environment.BASE_API_URL;
-
     this.LOGIN = `${this.BASE_API_URL}/api/v1/auth/signin`;
     this.PROFILE = `${this.BASE_API_URL}/api/v1/profile/`;
     this.JOB_VACANCIES = `${this.BASE_API_URL}/api/v1/job-vacancy/:id/job-applications`;
@@ -61,5 +63,8 @@ export class ApiRoutesProvider {
     this.UPDATE_PROFILE_DOCUMENT = `${this.BASE_API_URL}/api/v1/profile/documents`;
     this.UPDATE_DOCUMENT = `${this.BASE_API_URL}/api/v1/profile/documents/:id`;
     this.REMOVE_DOCUMENT = `${this.BASE_API_URL}/api/v1/profile/documents/:id`;
+    this.REFRESH_TOKEN = `${this.BASE_API_URL}/api/v1/auth/refresh/:refreshTokenId`;
+    this.REMOVE_ACCOUNT = `${this.BASE_API_URL}/api/v1/profile`;
+    this.GET_VACANCIES = `${this.BASE_API_URL}/api/v1/job-vacancy/all/?page=1&limit=100&title`;
   }
 }

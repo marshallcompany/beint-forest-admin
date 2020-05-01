@@ -31,8 +31,4 @@ export class BottomNavigationComponent implements OnInit {
       );
   }
 
-  public goToComponent = (name: string) => {
-    this.router.navigate([`${name}`]);
-  }
-
 }
