@@ -54,12 +54,12 @@ import { DocumentOptionModalComponent } from './components/modal/document-option
 import { BottomNavigationComponent } from './components/bottom-navigation/bottom-navigation.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { FormLoginComponent } from './components/form-login/form-login.component';
-import { PrivacyPolicyComponent } from './components/modal/privacy-policy/privacy-policy.component';
-import { PrivacyComponent } from './pages/settings/privacy/privacy.component';
+import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { RemoveAccountComponent } from './pages/settings/remove-account/remove-account.component';
 import { SearchComponent } from './pages/search/search.component';
 import { DetailsVacancyComponent } from './components/details-vacancy/details-vacancy.component';
 import { PipelineComponent } from './pages/pipeline/pipeline.component';
+import { TermsUseComponent } from './components/terms-use/terms-use.component';
 
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -105,11 +105,11 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     SettingsComponent,
     FormLoginComponent,
     PrivacyPolicyComponent,
-    PrivacyComponent,
     RemoveAccountComponent,
     SearchComponent,
     DetailsVacancyComponent,
-    PipelineComponent
+    PipelineComponent,
+    TermsUseComponent
   ],
   imports: [
     RoutingModule,
@@ -161,7 +161,8 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     DocumentOptionComponent,
     DocumentOptionModalComponent,
     FileRenameComponent,
-    PrivacyPolicyComponent
+    PrivacyPolicyComponent,
+    TermsUseComponent
   ]
 })
 export class AppModule { }

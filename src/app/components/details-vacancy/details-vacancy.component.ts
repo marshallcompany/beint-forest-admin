@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnChanges, SimpleChange } from '@angular/core';
-import { PrivacyPolicyComponent } from '../modal/privacy-policy/privacy-policy.component';
+import { PrivacyPolicyComponent } from '../privacy-policy/privacy-policy.component';
 import { MatDialog } from '@angular/material';
 import { GlobalErrorService } from 'src/app/services/global-error-service';
 import { ApplicationService } from 'src/app/services/application-service';

@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { ConfirmModalComponent } from 'src/app/components/modal/confirm/confirm-modal.component';
 import { MatDialog } from '@angular/material';
-import { PrivacyPolicyComponent } from 'src/app/components/modal/privacy-policy/privacy-policy.component';
+import { PrivacyPolicyComponent } from 'src/app/components/privacy-policy/privacy-policy.component';
 import { switchMap } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { TermsUseComponent } from 'src/app/components/terms-use/terms-use.component';
 
 interface Setting {
   icon: string;
@@ -30,7 +31,7 @@ export class SettingsComponent implements OnInit {
     this.setting = [
       { icon: '../assets/image/settings/icon-01.svg', label: 'Passwort ändern', class: 'setting-button' },
       { icon: '../assets/image/settings/icon-02.svg', label: 'Email Adresse ändern', class: 'setting-button' },
-      { icon: '../assets/image/settings/icon-03.svg', label: 'Nutzungsbedingungen', class: 'setting-button' },
+      { icon: '../assets/image/settings/icon-03.svg', label: 'Nutzungsbedingungen', class: 'setting-button', event: 'TermsUse' },
       { icon: '../assets/image/settings/icon-04.svg', label: 'Datenschutzbestimmungen', class: 'setting-button', event: 'privacyPolicy' },
       { icon: '../assets/image/settings/icon-05.svg', label: 'Support und Feedback', class: 'setting-button' },
       { icon: '../assets/image/settings/icon-06.svg', label: 'Benachrictigungen', class: 'setting-button' },
@@ -60,6 +61,11 @@ export class SettingsComponent implements OnInit {
       case 'removeAccount':
         if (window.innerWidth <= 768) {
           this.removeAccount();
+        }
+        break;
+      case 'TermsUse':
+        if (window.innerWidth <= 768) {
+          this.matDialog.open(TermsUseComponent, { panelClass: 'terms-use-dialog' });
         }
         break;
       default:

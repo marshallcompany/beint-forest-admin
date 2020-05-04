@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApplicationService } from 'src/app/services/application-service';
 import { map } from 'rxjs/operators';
-import { PrivacyPolicyComponent } from 'src/app/components/modal/privacy-policy/privacy-policy.component';
+import { PrivacyPolicyComponent } from 'src/app/components/privacy-policy/privacy-policy.component';
 import { MatDialog } from '@angular/material';
 import { GlobalErrorService } from 'src/app/services/global-error-service';
 import { Router } from '@angular/router';

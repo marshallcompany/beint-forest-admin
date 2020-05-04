@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Optional } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 
 @Component({
@@ -9,7 +9,7 @@ import { MatDialogRef } from '@angular/material';
 export class PrivacyPolicyComponent implements OnInit {
 
   constructor(
-    private matDialogRef: MatDialogRef<PrivacyPolicyComponent>
+    @Optional() private matDialogRef: MatDialogRef<PrivacyPolicyComponent>
   ) { }
 
   ngOnInit() {
