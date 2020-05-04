@@ -6,6 +6,7 @@ import { PrivacyPolicyComponent } from 'src/app/components/privacy-policy/privac
 import { switchMap } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { TermsUseComponent } from 'src/app/components/terms-use/terms-use.component';
+import { Router } from '@angular/router';
 
 interface Setting {
   icon: string;
@@ -26,12 +27,13 @@ export class SettingsComponent implements OnInit {
 
   constructor(
     public authService: AuthService,
+    public router: Router,
     private matDialog: MatDialog,
   ) {
     this.setting = [
-      { icon: '../assets/image/settings/icon-01.svg', label: 'Passwort ändern', class: 'setting-button' },
+      { icon: '../assets/image/settings/icon-01.svg', label: 'Passwort ändern', class: 'setting-button', event: 'password-reset' },
       { icon: '../assets/image/settings/icon-02.svg', label: 'Email Adresse ändern', class: 'setting-button' },
-      { icon: '../assets/image/settings/icon-03.svg', label: 'Nutzungsbedingungen', class: 'setting-button', event: 'TermsUse' },
+      { icon: '../assets/image/settings/icon-03.svg', label: 'Nutzungsbedingungen', class: 'setting-button', event: 'termsUse' },
       { icon: '../assets/image/settings/icon-04.svg', label: 'Datenschutzbestimmungen', class: 'setting-button', event: 'privacyPolicy' },
       { icon: '../assets/image/settings/icon-05.svg', label: 'Support und Feedback', class: 'setting-button' },
       { icon: '../assets/image/settings/icon-06.svg', label: 'Benachrictigungen', class: 'setting-button' },
@@ -63,9 +65,14 @@ export class SettingsComponent implements OnInit {
           this.removeAccount();
         }
         break;
-      case 'TermsUse':
+      case 'termsUse':
         if (window.innerWidth <= 768) {
           this.matDialog.open(TermsUseComponent, { panelClass: 'terms-use-dialog' });
+        }
+        break;
+      case 'password-reset':
+        if (window.innerWidth <= 768) {
+          this.router.navigate(['/settings/password-reset']);
         }
         break;
       default:

@@ -47,7 +47,7 @@ const routes: Route[] = [
   { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
   { path: 'search', component: SearchComponent, canActivate: [AuthGuard] },
   { path: 'pipeline', component: PipelineComponent, canActivate: [AuthGuard] },
-  { path: 'password-reset', component: PasswordResetComponent },
+  { path: 'settings/password-reset', component: PasswordResetComponent },
   { path: '**', component: NotFoundComponent }
 ];
 @NgModule({
