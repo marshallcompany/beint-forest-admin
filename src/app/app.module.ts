@@ -60,6 +60,7 @@ import { SearchComponent } from './pages/search/search.component';
 import { DetailsVacancyComponent } from './components/details-vacancy/details-vacancy.component';
 import { PipelineComponent } from './pages/pipeline/pipeline.component';
 import { TermsUseComponent } from './components/terms-use/terms-use.component';
+import { PasswordResetComponent } from './pages/password-reset/password-reset.component';
 
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -109,7 +110,8 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     SearchComponent,
     DetailsVacancyComponent,
     PipelineComponent,
-    TermsUseComponent
+    TermsUseComponent,
+    PasswordResetComponent
   ],
   imports: [
     RoutingModule,

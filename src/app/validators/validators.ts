@@ -1,4 +1,4 @@
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 
 export class FormValidators {
 
@@ -8,16 +8,33 @@ export class FormValidators {
         }
         return null;
     }
+
     static numberValidation(control: FormControl) {
         if (control && control.value !== null && (/\D/g).test(control.value)) {
             return { onlyNumbers: true };
         }
         return null;
     }
+
     static maxValueValidation(control: FormControl) {
         if (!control.value.match(/^([1-6]|[1-5](\.[0-9]{1}|.[0-9]{2}))$|^$/)) {
             return { maxValue: true };
         }
         return null;
+    }
+
+    static matchingPasswords(passwordKey: string, confirmPasswordKey: string) {
+        return (group: FormGroup) => {
+            const password = group.controls[passwordKey];
+            const confirmPassword = group.controls[confirmPasswordKey];
+
+            if (password.value !== confirmPassword.value) {
+                return {
+                    mismatchedPasswords: true
+                };
+            }
+            return null;
+        };
+
     }
 }

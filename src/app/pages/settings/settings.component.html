@@ -49,6 +49,7 @@
         <div
           class="setting-content-primary"
           *ngIf="selectedIndex">
+          <app-password-reset *ngIf="selectedIndex === 1"></app-password-reset>
           <app-terms-use *ngIf="selectedIndex === 3"></app-terms-use>
           <app-privacy-policy *ngIf="selectedIndex === 4"></app-privacy-policy>
           <app-remove-account
