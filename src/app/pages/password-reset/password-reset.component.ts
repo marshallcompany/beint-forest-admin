@@ -13,6 +13,7 @@ import { Location } from '@angular/common';
 export class PasswordResetComponent implements OnInit {
 
   public resetViaPasswordForm: FormGroup;
+  public resetViaEmailForm: FormGroup;
   public credentialsNotValid: boolean;
   public resetPasswordSuccessful: boolean;
   public oldPasswordShow = true;
@@ -35,6 +36,11 @@ export class PasswordResetComponent implements OnInit {
       newPassword: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', [Validators.required, Validators.minLength(8)]]
     }, this.initFormValidation());
+
+    this.resetViaEmailForm = this.fb.group({
+      email: ['', [Validators.required, FormValidators.emailValidator]]
+    });
+
   }
 
   ngOnInit() {

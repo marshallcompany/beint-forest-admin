@@ -7,8 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
+  public stateReset = {
+    email: false,
+    password: false
+  };
+
   constructor() { }
 
   ngOnInit() { }
 
+  public stateChanges = (value: object) => {
+    const key = Object.keys(value)[0];
+    this.stateReset[key] = value[key];
+  }
 }

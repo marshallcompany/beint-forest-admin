@@ -17,6 +17,7 @@ import { GlobalErrorService } from 'src/app/services/global-error-service';
 export class FormLoginComponent implements OnInit {
   @Input() titleStatus: boolean;
   @Output() loginChanges = new EventEmitter();
+  @Output() stateChanges = new EventEmitter();
 
   public validationError: any;
   public showPass: boolean;
@@ -81,4 +82,7 @@ export class FormLoginComponent implements OnInit {
     }
   }
 
+  public goToPasswordReset = () => {
+    this.stateChanges.emit({ password: true });
+  }
 }

@@ -10,7 +10,10 @@
     class="circle circle_03">
   <div class="container">
     <div class="login-wrapper">
-      <app-form-login></app-form-login>
+      <app-form-login
+        (stateChanges)="stateChanges($event)"
+        *ngIf="!stateReset.password && !stateReset.email"></app-form-login>
+      <app-password-reset *ngIf="stateReset.password"></app-password-reset>
     </div>
   </div>
 </section>

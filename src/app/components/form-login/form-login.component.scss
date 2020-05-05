@@ -106,8 +106,14 @@
 }
 .data-reset{
     margin:20px 0 30px 0;
+    display: flex;
+    justify-content: center;
+    span{
+        color:$blue;
+        font-size: 14px;
+        margin:0 5px;
+    }
     &__button{
-        width:100%;
         text-align:center;
         color:$blue;
         font-size: 14px;
