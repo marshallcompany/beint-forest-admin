@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { FormValidators } from 'src/app/validators/validators';
 import { AuthService } from 'src/app/services/auth.service';
+import { Location } from '@angular/common';
+
 
 @Component({
   selector: 'app-password-reset',
@@ -19,7 +21,8 @@ export class PasswordResetComponent implements OnInit {
 
   constructor(
     public fb: FormBuilder,
-    public authService: AuthService
+    public authService: AuthService,
+    private location: Location
   ) {
     this.credentialsNotValid = false;
     this.validationError = {
@@ -92,6 +95,15 @@ export class PasswordResetComponent implements OnInit {
         break;
       default:
         break;
+    }
+  }
+
+  public backRoute = () => {
+    this.location.back();
+  }
+  onResize(event) {
+    if (event.target.innerWidth >= 768) {
+      this.location.back();
     }
   }
 }
