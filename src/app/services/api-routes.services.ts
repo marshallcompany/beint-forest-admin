@@ -35,6 +35,7 @@ export class ApiRoutesProvider {
   public readonly REMOVE_ACCOUNT: string;
   public readonly GET_VACANCIES: string;
   public readonly UPDATE_PASSWORD: string;
+  public readonly UPDATE_PASSWORD_MAIL: string;
 
 
   constructor() {
@@ -68,5 +69,6 @@ export class ApiRoutesProvider {
     this.REMOVE_ACCOUNT = `${this.BASE_API_URL}/api/v1/profile`;
     this.GET_VACANCIES = `${this.BASE_API_URL}/api/v1/job-vacancy/all/?page=1&limit=100&title`;
     this.UPDATE_PASSWORD = `${this.BASE_API_URL}/api/v1/auth/password`;
+    this.UPDATE_PASSWORD_MAIL = `${this.BASE_API_URL}/api/v1/auth/password/reset`;
   }
 }

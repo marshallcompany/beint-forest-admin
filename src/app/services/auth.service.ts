@@ -45,6 +45,10 @@ export class AuthService {
     return this.http.patch<any>(this.apiRoutes.UPDATE_PASSWORD, passwords);
   }
 
+  public updateUserPasswordEmail = (email: object) => {
+    return this.http.post<any>(this.apiRoutes.UPDATE_PASSWORD_MAIL, email);
+  }
+
   public removeAccount = () => {
     return this.http.delete<any>(this.apiRoutes.REMOVE_ACCOUNT);
   }

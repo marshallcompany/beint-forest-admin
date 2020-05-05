@@ -27,6 +27,7 @@ export class PasswordResetComponent implements OnInit {
   ) {
     this.credentialsNotValid = false;
     this.validationError = {
+      email: false,
       password: false,
       newPassword: false,
       confirmPassword: false
@@ -79,13 +80,27 @@ export class PasswordResetComponent implements OnInit {
   }
 
   public resetViaEmailSubmit = () => {
-    this.resetPasswordSuccessful = true;
+    this.authService.updateUserPasswordEmail(this.resetViaEmailForm.value)
+      .pipe()
+      .subscribe(
+        res => {
+          console.log('res', res);
+          this.resetPasswordSuccessful = true;
+        },
+        err => {
+          console.log('err', err);
+        }
+      );
   }
 
   public triggerValidation(field: string) {
-    if (this.resetViaPasswordForm.get(field).value.length !== 0) {
+    if (this.resetViaPasswordForm.get(field) && this.resetViaPasswordForm.get(field).value.length !== 0) {
       this.validationError[field] = true;
     }
+    if (this.resetViaEmailForm.get(field) && this.resetViaEmailForm.get(field).value.length !== 0) {
+      this.validationError[field] = true;
+    }
+    return;
   }
 
   public hideCredentialsError = () => {
