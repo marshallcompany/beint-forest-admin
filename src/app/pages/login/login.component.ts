@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,12 +13,23 @@ export class LoginComponent implements OnInit {
     password: false
   };
 
-  constructor() { }
+  constructor(
+    public router: Router
+  ) { }
 
-  ngOnInit() { }
+  ngOnInit(
+
+  ) { }
 
   public stateChanges = (value: object) => {
     const key = Object.keys(value)[0];
     this.stateReset[key] = value[key];
+  }
+
+  public goToLogin = () => {
+    this.stateReset = {
+      email: false,
+      password: false
+    };
   }
 }

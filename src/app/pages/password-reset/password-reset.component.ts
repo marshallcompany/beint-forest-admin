@@ -78,6 +78,10 @@ export class PasswordResetComponent implements OnInit {
       );
   }
 
+  public resetViaEmailSubmit = () => {
+    this.resetPasswordSuccessful = true;
+  }
+
   public triggerValidation(field: string) {
     if (this.resetViaPasswordForm.get(field).value.length !== 0) {
       this.validationError[field] = true;
