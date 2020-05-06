@@ -1,5 +1,7 @@
 import { Component, OnInit, Optional } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
+import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-privacy-policy',
@@ -8,9 +10,16 @@ import { MatDialogRef } from '@angular/material';
 })
 export class PrivacyPolicyComponent implements OnInit {
 
+
+  public routerUrl: any;
+
   constructor(
-    @Optional() private matDialogRef: MatDialogRef<PrivacyPolicyComponent>
-  ) { }
+    @Optional() private matDialogRef: MatDialogRef<PrivacyPolicyComponent>,
+    public location: Location,
+    public router: Router,
+  ) {
+    this.routerUrl = this.router.url;
+  }
 
   ngOnInit() {
   }
@@ -18,4 +27,16 @@ export class PrivacyPolicyComponent implements OnInit {
   public closeDialog = () => {
     this.matDialogRef.close();
   }
+
+  public backRoute = () => {
+    this.location.back();
+  }
+
+
+  onResize(event) {
+    if (event.target.innerWidth >= 768) {
+      this.location.back();
+    }
+  }
+
 }

@@ -1,4 +1,28 @@
-<section class="terms-use">
+<div
+  class="category-header"
+  [ngClass]="{'show' : routerUrl.includes('/settings/terms-of-use')}">
+  <div class="category-detail">
+    <button
+      class="back"
+      (click)="backRoute()">
+      <svg viewBox="0 0 9 24" xmlns="http://www.w3.org/2000/svg" class="back__icon">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M7.83442 23.8537C8.42181 23.5354 8.63997 22.8012 8.32168 22.2138L2.59664 11.6483L8.30426 1.81724C8.6397 1.23947 8.44324 0.499163 7.86547 0.163727C7.2877 -0.171709 6.5474 0.024744 6.21196 0.602516L0.163582 11.0205C-0.0480747 11.3851 -0.0546751 11.8336 0.146161 12.2042L6.19454 23.3664C6.51283 23.9538 7.24703 24.172 7.83442 23.8537Z" />
+      </svg>
+
+    </button>
+    <div class="category-detail__icon">
+      <svg viewBox="0 0 20 24"  xmlns="http://www.w3.org/2000/svg" class="category-detail__image">
+        <path  d="M19.75 6.43359V24H0.25V0H13.3164L19.75 6.43359ZM13.75 6H17.1836L13.75 2.56641V6ZM18.25 22.5V7.5H13.75H12.25V6V1.5H1.75V22.5H18.25Z"/>
+      </svg>
+    </div>
+    <p class="category-detail__label">
+      Nutzungsbedingungen
+    </p>
+  </div>
+</div>
+<section
+  class="terms-use"
+  (window:resize)="onResize($event)">
   <div class="terms-use-header">
     <h2 class="terms-use-header__title">Nutzungsbedingungen</h2>
     <button

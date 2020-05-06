@@ -57,7 +57,7 @@ export class SettingsComponent implements OnInit {
         break;
       case 'privacyPolicy':
         if (window.innerWidth <= 768) {
-          this.matDialog.open(PrivacyPolicyComponent, { panelClass: 'privacy-policy-dialog' });
+          this.router.navigate(['/settings/privacy-policy']);
         }
         break;
       case 'removeAccount':
@@ -67,7 +67,7 @@ export class SettingsComponent implements OnInit {
         break;
       case 'termsUse':
         if (window.innerWidth <= 768) {
-          this.matDialog.open(TermsUseComponent, { panelClass: 'terms-use-dialog' });
+          this.router.navigate(['/settings/terms-of-use']);
         }
         break;
       case 'password-reset':

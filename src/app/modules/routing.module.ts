@@ -22,6 +22,8 @@ import { SettingsComponent } from '../pages/settings/settings.component';
 import { SearchComponent } from '../pages/search/search.component';
 import { PipelineComponent } from '../pages/pipeline/pipeline.component';
 import { PasswordResetComponent } from '../pages/password-reset/password-reset.component';
+import { TermsUseComponent } from '../components/terms-use/terms-use.component';
+import { PrivacyPolicyComponent } from '../components/privacy-policy/privacy-policy.component';
 
 
 
@@ -48,6 +50,8 @@ const routes: Route[] = [
   { path: 'search', component: SearchComponent, canActivate: [AuthGuard] },
   { path: 'pipeline', component: PipelineComponent, canActivate: [AuthGuard] },
   { path: 'settings/password-reset', component: PasswordResetComponent },
+  { path: 'settings/terms-of-use', component: TermsUseComponent },
+  { path: 'settings/privacy-policy', component: PrivacyPolicyComponent },
   { path: '**', component: NotFoundComponent }
 ];
 @NgModule({
