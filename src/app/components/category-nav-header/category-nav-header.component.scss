@@ -227,6 +227,9 @@
 @media screen and (max-width:414px){}
 @media screen and (max-width:375px){}
 @media screen and (max-width:360px){
+    .category-header{
+        height: 100px;
+    }
     .mobile-category-information{
         &__icon{
             height:40px;

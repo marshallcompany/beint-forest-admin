@@ -81,6 +81,12 @@
   </button>
 </form>
 <div class="data-reset">
-  <button class="data-reset__button">Email / Passwort vergessen</button>
+  <button class="data-reset__button data-reset__button_email">Email</button>
+  <span>/</span>
+  <button
+    class="data-reset__button data-reset__button_password"
+    (click)="goToPasswordReset()">
+    Passwort vergessen
+  </button>
 </div>
 <button class="create-account-button">Account erstellen</button>

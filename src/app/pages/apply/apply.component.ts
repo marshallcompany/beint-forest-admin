@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { ApplicationService } from 'src/app/services/application-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
-import { PrivacyPolicyComponent } from 'src/app/components/modal/privacy-policy/privacy-policy.component';
+import { PrivacyPolicyComponent } from 'src/app/components/privacy-policy/privacy-policy.component';
 import { GlobalErrorService } from 'src/app/services/global-error-service';
 
 @Component({

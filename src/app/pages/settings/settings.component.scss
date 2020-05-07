@@ -317,6 +317,9 @@
   }
 }
 @media screen and (max-width: 360px) {
+  .settings-header{
+    height: 100px;
+  }
   .category-detail{
     &__icon{
       height: 40px;

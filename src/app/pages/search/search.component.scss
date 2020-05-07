@@ -604,6 +604,9 @@
   }
 }
 @media screen and (max-width: 360px) {
+  .search-header{
+    height: 100px;
+  }
   .category-detail{
     &__icon{
       height: 40px;

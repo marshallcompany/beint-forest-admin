@@ -49,7 +49,9 @@
         <div
           class="setting-content-primary"
           *ngIf="selectedIndex">
-          <app-privacy *ngIf="selectedIndex === 4"></app-privacy>
+          <app-password-reset *ngIf="selectedIndex === 1"></app-password-reset>
+          <app-terms-use *ngIf="selectedIndex === 3"></app-terms-use>
+          <app-privacy-policy *ngIf="selectedIndex === 4"></app-privacy-policy>
           <app-remove-account
             *ngIf="selectedIndex === 8"
             (removeChanges)="removeAccountCancel($event)"></app-remove-account>
