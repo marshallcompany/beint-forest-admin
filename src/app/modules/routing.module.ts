@@ -24,6 +24,7 @@ import { PipelineComponent } from '../pages/pipeline/pipeline.component';
 import { PasswordResetComponent } from '../pages/password-reset/password-reset.component';
 import { TermsUseComponent } from '../components/terms-use/terms-use.component';
 import { PrivacyPolicyComponent } from '../components/privacy-policy/privacy-policy.component';
+import { MiscellaneousComponent } from '../pages/profile/miscellaneous/miscellaneous.component';
 
 
 
@@ -35,6 +36,7 @@ const profileChildren: Routes = [
   { path: 'search-settings', component: SearchSettingsComponent, canActivate: [AuthGuard] },
   { path: 'professional-background', component: ProfessionalBackgroundComponent, canActivate: [AuthGuard] },
   { path: 'document', component: DocumentComponent, canActivate: [AuthGuard] },
+  { path: 'miscellaneous', component: MiscellaneousComponent, canActivate: [AuthGuard]}
 ];
 
 const routes: Route[] = [

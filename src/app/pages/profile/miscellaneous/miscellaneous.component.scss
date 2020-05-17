@@ -1,0 +1,19 @@
+@import "../../../theme/variables.scss";
+.miscellaneous{
+    background-color:$primary;
+    position:relative;
+    min-height: 100vh;
+    overflow: auto;
+	  overflow-x: hidden;
+}
+.category-decor{
+    margin-bottom: 2vw;
+    &__image{
+        display: block;
+        width: 90%;
+        margin:0 auto;
+        &_mobile{
+            display: none;
+        }
+    }
+}

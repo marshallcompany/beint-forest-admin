@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { Location } from '@angular/common';
+
 
 interface RouterParams {
   routerName: string;
@@ -21,7 +21,6 @@ export class CategoryNavHeaderComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private location: Location
   ) {
     this.routers = [
       {
@@ -51,8 +50,8 @@ export class CategoryNavHeaderComponent implements OnInit {
       },
       {
         routerName: 'Sonstiges',
-        routerLink: '/',
-        routerActive: '---'
+        routerLink: '/profile/miscellaneous',
+        routerActive: 'active'
       },
       {
         routerName: 'Ich über mich',

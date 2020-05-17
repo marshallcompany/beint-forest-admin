@@ -61,6 +61,7 @@ import { DetailsVacancyComponent } from './components/details-vacancy/details-va
 import { PipelineComponent } from './pages/pipeline/pipeline.component';
 import { TermsUseComponent } from './components/terms-use/terms-use.component';
 import { PasswordResetComponent } from './pages/password-reset/password-reset.component';
+import { MiscellaneousComponent } from './pages/profile/miscellaneous/miscellaneous.component';
 
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -111,7 +112,8 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     DetailsVacancyComponent,
     PipelineComponent,
     TermsUseComponent,
-    PasswordResetComponent
+    PasswordResetComponent,
+    MiscellaneousComponent
   ],
   imports: [
     RoutingModule,
