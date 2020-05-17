@@ -4,7 +4,10 @@ import { Routes, RouterModule, Route } from '@angular/router';
 import { AuthGuard } from '../guards/auth.guard';
 import { WelcomeGuard } from '../guards/welcome.guard';
 
-import { LoginComponent } from '../pages/login/login.component';
+import { AuthComponent } from '../pages/auth/auth.component';
+import { LoginComponent } from '../pages/auth/login/login.component';
+import { PasswordResetComponent } from '../pages/auth/password-reset/password-reset.component';
+
 import { ProfileComponent } from '../pages/profile/profile.component';
 import { NotFoundComponent } from '../pages/not-found/not-found.component';
 import { HomeComponent } from '../pages/home/home.component';
@@ -21,10 +24,11 @@ import { DocumentComponent } from '../pages/profile/document/document.component'
 import { SettingsComponent } from '../pages/settings/settings.component';
 import { SearchComponent } from '../pages/search/search.component';
 import { PipelineComponent } from '../pages/pipeline/pipeline.component';
-import { PasswordResetComponent } from '../pages/password-reset/password-reset.component';
 import { TermsUseComponent } from '../components/terms-use/terms-use.component';
 import { PrivacyPolicyComponent } from '../components/privacy-policy/privacy-policy.component';
 import { MiscellaneousComponent } from '../pages/profile/miscellaneous/miscellaneous.component';
+
+
 
 
 
@@ -39,9 +43,14 @@ const profileChildren: Routes = [
   { path: 'miscellaneous', component: MiscellaneousComponent, canActivate: [AuthGuard]}
 ];
 
-const routes: Route[] = [
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard], children: profileChildren },
+const authChildren: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [WelcomeGuard] },
+  { path: 'password-reset', component: PasswordResetComponent, canActivate: [WelcomeGuard] },
+];
+
+const routes: Route[] = [
+  { path: 'auth', component: AuthComponent, canActivate: [WelcomeGuard], children: authChildren },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard], children: profileChildren },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'apply/:jobId/keep/:keep', component: ApplyComponent },
   { path: 'apply-thanks/:jobId/keep/:keep', component: ApplyThanksComponent },

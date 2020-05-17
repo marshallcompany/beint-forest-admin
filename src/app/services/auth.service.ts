@@ -65,7 +65,7 @@ export class AuthService {
     localStorage.removeItem(this.STORAGE_TOKEN_KEY);
     localStorage.removeItem(this.STORAGE_REFRESH_TOKEN);
     this.translatesService.initLanguage();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/auth/login']);
   }
 
 }

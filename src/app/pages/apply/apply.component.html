@@ -323,10 +323,10 @@
             </button>
           </div>
           <div class="login-wrapper">
-            <app-form-login
+            <app-login
               *ngIf="!authService.getAuthData()"
               (loginChanges)="dataRefresh()"
-              [titleStatus]="true"></app-form-login>
+              [titleStatus]="true"></app-login>
           </div>
           <div
             class="apply-vacancy"
