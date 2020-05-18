@@ -8,14 +8,136 @@
       class="background__circle background__circle_02">
   </div>
   <app-category-nav-header [navSettings]="navSettings"></app-category-nav-header>
-  <div class="category-decor">
+  <div class="category-decor" *ngIf="!accordionsStatus">
     <div class="container">
       <img
-        src="../assets/image/profile/personal/image-desktop.svg"
+        src="../assets/image/profile/education/image-desktop.svg"
         class="category-decor__image">
       <img
-        src="../assets/image/profile/personal/image-mobile.svg"
+        src="../assets/image/profile/education/image-mobile.svg"
         class="category-decor__image category-decor__image_mobile">
+    </div>
+  </div>
+    <div class="subcategory">
+    <div class="container">
+      <form
+        class="form"
+        [formGroup]="form"
+        *ngIf="form">
+        <div
+          class="subcategory-item"
+          formGroupName="miscellaneous">
+          <mat-expansion-panel
+            class="accordion"
+            (opened)="accordionsStatus = true"
+            (closed)="accordionsStatus = false"
+            #accordion01="matExpansionPanel">
+            <mat-expansion-panel-header>
+              <div class="subcategory-header">
+                <div class="subcategory-info">
+                  <img
+                    src="../assets/image/profile/miscellaneous/subcategory-01.svg"
+                    class="subcategory-info__icon">
+                  <p class="subcategory-info__label">Hobbys</p>
+                </div>
+                <img
+                  src="../assets/image/profile/accordion-arrow.svg"
+                  [ngClass]="{ 'accordion-active' : accordion01.expanded }"
+                  class="subcategory-header__arrow">
+              </div>
+            </mat-expansion-panel-header>
+            <ng-container formGroupName="hobbies">
+              <div class="subcategory-content subcategory-content_padding">
+                <div class="flex-grid flex-grid_start">
+                  <div
+                    class="field"
+                    [ngClass]="{notRelevant : this.form.get('miscellaneous').get('hobbies').get('isNotRelevant').value}">
+                    <p class="field__label">Deine Hobby</p>
+                    <div class="field-wrapper">
+                      <input
+                        type="text"
+                        maxlength="100"
+                        placeholder="Deine Hobby"
+                        class="field-wrapper__input"
+                        [formControl]="hobbiesControl"
+                        (change)="formArrayPush(hobbiesControl, hobbiesArray)">
+                      <div class="field-wrapper__type">abc</div>
+                      <div
+                        class="field-wrapper__status"
+                        [ngClass]="{invalid : !form.get('miscellaneous').get('hobbies').get('items').controls.length}"></div>
+                    </div>
+                    <div class="tags-wrapper">
+                        <div
+                          formArrayName="items"
+                          *ngFor="let item of form.get('miscellaneous').get('hobbies').get('items').controls; let i = index;"
+                          class="tags-wrapper__item">
+                          <p class="tags-wrapper__label">{{item.value}}</p>
+                          <button
+                            class="tags-wrapper__remove"
+                            (click)="singleDeleteTags(i, hobbiesArray, 'hobbies' )">
+                            <img src="../assets/image/close.svg">
+                          </button>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="not-relevant">
+                    <div class="not-relevant__item">
+                      <label class="checkbox-container">
+                        Für mich nicht relevant
+                        <input
+                          type="checkbox"
+                          class="not-relevant__checkbox"
+                          (change)="notRelevant('miscellaneous', 'hobbiesArray', 'hobbies')"
+                          formControlName="isNotRelevant">
+                        <span class="checkmark"></span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </mat-expansion-panel>
+          <div
+            class="subcategory-preview"
+            *ngIf="!accordion01.expanded && miscellaneousData">
+            <div class="subcategory-preview-item">
+              <ng-container *ngIf="form.get('miscellaneous').get('hobbies').get('items').valid; else notValid">
+                <div class="tags-wrapper">
+                  <div
+                    *ngFor="let item of form.get('miscellaneous').get('hobbies').get('items').controls; let i = index;"
+                    class="tags-wrapper__item">
+                    <p class="tags-wrapper__label">{{item.value}}</p>
+                    <button
+                      class="tags-wrapper__remove"
+                      (click)="singleDeleteTags(i, hobbiesArray, 'hobbies' )">
+                      <img src="../assets/image/close.svg">
+                    </button>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-template #notValid>
+                <div class="subcategory-preview-info">
+                  <p class="subcategory-preview-info__number">
+                    <span class="subcategory-preview-info__text" style="background-color: transparent;"></span>
+                  </p>
+                  <div class="subcategory-preview-info__details">
+                      <p
+                          class="subcategory-preview-info__invalid"
+                          *ngIf="!form.get('miscellaneous').get('hobbies').get('isNotRelevant').value; else notRelevant">
+                          Unvollständige Angaben
+                      </p>
+                      <ng-template #notRelevant>
+                        <p class="subcategory-preview-info__line">
+                          <span></span>
+                        </p>
+                      </ng-template>
+                  </div>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 </section>
