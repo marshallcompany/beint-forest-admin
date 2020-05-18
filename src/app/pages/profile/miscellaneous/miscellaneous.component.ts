@@ -5,6 +5,8 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { MatDialog, MatExpansionPanel } from '@angular/material';
 import { forkJoin, of, throwError } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
+import { ConfirmModalComponent } from 'src/app/components/modal/confirm/confirm-modal.component';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-miscellaneous',
@@ -27,6 +29,8 @@ export class MiscellaneousComponent implements OnInit {
   public accordionsStatus: boolean;
   public miscellaneousData: any;
   public dropdownOptions: any;
+  public currentDate = moment().toDate();
+  public previousDate = moment().add(-1, 'day').toDate();
 
   public form: FormGroup;
   public hobbiesControl = new FormControl(['']);
@@ -77,10 +81,18 @@ export class MiscellaneousComponent implements OnInit {
     return this.form.get('miscellaneous').get('hobbies').get('items') as FormArray;
   }
 
+  public get volunteeringArray(): FormArray {
+    return this.form.get('miscellaneous').get('volunteering').get('items') as FormArray;
+  }
+
   public formInit = () => {
     this.form = this.fb.group({
       miscellaneous: this.fb.group({
         hobbies: this.fb.group({
+          isNotRelevant: [false],
+          items: this.fb.array([], Validators.required)
+        }),
+        volunteering: this.fb.group({
           isNotRelevant: [false],
           items: this.fb.array([], Validators.required)
         })
@@ -104,33 +116,93 @@ export class MiscellaneousComponent implements OnInit {
 
   notRelevant(groupName: string, nameArray: string, nameCategory: string) {
     const isRelevant = this.form.get(groupName).get(nameCategory).get('isNotRelevant').value;
-    if (!isRelevant) {
+    if (!isRelevant && this[nameArray].length) {
       this[nameArray].reset();
       this.submit('Für mich nicht relevant');
       return;
     }
-    // this[nameArray].push(this.createFormGroup({}, nameCategory));
+    if (nameCategory !== 'hobbies') {
+      const length = this[nameArray].controls.length;
+      for (let i = 0; i < length; i++) {
+        this[nameArray].removeAt(0);
+      }
+      this[nameArray].push(this.createFormGroup({}, nameCategory));
+    }
     this.submit('Für mich nicht relevant');
   }
 
-  // public createFormGroup = (data: any, nameGroup: string): FormGroup => {
-  //   switch (nameGroup) {
-  //     case 'schools':
-  //       return this.fb.group({
-  //         schoolType: [data && data.schoolType ? data.schoolType : null, Validators.required],
-  //         schoolName: [data && data.schoolName ? data.schoolName : '', Validators.required],
-  //         dateStart: [data && data.dateStart ? data.dateStart : null, Validators.required],
-  //         dateEnd: [data && data.dateEnd ? data.dateEnd : null, Validators.required],
-  //         country: [data && data.country ? data.country : null, Validators.required],
-  //         place: [data && data.place ? data.place : null, Validators.required],
-  //         tilToday: [data && data.tilToday ? data.tilToday : false],
-  //         graduation: [data && data.graduation ? data.graduation : null, Validators.required],
-  //         grade: [data && data.grade ? data.grade : '', [Validators.required, FormValidators.maxValueValidation]]
-  //       });
-  //     default:
-  //       break;
-  //   }
-  // }
+  public setFormGroup = (status?: string) => {
+    const isNotRelevant = this.form.get('miscellaneous').get(status).get('isNotRelevant').value;
+    if (isNotRelevant) {
+      return;
+    }
+    this[`${status}Array`].push(this.createFormGroup({}, status));
+  }
+
+  public createFormGroup = (data: any, nameGroup: string): FormGroup => {
+    switch (nameGroup) {
+      case 'volunteering':
+        return this.fb.group({
+          dateFrom: [data && data.dateFrom ? data.dateFrom : null, Validators.required],
+          dateTo: [data && data.dateTo ? data.dateTo : '', Validators.required],
+          description: [data && data.description ? data.description : null, Validators.required],
+          institution: [data && data.institution ? data.institution : null, Validators.required],
+          volunteeringTitle: [data && data.volunteeringTitle ? data.volunteeringTitle : null, Validators.required],
+          tilToday: [data && data.tilToday ? data.tilToday : false],
+        });
+      default:
+        break;
+    }
+  }
+
+  setTodayDate(group: FormGroup) {
+    const isSet = group.get('tilToday').value;
+    if (isSet) {
+      group.get('dateTo').setValue(this.currentDate.toISOString());
+    }
+    this.submit('bis heute');
+  }
+
+  public deleteFormGroup = (nameArray: FormArray, index: number, formGroupName?: string) => {
+    const FormGroupValue = nameArray.at(index).value;
+    let FormGroupStatus = false;
+    Object.keys(FormGroupValue).forEach(key => {
+      if (FormGroupValue[key] && FormGroupValue[key].length > 0 && typeof (FormGroupValue[key]) !== 'boolean') {
+        FormGroupStatus = true;
+      }
+    });
+    if (FormGroupStatus) {
+      this.matDialog.open(ConfirmModalComponent, { panelClass: 'confirm-dialog' }).afterClosed()
+        .pipe(
+          switchMap(value => {
+            if (!value || value === undefined) {
+              return throwError('Cancel dialog');
+            }
+            return of(value);
+          })
+        )
+        .subscribe(
+          dialog => {
+            if (nameArray && formGroupName && nameArray.controls.length < 2) {
+              nameArray.removeAt(index);
+              nameArray.push(this.createFormGroup({}, formGroupName));
+              this.submit('');
+            } else {
+              nameArray.removeAt(index);
+              this.submit('');
+            }
+          },
+          err => console.log('[ DELETE ERROR ]', err)
+        );
+    } else {
+      if (nameArray && formGroupName && nameArray.controls.length < 2) {
+        nameArray.removeAt(index);
+        nameArray.push(this.createFormGroup({}, formGroupName));
+      } else {
+        nameArray.removeAt(index);
+      }
+    }
+  }
 
   public patchFormValue(miscellaneous) {
     this.form.patchValue({
@@ -138,11 +210,19 @@ export class MiscellaneousComponent implements OnInit {
         hobbies: {
           isNotRelevant: miscellaneous.hobbies && miscellaneous.hobbies.isNotRelevant ? miscellaneous.hobbies.isNotRelevant : false
         },
+        volunteering: {
+          isNotRelevant: miscellaneous.volunteering && miscellaneous.volunteering.isNotRelevant ? miscellaneous.volunteering.isNotRelevant : false
+        },
       }
     });
     if (miscellaneous.hobbies.items.length) {
       miscellaneous.hobbies.items.forEach(item => {
         this.hobbiesArray.push(this.fb.control(item));
+      });
+    }
+    if (miscellaneous.volunteering.items.length) {
+      miscellaneous.volunteering.items.forEach(item => {
+        this.volunteeringArray.push(this.createFormGroup(item, 'volunteering'));
       });
     }
   }
