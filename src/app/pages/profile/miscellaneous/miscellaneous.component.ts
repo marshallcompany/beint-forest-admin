@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
 import { ProfileService } from 'src/app/services/profile.service';
 import { NotificationService } from 'src/app/services/notification.service';
@@ -13,7 +13,7 @@ import * as moment from 'moment';
   templateUrl: './miscellaneous.component.html',
   styleUrls: ['./miscellaneous.component.scss']
 })
-export class MiscellaneousComponent implements OnInit {
+export class MiscellaneousComponent implements OnInit, AfterViewInit {
 
   @ViewChild('accordion01', { static: false }) accordion01: MatExpansionPanel;
   @ViewChild('accordion02', { static: false }) accordion02: MatExpansionPanel;
@@ -50,6 +50,10 @@ export class MiscellaneousComponent implements OnInit {
     this.formInit();
   }
 
+  ngAfterViewInit() {
+    this.onOpenAccordion();
+  }
+
   public init = () => {
     const profile$ = this.profileService.getProfile();
     // const dropdownOptions$ = this.profileService.getLocalBundle('de');
@@ -77,12 +81,35 @@ export class MiscellaneousComponent implements OnInit {
       });
   }
 
+  public onOpenAccordion() {
+    this.accordion02.opened
+      .subscribe(
+        ($event) => {
+          if (this.volunteeringArray.controls.length) {
+            return;
+          }
+          this.volunteeringArray.push(this.createFormGroup(null, 'volunteering'));
+        }),
+    this.accordion03.opened
+      .subscribe(
+        ($event) => {
+          if (this.publicationsArray.controls.length) {
+            return;
+          }
+          this.publicationsArray.push(this.createFormGroup(null, 'publications'));
+        });
+  }
+
   public get hobbiesArray(): FormArray {
     return this.form.get('miscellaneous').get('hobbies').get('items') as FormArray;
   }
 
   public get volunteeringArray(): FormArray {
     return this.form.get('miscellaneous').get('volunteering').get('items') as FormArray;
+  }
+
+  public get publicationsArray(): FormArray {
+    return this.form.get('miscellaneous').get('publications').get('items') as FormArray;
   }
 
   public formInit = () => {
@@ -93,6 +120,10 @@ export class MiscellaneousComponent implements OnInit {
           items: this.fb.array([], Validators.required)
         }),
         volunteering: this.fb.group({
+          isNotRelevant: [false],
+          items: this.fb.array([], Validators.required)
+        }),
+        publications: this.fb.group({
           isNotRelevant: [false],
           items: this.fb.array([], Validators.required)
         })
@@ -149,6 +180,14 @@ export class MiscellaneousComponent implements OnInit {
           institution: [data && data.institution ? data.institution : null, Validators.required],
           volunteeringTitle: [data && data.volunteeringTitle ? data.volunteeringTitle : null, Validators.required],
           tilToday: [data && data.tilToday ? data.tilToday : false],
+        });
+      case 'publications':
+        return this.fb.group({
+          publicationType: [data && data.publicationType ? data.publicationType : null, Validators.required],
+          link: [data && data.link ? data.link : '', Validators.required],
+          medium: [data && data.medium ? data.medium : null, Validators.required],
+          datePublished: [data && data.datePublished ? data.datePublished : null, Validators.required],
+          description: [data && data.description ? data.description : null, Validators.required],
         });
       default:
         break;
@@ -213,6 +252,9 @@ export class MiscellaneousComponent implements OnInit {
         volunteering: {
           isNotRelevant: miscellaneous.volunteering && miscellaneous.volunteering.isNotRelevant ? miscellaneous.volunteering.isNotRelevant : false
         },
+        publications: {
+          isNotRelevant: miscellaneous.publications && miscellaneous.publications.isNotRelevant ? miscellaneous.publications.isNotRelevant : false
+        }
       }
     });
     if (miscellaneous.hobbies.items.length) {
@@ -223,6 +265,11 @@ export class MiscellaneousComponent implements OnInit {
     if (miscellaneous.volunteering.items.length) {
       miscellaneous.volunteering.items.forEach(item => {
         this.volunteeringArray.push(this.createFormGroup(item, 'volunteering'));
+      });
+    }
+    if (miscellaneous.publications.items.length) {
+      miscellaneous.publications.items.forEach(item => {
+        this.publicationsArray.push(this.createFormGroup(item, 'publications'));
       });
     }
   }
