@@ -8,7 +8,7 @@
       class="background__circle background__circle_02">
   </div>
   <app-category-nav-header [navSettings]="navSettings"></app-category-nav-header>
-  <div class="category-decor" *ngIf="!accordionsStatus">
+  <div class="category-decor" *ngIf="accordionsStatus">
     <div class="container">
       <img
         src="../assets/image/profile/education/image-desktop.svg"
@@ -29,8 +29,8 @@
           formGroupName="miscellaneous">
           <mat-expansion-panel
             class="accordion"
-            (opened)="accordionsStatus = true"
-            (closed)="accordionsStatus = false"
+            (opened)="accordionChange('open')"
+            (closed)="accordionChange('close')"
             #accordion01="matExpansionPanel">
             <mat-expansion-panel-header>
               <div class="subcategory-header">
@@ -48,7 +48,7 @@
             </mat-expansion-panel-header>
             <ng-container formGroupName="hobbies">
               <div class="subcategory-content subcategory-content_padding">
-                <div class="flex-grid flex-grid_start">
+                <div class="flex-grid flex-grid_not-relevant">
                   <div
                     class="field"
                     [ngClass]="{notRelevant : this.form.get('miscellaneous').get('hobbies').get('isNotRelevant').value}">
@@ -142,8 +142,8 @@
           formGroupName="miscellaneous">
           <mat-expansion-panel
             class="accordion"
-            (opened)="accordionsStatus = true"
-            (closed)="accordionsStatus = false"
+            (opened)="accordionChange('open')"
+            (closed)="accordionChange('close')"
             #accordion02="matExpansionPanel">
             <mat-expansion-panel-header>
               <div class="subcategory-header">
@@ -370,13 +370,13 @@
             </div>
           </div>
         </div>
-         <div
+        <div
           class="subcategory-item"
           formGroupName="miscellaneous">
           <mat-expansion-panel
             class="accordion"
-            (opened)="accordionsStatus = true"
-            (closed)="accordionsStatus = false"
+            (opened)="accordionChange('open')"
+            (closed)="accordionChange('close')"
             #accordion03="matExpansionPanel">
             <mat-expansion-panel-header>
               <div class="subcategory-header">
@@ -467,6 +467,7 @@
                       <div class="field-wrapper">
                         <input
                           type="text"
+                          maxlength="5000"
                           placeholder="Link"
                           class="field-wrapper__input"
                           formControlName="link"
@@ -512,6 +513,7 @@
                     <p class="field__label">Beschreibung</p>
                     <div class="field-wrapper textarea">
                       <textarea
+                        maxlength="5000"
                         placeholder="Beschreibung"
                         class="field-wrapper__input"
                         rows="8"
@@ -566,6 +568,199 @@
                       <p
                           class="subcategory-preview-info__invalid"
                           *ngIf="!form.get('miscellaneous').get('publications').get('isNotRelevant').value; else notRelevant">
+                          Unvollständige Angaben
+                      </p>
+                      <ng-template #notRelevant>
+                        <p class="subcategory-preview-info__line">
+                          <span></span>
+                        </p>
+                      </ng-template>
+                  </div>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+        <div
+          class="subcategory-item"
+          formGroupName="miscellaneous">
+          <mat-expansion-panel
+            class="accordion"
+            (opened)="accordionChange('open')"
+            (closed)="accordionChange('close')"
+            #accordion04="matExpansionPanel">
+            <mat-expansion-panel-header>
+              <div class="subcategory-header">
+                <div class="subcategory-info">
+                  <img
+                    src="../assets/image/profile/miscellaneous/subcategory-04.svg"
+                    class="subcategory-info__icon">
+                  <p class="subcategory-info__label">Auszeichnung</p>
+                </div>
+                <img
+                  src="../assets/image/profile/accordion-arrow.svg"
+                  [ngClass]="{ 'accordion-active' : accordion04.expanded }"
+                  class="subcategory-header__arrow">
+              </div>
+            </mat-expansion-panel-header>
+            <ng-container formGroupName="awards">
+              <div class="not-relevant">
+                <div class="not-relevant__item">
+                  <label class="checkbox-container">
+                    Für mich nicht relevant
+                    <input
+                      type="checkbox"
+                      class="not-relevant__checkbox"
+                      (change)="notRelevant('miscellaneous', 'awardsArray', 'awards')"
+                      formControlName="isNotRelevant">
+                    <span class="checkmark"></span>
+                  </label>
+                </div>
+              </div>
+              <div
+                class="subcategory-content"
+                formArrayName="items">
+                <div
+                  class="flex-grid"
+                  *ngFor="let item of awardsArray.controls; let i = index"
+                  [formGroupName]="i">
+                  <div class="remove-fields">
+                    <button
+                      class="remove-fields__button"
+                      (click)="deleteFormGroup(awardsArray, i, 'awards')">
+                      <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" class="remove-fields__icon">
+                        <path d="M0.050293 0.050293L9.94979 9.94979M9.94979 0.050293L0.0502933 9.94979" stroke-width="2"
+                              stroke-linecap="round"/>
+                      </svg>
+                    </button>
+                  </div>
+                  <div class="field-group">
+                    <div
+                      class="field"
+                      [ngClass]="{notRelevant : this.form.get('miscellaneous').get('awards').get('isNotRelevant').value}">
+                      <p class="field__label">Auszeichung für</p>
+                      <div class="field-wrapper">
+                        <input
+                          type="text"
+                          maxlength="100"
+                          placeholder="Auszeichung für"
+                          class="field-wrapper__input"
+                          formControlName="awardFor"
+                          (change)="submit('Auszeichung für')">
+                        <div class="field-wrapper__type">abc</div>
+                        <div
+                          class="field-wrapper__status"
+                          [ngClass]="{invalid : !this.form.get('miscellaneous').get('awards').get('items').controls[i].get('awardFor').value}">
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="field"
+                      [ngClass]="{notRelevant : this.form.get('miscellaneous').get('awards').get('isNotRelevant').value}">
+                      <p class="field__label">Ausgezeichnet durch</p>
+                      <div class="field-wrapper">
+                        <input
+                          type="text"
+                          maxlength="200"
+                          placeholder="Ausgezeichnet durch"
+                          class="field-wrapper__input"
+                          formControlName="awardedBy"
+                          (change)="submit('Ausgezeichnet durch')">
+                        <div class="field-wrapper__type">abc</div>
+                        <div
+                          class="field-wrapper__status"
+                          [ngClass]="{invalid : !this.form.get('miscellaneous').get('awards').get('items').controls[i].get('awardedBy').value}"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="field field_textarea"
+                    [ngClass]="{notRelevant : this.form.get('miscellaneous').get('awards').get('isNotRelevant').value}">
+                    <p class="field__label">Beschreibung</p>
+                    <div class="field-wrapper textarea">
+                      <textarea
+                        maxlength="5000"
+                        placeholder="Beschreibung"
+                        class="field-wrapper__input"
+                        rows="8"
+                        formControlName="description"
+                        (change)="submit('Beschreibung')"></textarea>
+                      <div class="field-wrapper__type">abc</div>
+                      <div
+                        class="field-wrapper__status"
+                        [ngClass]="{invalid : !this.form.get('miscellaneous').get('awards').get('items').controls[i].get('description').value}"></div>
+                    </div>
+                  </div>
+                  <div
+                    class="field field_datapicker"
+                    [ngClass]="{notRelevant : this.form.get('miscellaneous').get('awards').get('isNotRelevant').value}">
+                    <p class="field__label">Datum der Veröffentlichung</p>
+                    <div
+                      class="field-wrapper"
+                      [owlDateTimeTrigger]="dt1">
+                      <input
+                        [owlDateTime]="dt1"
+                        [max]="currentDate"
+                        class="field-wrapper__input"
+                        formControlName="receivedAt"
+                        placeholder="DD/MM/YYYY"
+                        (dateTimeChange)="submit('Datum der Veröffentlichung')">
+                      <owl-date-time
+                        #dt1
+                        pickerMode="dialog"
+                        pickerType="calendar"
+                        panelClass="calendar"></owl-date-time>
+                      <div class="field-wrapper__type">
+                        <img src="../assets/image/calendar.svg">
+                      </div>
+                      <div
+                        class="field-wrapper__status"
+                        [ngClass]="{invalid : !this.form.get('miscellaneous').get('awards').get('items').controls[i].get('receivedAt').value}"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="add-fields">
+                  <button
+                    class="add-fields__button"
+                    (click)="setFormGroup('awards')">
+                    <img src="../assets/image/plus.svg">
+                  </button>
+                </div>
+              </div>
+            </ng-container>
+          </mat-expansion-panel>
+          <div
+            class="subcategory-preview"
+            *ngIf="!accordion04.expanded && miscellaneousData">
+            <div
+              class="subcategory-preview-item"
+              *ngFor="let item of form.get('miscellaneous').get('awards').get('items').controls; let i = index">
+              <ng-container *ngIf="item.valid; else notValid">
+                <div class="subcategory-preview-info">
+                  <p class="subcategory-preview-info__number">
+                    <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
+                  </p>
+                  <div class="subcategory-preview-info__details">
+                    <p class="subcategory-preview-info__species">{{ item.get('awardFor').value }}</p>
+                    <div class="subcategory-preview-info__circle"></div>
+                    <p class="subcategory-preview-info__date">{{ item.get('receivedAt').value | date: 'MM/yyyy' }}</p>
+                  </div>
+                </div>
+                <button
+                  class="subcategory-preview-item__remove"
+                  (click)="deleteFormGroup(awardsArray, i)">
+                  <img src="../assets/image/close.svg">
+                </button>
+              </ng-container>
+              <ng-template #notValid>
+                <div class="subcategory-preview-info">
+                  <p class="subcategory-preview-info__number">
+                    <span class="subcategory-preview-info__text" style="background-color: transparent;"></span>
+                  </p>
+                  <div class="subcategory-preview-info__details">
+                      <p
+                          class="subcategory-preview-info__invalid"
+                          *ngIf="!form.get('miscellaneous').get('awards').get('isNotRelevant').value; else notRelevant">
                           Unvollständige Angaben
                       </p>
                       <ng-template #notRelevant>

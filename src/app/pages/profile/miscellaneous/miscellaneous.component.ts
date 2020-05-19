@@ -18,6 +18,7 @@ export class MiscellaneousComponent implements OnInit, AfterViewInit {
   @ViewChild('accordion01', { static: false }) accordion01: MatExpansionPanel;
   @ViewChild('accordion02', { static: false }) accordion02: MatExpansionPanel;
   @ViewChild('accordion03', { static: false }) accordion03: MatExpansionPanel;
+  @ViewChild('accordion04', { static: false }) accordion04: MatExpansionPanel;
 
   public navSettings = {
     iconCategory: '../assets/image/profile/category-06.svg',
@@ -42,7 +43,7 @@ export class MiscellaneousComponent implements OnInit, AfterViewInit {
     private notificationService: NotificationService,
     private matDialog: MatDialog,
   ) {
-    this.accordionsStatus = false;
+    this.accordionsStatus = true;
   }
 
   ngOnInit(): void {
@@ -89,7 +90,7 @@ export class MiscellaneousComponent implements OnInit, AfterViewInit {
             return;
           }
           this.volunteeringArray.push(this.createFormGroup(null, 'volunteering'));
-        }),
+        });
     this.accordion03.opened
       .subscribe(
         ($event) => {
@@ -98,6 +99,27 @@ export class MiscellaneousComponent implements OnInit, AfterViewInit {
           }
           this.publicationsArray.push(this.createFormGroup(null, 'publications'));
         });
+    this.accordion04.opened
+      .subscribe(
+        ($event) => {
+          if (this.awardsArray.controls.length) {
+            return;
+          }
+          this.awardsArray.push(this.createFormGroup(null, 'awards'));
+        });
+  }
+
+  public accordionChange = (eventName: string) => {
+    if (eventName === 'open') {
+      if (this.accordion01.expanded || this.accordion02.expanded || this.accordion03.expanded || this.accordion04.expanded) {
+        this.accordionsStatus = false;
+      }
+    }
+    if (eventName === 'close') {
+      if (!this.accordion01.expanded && !this.accordion02.expanded && !this.accordion03.expanded && !this.accordion04.expanded) {
+        this.accordionsStatus = true;
+      }
+    }
   }
 
   public get hobbiesArray(): FormArray {
@@ -112,6 +134,10 @@ export class MiscellaneousComponent implements OnInit, AfterViewInit {
     return this.form.get('miscellaneous').get('publications').get('items') as FormArray;
   }
 
+  public get awardsArray(): FormArray {
+    return this.form.get('miscellaneous').get('awards').get('items') as FormArray;
+  }
+
   public formInit = () => {
     this.form = this.fb.group({
       miscellaneous: this.fb.group({
@@ -124,6 +150,10 @@ export class MiscellaneousComponent implements OnInit, AfterViewInit {
           items: this.fb.array([], Validators.required)
         }),
         publications: this.fb.group({
+          isNotRelevant: [false],
+          items: this.fb.array([], Validators.required)
+        }),
+        awards: this.fb.group({
           isNotRelevant: [false],
           items: this.fb.array([], Validators.required)
         })
@@ -188,6 +218,13 @@ export class MiscellaneousComponent implements OnInit, AfterViewInit {
           medium: [data && data.medium ? data.medium : null, Validators.required],
           datePublished: [data && data.datePublished ? data.datePublished : null, Validators.required],
           description: [data && data.description ? data.description : null, Validators.required],
+        });
+      case 'awards':
+        return this.fb.group({
+          awardFor: [data && data.awardFor ? data.awardFor : '', Validators.required],
+          awardedBy: [data && data.awardedBy ? data.awardedBy : '', Validators.required],
+          description: [data && data.description ? data.description : '', Validators.required],
+          receivedAt: [data && data.receivedAt ? data.receivedAt : null, Validators.required],
         });
       default:
         break;
@@ -254,6 +291,9 @@ export class MiscellaneousComponent implements OnInit, AfterViewInit {
         },
         publications: {
           isNotRelevant: miscellaneous.publications && miscellaneous.publications.isNotRelevant ? miscellaneous.publications.isNotRelevant : false
+        },
+        awards: {
+          isNotRelevant: miscellaneous.awards && miscellaneous.awards.isNotRelevant ? miscellaneous.awards.isNotRelevant : false
         }
       }
     });
@@ -270,6 +310,11 @@ export class MiscellaneousComponent implements OnInit, AfterViewInit {
     if (miscellaneous.publications.items.length) {
       miscellaneous.publications.items.forEach(item => {
         this.publicationsArray.push(this.createFormGroup(item, 'publications'));
+      });
+    }
+    if (miscellaneous.awards.items.length) {
+      miscellaneous.awards.items.forEach(item => {
+        this.awardsArray.push(this.createFormGroup(item, 'awards'));
       });
     }
   }
