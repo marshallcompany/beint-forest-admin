@@ -29,6 +29,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
   @ViewChild('accordion02', { static: false }) accordion02: MatExpansionPanel;
   @ViewChild('accordion03', { static: false }) accordion03: MatExpansionPanel;
   @ViewChild('accordion04', { static: false }) accordion04: MatExpansionPanel;
+  @ViewChild('accordion05', { static: false }) accordion05: MatExpansionPanel;
   @ViewChild('accordion06', { static: false }) accordion06: MatExpansionPanel;
 
   $countriesList: Observable<string[]>;
@@ -58,7 +59,9 @@ export class EducationComponent implements OnInit, AfterViewInit {
     private searchService: SearchService,
     private notificationService: NotificationService,
     private matDialog: MatDialog
-  ) { }
+  ) {
+    this.accordionsStatus = true;
+  }
 
   ngOnInit() {
     this.init();
@@ -466,14 +469,25 @@ export class EducationComponent implements OnInit, AfterViewInit {
   setTodayDate(group: FormGroup) {
     const isSet = group.get('tilToday').value;
     if (isSet) {
-      group.get('dateEnd').setValue(this.currentDate);
+      group.get('dateEnd').setValue(this.currentDate.toISOString());
     }
     this.submit('bis heute');
   }
 
-  public accordionChange = () => {
-    if (!this.accordion01.expanded) {
-      this.accordionsStatus = false;
+  public accordionChange = (eventName: string) => {
+    if (eventName === 'open') {
+      if (this.accordion01.expanded || this.accordion02.expanded
+          || this.accordion03.expanded || this.accordion04.expanded
+          || this.accordion05.expanded || this.accordion06.expanded) {
+        this.accordionsStatus = false;
+      }
+    }
+    if (eventName === 'close') {
+      if (!this.accordion01.expanded && !this.accordion02.expanded
+          && !this.accordion03.expanded && !this.accordion04.expanded
+          && !this.accordion05.expanded && !this.accordion06.expanded) {
+        this.accordionsStatus = true;
+      }
     }
   }
 

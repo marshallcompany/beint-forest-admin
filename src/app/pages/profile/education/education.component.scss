@@ -32,6 +32,9 @@
         }
     }
 }
+.subcategory{
+    margin-top: 50px;
+}
 .subcategory-item{
     margin-bottom:10px;
     border-radius: 10px;
@@ -48,6 +51,7 @@
   }
   .subcategory-header{
       width: 100%;
+      height: 110px;
       padding:30px 50px 30px 30px;
       display: flex;
       align-items:center;
@@ -449,6 +453,7 @@
         padding:0;
     }
     .subcategory-header{
+        height: 76px;
         &__arrow{
             height: 12px;
         }

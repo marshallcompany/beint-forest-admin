@@ -55,7 +55,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
     private notificationService: NotificationService,
     private matDialog: MatDialog,
   ) {
-    this.accordionsStatus = false;
+    this.accordionsStatus = true;
   }
 
   ngOnInit(): void {
@@ -243,14 +243,21 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
   setTodayDate(group: FormGroup) {
     const isSet = group.get('tilToday').value;
     if (isSet) {
-      group.get('dateEnd').setValue(this.currentDate.toDateString());
+      group.get('dateEnd').setValue(this.currentDate.toISOString());
     }
     this.submit('bis heute');
   }
 
-  public accordionChange = () => {
-    if (!this.accordion01.expanded || !this.accordion02.expanded || !this.accordion03.expanded) {
-      this.accordionsStatus = false;
+  public accordionChange = (eventName: string) => {
+    if (eventName === 'open') {
+      if (this.accordion01.expanded || this.accordion02.expanded || this.accordion03.expanded) {
+        this.accordionsStatus = false;
+      }
+    }
+    if (eventName === 'close') {
+      if (!this.accordion01.expanded && !this.accordion02.expanded && !this.accordion03.expanded) {
+        this.accordionsStatus = true;
+      }
     }
   }
 
