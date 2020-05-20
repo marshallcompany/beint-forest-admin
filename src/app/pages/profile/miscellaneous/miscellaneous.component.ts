@@ -176,17 +176,11 @@ export class MiscellaneousComponent implements OnInit, AfterViewInit {
   }
 
   notRelevant(groupName: string, nameArray: string, nameCategory: string) {
-    const isRelevant = this.form.get(groupName).get(nameCategory).get('isNotRelevant').value;
-    if (!isRelevant && this[nameArray].length) {
-      this[nameArray].reset();
-      this.submit('Für mich nicht relevant');
-      return;
+    const length = this[nameArray].controls.length;
+    for (let i = 0; i < length; i++) {
+      this[nameArray].removeAt(0);
     }
     if (nameCategory !== 'hobbies') {
-      const length = this[nameArray].controls.length;
-      for (let i = 0; i < length; i++) {
-        this[nameArray].removeAt(0);
-      }
       this[nameArray].push(this.createFormGroup({}, nameCategory));
     }
     this.submit('Für mich nicht relevant');
