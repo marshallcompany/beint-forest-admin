@@ -10,7 +10,7 @@
   <app-category-nav-header [navSettings]="navSettings"></app-category-nav-header>
   <div
     class="category-decor"
-    *ngIf="accordionsStatus">
+    [ngClass]="{'category-decor_hide' : !accordionsStatus, 'category-decor_show': accordionsStatus}">
     <div class="container">
       <img
         src="../assets/image/profile/professional-background/image-desktop.svg"
