@@ -27,6 +27,7 @@ import { PipelineComponent } from '../pages/pipeline/pipeline.component';
 import { TermsUseComponent } from '../components/terms-use/terms-use.component';
 import { PrivacyPolicyComponent } from '../components/privacy-policy/privacy-policy.component';
 import { MiscellaneousComponent } from '../pages/profile/miscellaneous/miscellaneous.component';
+import { RegistrationComponent } from '../pages/auth/registration/registration.component';
 
 
 
@@ -46,6 +47,7 @@ const profileChildren: Routes = [
 const authChildren: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [WelcomeGuard] },
   { path: 'password-reset', component: PasswordResetComponent, canActivate: [WelcomeGuard] },
+  { path: 'registration', component: RegistrationComponent, canActivate: [WelcomeGuard] }
 ];
 
 const routes: Route[] = [

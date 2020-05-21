@@ -62,6 +62,7 @@ import { TermsUseComponent } from './components/terms-use/terms-use.component';
 import { PasswordResetComponent } from './pages/auth/password-reset/password-reset.component';
 import { MiscellaneousComponent } from './pages/profile/miscellaneous/miscellaneous.component';
 import { AuthComponent } from './pages/auth/auth.component';
+import { RegistrationComponent } from './pages/auth/registration/registration.component';
 
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -113,7 +114,8 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     TermsUseComponent,
     PasswordResetComponent,
     MiscellaneousComponent,
-    AuthComponent
+    AuthComponent,
+    RegistrationComponent
   ],
   imports: [
     RoutingModule,

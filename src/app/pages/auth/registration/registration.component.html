@@ -1,0 +1,214 @@
+<section class="registration">
+  <form
+      *ngIf="form"
+      [formGroup]="form"
+      (ngSubmit)="submit()">
+      <div class="step-form step-form_01" [ngClass]="{animation : lastStep}">
+        <h2 class="step-form__title">
+          Hi! Wie sind beint. <br>
+          Wir freuen uns dass du da bist!
+        </h2>
+        <h3 class="step-form__title-strong">
+          Mit beint wird Bewerben für dich <br>
+          zum Kinderspiel.
+        </h3>
+        <h3 class="step-form__subtitle">
+          Zu Beginn brauchen wir deine <br>
+          Log-in Daten
+        </h3>
+        <div class="form-item">
+          <p class="form-item__label">Email</p>
+          <div class="form-field">
+            <input
+              formControlName="email"
+              placeholder="Emailadresse"
+              type="email"
+              class="form-field__input">
+            <div class="form-field-type">
+              <p class="form-field-type__text">abc</p>
+            </div>
+          </div>
+          <div
+            class="error-box"
+            *ngIf="(form.get('email').touched || form.get('email').dirty) && form.get('email').invalid">
+            <p
+              class="error-box__text"
+              *ngIf="form.get('email').hasError('required')">{{ 'local_error.FIELD_REQUIRED' | translate }}</p>
+            <p
+              class="error-box__text"
+              *ngIf="form.get('email').hasError('invalidEmailAddress') && !form.get('email').hasError('required')">{{ 'local_error.INVALID_EMAIL' | translate }}</p>
+          </div>
+        </div>
+        <div class="form-item">
+          <p class="form-item__label">Passwort</p>
+          <div class="form-field">
+            <input
+              formControlName="password"
+              placeholder="Neues Passwort"
+              [type]="passwordShow ? 'password' : 'text'"
+              class="form-field__input">
+            <div class="form-field-type">
+              <p
+                class="form-field-type__text"
+                *ngIf="!form.get('password').value">abc</p>
+              <button
+                *ngIf="form.get('password').value && form.hasError('mismatchedPasswords')"
+                type="button"
+                class="show-pass-button"
+                (click)="showPassword('password')">
+                <img
+                  src="../assets/image/eye.svg"
+                  alt
+                  class="show-pass-button__icon">
+              </button>
+              <svg viewBox="0 0 19 13" xmlns="http://www.w3.org/2000/svg" class="form-field-type__valid" *ngIf="form.get('password').valid && !form.hasError('mismatchedPasswords')">
+                <path d="M6.88819 12.9157C6.67486 12.9157 6.47032 12.8317 6.31979 12.6802L0.235486 6.59545C-0.0784952 6.28239 -0.0784952 5.77309 0.235486 5.45911C0.549928 5.14467 1.05922 5.14559 1.37228 5.45911L6.88819 10.9755L17.6286 0.235486C17.9408 -0.0784952 18.4524 -0.0784952 18.7645 0.235486C19.0785 0.549467 19.0785 1.0583 18.7645 1.37228L7.45658 12.6802C7.3056 12.8317 7.10151 12.9157 6.88819 12.9157Z"/>
+              </svg>
+            </div>
+          </div>
+          <div
+            class="error-box"
+            *ngIf="(form.get('password').touched || form.get('password').dirty) && form.get('password').invalid">
+            <p
+              class="error-box__text"
+              *ngIf="form.get('password').hasError('required')">{{ 'local_error.FIELD_REQUIRED' | translate }}</p>
+            <p
+              class="error-box__text"
+              *ngIf="form.value.password && form.get('password').hasError('minlength')">{{ 'local_error.LENGTH_PASS' | translate }}</p>
+          </div>
+        </div>
+        <div class="form-item">
+          <p class="form-item__label">Wiederholung neues Passwort</p>
+          <div class="form-field">
+            <input
+              formControlName="confirmPassword"
+              [type]="confirmPasswordShow ? 'password' : 'text'"
+              placeholder="Wiederholung neues Passwort"
+              class="form-field__input">
+            <div class="form-field-type">
+              <p
+                class="form-field-type__text"
+                *ngIf="!form.get('confirmPassword').value">abc</p>
+              <button
+                *ngIf="form.get('confirmPassword').value && form.hasError('mismatchedPasswords')"
+                type="button"
+                class="show-pass-button"
+                (click)="showPassword('confirmPassword')">
+                <img
+                  src="../assets/image/eye.svg"
+                  alt
+                  class="show-pass-button__icon">
+              </button>
+              <svg viewBox="0 0 19 13" xmlns="http://www.w3.org/2000/svg" class="form-field-type__valid" *ngIf="form.get('confirmPassword').valid && !form.hasError('mismatchedPasswords')">
+                <path d="M6.88819 12.9157C6.67486 12.9157 6.47032 12.8317 6.31979 12.6802L0.235486 6.59545C-0.0784952 6.28239 -0.0784952 5.77309 0.235486 5.45911C0.549928 5.14467 1.05922 5.14559 1.37228 5.45911L6.88819 10.9755L17.6286 0.235486C17.9408 -0.0784952 18.4524 -0.0784952 18.7645 0.235486C19.0785 0.549467 19.0785 1.0583 18.7645 1.37228L7.45658 12.6802C7.3056 12.8317 7.10151 12.9157 6.88819 12.9157Z"/>
+              </svg>
+            </div>
+          </div>
+          <div
+            class="error-box"
+            *ngIf="(form.get('confirmPassword').touched || form.get('confirmPassword').dirty) && (form.get('confirmPassword').invalid || form.hasError('mismatchedPasswords'))">
+            <p
+              class="error-box__text"
+              *ngIf="form.get('confirmPassword').hasError('required')">{{ 'local_error.FIELD_REQUIRED' | translate }}</p>
+            <p
+              class="error-box__text"
+              *ngIf="form.value.confirmPassword && form.get('confirmPassword').hasError('minlength')">{{ 'local_error.LENGTH_PASS' | translate }}</p>
+            <p
+              class="error-box__text center"
+              *ngIf="form.get('password').valid && form.get('confirmPassword').valid && form.hasError('mismatchedPasswords')">
+            Dein beiden Paswörter stimmen nicht überein
+          </p>
+          </div>
+        </div>
+        <div class="steps-navigation">
+          <div class="privacy-policy">
+              <label class="checkbox-container">
+                <input
+                  type="checkbox"
+                  [formControl]="privacyPolicy">
+                <span class="checkmark"></span>
+              </label>
+              <p
+                class="privacy-policy__text"
+                [ngClass]="{'privacy-policy__text_red': !privacyPolicy.value }">
+                Stimme den <br>
+                <span
+                  class="privacy-policy__details"
+                  (click)="openPrivacyDialog()">Datenschutzbestimmungen</span>
+                zu
+              </p>
+          </div>
+          <button 
+            type="button" 
+            class="steps-navigation__button"
+            (click)="onChangeState()"
+            [disabled]="!form.get('email').valid || !form.get('password').valid || 
+                        !form.get('confirmPassword').valid || !privacyPolicy.value ||
+                        form.hasError('mismatchedPasswords')">
+            Weiter
+            <svg viewBox="0 0 21 15"  xmlns="http://www.w3.org/2000/svg">
+              <path d="M11.3109 13.8764C10.9118 14.4295 10.0883 14.4295 9.68912 13.8764L0.818707 1.58521C0.341408 0.923842 0.813982 0 1.62959 0H19.3704C20.186 0 20.6586 0.923841 20.1813 1.58521L11.3109 13.8764Z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="step-form step-form_02" [ngClass]="{animation : lastStep}">
+        <h3 class="step-form__subtitle">
+            Nun noch ein paar wenige <br> 
+            persönliche Angaben
+        </h3>
+        <div class="form-item">
+          <p class="form-item__label">Vorname</p>
+          <div class="form-field">
+            <input
+              placeholder="Vorname"
+              type="email"
+              class="form-field__input">
+            <div class="form-field-type">
+              <p class="form-field-type__text">abc</p>
+            </div>
+          </div>
+        </div>
+        <div class="form-item">
+          <p class="form-item__label">Nachname</p>
+          <div class="form-field">
+            <input
+              placeholder="Nachname"
+              type="email"
+              class="form-field__input">
+            <div class="form-field-type">
+              <p class="form-field-type__text">abc</p>
+            </div>
+          </div>
+        </div>
+        <div class="form-item">
+          <p class="form-item__label">Wohnort</p>
+          <div class="form-field">
+            <input
+              placeholder="Wohnort"
+              type="email"
+              class="form-field__input">
+            <div class="form-field-type">
+              <p class="form-field-type__text">abc</p>
+            </div>
+          </div>
+        </div>
+        <div class="form-item">
+          <p class="form-item__label">Geschlecht</p>
+          <div class="form-field">
+            <input
+              placeholder="Geschlecht"
+              type="email"
+              class="form-field__input">
+            <div class="form-field-type">
+              <p class="form-field-type__text">abc</p>
+            </div>
+          </div>
+        </div>
+        <br>
+        <br>
+        <button (click)="lastStep = false">prev</button>
+      </div>
+  </form>
+</section>
+
