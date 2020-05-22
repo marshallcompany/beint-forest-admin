@@ -13,13 +13,39 @@
   &__title-strong{
     font-size: 17px;
     text-align: center;
-    margin-bottom: 15px;
   }
   &__subtitle{
     font-size: 17px;
     font-weight: normal;
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
+  }
+}
+.steps{
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+.steps-item{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &__circle{
+    background-color: #ffffff;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    margin-bottom: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &__icon{
+    height: 30px;
+  }
+  &__text{
+    font-size: 10px;
+    text-align: center;
   }
 }
 .form-item{
@@ -42,6 +68,12 @@
     position: relative;
     display: flex;
     align-items: center;
+    &_select{
+      padding: 0;
+      ::ng-deep .ng-placeholder{
+        opacity: .8;
+      }
+    }
     &__input{
         width:100%;
         border:none;

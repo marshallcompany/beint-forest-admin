@@ -7,6 +7,7 @@ export class ApiRoutesProvider {
 
   public readonly BASE_API_URL: string;
   public readonly LOGIN: string;
+  public readonly REGISTRATION: string;
   public readonly PROFILE: string;
   public readonly JOB_VACANCIES: string;
   public readonly GET_JOB_DATA: string;
@@ -41,6 +42,7 @@ export class ApiRoutesProvider {
   constructor() {
     this.BASE_API_URL = environment.BASE_API_URL;
     this.LOGIN = `${this.BASE_API_URL}/api/v1/auth/signin`;
+    this.REGISTRATION = `${this.BASE_API_URL}/api/v1/auth/signup`;
     this.PROFILE = `${this.BASE_API_URL}/api/v1/profile/`;
     this.JOB_VACANCIES = `${this.BASE_API_URL}/api/v1/job-vacancy/:id/job-applications`;
     this.GET_JOB_DATA = `${this.BASE_API_URL}/api/v1/job-vacancy/:id`;

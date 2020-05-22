@@ -12,6 +12,32 @@
           Mit beint wird Bewerben für dich <br>
           zum Kinderspiel.
         </h3>
+        <div class="steps">
+          <div class="steps-item">
+            <div class="steps-item__circle">
+              <img class="steps-item__icon" src="../assets/image/registration/icon-01.svg" alt="">
+            </div>
+            <p class="steps-item__text">Registrieren</p>
+          </div>
+          <div class="steps-item">
+            <div class="steps-item__circle">
+              <img class="steps-item__icon" src="../assets/image/registration/icon-02.svg" alt="">
+            </div>
+            <p class="steps-item__text">
+              Profil <br>
+              vervollständigen
+            </p>
+          </div>
+          <div class="steps-item">
+            <div class="steps-item__circle">
+              <img class="steps-item__icon" src="../assets/image/registration/icon-03.svg" alt="">
+            </div>
+            <p class="steps-item__text">
+              Mit wenigen <br>
+              Klicks bewerben
+            </p>
+          </div>
+        </div>
         <h3 class="step-form__subtitle">
           Zu Beginn brauchen wir deine <br>
           Log-in Daten
@@ -161,6 +187,7 @@
           <p class="form-item__label">Vorname</p>
           <div class="form-field">
             <input
+              formControlName="firstName"
               placeholder="Vorname"
               type="email"
               class="form-field__input">
@@ -173,6 +200,7 @@
           <p class="form-item__label">Nachname</p>
           <div class="form-field">
             <input
+              formControlName="lastName"
               placeholder="Nachname"
               type="email"
               class="form-field__input">
@@ -185,6 +213,7 @@
           <p class="form-item__label">Wohnort</p>
           <div class="form-field">
             <input
+              formControlName="placeOfResidence"
               placeholder="Wohnort"
               type="email"
               class="form-field__input">
@@ -195,19 +224,29 @@
         </div>
         <div class="form-item">
           <p class="form-item__label">Geschlecht</p>
-          <div class="form-field">
-            <input
-              placeholder="Geschlecht"
-              type="email"
-              class="form-field__input">
-            <div class="form-field-type">
-              <p class="form-field-type__text">abc</p>
-            </div>
+          <div class="form-field form-field_select">
+            <ng-select
+                formControlName="gender"
+                [searchable]="false"
+                [clearable]="false"
+                placeholder="Geschlecht"
+                class="custom-select">
+                <ng-option [value]="'Männlich'">Männlich</ng-option>
+                <ng-option [value]="'Weiblich'">Weiblich</ng-option>
+            </ng-select>
           </div>
         </div>
-        <br>
-        <br>
-        <button (click)="lastStep = false">prev</button>
+        <div class="steps-navigation">
+          <button 
+            type="submit" 
+            class="steps-navigation__button"
+            [disabled]="!form.valid">
+            Registrierung abschließen
+            <svg viewBox="0 0 21 15"  xmlns="http://www.w3.org/2000/svg">
+              <path d="M11.3109 13.8764C10.9118 14.4295 10.0883 14.4295 9.68912 13.8764L0.818707 1.58521C0.341408 0.923842 0.813982 0 1.62959 0H19.3704C20.186 0 20.6586 0.923841 20.1813 1.58521L11.3109 13.8764Z"/>
+            </svg>
+          </button>
+        </div>
       </div>
   </form>
 </section>

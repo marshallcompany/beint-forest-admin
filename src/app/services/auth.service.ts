@@ -61,6 +61,10 @@ export class AuthService {
     return !!authData;
   }
 
+  public registration = (data: object) => {
+    return this.http.post<any>(this.apiRoutes.REGISTRATION, data);
+  }
+
   public logout = () => {
     localStorage.removeItem(this.STORAGE_TOKEN_KEY);
     localStorage.removeItem(this.STORAGE_REFRESH_TOKEN);
