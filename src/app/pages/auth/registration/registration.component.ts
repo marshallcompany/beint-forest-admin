@@ -14,6 +14,14 @@ import { GlobalErrorService } from 'src/app/services/global-error-service';
 export class RegistrationComponent implements OnInit {
 
   public form: FormGroup;
+  public validationError = {
+    email: false,
+    password: false,
+    confirmPassword: false,
+    firstName: false,
+    lastName: false,
+    placeOfResidence: false
+  };
 
   public privacyPolicy = new FormControl(false);
   public passwordShow = true;
@@ -72,6 +80,12 @@ export class RegistrationComponent implements OnInit {
 
   public onChangeState = () => {
     this.lastStep = !this.lastStep;
+  }
+
+  public triggerValidation(field: string) {
+    if (this.form.get(field).value.length !== 0) {
+      this.validationError[field] = true;
+    }
   }
 
   public submit = () => {

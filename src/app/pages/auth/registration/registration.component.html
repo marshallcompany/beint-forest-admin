@@ -46,6 +46,7 @@
           <p class="form-item__label">Email</p>
           <div class="form-field">
             <input
+              (blur)="triggerValidation('email')"
               formControlName="email"
               placeholder="Emailadresse"
               type="email"
@@ -56,7 +57,7 @@
           </div>
           <div
             class="error-box"
-            *ngIf="(form.get('email').touched || form.get('email').dirty) && form.get('email').invalid">
+            *ngIf="(form.get('email').touched || form.get('email').dirty) && form.get('email').invalid && validationError.email">
             <p
               class="error-box__text"
               *ngIf="form.get('email').hasError('required')">{{ 'local_error.FIELD_REQUIRED' | translate }}</p>
@@ -69,6 +70,7 @@
           <p class="form-item__label">Passwort</p>
           <div class="form-field">
             <input
+              (blur)="triggerValidation('password')"
               formControlName="password"
               placeholder="Neues Passwort"
               [type]="passwordShow ? 'password' : 'text'"
@@ -94,7 +96,7 @@
           </div>
           <div
             class="error-box"
-            *ngIf="(form.get('password').touched || form.get('password').dirty) && form.get('password').invalid">
+            *ngIf="(form.get('password').touched || form.get('password').dirty) && form.get('password').invalid && validationError.password">
             <p
               class="error-box__text"
               *ngIf="form.get('password').hasError('required')">{{ 'local_error.FIELD_REQUIRED' | translate }}</p>
@@ -107,6 +109,7 @@
           <p class="form-item__label">Wiederholung neues Passwort</p>
           <div class="form-field">
             <input
+              (blur)="triggerValidation('confirmPassword')"
               formControlName="confirmPassword"
               [type]="confirmPasswordShow ? 'password' : 'text'"
               placeholder="Wiederholung neues Passwort"
@@ -132,7 +135,7 @@
           </div>
           <div
             class="error-box"
-            *ngIf="(form.get('confirmPassword').touched || form.get('confirmPassword').dirty) && (form.get('confirmPassword').invalid || form.hasError('mismatchedPasswords'))">
+            *ngIf="(form.get('confirmPassword').touched || form.get('confirmPassword').dirty) && (form.get('confirmPassword').invalid || form.hasError('mismatchedPasswords')) && validationError.confirmPassword">
             <p
               class="error-box__text"
               *ngIf="form.get('confirmPassword').hasError('required')">{{ 'local_error.FIELD_REQUIRED' | translate }}</p>
@@ -187,39 +190,63 @@
           <p class="form-item__label">Vorname</p>
           <div class="form-field">
             <input
+              (blur)="triggerValidation('firstName')"
               formControlName="firstName"
               placeholder="Vorname"
-              type="email"
+              type="text"
               class="form-field__input">
             <div class="form-field-type">
               <p class="form-field-type__text">abc</p>
             </div>
+          </div>
+          <div
+            class="error-box"
+            *ngIf="(form.get('firstName').touched || form.get('firstName').dirty) && form.get('firstName').invalid && validationError.firstName">
+            <p
+              class="error-box__text"
+              *ngIf="form.get('firstName').hasError('required')">{{ 'local_error.FIELD_REQUIRED' | translate }}</p>
           </div>
         </div>
         <div class="form-item">
           <p class="form-item__label">Nachname</p>
           <div class="form-field">
             <input
+              (blur)="triggerValidation('lastName')"
               formControlName="lastName"
               placeholder="Nachname"
-              type="email"
+              type="text"
               class="form-field__input">
             <div class="form-field-type">
               <p class="form-field-type__text">abc</p>
             </div>
+          </div>
+          <div
+            class="error-box"
+            *ngIf="(form.get('lastName').touched || form.get('lastName').dirty) && form.get('lastName').invalid && validationError.lastName">
+            <p
+              class="error-box__text"
+              *ngIf="form.get('lastName').hasError('required')">{{ 'local_error.FIELD_REQUIRED' | translate }}</p>
           </div>
         </div>
         <div class="form-item">
           <p class="form-item__label">Wohnort</p>
           <div class="form-field">
             <input
+              (blur)="triggerValidation('placeOfResidence')"
               formControlName="placeOfResidence"
               placeholder="Wohnort"
-              type="email"
+              type="text"
               class="form-field__input">
             <div class="form-field-type">
               <p class="form-field-type__text">abc</p>
             </div>
+          </div>
+          <div
+            class="error-box"
+            *ngIf="(form.get('placeOfResidence').touched || form.get('placeOfResidence').dirty) && form.get('placeOfResidence').invalid && validationError.placeOfResidence">
+            <p
+              class="error-box__text"
+              *ngIf="form.get('placeOfResidence').hasError('required')">{{ 'local_error.FIELD_REQUIRED' | translate }}</p>
           </div>
         </div>
         <div class="form-item">
@@ -234,6 +261,13 @@
                 <ng-option [value]="'Männlich'">Männlich</ng-option>
                 <ng-option [value]="'Weiblich'">Weiblich</ng-option>
             </ng-select>
+          </div>
+          <div
+            class="error-box"
+            *ngIf="(form.get('gender').touched || form.get('gender').dirty) && form.get('gender').invalid">
+            <p
+              class="error-box__text"
+              *ngIf="form.get('gender').hasError('required')">{{ 'local_error.FIELD_REQUIRED' | translate }}</p>
           </div>
         </div>
         <div class="steps-navigation">
