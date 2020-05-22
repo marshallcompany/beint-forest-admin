@@ -18,6 +18,7 @@ export class RegistrationComponent implements OnInit {
   public privacyPolicy = new FormControl(false);
   public passwordShow = true;
   public confirmPasswordShow = true;
+  public registrationStatus = false;
   public lastStep = false;
 
   constructor(
