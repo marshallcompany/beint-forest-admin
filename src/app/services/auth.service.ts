@@ -68,6 +68,7 @@ export class AuthService {
   public logout = () => {
     localStorage.removeItem(this.STORAGE_TOKEN_KEY);
     localStorage.removeItem(this.STORAGE_REFRESH_TOKEN);
+    localStorage.removeItem('SHOW_CONFIRM_EMAIL');
     this.translatesService.initLanguage();
     this.router.navigate(['/auth/login']);
   }

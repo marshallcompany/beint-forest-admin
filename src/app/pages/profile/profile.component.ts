@@ -12,6 +12,7 @@ import { throwError, of, Observable, forkJoin } from 'rxjs';
 import { CropperComponent } from 'src/app/components/modal/cropper/cropper.component';
 import { UploadFileService } from 'src/app/services/upload-file.service';
 import { NotificationService } from 'src/app/services/notification.service';
+import { ConfirmEmailComponent } from 'src/app/components/modal/confirm-email/confirm-email.component';
 
 interface Category {
   name: string;
@@ -67,7 +68,20 @@ export class ProfileComponent implements OnInit {
 
   public init = () => {
     this.profileService.getProfile()
-      .pipe()
+      .pipe(
+        switchMap( data => {
+          if (!localStorage.getItem('SHOW_CONFIRM_EMAIL')) {
+            this.matDialog.open(ConfirmEmailComponent, { data: { firstName: data.profile.personal.firstName}, panelClass: 'confirm-email-dialog' }).afterClosed()
+              .pipe()
+              .subscribe(
+                res => {
+                  localStorage.setItem('SHOW_CONFIRM_EMAIL', 'true');
+                }
+              );
+          }
+          return of(data);
+        })
+      )
       .subscribe(
         res => {
           this.profileDate = res;
