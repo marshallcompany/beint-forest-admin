@@ -63,6 +63,7 @@ import { PasswordResetComponent } from './pages/auth/password-reset/password-res
 import { MiscellaneousComponent } from './pages/profile/miscellaneous/miscellaneous.component';
 import { AuthComponent } from './pages/auth/auth.component';
 import { RegistrationComponent } from './pages/auth/registration/registration.component';
+import { ConfirmEmailComponent } from './components/modal/confirm-email/confirm-email.component';
 
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -115,7 +116,8 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     PasswordResetComponent,
     MiscellaneousComponent,
     AuthComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    ConfirmEmailComponent
   ],
   imports: [
     RoutingModule,
@@ -168,7 +170,8 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     DocumentOptionModalComponent,
     FileRenameComponent,
     PrivacyPolicyComponent,
-    TermsUseComponent
+    TermsUseComponent,
+    ConfirmEmailComponent
   ]
 })
 export class AppModule { }

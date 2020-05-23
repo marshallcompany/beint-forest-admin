@@ -103,6 +103,7 @@ export class RegistrationComponent implements OnInit {
     .subscribe(
       res => {
         console.log('registration done', res);
+        this.registrationStatus = true;
       },
       error => {
         this.globalErrorService.handleError(error);

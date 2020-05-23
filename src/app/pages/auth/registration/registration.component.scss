@@ -231,9 +231,24 @@
 // successful registration
 
 .successful-registration{
+  transition: .5s ease-out all;
+  position: absolute;
+  left: 0;
+  top:0;
+  opacity: 0;
+  z-index: -100;
+  transform: scale(.5);
+  &.animation{
+    position: inherit;
+    left: inherit;
+    top:inherit;
+    z-index: inherit;
+    opacity: 1;
+    transform: scale(1);
+  }
   &__image{
     display: block;
-    height: 215px;
+    height: 300px;
     margin: 0 auto;
     margin-bottom: 50px;
   }
@@ -248,11 +263,15 @@
   &__subtitle{
     font-size: 17px;
     text-align: center;
+    br{
+      display: none;
+    }
   }
   &__text{
     font-size: 17px;
     text-align: center;
     margin-bottom: 40px;
+    line-height: 1.25;
   }
 }
 .confirm-email{
@@ -260,7 +279,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 15px 0;
+  padding: 15px 25px;
   border-top: 1px solid  rgba(152, 152, 152, 0.3);
   border-bottom: 1px solid rgba(152, 152, 152, 0.3);
   &__circle{
@@ -280,8 +299,8 @@
   }
   &__text{
     word-break: break-all;
-    width:180px;
     font-size: 12px;
+    line-height: 1.25;
   }
 }
 .start-beint-button{

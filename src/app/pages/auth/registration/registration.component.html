@@ -291,7 +291,7 @@
         </div>
       </div>
   </form>
-  <div class="successful-registration" *ngIf="registrationStatus">
+  <div class="successful-registration" [ngClass]="{animation: registrationStatus}">
       <img src="../assets/image/registration/suc.png" alt="" class="successful-registration__image">
       <h1 class="successful-registration__title">YEAH!</h1>
       <p class="successful-registration__subtitle">
