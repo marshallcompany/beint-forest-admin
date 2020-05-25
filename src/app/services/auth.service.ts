@@ -22,7 +22,7 @@ export class AuthService {
     this.STORAGE_REFRESH_TOKEN = 'REFRESH_TOKEN';
   }
 
-  private saveAuthData(authData) {
+  public saveAuthData(authData) {
     localStorage.setItem(this.STORAGE_TOKEN_KEY, authData.token);
     localStorage.setItem(this.STORAGE_REFRESH_TOKEN, authData.refreshToken);
   }

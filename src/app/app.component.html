@@ -62,10 +62,10 @@
       [ngClass]="routerClass">
       <div
         class="router-wrapper__item"
-        [ngClass]="{'router-padding' : authService.getAuthData() && !router.routerState.snapshot.url.includes('/keep')}">
+        [ngClass]="{'router-padding' : authService.getAuthData() && !router.routerState.snapshot.url.includes('/keep') && !router.routerState.snapshot.url.includes('/auth')}">
         <router-outlet></router-outlet>
       </div>
     </div>
-    <app-bottom-navigation *ngIf="!router.routerState.snapshot.url.includes('/keep')"></app-bottom-navigation>
+    <app-bottom-navigation *ngIf="!router.routerState.snapshot.url.includes('/keep') && !router.routerState.snapshot.url.includes('/auth')"></app-bottom-navigation>
   </mat-sidenav-content>
 </mat-sidenav-container>

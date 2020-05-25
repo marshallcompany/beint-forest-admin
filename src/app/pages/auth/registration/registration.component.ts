@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { FormValidators } from 'src/app/validators/validators';
 import { PrivacyPolicyComponent } from 'src/app/components/privacy-policy/privacy-policy.component';
 import { MatDialog } from '@angular/material';
 import { AuthService } from 'src/app/services/auth.service';
 import { GlobalErrorService } from 'src/app/services/global-error-service';
+import { Router } from '@angular/router';
+
+
 
 @Component({
   selector: 'app-registration',
@@ -12,6 +15,8 @@ import { GlobalErrorService } from 'src/app/services/global-error-service';
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit {
+
+  @ViewChild('registration', { static: false }) registration;
 
   public form: FormGroup;
   public validationError = {
@@ -30,6 +35,7 @@ export class RegistrationComponent implements OnInit {
   public lastStep = false;
 
   constructor(
+    public router: Router,
     public fb: FormBuilder,
     public matDialog: MatDialog,
     private auth: AuthService,
@@ -80,6 +86,7 @@ export class RegistrationComponent implements OnInit {
 
   public onChangeState = () => {
     this.lastStep = !this.lastStep;
+    this.registration.nativeElement.scrollIntoView({ block: 'start', behavior: 'smooth' });
   }
 
   public triggerValidation(field: string) {
@@ -104,10 +111,18 @@ export class RegistrationComponent implements OnInit {
       res => {
         console.log('registration done', res);
         this.registrationStatus = true;
+        this.registration.nativeElement.scrollIntoView({ block: 'start', behavior: 'smooth' });
+        if (res.refreshToken && res.token) {
+          this.auth.saveAuthData(res);
+        }
       },
       error => {
         this.globalErrorService.handleError(error);
       }
     );
+  }
+
+  public onGoToRouter = (routerName: string) => {
+    this.router.navigate([routerName]);
   }
 }

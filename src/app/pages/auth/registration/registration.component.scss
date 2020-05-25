@@ -8,7 +8,7 @@
     font-size: 17px;
     font-weight: normal;
     text-align: center;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
   }
   &__title-strong{
     font-size: 17px;
@@ -72,6 +72,10 @@
       padding: 0;
       ::ng-deep .ng-placeholder{
         opacity: .8;
+        font-size: 17px!important;
+      }
+      ::ng-deep .ng-select .ng-select-container{
+        padding-left: 19px!important;
       }
     }
     &__input{
@@ -274,11 +278,13 @@
     line-height: 1.25;
   }
 }
-.confirm-email{
-  margin: 19px 0;
+.confirm-email-wrapper{
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.confirm-email{
+  margin: 19px 0;
   padding: 15px 25px;
   border-top: 1px solid  rgba(152, 152, 152, 0.3);
   border-bottom: 1px solid rgba(152, 152, 152, 0.3);
@@ -322,5 +328,48 @@
     fill: #ffffff;
     width: 15px;
     height: 12px;
+  }
+}
+@media screen and (max-width: 568px) {
+  .successful-registration{
+    &__image{
+      height: 215px;
+    }
+    &__subtitle{
+      br{
+        display: block;
+      }
+    }
+  }
+  .confirm-email{
+    padding: 15px 0;
+    display: flex;
+    justify-content: center;
+  }
+  .confirm-email-wrapper{
+    width:243px;
+
+  }
+}
+
+@media screen and (max-width: 414px) {
+  .steps-navigation{
+    &__button{
+      font-size: 14px;
+      svg{
+        right: 10px;
+      }
+    }
+  }
+  .successful-registration{
+    &__text{
+      font-size: 15px;
+    }
+  }
+  .start-beint-button{
+    font-size: 14px;
+    &__arrow{
+      right: 10px;
+    }
   }
 }
