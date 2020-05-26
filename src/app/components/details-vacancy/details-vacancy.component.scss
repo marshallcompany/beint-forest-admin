@@ -137,6 +137,49 @@
     text-transform: uppercase;
   }
 }
+// CONFIRM EMAIL
+.confirm-email{
+  display: flex;
+  align-items: center;
+  padding-top: 25px;
+  margin-bottom: 25px;
+  &__text{
+    width: 50%;
+    font-size: 14px;
+    color: $red;
+    text-align: center;
+  }
+}
+.action-confirm-email{
+  display: flex;
+  align-items: center;
+  width: 50%;
+  padding-left: 40px;
+  &__button{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #F9F9F9;
+    margin-right: 10px;
+    &_send{
+      .action-confirm-email__icon{
+        height: 20px;
+        width: 20px;
+        fill: $primary;
+      }
+    }
+    &_sent{
+      .action-confirm-email__icon{
+        height: 14px;
+        width: 20px;
+        fill: $primary;
+      }
+    }
+  }
+  &__text{
+    font-size: 17px;
+  }
+}
 // NEW VACANCY DESCRIPTION DESIGN
 .vacancy-info{
   position: absolute;
@@ -278,6 +321,13 @@
     }
   }
 }
+@media screen and (max-width: 1450px) {
+  .action-confirm-email{
+    &__text{
+      font-size: 16px;
+    }
+  }
+}
 @media screen and (max-width: 1200px) {
   .vacancy-header{
     &__logo{
@@ -290,6 +340,22 @@
       span{
         font-size: 15px;
       }
+    }
+  }
+  .confirm-email{
+    padding-top: 10px;
+    margin-bottom: 10px;
+    &__text{
+      font-size: 12px;
+    }
+  }
+  .action-confirm-email{
+    &__button{
+      width: 30px;
+      height: 30px;
+    }
+    &__text{
+      font-size: 12px;
     }
   }
   .vacancy-item{

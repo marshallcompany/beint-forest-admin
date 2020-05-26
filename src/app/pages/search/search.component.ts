@@ -21,6 +21,7 @@ export class SearchComponent implements OnInit {
   public vacancyData: object;
   public noJobVacancy: boolean;
   public spinner: boolean;
+  public confirmEmailStatus = false;
 
   constructor(
     public matDialog: MatDialog,

@@ -22,6 +22,7 @@ export class ApplyComponent implements OnInit {
   public privacyPolicy;
   public vacancyData;
   public jobId;
+  public confirmEmailStatus = false;
 
   constructor(
     public downloadFileService: DownloadFileService,

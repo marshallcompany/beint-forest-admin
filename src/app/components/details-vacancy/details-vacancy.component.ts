@@ -17,6 +17,7 @@ export class DetailsVacancyComponent implements OnInit, OnChanges {
   @Input() newVacancyDesign;
 
   public privacyPolicy;
+  public confirmEmailStatus = false;
 
   constructor(
     public matDialog: MatDialog,
