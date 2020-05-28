@@ -37,6 +37,7 @@ export class ApiRoutesProvider {
   public readonly GET_VACANCIES: string;
   public readonly UPDATE_PASSWORD: string;
   public readonly UPDATE_PASSWORD_MAIL: string;
+  public readonly RESEND_VERIFICATION_EMAIL: string;
 
 
   constructor() {
@@ -72,5 +73,6 @@ export class ApiRoutesProvider {
     this.GET_VACANCIES = `${this.BASE_API_URL}/api/v1/job-vacancy/all/?page=1&limit=100&title`;
     this.UPDATE_PASSWORD = `${this.BASE_API_URL}/api/v1/auth/password`;
     this.UPDATE_PASSWORD_MAIL = `${this.BASE_API_URL}/api/v1/auth/password/reset`;
+    this.RESEND_VERIFICATION_EMAIL = `${this.BASE_API_URL}/api/v1/auth/resend-verification-email`;
   }
 }

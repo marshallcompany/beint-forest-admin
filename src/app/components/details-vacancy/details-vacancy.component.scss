@@ -180,6 +180,17 @@
     font-size: 17px;
   }
 }
+.loading{
+  animation: loadingAnimation 1s linear infinite;
+}
+@keyframes loadingAnimation {
+  from {
+		transform: rotate(0deg);
+	}
+  to {
+	  transform: rotate(-359deg);
+	}
+}
 // NEW VACANCY DESCRIPTION DESIGN
 .vacancy-info{
   position: absolute;

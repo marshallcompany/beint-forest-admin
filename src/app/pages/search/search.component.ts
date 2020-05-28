@@ -1,10 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApplicationService } from 'src/app/services/application-service';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { PrivacyPolicyComponent } from 'src/app/components/privacy-policy/privacy-policy.component';
 import { MatDialog } from '@angular/material';
 import { GlobalErrorService } from 'src/app/services/global-error-service';
 import { Router } from '@angular/router';
+import { ProfileService } from 'src/app/services/profile.service';
+import { of, Observable, forkJoin } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
+
 
 @Component({
   selector: 'app-search',
@@ -17,17 +21,24 @@ export class SearchComponent implements OnInit {
 
   public listJobVacancy: Array<any>;
   public listCheckboxPrivacy: Array<any>;
-  public selectedIndex = 0;
-  public vacancyData: object;
-  public noJobVacancy: boolean;
+
   public spinner: boolean;
-  public confirmEmailStatus = false;
+  public noJobVacancy: boolean;
+  public selectedIndex = 0;
+
+  public vacancyData: object;
+  public profileData: object;
+
+  public resendEmailStatus = false;
+  public loadingStatus = false;
 
   constructor(
     public matDialog: MatDialog,
     public globalErrorService: GlobalErrorService,
     public router: Router,
-    public applicationService: ApplicationService
+    public applicationService: ApplicationService,
+    private profileService: ProfileService,
+    private auth: AuthService
   ) {
     this.listJobVacancy = [];
     this.listCheckboxPrivacy = [];
@@ -41,7 +52,14 @@ export class SearchComponent implements OnInit {
   public init = () => {
     this.applicationService.getAllJob()
       .pipe(
-        map(allJobVacancy => {
+        switchMap(allJobVacancy => {
+          const arr: Array<Observable<any>> = [
+            this.profileService.getProfile(),
+            of(allJobVacancy)
+          ];
+          return forkJoin(arr);
+        }),
+        map(([profileData, allJobVacancy]) => {
           if (allJobVacancy && allJobVacancy.data) {
             allJobVacancy.data.forEach(vacancy => {
               this.listJobVacancy.push(
@@ -86,16 +104,17 @@ export class SearchComponent implements OnInit {
                 }
               );
             });
-            return [this.listJobVacancy, allJobVacancy];
+            return [profileData, this.listJobVacancy];
           }
-          return allJobVacancy;
-        })
+          return [profileData, allJobVacancy];
+        }),
       )
       .subscribe(
-        res => {
-          console.log('[ ALL JOB VACANCY ]', res);
+        ([profileData, allJobVacancy]) => {
+          console.log('[ ALL JOB VACANCY ]', [profileData, allJobVacancy]);
           this.spinner = false;
           if (this.listJobVacancy && this.listJobVacancy.length) {
+            this.profileData = profileData;
             this.vacancyData = this.listJobVacancy[0];
             this.noJobVacancy = false;
             this.listJobVacancy.forEach(vacancy => {
@@ -129,6 +148,22 @@ export class SearchComponent implements OnInit {
           this.globalErrorService.handleError(err);
         },
         () => console.log('[ DONE APPLY JOB ]')
+      );
+  }
+
+  public resendEmail = () => {
+    this.loadingStatus = true;
+    this.auth.resendVerificationEmail()
+      .pipe()
+      .subscribe(
+        res => {
+          console.log('[ RESEND VERIFICATION EMAIL RESULT ]', res);
+          this.resendEmailStatus = !this.resendEmailStatus;
+          this.loadingStatus = false;
+        },
+        error => {
+          console.log('[ RESEND VERIFICATION EMAIL ERROR ]', error);
+        }
       );
   }
 

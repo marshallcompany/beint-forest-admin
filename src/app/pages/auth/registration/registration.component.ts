@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { FormValidators } from 'src/app/validators/validators';
 import { PrivacyPolicyComponent } from 'src/app/components/privacy-policy/privacy-policy.component';
@@ -15,8 +15,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit {
-
-  @ViewChild('registration', { static: false }) registration;
 
   public form: FormGroup;
   public validationError = {
@@ -86,7 +84,7 @@ export class RegistrationComponent implements OnInit {
 
   public onChangeState = () => {
     this.lastStep = !this.lastStep;
-    this.registration.nativeElement.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    document.getElementsByTagName('app-auth')[0].scrollIntoView({ block: 'start', behavior: 'smooth' });
   }
 
   public triggerValidation(field: string) {
@@ -111,7 +109,7 @@ export class RegistrationComponent implements OnInit {
       res => {
         console.log('registration done', res);
         this.registrationStatus = true;
-        this.registration.nativeElement.scrollIntoView({ block: 'start', behavior: 'smooth' });
+        document.getElementsByTagName('app-auth')[0].scrollIntoView({ block: 'start', behavior: 'smooth' });
         if (res.refreshToken && res.token) {
           this.auth.saveAuthData(res);
         }
@@ -121,7 +119,6 @@ export class RegistrationComponent implements OnInit {
       }
     );
   }
-
   public onGoToRouter = (routerName: string) => {
     this.router.navigate([routerName]);
   }

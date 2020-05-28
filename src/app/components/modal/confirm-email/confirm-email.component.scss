@@ -72,6 +72,7 @@
     margin-right: 15px;
     flex-shrink: 0;
     &_send{
+      cursor: pointer;
       .email-status-item__icon{
         height: 20px;
       }
@@ -86,9 +87,20 @@
     fill: $primary;
   }
 }
+.loading{
+  animation: loadingAnimation 1s linear infinite;
+}
+@keyframes loadingAnimation {
+  from {
+		transform: rotate(0deg);
+	}
+  to {
+	  transform: rotate(-359deg);
+	}
+}
 @media screen and (max-width: 568px) {
   .confirm-email-dialog{
-    height: 90vh;
+    height: 450px;
     width: 90vw;
     padding:0 29px;
     display: flex;

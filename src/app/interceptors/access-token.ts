@@ -65,6 +65,7 @@ export class AccessTokenInterceptor implements HttpInterceptor {
                   this.refreshTokenInProgress = false;
                   if (err.status === 404 || err.status === 403 || err.status === 401) {
                     if (this.router.routerState.snapshot.url.includes('/keep')) {
+                      localStorage.removeItem('SHOW_CONFIRM_EMAIL');
                       localStorage.removeItem('JWT_TOKEN');
                       localStorage.removeItem('REFRESH_TOKEN');
                       window.location.reload();

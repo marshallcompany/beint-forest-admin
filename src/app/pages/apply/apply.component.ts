@@ -9,6 +9,12 @@ import { MatDialog } from '@angular/material';
 import { PrivacyPolicyComponent } from 'src/app/components/privacy-policy/privacy-policy.component';
 import { GlobalErrorService } from 'src/app/services/global-error-service';
 
+interface ProfileData {
+  isEmailConfirmed: boolean;
+  firstName: string;
+  avatar: string;
+}
+
 @Component({
   selector: 'app-apply',
   templateUrl: './apply.component.html',
@@ -18,11 +24,13 @@ export class ApplyComponent implements OnInit {
 
   @ViewChild('scrollToTop', { static: true }) scrollToTop;
 
-  public profileData: object;
+  public profileData: ProfileData;
   public privacyPolicy;
   public vacancyData;
   public jobId;
-  public confirmEmailStatus = false;
+
+  public resendEmailStatus = false;
+  public loadingStatus = false;
 
   constructor(
     public downloadFileService: DownloadFileService,
@@ -53,6 +61,7 @@ export class ApplyComponent implements OnInit {
           map((fullUserProfile: any) => {
             if (fullUserProfile) {
               return {
+                isEmailConfirmed: fullUserProfile.isEmailConfirmed,
                 firstName: fullUserProfile.profile.personal.firstName,
                 avatar: fullUserProfile.media && fullUserProfile.media.avatar && fullUserProfile.media.avatar.storagePath ? fullUserProfile.media.avatar.storagePath : ''
               };
@@ -134,6 +143,22 @@ export class ApplyComponent implements OnInit {
         err => {
           console.log('VACANCY DATA ERROR', err);
           this.globalErrorService.handleError(err);
+        }
+      );
+  }
+
+  public resendEmail = () => {
+    this.loadingStatus = true;
+    this.authService.resendVerificationEmail()
+      .pipe()
+      .subscribe(
+        res => {
+          console.log('[ RESEND VERIFICATION EMAIL RESULT ]', res);
+          this.resendEmailStatus = !this.resendEmailStatus;
+          this.loadingStatus = false;
+        },
+        error => {
+          console.log('[ RESEND VERIFICATION EMAIL ERROR ]', error);
         }
       );
   }

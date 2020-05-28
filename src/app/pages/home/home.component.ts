@@ -44,7 +44,7 @@ export class HomeComponent implements OnInit {
     this.profileService.getProfile()
       .pipe(
         switchMap(data => {
-          if (!localStorage.getItem('SHOW_CONFIRM_EMAIL')) {
+          if (!localStorage.getItem('SHOW_CONFIRM_EMAIL') && !data.isEmailConfirmed) {
             this.matDialog.open(ConfirmEmailComponent, { data: { firstName: data.profile.personal.firstName }, panelClass: 'confirm-email-dialog' }).afterClosed()
               .pipe()
               .subscribe(

@@ -61,6 +61,10 @@ export class AuthService {
     return !!authData;
   }
 
+  public resendVerificationEmail = () => {
+    return this.http.post<any>(this.apiRoutes.RESEND_VERIFICATION_EMAIL, {});
+  }
+
   public registration = (data: object) => {
     return this.http.post<any>(this.apiRoutes.REGISTRATION, data);
   }

@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material';
 import { GlobalErrorService } from 'src/app/services/global-error-service';
 import { ApplicationService } from 'src/app/services/application-service';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -14,20 +15,23 @@ import { Router } from '@angular/router';
 export class DetailsVacancyComponent implements OnInit, OnChanges {
 
   @Input() vacancyData;
+  @Input() profileData;
   @Input() newVacancyDesign;
 
   public privacyPolicy;
-  public confirmEmailStatus = false;
+
+  public resendEmailStatus = false;
+  public loadingStatus = false;
 
   constructor(
     public matDialog: MatDialog,
     public applicationService: ApplicationService,
     public router: Router,
-    private globalErrorService: GlobalErrorService
+    private globalErrorService: GlobalErrorService,
+    private auth: AuthService
   ) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   ngOnChanges(changes: { [propertyName: string]: SimpleChange }) {
     this.privacyPolicy = false;
@@ -51,6 +55,22 @@ export class DetailsVacancyComponent implements OnInit, OnChanges {
           this.globalErrorService.handleError(err);
         },
         () => console.log('[ DONE APPLY JOB ]')
+      );
+  }
+
+  public resendEmail = () => {
+    this.loadingStatus = true;
+    this.auth.resendVerificationEmail()
+      .pipe()
+      .subscribe(
+        res => {
+          console.log('[ RESEND VERIFICATION EMAIL RESULT ]', res);
+          this.resendEmailStatus = !this.resendEmailStatus;
+          this.loadingStatus = false;
+        },
+        error => {
+          console.log('[ RESEND VERIFICATION EMAIL ERROR ]', error);
+        }
       );
   }
 }
