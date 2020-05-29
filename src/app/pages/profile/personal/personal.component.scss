@@ -7,7 +7,7 @@
 	overflow-x: hidden;
 }
 .category-decor{
-    margin-bottom: 2vw;
+    animation: 0.25s linear forwards showCategoryImage;
     &__image{
         display: block;
         width: 90%;
@@ -16,6 +16,21 @@
             display: none;
         }
     }
+}
+@keyframes showCategoryImage {
+    0% {
+        transform: scale(0);
+    }
+    25% {
+        transform: scale(0.5);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+.form-wrapper{
+    margin-top: 50px;
 }
 .subcategory-item{
     margin-bottom:60px;

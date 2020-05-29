@@ -29,7 +29,7 @@ import { MaterialModule } from './modules/material.module';
 import { ImageCropperModule } from 'ngx-image-cropper';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './pages/login/login.component';
+import { LoginComponent } from './pages/auth/login/login.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { PersonalComponent } from './pages/profile/personal/personal.component';
@@ -53,14 +53,17 @@ import { FileRenameComponent } from './components/modal/file-rename/file-rename.
 import { DocumentOptionModalComponent } from './components/modal/document-option/document-option-modal.component';
 import { BottomNavigationComponent } from './components/bottom-navigation/bottom-navigation.component';
 import { SettingsComponent } from './pages/settings/settings.component';
-import { FormLoginComponent } from './components/form-login/form-login.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { RemoveAccountComponent } from './pages/settings/remove-account/remove-account.component';
 import { SearchComponent } from './pages/search/search.component';
 import { DetailsVacancyComponent } from './components/details-vacancy/details-vacancy.component';
 import { PipelineComponent } from './pages/pipeline/pipeline.component';
 import { TermsUseComponent } from './components/terms-use/terms-use.component';
-import { PasswordResetComponent } from './pages/password-reset/password-reset.component';
+import { PasswordResetComponent } from './pages/auth/password-reset/password-reset.component';
+import { MiscellaneousComponent } from './pages/profile/miscellaneous/miscellaneous.component';
+import { AuthComponent } from './pages/auth/auth.component';
+import { RegistrationComponent } from './pages/auth/registration/registration.component';
+import { ConfirmEmailComponent } from './components/modal/confirm-email/confirm-email.component';
 
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -104,14 +107,17 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     FileRenameComponent,
     BottomNavigationComponent,
     SettingsComponent,
-    FormLoginComponent,
     PrivacyPolicyComponent,
     RemoveAccountComponent,
     SearchComponent,
     DetailsVacancyComponent,
     PipelineComponent,
     TermsUseComponent,
-    PasswordResetComponent
+    PasswordResetComponent,
+    MiscellaneousComponent,
+    AuthComponent,
+    RegistrationComponent,
+    ConfirmEmailComponent
   ],
   imports: [
     RoutingModule,
@@ -164,7 +170,8 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     DocumentOptionModalComponent,
     FileRenameComponent,
     PrivacyPolicyComponent,
-    TermsUseComponent
+    TermsUseComponent,
+    ConfirmEmailComponent
   ]
 })
 export class AppModule { }

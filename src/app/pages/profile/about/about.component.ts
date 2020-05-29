@@ -16,7 +16,7 @@ export class AboutComponent implements OnInit {
     iconCategory: '../assets/image/profile/category-07.svg',
     nameCategory: 'Ich über mich',
     nextCategory: 'profile/personal',
-    prevCategory: 'profile/document'
+    prevCategory: 'profile/miscellaneous'
   };
 
   public formData: any;

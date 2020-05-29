@@ -22,7 +22,7 @@ export class AuthService {
     this.STORAGE_REFRESH_TOKEN = 'REFRESH_TOKEN';
   }
 
-  private saveAuthData(authData) {
+  public saveAuthData(authData) {
     localStorage.setItem(this.STORAGE_TOKEN_KEY, authData.token);
     localStorage.setItem(this.STORAGE_REFRESH_TOKEN, authData.refreshToken);
   }
@@ -61,11 +61,20 @@ export class AuthService {
     return !!authData;
   }
 
+  public resendVerificationEmail = () => {
+    return this.http.post<any>(this.apiRoutes.RESEND_VERIFICATION_EMAIL, {});
+  }
+
+  public registration = (data: object) => {
+    return this.http.post<any>(this.apiRoutes.REGISTRATION, data);
+  }
+
   public logout = () => {
     localStorage.removeItem(this.STORAGE_TOKEN_KEY);
     localStorage.removeItem(this.STORAGE_REFRESH_TOKEN);
+    localStorage.removeItem('SHOW_CONFIRM_EMAIL');
     this.translatesService.initLanguage();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/auth/login']);
   }
 
 }

@@ -85,8 +85,8 @@
   <span>/</span>
   <button
     class="data-reset__button data-reset__button_password"
-    (click)="goToPasswordReset()">
+    (click)="goToRouter('auth/password-reset')">
     Passwort vergessen
   </button>
 </div>
-<button class="create-account-button">Account erstellen</button>
+<button class="create-account-button" (click)="goToRouter('auth/registration')">Account erstellen</button>

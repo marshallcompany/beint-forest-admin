@@ -2,10 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { ConfirmModalComponent } from 'src/app/components/modal/confirm/confirm-modal.component';
 import { MatDialog } from '@angular/material';
-import { PrivacyPolicyComponent } from 'src/app/components/privacy-policy/privacy-policy.component';
 import { switchMap } from 'rxjs/operators';
 import { throwError } from 'rxjs';
-import { TermsUseComponent } from 'src/app/components/terms-use/terms-use.component';
 import { Router } from '@angular/router';
 
 interface Setting {
@@ -139,6 +137,7 @@ export class SettingsComponent implements OnInit {
       .subscribe(
         res => {
           console.log('[ REMOVE ACCOUNT RESULT]', res);
+          localStorage.removeItem('SHOW_CONFIRM_EMAIL');
           localStorage.removeItem('JWT_TOKEN');
           localStorage.removeItem('REFRESH_TOKEN');
           window.location.replace('http://www.beint.de/');

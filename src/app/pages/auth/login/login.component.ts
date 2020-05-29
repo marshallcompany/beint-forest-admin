@@ -3,21 +3,21 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Router } from '@angular/router';
 
-import { FormValidators } from '../../validators/validators';
-import { AuthService } from '../../services/auth.service';
-import { ApplicationService } from '../../services/application-service';
+import { FormValidators } from '../../../validators/validators';
+import { AuthService } from '../../../services/auth.service';
+import { ApplicationService } from '../../../services/application-service';
 import { GlobalErrorService } from 'src/app/services/global-error-service';
 
 
 @Component({
-  selector: 'app-form-login',
-  templateUrl: './form-login.component.html',
-  styleUrls: ['./form-login.component.scss']
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
 })
-export class FormLoginComponent implements OnInit {
+export class LoginComponent implements OnInit {
+
   @Input() titleStatus: boolean;
   @Output() loginChanges = new EventEmitter();
-  @Output() stateChanges = new EventEmitter();
 
   public validationError: any;
   public showPass: boolean;
@@ -82,7 +82,7 @@ export class FormLoginComponent implements OnInit {
     }
   }
 
-  public goToPasswordReset = () => {
-    this.stateChanges.emit({ password: true });
+  public goToRouter = (routerName: string) => {
+    this.router.navigate([`${routerName}`]);
   }
 }

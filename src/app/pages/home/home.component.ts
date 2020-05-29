@@ -3,6 +3,10 @@ import { Router } from '@angular/router';
 
 import { ProfileService } from '../../services/profile.service';
 import { GlobalErrorService } from 'src/app/services/global-error-service';
+import { switchMap } from 'rxjs/operators';
+import { ConfirmEmailComponent } from 'src/app/components/modal/confirm-email/confirm-email.component';
+import { of } from 'rxjs';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-home',
@@ -25,6 +29,7 @@ export class HomeComponent implements OnInit {
     }
   ];
   constructor(
+    private matDialog: MatDialog,
     private router: Router,
     private profileService: ProfileService,
     private globalErrorService: GlobalErrorService
@@ -37,7 +42,20 @@ export class HomeComponent implements OnInit {
 
   private init = () => {
     this.profileService.getProfile()
-      .pipe()
+      .pipe(
+        switchMap(data => {
+          if (!localStorage.getItem('SHOW_CONFIRM_EMAIL') && !data.isEmailConfirmed) {
+            this.matDialog.open(ConfirmEmailComponent, { data: { firstName: data.profile.personal.firstName }, panelClass: 'confirm-email-dialog' }).afterClosed()
+              .pipe()
+              .subscribe(
+                res => {
+                  localStorage.setItem('SHOW_CONFIRM_EMAIL', 'true');
+                }
+              );
+          }
+          return of(data);
+        })
+      )
       .subscribe(
         data => {
           this.user = data;

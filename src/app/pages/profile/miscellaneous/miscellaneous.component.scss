@@ -1,25 +1,11 @@
 @import "../../../theme/variables.scss";
-.field_select-search {
-    ::ng-deep .ng-select .ng-has-value .ng-placeholder{
-        display: block;
-    }
-    ::ng-deep .ng-select.ng-select-filtered .ng-placeholder {
-        display: none;
-    }
-}
-.field_select-search.single {
-    ::ng-deep .ng-select .ng-has-value .ng-placeholder{
-        display: none;
-    }
-}
-
-.education{
+.miscellaneous{
     background-color:$primary;
     position:relative;
     min-height: 100vh;
     overflow: auto;
     overflow-x: hidden;
-    padding-bottom:25px;
+    padding-bottom: 50px;
 }
 .category-decor{
     &.category-decor_hide{
@@ -66,7 +52,7 @@
     }
 }
 .subcategory{
-    margin-top: 50px;
+    margin-top:50px;
 }
 .subcategory-item{
     margin-bottom:10px;
@@ -74,74 +60,53 @@
     box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.15);
     background-color: #ffffff;
 }
+
 // ACCORDION HEADER
-  ::ng-deep .accordion .mat-expansion-panel-body, .mat-expansion-panel-header {
-      padding:0;
-  }
-  .mat-expansion-panel{
-      background-color: transparent;
-      box-shadow: none;
-  }
-  .subcategory-header{
-      width: 100%;
-      height: 110px;
-      padding:30px 50px 30px 30px;
-      display: flex;
-      align-items:center;
-      justify-content: space-between;
-      &__arrow{
-          transition: .25s linear;
-          &.accordion-active{
-              transform-origin: center;
-              transform: rotate(-180deg);
-          }
-      }
-  }
-  .subcategory-info{
-      display: flex;
-      align-items:center;
-      &__icon{
-          margin-right:30px;
-          width: 40px;
-      }
-      &__label{
-          font-size: 17px;
-          font-family: $workSansBold;
-      }
-  }
+.mat-expansion-panel{
+    background-color: transparent;
+    box-shadow: none;
+}
+.subcategory-header{
+    width: 100%;
+    height:110px;
+    padding:30px 50px 30px 30px;
+    display: flex;
+    align-items:center;
+    justify-content: space-between;
+    &__arrow{
+        transition: .25s linear;
+        &.accordion-active{
+            transform-origin: center;
+            transform: rotate(-180deg);
+        }
+    }
+}
+.subcategory-info{
+    display: flex;
+    align-items:center;
+    &__icon{
+        margin-right:30px;
+        width: 40px;
+    }
+    &__label{
+        font-size: 17px;
+        font-family: $workSansBold;
+    }
+}
 // ACCORDION CONTENT
 .subcategory-content{
     padding-bottom:75px;
-    border-top: 1px solid #E1E1E1;
     &_padding{
-        padding-bottom:0!important;
+      padding-bottom:0!important;
     }
 }
-.not-relevant{
-    padding: 30px 50px 0 30px;
+.subcategory-preview{
+  .tags-wrapper{
+    padding-left:70px;
     &__item{
-        background-color:rgba(152, 152, 152, .1);
-        width:47%;
-        border-radius:10px;
-        display: flex;
-        align-items:center;
-        padding:30px 0 30px 19px;
+      margin-top:10px;
     }
-    &__checkbox{
-        margin-right:10px;
-        width:20px;
-        height:20px;
-    }
-}
-.flex-grid{
-    display: flex;
-    flex-wrap:wrap;
-    justify-content: space-between;
-    border-bottom: 1px solid #E1E1E1;
-    padding: 0 50px 20px 30px;
-    &:last-child{
-        border:none;
-    }
+  }
 }
 .subcategory-preview-item{
     padding: 25px 50px 25px 30px;
@@ -154,7 +119,6 @@
         width:20px;
         height:20px;
         border-radius: 50%;
-        flex-shrink: 0;
     }
 }
 .subcategory-preview-info{
@@ -172,9 +136,6 @@
     &__details{
         display: flex;
         align-items:center;
-        &_list{
-            padding-left:70px;
-        }
     }
     &__invalid{
         color:$red;
@@ -197,7 +158,6 @@
         font-size: 17px;
     }
     &__circle{
-        display: block;
         width:4px;
         height:4px;
         background-color: $black;
@@ -205,25 +165,61 @@
         margin:0 7px;
         border-radius: 50%;
     }
-    &__item{
-        font-size: 17px;
-        display: flex;
-        align-items:center;
-        &:first-child{
-            .subcategory-preview-info{
-                &__circle{
-                    display: none;
-                }
-            }
-        }
-    }
     &__species,
     &__scope,
     &__date{
         font-size: 17px;
     }
 }
-// FIELD
+::ng-deep .accordion .mat-expansion-panel-body, .mat-expansion-panel-header {
+    padding:0;
+}
+
+.flex-grid{
+    display: flex;
+    flex-wrap:wrap;
+    justify-content: space-between;
+    border-bottom: 1px solid #E1E1E1;
+    padding: 0 50px 20px 30px;
+    
+    &_not-relevant{
+      padding-top: 30px!important;
+      align-items: flex-start;
+      border-top: 1px solid #E1E1E1;
+      .field{
+        padding-bottom: 0;
+        margin-bottom: 0;
+      }
+    }
+    &:last-child{
+        border-bottom:none;
+    }
+    .not-relevant{
+      border:none;
+      width: 47%;
+      padding:0;
+      &__item{
+        width:100%;
+      }
+    }
+}
+.not-relevant{
+    padding: 30px 50px 0 30px;
+    border-top: 1px solid #E1E1E1;
+    &__item{
+        background-color:rgba(152, 152, 152, .1);
+        width:47%;
+        border-radius:10px;
+        display: flex;
+        align-items:center;
+        padding:30px 0 30px 19px;
+    }
+    &__checkbox{
+        margin-right:10px;
+        width:20px;
+        height:20px;
+    }
+}
 .remove-fields{
     width:100%;
     display: flex;
@@ -259,14 +255,61 @@
         justify-content: center;
     }
 }
+.datepicker-group{
+    display: flex;
+    justify-content: space-between;
+    .field{
+        width:35%!important;
+        margin-bottom:0;
+    }
+}
+.datapicker-checkbox{
+    display: flex;
+    align-items:center;
+    &__input{
+        width:20px;
+        height:20px;
+        margin-right:10px;
+    }
+}
 .field{
     width:47%;
-    &_textarea{
+    margin-bottom:20px;
+    &_group{
+        .field{
+            width:100%;
+        }
+    }
+    &_select{
         .field-wrapper{
-            flex: inherit;
+            padding:0;
+            background-color:inherit;
+        }
+    }
+    &_datapicker{
+        .field-wrapper{
+            padding-right:0;
+            margin-bottom:20px;
+            cursor: pointer;
+            &:last-child{
+                margin-bottom:0;
+            }
+            &__input{
+                pointer-events: none;
+                height:100%;
+                border-radius: 10px;
+            }
+        }
+    }
+    &_textarea{
+        display: flex;
+        flex-direction: column;
+        .field-wrapper{
+            flex:1;
+            padding-top:15px;
             .field-wrapper__input{
                 padding:0;
-                height: 145px;
+                height: 100%;
                 font-family: $workSansRegular;
                 outline: none;
                 border:none;
@@ -287,11 +330,58 @@
     }
 }
 .field-wrapper{
+    height: 50px;
+    width:100%;
+    position: relative;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.17);
+    padding-left: 19px;
+    padding-right:55px;
+    border-radius: 10px;
+    background-color:#ffffff;
+    display: flex;
+    align-items: center;
     &__input{
+        width:100%;
+        background-color:#ffffff;
+        border:0;
+        color:$black;
+        font-size: 17px;
+        font-family: $workSansRegular;
         &::placeholder{
-            font-size: 16px;
+            color:#989898;
+            opacity: .8;
+            font-size: 17px;
         }
     }
+    &__status{
+       width:10px;
+       height:100%;
+       position: absolute;
+       z-index: 5;
+       right:0;
+       top:0;
+       border-bottom-right-radius: 10px;
+       border-top-right-radius: 10px;
+       background-color:$green; 
+       &.invalid{
+           background-color: $yellow;
+       }
+    }
+    &__type{
+        position: absolute;
+        top:50%;
+        right:19px;
+        transform: translate(0 , -50%);
+        color: #989898;
+        opacity: 0.8;
+        font-size: 17px;
+        width: 30px;
+        text-align: center;
+    }
+}
+.field_checkbox{
+    width:100%;
+    padding-left:19px;
 }
 .tags-wrapper{
     display: flex;
@@ -306,6 +396,7 @@
     }
     &__label{
         color:$primary;
+        font-size: 15px;
     }
     &__remove{
         width:20px;
@@ -317,42 +408,33 @@
         top:-5px;
     }
 }
-.datepicker-group{
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  &-item{
-    display: flex;
-    .field{
-      margin-bottom:0;
-      flex-shrink: 0;
-      width:230px;
+.notRelevant{
+    pointer-events: none;
+    .field-wrapper{
+        position: relative;
+        overflow: hidden;
+        &:before{
+            content:'';
+            position:absolute;
+            left:0;
+            top:0;
+            width:100%;
+            height:100%;
+            background-color:rgba(152, 152, 152, .2);
+            z-index: 1;
+        }
+        &__status{
+            background-color:#989898;
+        }
+        &__input{
+            background-color: transparent;
+        }
     }
-  }
-}
-.datapicker-checkbox{
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-  margin-left:15px;
 }
 @media screen and (max-width:1500px){
     .subcategory{
         padding-left:5vw;
         padding-right:5vw;
-    }
-    .datapicker-checkbox{
-        padding: 20px 0 30px 0;
-    }
-    .datepicker-group{
-        width:100%;
-        &-item{
-            width:100%;
-            flex-wrap: wrap;
-            .field{
-                width:100%;
-            }
-        }
     }
 }
 @media screen and (max-width:1200px){
@@ -369,11 +451,6 @@
         padding-left:20px;
         padding-right:20px;
     }
-    .subcategory-preview-info{
-      &__number{
-        margin-right:25px;
-      }
-    }
     .subcategory-preview-item{
         padding:20px;
     }
@@ -385,44 +462,69 @@
     }
 }
 @media screen and (max-width:992px){
+ .flex-grid_not-relevant{
+     flex-direction: column;
+     .not-relevant{
+         order: -1;
+         margin-bottom:30px;
+     }
+ }
+ .field-group,
+ .field_group{
+     width:100%;
+     display: flex;
+     justify-content: space-between;
+     flex-wrap: wrap;
+     .field{
+         width:100%;
+     }
+ }
  .field{
-      &_group{
-          width:100%;
-      }
+     width: 100%;
       &_textarea{
           width:100%!important;
           .field-wrapper__input {
               height:150px!important;
           }
       }
-      &.textarea{
-          width:100%;
-          .field-wrapper__input {
-              height:150px!important;
-          }
-      }
   }
-//  .datepicker-group{
-//      flex-wrap:wrap;
-//      justify-content: space-between;
-//      width:100%;
-//      .field{
-//          width:100%!important;
-//      }
-//  }
+ .datepicker-group{
+     flex-wrap:wrap;
+     justify-content: space-between;
+     width:100%;
+     .field{
+         width:100%!important;
+     }
+ }
+    .subcategory-preview{
+        .tags-wrapper{
+            padding-left:65px;
+        }
+    }
 }
 @media screen and (max-width:768px){
-    .education{
-        background-color:#F9F9F9;
+    .miscellaneous{
+        background-color: #F9F9F9;
+    }
+    .flex-grid{
+        .not-relevant{
+            width:100%;
+        }
     }
     .not-relevant{
         &__item{
             width:100%;
         }
     }
+    .subcategory-preview{
+        .tags-wrapper{
+            padding-left: 0;
+        }
+    }
     .tags-wrapper{
         &__item{
             padding:5px 10px;
+            margin-top:15px;
         }
         &__label{
             font-size: 16px;
@@ -436,34 +538,16 @@
         }
     }
     .subcategory-preview-info{
-        &__invalid{
-            font-size: 16px;
-        }
-        &__item{
-            font-size: 14px;
-            &:first-child{
-                .subcategory-preview-info{
-                    &__circle{
-                        display: block;
-                    }
-                }
-            }
-        }
         &__details{
             flex-direction: column;
             justify-content: flex-start;
             align-items: flex-start;
-            &_list{
-                padding-left:60px;
-                .subcategory-preview-info{
-                    &__circle{
-                        display: block;
-                    }
-                }
-            }
         }
         &__circle{
             display: none;
+        }
+        &__invalid{
+           font-size: 16px; 
         }
         p{
             margin-bottom:5px;
@@ -473,7 +557,6 @@
         }
     }
     .category-decor{
-        margin-bottom: 2vw;
         &__image{
             width: 80%;
             display: none;
@@ -508,15 +591,9 @@
             }
         }
     }
-    ::ng-deep .custom-select .ng-select-container .ng-value-container .ng-placeholder {
-        font-size: 14px;
-    }
     .field-wrapper{
         &__input{
             font-size: 16px;
-            &::placeholder{
-                font-size: 14px;
-            }
         }
         &__type{
             font-size: 14px;
@@ -543,12 +620,6 @@
     .tags-wrapper{
         padding-left:10px;
     }
-    .subcategory-header{
-        padding:20px 10px;
-    }
-    .subcategory-preview-item{
-        padding:20px 10px;
-    }
     .flex-grid{
         padding: 15px 10px 20px 10px;
     }
@@ -566,6 +637,11 @@
     }
     .field-wrapper{
         padding-left:10px;
+        &__input{
+            &::placeholder{
+                font-size: 14px;
+            }
+        }
     }
     ::ng-deep .ng-select .ng-select-container{
         padding-left: 10px;
@@ -573,11 +649,6 @@
 }
 @media screen and (max-width:375px){
     .subcategory-preview-info{
-        &__details{
-            &_list{
-            padding-left:35px;
-            }
-        }
         &__number{
             width:30px;
             margin-right:10px;

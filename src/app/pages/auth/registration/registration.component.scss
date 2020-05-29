@@ -1,0 +1,375 @@
+@import "../../../theme/variables.scss";
+
+.registration{
+  position: relative;
+}
+.step-form{
+  &__title{
+    font-size: 17px;
+    font-weight: normal;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  &__title-strong{
+    font-size: 17px;
+    text-align: center;
+  }
+  &__subtitle{
+    font-size: 17px;
+    font-weight: normal;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+}
+.steps{
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+.steps-item{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &__circle{
+    background-color: #ffffff;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    margin-bottom: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &__icon{
+    height: 30px;
+  }
+  &__text{
+    font-size: 10px;
+    text-align: center;
+  }
+}
+.form-item{
+    margin-bottom:20px;
+    &__label{
+        padding-left: 19px;
+        font-size: 14px;
+        margin-bottom:10px;
+        color:$black;
+        opacity: 0.5;
+        font-family: $workSansRegular;
+    }
+}
+.form-field{
+    padding:0 50px 0 19px;
+    height:50px;
+    background: #FFFFFF;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.17);
+    border-radius: 10px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    &_select{
+      padding: 0;
+      ::ng-deep .ng-placeholder{
+        opacity: .8;
+        font-size: 17px!important;
+      }
+      ::ng-deep .ng-select .ng-select-container{
+        padding-left: 19px!important;
+      }
+    }
+    &__input{
+        width:100%;
+        border:none;
+        color: #313131;
+        opacity: 0.8;
+        font-size: 17px;
+        padding:0;
+        font-family: $workSansRegular;
+        transition: ease .5s;
+        &[type="password"]{
+            letter-spacing: 5px;
+        }
+        &::placeholder{
+            color: #989898;
+            opacity: .8;
+            font-size: 17px;
+            font-family: $workSansRegular;
+            letter-spacing: 0;
+        }
+    }
+}
+.form-field-type{
+    width:30px;
+    position: absolute;
+    top:50%;
+    right:16px;
+    transform: translate(0, -50%);
+    text-align: center;
+    &__text{
+        font-size: 17px;
+        color: #989898;
+        opacity: .8;
+        font-family: $workSansRegular;
+    }
+    &__valid{
+        height: 13px;
+        fill: rgba(152, 152, 152, .8);
+    }
+}
+.show-pass-button{
+    width: 100%;
+    height: 20px;
+    text-align: center;
+    background-color:transparent;
+    &__icon{
+        height: 100%;
+    }
+}
+
+.step-form{
+  width: 100%;
+  &_01{
+    opacity: 1;
+    transition: .5s ease-out all;
+    &.animation{
+      position: absolute;
+      transform: scale(.5);
+      left: 0;
+      top:0;
+      opacity: 0;
+      z-index: -100;
+    }
+  }
+  &_02{
+    transition: .5s ease-out all;
+    position: absolute;
+    left: 0;
+    top:0;
+    opacity: 0;
+    z-index: -100;
+    transform: scale(.5);
+    &.animation{
+      position: inherit;
+      left: inherit;
+      top:inherit;
+      z-index: inherit;
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+}
+.steps-navigation{
+  margin-top: 25px;
+  &__button{
+    text-transform: uppercase;
+    color:#ffffff;
+    background-color: $blue;
+    width:100%;
+    height: 50px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    position: relative;
+    svg{
+      transform: translate(0, -50%) rotate(-90deg);
+      width: 15px;
+      height: 12px;
+      fill: #ffffff;
+      position: absolute;
+      top: 50%;
+      right: 20px;
+
+    }
+    &:disabled{
+      background-color: $grey;
+    }
+  }
+  &__back-button{
+    display: block;
+    color: $blue;
+    position: relative;
+    width: 255px;
+    margin: 0 auto;
+    margin-top: 15px;
+    padding: 15px 0;
+    font-size: 17px;
+    background-color: transparent;
+    svg{
+      transform: translate(0, -50%) rotate(90deg);
+      width: 15px;
+      height: 12px;
+      fill: $blue;
+      position: absolute;
+      top: 50%;
+      left: 0;
+
+    }
+  }
+}
+.privacy-policy{
+  display: flex;
+  align-items:center;
+  margin-bottom:20px;
+  justify-content: center;
+  .checkbox-container{
+    height:25px;
+    width:25px;
+    padding-left:0;
+    margin-right:10px;
+  }
+  &__text{
+    text-align: center;
+    font-size: 14px;
+    &_red{
+      color:$red;
+    }
+  }
+  &__details{
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
+
+// successful registration
+
+.successful-registration{
+  transition: .5s ease-out all;
+  position: absolute;
+  left: 0;
+  top:0;
+  opacity: 0;
+  z-index: -100;
+  transform: scale(.5);
+  &.animation{
+    position: inherit;
+    left: inherit;
+    top:inherit;
+    z-index: inherit;
+    opacity: 1;
+    transform: scale(1);
+  }
+  &__image{
+    display: block;
+    height: 300px;
+    margin: 0 auto;
+    margin-bottom: 50px;
+  }
+  &__title{
+    color: $blue;
+    text-transform: uppercase;
+    font-size: 24px;
+    font-family: $workSansBold;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  &__subtitle{
+    font-size: 17px;
+    text-align: center;
+    br{
+      display: none;
+    }
+  }
+  &__text{
+    font-size: 17px;
+    text-align: center;
+    margin-bottom: 40px;
+    line-height: 1.25;
+  }
+}
+.confirm-email-wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.confirm-email{
+  margin: 19px 0;
+  padding: 15px 25px;
+  border-top: 1px solid  rgba(152, 152, 152, 0.3);
+  border-bottom: 1px solid rgba(152, 152, 152, 0.3);
+  &__circle{
+    width: 40px;
+    height: 40px;
+    background-color: $primary;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+  }
+  &__icon{
+    height: 15px;
+    fill: #ffffff;
+  }
+  &__text{
+    word-break: break-all;
+    font-size: 12px;
+    line-height: 1.25;
+  }
+}
+.start-beint-button{
+  background-color: $blue;
+  border-radius: 50px;
+  width: 100%;
+  position: relative;
+  color:#ffffff;
+  text-transform: uppercase;
+  font-size: 16px;
+  font-family: $workSansBold;
+  text-align: center;
+  padding: 11px 0;
+  &__arrow{
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translate(0, -50%) rotate(-90deg);
+    fill: #ffffff;
+    width: 15px;
+    height: 12px;
+  }
+}
+@media screen and (max-width: 568px) {
+  .successful-registration{
+    &__image{
+      height: 215px;
+    }
+    &__subtitle{
+      br{
+        display: block;
+      }
+    }
+  }
+  .confirm-email{
+    padding: 15px 0;
+    display: flex;
+    justify-content: center;
+  }
+  .confirm-email-wrapper{
+    width:243px;
+
+  }
+}
+
+@media screen and (max-width: 414px) {
+  .steps-navigation{
+    &__button{
+      font-size: 14px;
+      svg{
+        right: 10px;
+      }
+    }
+  }
+  .successful-registration{
+    &__text{
+      font-size: 15px;
+    }
+  }
+  .start-beint-button{
+    font-size: 14px;
+    &__arrow{
+      right: 10px;
+    }
+  }
+}

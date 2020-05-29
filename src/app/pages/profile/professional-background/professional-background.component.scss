@@ -20,6 +20,9 @@
     overflow-x: hidden;
     padding-bottom:25px;
 }
+.subcategory{
+    margin-top: 50px;
+}
 .subcategory-item{
     margin-bottom:10px;
     border-radius: 10px;
@@ -27,7 +30,12 @@
     background-color: #ffffff;
 }
 .category-decor{
-    margin-bottom: 2vw;
+    &.category-decor_hide{
+        animation: 0.25s linear forwards hideCategoryImage;
+    }
+    &.category-decor_show{
+        animation: 0.25s linear forwards showCategoryImage;
+    }
     &__image{
         display: block;
         width: 90%;
@@ -37,6 +45,34 @@
         }
     }
 }
+@keyframes showCategoryImage {
+    0% {
+        transform: scale(0);
+    }
+    25% {
+        transform: scale(0.5);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+@keyframes hideCategoryImage {
+    0% {
+        transform: scale(1);
+    }
+    25% {
+        transform: scale(0.5);
+    }
+    75% {
+        transform: scale(0);
+    }
+    100% {
+        opacity: 0;
+        position: absolute;
+        z-index: -10;
+    }
+}
 // ACCORDION HEADER
 .mat-expansion-panel{
     background-color: transparent;
@@ -44,6 +80,7 @@
 }
 .subcategory-header{
     width: 100%;
+    height: 110px;
     padding:30px 50px 30px 30px;
     display: flex;
     align-items:center;
@@ -488,6 +525,7 @@
         padding:0;
     }
     .subcategory-header{
+        height: 76px;
         &__arrow{
             height: 12px;
         }

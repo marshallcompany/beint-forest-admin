@@ -7,6 +7,7 @@ export class ApiRoutesProvider {
 
   public readonly BASE_API_URL: string;
   public readonly LOGIN: string;
+  public readonly REGISTRATION: string;
   public readonly PROFILE: string;
   public readonly JOB_VACANCIES: string;
   public readonly GET_JOB_DATA: string;
@@ -36,11 +37,13 @@ export class ApiRoutesProvider {
   public readonly GET_VACANCIES: string;
   public readonly UPDATE_PASSWORD: string;
   public readonly UPDATE_PASSWORD_MAIL: string;
+  public readonly RESEND_VERIFICATION_EMAIL: string;
 
 
   constructor() {
     this.BASE_API_URL = environment.BASE_API_URL;
     this.LOGIN = `${this.BASE_API_URL}/api/v1/auth/signin`;
+    this.REGISTRATION = `${this.BASE_API_URL}/api/v1/auth/signup`;
     this.PROFILE = `${this.BASE_API_URL}/api/v1/profile/`;
     this.JOB_VACANCIES = `${this.BASE_API_URL}/api/v1/job-vacancy/:id/job-applications`;
     this.GET_JOB_DATA = `${this.BASE_API_URL}/api/v1/job-vacancy/:id`;
@@ -70,5 +73,6 @@ export class ApiRoutesProvider {
     this.GET_VACANCIES = `${this.BASE_API_URL}/api/v1/job-vacancy/all/?page=1&limit=100&title`;
     this.UPDATE_PASSWORD = `${this.BASE_API_URL}/api/v1/auth/password`;
     this.UPDATE_PASSWORD_MAIL = `${this.BASE_API_URL}/api/v1/auth/password/reset`;
+    this.RESEND_VERIFICATION_EMAIL = `${this.BASE_API_URL}/api/v1/auth/resend-verification-email`;
   }
 }
