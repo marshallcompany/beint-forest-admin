@@ -73,6 +73,7 @@
                           class="tags-wrapper__item">
                           <p class="tags-wrapper__label">{{item.value}}</p>
                           <button
+                            type="button"
                             class="tags-wrapper__remove"
                             (click)="singleDeleteTags(i, hobbiesArray, 'hobbies' )">
                             <img src="../assets/image/close.svg">
@@ -182,6 +183,7 @@
                   [formGroupName]="i">
                   <div class="remove-fields">
                     <button
+                      type="button"
                       class="remove-fields__button"
                       (click)="deleteFormGroup(volunteeringArray, i, 'volunteering')">
                       <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" class="remove-fields__icon">
@@ -317,6 +319,7 @@
                 </div>
                 <div class="add-fields">
                   <button
+                    type="button"
                     class="add-fields__button"
                     (click)="setFormGroup('volunteering')">
                     <img src="../assets/image/plus.svg">
@@ -416,6 +419,7 @@
                   <div class="remove-fields">
                     <button
                       class="remove-fields__button"
+                      type="button"
                       (click)="deleteFormGroup(publicationsArray, i, 'publications')">
                       <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" class="remove-fields__icon">
                         <path d="M0.050293 0.050293L9.94979 9.94979M9.94979 0.050293L0.0502933 9.94979" stroke-width="2"
@@ -528,6 +532,7 @@
                 </div>
                 <div class="add-fields">
                   <button
+                    type="button"
                     class="add-fields__button"
                     (click)="setFormGroup('publications')">
                     <img src="../assets/image/plus.svg">
@@ -627,6 +632,7 @@
                   <div class="remove-fields">
                     <button
                       class="remove-fields__button"
+                      type="button"
                       (click)="deleteFormGroup(awardsArray, i, 'awards')">
                       <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" class="remove-fields__icon">
                         <path d="M0.050293 0.050293L9.94979 9.94979M9.94979 0.050293L0.0502933 9.94979" stroke-width="2"
@@ -721,6 +727,7 @@
                 </div>
                 <div class="add-fields">
                   <button
+                    type="button"
                     class="add-fields__button"
                     (click)="setFormGroup('awards')">
                     <img src="../assets/image/plus.svg">
