@@ -59,6 +59,7 @@
                   [formGroupName]="i">
                   <div class="remove-fields">
                     <button
+                      type="button"
                       class="remove-fields__button"
                       (click)="deleteFormGroup(schoolsArray, i, 'schools')">
                       <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" class="remove-fields__icon">
@@ -260,6 +261,7 @@
                   class="add-fields"
                   *ngIf="accordion01.expanded">
                   <button
+                    type="button"
                     class="add-fields__button"
                     (click)="setFormGroup('schools', false)">
                     <img src="../assets/image/plus.svg">
@@ -288,6 +290,7 @@
                   </div>
                 </div>
                 <button
+                  type="button"
                   class="subcategory-preview-item__remove"
                   (click)="deleteFormGroup(schoolsArray, i)">
                   <img src="../assets/image/close.svg">
@@ -352,6 +355,7 @@
                     [formGroupName]="i">
                     <div class="remove-fields">
                       <button
+                        type="button"
                         class="remove-fields__button"
                         (click)="deleteFormGroup(specialEducationArray, i, 'specialEducation')">
                         <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" class="remove-fields__icon">
@@ -561,6 +565,7 @@
                     class="add-fields"
                     *ngIf="accordion02.expanded">
                     <button
+                      type="button"
                       class="add-fields__button"
                       (click)="setFormGroup('specialEducation', true)">
                       <img src="../assets/image/plus.svg">
@@ -591,6 +596,7 @@
                   </div>
                 </div>
                 <button
+                  type="button"
                   class="subcategory-preview-item__remove"
                   (click)="deleteFormGroup(specialEducationArray, i)">
                   <img src="../assets/image/close.svg">
@@ -662,6 +668,7 @@
                     [formGroupName]="i">
                     <div class="remove-fields">
                       <button
+                        type="button"
                         class="remove-fields__button"
                         (click)="deleteFormGroup(universitiesArray, i, 'universities')">
                         <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" class="remove-fields__icon">
@@ -971,6 +978,7 @@
                     class="add-fields"
                     *ngIf="accordion03.expanded">
                     <button
+                      type="button"
                       class="add-fields__button"
                       (click)="setFormGroup('universities', true)">
                       <img src="../assets/image/plus.svg">
@@ -1000,6 +1008,7 @@
                   </div>
                 </div>
                 <button
+                  type="button"
                   class="subcategory-preview-item__remove"
                   (click)="deleteFormGroup(universitiesArray, i)">
                   <img src="../assets/image/close.svg">
@@ -1071,6 +1080,7 @@
                     [formGroupName]="i">
                     <div class="remove-fields">
                       <button
+                        type="button"
                         class="remove-fields__button"
                         (click)="deleteFormGroup(additionalEducationsArray, i, 'additionalEducations')">
                         <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" class="remove-fields__icon">
@@ -1191,6 +1201,7 @@
                     class="add-fields"
                     *ngIf="accordion04.expanded">
                     <button
+                      type="button"
                       class="add-fields__button"
                       (click)="setFormGroup('additionalEducations', true)">
                       <img src="../assets/image/plus.svg">
@@ -1218,6 +1229,7 @@
                   </div>
                 </div>
                 <button
+                  type="button"
                   class="subcategory-preview-item__remove"
                   (click)="deleteFormGroup(additionalEducationsArray, i)">
                   <img src="../assets/image/close.svg">
@@ -1271,6 +1283,7 @@
                   <div class="flex-grid">
                     <div class="remove-fields">
                       <button
+                        type="button"
                         class="remove-fields__button"
                         (click)="clearArrayField(form.get('education').get('skillsData').value)">
                         <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" class="remove-fields__icon">
@@ -1373,6 +1386,7 @@
                   </div>
                 </div>
                 <button
+                  type="button"
                   class="subcategory-preview-item__remove"
                   (click)="clearArrayField(form.get('education').get('skillsData').value)">
                   <img src="../assets/image/close.svg">
@@ -1414,6 +1428,7 @@
                   [formGroupName]="i">
                   <div class="remove-fields">
                     <button
+                      type="button"
                       class="remove-fields__button"
                       (click)="deleteFormGroup(linguisticProficiencyArray, i, 'linguisticProficiency')">
                       <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" class="remove-fields__icon">
@@ -1471,6 +1486,7 @@
                   class="add-fields"
                   *ngIf="accordion06.expanded">
                   <button
+                    type="button"
                     class="add-fields__button"
                     (click)="setFormGroup('linguisticProficiency', false)">
                     <img src="../assets/image/plus.svg">
@@ -1497,6 +1513,7 @@
                   </div>
                 </div>
                 <button
+                  type="button"
                   class="subcategory-preview-item__remove"
                   (click)="deleteFormGroup(linguisticProficiencyArray, i)">
                   <img src="../assets/image/close.svg">
