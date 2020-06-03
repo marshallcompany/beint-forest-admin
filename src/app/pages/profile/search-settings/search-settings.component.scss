@@ -9,9 +9,7 @@
   overflow: auto;
   overflow-x: hidden;
 }
-.form-wrapper{
-    margin-top: 50px;
-}
+
 .field{
     &_group{
         .field{
@@ -59,9 +57,8 @@
 }
 /* = MEDIA = */
 @media screen and (max-width:1500px){
-    .form-wrapper{
+    .search-preference-wrapper{
         padding-left:5vw;
-        padding-right:5vw;
     }
 }
 
@@ -76,7 +73,7 @@
     .search{
        background-color:#F9F9F9;
     }
-    .form-wrapper{
+    .search-preference-wrapper{
         padding:0;
     }
     .tags-wrapper{

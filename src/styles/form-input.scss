@@ -125,7 +125,7 @@ body .field-group {
   }
 }
 // FIELD INPUT
-body .field {
+.field {
   width: 47%;
   margin-bottom:20px;
   position: relative;
@@ -183,11 +183,6 @@ body .field {
               left: 0;
               top: 50%;
               transform: translate(0, -50%);
-              @media screen and (max-width: 568px) {
-                & {
-                  padding-left: 10px;
-                }
-              }
             }
           }
         }
@@ -377,7 +372,9 @@ body .field {
   }
 
   .ng-select-container {
-    padding: 0 19px;
+    padding: 0;
+    padding-left: 19px;
+    padding-right: 19px;
     border-radius: 10px;
     border: none;
     height: 100% !important;
@@ -453,13 +450,31 @@ body .ng-select.ng-select-multiple .ng-select-container .ng-value-container {
 @media screen and (max-width:768px) {
   .field{
     margin-bottom: 11px;
+    &__label{
+      font-size: 14px;
+    }
+  }
+  .field-wrapper{
+    &__input{
+      font-size: 16px;
+      &::placeholder{
+        font-size: 16px;
+      }
+    }
+    &__type{
+      font-size: 16px;
+    }
   }
 }
-@media screen and (max-width: 568px) {
+@media screen and (min-width: 320px) and (max-width: 374px) {
   .field {
     &__label {
       margin-left: 10px;
-      font-size: 16px;
+    }
+  }
+  .custom-select {
+    .ng-select-container{
+      padding-left: 10px;
     }
   }
   .field-checkbox {

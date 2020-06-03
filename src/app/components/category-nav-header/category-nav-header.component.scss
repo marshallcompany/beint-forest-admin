@@ -59,11 +59,13 @@
     position: relative;
 }
 .category-detail_show-image{
-    height: 270px;
+    height: 260px;
+    margin-bottom: 25px;
 }
 .category-detail-info {
     display: flex;
     align-items: center;
+    margin-bottom: 25px;
     &__icon{
         width:80px;
         height:80px;
@@ -81,6 +83,8 @@
         color:$blue;
         font-family: $workSansBold;
         font-size: 30px;
+        position: relative;
+        z-index: 1;
     }
 }
 // MOBILE NAVIGATION
@@ -95,7 +99,7 @@
         width: 9px;
         background-color: transparent;
         svg{
-            fill:#434784;
+            fill:#ffffff;
         }
     }
 }
@@ -114,9 +118,10 @@
     }
     &__label{
         color: #FFFFFF;
-        font-size:24px;
-        font-family: $workSansBold;
-        width:160px;
+        font-size:20px;
+        font-family: $workSansSemiBold;
+        width:130px;
+        line-height: 1.25;
     }
 }
 /* = MEDIA = */
@@ -151,6 +156,24 @@
         }
     }
 }
+@media screen and (max-width:1300px) {
+    .category-detail-info{
+        &__icon{
+            width:60px;
+            height:60px;
+            margin-right:10px;
+        }
+        &__image{
+            height:30px;
+        }
+        &__label{
+            font-size: 25px;
+        }
+    }
+    .category-image{
+        height: 250px
+    }
+}
 @media screen and (max-width:1200px){
     .tab-navigation{
         &__button{
@@ -165,25 +188,12 @@
             font-size: 14px;
         }
     }
-    .category-detail{
-        &__icon{
-            width:60px;
-            height:60px;
-            margin-right:10px;
-        }
-        &__image{
-            height:30px;
-        }
-        &__label{
-            font-size: 20px;
-            margin-right:15px;
-        }
-    }
 }
 @media screen and (max-width:992px){
     .tab-navigation{
         flex-wrap:wrap;
         justify-content: space-between;
+        margin-bottom: 30px;
         &__button{
             width:30%;
             padding-bottom:5px;
@@ -193,34 +203,55 @@
                 margin-bottom:0;
             }
         }
-
+    }
+    .category-detail-info{
+        &__label{
+            font-size: 20px;
+        }
+    }
+    .category-detail_show-image{
+        height: 210px;
+    }
+    .category-image{
+        height: 150px;
     }
 }
 @media screen and (max-width:768px){
+    .category-image{
+        height: inherit;
+        width: 80%;
+    }
     .tab-navigation{
         display: none;
     }
     .category-header{
         position: relative;
         padding:0;
-        height:120px;
         z-index: 1;
-        background-color:$primary;
-        margin-bottom:25px;
-        border-bottom-left-radius: 40px;
-        .container{
-            height: 100%;
+        &:before{
+            content: '';
+            width:100%;
+            height: 110px;
+            background-color: $primary;
+            position: absolute;
+            left: 0;
+            top: 0;
+            border-bottom-left-radius: 40px;
         }
     }
-    .category-header-wrapper{
-        height:100%;
-    }
     .mobile-navigation{
+        height:110px;
         display: flex;
+        margin-bottom: 2px;
     }
     // NEW STYLES
     .category-detail_show-image{
-        height: auto
+        height: auto;
+        margin-bottom: 15px;
+    }
+    .category-detail{
+        display: flex;
+        justify-content: center;
     }
     .category-detail-info{
         display: none;
@@ -241,23 +272,10 @@
 @media screen and (max-width:667px){}
 @media screen and (max-width:640px){}
 @media screen and (max-width:568px){}
-@media screen and (max-width:480px){
-     .category-detail{
-        &__image{
-            height: 50px;
-        }
-        &__label{
-          font-size: 16px;
-          width:100px;
-        }
-    }
-}
+@media screen and (max-width:480px){}
 @media screen and (max-width:414px){}
 @media screen and (max-width:375px){}
 @media screen and (max-width:360px){
-    .category-header{
-        height: 100px;
-    }
     .mobile-category-information{
         &__icon{
             height:40px;

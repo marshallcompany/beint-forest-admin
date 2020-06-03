@@ -21,9 +21,6 @@
     overflow-x: hidden;
     padding-bottom:25px;
 }
-.subcategory{
-    margin-top: 50px;
-}
 .subcategory-item{
     margin-bottom:10px;
     border-radius: 10px;
@@ -295,7 +292,6 @@
 @media screen and (max-width:1500px){
     .subcategory{
         padding-left:5vw;
-        padding-right:5vw;
     }
     .datapicker-checkbox{
         padding: 20px 0 30px 0;

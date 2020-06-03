@@ -10,11 +10,11 @@
         width: 100%;
         max-width: 1350px;
         margin: 0 auto;
-        margin-top: -25px;
+        margin-top: -50px;
     }
 }
 .subcategory-item{
-    margin-bottom:24px;
+    margin-bottom:27px;
     &:last-child{
         margin-bottom:0;
     }
@@ -23,7 +23,7 @@
     width:100%;
     display: flex;
     align-items:center;
-    margin-bottom:27px;
+    margin-bottom:14px;
     &__circle{
        width:60px;
        height:60px;
@@ -50,7 +50,6 @@
 .field{
     &_select{
         .field-wrapper{
-            padding:0;
             background-color:inherit;
         }
     }
@@ -70,46 +69,61 @@
 @media screen and (max-width:1500px){
     .personal-wrapper{
         padding-left:5vw;
-        padding-right:5vw;
+    }
+}
+@media screen and (max-width: 992px) {
+    .subcategory-info__circle{
+        width: 45px;
+        height: 45px;
+        margin-right: 10px;
+    }
+    .subcategory-info__icon{
+        height: 20px;
+    }
+    .subcategory-info__name{
+        font-size: 17px;
     }
 }
 @media screen and (max-width:768px){
     .personal{
         background-color:#F9F9F9;
+        padding-bottom: 0;
+        .personal-wrapper{
+            margin-top: -25px;
+        }
     }
     .personal-wrapper{
         padding:0;
     }
     .subcategory-item{
-        margin-bottom:31px;
+        margin-bottom:20px;
     }
     .field{
         width:100%;
     }
-    .field-wrapper{
-        &__input{
-            font-size: 16px;
-        }
-        &__type{
-            font-size: 14px;
-        }
+    .subcategory-info__circle{
+        width: 60px;
+        height: 60px;
+        margin-right: 20px;
     }
-    .custom-select{
-        font-size: 16px;
+    .subcategory-info__icon{
+        height: 32px;
+    }
+    .subcategory-info__name{
+        font-size: 20px;
     }
 }
-@media screen and (max-width:568px){
-    .field{
-        &__label{
-            margin-left:10px;
-            font-size: 16px;
-        }
+@media screen and (min-width: 320px) and (max-width: 374px) {
+    .subcategory-info__circle{
+        width: 45px;
+        height: 45px;
+        margin-right: 10px;
     }
-    ::ng-deep .ng-select .ng-select-container{
-        padding-left: 10px;
+    .subcategory-info__icon{
+        height: 20px;
     }
-    .field-wrapper{
-        padding-left:10px;
+    .subcategory-info__name{
+        font-size: 17px;
     }
 }
 /* = MEDIA END = */
