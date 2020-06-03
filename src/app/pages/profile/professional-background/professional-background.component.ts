@@ -30,6 +30,8 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
 
   public navSettings = {
     iconCategory: '../assets/image/profile/category-03.svg',
+    imgDesktop: '../assets/image/profile/professional-background/image-desktop.svg',
+    imgMobile: '../assets/image/profile/professional-background/image-mobile.svg',
     nameCategory: 'Beruflicher Werdegang',
     nextCategory: 'profile/search-settings',
     prevCategory: 'profile/education'

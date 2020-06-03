@@ -19,6 +19,8 @@ export class EducationComponent implements OnInit, AfterViewInit {
 
   public navSettings = {
     iconCategory: '../assets/image/profile/category-02.svg',
+    imgDesktop: '../assets/image/profile/education/image-desktop.svg',
+    imgMobile: '../assets/image/profile/education/image-mobile.svg',
     nameCategory: 'Berufliche Ausbildung',
     nextCategory: 'profile/professional-background',
     prevCategory: 'profile/personal'

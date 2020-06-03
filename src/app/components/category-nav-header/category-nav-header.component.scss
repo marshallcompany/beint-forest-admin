@@ -1,7 +1,6 @@
 @import "../../theme/variables.scss";
 .category-header{
     padding-top:60px;
-    margin-bottom:15px;
 }
 .category-header-wrapper{
     display: flex;
@@ -9,16 +8,15 @@
     position: relative;
 }
 .tab-navigation{
-    margin-bottom:35px;
+    margin-bottom:65px;
     display: flex;
     justify-content: space-between;
     &__button{
         display: flex;
-        width:160px;
         align-items:center;
-        text-align: left;
+        width:160px;
         background-color:transparent;
-        padding-bottom:20px;
+        padding-bottom:10px;
         border-bottom:2px solid transparent;
         &:hover{
             border-color:#BDE8E3;
@@ -42,11 +40,28 @@
         }
     }
     &__text{
+        text-align: left;
         font-size: 17px;
         font-family: $workSansRegular;
     }
 }
+.category-image{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform:translate(-50%, -50%);
+    height: 265px;
+}
+.category-image_mobile{
+    display: none;
+}
 .category-detail{
+    position: relative;
+}
+.category-detail_show-image{
+    height: 270px;
+}
+.category-detail-info {
     display: flex;
     align-items: center;
     &__icon{
@@ -66,10 +81,8 @@
         color:$blue;
         font-family: $workSansBold;
         font-size: 30px;
-        margin-right:50px;
     }
 }
-
 // MOBILE NAVIGATION
 .mobile-navigation{
     height: 100%;
@@ -140,7 +153,6 @@
 }
 @media screen and (max-width:1200px){
     .tab-navigation{
-        margin-bottom:20px;
         &__button{
             width:120px;
             padding-bottom:10px;
@@ -203,11 +215,27 @@
     .category-header-wrapper{
         height:100%;
     }
-    .category-detail{
-        display: none;
-    }
     .mobile-navigation{
         display: flex;
+    }
+    // NEW STYLES
+    .category-detail_show-image{
+        height: auto
+    }
+    .category-detail-info{
+        display: none;
+    }
+    .category-image{
+        position: inherit;
+        left: inherit;
+        top: inherit;
+        transform: translate(0,0);
+    }
+    .category-image_desktop{
+        display: none;
+    }
+    .category-image_mobile{
+        display: block;
     }
 }
 @media screen and (max-width:667px){}

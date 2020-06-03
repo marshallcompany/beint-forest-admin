@@ -7,8 +7,8 @@
       src="../assets/image/background-circle-02.png"
       class="background__circle background__circle_02">
   </div>
-  <app-category-nav-header [navSettings]="navSettings"></app-category-nav-header>
-  <div
+  <app-category-nav-header [categoryPictureStatus]="accordionsStatus" [navSettings]="navSettings"></app-category-nav-header>
+  <!-- <div
     class="category-decor"
     [ngClass]="{'category-decor_hide' : !accordionsStatus, 'category-decor_show': accordionsStatus}">
     <div class="container">
@@ -19,7 +19,7 @@
         src="../assets/image/profile/education/image-mobile.svg"
         class="category-decor__image category-decor__image_mobile">
     </div>
-  </div>
+  </div> -->
   <div class="subcategory">
     <div class="container">
       <form

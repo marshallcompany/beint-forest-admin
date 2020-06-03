@@ -9,29 +9,6 @@
   overflow: auto;
   overflow-x: hidden;
 }
-.category-decor{
-    animation: 0.25s linear forwards showCategoryImage;
-    &__image{
-        display: block;
-        width: 90%;
-        margin:0 auto;
-        &_mobile{
-            display: none;
-        }
-    }
-}
-@keyframes showCategoryImage {
-    0% {
-        transform: scale(0);
-    }
-    25% {
-        transform: scale(0.5);
-    }
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
-}
 .form-wrapper{
     margin-top: 50px;
 }
@@ -116,16 +93,6 @@
                 height: 10px;
             }
         }
-    }
-    .category-decor{
-        margin-bottom:5vw;
-            &__image{
-                width: 80%;
-                display: none;
-                &_mobile{
-                    display: block;
-                }
-            }
     }
     .field{
         width:100%;

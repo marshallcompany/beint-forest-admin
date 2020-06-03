@@ -17,6 +17,8 @@ export class PersonalComponent implements OnInit {
 
   public navSettings = {
     iconCategory: '../assets/image/menu/profile.svg',
+    imgDesktop: '../assets/image/profile/personal/image-desktop.svg',
+    imgMobile: '../assets/image/profile/personal/image-mobile.svg',
     nameCategory: 'Persönliches & Kontakt',
     nextCategory: 'profile/education',
     prevCategory: 'profile/about'
@@ -68,7 +70,7 @@ export class PersonalComponent implements OnInit {
         },
         () => console.log('[ EDIT PROFILE DATA DONE ]')
       );
-  };
+  }
 
   public initForm = () => {
     this.form = this.formBuilder.group({
@@ -97,7 +99,7 @@ export class PersonalComponent implements OnInit {
         })
       }),
     });
-  };
+  }
 
   public patchFormValue = (personalData) => {
     this.form.patchValue({
@@ -149,7 +151,7 @@ export class PersonalComponent implements OnInit {
           console.log('[ ERROR UPDATE PROFILE ]', err);
         }
       );
-  };
+  }
 
   onChangeLand(formGroup) {
     formGroup.get('zipCode').setValue(null);

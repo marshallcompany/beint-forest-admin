@@ -22,6 +22,8 @@ export class MiscellaneousComponent implements OnInit, AfterViewInit {
 
   public navSettings = {
     iconCategory: '../assets/image/profile/category-06.svg',
+    imgDesktop: '../assets/image/profile/education/image-desktop.svg',
+    imgMobile: '../assets/image/profile/education/image-mobile.svg',
     nameCategory: 'Sonstiges',
     nextCategory: 'profile/about',
     prevCategory: 'profile/document'

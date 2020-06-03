@@ -20,6 +20,8 @@ export class SearchSettingsComponent implements OnInit, AfterViewInit {
 
   public navSettings = {
     iconCategory: '../assets/image/profile/category-04.svg',
+    imgDesktop: '../assets/image/profile/search/image-desktop.svg',
+    imgMobile: '../assets/image/profile/search/image-mobile.svg',
     nameCategory: 'Such-Präferenzen',
     nextCategory: 'profile/document',
     prevCategory: 'profile/professional-background'
