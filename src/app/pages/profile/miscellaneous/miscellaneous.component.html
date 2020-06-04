@@ -38,7 +38,7 @@
             </mat-expansion-panel-header>
             <ng-container formGroupName="hobbies">
               <div class="subcategory-content" style="padding: 0;">
-                <div class="flex-grid">
+                <div class="flex-grid flex-grid_relevant">
                   <div
                     class="field"
                     [ngClass]="{notRelevant : this.form.get('miscellaneous').get('hobbies').get('isNotRelevant').value}">
@@ -110,7 +110,7 @@
               <ng-template #notValid>
                 <div class="subcategory-preview-info">
                   <p class="subcategory-preview-info__number">
-                    <span class="subcategory-preview-info__text" style="background-color: transparent;"></span>
+                    <span class="subcategory-preview-info__text">1</span>
                   </p>
                   <div class="subcategory-preview-info__details">
                       <p
@@ -118,12 +118,12 @@
                           *ngIf="!form.get('miscellaneous').get('hobbies').get('isNotRelevant').value; else notRelevant">
                           Unvollständige Angaben
                       </p>
-                      <ng-template #notRelevant>
-                        <p class="subcategory-preview-info__line">
-                          <span></span>
-                        </p>
-                      </ng-template>
                   </div>
+                  <ng-template #notRelevant>
+                    <div class="relevant-info">
+                      <p class="relevant-info__line"></p>
+                    </div>
+                  </ng-template>
                 </div>
               </ng-template>
             </div>
@@ -166,7 +166,7 @@
                     </label>
                   </div>
                 </div>
-                <div formArrayName="items">
+                <div class="relevant-change" formArrayName="items">
                   <div
                     class="flex-grid"
                     *ngFor="let item of volunteeringArray.controls; let i = index"
@@ -345,7 +345,7 @@
               </ng-container>
               <ng-template #notValid>
                 <div class="subcategory-preview-info">
-                  <p class="subcategory-preview-info__number">
+                  <p class="subcategory-preview-info__number" *ngIf="!form.get('miscellaneous').get('volunteering').get('isNotRelevant').value">
                     <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
                   </p>
                   <div class="subcategory-preview-info__details">
@@ -354,12 +354,12 @@
                           *ngIf="!form.get('miscellaneous').get('volunteering').get('isNotRelevant').value; else notRelevant">
                           Unvollständige Angaben
                       </p>
-                      <ng-template #notRelevant>
-                        <p class="subcategory-preview-info__line">
-                          <span></span>
-                        </p>
-                      </ng-template>
                   </div>
+                  <ng-template #notRelevant>
+                    <div class="relevant-info">
+                      <p class="relevant-info__line"></p>
+                    </div>
+                  </ng-template>
                 </div>
               </ng-template>
             </div>
@@ -402,7 +402,7 @@
                     </label>
                   </div>
                 </div>
-                <div formArrayName="items">
+                <div class="relevant-change" formArrayName="items">
                   <div
                     class="flex-grid"
                     *ngFor="let item of publicationsArray.controls; let i = index"
@@ -559,8 +559,8 @@
               </ng-container>
               <ng-template #notValid>
                 <div class="subcategory-preview-info">
-                  <p class="subcategory-preview-info__number">
-                    <span class="subcategory-preview-info__text" style="background-color: transparent;"></span>
+                  <p class="subcategory-preview-info__number" *ngIf="!form.get('miscellaneous').get('publications').get('isNotRelevant').value">
+                    <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
                   </p>
                   <div class="subcategory-preview-info__details">
                       <p
@@ -568,12 +568,12 @@
                           *ngIf="!form.get('miscellaneous').get('publications').get('isNotRelevant').value; else notRelevant">
                           Unvollständige Angaben
                       </p>
-                      <ng-template #notRelevant>
-                        <p class="subcategory-preview-info__line">
-                          <span></span>
-                        </p>
-                      </ng-template>
                   </div>
+                  <ng-template #notRelevant>
+                    <div class="relevant-info">
+                      <p class="relevant-info__line"></p>
+                    </div>
+                  </ng-template>
                 </div>
               </ng-template>
             </div>
@@ -616,7 +616,7 @@
                     </label>
                   </div>
                 </div>
-                <div formArrayName="items">
+                <div class="relevant-change" formArrayName="items">
                   <div
                     class="flex-grid"
                     *ngFor="let item of awardsArray.controls; let i = index"
@@ -755,7 +755,7 @@
               </ng-container>
               <ng-template #notValid>
                 <div class="subcategory-preview-info">
-                  <p class="subcategory-preview-info__number">
+                  <p class="subcategory-preview-info__number" *ngIf="!form.get('miscellaneous').get('awards').get('isNotRelevant').value">
                     <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
                   </p>
                   <div class="subcategory-preview-info__details">
@@ -764,12 +764,12 @@
                           *ngIf="!form.get('miscellaneous').get('awards').get('isNotRelevant').value; else notRelevant">
                           Unvollständige Angaben
                       </p>
-                      <ng-template #notRelevant>
-                        <p class="subcategory-preview-info__line">
-                          <span></span>
-                        </p>
-                      </ng-template>
                   </div>
+                  <ng-template #notRelevant>
+                    <div class="relevant-info">
+                      <p class="relevant-info__line"></p>
+                    </div>
+                  </ng-template>
                 </div>
               </ng-template>
             </div>

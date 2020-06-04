@@ -83,6 +83,7 @@
     .tags-wrapper{
         &__item{
             padding:5px 10px;
+            margin-top: 20px;
         }
         &__label{
             font-size: 16px;
@@ -98,7 +99,9 @@
     .field{
         width:100%;
         &_checkbox{
-            padding:0 0 20px 19px;
+            height: 35px;
+            padding-top: 0;
+            padding-left: 19px;
         }
     }
     .checkbox-wrapper{
@@ -109,20 +112,27 @@
             width:47%;
         }
     }
+    .field-wrapper{
+        &__placeholder{
+            left: 19px;
+            width: calc(100% - 65px);
+            font-size: 17px;
+        }
+    }
 }
 @media screen and (max-width:568px){
     .search{
         padding-bottom:25px;
     }
+    .tags-wrapper{
+        padding-left:10px;
+    }
+}
+@media screen and (min-width: 320px) and (max-width: 374px) {
     .field-wrapper{
         &__placeholder{
             left: 10px;
-            width: calc(100% - 65px);
-            font-size: 14px;
         }
-    }
-    .tags-wrapper{
-        padding-left:10px;
     }
 }
 /* = MEDIA END = */

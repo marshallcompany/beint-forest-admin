@@ -70,7 +70,6 @@ export class SearchSettingsComponent implements OnInit, AfterViewInit {
     this.searchPlace.searchInput.nativeElement.placeholder = 'Wunsch Arbeitsorte';
     this.searchIndustry.searchInput.nativeElement.placeholder = 'Wunsch Arbeitsorte';
     this.searchBusiness.searchInput.nativeElement.placeholder = 'Bevorzugter Geschäftsbereich';
-
     this.placeOptions$ = fromEvent<any>(this.searchPlace.searchInput.nativeElement, 'input')
       .pipe(
         map(event => event.target.value),

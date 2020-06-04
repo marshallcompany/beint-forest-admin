@@ -451,15 +451,25 @@ body .ng-select.ng-select-multiple .ng-select-container .ng-value-container {
     }
   }
   .field-wrapper{
+    height: 48px;
     &__input{
       font-size: 16px;
       &::placeholder{
-        font-size: 16px;
+        font-size: 17px;
       }
     }
     &__type{
       font-size: 16px;
     }
+  }
+  .ng-select-container .ng-value-container .ng-value{
+    font-size: 16px!important;
+  }
+  .ng-select-container .ng-value-container .ng-placeholder{
+    font-size: 17px!important;
+  }
+  .ng-select-container .ng-input input{
+    font-size: 16px!important;
   }
 }
 @media screen and (min-width: 320px) and (max-width: 374px) {
@@ -479,8 +489,13 @@ body .ng-select.ng-select-multiple .ng-select-container .ng-value-container {
   .field-wrapper {
     padding-left: 10px;
   }
-  ::ng-deep .ng-select .ng-select-container {
-    padding-left: 10px;
+  .ng-select-container{
+    padding-left: 10px!important;
+  }
+  .ng-select-container{
+    .ng-input{
+      padding-left: 10px!important;
+    }
   }
 }
 

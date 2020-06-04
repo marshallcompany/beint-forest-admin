@@ -340,6 +340,7 @@
                   </div>
                 </div>
                 <div
+                  class="relevant-change"
                   formArrayName="items"
                   *ngIf="specialEducationArray.controls.length">
                   <div
@@ -595,19 +596,19 @@
               </ng-container>
               <ng-template #notValid>
                 <div class="subcategory-preview-info">
-                  <p class="subcategory-preview-info__number">
-                  <span
-                      class="subcategory-preview-info__text"
-                      *ngIf="!form.get('education').get('specialEducation').get('isNotRelevant').value">{{ i + 1 }}</span>
+                  <p class="subcategory-preview-info__number" *ngIf="!form.get('education').get('specialEducation').get('isNotRelevant').value">
+                  <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
                   </p>
                   <div class="subcategory-preview-info__details">
                     <p
                       class="subcategory-preview-info__invalid"
                       *ngIf="!form.get('education').get('specialEducation').get('isNotRelevant').value; else notRelevant">Unvollständige Angaben</p>
-                    <ng-template #notRelevant>
-                      <p class="subcategory-preview-info__line"><span></span></p>
-                    </ng-template>
                   </div>
+                  <ng-template #notRelevant>
+                    <div class="relevant-info">
+                      <p class="relevant-info__line"></p>
+                    </div>
+                  </ng-template>
                 </div>
               </ng-template>
             </div>
@@ -651,6 +652,7 @@
                   </div>
                 </div>
                 <div
+                  class="relevant-change"
                   formArrayName="items"
                   *ngIf="universitiesArray.controls.length">
                   <div
@@ -1007,19 +1009,19 @@
               </ng-container>
               <ng-template #notValid>
                 <div class="subcategory-preview-info">
-                  <p class="subcategory-preview-info__number">
-                  <span
-                      class="subcategory-preview-info__text"
-                      *ngIf="!form.get('education').get('universities').get('isNotRelevant').value">{{ i + 1 }}</span>
+                  <p class="subcategory-preview-info__number" *ngIf="!form.get('education').get('universities').get('isNotRelevant').value">
+                  <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
                   </p>
                   <div class="subcategory-preview-info__details">
                     <p
                       class="subcategory-preview-info__invalid"
                       *ngIf="!form.get('education').get('universities').get('isNotRelevant').value; else notRelevant">Unvollständige Angaben</p>
-                    <ng-template #notRelevant>
-                      <p class="subcategory-preview-info__line"><span></span></p>
-                    </ng-template>
                   </div>
+                  <ng-template #notRelevant>
+                    <div class="relevant-info">
+                      <p class="relevant-info__line"></p>
+                    </div>
+                  </ng-template>
                 </div>
               </ng-template>
             </div>
@@ -1063,6 +1065,7 @@
                   </div>
                 </div>
                 <div
+                  class="relevant-change"
                   formArrayName="items"
                   *ngIf="additionalEducationsArray.controls.length">
                   <div
@@ -1227,19 +1230,19 @@
               </ng-container>
               <ng-template #notValid>
                 <div class="subcategory-preview-info">
-                  <p class="subcategory-preview-info__number">
-                  <span
-                      class="subcategory-preview-info__text"
-                      *ngIf="!form.get('education').get('additionalEducations').get('isNotRelevant').value">{{ i + 1 }}</span>
+                  <p class="subcategory-preview-info__number" *ngIf="!form.get('education').get('additionalEducations').get('isNotRelevant').value">
+                  <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
                   </p>
                   <div class="subcategory-preview-info__details">
                     <p
                       class="subcategory-preview-info__invalid"
                       *ngIf="!form.get('education').get('additionalEducations').get('isNotRelevant').value; else notRelevant">Unvollständige Angaben</p>
-                    <ng-template #notRelevant>
-                      <p class="subcategory-preview-info__line"><span></span></p>
-                    </ng-template>
                   </div>
+                  <ng-template #notRelevant>
+                    <div class="relevant-info">
+                      <p class="relevant-info__line"></p>
+                    </div>
+                  </ng-template>
                 </div>
               </ng-template>
             </div>

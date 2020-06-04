@@ -82,12 +82,26 @@
         border-radius: 50%;
     }
 }
+.relevant-info{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    &__line{
+        display: block;
+        width:20px;
+        height:2px;
+        background-color:$black;
+        opacity: .8;
+    }
+}
 .subcategory-preview-info{
     display:flex;
     align-items:center;
+    width: 100%;
     &__details{
         display: flex;
         align-items:center;
+        width: 100%;
     }
     &__invalid{
         color:$red;
@@ -272,20 +286,44 @@
     .subcategory{
         padding-left:5vw;
     }
+    // NEW
+    .datepicker-group{
+        .field{
+            width: 49%!important;
+        }
+    }
+    .datapicker-checkbox{
+        margin-left: 0;
+        justify-content: flex-end;
+        width: calc(100% - 19px);
+    }
+    // NEW END
 }
 @media screen and (max-width:1200px){
+
+    // NEW
     .subcategory-header{
-        padding:20px 20px;
+        padding: 0 39px 0 29px;
     }
     .flex-grid{
-        padding: 15px 20px 20px 20px;
-    }
-    .not-relevant{
-        padding-left:20px;
-        padding-right:20px;
+        padding: 39px 29px 26px 29px;
     }
     .subcategory-preview-item{
-        padding:20px;
+        padding-left: 29px;
+        padding-right: 39px;
+    }
+    .not-relevant{
+        padding-left:29px;
+        padding-right:29px;
+    }
+    .not-relevant__item{
+        width: 47%;
+    }
+    // NEW END
+    .subcategory-preview-info{
+        &__number{
+            margin-right:25px;
+        }
     }
     .subcategory-info{
         &__icon{
@@ -295,51 +333,113 @@
     }
 }
 @media screen and (max-width:992px){
- .field-group,
- .field_group{
-     width:100%;
-     display: flex;
-     justify-content: space-between;
-     flex-wrap: wrap;
-     .field{
-         width:100%;
-     }
- }
- .field{
-      &_textarea{
-          width:100%!important;
-          .field-wrapper__input {
-              height:150px!important;
-          }
-      }
-      &.textarea{
-          width:100%;
-          .field-wrapper__input {
-              height:150px!important;
-          }
-      }
-  }
- .datepicker-group{
-     flex-wrap:wrap;
-     justify-content: space-between;
-     width:100%;
-     .field{
-         width:100%!important;
-     }
- }
-}
-@media screen and (max-width:768px){
-    .professional-background{
-        background-color:#F9F9F9;
+// NEW
+    .datepicker-group{
+        width: 100%;
+        .field{
+            width: 47%!important;
+        }
     }
-    .not-relevant{
-        &__item{
+// NEW END
+
+    .field-group,
+    .field_group{
+        width:100%;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        .field{
             width:100%;
         }
+    }
+    .field{
+        &_textarea{
+            width:100%!important;
+            .field-wrapper__input {
+                height:150px!important;
+            }
+        }
+    }
+}
+@media screen and (max-width:768px){
+// NEW
+    .subcategory-header{
+        padding-left: 11px;
+        padding-right: 15px;
+        height: 61px;
+        &__arrow{
+            height: 8px;
+        }
+    }
+    .subcategory-info__icon{
+        height: auto;
+        width: 30px;
+        margin-right: 23px;
+    }
+    .subcategory-info__label{
+        font-size: 17px;
+    }
+    .subcategory-preview-item{
+        padding: 15px 11px;
+    }
+    .subcategory-preview-info__number{
+        width: 30px;
+        margin-right: 10px;
+    }
+    .subcategory-preview-info__invalid{
+        font-size: 16px;
+    }
+    .datepicker-group{
+        .field{
+            width: 100%!important;
+            margin-bottom: 11px;
+        }
+    }
+    .datapicker-checkbox{
+        width:100%;
+        height: 25px;
+        padding-left: 19px;
+        justify-content: flex-start;
+    }
+    .remove-fields{
+        right: 11px;
+        top: 13px;
+    }
+    .flex-grid{
+        padding: 39px 11px 22px 11px;
+    }
+    .subcategory-content{
+        padding-bottom: 37px;
+    }
+    .not-relevant{
+        padding-left: 11px;
+        padding-right: 11px;
+        padding-top: 13px;
+        .checkbox-container{
+            font-size: 16px;
+        }
+    }
+    .not-relevant__item{
+        width: 85%;
+        height: 48px;
+    }
+    .relevant-change{
+        .flex-grid:nth-child(1){
+            padding-top: 14px;
+            .remove-fields{
+                top: -48px;
+            }
+        }
+    }
+// NEW END
+    .professional-background{
+        background-color:#F9F9F9;
+        padding-bottom: 20px;
     }
     .tags-wrapper{
         &__item{
             padding:5px 10px;
+            margin-top: 20px;
         }
         &__label{
             font-size: 16px;
@@ -361,10 +461,8 @@
         &__circle{
             display: none;
         }
-        &__invalid{
-           font-size: 16px; 
-        }
         p{
+            font-size: 14px;
             margin-bottom:5px;
             &:last-child{
                 margin-bottom:0;
@@ -373,12 +471,6 @@
     }
     .subcategory{
         padding:0;
-    }
-    .subcategory-header{
-        height: 76px;
-        &__arrow{
-            height: 12px;
-        }
     }
     .field-checkbox{
         &__label{
@@ -397,55 +489,30 @@
             }
         }
     }
-    .subcategory-info{
-        &__label{
-            font-size: 15px;
-        }
-    }
 }
-@media screen and (max-width:568px){
-    .not-relevant{
-        padding-left:10px;
-        padding-right:10px;
-        &__item{
-            padding-left:10px;
-        }
-    }
-    .tags-wrapper{
-        padding-left:10px;
-    }
-    .flex-grid{
-        padding: 15px 10px 20px 10px;
-    }
-    .field{
-        &_checkbox{
-            padding-left:10px;
-        }
-    }
-    .field-checkbox{
-        padding-left:10px;
-    }
-}
-@media screen and (max-width:375px){
-    .subcategory-preview-info{
-        &__number{
-            width:30px;
-            margin-right:10px;
-        }
-        &__text{
-            width:20px;
-            height:20px;
-            font-size: 14px;
-            line-height: 20px;
-        }
-    }
-    .subcategory-info{
-        &__icon{
-            width:30px;
-            margin-right:10px;
-        }
-        &__label{
+@media screen and (min-width: 320px) and (max-width: 374px) {
+    .not-relevant__item{
+        padding-left: 10px;
+        .checkbox-container{
             font-size: 14px;
         }
+    }
+    .datapicker-checkbox{
+        padding-left: 10px;
+        .checkbox-container{
+            font-size: 14px;
+        }
+    }
+    .field_checkbox{
+        padding-left: 10px;
+        .checkbox-container{
+            font-size: 14px;
+        }
+    }
+    .subcategory-info__icon{
+        margin-right: 15px;
+    }
+    .subcategory-info__label{
+        font-size: 16px;
     }
 }
