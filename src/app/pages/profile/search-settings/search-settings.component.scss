@@ -12,13 +12,17 @@
 
 .field{
     &_group{
+        margin-bottom: 0;
         .field{
             width:47%;
         }
     }
 }
 .field_checkbox{
-    padding-top:45px;
+    height: 68px;
+    padding-top: 15px;
+    display: flex;
+    align-items: center;
 }
 .flex-grid{
     display: flex;
@@ -100,24 +104,10 @@
     .checkbox-wrapper{
         padding:0;
     }
-    ::ng-deep .ng-select-container .ng-input input {
-        font-size: 16px;
-    }
     .salary-group{
         .field{
             width:47%;
         }
-    }
-    .field-wrapper{
-        &__input{
-            font-size: 16px;
-        }
-        &__type{
-            font-size: 14px;
-        }
-    }
-    .custom-select{
-        font-size: 16px;
     }
 }
 @media screen and (max-width:568px){
@@ -125,39 +115,14 @@
         padding-bottom:25px;
     }
     .field-wrapper{
-        padding-left:10px;
         &__placeholder{
             left: 10px;
             width: calc(100% - 65px);
             font-size: 14px;
         }
-        &__input{
-            &::placeholder{
-                font-size: 14px;
-            }
-        }
     }
     .tags-wrapper{
         padding-left:10px;
-    }
-    ::ng-deep .ng-select-container{
-        padding-left: 10px!important;
-    }
-    ::ng-deep .ng-select-container .ng-input {
-        input{
-            &::placeholder{
-                font-size: 14px;
-            }
-        }
-    }
-    .field{
-        &_checkbox{
-            padding-left:10px;
-        }
-        &__label{
-            margin-left:10px;
-            font-size: 16px;
-        }
     }
 }
 /* = MEDIA END = */

@@ -12,6 +12,10 @@
         display: none;
     }
 }
+::ng-deep .mat-expansion-panel-content{
+    font: inherit;
+}
+
 
 .education{
     background-color:$primary;
@@ -19,13 +23,15 @@
     min-height: 100vh;
     overflow: auto;
     overflow-x: hidden;
-    padding-bottom:25px;
+    padding-bottom: 100px;
 }
 .subcategory-item{
-    margin-bottom:10px;
+    margin-bottom:19px;
     border-radius: 10px;
-    box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.15);
     background-color: #ffffff;
+    &:last-child{
+        margin-bottom: 0;
+    }
 }
 // ACCORDION HEADER
   ::ng-deep .accordion .mat-expansion-panel-body, .mat-expansion-panel-header {
@@ -37,8 +43,8 @@
   }
   .subcategory-header{
       width: 100%;
-      height: 110px;
-      padding:30px 50px 30px 30px;
+      height: 89px;
+      padding:0 50px 0 49px;
       display: flex;
       align-items:center;
       justify-content: space-between;
@@ -55,30 +61,33 @@
       align-items:center;
       &__icon{
           margin-right:30px;
-          width: 40px;
+          width: 50px;
       }
       &__label{
-          font-size: 17px;
-          font-family: $workSansBold;
+          font-size: 20px;
+          font-family: $workSansSemiBold;
+          opacity: .8;
       }
   }
 // ACCORDION CONTENT
 .subcategory-content{
-    padding-bottom:75px;
+    padding-bottom:49px;
     border-top: 1px solid #E1E1E1;
     &_padding{
         padding-bottom:0!important;
     }
 }
 .not-relevant{
-    padding: 30px 50px 0 30px;
+    padding-left: 49px;
+    padding-top: 39px;
     &__item{
         background-color:rgba(152, 152, 152, .1);
-        width:47%;
+        width:calc(47% - 19px);
         border-radius:10px;
         display: flex;
         align-items:center;
-        padding:30px 0 30px 19px;
+        height: 70px;
+        padding-left: 19px;
     }
     &__checkbox{
         margin-right:10px;
@@ -91,13 +100,14 @@
     flex-wrap:wrap;
     justify-content: space-between;
     border-bottom: 1px solid #E1E1E1;
-    padding: 0 50px 20px 30px;
+    position: relative;
+    padding: 39px 49px 26px 49px;
     &:last-child{
         border:none;
     }
 }
 .subcategory-preview-item{
-    padding: 25px 50px 25px 30px;
+    padding: 15px 50px 15px 49px;
     border-top: 1px solid #E1E1E1;
     display: flex;
     justify-content: space-between;
@@ -133,7 +143,7 @@
         color:$red;
     }
     &__number{
-        width:40px;
+        width:50px;
         display: flex;
         justify-content: center;
         margin-right:30px;
@@ -141,12 +151,12 @@
     &__text{
         display: inline-block;
         border-radius:50%;
-        background-color: $primary;
+        background-color: #F5F5F5;
         width:24px;
         height:24px;
         text-align: center;
         line-height: 24px;
-        color:#ffffff;
+        color: $blue;
         font-size: 17px;
     }
     &__circle{
@@ -178,10 +188,9 @@
 }
 // FIELD
 .remove-fields{
-    width:100%;
-    display: flex;
-    justify-content: flex-end;
-    padding:20px 0;
+    position: absolute;
+    right: 15px;
+    top: 15px;
     &__button{
         width:20px;
         height:20px;
@@ -212,37 +221,10 @@
         justify-content: center;
     }
 }
-.field{
-    width:47%;
-    &_textarea{
-        .field-wrapper{
-            flex: inherit;
-            .field-wrapper__input{
-                padding:0;
-                height: 145px;
-                font-family: $workSansRegular;
-                outline: none;
-                border:none;
-                resize: none;
-                font-size: 17px;
-            }
-            &__type{
-                top:25px;
-                right:19px;
-            }
-        }
-    }
-    &__label{
-        color:$black;
-        opacity: .5;
-        margin-bottom:11px;
-        margin-left:19px;
-    }
-}
-.field-wrapper{
-    &__input{
-        &::placeholder{
-            font-size: 16px;
+.field_group{
+    .field{
+        &:last-child{
+            margin-bottom: 0
         }
     }
 }
@@ -270,24 +252,23 @@
         top:-5px;
     }
 }
+// DATA GROUP
 .datepicker-group{
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  &-item{
     display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: flex-end;
     .field{
-      margin-bottom:0;
-      flex-shrink: 0;
-      width:230px;
+        width:35%!important;
+        margin-bottom:0;
     }
-  }
 }
 .datapicker-checkbox{
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-  margin-left:15px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    margin-left:15px;
 }
 @media screen and (max-width:1500px){
     .subcategory{
@@ -310,9 +291,6 @@
 @media screen and (max-width:1200px){
     .subcategory-header{
        padding:20px 20px;
-    }
-    .subcategory-content{
-        padding-bottom:50px;
     }
     .flex-grid{
         padding: 15px 20px 20px 20px;
@@ -354,14 +332,6 @@
           }
       }
   }
-//  .datepicker-group{
-//      flex-wrap:wrap;
-//      justify-content: space-between;
-//      width:100%;
-//      .field{
-//          width:100%!important;
-//      }
-//  }
 }
 @media screen and (max-width:768px){
     .education{
@@ -450,24 +420,6 @@
             }
         }
     }
-    ::ng-deep .custom-select .ng-select-container .ng-value-container .ng-placeholder {
-        font-size: 14px;
-    }
-    .field-wrapper{
-        &__input{
-            font-size: 16px;
-            &::placeholder{
-                font-size: 14px;
-            }
-        }
-        &__type{
-            font-size: 14px;
-        }
-    }
-    .custom-select{
-        font-size: 16px;
-    }
-
     .subcategory-info{
         &__label{
             font-size: 15px;
@@ -498,19 +450,9 @@
         &_checkbox{
             padding-left:10px;
         }
-        &__label{
-            margin-left:10px;
-            font-size: 16px;
-        }
     }
     .field-checkbox{
         padding-left:10px;
-    }
-    .field-wrapper{
-        padding-left:10px;
-    }
-    ::ng-deep .ng-select .ng-select-container{
-        padding-left: 10px;
     }
 }
 @media screen and (max-width:375px){

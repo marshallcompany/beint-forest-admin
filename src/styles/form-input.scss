@@ -102,7 +102,7 @@
 }
 
 body .field-group {
-  width: 46.5%;
+  width: 47%;
   position: relative;
 
   .field {
@@ -127,14 +127,14 @@ body .field-group {
 // FIELD INPUT
 .field {
   width: 47%;
-  margin-bottom:20px;
+  margin-bottom:13px;
   position: relative;
   &__label {
     color: $black;
     opacity: .5;
     margin-bottom: 2px;
     margin-left: 19px;
-    font-size: 16px;
+    font-size: 14px;
   }
   &_group {
     .field {
@@ -221,23 +221,19 @@ body .field-group {
   &_textarea {
     display: flex;
     flex-direction: column;
-
     .field-wrapper {
-      flex: 1;
       padding-top: 15px;
-
       .field-wrapper__input {
         padding: 0;
-        height: 100%;
+        height: 117px;
         font-family: $workSansRegular;
         outline: none;
         border: none;
         resize: none;
         font-size: 17px;
       }
-
       &__type {
-        top: 25px;
+        top: 15px;
         right: 19px;
       }
     }

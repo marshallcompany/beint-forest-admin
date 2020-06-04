@@ -5,13 +5,19 @@
     min-height: 100vh;
     overflow: auto;
     overflow-x: hidden;
-    padding-bottom: 50px;
+    padding-bottom: 100px;
 }
+::ng-deep .mat-expansion-panel-content{
+    font: inherit;
+}
+
 .subcategory-item{
-    margin-bottom:10px;
+    margin-bottom:19px;
     border-radius: 10px;
-    box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.15);
     background-color: #ffffff;
+    &:last-child{
+        margin-bottom: 0;
+    }
 }
 
 // ACCORDION HEADER
@@ -21,8 +27,8 @@
 }
 .subcategory-header{
     width: 100%;
-    height:110px;
-    padding:30px 50px 30px 30px;
+    height: 89px;
+    padding:0 50px 0 49px;
     display: flex;
     align-items:center;
     justify-content: space-between;
@@ -39,19 +45,18 @@
     align-items:center;
     &__icon{
         margin-right:30px;
-        width: 40px;
+        width: 50px;
     }
     &__label{
-        font-size: 17px;
-        font-family: $workSansBold;
+        font-size: 20px;
+        font-family: $workSansSemiBold;
+        opacity: .8;
     }
 }
 // ACCORDION CONTENT
 .subcategory-content{
-    padding-bottom:75px;
-    &_padding{
-      padding-bottom:0!important;
-    }
+    border-top: 1px solid #E1E1E1;
+    padding-bottom:49px;
 }
 .subcategory-preview{
   .tags-wrapper{
@@ -62,7 +67,7 @@
   }
 }
 .subcategory-preview-item{
-    padding: 25px 50px 25px 30px;
+    padding: 15px 50px 15px 49px;
     border-top: 1px solid #E1E1E1;
     display: flex;
     justify-content: space-between;
@@ -94,7 +99,7 @@
         color:$red;
     }
     &__number{
-        width:40px;
+        width:50px;
         display: flex;
         justify-content: center;
         margin-right:30px;
@@ -102,12 +107,12 @@
     &__text{
         display: inline-block;
         border-radius:50%;
-        background-color: $primary;
+        background-color: #F5F5F5;
         width:24px;
         height:24px;
         text-align: center;
         line-height: 24px;
-        color:#ffffff;
+        color: $blue;
         font-size: 17px;
     }
     &__circle{
@@ -133,12 +138,9 @@
     flex-wrap:wrap;
     justify-content: space-between;
     border-bottom: 1px solid #E1E1E1;
-    padding: 0 50px 20px 30px;
-    
+    position: relative;
+    padding: 39px 49px 26px 49px;
     &_not-relevant{
-      padding-top: 30px!important;
-      align-items: flex-start;
-      border-top: 1px solid #E1E1E1;
       .field{
         padding-bottom: 0;
         margin-bottom: 0;
@@ -157,15 +159,16 @@
     }
 }
 .not-relevant{
-    padding: 30px 50px 0 30px;
-    border-top: 1px solid #E1E1E1;
+    padding-left: 49px;
+    padding-top: 39px;
     &__item{
         background-color:rgba(152, 152, 152, .1);
-        width:47%;
+        width:calc(47% - 19px);
         border-radius:10px;
         display: flex;
         align-items:center;
-        padding:30px 0 30px 19px;
+        height: 70px;
+        padding-left: 19px;
     }
     &__checkbox{
         margin-right:10px;
@@ -174,10 +177,9 @@
     }
 }
 .remove-fields{
-    width:100%;
-    display: flex;
-    justify-content: flex-end;
-    padding:20px 0;
+    position: absolute;
+    right: 15px;
+    top: 15px;
     &__button{
         width:20px;
         height:20px;
@@ -208,128 +210,30 @@
         justify-content: center;
     }
 }
+// DATA GROUP
 .datepicker-group{
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: flex-end;
     .field{
         width:35%!important;
         margin-bottom:0;
     }
 }
 .datapicker-checkbox{
-    display: flex;
-    align-items:center;
-    &__input{
-        width:20px;
-        height:20px;
-        margin-right:10px;
-    }
-}
-.field{
-    width:47%;
-    margin-bottom:20px;
-    &_group{
-        .field{
-            width:100%;
-        }
-    }
-    &_select{
-        .field-wrapper{
-            padding:0;
-            background-color:inherit;
-        }
-    }
-    &_datapicker{
-        .field-wrapper{
-            padding-right:0;
-            margin-bottom:20px;
-            cursor: pointer;
-            &:last-child{
-                margin-bottom:0;
-            }
-            &__input{
-                pointer-events: none;
-                height:100%;
-                border-radius: 10px;
-            }
-        }
-    }
-    &_textarea{
-        display: flex;
-        flex-direction: column;
-        .field-wrapper{
-            flex:1;
-            padding-top:15px;
-            .field-wrapper__input{
-                padding:0;
-                height: 100%;
-                font-family: $workSansRegular;
-                outline: none;
-                border:none;
-                resize: none;
-                font-size: 17px;
-            }
-            &__type{
-                top:25px;
-                right:19px;
-            }
-        }
-    }
-    &__label{
-        color:$black;
-        opacity: .5;
-        margin-bottom:11px;
-        margin-left:19px;
-    }
-}
-.field-wrapper{
     height: 50px;
-    width:100%;
-    position: relative;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.17);
-    padding-left: 19px;
-    padding-right:55px;
-    border-radius: 10px;
-    background-color:#ffffff;
     display: flex;
     align-items: center;
-    &__input{
-        width:100%;
-        background-color:#ffffff;
-        border:0;
-        color:$black;
-        font-size: 17px;
-        font-family: $workSansRegular;
-        &::placeholder{
-            color:#989898;
-            opacity: .8;
-            font-size: 17px;
+    flex-shrink: 0;
+    margin-left:15px;
+}
+
+.field_group{
+    .field{
+        &:last-child{
+            margin-bottom: 0
         }
-    }
-    &__status{
-       width:10px;
-       height:100%;
-       position: absolute;
-       z-index: 5;
-       right:0;
-       top:0;
-       border-bottom-right-radius: 10px;
-       border-top-right-radius: 10px;
-       background-color:$green; 
-       &.invalid{
-           background-color: $yellow;
-       }
-    }
-    &__type{
-        position: absolute;
-        top:50%;
-        right:19px;
-        transform: translate(0 , -50%);
-        color: #989898;
-        opacity: 0.8;
-        font-size: 17px;
-        width: 30px;
-        text-align: center;
     }
 }
 .field_checkbox{
@@ -392,9 +296,6 @@
 @media screen and (max-width:1200px){
     .subcategory-header{
        padding:20px 20px;
-    }
-    .subcategory-content{
-        padding-bottom:50px;
     }
     .flex-grid{
         padding: 15px 20px 20px 20px;
@@ -534,23 +435,6 @@
             }
         }
     }
-    .field-wrapper{
-        &__input{
-            font-size: 16px;
-        }
-        &__type{
-            font-size: 14px;
-        }
-    }
-    .custom-select{
-        font-size: 16px;
-    }
-
-    .subcategory-info{
-        &__label{
-            font-size: 15px;
-        }
-    }
 }
 @media screen and (max-width:568px){
     .not-relevant{
@@ -570,24 +454,9 @@
         &_checkbox{
             padding-left:10px;
         }
-        &__label{
-            margin-left:10px;
-            font-size: 16px;
-        }
     }
     .field-checkbox{
         padding-left:10px;
-    }
-    .field-wrapper{
-        padding-left:10px;
-        &__input{
-            &::placeholder{
-                font-size: 14px;
-            }
-        }
-    }
-    ::ng-deep .ng-select .ng-select-container{
-        padding-left: 10px;
     }
 }
 @media screen and (max-width:375px){
