@@ -5,8 +5,13 @@ import { map } from 'rxjs/internal/operators/map';
 import { NotificationService } from 'src/app/services/notification.service';
 
 import { debounceTime, share, switchMap, filter } from 'rxjs/operators';
-import { throwError, of, Observable } from 'rxjs';
+import { throwError, of, Observable, forkJoin } from 'rxjs';
 import { SearchService } from '../../../services/search.service';
+
+interface DropDownOptions {
+  academic_titles: Array<string[]>;
+  gender: Array<string[]>;
+}
 
 @Component({
   selector: 'app-personal',
@@ -25,6 +30,8 @@ export class PersonalComponent implements OnInit {
   };
 
   public firstPersonalData: object;
+  public dropdownOptions: DropDownOptions;
+
   public form: FormGroup;
   public personal: FormGroupName;
   public contact: FormGroupName;
@@ -47,22 +54,29 @@ export class PersonalComponent implements OnInit {
   }
 
   public init = () => {
-    this.profileService.getProfile()
+    const getProfileData$ = this.profileService.getProfile();
+    const getLocalBundle$ = this.profileService.getLocalBundle('de');
+    forkJoin([getProfileData$, getLocalBundle$])
       .pipe(
-        map((fullProfileData: any) => {
-          if (fullProfileData.profile && fullProfileData.profile.personal && fullProfileData.profile.contact) {
+        map(([fullProfileData, fullLocalBundle]) => {
+          if (fullProfileData.profile && fullProfileData.profile.personal && fullProfileData.profile.contact && fullLocalBundle && fullLocalBundle.dropdownOptions) {
             return {
               personal: fullProfileData.profile.personal,
-              contact: fullProfileData.profile.contact
+              contact: fullProfileData.profile.contact,
+              dropdownOptions: {
+                academic_titles: fullLocalBundle.dropdownOptions.academic_titles,
+                gender: fullLocalBundle.dropdownOptions.gender
+              }
             };
           }
-          return fullProfileData;
+          return [fullProfileData, fullLocalBundle];
         })
       )
       .subscribe(
-        personalData => {
-          console.log('[ EDIT PROFILE DATA ]', personalData);
-          this.patchFormValue(personalData);
+        (res: any) => {
+          console.log('[ EDIT PROFILE DATA ]', res);
+          this.patchFormValue(res);
+          this.dropdownOptions = res.dropdownOptions;
           this.firstPersonalData = this.form.value;
         },
         err => {
@@ -104,7 +118,7 @@ export class PersonalComponent implements OnInit {
   public patchFormValue = (personalData) => {
     this.form.patchValue({
       personal: {
-        academicTitle: personalData.personal && personalData.personal.academicTitle ? personalData.personal.academicTitle : '',
+        academicTitle: personalData.personal && personalData.personal.academicTitle ? personalData.personal.academicTitle : null,
         birthPlace: personalData.personal && personalData.personal.birthPlace ? personalData.personal.birthPlace : '',
         dateBirth: personalData.personal && personalData.personal.dateBirth ? personalData.personal.dateBirth : '',
         firstName: personalData.personal && personalData.personal.firstName ? personalData.personal.firstName : '',

@@ -351,7 +351,7 @@
           </mat-expansion-panel>
           <div
             class="subcategory-preview"
-            *ngIf="!accordion01.expanded && !form.get('workExperience').get('employmentConditions').get('isNotRelevant').value">
+            *ngIf="!accordion01.expanded && professionalBackgroundData">
             <div
               class="subcategory-preview-item"
               *ngFor="let item of form.get('workExperience').get('employmentConditions').get('items').controls; let i = index">
@@ -377,12 +377,21 @@
               </ng-container>
               <ng-template #notValid>
                 <div class="subcategory-preview-info">
-                  <p class="subcategory-preview-info__number">
-                  <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
-                </p>
+                  <p class="subcategory-preview-info__number" *ngIf="!form.get('workExperience').get('employmentConditions').get('isNotRelevant').value">
+                    <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
+                  </p>
                   <div class="subcategory-preview-info__details">
-                    <p class="subcategory-preview-info__invalid">Unvollständige Angaben</p>
+                      <p
+                          class="subcategory-preview-info__invalid"
+                          *ngIf="!form.get('workExperience').get('employmentConditions').get('isNotRelevant').value; else notRelevant">
+                          Unvollständige Angaben
+                      </p>
                   </div>
+                  <ng-template #notRelevant>
+                    <div class="relevant-info">
+                      <p class="relevant-info__line"></p>
+                    </div>
+                  </ng-template>
                 </div>
               </ng-template>
             </div>
@@ -671,7 +680,7 @@
           </mat-expansion-panel>
           <div
             class="subcategory-preview"
-            *ngIf="!accordion02.expanded && !form.get('workExperience').get('independentExperience').get('isNotRelevant').value">
+            *ngIf="!accordion02.expanded && professionalBackgroundData">
             <div
               class="subcategory-preview-item"
               *ngFor="let item of this.form.get('workExperience').get('independentExperience').get('items').controls; let i = index">
@@ -697,12 +706,21 @@
               </ng-container>
               <ng-template #notValid>
                 <div class="subcategory-preview-info">
-                  <p class="subcategory-preview-info__number">
-                  <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
-                </p>
+                  <p class="subcategory-preview-info__number" *ngIf="!form.get('workExperience').get('independentExperience').get('isNotRelevant').value">
+                    <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
+                  </p>
                   <div class="subcategory-preview-info__details">
-                    <p class="subcategory-preview-info__invalid">Unvollständige Angaben</p>
+                      <p
+                          class="subcategory-preview-info__invalid"
+                          *ngIf="!form.get('workExperience').get('independentExperience').get('isNotRelevant').value; else notRelevant">
+                          Unvollständige Angaben
+                      </p>
                   </div>
+                  <ng-template #notRelevant>
+                    <div class="relevant-info">
+                      <p class="relevant-info__line"></p>
+                    </div>
+                  </ng-template>
                 </div>
               </ng-template>
             </div>
@@ -926,7 +944,7 @@
           </mat-expansion-panel>
           <div
             class="subcategory-preview"
-            *ngIf="!accordion03.expanded && !form.get('workExperience').get('otherExperience').get('isNotRelevant').value">
+            *ngIf="!accordion03.expanded && professionalBackgroundData">
             <div
               class="subcategory-preview-item"
               *ngFor="let item of this.form.get('workExperience').get('otherExperience').get('items').controls; let i = index">
@@ -952,12 +970,21 @@
               </ng-container>
               <ng-template #notValid>
                 <div class="subcategory-preview-info">
-                  <p class="subcategory-preview-info__number">
-                  <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
-                </p>
+                  <p class="subcategory-preview-info__number" *ngIf="!form.get('workExperience').get('otherExperience').get('isNotRelevant').value">
+                    <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
+                  </p>
                   <div class="subcategory-preview-info__details">
-                    <p class="subcategory-preview-info__invalid">Unvollständige Angaben</p>
+                      <p
+                          class="subcategory-preview-info__invalid"
+                          *ngIf="!form.get('workExperience').get('otherExperience').get('isNotRelevant').value; else notRelevant">
+                          Unvollständige Angaben
+                      </p>
                   </div>
+                  <ng-template #notRelevant>
+                    <div class="relevant-info">
+                      <p class="relevant-info__line"></p>
+                    </div>
+                  </ng-template>
                 </div>
               </ng-template>
             </div>

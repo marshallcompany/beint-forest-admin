@@ -136,6 +136,27 @@
                       </div>
                     </div>
                   </div>
+                  <div class="field field_select">
+                    <p class="field__label">Abschluss</p>
+                    <div class="field-wrapper">
+                      <ng-select
+                        [searchable]="false"
+                        [clearable]="false"
+                        placeholder="Abschluss"
+                        class="custom-select"
+                        (change)="submit('Abschluss')"
+                        formControlName="graduation">
+                        <ng-option
+                          *ngFor="let option of dropdownOptions.school_graduation"
+                          [value]="option">
+                          {{option}}
+                        </ng-option>
+                      </ng-select>
+                      <div
+                        class="field-wrapper__status"
+                        [ngClass]="{invalid : !this.form.get('education').get('schools').controls[i].get('country').value}"></div>
+                    </div>
+                  </div>
                   <div class="field">
                     <p class="field__label">Abschlussnote</p>
                     <div class="field-wrapper">
@@ -157,27 +178,6 @@
                       class="error-box">
                         <span class="error-box__text">Maximum value 6</span>
                       </p>
-                  </div>
-                  <div class="field field_select">
-                    <p class="field__label">Abschluss</p>
-                    <div class="field-wrapper">
-                      <ng-select
-                        [searchable]="false"
-                        [clearable]="false"
-                        placeholder="Abschluss"
-                        class="custom-select"
-                        (change)="submit('Abschluss')"
-                        formControlName="graduation">
-                        <ng-option
-                          *ngFor="let option of dropdownOptions.school_graduation"
-                          [value]="option">
-                          {{option}}
-                        </ng-option>
-                      </ng-select>
-                      <div
-                        class="field-wrapper__status"
-                        [ngClass]="{invalid : !this.form.get('education').get('schools').controls[i].get('country').value}"></div>
-                    </div>
                   </div>
                   <div class="field field_group">
                     <div class="datepicker-group">
@@ -380,6 +380,23 @@
                       </div>
                     </div>
                     <div
+                      class="field"
+                      [ngClass]="{notRelevant : this.form.get('education').get('specialEducation').get('isNotRelevant').value}">
+                      <p class="field__label">Arbeitgeber</p>
+                      <div class="field-wrapper">
+                        <input
+                          type="text"
+                          placeholder="Arbeitgeber"
+                          formControlName="company"
+                          (change)="submit('Arbeitgeber')"
+                          class="field-wrapper__input">
+                        <div class="field-wrapper__type">abc</div>
+                        <div
+                          class="field-wrapper__status"
+                          [ngClass]="{invalid : !this.form.get('education').get('specialEducation').get('items').controls[i].get('company').value}"></div>
+                      </div>
+                    </div>
+                    <div
                       class="field field_select field_select-search single"
                       [ngClass]="{notRelevant : this.form.get('education').get('specialEducation').get('isNotRelevant').value}">
                       <p class="field__label">Land</p>
@@ -420,23 +437,6 @@
                           class="field-wrapper__status"
                           [ngClass]="{invalid : !this.form.get('education').get('specialEducation').get('items').controls[i].get('place').value}">
                         </div>
-                      </div>
-                    </div>
-                    <div
-                      class="field"
-                      [ngClass]="{notRelevant : this.form.get('education').get('specialEducation').get('isNotRelevant').value}">
-                      <p class="field__label">Arbeitgeber</p>
-                      <div class="field-wrapper">
-                        <input
-                          type="text"
-                          placeholder="Arbeitgeber"
-                          formControlName="company"
-                          (change)="submit('Arbeitgeber')"
-                          class="field-wrapper__input">
-                        <div class="field-wrapper__type">abc</div>
-                        <div
-                          class="field-wrapper__status"
-                          [ngClass]="{invalid : !this.form.get('education').get('specialEducation').get('items').controls[i].get('company').value}"></div>
                       </div>
                     </div>
                     <div

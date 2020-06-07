@@ -38,6 +38,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
   };
 
   private firstPersonalData: object;
+  public professionalBackgroundData: object;
 
   public form: FormGroup;
   public workExperience: FormGroupName;
@@ -89,8 +90,10 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
       )
       .subscribe((res: any) => {
         console.log('res', res);
+        this.professionalBackgroundData = res.workExperience;
         this.dropdownOptions = res.dropdownOptions;
         this.patchFormValue(res.workExperience);
+        console.log('eeee', this.form);
       });
   }
 
@@ -211,17 +214,17 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
         }
       }
     });
-    if (!searchPreferences.employmentConditions.isNotRelevant && searchPreferences.employmentConditions.items.length) {
+    if (searchPreferences.employmentConditions.items.length) {
       searchPreferences.employmentConditions.items.forEach(item => {
         this.employmentConditionsArray.push(this.createFormGroup(item, 'employmentConditions'));
       });
     }
-    if (!searchPreferences.independentExperience.isNotRelevant && searchPreferences.independentExperience.items.length) {
+    if (searchPreferences.independentExperience.items.length) {
       searchPreferences.independentExperience.items.forEach(item => {
         this.independentExperienceArray.push(this.createFormGroup(item, 'independentExperience'));
       });
     }
-    if (!searchPreferences.otherExperience.isNotRelevant && searchPreferences.otherExperience.items.length) {
+    if (searchPreferences.otherExperience.items.length) {
       searchPreferences.otherExperience.items.forEach(item => {
         this.otherExperienceArray.push(this.createFormGroup(item, 'otherExperience'));
       });

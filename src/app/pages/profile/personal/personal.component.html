@@ -26,14 +26,14 @@
             <p class="subcategory-info__name">Persönliche Angaben</p>
           </div>
           <div class="field">
-            <p class="field__label">Name</p>
+            <p class="field__label">Vorname</p>
             <div class="field-wrapper">
               <input
                 type="text"
-                placeholder="Name"
+                placeholder="Vorname"
                 class="field-wrapper__input"
                 formControlName="firstName"
-                (blur)="submit('Name')">
+                (blur)="submit('Vorname')">
               <div class="field-wrapper__type">abc</div>
               <div
                 class="field-wrapper__status"
@@ -41,14 +41,14 @@
             </div>
           </div>
           <div class="field">
-            <p class="field__label">Vorname</p>
+            <p class="field__label">Name</p>
             <div class="field-wrapper">
               <input
                 type="text"
-                placeholder="Vorname"
+                placeholder="Name"
                 class="field-wrapper__input"
                 formControlName="lastName"
-                (blur)="submit('Vorname')">
+                (blur)="submit('Name')">
               <div class="field-wrapper__type">abc</div>
               <div
                 class="field-wrapper__status"
@@ -80,27 +80,31 @@
                 formControlName="gender"
                 (change)="submit('Geschlecht')"
                 class="custom-select">
-                <ng-option [value]="'Männlich'">Männlich</ng-option>
-                <ng-option [value]="'Weiblich'">Weiblich</ng-option>
+                <ng-option *ngFor="let item of dropdownOptions?.gender" [value]="item">
+                  <span style="text-transform: capitalize;">{{ item }}</span>
+                </ng-option>
               </ng-select>
               <div
                 class="field-wrapper__status"
                 [ngClass]="{invalid : !form.get('personal').get('gender').value}"></div>
             </div>
           </div>
-          <div class="field">
+          <div class="field field_select">
             <p class="field__label">Akademischer Titel</p>
             <div class="field-wrapper">
-              <input
-                type="text"
+              <ng-select
+                [searchable]="false"
+                [clearable]="false"
                 placeholder="Akademischer Titel"
-                class="field-wrapper__input"
                 formControlName="academicTitle"
-                (blur)="submit('Akademischer Titel')">
-              <div class="field-wrapper__type">abc</div>
+                (change)="submit('Akademischer Titel')"
+                class="custom-select">
+                <ng-option *ngFor="let item of dropdownOptions?.academic_titles" [value]="item">{{ item }}</ng-option>
+              </ng-select>
               <div
                 class="field-wrapper__status"
-                [ngClass]="{invalid : !form.get('personal').get('academicTitle').value}"></div>
+                [ngClass]="{invalid : !form.get('personal').get('academicTitle').value}">
+              </div>
             </div>
           </div>
           <div class="field field_datapicker">
@@ -147,7 +151,7 @@
             <div class="field-wrapper">
               <input
                 type="text"
-                placeholder="Geschlecht eingeben"
+                placeholder="Geschlecht"
                 class="field-wrapper__input"
                 formControlName="nationality"
                 (blur)="submit('Staatsangehörigkeit')">
@@ -178,7 +182,7 @@
                 [items]="landList$ | async"
                 [clearable]="false"
                 [multiple]="false"
-                [placeholder]="'Land eingeben'"
+                [placeholder]="'Land'"
                 formControlName="country"
                 (search)="searchLand($event)"
                 (change)="onChangeLand(form.get('contact').get('residence'))"
@@ -201,7 +205,7 @@
                 [items]="cityList$ | async"
                 [clearable]="false"
                 [multiple]="false"
-                [placeholder]="'Wohnort eingeben'"
+                [placeholder]="'Wohnort'"
                 formControlName="place"
                 (search)="searchCity($event)"
                 (change)="onChangeCity(form.get('contact').get('residence'))"
@@ -224,7 +228,7 @@
                 [items]="zip$ | async"
                 [clearable]="false"
                 [multiple]="false"
-                [placeholder]="'PLZ eingeben'"
+                [placeholder]="'PLZ'"
                 formControlName="zipCode"
                 (search)="searchZip($event, form.get('contact').get('residence'))"
                 (change)="onChangeZip(form.get('contact').get('residence'))"
@@ -240,28 +244,11 @@
           <div
             class="field"
             formGroupName="residence">
-            <p class="field__label">Hausnummer</p>
-            <div class="field-wrapper">
-              <input
-                type="text"
-                placeholder="Hausnummer eingeben"
-                class="field-wrapper__input"
-                formControlName="houseNumber"
-                (blur)="submit('Hausnummer')">
-              <div class="field-wrapper__type">abc</div>
-              <div
-                class="field-wrapper__status"
-                [ngClass]="{invalid : !form.get('contact').get('residence').get('houseNumber').value}"></div>
-            </div>
-          </div>
-          <div
-            class="field"
-            formGroupName="residence">
             <p class="field__label">Straße</p>
             <div class="field-wrapper">
               <input
                 type="text"
-                placeholder="Straße eingeben"
+                placeholder="Straße"
                 class="field-wrapper__input"
                 formControlName="street"
                 (blur)="submit('Straße')">
@@ -271,12 +258,29 @@
                 [ngClass]="{invalid : !form.get('contact').get('residence').get('street').value}"></div>
             </div>
           </div>
+          <div
+            class="field"
+            formGroupName="residence">
+            <p class="field__label">Hausnummer</p>
+            <div class="field-wrapper">
+              <input
+                type="text"
+                placeholder="Hausnummer"
+                class="field-wrapper__input"
+                formControlName="houseNumber"
+                (blur)="submit('Hausnummer')">
+              <div class="field-wrapper__type">abc</div>
+              <div
+                class="field-wrapper__status"
+                [ngClass]="{invalid : !form.get('contact').get('residence').get('houseNumber').value}"></div>
+            </div>
+          </div>
           <div class="field">
             <p class="field__label">Telefon</p>
             <div class="field-wrapper">
               <input
                 type="tel"
-                placeholder="Telefonnummer eingeben"
+                placeholder="Telefonnummer"
                 class="field-wrapper__input"
                 formControlName="phoneNumberMobile"
                 (blur)="submit('Telefonnummer')">
