@@ -18,7 +18,7 @@
           class="flex-grid"
           formGroupName="searchPreferences">
           <div class="field field_select field_select-search">
-            <p class="field__label">Wunsch Arbeitsorte</p>
+            <p class="field__label">Wunsch-Arbeitsort(e)</p>
             <div class="field-wrapper">
               <ng-select
                 #searchPlace
@@ -27,7 +27,7 @@
                 [hideSelected]="true"
                 [items]="placeOptions$ | async"
                 [formControl]="placeControl"
-                (change)="formArrayPush($event, 'desiredPlacesOfWorkArray', 'Wunsch Arbeitsorte')"
+                (change)="formArrayPush($event, 'desiredPlacesOfWorkArray', 'Wunsch-Arbeitsort')"
                 class="custom-select">
               </ng-select>
               <div class="field-wrapper__type">abc</div>
@@ -44,7 +44,7 @@
                 <button
                   type="button"
                   class="tags-wrapper__remove"
-                  (click)="formArrayRemove(i, 'desiredPlacesOfWorkArray', 'Wunsch Arbeitsorte')">
+                  (click)="formArrayRemove(i, 'desiredPlacesOfWorkArray', 'Wunsch-Arbeitsort')">
                   <img src="../assets/image/close.svg">
                 </button>
               </div>
@@ -62,7 +62,7 @@
             </label>
           </div>
           <div class="field field_select field_select-search">
-            <p class="field__label">Bevorzugter Geschäftsbereich</p>
+            <p class="field__label">Bevorzugte(r) Geschäftsbereich(e)</p>
             <div class="field-wrapper">
               <ng-select
                 #searchBusiness
@@ -71,7 +71,7 @@
                 [hideSelected]="true"
                 [items]="businessOptions$ | async"
                 [formControl]="businessBranchesControl"
-                (change)="formArrayPush($event, 'preferredBusinessArray', 'Bevorzugter Geschäftsbereich')"
+                (change)="formArrayPush($event, 'preferredBusinessArray', 'Bevorzugte(r) Geschäftsbereich(e)')"
                 class="custom-select">
               </ng-select>
               <div class="field-wrapper__type">abc</div>
@@ -88,7 +88,7 @@
                 <button
                   type="button"
                   class="tags-wrapper__remove"
-                  (click)="formArrayRemove(i, 'preferredBusinessArray', 'Bevorzugter Geschäftsbereich')">
+                  (click)="formArrayRemove(i, 'preferredBusinessArray', 'Bevorzugte(r) Geschäftsbereich(e)')">
                   <img src="../assets/image/close.svg">
                 </button>
               </div>
@@ -99,7 +99,6 @@
             <div class="field-wrapper">
               <ng-select
                 #searchIndustry
-                [placeholder]="'sssssss'"
                 [items]="industryOptions$ | async"
                 [clearable]="false"
                 [multiple]="true"
@@ -147,7 +146,7 @@
                   </ng-option>
                 </ng-container>
               </ng-select>
-              <p class="field-wrapper__placeholder">Wählen Sie aus der Liste</p>
+              <p class="field-wrapper__placeholder">Wähle aus der Liste</p>
               <div
                 [ngClass]="{invalid : form.get('searchPreferences').get('desiredEmploymentTypes').value.length === 0}"
                 class="field-wrapper__status"></div>
@@ -186,7 +185,7 @@
                   </ng-option>
                 </ng-container>
               </ng-select>
-              <p class="field-wrapper__placeholder">Wählen Sie aus der Liste</p>
+              <p class="field-wrapper__placeholder">Wähle aus der Liste</p>
               <div
                 [ngClass]="{invalid : form.get('searchPreferences').get('preferredWorkingHours').value.length === 0}"
                 class="field-wrapper__status"></div>
@@ -212,7 +211,7 @@
               <ng-select
                 [searchable]="false"
                 [clearable]="false"
-                placeholder="Wählen Sie aus der Liste"
+                placeholder="Wähle aus der Liste"
                 formControlName="travellingReady"
                 (change)="submit('Geschlecht')"
                 class="custom-select">
@@ -279,13 +278,13 @@
             </div>
           </div>
           <div class="field field_datapicker">
-            <p class="field__label">Bis</p>
+            <p class="field__label">Verfügbar ab</p>
             <div
               class="field-wrapper"
               [owlDateTimeTrigger]="dt1">
               <input
                 [owlDateTime]="dt1"
-                (dateTimeChange)="submit('Bis')"
+                (dateTimeChange)="submit('Verfügbar ab')"
                 class="field-wrapper__input"
                 formControlName="readyToStartJobFrom"
                 placeholder="DD/MM/YYYY">
@@ -303,7 +302,7 @@
             </div>
           </div>
           <div class="field field_select field_select-search">
-            <p class="field__label">Benefits</p>
+            <p class="field__label">Benefit(s)</p>
             <div class="field-wrapper">
               <ng-select
                 #searchBenefits
@@ -313,7 +312,7 @@
                 [hideSelected]="true"
                 [items]="benefitsOptions$ | async"
                 [formControl]="benefitsControl"
-                (change)="formArrayPush($event, 'benefitsArray', 'Benefits')"
+                (change)="formArrayPush($event, 'benefitsArray', 'Benefit(s)')"
                 class="custom-select">
               </ng-select>
               <div class="field-wrapper__type">abc</div>
@@ -330,7 +329,7 @@
                 <button
                   type="button"
                   class="tags-wrapper__remove"
-                  (click)="formArrayRemove(i, 'benefitsArray', 'Benefits')">
+                  (click)="formArrayRemove(i, 'benefitsArray', 'Benefit(s)')">
                   <img src="../assets/image/close.svg">
                 </button>
               </div>

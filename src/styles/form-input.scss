@@ -147,7 +147,52 @@ body .field-group {
       padding: 0;
       background-color: inherit;
     }
-
+    &-multiselect-arrow{
+      .ng-select {
+        .ng-select-container {
+          .ng-value-container {
+            .ng-input {
+              padding: 0!important;
+              input{
+                padding: 0!important;
+              }
+            }
+          }
+        }
+      }
+      .ng-select.ng-select-filtered .ng-placeholder {
+        display: none!important;
+      }
+      .ng-select .ng-has-value .ng-placeholder{
+        display: block;
+      }
+      .ng-input{
+        padding: 0!important;
+      }
+      .ng-value {
+        display: none;
+      }
+    }
+    &-singleselect-arrow{
+      .ng-select {
+        .ng-select-container {
+          .ng-value-container {
+            position: relative;
+            .ng-input {
+              position: absolute;
+              padding: 0!important;
+              width: 100%;
+              left: 0;
+              top: 50%;
+              transform: translate(0, -50%);
+              input{
+                padding: 0!important;
+              }
+            }
+          }
+        }
+      }
+    }
     &-search {
       .ng-arrow-wrapper {
         display: none;

@@ -167,7 +167,7 @@
                 src="../assets/image/profile/personal/subcategory-02.svg"
                 class="subcategory-info__icon">
             </div>
-            <p class="subcategory-info__name">Kontakt Informationen</p>
+            <p class="subcategory-info__name">Kontaktinformationen</p>
           </div>
           <div
             class="field field_select field_select-search single"
@@ -237,23 +237,6 @@
                 class="field-wrapper__status"></div>
             </div>
           </div>
-          <!-- <div
-            class="field"
-            formGroupName="residence">
-            <p class="field__label">PLZ</p>
-            <div class="field-wrapper">
-              <input
-                type="text"
-                placeholder="PLZ eingeben"
-                class="field-wrapper__input"
-                formControlName="zipCode"
-                (blur)="submit('PLZ')">
-              <div class="field-wrapper__type">123</div>
-              <div
-                class="field-wrapper__status"
-                [ngClass]="{invalid : !form.get('contact').get('residence').get('zipCode').value}"></div>
-            </div>
-          </div> -->
           <div
             class="field"
             formGroupName="residence">
@@ -288,31 +271,16 @@
                 [ngClass]="{invalid : !form.get('contact').get('residence').get('street').value}"></div>
             </div>
           </div>
-          <!-- <div
-            class="field"
-            formGroupName="residence">
-            <p class="field__label">Email</p>
-            <div class="field-wrapper">
-              <input
-                type="text"
-                placeholder="Email eingeben"
-                class="field-wrapper__input">
-              <div class="field-wrapper__type">abc</div>
-              <div class="field-wrapper__status"></div>
-            </div>
-          </div> -->
           <div class="field">
-            <p class="field__label">Phone</p>
+            <p class="field__label">Telefon</p>
             <div class="field-wrapper">
               <input
                 type="tel"
-                placeholder="Phone eingeben"
+                placeholder="Telefonnummer eingeben"
                 class="field-wrapper__input"
                 formControlName="phoneNumberMobile"
-                (blur)="submit('Phone')">
-              <div class="field-wrapper__type">
-                <img src="../assets/image/profile/phone.svg">
-              </div>
+                (blur)="submit('Telefonnummer')">
+              <div class="field-wrapper__type">123</div>
               <div
                 class="field-wrapper__status"
                 [ngClass]="{invalid : !form.get('contact').get('phoneNumberMobile').value}"></div>
@@ -328,14 +296,14 @@
                 src="../assets/image/profile/personal/subcategory-03.svg"
                 class="subcategory-info__icon">
             </div>
-            <p class="subcategory-info__name">Sozialen Medien</p>
+            <p class="subcategory-info__name">Social Media</p>
           </div>
           <div class="field">
             <p class="field__label">Instagram</p>
             <div class="field-wrapper">
               <input
                 type="text"
-                placeholder="Instagram eingeben"
+                placeholder="Profil-Link eingeben"
                 class="field-wrapper__input"
                 formControlName="instagram"
                 (blur)="submit('Instagram')">
@@ -350,7 +318,7 @@
             <div class="field-wrapper">
               <input
                 type="text"
-                placeholder="Facebook eingeben"
+                placeholder="Profil-Link eingeben"
                 class="field-wrapper__input"
                 formControlName="facebook"
                 (blur)="submit('Facebook')">
@@ -365,7 +333,7 @@
             <div class="field-wrapper">
               <input
                 type="text"
-                placeholder="Xing eingeben"
+                placeholder="Profil-Link eingeben"
                 class="field-wrapper__input"
                 formControlName="xing"
                 (blur)="submit('Xing')">
@@ -380,7 +348,7 @@
             <div class="field-wrapper">
               <input
                 type="text"
-                placeholder="Linkedin eingeben"
+                placeholder="Profil-Link eingeben"
                 class="field-wrapper__input"
                 formControlName="linkedin"
                 (blur)="submit('Linkedin')">

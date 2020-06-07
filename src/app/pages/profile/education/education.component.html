@@ -137,15 +137,15 @@
                     </div>
                   </div>
                   <div class="field">
-                    <p class="field__label">Note</p>
+                    <p class="field__label">Abschlussnote</p>
                     <div class="field-wrapper">
                       <input
                         type="tel"
                         mask="0.00"
                         [dropSpecialCharacters]="false"
-                        placeholder="Note"
+                        placeholder="Abschlussnote"
                         formControlName="grade"
-                        (change)="submit('Note')"
+                        (change)="submit('Abschlussnote')"
                         class="field-wrapper__input">
                       <div class="field-wrapper__type">abc</div>
                       <div
@@ -459,15 +459,15 @@
                     <div
                       class="field"
                       [ngClass]="{notRelevant : this.form.get('education').get('specialEducation').get('isNotRelevant').value}">
-                      <p class="field__label">Note</p>
+                      <p class="field__label">Abschlussnote</p>
                       <div class="field-wrapper">
                         <input
                           type="tel"
                           mask="0.00"
                           [dropSpecialCharacters]="false"
-                          placeholder="Note"
+                          placeholder="Abschlussnote"
                           formControlName="grade"
-                          (change)="submit('Note')"
+                          (change)="submit('Abschlussnote')"
                           class="field-wrapper__input">
                         <div class="field-wrapper__type">abc</div>
                         <div
@@ -584,7 +584,7 @@
                     <div class="subcategory-preview-info__circle"></div>
                     <p class="subcategory-preview-info__date">{{ item.get('dateStart').value | date: 'dd/yyyy' }} - {{ item.get('dateEnd').value | date: 'dd/yyyy' }}</p>
                     <div class="subcategory-preview-info__circle"></div>
-                    <p class="subcategory-preview-info__scope">Note {{ item.get('grade').value }}</p>
+                    <p class="subcategory-preview-info__scope">Abschlussnote {{ item.get('grade').value }}</p>
                   </div>
                 </div>
                 <button
@@ -945,14 +945,14 @@
                     <div
                       class="field"
                       [ngClass]="{notRelevant : this.form.get('education').get('universities').get('isNotRelevant').value}">
-                      <p class="field__label">Note</p>
+                      <p class="field__label">Abschlussnote</p>
                       <div class="field-wrapper">
                         <input
                           type="tel"
                           mask="0.00"
                           [dropSpecialCharacters]="false"
-                          placeholder="Note"
-                          (change)="submit('Note')"
+                          placeholder="Abschlussnote"
+                          (change)="submit('Abschlussnote')"
                           formControlName="grade"
                           class="field-wrapper__input">
                         <div class="field-wrapper__type">abc</div>
@@ -997,7 +997,7 @@
                     <div class="subcategory-preview-info__circle"></div>
                     <p class="subcategory-preview-info__date">{{ item.get('dateStart').value | date: 'dd/yyyy' }} - {{ item.get('dateEnd').value | date: 'dd/yyyy' }}</p>
                     <div class="subcategory-preview-info__circle"></div>
-                    <p class="subcategory-preview-info__scope">Note {{ item.get('grade').value }}</p>
+                    <p class="subcategory-preview-info__scope">Abschlussnote {{ item.get('grade').value }}</p>
                   </div>
                 </div>
                 <button
@@ -1041,7 +1041,7 @@
                   <img
                     src="../assets/image/profile/education/subcategory-04.svg"
                     class="subcategory-info__icon">
-                  <p class="subcategory-info__label">Sontige ausbildung</p>
+                  <p class="subcategory-info__label">Sonstige Ausbildung</p>
                 </div>
                 <img
                   src="../assets/image/profile/accordion-arrow.svg"
@@ -1094,6 +1094,7 @@
                             formControlName="trainingTitle"
                             placeholder="Art der Ausbildung"
                             (change)="submit('Art der Ausbildung')">
+                          <div class="field-wrapper__type">abc</div>
                           <div
                             class="field-wrapper__status"
                             [ngClass]="{invalid : !this.form.get('education').get('additionalEducations').get('items').controls[i].get('trainingTitle').value}"></div>
@@ -1286,9 +1287,9 @@
                       </button>
                     </div>
                     <div
-                      class="field field_select field_select-search"
+                      class="field field_select field_select-multiselect-arrow"
                       [ngClass]="{'invalid': primarySkillsArray.controls.length > 2}">
-                      <p class="field__label">Deine <strong>drei</strong> Topskills</p>
+                      <p class="field__label">Deine <strong>drei</strong> Top Skills</p>
                       <div class="field-wrapper">
                         <ng-select
                           #primarySkillsElement
@@ -1297,14 +1298,13 @@
                           [multiple]="true"
                           [hideSelected]="true"
                           dropdownPosition="top"
-                          placeholder="Deine drei Topskills"
+                          placeholder="Deine drei Top Skills"
                           [items]="$skillsList | async"
                           [formControl]="primarySkillsControl"
                           (search)="getSkillsList($event.term)"
                           (change)="formArrayPush($event, primarySkillsArray, 'Deine drei Topskills', primarySkillsElement)"
                           class="custom-select">
                         </ng-select>
-                        <div class="field-wrapper__type">abc</div>
                         <div
                           class="field-wrapper__status"
                           [ngClass]="{invalid : !primarySkillsArray.controls.length}"></div>
@@ -1324,8 +1324,8 @@
                         </div>
                       </div>
                     </div>
-                    <div class="field field_select field_select-search">
-                      <p class="field__label">Deine <strong>weiteren</strong> Skills</p>
+                    <div class="field field_select field_select-multiselect-arrow">
+                      <p class="field__label"><strong>Weitere</strong> Skill</p>
                       <div class="field-wrapper">
                         <ng-select
                           [searchable]="true"
@@ -1337,10 +1337,9 @@
                           [formControl]="secondarySkillsControl"
                           (search)="getSkillsList($event.term)"
                           (change)="formArrayPush($event, secondarySkillsArray, 'Deine weiteren Skills')"
-                          placeholder="Deine weiteren Skills"
+                          placeholder="Weiteren Skill"
                           class="custom-select">
                         </ng-select>
-                        <div class="field-wrapper__type">abc</div>
                         <div
                           class="field-wrapper__status"
                           [ngClass]="{invalid : !secondarySkillsArray.controls.length}"></div>
@@ -1432,21 +1431,20 @@
                       </svg>
                     </button>
                   </div>
-                  <div class="field field_select field_select-search single">
-                    <p class="field__label">Sprachen</p>
+                  <div class="field field_select field_select-singleselect-arrow">
+                    <p class="field__label">Sprache</p>
                     <div class="field-wrapper">
                       <ng-select
                         [searchable]="true"
                         [items]="$langList | async"
                         [clearable]="false"
                         dropdownPosition="top"
-                        placeholder="Sprachen"
+                        placeholder="Sprache"
                         (search)="getLangList($event.term)"
-                        (change)="submit('Sprachen')"
+                        (change)="submit('Sprache')"
                         class="custom-select"
                         formControlName="language">
                       </ng-select>
-                      <div class="field-wrapper__type">abc</div>
                       <div
                         class="field-wrapper__status"
                         [ngClass]="{invalid : !this.form.get('education').get('linguisticProficiency').controls[i].get('language').value}"></div>
@@ -1455,15 +1453,15 @@
                   <div
                     class="field field_select"
                     [ngClass]="{'invalid' : !form.get('education').get('linguisticProficiency').controls[i].get('language').value}">
-                    <p class="field__label">Niveau</p>
+                    <p class="field__label">Sprachniveau</p>
                     <div class="field-wrapper">
                       <ng-select
                         [searchable]="false"
                         [clearable]="false"
                         dropdownPosition="top"
-                        placeholder="Niveau"
+                        placeholder="Sprachniveau"
                         formControlName="skillLevel"
-                        (change)="submit('Niveau')"
+                        (change)="submit('Sprachniveau')"
                         class="custom-select">
                         <ng-option
                           *ngFor="let option of dropdownOptions.language_level"
