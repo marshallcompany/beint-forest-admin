@@ -248,7 +248,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
   setTodayDate(group: FormGroup) {
     const isSet = group.get('tilToday').value;
     if (isSet) {
-      group.get('dateEnd').setValue(this.currentDate.toISOString());
+      group.get('dateEnd').setValue('');
     }
     this.submit('bis heute');
   }
@@ -301,10 +301,10 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
             if (nameArray && formGroupName && nameArray.controls.length < 2) {
               nameArray.removeAt(index);
               nameArray.push(this.createFormGroup({}, formGroupName));
-              this.submit('');
+              this.submit();
             } else {
               nameArray.removeAt(index);
-              this.submit('');
+              this.submit();
             }
           },
           err => console.log('[ DELETE ERROR ]', err)
@@ -313,8 +313,10 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
       if (nameArray && formGroupName && nameArray.controls.length < 2) {
         nameArray.removeAt(index);
         nameArray.push(this.createFormGroup({}, formGroupName));
+        this.submit();
       } else {
         nameArray.removeAt(index);
+        this.submit();
       }
     }
   }
@@ -337,7 +339,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
     this[`${status}Array`].push(this.createFormGroup({}, status));
   }
 
-  public submit = (field: string) => {
+  public submit = (field?: string) => {
     this.profileService.updateProfile(this.form.value)
       .pipe(
         switchMap(formData => {
@@ -351,7 +353,9 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
         res => {
           console.log('[ UPDATE PROFILE ]', res);
           this.firstPersonalData = this.form.value;
-          this.notificationService.notify(`Field ${field} updated successfully!`, 'success');
+          if ( field ) {
+            this.notificationService.notify(`Field ${field} updated successfully!`, 'success');
+          }
         },
         err => {
           console.log('[ ERROR UPDATE PROFILE ]', err);

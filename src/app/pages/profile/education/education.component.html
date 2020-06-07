@@ -209,12 +209,14 @@
                         </div>
                       </div>
                       <div
+                        [ngClass]="{'disabled': this.form.get('education').get('schools').controls[i].get('tilToday').value}"
                         class="field field_datapicker">
                         <p class="field__label">Bis</p>
                         <div
                           class="field-wrapper"
                           [owlDateTimeTrigger]="dt2">
                           <input
+                            [disabled]="this.form.get('education').get('schools').controls[i].get('tilToday').value"
                             [owlDateTime]="dt2"
                             [max]="currentDate"
                             class="field-wrapper__input"
@@ -512,12 +514,16 @@
                         </div>
                         <div
                           class="field field_datapicker"
-                          [ngClass]="{notRelevant : this.form.get('education').get('specialEducation').get('isNotRelevant').value}">
+                          [ngClass]="{
+                            notRelevant : this.form.get('education').get('specialEducation').get('isNotRelevant').value,
+                            disabled: this.form.get('education').get('specialEducation').get('items').controls[i].get('tilToday').value
+                          }">
                           <p class="field__label">Bis</p>
                           <div
                             class="field-wrapper"
                             [owlDateTimeTrigger]="dt2">
                             <input
+                              [disabled]="this.form.get('education').get('specialEducation').get('items').controls[i].get('tilToday').value"
                               [owlDateTime]="dt2"
                               [max]="currentDate"
                               class="field-wrapper__input"
@@ -901,12 +907,16 @@
                         </div>
                         <div
                           class="field field_datapicker"
-                          [ngClass]="{notRelevant : this.form.get('education').get('universities').get('isNotRelevant').value}">
+                          [ngClass]="{
+                            notRelevant : this.form.get('education').get('universities').get('isNotRelevant').value,
+                            disabled: this.form.get('education').get('universities').get('items').controls[i].get('tilToday').value
+                          }">
                           <p class="field__label">Bis</p>
                           <div
                             class="field-wrapper"
                             [owlDateTimeTrigger]="dt2">
                             <input
+                              [disabled]="this.form.get('education').get('universities').get('items').controls[i].get('tilToday').value"
                               [owlDateTime]="dt2"
                               [max]="currentDate"
                               class="field-wrapper__input"
@@ -1132,12 +1142,16 @@
                           </div>
                           <div
                             class="field field_datapicker"
-                            [ngClass]="{notRelevant : this.form.get('education').get('additionalEducations').get('isNotRelevant').value}">
+                            [ngClass]="{
+                              notRelevant : this.form.get('education').get('additionalEducations').get('isNotRelevant').value,
+                              disabled: this.form.get('education').get('additionalEducations').get('items').controls[i].get('tilToday').value
+                            }">
                             <p class="field__label">Bis</p>
                             <div
                               class="field-wrapper"
                               [owlDateTimeTrigger]="dt2">
                               <input
+                                [disabled]="this.form.get('education').get('additionalEducations').get('items').controls[i].get('tilToday').value"
                                 [owlDateTime]="dt2"
                                 [max]="currentDate"
                                 class="field-wrapper__input"

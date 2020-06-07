@@ -263,12 +263,16 @@
                         </div>
                         <div
                           class="field field_datapicker"
-                          [ngClass]="{notRelevant : this.form.get('miscellaneous').get('volunteering').get('isNotRelevant').value}">
+                          [ngClass]="{
+                            notRelevant : this.form.get('miscellaneous').get('volunteering').get('isNotRelevant').value,
+                            disabled: this.form.get('miscellaneous').get('volunteering').get('items').controls[i].get('tilToday').value
+                          }">
                           <p class="field__label">Bis</p>
                           <div
                             class="field-wrapper"
                             [owlDateTimeTrigger]="dt2">
                             <input
+                              [disabled]="this.form.get('miscellaneous').get('volunteering').get('items').controls[i].get('tilToday').value"
                               [owlDateTime]="dt2"
                               [max]="currentDate"
                               class="field-wrapper__input"
