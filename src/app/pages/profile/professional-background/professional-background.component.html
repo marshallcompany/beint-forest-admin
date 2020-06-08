@@ -360,7 +360,7 @@
               class="subcategory-preview-item"
               *ngFor="let item of form.get('workExperience').get('employmentConditions').get('items').controls; let i = index">
               <ng-container *ngIf="item.valid; else notValid">
-                <div class="subcategory-preview-info">
+                <div class="subcategory-preview-info" (click)="accordion01.expanded = !accordion01.expanded">
                   <p class="subcategory-preview-info__number">
                     <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
                   </p>
@@ -380,7 +380,7 @@
                 </button>
               </ng-container>
               <ng-template #notValid>
-                <div class="subcategory-preview-info">
+                <div class="subcategory-preview-info" (click)="accordion01.expanded = !accordion01.expanded">
                   <p class="subcategory-preview-info__number" *ngIf="!form.get('workExperience').get('employmentConditions').get('isNotRelevant').value">
                     <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
                   </p>
@@ -693,7 +693,7 @@
               class="subcategory-preview-item"
               *ngFor="let item of this.form.get('workExperience').get('independentExperience').get('items').controls; let i = index">
               <ng-container *ngIf="item.valid; else notValid">
-                <div class="subcategory-preview-info">
+                <div class="subcategory-preview-info" (click)="accordion02.expanded = !accordion02.expanded">
                   <p class="subcategory-preview-info__number">
                     <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
                   </p>
@@ -713,7 +713,7 @@
                 </button>
               </ng-container>
               <ng-template #notValid>
-                <div class="subcategory-preview-info">
+                <div class="subcategory-preview-info" (click)="accordion02.expanded = !accordion02.expanded">
                   <p class="subcategory-preview-info__number" *ngIf="!form.get('workExperience').get('independentExperience').get('isNotRelevant').value">
                     <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
                   </p>
@@ -959,7 +959,7 @@
               class="subcategory-preview-item"
               *ngFor="let item of this.form.get('workExperience').get('otherExperience').get('items').controls; let i = index">
               <ng-container *ngIf="item.valid; else notValid">
-                <div class="subcategory-preview-info">
+                <div class="subcategory-preview-info" (click)="accordion03.expanded = !accordion03.expanded">
                   <p class="subcategory-preview-info__number">
                     <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
                   </p>
@@ -979,7 +979,7 @@
                 </button>
               </ng-container>
               <ng-template #notValid>
-                <div class="subcategory-preview-info">
+                <div class="subcategory-preview-info" (click)="accordion03.expanded = !accordion03.expanded">
                   <p class="subcategory-preview-info__number" *ngIf="!form.get('workExperience').get('otherExperience').get('isNotRelevant').value">
                     <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
                   </p>

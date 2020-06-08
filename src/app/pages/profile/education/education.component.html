@@ -162,7 +162,8 @@
                     <div class="field-wrapper">
                       <input
                         type="tel"
-                        mask="0.00"
+                        [mask]="mask"
+                        [validation]="false"
                         [dropSpecialCharacters]="false"
                         placeholder="Abschlussnote"
                         formControlName="grade"
@@ -272,7 +273,7 @@
               class="subcategory-preview-item"
               *ngFor="let item of form.get('education').get('schools').controls; let i = index">
               <ng-container *ngIf="item.valid; else notValid">
-                <div class="subcategory-preview-info">
+                <div class="subcategory-preview-info" (click)="accordion01.expanded = !accordion01.expanded">
                   <p class="subcategory-preview-info__number">
                     <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
                   </p>
@@ -292,7 +293,7 @@
                 </button>
               </ng-container>
               <ng-template #notValid>
-                <div class="subcategory-preview-info">
+                <div class="subcategory-preview-info" (click)="accordion01.expanded = !accordion01.expanded">
                   <p class="subcategory-preview-info__number">
                   <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
                 </p>
@@ -465,7 +466,8 @@
                       <div class="field-wrapper">
                         <input
                           type="tel"
-                          mask="0.00"
+                          [mask]="mask"
+                          [validation]="false"
                           [dropSpecialCharacters]="false"
                           placeholder="Abschlussnote"
                           formControlName="grade"
@@ -573,7 +575,6 @@
               </div>
             </ng-container>
           </mat-expansion-panel>
-
           <div
             class="subcategory-preview"
             *ngIf="!accordion02.expanded">
@@ -581,7 +582,7 @@
               class="subcategory-preview-item"
               *ngFor="let item of form.get('education').get('specialEducation').get('items').controls; let i = index">
               <ng-container *ngIf="item.valid; else notValid">
-                <div class="subcategory-preview-info">
+                <div class="subcategory-preview-info" (click)="accordion02.expanded = !accordion02.expanded">
                   <p class="subcategory-preview-info__number">
                     <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
                   </p>
@@ -601,7 +602,7 @@
                 </button>
               </ng-container>
               <ng-template #notValid>
-                <div class="subcategory-preview-info">
+                <div class="subcategory-preview-info" (click)="accordion02.expanded = !accordion02.expanded">
                   <p class="subcategory-preview-info__number" *ngIf="!form.get('education').get('specialEducation').get('isNotRelevant').value">
                   <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
                   </p>
@@ -959,7 +960,8 @@
                       <div class="field-wrapper">
                         <input
                           type="tel"
-                          mask="0.00"
+                          [mask]="mask"
+                          [validation]="false"
                           [dropSpecialCharacters]="false"
                           placeholder="Abschlussnote"
                           (change)="submit('Abschlussnote')"
@@ -998,7 +1000,7 @@
               class="subcategory-preview-item"
               *ngFor="let item of form.get('education').get('universities').get('items').controls; let i = index">
               <ng-container *ngIf="item.valid; else notValid">
-                <div class="subcategory-preview-info">
+                <div class="subcategory-preview-info" (click)="accordion03.expanded = !accordion03.expanded">
                   <p class="subcategory-preview-info__number">
                     <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
                   </p>
@@ -1018,7 +1020,7 @@
                 </button>
               </ng-container>
               <ng-template #notValid>
-                <div class="subcategory-preview-info">
+                <div class="subcategory-preview-info" (click)="accordion03.expanded = !accordion03.expanded">
                   <p class="subcategory-preview-info__number" *ngIf="!form.get('education').get('universities').get('isNotRelevant').value">
                   <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
                   </p>
@@ -1226,7 +1228,7 @@
               class="subcategory-preview-item"
               *ngFor="let item of form.get('education').get('additionalEducations').get('items').controls; let i = index">
               <ng-container *ngIf="item.valid; else notValid">
-                <div class="subcategory-preview-info">
+                <div class="subcategory-preview-info" (click)="accordion04.expanded = !accordion04.expanded">
                   <p class="subcategory-preview-info__number">
                     <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
                   </p>
@@ -1244,7 +1246,7 @@
                 </button>
               </ng-container>
               <ng-template #notValid>
-                <div class="subcategory-preview-info">
+                <div class="subcategory-preview-info" (click)="accordion04.expanded = !accordion04.expanded">
                   <p class="subcategory-preview-info__number" *ngIf="!form.get('education').get('additionalEducations').get('isNotRelevant').value">
                   <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
                   </p>
@@ -1383,7 +1385,7 @@
             *ngIf="!accordion05.expanded && form.get('education').get('skillsData').get('primarySkills').controls.length">
             <div class="subcategory-preview-item">
               <ng-container>
-                <div class="subcategory-preview-info">
+                <div class="subcategory-preview-info" (click)="accordion05.expanded = !accordion05.expanded">
                   <div class="subcategory-preview-info__details subcategory-preview-info__details_list">
                     <p
                       class="subcategory-preview-info__item"
@@ -1509,7 +1511,7 @@
               class="subcategory-preview-item"
               *ngFor="let item of form.get('education').get('linguisticProficiency').controls; let i = index">
               <ng-container *ngIf="item.valid; else notValid">
-                <div class="subcategory-preview-info">
+                <div class="subcategory-preview-info" (click)="accordion06.expanded = !accordion06.expanded">
                   <p class="subcategory-preview-info__number">
                     <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
                   </p>
@@ -1527,7 +1529,7 @@
                 </button>
               </ng-container>
               <ng-template #notValid>
-                <div class="subcategory-preview-info">
+                <div class="subcategory-preview-info" (click)="accordion06.expanded = !accordion06.expanded">
                   <p class="subcategory-preview-info__number">
                   <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
                 </p>

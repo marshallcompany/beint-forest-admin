@@ -16,7 +16,7 @@ import { ConfirmModalComponent } from 'src/app/components/modal/confirm/confirm-
   styleUrls: ['./education.component.scss']
 })
 export class EducationComponent implements OnInit, AfterViewInit {
-
+  public mask = '0.00';
   public navSettings = {
     iconCategory: '../assets/image/profile/category-02.svg',
     imgDesktop: '../assets/image/profile/education/image-desktop.svg',
@@ -254,7 +254,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
           schoolType: [data && data.schoolType ? data.schoolType : null, Validators.required],
           schoolName: [data && data.schoolName ? data.schoolName : '', Validators.required],
           dateStart: [data && data.dateStart ? data.dateStart : null, Validators.required],
-          dateEnd: [data && data.dateEnd ? data.dateEnd : null, Validators.required],
+          dateEnd: [data && data.dateEnd ? data.dateEnd : null],
           country: [data && data.country ? data.country : null, Validators.required],
           place: [data && data.place ? data.place : null, Validators.required],
           tilToday: [data && data.tilToday ? data.tilToday : false],
@@ -266,7 +266,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
           professionalEducation: [data && data.professionalEducation ? data.professionalEducation : null, Validators.required],
           company: [data && data.company ? data.company : '', Validators.required],
           dateStart: [data && data.dateStart ? data.dateStart : null, Validators.required],
-          dateEnd: [data && data.dateEnd ? data.dateEnd : null, Validators.required],
+          dateEnd: [data && data.dateEnd ? data.dateEnd : null],
           country: [data && data.country ? data.country : null, Validators.required],
           place: [data && data.place ? data.place : null, Validators.required],
           tilToday: [data && data.tilToday ? data.tilToday : false],
@@ -279,7 +279,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
           degreeProgramTitle: [data && data.degreeProgramTitle ? data.degreeProgramTitle : '', Validators.required],
           specialization: [data && data.specialization ? data.specialization : null, Validators.required],
           dateStart: [data && data.dateStart ? data.dateStart : null, Validators.required],
-          dateEnd: [data && data.dateEnd ? data.dateEnd : null, Validators.required],
+          dateEnd: [data && data.dateEnd ? data.dateEnd : null],
           country: [data && data.country ? data.country : null, Validators.required],
           place: [data && data.place ? data.place : null, Validators.required],
           tilToday: [data && data.tilToday ? data.tilToday : false],
@@ -295,7 +295,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
           trainingTitle: [data && data.trainingTitle ? data.trainingTitle : '', Validators.required],
           trainingDescription: [data && data.trainingDescription ? data.trainingDescription : '', Validators.required],
           dateStart: [data && data.dateStart ? data.dateStart : null, Validators.required],
-          dateEnd: [data && data.dateEnd ? data.dateEnd : null, Validators.required],
+          dateEnd: [data && data.dateEnd ? data.dateEnd : null],
           tilToday: [data && data.tilToday ? data.tilToday : false]
         });
       case 'linguisticProficiency':

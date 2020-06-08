@@ -108,7 +108,7 @@
                 </div>
               </ng-container>
               <ng-template #notValid>
-                <div class="subcategory-preview-info">
+                <div class="subcategory-preview-info" (click)="accordion01.expanded = !accordion01.expanded">
                   <div class="subcategory-preview-info__details">
                       <p
                           class="subcategory-preview-info__invalid"
@@ -327,7 +327,7 @@
               class="subcategory-preview-item"
               *ngFor="let item of form.get('miscellaneous').get('volunteering').get('items').controls; let i = index">
               <ng-container *ngIf="item.valid; else notValid">
-                <div class="subcategory-preview-info">
+                <div class="subcategory-preview-info" (click)="accordion02.expanded = !accordion02.expanded">
                   <p class="subcategory-preview-info__number">
                     <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
                   </p>
@@ -345,7 +345,7 @@
                 </button>
               </ng-container>
               <ng-template #notValid>
-                <div class="subcategory-preview-info">
+                <div class="subcategory-preview-info" (click)="accordion02.expanded = !accordion02.expanded">
                   <p class="subcategory-preview-info__number" *ngIf="!form.get('miscellaneous').get('volunteering').get('isNotRelevant').value">
                     <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
                   </p>
@@ -541,7 +541,7 @@
               class="subcategory-preview-item"
               *ngFor="let item of form.get('miscellaneous').get('publications').get('items').controls; let i = index">
               <ng-container *ngIf="item.valid; else notValid">
-                <div class="subcategory-preview-info">
+                <div class="subcategory-preview-info" (click)="accordion03.expanded = !accordion03.expanded">
                   <p class="subcategory-preview-info__number">
                     <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
                   </p>
@@ -559,7 +559,7 @@
                 </button>
               </ng-container>
               <ng-template #notValid>
-                <div class="subcategory-preview-info">
+                <div class="subcategory-preview-info" (click)="accordion03.expanded = !accordion03.expanded">
                   <p class="subcategory-preview-info__number" *ngIf="!form.get('miscellaneous').get('publications').get('isNotRelevant').value">
                     <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
                   </p>
@@ -737,7 +737,7 @@
               class="subcategory-preview-item"
               *ngFor="let item of form.get('miscellaneous').get('awards').get('items').controls; let i = index">
               <ng-container *ngIf="item.valid; else notValid">
-                <div class="subcategory-preview-info">
+                <div class="subcategory-preview-info" (click)="accordion04.expanded = !accordion04.expanded">
                   <p class="subcategory-preview-info__number">
                     <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
                   </p>
@@ -755,7 +755,7 @@
                 </button>
               </ng-container>
               <ng-template #notValid>
-                <div class="subcategory-preview-info">
+                <div class="subcategory-preview-info" (click)="accordion04.expanded = !accordion04.expanded">
                   <p class="subcategory-preview-info__number" *ngIf="!form.get('miscellaneous').get('awards').get('isNotRelevant').value">
                     <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
                   </p>
