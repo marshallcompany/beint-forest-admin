@@ -63,7 +63,7 @@
 // CUSTOM CHECKBOX END
 
 .ng-dropdown-panel .ng-dropdown-panel-items {
-    max-height: 185px!important;
+    max-height: 105px!important;
 }
 
 .scroll-host::-webkit-scrollbar {
@@ -125,6 +125,11 @@ body .field-group {
   }
 }
 // FIELD INPUT
+.clearable{
+  .ng-clear-wrapper{
+    display: none;
+  }
+}
 .field {
   width: 47%;
   margin-bottom:13px;
@@ -177,6 +182,8 @@ body .field-group {
       .ng-select {
         .ng-select-container {
           .ng-value-container {
+            width: 100%;
+            height: 100%;
             position: relative;
             .ng-input {
               position: absolute;
