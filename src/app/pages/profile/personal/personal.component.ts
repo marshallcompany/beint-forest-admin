@@ -167,6 +167,15 @@ export class PersonalComponent implements OnInit {
       );
   }
 
+  phoneValidation = (event: any) => {
+    const pattern = /[0-9\+\ \()\/]/;
+    const inputChar = String.fromCharCode(event.charCode);
+
+    if (event.keyCode !== 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
   onChangeLand(formGroup) {
     formGroup.get('zipCode').setValue(null);
     formGroup.get('place').setValue(null);

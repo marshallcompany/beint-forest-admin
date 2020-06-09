@@ -280,6 +280,7 @@
             <div class="field-wrapper">
               <input
                 type="tel"
+                (keypress)="phoneValidation($event)"
                 placeholder="Telefonnummer"
                 class="field-wrapper__input"
                 formControlName="phoneNumberMobile"
