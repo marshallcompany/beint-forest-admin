@@ -1382,25 +1382,41 @@
           </mat-expansion-panel>
           <div
             class="subcategory-preview"
-            *ngIf="!accordion05.expanded && form.get('education').get('skillsData').get('primarySkills').controls.length">
+            *ngIf="!accordion05.expanded && 
+                  (form.get('education').get('skillsData').get('primarySkills').controls.length ||
+                  form.get('education').get('skillsData').get('secondarySkills').controls.length)">
             <div class="subcategory-preview-item">
               <ng-container>
                 <div class="subcategory-preview-info" (click)="accordion05.expanded = !accordion05.expanded">
-                  <div class="subcategory-preview-info__details subcategory-preview-info__details_list">
-                    <p
-                      class="subcategory-preview-info__item"
-                      *ngFor="let item of form.get('education').get('skillsData').get('primarySkills').controls; let i = index">
-                        <span class="subcategory-preview-info__circle"></span>
-                        {{ item.value }}
-                    </p>
+                  <div class="subcategory-preview-info__details">
+                    <div class="list list_topskills" 
+                        [ngClass]="{ 'list-width50': form.get('education').get('skillsData').get('secondarySkills').controls.length}"
+                         *ngIf="form.get('education').get('skillsData').get('primarySkills').controls.length">
+                      <h2 class="list__title">Topskills</h2>
+                      <div class="list-wrapper">
+                        <p
+                        class="list-wrapper__item"
+                        *ngFor="let item of form.get('education').get('skillsData').get('primarySkills').controls; let i = index">
+                          {{ item.value }}
+                          <span class="circle-decor"></span>
+                        </p>
+                      </div>
+                    </div>
+                    <div class="list list_skills" 
+                        [ngClass]="{ 'list-width50': form.get('education').get('skillsData').get('primarySkills').controls.length}"
+                        *ngIf="form.get('education').get('skillsData').get('secondarySkills').controls.length">
+                      <h2 class="list__title">Skills</h2>
+                      <div class="list-wrapper">
+                        <p
+                        class="list-wrapper__item"
+                        *ngFor="let item of form.get('education').get('skillsData').get('secondarySkills').controls; let i = index">
+                          {{ item.value }}
+                          <span class="circle-decor"></span>
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <button
-                  type="button"
-                  class="subcategory-preview-item__remove"
-                  (click)="clearArrayField(form.get('education').get('skillsData').value)">
-                  <img src="../assets/image/close.svg">
-                </button>
               </ng-container>
             </div>
           </div>

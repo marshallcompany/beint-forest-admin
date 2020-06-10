@@ -22,7 +22,8 @@
     position:relative;
     height: 100%;
     min-height: 100%;
-    overflow: hidden;
+    overflow: auto;
+	overflow-x: hidden;
     padding-bottom: 100px;
 }
 .subcategory-item{
@@ -139,10 +140,8 @@
     &__details{
         display: flex;
         align-items:center;
+        flex-wrap: wrap;
         width: 100%;
-        &_list{
-            padding-left:70px;
-        }
     }
     &__invalid{
         color:$red;
@@ -190,6 +189,46 @@
     &__scope,
     &__date{
         font-size: 17px;
+    }
+}
+
+.list{
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+.list-width50{
+    width: 50%;
+}
+.list__title{
+    color: $primary;
+    font-size: 17px;
+    font-family: $workSansSemiBold;
+    margin-right: 10px;
+}
+.list-wrapper{
+    display: flex;
+    flex-wrap: wrap;
+}
+.list-wrapper__item{
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    font-size: 17px;
+    line-height: 1.5;
+    .circle-decor{
+        display: block;
+        width:4px;
+        height:4px;
+        background-color: $black;
+        opacity: .8;
+        margin:0 7px;
+        border-radius: 50%;
+    }
+    &:last-child{
+        .circle-decor{
+            display: none;
+        }
     }
 }
 // FIELD
@@ -294,6 +333,20 @@
     // NEW END
 }
 @media screen and (max-width:1200px){
+    .list-width50{
+        width: 100%;
+    }
+    .list{
+        flex-wrap:  wrap;
+        margin-bottom: 11px;
+        &:last-child{
+            margin-bottom: 0;
+        }
+    }
+    .list__title{
+        width: 100%;
+        margin-bottom: 5px;
+    }
     // NEW
     .subcategory-header{
         padding: 0 39px 0 29px;
@@ -451,14 +504,6 @@
             flex-direction: column;
             justify-content: flex-start;
             align-items: flex-start;
-            &_list{
-                padding-left: 0;
-                .subcategory-preview-info{
-                    &__circle{
-                        display: block;
-                    }
-                }
-            }
         }
         &__circle{
             display: none;
@@ -466,10 +511,16 @@
         p{
             font-size: 14px;
             margin-bottom:5px;
-            &:last-child{
-                margin-bottom:0;
-            }
         }
+    }
+    .subcategory-preview-info__number{
+        margin-bottom: 0;
+    }
+    .list__title{
+        font-size: 16px;
+    }
+    .list-wrapper__item {
+        line-height: 1;
     }
     .subcategory{
         padding:0;
