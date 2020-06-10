@@ -22,7 +22,7 @@ export class SearchService {
         filter: params
       }
     });
-  };
+  }
   public getIndustryBranches = (lang, params) => {
     const url = this.apiRoutes.GET_INDUSTRY_SCHEMA.replace(':lang', lang);
     return this.http.get<any>(url, {
@@ -30,7 +30,7 @@ export class SearchService {
         filter: params
       }
     });
-  };
+  }
   public getBenefits = (lang, params) => {
     const url = this.apiRoutes.GET_BENEFITS_SCHEMA.replace(':lang', lang);
     return this.http.get<any>(url, {
@@ -38,7 +38,7 @@ export class SearchService {
         filter: params
       }
     });
-  };
+  }
   public getTowns = (lang, params, zip = '') => {
     const url = this.apiRoutes.GET_TOWNS_SCHEMA.replace(':lang', lang);
     return this.http.get<any>(url, {
@@ -48,7 +48,7 @@ export class SearchService {
         zip
       }
     });
-  };
+  }
 
   public getCountries(lang, query): Observable<string[]> {
     const url = this.apiRoutes.GET_COUNTRIES_SCHEMA.replace(':lang', lang);
@@ -83,6 +83,15 @@ export class SearchService {
       params: {
         filter: query
       }
+    });
+  }
+
+  public getNationalities(lang, query?: string): Observable<string[]> {
+    const url = this.apiRoutes.GET_NATIONALITIES_SCHEMA.replace(':lang', lang);
+    return this.http.get<any>(url, {
+      params: query ? {
+        filter: query
+      } : {}
     });
   }
 

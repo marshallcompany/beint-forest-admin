@@ -38,6 +38,7 @@ export class PersonalComponent implements OnInit {
   public residence: FormGroupName;
   public landList$: Observable<string[]>;
   public cityList$: Observable<string[]>;
+  public nationalitiesList$: Observable<string[]>;
   public zip$: Observable<string[]>;
 
   constructor(
@@ -51,6 +52,7 @@ export class PersonalComponent implements OnInit {
   ngOnInit() {
     this.initForm();
     this.init();
+    this.nationalitiesList$ = this.searchService.getNationalities('de');
   }
 
   public init = () => {
@@ -96,7 +98,8 @@ export class PersonalComponent implements OnInit {
         gender: [''],
         lastName: [''],
         middleName: [''],
-        nationality: ['']
+        nationality: [''],
+        maritalStatus: [null]
       }),
       contact: this.formBuilder.group({
         facebook: [''],
@@ -110,6 +113,7 @@ export class PersonalComponent implements OnInit {
           street: [''],
           zipCode: [null],
           country: [null, Validators.required],
+          addressAddition: ['']
         })
       }),
     });
@@ -125,7 +129,7 @@ export class PersonalComponent implements OnInit {
         gender: personalData.personal && personalData.personal.gender ? personalData.personal.gender : null,
         lastName: personalData.personal && personalData.personal.lastName ? personalData.personal.lastName : '',
         middleName: personalData.personal && personalData.personal.middleName ? personalData.personal.middleName : '',
-        nationality: personalData.personal && personalData.personal.nationality ? personalData.personal.nationality : ''
+        nationality: personalData.personal && personalData.personal.nationality ? personalData.personal.nationality : null
       },
       contact: {
         facebook: personalData.contact && personalData.contact.facebook ? personalData.contact.facebook : '',

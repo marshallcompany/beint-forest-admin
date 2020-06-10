@@ -146,19 +146,62 @@
                 [ngClass]="{invalid : !form.get('personal').get('birthPlace').value}"></div>
             </div>
           </div>
-          <div class="field">
+          <div class="field field_select field_select-singleselect-arrow clearable">
             <p class="field__label">Staatsangehörigkeit</p>
             <div class="field-wrapper">
-              <input
-                type="text"
-                placeholder="Geschlecht"
-                class="field-wrapper__input"
+              <ng-select
+                [items]="nationalitiesList$ | async"
+                [multiple]="false"
                 formControlName="nationality"
-                (blur)="submit('Staatsangehörigkeit')">
-              <div class="field-wrapper__type">abc</div>
+                (blur)="submit('Staatsangehörigkeit')"
+                [placeholder]="'Staatsangehörigkeit eingeben'"
+                class="custom-select">
+              </ng-select>
               <div
                 class="field-wrapper__status"
-                [ngClass]="{invalid : !form.get('personal').get('nationality').value}"></div>
+                [ngClass]="{invalid : !form.get('personal').get('nationality').value}">
+              </div>
+            </div>
+          </div>
+          <div class="field field_select">
+            <p class="field__label">Familienstand</p>
+            <div class="field-wrapper">
+              <ng-select
+                [searchable]="false"
+                [clearable]="false"
+                placeholder="Familienstand"
+                formControlName="maritalStatus"
+                (change)="submit('Familienstand')"
+                class="custom-select">
+                <ng-option value="ledig">
+                  ledig
+                </ng-option>
+                <ng-option value="verheiratet">
+                  verheiratet
+                </ng-option>
+                <ng-option value="verwitwet">
+                  verwitwet
+                </ng-option>
+                <ng-option value="geschieden">
+                  geschieden
+                </ng-option>
+                <ng-option value="Ehe aufgehoben">
+                  Ehe aufgehoben
+                </ng-option>
+                <ng-option value="in eingetragener Lebenspartnerschaft">
+                  in eingetragener Lebenspartnerschaft
+                </ng-option>
+                <ng-option value="durch Tod aufgelöste Lebenspartnerschaft">
+                  durch Tod aufgelöste Lebenspartnerschaft
+                </ng-option>
+                <ng-option value="aufgehobene Lebenspartnerschaft">
+                  aufgehobene Lebenspartnerschaft
+                </ng-option>
+              </ng-select>
+              <div
+                class="field-wrapper__status"
+                [ngClass]="{invalid : !form.get('personal').get('maritalStatus').value}">
+              </div>
             </div>
           </div>
         </div>
@@ -174,13 +217,12 @@
             <p class="subcategory-info__name">Kontaktinformationen</p>
           </div>
           <div
-            class="field field_select field_select-search single"
+            class="field field_select field_select-search single clearable"
             formGroupName="residence">
             <p class="field__label">Land</p>
             <div class="field-wrapper">
               <ng-select
                 [items]="landList$ | async"
-                [clearable]="false"
                 [multiple]="false"
                 [placeholder]="'Land'"
                 formControlName="country"
@@ -196,14 +238,13 @@
             </div>
           </div>
           <div
-            class="field field_select field_select-search single"
+            class="field field_select field_select-search single clearable"
             [ngClass]="{'invalid': form.get('contact').get('residence').get('country').invalid}"
             formGroupName="residence">
             <p class="field__label">Wohnort</p>
             <div class="field-wrapper">
               <ng-select
                 [items]="cityList$ | async"
-                [clearable]="false"
                 [multiple]="false"
                 [placeholder]="'Wohnort'"
                 formControlName="place"
@@ -219,14 +260,13 @@
             </div>
           </div>
           <div
-            class="field field_select field_select-search single"
+            class="field field_select field_select-search single clearable"
             [ngClass]="{'invalid': form.get('contact').get('residence').get('country').invalid}"
             formGroupName="residence">
             <p class="field__label">PLZ</p>
             <div class="field-wrapper">
               <ng-select
                 [items]="zip$ | async"
-                [clearable]="false"
                 [multiple]="false"
                 [placeholder]="'PLZ'"
                 formControlName="zipCode"
@@ -273,6 +313,22 @@
               <div
                 class="field-wrapper__status"
                 [ngClass]="{invalid : !form.get('contact').get('residence').get('houseNumber').value}"></div>
+            </div>
+          </div>
+          <div class="field" formGroupName="residence">
+            <p class="field__label">Adresszusatz</p>
+            <div class="field-wrapper">
+              <input
+                type="text"
+                placeholder="Adresszusatz"
+                class="field-wrapper__input"
+                formControlName="addressAddition"
+                (blur)="submit('Adresszusatz')">
+              <div class="field-wrapper__type">abc</div>
+              <div
+                class="field-wrapper__status"
+                [ngClass]="{invalid : !form.get('contact').get('residence').get('addressAddition').value}">
+              </div>
             </div>
           </div>
           <div class="field">
