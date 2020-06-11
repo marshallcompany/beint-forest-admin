@@ -11,6 +11,7 @@ import { SearchService } from '../../../services/search.service';
 interface DropDownOptions {
   academic_titles: Array<string[]>;
   gender: Array<string[]>;
+  maritalStatus: Array<string[]>;
 }
 
 @Component({
@@ -67,7 +68,8 @@ export class PersonalComponent implements OnInit {
               contact: fullProfileData.profile.contact,
               dropdownOptions: {
                 academic_titles: fullLocalBundle.dropdownOptions.academic_titles,
-                gender: fullLocalBundle.dropdownOptions.gender
+                gender: fullLocalBundle.dropdownOptions.gender,
+                maritalStatus: fullLocalBundle.dropdownOptions.maritalStatus
               }
             };
           }
@@ -129,7 +131,8 @@ export class PersonalComponent implements OnInit {
         gender: personalData.personal && personalData.personal.gender ? personalData.personal.gender : null,
         lastName: personalData.personal && personalData.personal.lastName ? personalData.personal.lastName : '',
         middleName: personalData.personal && personalData.personal.middleName ? personalData.personal.middleName : '',
-        nationality: personalData.personal && personalData.personal.nationality ? personalData.personal.nationality : null
+        nationality: personalData.personal && personalData.personal.nationality ? personalData.personal.nationality : null,
+        maritalStatus: personalData.personal && personalData.personal.maritalStatus ? personalData.personal.maritalStatus : null
       },
       contact: {
         facebook: personalData.contact && personalData.contact.facebook ? personalData.contact.facebook : '',
@@ -143,6 +146,7 @@ export class PersonalComponent implements OnInit {
           street: personalData.contact && personalData.contact.residence && personalData.contact.residence.street ? personalData.contact.residence.street : '',
           zipCode: personalData.contact && personalData.contact.residence && personalData.contact.residence.zipCode ? personalData.contact.residence.zipCode : null,
           country: personalData.contact && personalData.contact.residence && personalData.contact.residence.country ? personalData.contact.residence.country : null,
+          addressAddition: personalData.contact && personalData.contact.residence && personalData.contact.residence.addressAddition ? personalData.contact.residence.addressAddition : ''
         }
       },
     });
