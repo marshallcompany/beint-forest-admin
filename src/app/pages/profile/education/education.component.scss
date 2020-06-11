@@ -231,6 +231,14 @@
     }
 }
 // FIELD
+.relevant-change{
+    .flex-grid:nth-child(1){
+        padding-top: 13px;
+        .remove-fields{
+            top: -94px;
+        }
+    }
+}
 .remove-fields{
     position: absolute;
     right: 15px;
