@@ -112,7 +112,6 @@
                         [items]="$countriesList | async"
                         [clearable]="false"
                         [placeholder]="'Land'"
-                        (search)="getCountryList($event.term)"
                         (change)="submit('Land')"
                         class="custom-select"
                         formControlName="country">
@@ -171,7 +170,6 @@
                         [hideSelected]="true"
                         placeholder="Branche"
                         class="custom-select"
-                        (search)="getBusinessArea($event)"
                         (change)="formArrayPush($event, 'employmentConditionsArray', 'businessArea', i)"
                         [formControl]="employmentBusinessAreaControl">
                       </ng-select>
@@ -516,7 +514,6 @@
                         [hideSelected]="true"
                         placeholder="Branche"
                         class="custom-select"
-                        (search)="getBusinessArea($event)"
                         [formControl]="independentBusinessAreaControl"
                         (change)="formArrayPush($event, 'independentExperienceArray', 'businessArea', i)">
                       </ng-select>
@@ -549,7 +546,6 @@
                         [items]="$countriesList | async"
                         [clearable]="false"
                         [placeholder]="'Land'"
-                        (search)="getCountryList($event.term)"
                         (change)="submit('Land')"
                         class="custom-select"
                         formControlName="country">
@@ -570,8 +566,8 @@
                           [searchable]="true"
                           [items]="$citiesList | async"
                           [clearable]="false"
+                          [virtualScroll]="true"
                           placeholder="Ort"
-                          (search)="getCityList($event.term)"
                           (change)="submit('Ort')"
                           class="custom-select"
                           formControlName="workPlace">
@@ -815,7 +811,6 @@
                         [items]="$countriesList | async"
                         [clearable]="false"
                         [placeholder]="'Land'"
-                        (search)="getCountryList($event.term)"
                         (change)="submit('Land')"
                         class="custom-select"
                         formControlName="country">
@@ -835,9 +830,9 @@
                         <ng-select
                           [searchable]="true"
                           [items]="$citiesList | async"
+                          [virtualScroll]="true"
                           [clearable]="false"
                           placeholder="Ort"
-                          (search)="getCityList($event.term)"
                           (change)="submit('Ort')"
                           class="custom-select"
                           formControlName="workPlace">

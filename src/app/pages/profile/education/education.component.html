@@ -103,7 +103,6 @@
                         [items]="$countriesList | async"
                         [clearable]="false"
                         [placeholder]="'Land'"
-                        (search)="getCountryList($event.term)"
                         (change)="submit('Land')"
                         class="custom-select"
                         formControlName="country">
@@ -123,8 +122,8 @@
                         [searchable]="true"
                         [items]="$citiesList | async"
                         [clearable]="false"
+                        [virtualScroll]="true"
                         placeholder="Ort"
-                        (search)="getCityList($event.term)"
                         (change)="submit('Ort')"
                         class="custom-select"
                         formControlName="place">
@@ -371,7 +370,6 @@
                           [items]="$apprenticeshipList | async"
                           [clearable]="false"
                           placeholder="Ausbildungsberuf"
-                          (search)="getApprenticeshipList($event.term)"
                           (change)="submit('Ausbildungsberuf')"
                           class="custom-select"
                           formControlName="professionalEducation">
@@ -409,7 +407,6 @@
                           [items]="$countriesList | async"
                           [clearable]="false"
                           [placeholder]="'Land'"
-                          (search)="getCountryList($event.term)"
                           (change)="submit('Land')"
                           class="custom-select"
                           formControlName="country">
@@ -430,7 +427,7 @@
                           [items]="$citiesList | async"
                           [clearable]="false"
                           placeholder="Ort"
-                          (search)="getCityList($event.term)"
+                          [virtualScroll]="true"
                           (change)="submit('Ort')"
                           class="custom-select"
                           formControlName="place">
@@ -721,7 +718,6 @@
                           [items]="$countriesList | async"
                           [clearable]="false"
                           [placeholder]="'Land'"
-                          (search)="getCountryList($event.term)"
                           (change)="submit('Land')"
                           class="custom-select"
                           formControlName="country">
@@ -741,8 +737,8 @@
                           [searchable]="true"
                           [items]="$citiesList | async"
                           [clearable]="false"
+                          [virtualScroll]="true"
                           placeholder="Ort"
-                          (search)="getCityList($event.term)"
                           (change)="submit('Ort')"
                           class="custom-select"
                           formControlName="place">
@@ -787,7 +783,6 @@
                           [items]="$specializationList | async"
                           [clearable]="false"
                           placeholder="Fachrichtung"
-                          (search)="getSpecializationList($event.term)"
                           (change)="submit('Fachrichtung')"
                           class="custom-select"
                           formControlName="specialization">
@@ -809,7 +804,6 @@
                             [items]="$degreeList | async"
                             [clearable]="false"
                             placeholder="Art des Abschlusses"
-                            (search)="getDegreeList($event.term)"
                             (change)="submit('Art des Abschlusses')"
                             class="custom-select"
                             formControlName="typeOfDegree">
@@ -1317,7 +1311,6 @@
                           placeholder="Deine drei Top Skills"
                           [items]="$skillsList | async"
                           [formControl]="primarySkillsControl"
-                          (search)="getSkillsList($event.term)"
                           (change)="formArrayPush($event, primarySkillsArray, 'Deine drei Topskills', primarySkillsElement)"
                           class="custom-select">
                         </ng-select>
@@ -1351,7 +1344,6 @@
                           dropdownPosition="top"
                           [items]="$skillsList | async"
                           [formControl]="secondarySkillsControl"
-                          (search)="getSkillsList($event.term)"
                           (change)="formArrayPush($event, secondarySkillsArray, 'Deine weiteren Skills')"
                           placeholder="Weiteren Skill"
                           class="custom-select">
@@ -1471,7 +1463,6 @@
                         [items]="$langList | async"
                         dropdownPosition="top"
                         placeholder="Sprache"
-                        (search)="getLangList($event.term)"
                         (change)="submit('Sprache')"
                         class="custom-select"
                         formControlName="language">

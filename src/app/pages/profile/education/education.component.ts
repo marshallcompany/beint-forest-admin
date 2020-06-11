@@ -3,12 +3,19 @@ import { FormBuilder, FormGroup, FormArray, FormGroupName, Validators, FormContr
 import { FormValidators } from '../../../validators/validators';
 import { ProfileService } from 'src/app/services/profile.service';
 import { NotificationService } from 'src/app/services/notification.service';
-import { map, debounceTime, share, switchMap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { MatExpansionPanel, MatDialog } from '@angular/material';
 import { SearchService } from 'src/app/services/search.service';
 import { Observable, forkJoin, of, throwError } from 'rxjs';
 import * as moment from 'moment';
 import { ConfirmModalComponent } from 'src/app/components/modal/confirm/confirm-modal.component';
+
+interface DropDownOptions {
+  school_types: Array<string[]>;
+  school_graduation: Array<string[]>;
+  university_study_times: Array<string[]>;
+  language_level: Array<string[]>;
+}
 
 @Component({
   selector: 'app-education',
@@ -52,7 +59,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
   currentDate = moment().toDate();
   previousDate = moment().add(-1, 'day').toDate();
 
-  public dropdownOptions: object;
+  public dropdownOptions: DropDownOptions;
   public educationData: any;
 
   constructor(
@@ -68,6 +75,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.init();
     this.formInit();
+    this.initDropDownList();
   }
 
   ngAfterViewInit() {
@@ -442,32 +450,14 @@ export class EducationComponent implements OnInit, AfterViewInit {
     }
   }
 
-  getCountryList(query: string) {
-    this.$countriesList = this.searchService.getCountries('de', query).pipe(debounceTime(500), share());
-  }
-
-  getCityList(query: string) {
-    this.$citiesList = this.searchService.getTowns('de', `${query}`).pipe(debounceTime(400), share());
-  }
-
-  getApprenticeshipList(query: string) {
-    this.$apprenticeshipList = this.searchService.getProfessionalEducation('de', `${query}`).pipe(debounceTime(400), share());
-  }
-
-  getSpecializationList(query: string) {
-    this.$specializationList = this.searchService.getSpecializationUniversity('de', `${query}`).pipe(debounceTime(400), share());
-  }
-
-  getDegreeList(query: string) {
-    this.$degreeList = this.searchService.getDegreeUniversity('de', `${query}`).pipe(debounceTime(400), share());
-  }
-
-  getSkillsList(query: string) {
-    this.$skillsList = this.searchService.getSkills('de', `${query}`).pipe(debounceTime(400), share());
-  }
-
-  getLangList(query: string) {
-    this.$langList = this.searchService.getLang('de', `${query}`).pipe(debounceTime(400), share());
+  public initDropDownList = () => {
+    this.$langList = this.searchService.getLang('de', '');
+    this.$skillsList = this.searchService.getSkills('de', '');
+    this.$countriesList = this.searchService.getCountries('de', '');
+    this.$citiesList = this.searchService.getTowns('de', '');
+    this.$specializationList = this.searchService.getSpecializationUniversity('de', '');
+    this.$degreeList = this.searchService.getDegreeUniversity('de', '');
+    this.$apprenticeshipList = this.searchService.getProfessionalEducation('de', '');
   }
 
   setTodayDate(group: FormGroup) {

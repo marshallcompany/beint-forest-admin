@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormGroupName, FormControl, Validators } from '@angular/forms';
 import { ProfileService } from '../../../services/profile.service';
-import { debounceTime, map, share, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { Observable, of, throwError } from 'rxjs';
 import { SearchService } from '../../../services/search.service';
 import * as moment from 'moment';
@@ -20,6 +20,7 @@ import { ConfirmModalComponent } from 'src/app/components/modal/confirm/confirm-
 })
 export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
   public accordionsStatus: boolean;
+
   @ViewChild('accordion01', { static: false }) accordion01: MatExpansionPanel;
   @ViewChild('accordion02', { static: false }) accordion02: MatExpansionPanel;
   @ViewChild('accordion03', { static: false }) accordion03: MatExpansionPanel;
@@ -64,6 +65,11 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.init();
     this.formInit();
+
+    this.$countriesList = this.searchService.getCountries('de', '');
+    this.businessArea$ = this.searchService.getBusinessBranches('de', '');
+    this.$citiesList = this.searchService.getTowns('de', '');
+
   }
 
   ngAfterViewInit() {
@@ -266,17 +272,6 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
     }
   }
 
-  getCountryList(query: string) {
-    this.$countriesList = this.searchService.getCountries('de', query).pipe(debounceTime(500), share());
-  }
-
-  getCityList(query: string) {
-    this.$citiesList = this.searchService.getTowns('de', `${query}`).pipe(debounceTime(400), share());
-  }
-
-  getBusinessArea($event) {
-    this.businessArea$ = this.searchService.getBusinessBranches('de', `${$event.term}`).pipe(debounceTime(400), share());
-  }
 
   public deleteFormGroup = (nameArray: FormArray, index: number, formGroupName?: string) => {
     const FormGroupValue = nameArray.at(index).value;

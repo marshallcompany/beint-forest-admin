@@ -54,6 +54,7 @@ export class PersonalComponent implements OnInit {
     this.initForm();
     this.init();
     this.nationalitiesList$ = this.searchService.getNationalities('de');
+    this.landList$ = this.searchService.getCountries('de', '');
   }
 
   public init = () => {
@@ -150,6 +151,11 @@ export class PersonalComponent implements OnInit {
         }
       },
     });
+    if (personalData.contact.residence.country) {
+      const countryValue = personalData.contact.residence.country;
+      this.cityList$ = this.searchService.getTowns('de', '');
+      this.zip$ = this.searchService.getZipCode('de', `${countryValue}`, '', '');
+    }
   }
 
   public submit = (field: string) => {
@@ -187,14 +193,10 @@ export class PersonalComponent implements OnInit {
   onChangeLand(formGroup) {
     formGroup.get('zipCode').setValue(null);
     formGroup.get('place').setValue(null);
-  }
-
-  searchCity(event) {
-    this.cityList$ = this.searchService.getTowns('de', `${event.term}`).pipe(debounceTime(400), share());
-  }
-
-  searchLand($event) {
-    this.landList$ = this.searchService.getCountries('de', `${$event.term}`).pipe(debounceTime(400), share());
+    if (formGroup.get('country').value) {
+      this.cityList$ = this.searchService.getTowns('de', '');
+      this.zip$ = this.searchService.getZipCode('de', `${formGroup.get('country').value}`, '', '');
+    }
   }
 
   onChangeCity(formGroup: FormGroup) {
@@ -223,10 +225,5 @@ export class PersonalComponent implements OnInit {
           }
         }
       );
-  }
-
-  searchZip($event, formGroup: FormGroup) {
-    const country = formGroup.get('country').value;
-    this.zip$ = this.searchService.getZipCode('de', `${country}`, '', `${$event.term}`).pipe(debounceTime(400), share());
   }
 }

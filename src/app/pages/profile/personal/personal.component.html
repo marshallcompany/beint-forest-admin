@@ -205,7 +205,6 @@
                 [multiple]="false"
                 [placeholder]="'Land'"
                 formControlName="country"
-                (search)="searchLand($event)"
                 (change)="onChangeLand(form.get('contact').get('residence'))"
                 (blur)="submit('land')"
                 class="custom-select">
@@ -226,8 +225,8 @@
                 [items]="cityList$ | async"
                 [multiple]="false"
                 [placeholder]="'Wohnort'"
+                [virtualScroll]="true"
                 formControlName="place"
-                (search)="searchCity($event)"
                 (change)="onChangeCity(form.get('contact').get('residence'))"
                 (blur)="submit('Wohnort')"
                 class="custom-select">
@@ -248,8 +247,8 @@
                 [items]="zip$ | async"
                 [multiple]="false"
                 [placeholder]="'PLZ'"
+                [virtualScroll]="true"
                 formControlName="zipCode"
-                (search)="searchZip($event, form.get('contact').get('residence'))"
                 (change)="onChangeZip(form.get('contact').get('residence'))"
                 (blur)="submit('PLZ')"
                 class="custom-select">

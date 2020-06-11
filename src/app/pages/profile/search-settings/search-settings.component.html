@@ -25,8 +25,9 @@
                 [clearable]="false"
                 [multiple]="true"
                 [hideSelected]="true"
-                [items]="placeOptions$ | async"
+                [virtualScroll]="true"
                 [formControl]="placeControl"
+                [items]="placeOptions$ | async"
                 (change)="formArrayPush($event, 'desiredPlacesOfWorkArray', 'Wunsch-Arbeitsort')"
                 class="custom-select">
               </ng-select>
@@ -35,6 +36,7 @@
                 [ngClass]="{invalid : form.get('searchPreferences').get('desiredPlacesOfWork').value.length === 0}"
                 class="field-wrapper__status"></div>
             </div>
+            
             <div class="tags-wrapper">
               <div
                 formArrayName="desiredPlacesOfWork"
