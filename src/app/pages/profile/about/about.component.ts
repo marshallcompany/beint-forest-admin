@@ -14,6 +14,8 @@ export class AboutComponent implements OnInit {
 
   public navSettings = {
     iconCategory: '../assets/image/profile/category-07.svg',
+    imgDesktop: '../assets/image/profile/about/image-desktop.svg',
+    imgMobile: '../assets/image/profile/about/image-mobile.svg',
     nameCategory: 'Ich über mich',
     nextCategory: 'profile/personal',
     prevCategory: 'profile/miscellaneous'

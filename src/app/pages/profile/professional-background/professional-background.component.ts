@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormGroupName, FormControl, Validators } from '@angular/forms';
 import { ProfileService } from '../../../services/profile.service';
-import { debounceTime, map, share, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { Observable, of, throwError } from 'rxjs';
 import { SearchService } from '../../../services/search.service';
 import * as moment from 'moment';
@@ -20,6 +20,7 @@ import { ConfirmModalComponent } from 'src/app/components/modal/confirm/confirm-
 })
 export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
   public accordionsStatus: boolean;
+
   @ViewChild('accordion01', { static: false }) accordion01: MatExpansionPanel;
   @ViewChild('accordion02', { static: false }) accordion02: MatExpansionPanel;
   @ViewChild('accordion03', { static: false }) accordion03: MatExpansionPanel;
@@ -30,12 +31,15 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
 
   public navSettings = {
     iconCategory: '../assets/image/profile/category-03.svg',
+    imgDesktop: '../assets/image/profile/professional-background/image-desktop.svg',
+    imgMobile: '../assets/image/profile/professional-background/image-mobile.svg',
     nameCategory: 'Beruflicher Werdegang',
     nextCategory: 'profile/search-settings',
     prevCategory: 'profile/education'
   };
 
   private firstPersonalData: object;
+  public professionalBackgroundData: object;
 
   public form: FormGroup;
   public workExperience: FormGroupName;
@@ -61,6 +65,11 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.init();
     this.formInit();
+
+    this.$countriesList = this.searchService.getCountries('de', '');
+    this.businessArea$ = this.searchService.getBusinessBranches('de', '');
+    this.$citiesList = this.searchService.getTowns('de', '');
+
   }
 
   ngAfterViewInit() {
@@ -87,8 +96,10 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
       )
       .subscribe((res: any) => {
         console.log('res', res);
+        this.professionalBackgroundData = res.workExperience;
         this.dropdownOptions = res.dropdownOptions;
         this.patchFormValue(res.workExperience);
+        console.log('eeee', this.form);
       });
   }
 
@@ -209,17 +220,17 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
         }
       }
     });
-    if (!searchPreferences.employmentConditions.isNotRelevant && searchPreferences.employmentConditions.items.length) {
+    if (searchPreferences.employmentConditions.items.length) {
       searchPreferences.employmentConditions.items.forEach(item => {
         this.employmentConditionsArray.push(this.createFormGroup(item, 'employmentConditions'));
       });
     }
-    if (!searchPreferences.independentExperience.isNotRelevant && searchPreferences.independentExperience.items.length) {
+    if (searchPreferences.independentExperience.items.length) {
       searchPreferences.independentExperience.items.forEach(item => {
         this.independentExperienceArray.push(this.createFormGroup(item, 'independentExperience'));
       });
     }
-    if (!searchPreferences.otherExperience.isNotRelevant && searchPreferences.otherExperience.items.length) {
+    if (searchPreferences.otherExperience.items.length) {
       searchPreferences.otherExperience.items.forEach(item => {
         this.otherExperienceArray.push(this.createFormGroup(item, 'otherExperience'));
       });
@@ -243,7 +254,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
   setTodayDate(group: FormGroup) {
     const isSet = group.get('tilToday').value;
     if (isSet) {
-      group.get('dateEnd').setValue(this.currentDate.toISOString());
+      group.get('dateEnd').setValue('');
     }
     this.submit('bis heute');
   }
@@ -261,17 +272,6 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
     }
   }
 
-  getCountryList(query: string) {
-    this.$countriesList = this.searchService.getCountries('de', query).pipe(debounceTime(500), share());
-  }
-
-  getCityList(query: string) {
-    this.$citiesList = this.searchService.getTowns('de', `${query}`).pipe(debounceTime(400), share());
-  }
-
-  getBusinessArea($event) {
-    this.businessArea$ = this.searchService.getBusinessBranches('de', `${$event.term}`).pipe(debounceTime(400), share());
-  }
 
   public deleteFormGroup = (nameArray: FormArray, index: number, formGroupName?: string) => {
     const FormGroupValue = nameArray.at(index).value;
@@ -296,10 +296,10 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
             if (nameArray && formGroupName && nameArray.controls.length < 2) {
               nameArray.removeAt(index);
               nameArray.push(this.createFormGroup({}, formGroupName));
-              this.submit('');
+              this.submit();
             } else {
               nameArray.removeAt(index);
-              this.submit('');
+              this.submit();
             }
           },
           err => console.log('[ DELETE ERROR ]', err)
@@ -308,8 +308,10 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
       if (nameArray && formGroupName && nameArray.controls.length < 2) {
         nameArray.removeAt(index);
         nameArray.push(this.createFormGroup({}, formGroupName));
+        this.submit();
       } else {
         nameArray.removeAt(index);
+        this.submit();
       }
     }
   }
@@ -332,7 +334,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
     this[`${status}Array`].push(this.createFormGroup({}, status));
   }
 
-  public submit = (field: string) => {
+  public submit = (field?: string) => {
     this.profileService.updateProfile(this.form.value)
       .pipe(
         switchMap(formData => {
@@ -346,7 +348,9 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
         res => {
           console.log('[ UPDATE PROFILE ]', res);
           this.firstPersonalData = this.form.value;
-          this.notificationService.notify(`Field ${field} updated successfully!`, 'success');
+          if ( field ) {
+            this.notificationService.notify(`Field ${field} updated successfully!`, 'success');
+          }
         },
         err => {
           console.log('[ ERROR UPDATE PROFILE ]', err);

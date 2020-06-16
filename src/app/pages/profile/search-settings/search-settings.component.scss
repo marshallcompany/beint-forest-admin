@@ -9,41 +9,20 @@
   overflow: auto;
   overflow-x: hidden;
 }
-.category-decor{
-    animation: 0.25s linear forwards showCategoryImage;
-    &__image{
-        display: block;
-        width: 90%;
-        margin:0 auto;
-        &_mobile{
-            display: none;
-        }
-    }
-}
-@keyframes showCategoryImage {
-    0% {
-        transform: scale(0);
-    }
-    25% {
-        transform: scale(0.5);
-    }
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
-}
-.form-wrapper{
-    margin-top: 50px;
-}
+
 .field{
     &_group{
+        margin-bottom: 0;
         .field{
             width:47%;
         }
     }
 }
 .field_checkbox{
-    padding-top:45px;
+    height: 68px;
+    padding-top: 15px;
+    display: flex;
+    align-items: center;
 }
 .flex-grid{
     display: flex;
@@ -82,9 +61,8 @@
 }
 /* = MEDIA = */
 @media screen and (max-width:1500px){
-    .form-wrapper{
+    .search-preference-wrapper{
         padding-left:5vw;
-        padding-right:5vw;
     }
 }
 
@@ -99,12 +77,13 @@
     .search{
        background-color:#F9F9F9;
     }
-    .form-wrapper{
+    .search-preference-wrapper{
         padding:0;
     }
     .tags-wrapper{
         &__item{
             padding:5px 10px;
+            margin-top: 20px;
         }
         &__label{
             font-size: 16px;
@@ -117,27 +96,16 @@
             }
         }
     }
-    .category-decor{
-        margin-bottom:5vw;
-            &__image{
-                width: 80%;
-                display: none;
-                &_mobile{
-                    display: block;
-                }
-            }
-    }
     .field{
         width:100%;
         &_checkbox{
-            padding:0 0 20px 19px;
+            height: 35px;
+            padding-top: 0;
+            padding-left: 19px;
         }
     }
     .checkbox-wrapper{
         padding:0;
-    }
-    ::ng-deep .ng-select-container .ng-input input {
-        font-size: 16px;
     }
     .salary-group{
         .field{
@@ -145,54 +113,25 @@
         }
     }
     .field-wrapper{
-        &__input{
-            font-size: 16px;
+        &__placeholder{
+            left: 19px;
+            width: calc(100% - 65px);
+            font-size: 17px;
         }
-        &__type{
-            font-size: 14px;
-        }
-    }
-    .custom-select{
-        font-size: 16px;
     }
 }
 @media screen and (max-width:568px){
     .search{
         padding-bottom:25px;
     }
-    .field-wrapper{
-        padding-left:10px;
-        &__placeholder{
-            left: 10px;
-            width: calc(100% - 65px);
-            font-size: 14px;
-        }
-        &__input{
-            &::placeholder{
-                font-size: 14px;
-            }
-        }
-    }
     .tags-wrapper{
         padding-left:10px;
     }
-    ::ng-deep .ng-select-container{
-        padding-left: 10px!important;
-    }
-    ::ng-deep .ng-select-container .ng-input {
-        input{
-            &::placeholder{
-                font-size: 14px;
-            }
-        }
-    }
-    .field{
-        &_checkbox{
-            padding-left:10px;
-        }
-        &__label{
-            margin-left:10px;
-            font-size: 16px;
+}
+@media screen and (min-width: 320px) and (max-width: 374px) {
+    .field-wrapper{
+        &__placeholder{
+            left: 10px;
         }
     }
 }

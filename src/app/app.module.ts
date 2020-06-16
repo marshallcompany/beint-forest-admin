@@ -130,9 +130,7 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     ImageCropperModule,
-    NgxMaskModule.forRoot({
-      showMaskTyped: true,
-    }),
+    NgxMaskModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

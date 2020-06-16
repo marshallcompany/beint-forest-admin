@@ -92,7 +92,7 @@ export class DocumentComponent implements OnInit {
               return fetch(base64).then(base64Url => base64Url.blob());
             }
           }
-          return throwError(new Error('Sorry, you are uploading the wrong file format'));
+          return throwError(new Error('Dokument konnte nicht hochgeladen werden. Falsches Dokumentenformat'));
         }),
         switchMap((blob: Blob) => {
           const arr: Array<Observable<any>> = [

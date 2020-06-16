@@ -22,6 +22,8 @@ export class MiscellaneousComponent implements OnInit, AfterViewInit {
 
   public navSettings = {
     iconCategory: '../assets/image/profile/category-06.svg',
+    imgDesktop: '../assets/image/profile/education/image-desktop.svg',
+    imgMobile: '../assets/image/profile/education/image-mobile.svg',
     nameCategory: 'Sonstiges',
     nextCategory: 'profile/about',
     prevCategory: 'profile/document'
@@ -228,7 +230,7 @@ export class MiscellaneousComponent implements OnInit, AfterViewInit {
   setTodayDate(group: FormGroup) {
     const isSet = group.get('tilToday').value;
     if (isSet) {
-      group.get('dateTo').setValue(this.currentDate.toISOString());
+      group.get('dateTo').setValue('');
     }
     this.submit('bis heute');
   }
@@ -256,10 +258,10 @@ export class MiscellaneousComponent implements OnInit, AfterViewInit {
             if (nameArray && formGroupName && nameArray.controls.length < 2) {
               nameArray.removeAt(index);
               nameArray.push(this.createFormGroup({}, formGroupName));
-              this.submit('');
+              this.submit();
             } else {
               nameArray.removeAt(index);
-              this.submit('');
+              this.submit();
             }
           },
           err => console.log('[ DELETE ERROR ]', err)
@@ -268,8 +270,10 @@ export class MiscellaneousComponent implements OnInit, AfterViewInit {
       if (nameArray && formGroupName && nameArray.controls.length < 2) {
         nameArray.removeAt(index);
         nameArray.push(this.createFormGroup({}, formGroupName));
+        this.submit();
       } else {
         nameArray.removeAt(index);
+        this.submit();
       }
     }
   }
@@ -313,7 +317,7 @@ export class MiscellaneousComponent implements OnInit, AfterViewInit {
     }
   }
 
-  public submit = (field: string) => {
+  public submit = (field?: string) => {
     this.profileService.updateProfile(this.form.value)
       .pipe(
         switchMap(formData => {
@@ -327,7 +331,9 @@ export class MiscellaneousComponent implements OnInit, AfterViewInit {
         res => {
           console.log('[ UPDATE PROFILE ]', res);
           this.miscellaneousData = this.form.value;
-          this.notificationService.notify(`Field ${field} updated successfully!`, 'success');
+          if (field) {
+            this.notificationService.notify(`Field ${field} updated successfully!`, 'success');
+          }
         },
         err => {
           console.log('[ ERROR UPDATE PROFILE ]', err);

@@ -3,11 +3,11 @@ import { ProfileService } from '../../../services/profile.service';
 import { SearchService } from '../../../services/search.service';
 import { FormGroup, FormArray, FormBuilder, FormGroupName, FormControl } from '@angular/forms';
 import { FormValidators } from '../../../validators/validators';
-import { map, switchMap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { NotificationService } from 'src/app/services/notification.service';
 
 import * as moment from 'moment';
-import { throwError, of, forkJoin, fromEvent, Observable } from 'rxjs';
+import { throwError, of, forkJoin, Observable } from 'rxjs';
 
 
 @Component({
@@ -18,23 +18,23 @@ import { throwError, of, forkJoin, fromEvent, Observable } from 'rxjs';
 
 export class SearchSettingsComponent implements OnInit, AfterViewInit {
 
+  @ViewChild('searchBusiness', { static: false }) searchBusiness;
+  @ViewChild('searchIndustry', { static: false }) searchIndustry;
+  @ViewChild('searchBenefits', { static: false }) searchBenefits;
+  @ViewChild('searchPlace', { static: false }) searchPlace;
+
   public navSettings = {
     iconCategory: '../assets/image/profile/category-04.svg',
+    imgDesktop: '../assets/image/profile/search/image-desktop.svg',
+    imgMobile: '../assets/image/profile/search/image-mobile.svg',
     nameCategory: 'Such-Präferenzen',
     nextCategory: 'profile/document',
     prevCategory: 'profile/professional-background'
   };
 
-  @ViewChild('searchBusiness', { static: false }) searchBusiness;
   public businessOptions$: Observable<any>;
-
-  @ViewChild('searchIndustry', { static: false }) searchIndustry;
   public industryOptions$: Observable<any>;
-
-  @ViewChild('searchBenefits', { static: false }) searchBenefits;
   public benefitsOptions$: Observable<any>;
-
-  @ViewChild('searchPlace', { static: false }) searchPlace;
   public placeOptions$: Observable<any>;
 
   public minDate = moment().toISOString();
@@ -47,7 +47,6 @@ export class SearchSettingsComponent implements OnInit, AfterViewInit {
   public workingHoursControl = new FormControl();
   public benefitsControl = new FormControl();
   public placeControl = new FormControl();
-
   public formData: object;
   public dropdownOptions: any;
 
@@ -61,62 +60,17 @@ export class SearchSettingsComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.initForm();
     this.init();
+    this.placeOptions$ = this.searchService.getTowns('de', '');
+    this.industryOptions$ = this.searchService.getIndustryBranches('de', '');
+    this.benefitsOptions$ = this.searchService.getBenefits('de', '');
+    this.businessOptions$ = this.searchService.getBusinessBranches('de', '');
   }
 
   ngAfterViewInit() {
     this.searchBenefits.searchInput.nativeElement.placeholder = 'Geben Sie die gewünschte ein';
-    this.searchPlace.searchInput.nativeElement.placeholder = 'Wunsch Arbeitsorte';
-    this.searchIndustry.searchInput.nativeElement.placeholder = 'Wunsch Arbeitsorte';
-    this.searchBusiness.searchInput.nativeElement.placeholder = 'Bevorzugter Geschäftsbereich';
-
-    this.placeOptions$ = fromEvent<any>(this.searchPlace.searchInput.nativeElement, 'input')
-      .pipe(
-        map(event => event.target.value),
-        debounceTime(325),
-        distinctUntilChanged(),
-        switchMap(search => {
-          if (search.length !== 0) {
-            return this.searchService.getTowns('de', `${search}`);
-          }
-          return of([]);
-        })
-      );
-    this.industryOptions$ = fromEvent<any>(this.searchIndustry.searchInput.nativeElement, 'input')
-      .pipe(
-        map(event => event.target.value),
-        debounceTime(325),
-        distinctUntilChanged(),
-        switchMap(search => {
-          if (search.length !== 0) {
-            return this.searchService.getIndustryBranches('de', `${search}`);
-          }
-          return of([]);
-        })
-      );
-    this.benefitsOptions$ = fromEvent<any>(this.searchBenefits.searchInput.nativeElement, 'input')
-      .pipe(
-        map(event => event.target.value),
-        debounceTime(325),
-        distinctUntilChanged(),
-        switchMap(search => {
-          if (search.length !== 0) {
-            return this.searchService.getBenefits('de', `${search}`);
-          }
-          return of([]);
-        })
-      );
-    this.businessOptions$ = fromEvent<any>(this.searchBusiness.searchInput.nativeElement, 'input')
-      .pipe(
-        map(event => event.target.value),
-        debounceTime(325),
-        distinctUntilChanged(),
-        switchMap(search => {
-          if (search.length !== 0) {
-            return this.searchService.getBusinessBranches('de', `${search}`);
-          }
-          return of([]);
-        })
-      );
+    this.searchPlace.searchInput.nativeElement.placeholder = 'Wunsch-Arbeitsort';
+    this.searchIndustry.searchInput.nativeElement.placeholder = 'Wunsch-Branch';
+    this.searchBusiness.searchInput.nativeElement.placeholder = 'Bevorzugte Geschäftsbereich';
   }
 
   public initForm = () => {

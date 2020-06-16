@@ -43,7 +43,7 @@
           Log-in Daten
         </h3>
         <div class="form-item">
-          <p class="form-item__label">Emailadresse</p>
+          <p class="form-item__label">E-Mail</p>
           <div class="form-field">
             <input
               (blur)="triggerValidation('email')"
@@ -260,6 +260,7 @@
                 class="custom-select">
                 <ng-option [value]="'Männlich'">Männlich</ng-option>
                 <ng-option [value]="'Weiblich'">Weiblich</ng-option>
+                <ng-option [value]="'Divers'">Divers</ng-option>
             </ng-select>
           </div>
           <div

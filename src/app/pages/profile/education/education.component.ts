@@ -3,12 +3,19 @@ import { FormBuilder, FormGroup, FormArray, FormGroupName, Validators, FormContr
 import { FormValidators } from '../../../validators/validators';
 import { ProfileService } from 'src/app/services/profile.service';
 import { NotificationService } from 'src/app/services/notification.service';
-import { map, debounceTime, share, switchMap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { MatExpansionPanel, MatDialog } from '@angular/material';
 import { SearchService } from 'src/app/services/search.service';
 import { Observable, forkJoin, of, throwError } from 'rxjs';
 import * as moment from 'moment';
 import { ConfirmModalComponent } from 'src/app/components/modal/confirm/confirm-modal.component';
+
+interface DropDownOptions {
+  school_types: Array<string[]>;
+  school_graduation: Array<string[]>;
+  university_study_times: Array<string[]>;
+  language_level: Array<string[]>;
+}
 
 @Component({
   selector: 'app-education',
@@ -16,9 +23,11 @@ import { ConfirmModalComponent } from 'src/app/components/modal/confirm/confirm-
   styleUrls: ['./education.component.scss']
 })
 export class EducationComponent implements OnInit, AfterViewInit {
-
+  public mask = '0.00';
   public navSettings = {
     iconCategory: '../assets/image/profile/category-02.svg',
+    imgDesktop: '../assets/image/profile/education/image-desktop.svg',
+    imgMobile: '../assets/image/profile/education/image-mobile.svg',
     nameCategory: 'Berufliche Ausbildung',
     nextCategory: 'profile/professional-background',
     prevCategory: 'profile/personal'
@@ -50,7 +59,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
   currentDate = moment().toDate();
   previousDate = moment().add(-1, 'day').toDate();
 
-  public dropdownOptions: object;
+  public dropdownOptions: DropDownOptions;
   public educationData: any;
 
   constructor(
@@ -66,6 +75,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.init();
     this.formInit();
+    this.initDropDownList();
   }
 
   ngAfterViewInit() {
@@ -252,7 +262,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
           schoolType: [data && data.schoolType ? data.schoolType : null, Validators.required],
           schoolName: [data && data.schoolName ? data.schoolName : '', Validators.required],
           dateStart: [data && data.dateStart ? data.dateStart : null, Validators.required],
-          dateEnd: [data && data.dateEnd ? data.dateEnd : null, Validators.required],
+          dateEnd: [data && data.dateEnd ? data.dateEnd : null],
           country: [data && data.country ? data.country : null, Validators.required],
           place: [data && data.place ? data.place : null, Validators.required],
           tilToday: [data && data.tilToday ? data.tilToday : false],
@@ -264,7 +274,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
           professionalEducation: [data && data.professionalEducation ? data.professionalEducation : null, Validators.required],
           company: [data && data.company ? data.company : '', Validators.required],
           dateStart: [data && data.dateStart ? data.dateStart : null, Validators.required],
-          dateEnd: [data && data.dateEnd ? data.dateEnd : null, Validators.required],
+          dateEnd: [data && data.dateEnd ? data.dateEnd : null],
           country: [data && data.country ? data.country : null, Validators.required],
           place: [data && data.place ? data.place : null, Validators.required],
           tilToday: [data && data.tilToday ? data.tilToday : false],
@@ -277,7 +287,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
           degreeProgramTitle: [data && data.degreeProgramTitle ? data.degreeProgramTitle : '', Validators.required],
           specialization: [data && data.specialization ? data.specialization : null, Validators.required],
           dateStart: [data && data.dateStart ? data.dateStart : null, Validators.required],
-          dateEnd: [data && data.dateEnd ? data.dateEnd : null, Validators.required],
+          dateEnd: [data && data.dateEnd ? data.dateEnd : null],
           country: [data && data.country ? data.country : null, Validators.required],
           place: [data && data.place ? data.place : null, Validators.required],
           tilToday: [data && data.tilToday ? data.tilToday : false],
@@ -293,7 +303,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
           trainingTitle: [data && data.trainingTitle ? data.trainingTitle : '', Validators.required],
           trainingDescription: [data && data.trainingDescription ? data.trainingDescription : '', Validators.required],
           dateStart: [data && data.dateStart ? data.dateStart : null, Validators.required],
-          dateEnd: [data && data.dateEnd ? data.dateEnd : null, Validators.required],
+          dateEnd: [data && data.dateEnd ? data.dateEnd : null],
           tilToday: [data && data.tilToday ? data.tilToday : false]
         });
       case 'linguisticProficiency':
@@ -420,10 +430,10 @@ export class EducationComponent implements OnInit, AfterViewInit {
             if (nameArray && formGroupName && nameArray.controls.length < 2) {
               nameArray.removeAt(index);
               nameArray.push(this.createFormGroup({}, formGroupName));
-              this.submit('');
+              this.submit();
             } else {
               nameArray.removeAt(index);
-              this.submit('');
+              this.submit();
             }
           },
           err => console.log('[ DELETE ERROR ]', err)
@@ -432,44 +442,28 @@ export class EducationComponent implements OnInit, AfterViewInit {
       if (nameArray && formGroupName && nameArray.controls.length < 2) {
         nameArray.removeAt(index);
         nameArray.push(this.createFormGroup({}, formGroupName));
+        this.submit();
       } else {
         nameArray.removeAt(index);
+        this.submit();
       }
     }
   }
 
-  getCountryList(query: string) {
-    this.$countriesList = this.searchService.getCountries('de', query).pipe(debounceTime(500), share());
-  }
-
-  getCityList(query: string) {
-    this.$citiesList = this.searchService.getTowns('de', `${query}`).pipe(debounceTime(400), share());
-  }
-
-  getApprenticeshipList(query: string) {
-    this.$apprenticeshipList = this.searchService.getProfessionalEducation('de', `${query}`).pipe(debounceTime(400), share());
-  }
-
-  getSpecializationList(query: string) {
-    this.$specializationList = this.searchService.getSpecializationUniversity('de', `${query}`).pipe(debounceTime(400), share());
-  }
-
-  getDegreeList(query: string) {
-    this.$degreeList = this.searchService.getDegreeUniversity('de', `${query}`).pipe(debounceTime(400), share());
-  }
-
-  getSkillsList(query: string) {
-    this.$skillsList = this.searchService.getSkills('de', `${query}`).pipe(debounceTime(400), share());
-  }
-
-  getLangList(query: string) {
-    this.$langList = this.searchService.getLang('de', `${query}`).pipe(debounceTime(400), share());
+  public initDropDownList = () => {
+    this.$langList = this.searchService.getLang('de', '');
+    this.$skillsList = this.searchService.getSkills('de', '');
+    this.$countriesList = this.searchService.getCountries('de', '');
+    this.$citiesList = this.searchService.getTowns('de', '');
+    this.$specializationList = this.searchService.getSpecializationUniversity('de', '');
+    this.$degreeList = this.searchService.getDegreeUniversity('de', '');
+    this.$apprenticeshipList = this.searchService.getProfessionalEducation('de', '');
   }
 
   setTodayDate(group: FormGroup) {
     const isSet = group.get('tilToday').value;
     if (isSet) {
-      group.get('dateEnd').setValue(this.currentDate.toISOString());
+      group.get('dateEnd').setValue('');
     }
     this.submit('bis heute');
   }
@@ -491,7 +485,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
     }
   }
 
-  public submit = (field: string) => {
+  public submit = (field?: string) => {
     this.profileService.updateProfile(this.form.value)
       .pipe(
         switchMap(formData => {
@@ -505,7 +499,9 @@ export class EducationComponent implements OnInit, AfterViewInit {
         res => {
           console.log('[ UPDATE PROFILE ]', res);
           this.educationData = this.form.value;
-          this.notificationService.notify(`Field ${field} updated successfully!`, 'success');
+          if (field) {
+            this.notificationService.notify(`Field ${field} updated successfully!`, 'success');
+          }
         },
         err => {
           console.log('[ ERROR UPDATE PROFILE ]', err);

@@ -63,7 +63,7 @@
 // CUSTOM CHECKBOX END
 
 .ng-dropdown-panel .ng-dropdown-panel-items {
-    max-height: 185px!important;
+    max-height: 105px!important;
 }
 
 .scroll-host::-webkit-scrollbar {
@@ -102,7 +102,7 @@
 }
 
 body .field-group {
-  width: 46.5%;
+  width: 47%;
   position: relative;
 
   .field {
@@ -124,12 +124,23 @@ body .field-group {
     }
   }
 }
-
-body .field {
+// FIELD INPUT
+.clearable{
+  .ng-clear-wrapper{
+    display: none;
+  }
+}
+.field {
   width: 47%;
-  padding-bottom: 30px;
+  margin-bottom:13px;
   position: relative;
-
+  &__label {
+    color: $black;
+    opacity: .5;
+    margin-bottom: 2px;
+    margin-left: 19px;
+    font-size: 14px;
+  }
   &_group {
     .field {
       width: 100%;
@@ -141,7 +152,54 @@ body .field {
       padding: 0;
       background-color: inherit;
     }
-
+    &-multiselect-arrow{
+      .ng-select {
+        .ng-select-container {
+          .ng-value-container {
+            .ng-input {
+              padding: 0!important;
+              input{
+                padding: 0!important;
+              }
+            }
+          }
+        }
+      }
+      .ng-select.ng-select-filtered .ng-placeholder {
+        display: none!important;
+      }
+      .ng-select .ng-has-value .ng-placeholder{
+        display: block;
+      }
+      .ng-input{
+        padding: 0!important;
+      }
+      .ng-value {
+        display: none;
+      }
+    }
+    &-singleselect-arrow{
+      .ng-select {
+        .ng-select-container {
+          .ng-value-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            .ng-input {
+              position: absolute;
+              padding: 0!important;
+              width: 100%;
+              left: 0;
+              top: 50%;
+              transform: translate(0, -50%);
+              input{
+                padding: 0!important;
+              }
+            }
+          }
+        }
+      }
+    }
     &-search {
       .ng-arrow-wrapper {
         display: none;
@@ -166,7 +224,7 @@ body .field {
 
           .ng-value-container {
             .ng-value{
-               padding-right: 35px;
+              padding-right: 35px;
             }
             .ng-input {
               position: absolute;
@@ -177,11 +235,6 @@ body .field {
               left: 0;
               top: 50%;
               transform: translate(0, -50%);
-              @media screen and (max-width: 568px) {
-                & {
-                  padding-left: 10px;
-                }
-              }
             }
           }
         }
@@ -220,33 +273,22 @@ body .field {
   &_textarea {
     display: flex;
     flex-direction: column;
-
     .field-wrapper {
-      flex: 1;
       padding-top: 15px;
-
       .field-wrapper__input {
         padding: 0;
-        height: 100%;
+        height: 117px;
         font-family: $workSansRegular;
         outline: none;
         border: none;
         resize: none;
         font-size: 17px;
       }
-
       &__type {
-        top: 25px;
+        top: 15px;
         right: 19px;
       }
     }
-  }
-
-  &__label {
-    color: $black;
-    opacity: .5;
-    margin-bottom: 11px;
-    margin-left: 19px;
   }
 }
 
@@ -257,52 +299,36 @@ body .field {
   padding-left: 19px;
   padding-right: 55px;
   background-color: #ffffff;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.17);
+  box-shadow: 0px 1px 3px #00000029;
   border-radius: 10px;
   display: flex;
   align-items: center;
-
-  &.textarea {
-    height: auto;
-
-    textarea {
-      resize: none;
-
-      &:hover, &:active, &:focus {
-        border: none;
-        outline: none;
-      }
-    }
-  }
-
   &__input {
     width: 100%;
+    padding: 0;
     border: 0;
     color: $black;
     font-size: 17px;
-
     &::placeholder {
       color: #989898;
       opacity: .8;
       font-size: 17px;
     }
   }
-
   &__status {
-    width: 10px;
+    width: 5px;
     height: 100%;
     position: absolute;
     right: 0;
     top: 0;
     border-bottom-right-radius: 10px;
     border-top-right-radius: 10px;
-    background-color: $green;
+    background-color: $primary;
 
     &.invalid {
       background-color: $yellow;
     }
   }
-
   &__placeholder {
     position: absolute;
     left: 19px;
@@ -313,7 +339,6 @@ body .field {
     opacity: .8;
     font-size: 17px;
   }
-
   &__type {
     position: absolute;
     right: 19px;
@@ -323,6 +348,16 @@ body .field {
     font-size: 17px;
     width: 30px;
     text-align: center;
+  }
+  &.textarea {
+    height: auto;
+    textarea {
+      resize: none;
+      &:hover, &:active, &:focus {
+        border: none;
+        outline: none;
+      }
+    }
   }
 }
 
@@ -366,6 +401,29 @@ body .field {
         }
     }
 }
+.disabled{
+  .field-wrapper{
+      pointer-events: none;
+      position: relative;
+      overflow: hidden;
+      &:before{
+        content:'';
+        position:absolute;
+        left:0;
+        top:0;
+        width:100%;
+        height:100%;
+        background-color:rgba(152, 152, 152, .2);
+        z-index: 1;
+      }
+      &__status{
+        background-color:#989898!important;
+      }
+      &__input{
+        background-color: transparent;
+      }
+  }
+}
 // STYLE SELECT
 .custom-select {
   width: 100%;
@@ -385,7 +443,9 @@ body .field {
   }
 
   .ng-select-container {
-    padding: 0 19px;
+    padding: 0;
+    padding-left: 19px;
+    padding-right: 19px;
     border-radius: 10px;
     border: none;
     height: 100% !important;
@@ -458,12 +518,44 @@ body .ng-select.ng-select-multiple .ng-select-container .ng-value-container {
   }
 
 }
-
-@media screen and (max-width: 568px) {
+@media screen and (max-width:768px) {
+  .field{
+    margin-bottom: 11px;
+    &__label{
+      font-size: 14px;
+    }
+  }
+  .field-wrapper{
+    height: 48px;
+    &__input{
+      font-size: 16px;
+      &::placeholder{
+        font-size: 17px;
+      }
+    }
+    &__type{
+      font-size: 16px;
+    }
+  }
+  .ng-select-container .ng-value-container .ng-value{
+    font-size: 16px!important;
+  }
+  .ng-select-container .ng-value-container .ng-placeholder{
+    font-size: 17px!important;
+  }
+  .ng-select-container .ng-input input{
+    font-size: 16px!important;
+  }
+}
+@media screen and (min-width: 320px) and (max-width: 374px) {
   .field {
     &__label {
       margin-left: 10px;
-      font-size: 16px;
+    }
+  }
+  .custom-select {
+    .ng-select-container{
+      padding-left: 10px;
     }
   }
   .field-checkbox {
@@ -472,8 +564,13 @@ body .ng-select.ng-select-multiple .ng-select-container .ng-value-container {
   .field-wrapper {
     padding-left: 10px;
   }
-  ::ng-deep .ng-select .ng-select-container {
-    padding-left: 10px;
+  .ng-select-container{
+    padding-left: 10px!important;
+  }
+  .ng-select-container{
+    .ng-input{
+      padding-left: 10px!important;
+    }
   }
 }
 

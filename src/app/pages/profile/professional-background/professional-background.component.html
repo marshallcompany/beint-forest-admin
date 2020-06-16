@@ -7,19 +7,7 @@
       src="../assets/image/background-circle-02.png"
       class="background__circle background__circle_02">
   </div>
-  <app-category-nav-header [navSettings]="navSettings"></app-category-nav-header>
-  <div
-    class="category-decor"
-    [ngClass]="{'category-decor_hide' : !accordionsStatus, 'category-decor_show': accordionsStatus}">
-    <div class="container">
-      <img
-        src="../assets/image/profile/professional-background/image-desktop.svg"
-        class="category-decor__image">
-      <img
-        src="../assets/image/profile/professional-background/image-mobile.svg"
-        class="category-decor__image category-decor__image_mobile">
-    </div>
-  </div>
+  <app-category-nav-header [categoryPictureStatus]="accordionsStatus" [navSettings]="navSettings"></app-category-nav-header>
   <div class="subcategory">
     <div class="container">
       <form
@@ -63,7 +51,7 @@
                 </div>
               </div>
               <div
-                class="subcategory-content"
+                class="relevant-change subcategory-content"
                 formArrayName="items">
                 <div
                   class="flex-grid"
@@ -79,6 +67,23 @@
                               stroke-linecap="round"/>
                       </svg>
                     </button>
+                  </div>
+                  <div
+                    class="field"
+                    [ngClass]="{notRelevant : this.form.get('workExperience').get('employmentConditions').get('isNotRelevant').value}">
+                    <p class="field__label">Job Bezeichnung</p>
+                    <div class="field-wrapper">
+                      <input
+                        type="text"
+                        placeholder="Job Bezeichnung"
+                        class="field-wrapper__input"
+                        formControlName="jobTitle"
+                        (change)="submit('Job Bezeichnung')">
+                      <div class="field-wrapper__type">abc</div>
+                      <div
+                        class="field-wrapper__status"
+                        [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').get('items').controls[i].get('jobTitle').value}"></div>
+                    </div>
                   </div>
                   <div
                     class="field"
@@ -107,7 +112,6 @@
                         [items]="$countriesList | async"
                         [clearable]="false"
                         [placeholder]="'Land'"
-                        (search)="getCountryList($event.term)"
                         (change)="submit('Land')"
                         class="custom-select"
                         formControlName="country">
@@ -166,7 +170,6 @@
                         [hideSelected]="true"
                         placeholder="Branche"
                         class="custom-select"
-                        (search)="getBusinessArea($event)"
                         (change)="formArrayPush($event, 'employmentConditionsArray', 'businessArea', i)"
                         [formControl]="employmentBusinessAreaControl">
                       </ng-select>
@@ -190,33 +193,33 @@
                       </div>
                     </div>
                   </div>
-                  <div
-                    class="field field_select"
-                    [ngClass]="{notRelevant : this.form.get('workExperience').get('employmentConditions').get('isNotRelevant').value}">
-                    <p class="field__label">Art der Anstellung</p>
-                    <div class="field-wrapper">
-                      <ng-select
-                        [searchable]="false"
-                        [clearable]="false"
-                        [hideSelected]="true"
-                        placeholder="Art der Anstellung"
-                        class="custom-select"
-                        formControlName="employmentType"
-                        (change)="submit('Art der Anstellung')">
-                        <ng-container *ngIf="dropdownOptions">
-                          <ng-option
-                            *ngFor="let option of dropdownOptions.employment_type"
-                            [value]="option">
-                            {{option}}
-                          </ng-option>
-                        </ng-container>
-                      </ng-select>
-                      <div
-                        class="field-wrapper__status"
-                        [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').get('items').controls[i].get('employmentType').value}"></div>
-                    </div>
-                  </div>
                   <div class="field-group">
+                    <div
+                      class="field field_select"
+                      [ngClass]="{notRelevant : this.form.get('workExperience').get('employmentConditions').get('isNotRelevant').value}">
+                      <p class="field__label">Art der Anstellung</p>
+                      <div class="field-wrapper">
+                        <ng-select
+                          [searchable]="false"
+                          [clearable]="false"
+                          [hideSelected]="true"
+                          placeholder="Art der Anstellung"
+                          class="custom-select"
+                          formControlName="employmentType"
+                          (change)="submit('Art der Anstellung')">
+                          <ng-container *ngIf="dropdownOptions">
+                            <ng-option
+                              *ngFor="let option of dropdownOptions.employment_type"
+                              [value]="option">
+                              {{option}}
+                            </ng-option>
+                          </ng-container>
+                        </ng-select>
+                        <div
+                          class="field-wrapper__status"
+                          [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').get('items').controls[i].get('employmentType').value}"></div>
+                      </div>
+                    </div>
                     <div
                       class="field field_select"
                       [ngClass]="{notRelevant : this.form.get('workExperience').get('employmentConditions').get('isNotRelevant').value}">
@@ -241,23 +244,6 @@
                         <div
                           class="field-wrapper__status"
                           [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').get('items').controls[i].get('careerLevel').value}"></div>
-                      </div>
-                    </div>
-                    <div
-                      class="field"
-                      [ngClass]="{notRelevant : this.form.get('workExperience').get('employmentConditions').get('isNotRelevant').value}">
-                      <p class="field__label">Job Bezeichnung</p>
-                      <div class="field-wrapper">
-                        <input
-                          type="text"
-                          placeholder="Job Bezeichnung"
-                          class="field-wrapper__input"
-                          formControlName="jobTitle"
-                          (change)="submit('Job Bezeichnung')">
-                        <div class="field-wrapper__type">abc</div>
-                        <div
-                          class="field-wrapper__status"
-                          [ngClass]="{invalid : !this.form.get('workExperience').get('employmentConditions').get('items').controls[i].get('jobTitle').value}"></div>
                       </div>
                     </div>
                   </div>
@@ -309,12 +295,16 @@
                       </div>
                       <div
                         class="field field_datapicker"
-                        [ngClass]="{notRelevant : this.form.get('workExperience').get('employmentConditions').get('isNotRelevant').value}">
+                        [ngClass]="{
+                          notRelevant : this.form.get('workExperience').get('employmentConditions').get('isNotRelevant').value,
+                          disabled: this.form.get('workExperience').get('employmentConditions').get('items').controls[i].get('tilToday').value
+                        }">
                         <p class="field__label">Bis</p>
                         <div
                           class="field-wrapper"
                           [owlDateTimeTrigger]="dt2">
                           <input
+                            [disabled]="this.form.get('workExperience').get('employmentConditions').get('items').controls[i].get('tilToday').value"
                             [owlDateTime]="dt2"
                             [max]="currentDate"
                             class="field-wrapper__input"
@@ -363,12 +353,12 @@
           </mat-expansion-panel>
           <div
             class="subcategory-preview"
-            *ngIf="!accordion01.expanded && !form.get('workExperience').get('employmentConditions').get('isNotRelevant').value">
+            *ngIf="!accordion01.expanded && professionalBackgroundData">
             <div
               class="subcategory-preview-item"
               *ngFor="let item of form.get('workExperience').get('employmentConditions').get('items').controls; let i = index">
               <ng-container *ngIf="item.valid; else notValid">
-                <div class="subcategory-preview-info">
+                <div class="subcategory-preview-info" (click)="accordion01.expanded = !accordion01.expanded">
                   <p class="subcategory-preview-info__number">
                     <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
                   </p>
@@ -388,13 +378,22 @@
                 </button>
               </ng-container>
               <ng-template #notValid>
-                <div class="subcategory-preview-info">
-                  <p class="subcategory-preview-info__number">
-                  <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
-                </p>
+                <div class="subcategory-preview-info" (click)="accordion01.expanded = !accordion01.expanded">
+                  <p class="subcategory-preview-info__number" *ngIf="!form.get('workExperience').get('employmentConditions').get('isNotRelevant').value">
+                    <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
+                  </p>
                   <div class="subcategory-preview-info__details">
-                    <p class="subcategory-preview-info__invalid">Unvollständige Angaben</p>
+                      <p
+                          class="subcategory-preview-info__invalid"
+                          *ngIf="!form.get('workExperience').get('employmentConditions').get('isNotRelevant').value; else notRelevant">
+                          Unvollständige Angaben
+                      </p>
                   </div>
+                  <ng-template #notRelevant>
+                    <div class="relevant-info">
+                      <p class="relevant-info__line"></p>
+                    </div>
+                  </ng-template>
                 </div>
               </ng-template>
             </div>
@@ -414,7 +413,7 @@
                   <img
                     src="../assets/image/profile/professional-background/subcategory-02.svg"
                     class="subcategory-info__icon">
-                  <p class="subcategory-info__label">Selbständigkeit</p>
+                  <p class="subcategory-info__label">Selbstständigkeit</p>
                 </div>
                 <img
                   src="../assets/image/profile/accordion-arrow.svg"
@@ -437,7 +436,7 @@
                 </div>
               </div>
               <div
-                class="subcategory-content"
+                class="relevant-change subcategory-content"
                 formArrayName="items">
                 <div
                   class="flex-grid"
@@ -515,7 +514,6 @@
                         [hideSelected]="true"
                         placeholder="Branche"
                         class="custom-select"
-                        (search)="getBusinessArea($event)"
                         [formControl]="independentBusinessAreaControl"
                         (change)="formArrayPush($event, 'independentExperienceArray', 'businessArea', i)">
                       </ng-select>
@@ -548,7 +546,6 @@
                         [items]="$countriesList | async"
                         [clearable]="false"
                         [placeholder]="'Land'"
-                        (search)="getCountryList($event.term)"
                         (change)="submit('Land')"
                         class="custom-select"
                         formControlName="country">
@@ -569,8 +566,8 @@
                           [searchable]="true"
                           [items]="$citiesList | async"
                           [clearable]="false"
+                          [virtualScroll]="true"
                           placeholder="Ort"
-                          (search)="getCityList($event.term)"
                           (change)="submit('Ort')"
                           class="custom-select"
                           formControlName="workPlace">
@@ -612,12 +609,16 @@
                       </div>
                       <div
                         class="field field_datapicker"
-                        [ngClass]="{notRelevant : this.form.get('workExperience').get('independentExperience').get('isNotRelevant').value}">
+                        [ngClass]="{
+                          notRelevant : this.form.get('workExperience').get('independentExperience').get('isNotRelevant').value,
+                          disabled: this.form.get('workExperience').get('independentExperience').get('items').controls[i].get('tilToday').value
+                        }">
                         <p class="field__label">Bis</p>
                         <div
                           class="field-wrapper"
                           [owlDateTimeTrigger]="dt2">
                           <input
+                            [disabled]="this.form.get('workExperience').get('independentExperience').get('items').controls[i].get('tilToday').value"
                             [owlDateTime]="dt2"
                             [max]="currentDate"
                             (dateTimeChange)="submit('Bis')"
@@ -645,7 +646,7 @@
                           <input
                             type="checkbox"
                             class="not-relevant__checkbox"
-                            (change)="submit('bis heute')"
+                            (change)="setTodayDate(this.form.get('workExperience').get('independentExperience').get('items').controls[i])"
                             formControlName="tilToday">
                           <span class="checkmark"></span>
                         </label>
@@ -656,7 +657,7 @@
                     class="field field_textarea"
                     [ngClass]="{notRelevant : this.form.get('workExperience').get('independentExperience').get('isNotRelevant').value}">
                     <p class="field__label">Beschreibung</p>
-                    <div class="field-wrapper">
+                    <div class="field-wrapper textarea">
                       <textarea
                         type="text"
                         placeholder="Beschreibung"
@@ -683,12 +684,12 @@
           </mat-expansion-panel>
           <div
             class="subcategory-preview"
-            *ngIf="!accordion02.expanded && !form.get('workExperience').get('independentExperience').get('isNotRelevant').value">
+            *ngIf="!accordion02.expanded && professionalBackgroundData">
             <div
               class="subcategory-preview-item"
               *ngFor="let item of this.form.get('workExperience').get('independentExperience').get('items').controls; let i = index">
               <ng-container *ngIf="item.valid; else notValid">
-                <div class="subcategory-preview-info">
+                <div class="subcategory-preview-info" (click)="accordion02.expanded = !accordion02.expanded">
                   <p class="subcategory-preview-info__number">
                     <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
                   </p>
@@ -708,13 +709,22 @@
                 </button>
               </ng-container>
               <ng-template #notValid>
-                <div class="subcategory-preview-info">
-                  <p class="subcategory-preview-info__number">
-                  <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
-                </p>
+                <div class="subcategory-preview-info" (click)="accordion02.expanded = !accordion02.expanded">
+                  <p class="subcategory-preview-info__number" *ngIf="!form.get('workExperience').get('independentExperience').get('isNotRelevant').value">
+                    <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
+                  </p>
                   <div class="subcategory-preview-info__details">
-                    <p class="subcategory-preview-info__invalid">Unvollständige Angaben</p>
+                      <p
+                          class="subcategory-preview-info__invalid"
+                          *ngIf="!form.get('workExperience').get('independentExperience').get('isNotRelevant').value; else notRelevant">
+                          Unvollständige Angaben
+                      </p>
                   </div>
+                  <ng-template #notRelevant>
+                    <div class="relevant-info">
+                      <p class="relevant-info__line"></p>
+                    </div>
+                  </ng-template>
                 </div>
               </ng-template>
             </div>
@@ -757,7 +767,7 @@
                 </div>
               </div>
               <div
-                class="subcategory-content"
+                class="relevant-change subcategory-content"
                 formArrayName="items">
                 <div
                   class="flex-grid"
@@ -801,7 +811,6 @@
                         [items]="$countriesList | async"
                         [clearable]="false"
                         [placeholder]="'Land'"
-                        (search)="getCountryList($event.term)"
                         (change)="submit('Land')"
                         class="custom-select"
                         formControlName="country">
@@ -812,7 +821,6 @@
                         [ngClass]="{invalid : !this.form.get('workExperience').get('otherExperience').get('items').controls[i].get('country').value}"></div>
                     </div>
                   </div>
-
                   <div class="field field_group">
                     <div
                       class="field field_select field_select-search single"
@@ -822,9 +830,9 @@
                         <ng-select
                           [searchable]="true"
                           [items]="$citiesList | async"
+                          [virtualScroll]="true"
                           [clearable]="false"
                           placeholder="Ort"
-                          (search)="getCityList($event.term)"
                           (change)="submit('Ort')"
                           class="custom-select"
                           formControlName="workPlace">
@@ -866,12 +874,16 @@
                       </div>
                       <div
                         class="field field_datapicker"
-                        [ngClass]="{notRelevant : this.form.get('workExperience').get('otherExperience').get('isNotRelevant').value}">
+                        [ngClass]="{
+                          notRelevant : this.form.get('workExperience').get('otherExperience').get('isNotRelevant').value,
+                          disabled: this.form.get('workExperience').get('otherExperience').get('items').controls[i].get('tilToday').value
+                        }">
                         <p class="field__label">Bis</p>
                         <div
                           class="field-wrapper"
                           [owlDateTimeTrigger]="dt2">
                           <input
+                            [disabled]="this.form.get('workExperience').get('otherExperience').get('items').controls[i].get('tilToday').value"
                             [owlDateTime]="dt2"
                             [max]="currentDate"
                             (dateTimeChange)="submit('Bis')"
@@ -899,19 +911,18 @@
                           <input
                             type="checkbox"
                             class="not-relevant__checkbox"
-                            (change)="submit('bis heute')"
+                            (change)="setTodayDate(this.form.get('workExperience').get('otherExperience').get('items').controls[i])"
                             formControlName="tilToday">
                           <span class="checkmark"></span>
                         </label>
                       </div>
                     </div>
                   </div>
-
                   <div
                     class="field field_textarea"
                     [ngClass]="{notRelevant : this.form.get('workExperience').get('otherExperience').get('isNotRelevant').value}">
                     <p class="field__label">Beschreibung</p>
-                    <div class="field-wrapper">
+                    <div class="field-wrapper textarea">
                       <textarea
                         type="text"
                         placeholder="Beschreibung"
@@ -938,12 +949,12 @@
           </mat-expansion-panel>
           <div
             class="subcategory-preview"
-            *ngIf="!accordion03.expanded && !form.get('workExperience').get('otherExperience').get('isNotRelevant').value">
+            *ngIf="!accordion03.expanded && professionalBackgroundData">
             <div
               class="subcategory-preview-item"
               *ngFor="let item of this.form.get('workExperience').get('otherExperience').get('items').controls; let i = index">
               <ng-container *ngIf="item.valid; else notValid">
-                <div class="subcategory-preview-info">
+                <div class="subcategory-preview-info" (click)="accordion03.expanded = !accordion03.expanded">
                   <p class="subcategory-preview-info__number">
                     <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
                   </p>
@@ -963,13 +974,22 @@
                 </button>
               </ng-container>
               <ng-template #notValid>
-                <div class="subcategory-preview-info">
-                  <p class="subcategory-preview-info__number">
-                  <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
-                </p>
+                <div class="subcategory-preview-info" (click)="accordion03.expanded = !accordion03.expanded">
+                  <p class="subcategory-preview-info__number" *ngIf="!form.get('workExperience').get('otherExperience').get('isNotRelevant').value">
+                    <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
+                  </p>
                   <div class="subcategory-preview-info__details">
-                    <p class="subcategory-preview-info__invalid">Unvollständige Angaben</p>
+                      <p
+                          class="subcategory-preview-info__invalid"
+                          *ngIf="!form.get('workExperience').get('otherExperience').get('isNotRelevant').value; else notRelevant">
+                          Unvollständige Angaben
+                      </p>
                   </div>
+                  <ng-template #notRelevant>
+                    <div class="relevant-info">
+                      <p class="relevant-info__line"></p>
+                    </div>
+                  </ng-template>
                 </div>
               </ng-template>
             </div>

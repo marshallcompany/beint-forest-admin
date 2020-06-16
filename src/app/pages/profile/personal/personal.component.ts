@@ -5,8 +5,14 @@ import { map } from 'rxjs/internal/operators/map';
 import { NotificationService } from 'src/app/services/notification.service';
 
 import { debounceTime, share, switchMap, filter } from 'rxjs/operators';
-import { throwError, of, Observable } from 'rxjs';
+import { throwError, of, Observable, forkJoin } from 'rxjs';
 import { SearchService } from '../../../services/search.service';
+
+interface DropDownOptions {
+  academic_titles: Array<string[]>;
+  gender: Array<string[]>;
+  maritalStatus: Array<string[]>;
+}
 
 @Component({
   selector: 'app-personal',
@@ -17,18 +23,23 @@ export class PersonalComponent implements OnInit {
 
   public navSettings = {
     iconCategory: '../assets/image/menu/profile.svg',
+    imgDesktop: '../assets/image/profile/personal/image-desktop.svg',
+    imgMobile: '../assets/image/profile/personal/image-mobile.svg',
     nameCategory: 'Persönliches & Kontakt',
     nextCategory: 'profile/education',
     prevCategory: 'profile/about'
   };
 
   public firstPersonalData: object;
+  public dropdownOptions: DropDownOptions;
+
   public form: FormGroup;
   public personal: FormGroupName;
   public contact: FormGroupName;
   public residence: FormGroupName;
   public landList$: Observable<string[]>;
   public cityList$: Observable<string[]>;
+  public nationalitiesList$: Observable<string[]>;
   public zip$: Observable<string[]>;
 
   constructor(
@@ -42,25 +53,35 @@ export class PersonalComponent implements OnInit {
   ngOnInit() {
     this.initForm();
     this.init();
+    this.nationalitiesList$ = this.searchService.getNationalities('de');
+    this.landList$ = this.searchService.getCountries('de', '');
   }
 
   public init = () => {
-    this.profileService.getProfile()
+    const getProfileData$ = this.profileService.getProfile();
+    const getLocalBundle$ = this.profileService.getLocalBundle('de');
+    forkJoin([getProfileData$, getLocalBundle$])
       .pipe(
-        map((fullProfileData: any) => {
-          if (fullProfileData.profile && fullProfileData.profile.personal && fullProfileData.profile.contact) {
+        map(([fullProfileData, fullLocalBundle]) => {
+          if (fullProfileData.profile && fullProfileData.profile.personal && fullProfileData.profile.contact && fullLocalBundle && fullLocalBundle.dropdownOptions) {
             return {
               personal: fullProfileData.profile.personal,
-              contact: fullProfileData.profile.contact
+              contact: fullProfileData.profile.contact,
+              dropdownOptions: {
+                academic_titles: fullLocalBundle.dropdownOptions.academic_titles,
+                gender: fullLocalBundle.dropdownOptions.gender,
+                maritalStatus: fullLocalBundle.dropdownOptions.maritalStatus
+              }
             };
           }
-          return fullProfileData;
+          return [fullProfileData, fullLocalBundle];
         })
       )
       .subscribe(
-        personalData => {
-          console.log('[ EDIT PROFILE DATA ]', personalData);
-          this.patchFormValue(personalData);
+        (res: any) => {
+          console.log('[ EDIT PROFILE DATA ]', res);
+          this.patchFormValue(res);
+          this.dropdownOptions = res.dropdownOptions;
           this.firstPersonalData = this.form.value;
         },
         err => {
@@ -68,7 +89,7 @@ export class PersonalComponent implements OnInit {
         },
         () => console.log('[ EDIT PROFILE DATA DONE ]')
       );
-  };
+  }
 
   public initForm = () => {
     this.form = this.formBuilder.group({
@@ -80,7 +101,8 @@ export class PersonalComponent implements OnInit {
         gender: [''],
         lastName: [''],
         middleName: [''],
-        nationality: ['']
+        nationality: [''],
+        maritalStatus: [null]
       }),
       contact: this.formBuilder.group({
         facebook: [''],
@@ -94,22 +116,24 @@ export class PersonalComponent implements OnInit {
           street: [''],
           zipCode: [null],
           country: [null, Validators.required],
+          addressAddition: ['']
         })
       }),
     });
-  };
+  }
 
   public patchFormValue = (personalData) => {
     this.form.patchValue({
       personal: {
-        academicTitle: personalData.personal && personalData.personal.academicTitle ? personalData.personal.academicTitle : '',
+        academicTitle: personalData.personal && personalData.personal.academicTitle ? personalData.personal.academicTitle : null,
         birthPlace: personalData.personal && personalData.personal.birthPlace ? personalData.personal.birthPlace : '',
         dateBirth: personalData.personal && personalData.personal.dateBirth ? personalData.personal.dateBirth : '',
         firstName: personalData.personal && personalData.personal.firstName ? personalData.personal.firstName : '',
         gender: personalData.personal && personalData.personal.gender ? personalData.personal.gender : null,
         lastName: personalData.personal && personalData.personal.lastName ? personalData.personal.lastName : '',
         middleName: personalData.personal && personalData.personal.middleName ? personalData.personal.middleName : '',
-        nationality: personalData.personal && personalData.personal.nationality ? personalData.personal.nationality : ''
+        nationality: personalData.personal && personalData.personal.nationality ? personalData.personal.nationality : null,
+        maritalStatus: personalData.personal && personalData.personal.maritalStatus ? personalData.personal.maritalStatus : null
       },
       contact: {
         facebook: personalData.contact && personalData.contact.facebook ? personalData.contact.facebook : '',
@@ -123,9 +147,15 @@ export class PersonalComponent implements OnInit {
           street: personalData.contact && personalData.contact.residence && personalData.contact.residence.street ? personalData.contact.residence.street : '',
           zipCode: personalData.contact && personalData.contact.residence && personalData.contact.residence.zipCode ? personalData.contact.residence.zipCode : null,
           country: personalData.contact && personalData.contact.residence && personalData.contact.residence.country ? personalData.contact.residence.country : null,
+          addressAddition: personalData.contact && personalData.contact.residence && personalData.contact.residence.addressAddition ? personalData.contact.residence.addressAddition : ''
         }
       },
     });
+    if (personalData.contact.residence.country) {
+      const countryValue = personalData.contact.residence.country;
+      this.cityList$ = this.searchService.getTowns('de', '');
+      this.zip$ = this.searchService.getZipCode('de', `${countryValue}`, '', '');
+    }
   }
 
   public submit = (field: string) => {
@@ -149,19 +179,24 @@ export class PersonalComponent implements OnInit {
           console.log('[ ERROR UPDATE PROFILE ]', err);
         }
       );
-  };
+  }
+
+  phoneValidation = (event: any) => {
+    const pattern = /[0-9\+\ \()\/]/;
+    const inputChar = String.fromCharCode(event.charCode);
+
+    if (event.keyCode !== 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
 
   onChangeLand(formGroup) {
     formGroup.get('zipCode').setValue(null);
     formGroup.get('place').setValue(null);
-  }
-
-  searchCity(event) {
-    this.cityList$ = this.searchService.getTowns('de', `${event.term}`).pipe(debounceTime(400), share());
-  }
-
-  searchLand($event) {
-    this.landList$ = this.searchService.getCountries('de', `${$event.term}`).pipe(debounceTime(400), share());
+    if (formGroup.get('country').value) {
+      this.cityList$ = this.searchService.getTowns('de', '');
+      this.zip$ = this.searchService.getZipCode('de', `${formGroup.get('country').value}`, '', '');
+    }
   }
 
   onChangeCity(formGroup: FormGroup) {
@@ -190,10 +225,5 @@ export class PersonalComponent implements OnInit {
           }
         }
       );
-  }
-
-  searchZip($event, formGroup: FormGroup) {
-    const country = formGroup.get('country').value;
-    this.zip$ = this.searchService.getZipCode('de', `${country}`, '', `${$event.term}`).pipe(debounceTime(400), share());
   }
 }

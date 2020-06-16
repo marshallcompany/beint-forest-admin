@@ -16,6 +16,7 @@ interface RouterParams {
 export class CategoryNavHeaderComponent implements OnInit {
 
   @Input() navSettings;
+  @Input() categoryPictureStatus;
 
   public routers: Array<RouterParams>;
 
