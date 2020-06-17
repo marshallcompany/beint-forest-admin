@@ -45,6 +45,7 @@ export class AppComponent implements OnInit {
 
 
   ngOnInit() {
+    console.log('PWA');
     this.translatesService.initLanguage();
     this.checkRouterState();
     this.dateTimeAdapter.setLocale('de');
