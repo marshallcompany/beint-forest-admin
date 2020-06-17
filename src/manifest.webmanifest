@@ -1,12 +1,24 @@
 {
-  "name": "beint",
-  "short_name": "beint",
-  "theme_color": "#1976d2",
-  "background_color": "#fafafa",
+  "name": "",
+  "short_name": "Beint",
+  "theme_color": "#3CBFAE",
+  "background_color": "#F9F9F9",
   "display": "standalone",
   "scope": "./",
-  "start_url": "./",
+  "start_url": "https://dev.candidate.beint.de",
   "icons": [
+    {
+      "src": "assets/icons/icon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "assets/icons/icon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
     {
       "src": "assets/icons/icon-72x72.png",
       "sizes": "72x72",
@@ -34,6 +46,18 @@
     {
       "src": "assets/icons/icon-152x152.png",
       "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "assets/icons/icon-167x167.png",
+      "sizes": "167x167",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "assets/icons/icon-180x180.png",
+      "sizes": "180x180",
       "type": "image/png",
       "purpose": "maskable any"
     },
