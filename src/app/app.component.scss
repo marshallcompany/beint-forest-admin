@@ -78,7 +78,8 @@
 			}
 		}
 		&__icon{
-			height:25px;
+			width: 25px;
+			flex-shrink: 0;
 			opacity: .5;
 			margin-right:15px;
 		}
