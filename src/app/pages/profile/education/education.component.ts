@@ -240,6 +240,9 @@ export class EducationComponent implements OnInit, AfterViewInit {
       if (element && this.primarySkillsArray.controls.length > 2) {
         element.searchInput.nativeElement.blur();
       }
+      if (element && this.secondarySkillsArray.controls.length > 9) {
+        element.searchInput.nativeElement.blur();
+      }
       this.submit(field);
     }
     return;

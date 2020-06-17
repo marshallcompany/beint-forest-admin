@@ -36,10 +36,10 @@ export class AppComponent implements OnInit {
   ) {
     this.stateRoute = [
       { name: 'Home', icon: '../assets/image/menu/home.svg', path: 'home', activeClass: 'route-active' },
-      { name: 'Pipeline', icon: '../assets/image/menu/file.svg', path: 'pipeline', activeClass: 'route-active' },
-      { name: 'Profile', icon: '../assets/image/menu/profile.svg', path: 'profile', activeClass: 'route-active' },
-      { name: 'Settings', icon: '../assets/image/menu/settings.svg', path: 'settings', activeClass: 'route-active' },
-      { name: 'Search', icon: '../assets/image/menu/search.svg', path: 'search', activeClass: 'route-active' }
+      { name: 'Deine Bewerbungen', icon: '../assets/image/menu/file.svg', path: 'pipeline', activeClass: 'route-active' },
+      { name: 'Dein Profil', icon: '../assets/image/menu/profile.svg', path: 'profile', activeClass: 'route-active' },
+      { name: 'Einstellungen', icon: '../assets/image/menu/settings.svg', path: 'settings', activeClass: 'route-active' },
+      { name: 'Jobs', icon: '../assets/image/menu/search.svg', path: 'search', activeClass: 'route-active' }
     ];
   }
 
