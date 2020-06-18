@@ -795,20 +795,18 @@
                     </div>
                     <div class="field field_group">
                       <div
-                        class="field field_select field_select-search single"
+                        class="field field_select field_select-singleselect-arrow clearable"
                         [ngClass]="{notRelevant : this.form.get('education').get('universities').get('isNotRelevant').value}">
                         <p class="field__label">Art des Abschlusses</p>
                         <div class="field-wrapper">
                           <ng-select
                             [searchable]="true"
                             [items]="$degreeList | async"
-                            [clearable]="false"
                             placeholder="Art des Abschlusses"
                             (change)="submit('Art des Abschlusses')"
                             class="custom-select"
                             formControlName="typeOfDegree">
                           </ng-select>
-                          <div class="field-wrapper__type">abc</div>
                           <div
                             class="field-wrapper__status"
                             [ngClass]="{invalid : !this.form.get('education').get('universities').get('items').controls[i].get('typeOfDegree').value}"></div>

@@ -73,8 +73,8 @@ export class EducationComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.init();
     this.formInit();
+    this.init();
     this.initDropDownList();
   }
 
@@ -138,6 +138,16 @@ export class EducationComponent implements OnInit, AfterViewInit {
         linguisticProficiency: this.fb.array([])
       })
     });
+    if (this.form && this.form.get('education').get('skillsData')) {
+      this.form.get('education').get('skillsData').valueChanges
+      .pipe()
+      .subscribe(
+        () => {
+          this.primarySkillsControl.patchValue(this.primarySkillsArray.length !== 0 ? this.primarySkillsArray.value : ['']);
+          this.secondarySkillsControl.patchValue(this.secondarySkillsArray.length !== 0 ? this.secondarySkillsArray.value : ['']);
+        }
+      );
+    }
   }
 
   notRelevant(groupName: string, nameArray: string, nameCategory: string) {

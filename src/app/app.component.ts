@@ -6,6 +6,7 @@ import { NotificationService } from './services/notification.service';
 import { filter } from 'rxjs/operators';
 import { TranslatesService } from './services/translates.service';
 import { DateTimeAdapter } from 'ng-pick-datetime';
+import { SwUpdate } from '@angular/service-worker';
 
 interface State {
   name: string;
@@ -32,6 +33,7 @@ export class AppComponent implements OnInit {
     public authService: AuthService,
     public notificationService: NotificationService,
     public dateTimeAdapter: DateTimeAdapter<any>,
+    public updates: SwUpdate,
     private translatesService: TranslatesService
   ) {
     this.stateRoute = [
@@ -41,11 +43,14 @@ export class AppComponent implements OnInit {
       { name: 'Einstellungen', icon: '../assets/image/menu/settings.svg', path: 'settings', activeClass: 'route-active' },
       { name: 'Jobs', icon: '../assets/image/menu/search.svg', path: 'search', activeClass: 'route-active' }
     ];
+    updates.available
+    .pipe()
+    .subscribe((event) => {
+      updates.activateUpdate().then(() => document.location.reload());
+    });
   }
 
-
   ngOnInit() {
-    console.log('PWA');
     this.translatesService.initLanguage();
     this.checkRouterState();
     this.dateTimeAdapter.setLocale('de');
