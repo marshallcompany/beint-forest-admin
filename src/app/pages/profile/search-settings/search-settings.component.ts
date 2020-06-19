@@ -67,9 +67,9 @@ export class SearchSettingsComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.searchBenefits.searchInput.nativeElement.placeholder = 'Geben Sie die gewünschte ein';
+    this.searchBenefits.searchInput.nativeElement.placeholder = 'Wunsch-Benefits';
     this.searchPlace.searchInput.nativeElement.placeholder = 'Wunsch-Arbeitsort';
-    this.searchIndustry.searchInput.nativeElement.placeholder = 'Wunsch-Branch';
+    this.searchIndustry.searchInput.nativeElement.placeholder = 'Wunsch-Branchen';
     this.searchBusiness.searchInput.nativeElement.placeholder = 'Bevorzugte Geschäftsbereich';
   }
 

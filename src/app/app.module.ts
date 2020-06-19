@@ -64,6 +64,8 @@ import { MiscellaneousComponent } from './pages/profile/miscellaneous/miscellane
 import { AuthComponent } from './pages/auth/auth.component';
 import { RegistrationComponent } from './pages/auth/registration/registration.component';
 import { ConfirmEmailComponent } from './components/modal/confirm-email/confirm-email.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
@@ -140,7 +142,8 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     }),
     BrowserAnimationsModule,
     MaterialModule,
-    NgCircleProgressModule.forRoot()
+    NgCircleProgressModule.forRoot(),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     Validators,
