@@ -240,6 +240,11 @@
                   <input
                     type="tel"
                     placeholder="min"
+                    mask="separator"
+                    maxlength="8"
+                    thousandSeparator="."
+                    suffix="€"
+                    [validation]="false"
                     class="field-wrapper__input"
                     formControlName="min"
                     (change)="submit('max')">
@@ -253,16 +258,22 @@
                   *ngIf="(form.get('searchPreferences').get('salaryExpectations').get('min').touched || form.get('searchPreferences').get('salaryExpectations').get('min').dirty) && form.get('searchPreferences').get('salaryExpectations').get('min').invalid">
                   <span
                     class="error-box__text"
-                    *ngIf="form.get('searchPreferences').get('salaryExpectations').get('min').hasError('onlyNumbers')">Enter only the amount</span>
+                    *ngIf="form.get('searchPreferences').get('salaryExpectations').get('min').hasError('onlyNumbers')">nur Zahlen eingeben</span>
                 </p>
               </div>
               <div class="field">
                 <div class="field-wrapper">
                   <input
                     type="tel"
+                    mask="separator"
+                    maxlength="8"
+                    thousandSeparator="."
+                    suffix="€"
+                    [validation]="false"
                     placeholder="max"
                     class="field-wrapper__input"
                     formControlName="max"
+                    
                     (change)="submit('max')">
                   <div class="field-wrapper__type">123</div>
                   <div
@@ -274,7 +285,7 @@
                   *ngIf="(form.get('searchPreferences').get('salaryExpectations').get('max').touched || form.get('searchPreferences').get('salaryExpectations').get('max').dirty) && form.get('searchPreferences').get('salaryExpectations').get('max').invalid">
                   <span
                     class="error-box__text"
-                    *ngIf="form.get('searchPreferences').get('salaryExpectations').get('max').hasError('onlyNumbers')">Enter only the amount</span>
+                    *ngIf="form.get('searchPreferences').get('salaryExpectations').get('max').hasError('onlyNumbers')">nur Zahlen eingeben</span>
                 </p>
               </div>
             </div>

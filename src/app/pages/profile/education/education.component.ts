@@ -23,7 +23,7 @@ interface DropDownOptions {
   styleUrls: ['./education.component.scss']
 })
 export class EducationComponent implements OnInit, AfterViewInit {
-  public mask = '0.00';
+  public mask = '0,00';
   public navSettings = {
     iconCategory: '../assets/image/profile/category-02.svg',
     imgDesktop: '../assets/image/profile/education/image-desktop.svg',

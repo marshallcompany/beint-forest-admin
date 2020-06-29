@@ -26,7 +26,10 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
   @ViewChild('accordion03', { static: false }) accordion03: MatExpansionPanel;
 
   businessArea$: Observable<Array<string>>;
+  industryArea$: Observable<Array<string>>;
+
   dropdownOptions$: Observable<any>;
+
   public dropdownOptions: any;
 
   public navSettings = {
@@ -68,6 +71,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
 
     this.$countriesList = this.searchService.getCountries('de', '');
     this.businessArea$ = this.searchService.getBusinessBranches('de', '');
+    this.industryArea$ = this.searchService.getIndustryBranches('de', '');
     this.$citiesList = this.searchService.getTowns('de', '');
 
   }
@@ -99,7 +103,6 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
         this.professionalBackgroundData = res.workExperience;
         this.dropdownOptions = res.dropdownOptions;
         this.patchFormValue(res.workExperience);
-        console.log('eeee', this.form);
       });
   }
 
@@ -146,10 +149,12 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
           jobTitle: [data && data.jobTitle ? data.jobTitle : '', Validators.required],
           careerLevel: [data && data.careerLevel ? data.careerLevel : null, Validators.required],
           jobDescription: [data && data.jobDescription ? data.jobDescription : '', Validators.required],
-          businessArea: this.fb.array(data && data.businessArea ? data.businessArea : [], Validators.required),
           employmentType: [data && data.employmentType ? data.employmentType : null, Validators.required],
-          industryBranch: [data && data.industryBranch ? data.industryBranch : '', Validators.required],
-          tilToday: [data && data.tilToday ? data.tilToday : false]
+          industryBranch: [data && data.industryBranch ? data.industryBranch : null, Validators.required],
+          tilToday: [data && data.tilToday ? data.tilToday : false],
+
+          businessArea: this.fb.array(data && data.businessArea ? data.businessArea : []),
+          businessAreaControl: [data && data.businessArea ? data.businessArea : null, Validators.required]
         });
       case 'independentExperience':
         return this.fb.group({
@@ -161,8 +166,10 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
           workPlace: [data && data.workPlace ? data.workPlace : null, Validators.required],
           jobDescription: [data && data.jobDescription ? data.jobDescription : '', Validators.required],
           isFreelancer: [data && data.isFreelancer ? data.isFreelancer : false],
-          businessArea: this.fb.array(data && data.businessArea ? data.businessArea : [], Validators.required),
-          tilToday: [data && data.tilToday ? data.tilToday : false]
+          tilToday: [data && data.tilToday ? data.tilToday : false],
+
+          businessArea: this.fb.array(data && data.businessArea ? data.businessArea : []),
+          businessAreaControl: [data && data.businessArea ? data.businessArea : null, Validators.required]
         });
       case 'otherExperience':
         return this.fb.group({
