@@ -777,7 +777,7 @@
                     <button
                       type="button"
                       class="remove-fields__button"
-                      (click)="deleteFormGroup(otherExperienceArray, i, 'otherExperience')">
+                      (click)="deleteFormGroup(otherExperienceArray, i, 'otherExperience', otherExperienceCityArray)">
                       <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" class="remove-fields__icon">
                         <path d="M0.050293 0.050293L9.94979 9.94979M9.94979 0.050293L0.0502933 9.94979" stroke-width="2"
                               stroke-linecap="round"/>
@@ -811,7 +811,7 @@
                         [items]="$countriesList | async"
                         [clearable]="false"
                         [placeholder]="'Land'"
-                        (change)="submit('Land')"
+                        (change)="selectionResidence($event, i, otherExperienceCityArray, this.form.get('workExperience').get('otherExperience').get('items'))"
                         class="custom-select"
                         formControlName="country">
                       </ng-select>
@@ -829,7 +829,7 @@
                       <div class="field-wrapper">
                         <ng-select
                           [searchable]="true"
-                          [items]="$citiesList | async"
+                          [items]="otherExperienceCityArray[i]"
                           [virtualScroll]="true"
                           [clearable]="false"
                           placeholder="Ort"
@@ -840,7 +840,7 @@
                         <div class="field-wrapper__type">abc</div>
                         <div
                           class="field-wrapper__status"
-                          [ngClass]="{invalid : !this.form.get('workExperience').get('otherExperience').get('items').controls[i].get('country').value}">
+                          [ngClass]="{invalid : !this.form.get('workExperience').get('otherExperience').get('items').controls[i].get('workPlace').value}">
                         </div>
                       </div>
                     </div>

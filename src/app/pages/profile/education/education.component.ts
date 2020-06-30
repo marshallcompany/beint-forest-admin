@@ -1,12 +1,12 @@
-import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormGroupName, Validators, FormControl } from '@angular/forms';
 import { FormValidators } from '../../../validators/validators';
 import { ProfileService } from 'src/app/services/profile.service';
 import { NotificationService } from 'src/app/services/notification.service';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, toArray, concatMap, delay } from 'rxjs/operators';
 import { MatExpansionPanel, MatDialog } from '@angular/material';
 import { SearchService } from 'src/app/services/search.service';
-import { Observable, forkJoin, of, throwError } from 'rxjs';
+import { Observable, forkJoin, of, throwError, from } from 'rxjs';
 import * as moment from 'moment';
 import { ConfirmModalComponent } from 'src/app/components/modal/confirm/confirm-modal.component';
 
@@ -42,12 +42,22 @@ export class EducationComponent implements OnInit, AfterViewInit {
   @ViewChild('accordion06', { static: false }) accordion06: MatExpansionPanel;
 
   $countriesList: Observable<string[]>;
-  $citiesList: Observable<string[]>;
+
   $apprenticeshipList: Observable<string[]>;
   $specializationList: Observable<string[]>;
   $degreeList: Observable<string[]>;
   $skillsList: Observable<string[]>;
   $langList: Observable<string[]>;
+
+  public schoolCityArray = [];
+  public schoolCountryArray = [];
+
+  public specialEducationCityArray = [];
+  public specialEducationCountryArray = [];
+
+  public universitiesCityArray = [];
+  public universitiesCountryArray = [];
+
 
   public form: FormGroup;
   public education: FormGroupName;
@@ -58,7 +68,6 @@ export class EducationComponent implements OnInit, AfterViewInit {
 
   currentDate = moment().toDate();
   previousDate = moment().add(-1, 'day').toDate();
-
   public dropdownOptions: DropDownOptions;
   public educationData: any;
 
@@ -329,6 +338,31 @@ export class EducationComponent implements OnInit, AfterViewInit {
     }
   }
 
+  public residenceChanges = (arrayCountry, arrayCity) => {
+    from(arrayCountry)
+      .pipe(
+        delay(500),
+        concatMap((country: string) => this.searchService.getTowns('de', '', country)),
+        toArray()
+      )
+      .subscribe(
+        res => {
+          switch (arrayCity) {
+            case 'school':
+              this.schoolCityArray = res;
+              break;
+            case 'specialEducation':
+              this.specialEducationCityArray = res;
+              break;
+            case 'universities':
+              this.universitiesCityArray = res;
+              break;
+            default:
+              break;
+          }
+        }
+      );
+  }
   private patchFormValue(education) {
     this.form.patchValue({
       education: {
@@ -346,16 +380,28 @@ export class EducationComponent implements OnInit, AfterViewInit {
     if (education.schools.length) {
       education.schools.forEach(item => {
         this.schoolsArray.push(this.createFormGroup(item, 'schools'));
+        if (item && item.country) {
+          this.schoolCountryArray.push(item.country);
+          this.residenceChanges(this.schoolCountryArray, 'school');
+        }
       });
     }
     if (education.specialEducation.items.length) {
       education.specialEducation.items.forEach(item => {
         this.specialEducationArray.push(this.createFormGroup(item, 'specialEducation'));
+        if (item && item.country) {
+          this.specialEducationCountryArray.push(item.country);
+          this.residenceChanges(this.specialEducationCountryArray, 'specialEducation');
+        }
       });
     }
     if (education.universities.items.length) {
       education.universities.items.forEach(item => {
         this.universitiesArray.push(this.createFormGroup(item, 'universities'));
+        if (item && item.country) {
+          this.universitiesCountryArray.push(item.country);
+          this.residenceChanges(this.universitiesCountryArray, 'universities');
+        }
       });
     }
     if (education.additionalEducations.items.length) {
@@ -420,7 +466,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
         );
     }
   }
-  public deleteFormGroup = (nameArray: FormArray, index: number, formGroupName?: string) => {
+  public deleteFormGroup = (nameArray: FormArray, index: number, formGroupName?: string, cityArray?: Array<string>) => {
     const FormGroupValue = nameArray.at(index).value;
     let FormGroupStatus = false;
     Object.keys(FormGroupValue).forEach(key => {
@@ -442,10 +488,12 @@ export class EducationComponent implements OnInit, AfterViewInit {
           dialog => {
             if (nameArray && formGroupName && nameArray.controls.length < 2) {
               nameArray.removeAt(index);
+              cityArray.splice(index, 1);
               nameArray.push(this.createFormGroup({}, formGroupName));
               this.submit();
             } else {
               nameArray.removeAt(index);
+              cityArray.splice(index, 1);
               this.submit();
             }
           },
@@ -467,7 +515,6 @@ export class EducationComponent implements OnInit, AfterViewInit {
     this.$langList = this.searchService.getLang('de', '');
     this.$skillsList = this.searchService.getSkills('de', '');
     this.$countriesList = this.searchService.getCountries('de', '');
-    this.$citiesList = this.searchService.getTowns('de', '');
     this.$specializationList = this.searchService.getSpecializationUniversity('de', '');
     this.$degreeList = this.searchService.getDegreeUniversity('de', '');
     this.$apprenticeshipList = this.searchService.getProfessionalEducation('de', '');
@@ -496,6 +543,23 @@ export class EducationComponent implements OnInit, AfterViewInit {
         this.accordionsStatus = true;
       }
     }
+  }
+
+
+  public selectionResidence = (event, index, array, formGroup: FormGroup) => {
+    this.searchService.getTowns('de', '', event)
+    .pipe()
+    .subscribe(
+      res => {
+        array[index] = res;
+        if (formGroup.controls[index].get('place').value) {
+          formGroup.controls[index].get('place').setValue(null);
+          this.submit('Land and Ort');
+        } else {
+          this.submit('Land');
+        }
+      }
+    );
   }
 
   public submit = (field?: string) => {

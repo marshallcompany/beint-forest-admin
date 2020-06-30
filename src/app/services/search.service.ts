@@ -39,12 +39,12 @@ export class SearchService {
       }
     });
   }
-  public getTowns = (lang, params, zip = '') => {
+  public getTowns = (lang, params, country = '', zip = '') => {
     const url = this.apiRoutes.GET_TOWNS_SCHEMA.replace(':lang', lang);
     return this.http.get<any>(url, {
       params: {
         filter: params,
-        country: 'Deutschland',
+        country,
         zip
       }
     });

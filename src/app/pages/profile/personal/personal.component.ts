@@ -153,7 +153,7 @@ export class PersonalComponent implements OnInit {
     });
     if (personalData.contact.residence.country) {
       const countryValue = personalData.contact.residence.country;
-      this.cityList$ = this.searchService.getTowns('de', '');
+      this.cityList$ = this.searchService.getTowns('de', '', 'Deutschland');
       this.zip$ = this.searchService.getZipCode('de', `${countryValue}`, '', '');
     }
   }
@@ -194,7 +194,7 @@ export class PersonalComponent implements OnInit {
     formGroup.get('zipCode').setValue(null);
     formGroup.get('place').setValue(null);
     if (formGroup.get('country').value) {
-      this.cityList$ = this.searchService.getTowns('de', '');
+      this.cityList$ = this.searchService.getTowns('de', '', 'Deutschland');
       this.zip$ = this.searchService.getZipCode('de', `${formGroup.get('country').value}`, '', '');
     }
   }
