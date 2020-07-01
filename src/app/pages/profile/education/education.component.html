@@ -52,7 +52,7 @@
                     <button
                       type="button"
                       class="remove-fields__button"
-                      (click)="deleteFormGroup(schoolsArray, i, 'schools')">
+                      (click)="deleteFormGroup(schoolsArray, i, 'schools', schoolCityArray)">
                       <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" class="remove-fields__icon">
                         <path d="M0.050293 0.050293L9.94979 9.94979M9.94979 0.050293L0.0502933 9.94979" stroke-width="2"
                               stroke-linecap="round"/>
@@ -103,7 +103,7 @@
                         [items]="$countriesList | async"
                         [clearable]="false"
                         [placeholder]="'Land'"
-                        (change)="submit('Land')"
+                        (change)="selectionResidence($event, i, schoolCityArray, this.form.get('education').get('schools'))"
                         class="custom-select"
                         formControlName="country">
                       </ng-select>
@@ -120,7 +120,7 @@
                     <div class="field-wrapper">
                       <ng-select
                         [searchable]="true"
-                        [items]="$citiesList | async"
+                        [items]="schoolCityArray[i]"
                         [clearable]="false"
                         [virtualScroll]="true"
                         placeholder="Ort"
@@ -168,7 +168,7 @@
                         formControlName="grade"
                         (change)="submit('Abschlussnote')"
                         class="field-wrapper__input">
-                      <div class="field-wrapper__type">abc</div>
+                      <div class="field-wrapper__type">123</div>
                       <div
                         class="field-wrapper__status"
                         [ngClass]="{invalid : !this.form.get('education').get('schools').controls[i].get('grade').value}"></div>
@@ -176,7 +176,7 @@
                     <p
                       *ngIf="this.form.get('education').get('schools').controls[i].get('grade').hasError('maxValue')"
                       class="error-box">
-                        <span class="error-box__text">Maximum value 6</span>
+                        <span class="error-box__text">Zulässige Werte: 0-6</span>
                       </p>
                   </div>
                   <div class="field field_group">
@@ -353,7 +353,7 @@
                       <button
                         type="button"
                         class="remove-fields__button"
-                        (click)="deleteFormGroup(specialEducationArray, i, 'specialEducation')">
+                        (click)="deleteFormGroup(specialEducationArray, i, 'specialEducation', specialEducationCityArray)">
                         <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" class="remove-fields__icon">
                           <path d="M0.050293 0.050293L9.94979 9.94979M9.94979 0.050293L0.0502933 9.94979" stroke-width="2"
                               stroke-linecap="round"/>
@@ -407,7 +407,7 @@
                           [items]="$countriesList | async"
                           [clearable]="false"
                           [placeholder]="'Land'"
-                          (change)="submit('Land')"
+                          (change)="selectionResidence($event, i, specialEducationCityArray, this.form.get('education').get('specialEducation').get('items'))"
                           class="custom-select"
                           formControlName="country">
                         </ng-select>
@@ -424,7 +424,7 @@
                       <div class="field-wrapper">
                         <ng-select
                           [searchable]="true"
-                          [items]="$citiesList | async"
+                          [items]="specialEducationCityArray[i]"
                           [clearable]="false"
                           placeholder="Ort"
                           [virtualScroll]="true"
@@ -470,7 +470,7 @@
                           formControlName="grade"
                           (change)="submit('Abschlussnote')"
                           class="field-wrapper__input">
-                        <div class="field-wrapper__type">abc</div>
+                        <div class="field-wrapper__type">123</div>
                         <div
                           class="field-wrapper__status"
                           [ngClass]="{invalid : !this.form.get('education').get('specialEducation').get('items').controls[i].get('grade').value}"></div>
@@ -478,7 +478,7 @@
                       <p
                         *ngIf="this.form.get('education').get('specialEducation').get('items').controls[i].get('grade').hasError('maxValue')"
                         class="error-box">
-                        <span class="error-box__text">Maximum value 6</span>
+                        <span class="error-box__text">Zulässige Werte: 0-6</span>
                       </p>
                     </div>
                     <div class="field field_group">
@@ -667,7 +667,7 @@
                       <button
                         type="button"
                         class="remove-fields__button"
-                        (click)="deleteFormGroup(universitiesArray, i, 'universities')">
+                        (click)="deleteFormGroup(universitiesArray, i, 'universities', universitiesCityArray)">
                         <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" class="remove-fields__icon">
                           <path d="M0.050293 0.050293L9.94979 9.94979M9.94979 0.050293L0.0502933 9.94979" stroke-width="2"
                               stroke-linecap="round"/>
@@ -718,7 +718,7 @@
                           [items]="$countriesList | async"
                           [clearable]="false"
                           [placeholder]="'Land'"
-                          (change)="submit('Land')"
+                          (change)="selectionResidence($event, i, universitiesCityArray, this.form.get('education').get('universities').get('items'))"
                           class="custom-select"
                           formControlName="country">
                         </ng-select>
@@ -735,7 +735,7 @@
                       <div class="field-wrapper">
                         <ng-select
                           [searchable]="true"
-                          [items]="$citiesList | async"
+                          [items]="universitiesCityArray[i]"
                           [clearable]="false"
                           [virtualScroll]="true"
                           placeholder="Ort"
@@ -959,7 +959,7 @@
                           (change)="submit('Abschlussnote')"
                           formControlName="grade"
                           class="field-wrapper__input">
-                        <div class="field-wrapper__type">abc</div>
+                        <div class="field-wrapper__type">123</div>
                         <div
                           class="field-wrapper__status"
                           [ngClass]="{invalid : !this.form.get('education').get('universities').get('items').controls[i].get('grade').value}"></div>
@@ -967,7 +967,7 @@
                       <p
                         *ngIf="this.form.get('education').get('universities').get('items').controls[i].get('grade').hasError('maxValue')"
                         class="error-box">
-                        <span class="error-box__text">Maximum value 6</span>
+                        <span class="error-box__text">Zulässige Werte: 0-6</span>
                       </p>
                     </div>
                   </div>

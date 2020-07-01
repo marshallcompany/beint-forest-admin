@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormGroupName, FormControl, Validators } from '@angular/forms';
 import { ProfileService } from '../../../services/profile.service';
-import { map, switchMap } from 'rxjs/operators';
-import { Observable, of, throwError } from 'rxjs';
+import { map, switchMap, delay, concatMap, toArray } from 'rxjs/operators';
+import { Observable, of, throwError, from } from 'rxjs';
 import { SearchService } from '../../../services/search.service';
 import * as moment from 'moment';
 import { forkJoin } from 'rxjs';
@@ -26,7 +26,10 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
   @ViewChild('accordion03', { static: false }) accordion03: MatExpansionPanel;
 
   businessArea$: Observable<Array<string>>;
+  industryArea$: Observable<Array<string>>;
+
   dropdownOptions$: Observable<any>;
+
   public dropdownOptions: any;
 
   public navSettings = {
@@ -47,7 +50,12 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
   public employmentBusinessAreaControl = new FormControl(['']);
   public independentBusinessAreaControl = new FormControl(['']);
   public $countriesList: Observable<string[]>;
+
   public $citiesList: Observable<string[]>;
+
+  public otherExperienceCityArray = [];
+  public otherExperienceCountryArray = [];
+
   currentDate = moment().toDate();
   previousDate = moment().add(-1, 'day').toDate();
 
@@ -68,7 +76,8 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
 
     this.$countriesList = this.searchService.getCountries('de', '');
     this.businessArea$ = this.searchService.getBusinessBranches('de', '');
-    this.$citiesList = this.searchService.getTowns('de', '');
+    this.industryArea$ = this.searchService.getIndustryBranches('de', '');
+    // this.$citiesList = this.searchService.getTowns('de', '');
 
   }
 
@@ -99,7 +108,6 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
         this.professionalBackgroundData = res.workExperience;
         this.dropdownOptions = res.dropdownOptions;
         this.patchFormValue(res.workExperience);
-        console.log('eeee', this.form);
       });
   }
 
@@ -146,10 +154,12 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
           jobTitle: [data && data.jobTitle ? data.jobTitle : '', Validators.required],
           careerLevel: [data && data.careerLevel ? data.careerLevel : null, Validators.required],
           jobDescription: [data && data.jobDescription ? data.jobDescription : '', Validators.required],
-          businessArea: this.fb.array(data && data.businessArea ? data.businessArea : [], Validators.required),
           employmentType: [data && data.employmentType ? data.employmentType : null, Validators.required],
-          industryBranch: [data && data.industryBranch ? data.industryBranch : '', Validators.required],
-          tilToday: [data && data.tilToday ? data.tilToday : false]
+          industryBranch: [data && data.industryBranch ? data.industryBranch : null, Validators.required],
+          tilToday: [data && data.tilToday ? data.tilToday : false],
+
+          businessArea: this.fb.array(data && data.businessArea ? data.businessArea : []),
+          businessAreaControl: [data && data.businessArea ? data.businessArea : null, Validators.required]
         });
       case 'independentExperience':
         return this.fb.group({
@@ -161,8 +171,10 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
           workPlace: [data && data.workPlace ? data.workPlace : null, Validators.required],
           jobDescription: [data && data.jobDescription ? data.jobDescription : '', Validators.required],
           isFreelancer: [data && data.isFreelancer ? data.isFreelancer : false],
-          businessArea: this.fb.array(data && data.businessArea ? data.businessArea : [], Validators.required),
-          tilToday: [data && data.tilToday ? data.tilToday : false]
+          tilToday: [data && data.tilToday ? data.tilToday : false],
+
+          businessArea: this.fb.array(data && data.businessArea ? data.businessArea : []),
+          businessAreaControl: [data && data.businessArea ? data.businessArea : null, Validators.required]
         });
       case 'otherExperience':
         return this.fb.group({
@@ -233,8 +245,48 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
     if (searchPreferences.otherExperience.items.length) {
       searchPreferences.otherExperience.items.forEach(item => {
         this.otherExperienceArray.push(this.createFormGroup(item, 'otherExperience'));
+        if (item && item.country) {
+          this.otherExperienceCountryArray.push(item.country);
+          this.residenceChanges(this.otherExperienceCountryArray, 'otherExperience');
+        }
       });
     }
+  }
+
+  public residenceChanges = (arrayCountry, arrayCity) => {
+    from(arrayCountry)
+      .pipe(
+        delay(500),
+        concatMap((country: string) => this.searchService.getTowns('de', '', country)),
+        toArray()
+      )
+      .subscribe(
+        res => {
+          switch (arrayCity) {
+            case 'otherExperience':
+              this.otherExperienceCityArray = res;
+              break;
+            default:
+              break;
+          }
+        }
+      );
+  }
+
+  public selectionResidence = (event, index, array, formGroup: FormGroup) => {
+    this.searchService.getTowns('de', '', event)
+      .pipe()
+      .subscribe(
+        res => {
+          array[index] = res;
+          if (formGroup.controls[index].get('workPlace').value) {
+            formGroup.controls[index].get('workPlace').setValue(null);
+            this.submit('Land and Ort');
+          } else {
+            this.submit('Land');
+          }
+        }
+      );
   }
 
   notRelevant(groupName: string, nameArray: string, nameCategory: string) {
@@ -273,7 +325,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
   }
 
 
-  public deleteFormGroup = (nameArray: FormArray, index: number, formGroupName?: string) => {
+  public deleteFormGroup = (nameArray: FormArray, index: number, formGroupName?: string, cityArray?: Array<string>) => {
     const FormGroupValue = nameArray.at(index).value;
     let FormGroupStatus = false;
     Object.keys(FormGroupValue).forEach(key => {
@@ -295,10 +347,12 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
           dialog => {
             if (nameArray && formGroupName && nameArray.controls.length < 2) {
               nameArray.removeAt(index);
+              cityArray.splice(index, 1);
               nameArray.push(this.createFormGroup({}, formGroupName));
               this.submit();
             } else {
               nameArray.removeAt(index);
+              cityArray.splice(index, 1);
               this.submit();
             }
           },

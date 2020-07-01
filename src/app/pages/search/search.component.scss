@@ -83,6 +83,7 @@
   align-items: center;
   justify-content: flex-end;
   flex-shrink: 0;
+  z-index: 25;
   &__link{
     background-color: transparent;
     margin-right:15px;
@@ -254,6 +255,7 @@
   margin-bottom:20px;
   width: 100%;
   max-width: 500px;
+  position: relative;
   .mat-expansion-panel{
     box-shadow: none;
   }
@@ -631,6 +633,10 @@
     &__name{
       font-size: 15px;
     }
+  }
+  .vacancy-info{
+    right: 18px;
+    top: 18px;
   }
 }
 

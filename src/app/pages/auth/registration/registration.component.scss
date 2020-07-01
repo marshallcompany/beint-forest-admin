@@ -9,39 +9,57 @@
     font-weight: normal;
     text-align: center;
     margin-bottom: 10px;
+    color:#707070;
   }
   &__title-strong{
-    font-size: 17px;
+    font-size: 20px;
     text-align: center;
+    color:#707070;
   }
   &__subtitle{
-    font-size: 17px;
+    font-size: 20px;
     font-weight: normal;
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
+    color:#707070;
+  }
+  &__steps{
+    font-size: 16px;
+    color:#707070;
+    text-align: center;
+    margin-bottom: 10px;
   }
 }
 .steps{
   display: flex;
-  justify-content: space-between;
-  margin: 20px 0;
+  justify-content: space-around;
+  margin: 10px 0;
 }
 .steps-item{
   display: flex;
   flex-direction: column;
   align-items: center;
   &__circle{
-    background-color: #ffffff;
-    border-radius: 50%;
     height: 50px;
     width: 50px;
-    margin-bottom: 3px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  &__icon{
-    height: 30px;
+  &:nth-child(1){
+    .steps-item__icon{
+      height: 33px;
+    }
+  }
+  &:nth-child(2){
+    .steps-item__icon{
+      height: 41px;
+    }
+  }
+  &:nth-child(3){
+    .steps-item__icon{
+      height: 32px;
+    }
   }
   &__text{
     font-size: 10px;
@@ -49,16 +67,18 @@
   }
 }
 .form-item{
-    margin-bottom:20px;
+    width: 100%;
+    margin-bottom:13px;
     &__label{
         padding-left: 19px;
         font-size: 14px;
-        margin-bottom:10px;
+        margin-bottom:4px;
         color:$black;
         opacity: 0.5;
         font-family: $workSansRegular;
     }
 }
+
 .form-field{
     padding:0 50px 0 19px;
     height:50px;
@@ -70,6 +90,9 @@
     align-items: center;
     &_select{
       padding: 0;
+      ::ng-deep .ng-input input{
+        color: #333!important;
+      }
       ::ng-deep .ng-placeholder{
         opacity: .8;
         font-size: 17px!important;
@@ -81,8 +104,7 @@
     &__input{
         width:100%;
         border:none;
-        color: #313131;
-        opacity: 0.8;
+        color: #333;
         font-size: 17px;
         padding:0;
         font-family: $workSansRegular;
@@ -221,10 +243,7 @@
   }
   &__text{
     text-align: center;
-    font-size: 14px;
-    &_red{
-      color:$red;
-    }
+    font-size: 16px;
   }
   &__details{
     text-decoration: underline;
@@ -370,6 +389,28 @@
     font-size: 14px;
     &__arrow{
       right: 10px;
+    }
+  }
+}
+@media screen and (max-width: 374px) {
+  .step-form__title{
+    font-size: 15px;
+  }
+  .step-form__title-strong{
+    font-size: 17px;
+  }
+  .step-form__subtitle{
+    font-size: 17px;
+  }
+  .privacy-policy__text{
+    font-size: 14px;
+    br{
+      display: none;
+    }
+  }
+  .successful-registration__text{
+    br{
+      display: none;
     }
   }
 }

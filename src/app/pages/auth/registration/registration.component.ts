@@ -6,6 +6,8 @@ import { MatDialog } from '@angular/material';
 import { AuthService } from 'src/app/services/auth.service';
 import { GlobalErrorService } from 'src/app/services/global-error-service';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { SearchService } from 'src/app/services/search.service';
 
 
 
@@ -25,19 +27,22 @@ export class RegistrationComponent implements OnInit {
     lastName: false,
     placeOfResidence: false
   };
-
-  public privacyPolicy = new FormControl(false);
   public passwordShow = true;
   public confirmPasswordShow = true;
   public registrationStatus = false;
   public lastStep = false;
+
+  landList$: Observable<string[]>;
+
+  public cityArray = [];
 
   constructor(
     public router: Router,
     public fb: FormBuilder,
     public matDialog: MatDialog,
     private auth: AuthService,
-    private globalErrorService: GlobalErrorService
+    private globalErrorService: GlobalErrorService,
+    private searchService: SearchService
   ) {
     this.form = this.fb.group({
       email: ['', [Validators.required, FormValidators.emailValidator]],
@@ -46,12 +51,15 @@ export class RegistrationComponent implements OnInit {
       accountType: ['user'],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      placeOfResidence: ['', Validators.required],
+      placeOfResidence: [null, Validators.required],
+      dateBirth: [null, Validators.required],
+      country: [null, Validators.required],
       gender: [null, Validators.required]
     }, this.initFormValidation());
   }
 
   ngOnInit() {
+    this.landList$ = this.searchService.getCountries('de', '');
   }
 
   public initFormValidation = () => {
@@ -78,6 +86,20 @@ export class RegistrationComponent implements OnInit {
         break;
     }
   }
+
+  public selectionResidence = (event, formControl: FormControl) => {
+    this.searchService.getTowns('de', '', event)
+      .pipe()
+      .subscribe(
+        res => {
+          this.cityArray = res;
+          if (formControl.value) {
+            formControl.setValue(null);
+          }
+        }
+      );
+  }
+
   public openPrivacyDialog = () => {
     this.matDialog.open(PrivacyPolicyComponent, { panelClass: 'privacy-policy-dialog' });
   }
@@ -102,6 +124,8 @@ export class RegistrationComponent implements OnInit {
       lastName: this.form.get('lastName').value,
       placeOfResidence: this.form.get('placeOfResidence').value,
       gender: this.form.get('gender').value,
+      dateBirth: this.form.get('dateBirth').value,
+      country: this.form.get('country').value,
     };
     this.auth.registration(registrationData)
     .pipe()
@@ -115,7 +139,11 @@ export class RegistrationComponent implements OnInit {
         }
       },
       error => {
-        this.globalErrorService.handleError(error);
+        if (error.error.message === 'E-Mail address already taken') {
+          this.globalErrorService.handleError(new Error('Es gibt bereits einen Nutzer mit dieser Emailadresse'));
+        } else {
+          this.globalErrorService.handleError(error);
+        }
       }
     );
   }

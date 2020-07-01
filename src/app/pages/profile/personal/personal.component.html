@@ -183,6 +183,42 @@
               </div>
             </div>
           </div>
+          <div
+            class="field field_select field_select-multiselect-arrow">
+            <p class="field__label">Führerscheine</p>
+            <div class="field-wrapper">
+              <ng-select
+                #driverLicense
+                [searchable]="true"
+                [clearable]="false"
+                [multiple]="true"
+                [hideSelected]="true"
+                dropdownPosition="top"
+                placeholder="Führerscheine"
+                [items]="dropdownOptions?.driving_license_category"
+                [formControl]="driverLicenseControl"
+                (change)="formArrayPush($event, driverLicensesArray, 'Führerscheine', driverLicense)"
+                class="custom-select">
+              </ng-select>
+              <div
+                class="field-wrapper__status"
+                [ngClass]="{invalid : !driverLicensesArray.controls.length}"></div>
+            </div>
+            <div class="tags-wrapper">
+              <div
+                formArrayName="driverLicenses"
+                *ngFor="let item of form.get('personal').get('driverLicenses').controls; let i = index;"
+                class="tags-wrapper__item">
+                <p class="tags-wrapper__label">{{item.value}}</p>
+                <button
+                  type="button"
+                  class="tags-wrapper__remove"
+                  (click)="deleteTags(i, driverLicensesArray, 'Führerscheine')">
+                  <img src="../assets/image/close.svg">
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
         <div
           class="subcategory-item flex-grid"
@@ -206,7 +242,6 @@
                 [placeholder]="'Land'"
                 formControlName="country"
                 (change)="onChangeLand(form.get('contact').get('residence'))"
-                (blur)="submit('land')"
                 class="custom-select">
               </ng-select>
               <div class="field-wrapper__type">abc</div>
@@ -217,7 +252,7 @@
           </div>
           <div
             class="field field_select field_select-search single clearable"
-            [ngClass]="{'invalid': form.get('contact').get('residence').get('country').invalid}"
+            [ngClass]="{'invalid': !form.get('contact').get('residence').get('country').value}"
             formGroupName="residence">
             <p class="field__label">Wohnort</p>
             <div class="field-wrapper">
@@ -228,7 +263,6 @@
                 [virtualScroll]="true"
                 formControlName="place"
                 (change)="onChangeCity(form.get('contact').get('residence'))"
-                (blur)="submit('Wohnort')"
                 class="custom-select">
               </ng-select>
               <div class="field-wrapper__type">abc</div>
@@ -239,7 +273,7 @@
           </div>
           <div
             class="field field_select field_select-search single clearable"
-            [ngClass]="{'invalid': form.get('contact').get('residence').get('country').invalid}"
+            [ngClass]="{'invalid': !form.get('contact').get('residence').get('place').value}"
             formGroupName="residence">
             <p class="field__label">PLZ</p>
             <div class="field-wrapper">
@@ -249,8 +283,7 @@
                 [placeholder]="'PLZ'"
                 [virtualScroll]="true"
                 formControlName="zipCode"
-                (change)="onChangeZip(form.get('contact').get('residence'))"
-                (blur)="submit('PLZ')"
+                (change)="submit('PLZ')"
                 class="custom-select">
               </ng-select>
               <div class="field-wrapper__type">123</div>

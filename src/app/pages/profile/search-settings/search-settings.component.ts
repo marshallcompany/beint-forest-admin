@@ -60,7 +60,7 @@ export class SearchSettingsComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.initForm();
     this.init();
-    this.placeOptions$ = this.searchService.getTowns('de', '');
+    this.placeOptions$ = this.searchService.getTowns('de', '', 'Deutschland');
     this.industryOptions$ = this.searchService.getIndustryBranches('de', '');
     this.benefitsOptions$ = this.searchService.getBenefits('de', '');
     this.businessOptions$ = this.searchService.getBusinessBranches('de', '');

@@ -50,8 +50,12 @@ export class LoginComponent implements OnInit {
   }
 
   public async submit() {
+    const formLoginData = {
+      email: this.form.get('email').value.toLowerCase(),
+      password: this.form.get('password').value
+    };
     try {
-      await this.auth.login(this.form.value);
+      await this.auth.login(formLoginData);
       this.loginChanges.emit();
       if (this.applicationService.getJobId() || this.router.routerState.snapshot.url.includes('/apply')) {
         this.router.navigate([this.router.routerState.snapshot.url]);

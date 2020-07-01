@@ -42,6 +42,16 @@
         <div
           class="vacancy-accordion"
           *ngFor="let vacancy of listJobVacancy; let index = index">
+          <div class="vacancy-info">
+            <a
+              [href]="vacancy.vacancyUrl"
+              target="_blank"
+              class="vacancy-info__link"
+              *ngIf="!mep.expanded">
+              <img src="../assets/image/link.svg">
+          </a>
+            <div class="vacancy-info__status"></div>
+          </div>
           <mat-expansion-panel
             (opened)="openGroup(i)"
             (closed)="closeGroup(i)"
@@ -49,14 +59,6 @@
             <mat-expansion-panel-header>
               <!-- vacancy preview -->
               <div class="vacancy-accordion-header">
-                <div class="vacancy-info">
-                  <button
-                    class="vacancy-info__link"
-                    *ngIf="!mep.expanded">
-                    <img src="../assets/image/link.svg">
-                  </button>
-                  <div class="vacancy-info__status"></div>
-                </div>
                 <img
                   [src]="vacancy.companyLogo"
                   *ngIf="vacancy?.companyLogo"
