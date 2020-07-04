@@ -8,9 +8,9 @@ import * as moment from 'moment';
 import { forkJoin } from 'rxjs';
 import { NotificationService } from 'src/app/services/notification.service';
 
-import { MatExpansionPanel } from '@angular/material/expansion';
 import { MatDialog } from '@angular/material';
 import { ConfirmModalComponent } from 'src/app/components/modal/confirm/confirm-modal.component';
+import { AccordionItemComponent } from 'src/app/components/accordion/accordion-item.component';
 
 
 @Component({
@@ -21,9 +21,9 @@ import { ConfirmModalComponent } from 'src/app/components/modal/confirm/confirm-
 export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
   public accordionsStatus: boolean;
 
-  @ViewChild('accordion01', { static: false }) accordion01: MatExpansionPanel;
-  @ViewChild('accordion02', { static: false }) accordion02: MatExpansionPanel;
-  @ViewChild('accordion03', { static: false }) accordion03: MatExpansionPanel;
+  @ViewChild('accordion01', { static: false }) accordion01: AccordionItemComponent;
+  @ViewChild('accordion02', { static: false }) accordion02: AccordionItemComponent;
+  @ViewChild('accordion03', { static: false }) accordion03: AccordionItemComponent;
 
   businessArea$: Observable<Array<string>>;
   industryArea$: Observable<Array<string>>;
@@ -192,7 +192,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
   }
 
   public onOpenAccordion() {
-    this.accordion01.opened
+    this.accordion01.toggleEmitter
       .subscribe(
         ($event) => {
           if (this.employmentConditionsArray.controls.length) {
@@ -200,7 +200,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
           }
           this.employmentConditionsArray.push((this.createFormGroup(null, 'employmentConditions')));
         }),
-      this.accordion02.opened
+      this.accordion02.toggleEmitter
         .subscribe(
           ($event) => {
             if (this.independentExperienceArray.controls.length) {
@@ -208,7 +208,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
             }
             this.independentExperienceArray.push(this.createFormGroup(null, 'independentExperience'));
           }),
-      this.accordion03.opened
+      this.accordion03.toggleEmitter
         .subscribe(
           ($event) => {
             if (this.otherExperienceArray.controls.length) {
@@ -218,6 +218,23 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
           });
   }
 
+  public accordionChange = ($event) => {
+    if ($event) {
+      this.accordionsStatus = false;
+    } else {
+      this.accordionsStatus = true;
+    }
+    // if (eventName === 'open') {
+    //   if (this.accordion01.expanded || this.accordion02.expanded || this.accordion03.expanded) {
+    //     this.accordionsStatus = false;
+    //   }
+    // }
+    // if (eventName === 'close') {
+    //   if (!this.accordion01.expanded && !this.accordion02.expanded && !this.accordion03.expanded) {
+    //     this.accordionsStatus = true;
+    //   }
+    // }
+  }
   private patchFormValue(searchPreferences) {
     this.form.patchValue({
       workExperience: {
@@ -310,20 +327,6 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
     }
     this.submit('bis heute');
   }
-
-  public accordionChange = (eventName: string) => {
-    if (eventName === 'open') {
-      if (this.accordion01.expanded || this.accordion02.expanded || this.accordion03.expanded) {
-        this.accordionsStatus = false;
-      }
-    }
-    if (eventName === 'close') {
-      if (!this.accordion01.expanded && !this.accordion02.expanded && !this.accordion03.expanded) {
-        this.accordionsStatus = true;
-      }
-    }
-  }
-
 
   public deleteFormGroup = (nameArray: FormArray, index: number, formGroupName?: string, cityArray?: Array<string>) => {
     const FormGroupValue = nameArray.at(index).value;

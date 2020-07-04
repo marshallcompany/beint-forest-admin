@@ -2,11 +2,12 @@ import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
 import { ProfileService } from 'src/app/services/profile.service';
 import { NotificationService } from 'src/app/services/notification.service';
-import { MatDialog, MatExpansionPanel } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { forkJoin, of, throwError } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { ConfirmModalComponent } from 'src/app/components/modal/confirm/confirm-modal.component';
 import * as moment from 'moment';
+import { AccordionItemComponent } from 'src/app/components/accordion/accordion-item.component';
 
 @Component({
   selector: 'app-miscellaneous',
@@ -15,10 +16,10 @@ import * as moment from 'moment';
 })
 export class MiscellaneousComponent implements OnInit, AfterViewInit {
 
-  @ViewChild('accordion01', { static: false }) accordion01: MatExpansionPanel;
-  @ViewChild('accordion02', { static: false }) accordion02: MatExpansionPanel;
-  @ViewChild('accordion03', { static: false }) accordion03: MatExpansionPanel;
-  @ViewChild('accordion04', { static: false }) accordion04: MatExpansionPanel;
+  @ViewChild('accordion01', { static: false }) accordion01: AccordionItemComponent;
+  @ViewChild('accordion02', { static: false }) accordion02: AccordionItemComponent;
+  @ViewChild('accordion03', { static: false }) accordion03: AccordionItemComponent;
+  @ViewChild('accordion04', { static: false }) accordion04: AccordionItemComponent;
 
   public navSettings = {
     iconCategory: '../assets/image/profile/category-06.svg',
@@ -85,23 +86,23 @@ export class MiscellaneousComponent implements OnInit, AfterViewInit {
   }
 
   public onOpenAccordion() {
-    this.accordion02.opened
+    this.accordion02.toggleEmitter
       .subscribe(
         ($event) => {
           if (this.volunteeringArray.controls.length) {
             return;
           }
           this.volunteeringArray.push(this.createFormGroup(null, 'volunteering'));
-        });
-    this.accordion03.opened
+        }),
+    this.accordion03.toggleEmitter
       .subscribe(
         ($event) => {
           if (this.publicationsArray.controls.length) {
             return;
           }
           this.publicationsArray.push(this.createFormGroup(null, 'publications'));
-        });
-    this.accordion04.opened
+        }),
+    this.accordion04.toggleEmitter
       .subscribe(
         ($event) => {
           if (this.awardsArray.controls.length) {
@@ -111,16 +112,11 @@ export class MiscellaneousComponent implements OnInit, AfterViewInit {
         });
   }
 
-  public accordionChange = (eventName: string) => {
-    if (eventName === 'open') {
-      if (this.accordion01.expanded || this.accordion02.expanded || this.accordion03.expanded || this.accordion04.expanded) {
-        this.accordionsStatus = false;
-      }
-    }
-    if (eventName === 'close') {
-      if (!this.accordion01.expanded && !this.accordion02.expanded && !this.accordion03.expanded && !this.accordion04.expanded) {
-        this.accordionsStatus = true;
-      }
+  public accordionChange = ($event) => {
+    if ($event) {
+      this.accordionsStatus = false;
+    } else {
+      this.accordionsStatus = true;
     }
   }
 

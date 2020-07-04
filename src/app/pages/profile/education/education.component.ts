@@ -1,14 +1,15 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormGroupName, Validators, FormControl } from '@angular/forms';
 import { FormValidators } from '../../../validators/validators';
 import { ProfileService } from 'src/app/services/profile.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { map, switchMap, toArray, concatMap, delay } from 'rxjs/operators';
-import { MatExpansionPanel, MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { SearchService } from 'src/app/services/search.service';
 import { Observable, forkJoin, of, throwError, from } from 'rxjs';
 import * as moment from 'moment';
 import { ConfirmModalComponent } from 'src/app/components/modal/confirm/confirm-modal.component';
+import { AccordionItemComponent } from 'src/app/components/accordion/accordion-item.component';
 
 interface DropDownOptions {
   school_types: Array<string[]>;
@@ -34,12 +35,12 @@ export class EducationComponent implements OnInit, AfterViewInit {
   };
 
   public accordionsStatus: boolean;
-  @ViewChild('accordion01', { static: false }) accordion01: MatExpansionPanel;
-  @ViewChild('accordion02', { static: false }) accordion02: MatExpansionPanel;
-  @ViewChild('accordion03', { static: false }) accordion03: MatExpansionPanel;
-  @ViewChild('accordion04', { static: false }) accordion04: MatExpansionPanel;
-  @ViewChild('accordion05', { static: false }) accordion05: MatExpansionPanel;
-  @ViewChild('accordion06', { static: false }) accordion06: MatExpansionPanel;
+  @ViewChild('accordion01', { static: false }) accordion01: AccordionItemComponent;
+  @ViewChild('accordion02', { static: false }) accordion02: AccordionItemComponent;
+  @ViewChild('accordion03', { static: false }) accordion03: AccordionItemComponent;
+  @ViewChild('accordion04', { static: false }) accordion04: AccordionItemComponent;
+  @ViewChild('accordion05', { static: false }) accordion05: AccordionItemComponent;
+  @ViewChild('accordion06', { static: false }) accordion06: AccordionItemComponent;
 
   $countriesList: Observable<string[]>;
 
@@ -174,7 +175,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
   }
 
   public onOpenAccordion() {
-    this.accordion01.opened
+    this.accordion01.toggleEmitter
       .subscribe(
         ($event) => {
           if (this.schoolsArray.controls.length) {
@@ -182,7 +183,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
           }
           this.schoolsArray.push((this.createFormGroup({}, 'schools')));
         }),
-      this.accordion02.opened
+    this.accordion02.toggleEmitter
         .subscribe(
           ($event) => {
             if (this.specialEducationArray.controls.length) {
@@ -190,7 +191,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
             }
             this.specialEducationArray.push(this.createFormGroup({}, 'specialEducation'));
           });
-    this.accordion03.opened
+    this.accordion03.toggleEmitter
       .subscribe(
         ($event) => {
           if (this.universitiesArray.controls.length) {
@@ -198,7 +199,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
           }
           this.universitiesArray.push(this.createFormGroup({}, 'universities'));
         });
-    this.accordion04.opened
+    this.accordion04.toggleEmitter
       .subscribe(
         ($event) => {
           if (this.additionalEducationsArray.controls.length) {
@@ -206,7 +207,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
           }
           this.additionalEducationsArray.push(this.createFormGroup({}, 'additionalEducations'));
         });
-    this.accordion06.opened
+    this.accordion06.toggleEmitter
       .subscribe(
         ($event) => {
           if (this.linguisticProficiencyArray.controls.length) {
@@ -214,6 +215,14 @@ export class EducationComponent implements OnInit, AfterViewInit {
           }
           this.linguisticProficiencyArray.push(this.createFormGroup({}, 'linguisticProficiency'));
         });
+  }
+
+  public accordionChange = ($event) => {
+    if ($event) {
+      this.accordionsStatus = false;
+    } else {
+      this.accordionsStatus = true;
+    }
   }
 
   public get schoolsArray(): FormArray {
@@ -526,23 +535,6 @@ export class EducationComponent implements OnInit, AfterViewInit {
       group.get('dateEnd').setValue('');
     }
     this.submit('bis heute');
-  }
-
-  public accordionChange = (eventName: string) => {
-    if (eventName === 'open') {
-      if (this.accordion01.expanded || this.accordion02.expanded
-          || this.accordion03.expanded || this.accordion04.expanded
-          || this.accordion05.expanded || this.accordion06.expanded) {
-        this.accordionsStatus = false;
-      }
-    }
-    if (eventName === 'close') {
-      if (!this.accordion01.expanded && !this.accordion02.expanded
-          && !this.accordion03.expanded && !this.accordion04.expanded
-          && !this.accordion05.expanded && !this.accordion06.expanded) {
-        this.accordionsStatus = true;
-      }
-    }
   }
 
 

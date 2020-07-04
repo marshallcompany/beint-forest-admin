@@ -12,6 +12,7 @@ import { DownloadFileService } from './services/download-file.service';
 import { Interceptors } from './interceptors/index';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CommonModule } from '@angular/common';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { HttpMultiLoaderServiceService } from './services/http-multi-loader-service';
@@ -67,6 +68,7 @@ import { ConfirmEmailComponent } from './components/modal/confirm-email/confirm-
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 
+import { AccordionModule } from './components/accordion/accordion.module';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -124,6 +126,7 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
   imports: [
     RoutingModule,
     BrowserModule,
+    AccordionModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
@@ -141,6 +144,7 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
       }
     }),
     BrowserAnimationsModule,
+    CommonModule,
     MaterialModule,
     NgCircleProgressModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })

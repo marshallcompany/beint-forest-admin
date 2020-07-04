@@ -12,17 +12,11 @@
         display: none;
     }
 }
-::ng-deep .mat-expansion-panel-content{
-    font: inherit;
-}
-
 
 .education{
     background-color:$primary;
     position:relative;
     min-height: 100vh;
-    overflow: auto;
-	overflow-x: hidden;
     padding-bottom: 100px;
 }
 .subcategory-item{
@@ -34,13 +28,6 @@
     }
 }
 // ACCORDION HEADER
-  ::ng-deep .accordion .mat-expansion-panel-body, .mat-expansion-panel-header {
-      padding:0;
-  }
-  .mat-expansion-panel{
-      background-color: transparent;
-      box-shadow: none;
-  }
   .subcategory-header{
       width: 100%;
       height: 89px;
@@ -48,6 +35,7 @@
       display: flex;
       align-items:center;
       justify-content: space-between;
+      cursor: pointer;
       &__arrow{
           transition: .25s linear;
           &.accordion-active{
