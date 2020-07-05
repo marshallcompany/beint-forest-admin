@@ -1272,7 +1272,7 @@
                         <div
                           class="field field_select field_select-multiselect-arrow"
                           [ngClass]="{'invalid': primarySkillsArray.controls.length > 2}">
-                          <p class="field__label">Deine Top Skills (3 max.)</p>
+                          <p class="field__label">Top Skills (3 max.)</p>
                           <div class="field-wrapper">
                             <ng-select
                               #primarySkillsElement
@@ -1308,7 +1308,7 @@
                         </div>
                         <div class="field field_select field_select-multiselect-arrow"
                             [ngClass]="{'invalid': secondarySkillsArray.controls.length > 9}">
-                          <p class="field__label">Deine weiteren Skills (10 max.)</p>
+                          <p class="field__label">weitere Skills (10 max.) </p>
                           <div class="field-wrapper">
                             <ng-select
                               #secondarySkillsElement
@@ -1320,7 +1320,7 @@
                               [items]="$skillsList | async"
                               [formControl]="secondarySkillsControl"
                               (change)="formArrayPush($event, secondarySkillsArray, 'Deine weiteren Skills', secondarySkillsElement)"
-                              placeholder="Weiteren Skills"
+                              placeholder="weitere Skills"
                               class="custom-select">
                             </ng-select>
                             <div

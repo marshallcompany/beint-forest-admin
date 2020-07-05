@@ -49,7 +49,7 @@
               class="vacancy-info__link"
               *ngIf="!mep.expanded">
               <img src="../assets/image/link.svg">
-          </a>
+            </a>
             <div class="vacancy-info__status"></div>
           </div>
           <mat-expansion-panel
@@ -412,9 +412,12 @@
               <path fill-rule="evenodd" clip-rule="evenodd" d="M1.10162 23.8537C0.514221 23.5354 0.296067 22.8012 0.614355 22.2138L6.33939 11.6483L0.631776 1.81724C0.29634 1.23947 0.492792 0.499163 1.07056 0.163727C1.64834 -0.171709 2.38864 0.024744 2.72407 0.602516L8.77245 11.0205C8.98411 11.3851 8.99071 11.8336 8.78987 12.2042L2.7415 23.3664C2.42321 23.9538 1.68901 24.172 1.10162 23.8537Z" />
             </svg>
             <div class="vacancy-info">
-              <button class="vacancy-info__link">
+              <a
+                [href]="vacancy.vacancyUrl"
+                target="_blank"
+                class="vacancy-info__link">
                 <img src="../assets/image/link.svg">
-              </button>
+              </a>
               <div class="vacancy-info__status"></div>
               <p class="vacancy-info__date">
                 <span *ngIf="!vacancy?.activationDate">-</span>
