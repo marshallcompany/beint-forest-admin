@@ -34,7 +34,7 @@ export class SettingsComponent implements OnInit {
       { icon: '../assets/image/settings/icon-03.svg', label: 'Nutzungsbedingungen', class: 'setting-button', event: 'termsUse' },
       { icon: '../assets/image/settings/icon-04.svg', label: 'Datenschutzbestimmungen', class: 'setting-button', event: 'privacyPolicy' },
       { icon: '../assets/image/settings/icon-05.svg', label: 'Support und Feedback', class: 'setting-button' },
-      { icon: '../assets/image/settings/icon-06.svg', label: 'Benachrictigungen', class: 'setting-button' },
+      { icon: '../assets/image/settings/icon-06.svg', label: 'Benachrichtigungen', class: 'setting-button' },
       { icon: '../assets/image/settings/icon-07.svg', label: 'Abmelden', class: 'setting-button logout', event: 'logout' },
       { icon: '../assets/image/settings/icon-08.svg', label: 'Konto löschen', class: 'setting-button remove', event: 'removeAccount' },
     ];

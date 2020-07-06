@@ -617,7 +617,7 @@
                   <img
                     src="../assets/image/profile/education/subcategory-03.svg"
                     class="subcategory-info__icon">
-                  <p class="subcategory-info__label">Universität</p>
+                  <p class="subcategory-info__label">Hochschule</p>
                 </div>
                 <img
                   src="../assets/image/profile/accordion-arrow.svg"
@@ -738,13 +738,13 @@
                         <div
                           class="field field_select"
                           [ngClass]="{notRelevant : this.form.get('education').get('universities').get('isNotRelevant').value}">
-                          <p class="field__label">Art des Studiums</p>
+                          <p class="field__label">Art des (angestrebten) Abschlusses</p>
                           <div class="field-wrapper">
                             <ng-select
                               [searchable]="false"
                               [clearable]="false"
-                              placeholder="Art des Studiums"
-                              (change)="submit('Art des Studiums')"
+                              placeholder="Art des (angestrebten) Abschlusses"
+                              (change)="submit('Abschlusses')"
                               class="custom-select"
                               formControlName="typeOfStudyTime">
                               <ng-option
