@@ -33,7 +33,7 @@
               </ng-select>
               <div class="field-wrapper__type">abc</div>
               <div
-                [ngClass]="{invalid : form.get('searchPreferences').get('desiredPlacesOfWork').value.length === 0}"
+                [ngClass]="{'invalid-should' : form.get('searchPreferences').get('desiredPlacesOfWork').value.length === 0}"
                 class="field-wrapper__status"></div>
             </div>
             
@@ -78,7 +78,7 @@
               </ng-select>
               <div class="field-wrapper__type">abc</div>
               <div
-                [ngClass]="{invalid : form.get('searchPreferences').get('preferredBusinessAreas').value.length === 0}"
+                [ngClass]="{'invalid-should' : form.get('searchPreferences').get('preferredBusinessAreas').value.length === 0}"
                 class="field-wrapper__status"></div>
             </div>
             <div class="tags-wrapper">
@@ -111,7 +111,7 @@
               </ng-select>
               <div class="field-wrapper__type">abc</div>
               <div
-                [ngClass]="{invalid : form.get('searchPreferences').get('desiredIndustryBranches').value.length === 0}"
+                [ngClass]="{'invalid-should' : form.get('searchPreferences').get('desiredIndustryBranches').value.length === 0}"
                 class="field-wrapper__status"></div>
             </div>
             <div class="tags-wrapper">
@@ -150,7 +150,7 @@
               </ng-select>
               <p class="field-wrapper__placeholder">Wähle aus der Liste</p>
               <div
-                [ngClass]="{invalid : form.get('searchPreferences').get('desiredEmploymentTypes').value.length === 0}"
+                [ngClass]="{'invalid-should' : form.get('searchPreferences').get('desiredEmploymentTypes').value.length === 0}"
                 class="field-wrapper__status"></div>
             </div>
             <div class="tags-wrapper">
@@ -189,7 +189,7 @@
               </ng-select>
               <p class="field-wrapper__placeholder">Wähle aus der Liste</p>
               <div
-                [ngClass]="{invalid : form.get('searchPreferences').get('preferredWorkingHours').value.length === 0}"
+                [ngClass]="{'invalid-should' : form.get('searchPreferences').get('preferredWorkingHours').value.length === 0}"
                 class="field-wrapper__status"></div>
             </div>
             <div class="tags-wrapper">
@@ -226,7 +226,7 @@
                 </ng-container>
               </ng-select>
               <div
-                [ngClass]="{invalid : !form.get('searchPreferences').get('travellingReady').value }"
+                [ngClass]="{'invalid-should' : !form.get('searchPreferences').get('travellingReady').value }"
                 class="field-wrapper__status"></div>
             </div>
           </div>
@@ -250,7 +250,7 @@
                     (change)="submit('max')">
                   <div class="field-wrapper__type">123</div>
                   <div
-                    [ngClass]="{invalid : !form.get('searchPreferences').get('salaryExpectations').get('min').value || form.get('searchPreferences').get('salaryExpectations').get('min').hasError('onlyNumbers')}"
+                    [ngClass]="{'invalid-should' : !form.get('searchPreferences').get('salaryExpectations').get('min').value || form.get('searchPreferences').get('salaryExpectations').get('min').hasError('onlyNumbers')}"
                     class="field-wrapper__status"></div>
                 </div>
                 <p
@@ -277,7 +277,7 @@
                     (change)="submit('max')">
                   <div class="field-wrapper__type">123</div>
                   <div
-                    [ngClass]="{invalid : !form.get('searchPreferences').get('salaryExpectations').get('max').value || form.get('searchPreferences').get('salaryExpectations').get('max').hasError('onlyNumbers')}"
+                    [ngClass]="{'invalid-should' : !form.get('searchPreferences').get('salaryExpectations').get('max').value || form.get('searchPreferences').get('salaryExpectations').get('max').hasError('onlyNumbers')}"
                     class="field-wrapper__status"></div>
                 </div>
                 <p
@@ -311,7 +311,7 @@
               </div>
               <div
                 class="field-wrapper__status"
-                [ngClass]="{invalid : !form.get('searchPreferences').get('readyToStartJobFrom').value }"></div>
+                [ngClass]="{'invalid-should' : !form.get('searchPreferences').get('readyToStartJobFrom').value }"></div>
             </div>
           </div>
           <div class="field field_select field_select-search">
@@ -330,7 +330,7 @@
               </ng-select>
               <div class="field-wrapper__type">abc</div>
               <div
-                [ngClass]="{invalid : form.get('searchPreferences').get('benefits').value.length === 0}"
+                [ngClass]="{'invalid-should' : form.get('searchPreferences').get('benefits').value.length === 0}"
                 class="field-wrapper__status"></div>
             </div>
             <div class="tags-wrapper">

@@ -62,6 +62,33 @@
 
 // CUSTOM CHECKBOX END
 
+// FIELD VALIDATION COLOR
+.field-wrapper {
+  &__status {
+    width: 5px;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: $markingGreen;
+
+    &.invalid {
+      &-must{
+        background-color: $markingRed;
+      }
+      &-could{
+        background-color: $markingLightGrey;
+      }
+      &-should{
+        background-color: $markingYellow;
+      }
+    }
+  }
+}
+// FIELD VALIDATION COLOR END
+.staus
 .ng-dropdown-panel .ng-dropdown-panel-items {
     max-height: 105px!important;
 }
@@ -315,20 +342,6 @@ body .field-group {
       font-size: 17px;
     }
   }
-  &__status {
-    width: 5px;
-    height: 100%;
-    position: absolute;
-    right: 0;
-    top: 0;
-    border-bottom-right-radius: 10px;
-    border-top-right-radius: 10px;
-    background-color: $primary;
-
-    &.invalid {
-      background-color: $yellow;
-    }
-  }
   &__placeholder {
     position: absolute;
     left: 19px;
@@ -432,7 +445,7 @@ body .field-group {
         z-index: 1;
       }
       &__status{
-        background-color:#989898!important;
+        background-color:#989898;
       }
       &__input{
         background-color: transparent;

@@ -49,7 +49,7 @@
                           <div class="field-wrapper__type">abc</div>
                           <div
                             class="field-wrapper__status"
-                            [ngClass]="{invalid : !form.get('miscellaneous').get('hobbies').get('items').controls.length}"></div>
+                            [ngClass]="{'invalid-should' : !form.get('miscellaneous').get('hobbies').get('items').controls.length}"></div>
                         </div>
                         <div class="tags-wrapper">
                             <div
@@ -184,7 +184,7 @@
                               <div class="field-wrapper__type">abc</div>
                               <div
                                 class="field-wrapper__status"
-                                [ngClass]="{invalid : !this.form.get('miscellaneous').get('volunteering').get('items').controls[i].get('volunteeringTitle').value}"></div>
+                                [ngClass]="{'invalid-should' : !this.form.get('miscellaneous').get('volunteering').get('items').controls[i].get('volunteeringTitle').value}"></div>
                             </div>
                           </div>
                           <div
@@ -201,7 +201,7 @@
                               <div class="field-wrapper__type">abc</div>
                               <div
                                 class="field-wrapper__status"
-                                [ngClass]="{invalid : !this.form.get('miscellaneous').get('volunteering').get('items').controls[i].get('institution').value}"></div>
+                                [ngClass]="{'invalid-should' : !this.form.get('miscellaneous').get('volunteering').get('items').controls[i].get('institution').value}"></div>
                             </div>
                           </div>
                         </div>
@@ -219,7 +219,7 @@
                             <div class="field-wrapper__type">abc</div>
                             <div
                               class="field-wrapper__status"
-                              [ngClass]="{invalid : !this.form.get('miscellaneous').get('volunteering').get('items').controls[i].get('description').value}"></div>
+                              [ngClass]="{'invalid-should' : !this.form.get('miscellaneous').get('volunteering').get('items').controls[i].get('description').value}"></div>
                           </div>
                         </div>
                         <div class="field field-group">
@@ -248,7 +248,7 @@
                                 </div>
                                 <div
                                   class="field-wrapper__status"
-                                  [ngClass]="{invalid : !this.form.get('miscellaneous').get('volunteering').get('items').controls[i].get('dateFrom').value}"></div>
+                                  [ngClass]="{'invalid-should' : !this.form.get('miscellaneous').get('volunteering').get('items').controls[i].get('dateFrom').value}"></div>
                               </div>
                             </div>
                             <div
@@ -279,7 +279,7 @@
                                 </div>
                                 <div
                                   class="field-wrapper__status"
-                                  [ngClass]="{invalid : !this.form.get('miscellaneous').get('volunteering').get('items').controls[i].get('dateTo').value}"></div>
+                                  [ngClass]="{'invalid-should' : !this.form.get('miscellaneous').get('volunteering').get('items').controls[i].get('dateTo').value}"></div>
                               </div>
                             </div>
                             <div
@@ -398,7 +398,7 @@
                             class="remove-fields__button"
                             type="button"
                             (click)="deleteFormGroup(publicationsArray, i, 'publications')">
-                            <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" class="remove-fields__icon">
+                            <svg viewBox="0 0 10 invalid10" xmlns="http://www.w3.org/2000/svg" class="remove-fields__icon">
                               <path d="M0.050293 0.050293L9.94979 9.94979M9.94979 0.050293L0.0502933 9.94979" stroke-width="2"
                                     stroke-linecap="round"/>
                             </svg>
@@ -419,7 +419,7 @@
                             <div class="field-wrapper__type">abc</div>
                             <div
                               class="field-wrapper__status"
-                              [ngClass]="{invalid : !this.form.get('miscellaneous').get('publications').get('items').controls[i].get('publicationType').value}"></div>
+                              [ngClass]="{'invalid-should' : !this.form.get('miscellaneous').get('publications').get('items').controls[i].get('publicationType').value}"></div>
                           </div>
                         </div>
                         <div
@@ -437,7 +437,7 @@
                             <div class="field-wrapper__type">abc</div>
                             <div
                               class="field-wrapper__status"
-                              [ngClass]="{invalid : !this.form.get('miscellaneous').get('publications').get('items').controls[i].get('medium').value}"></div>
+                              [ngClass]="{'invalid-should' : !this.form.get('miscellaneous').get('publications').get('items').controls[i].get('medium').value}"></div>
                           </div>
                         </div>
                         <div class="field-group">
@@ -456,7 +456,7 @@
                               <div class="field-wrapper__type">abc</div>
                               <div
                                 class="field-wrapper__status"
-                                [ngClass]="{invalid : !this.form.get('miscellaneous').get('publications').get('items').controls[i].get('link').value}">
+                                [ngClass]="{'invalid-should' : !this.form.get('miscellaneous').get('publications').get('items').controls[i].get('link').value}">
                               </div>
                             </div>
                           </div>
@@ -484,7 +484,7 @@
                                 </div>
                                 <div
                                   class="field-wrapper__status"
-                                  [ngClass]="{invalid : !this.form.get('miscellaneous').get('publications').get('items').controls[i].get('datePublished').value}"></div>
+                                  [ngClass]="{'invalid-should' : !this.form.get('miscellaneous').get('publications').get('items').controls[i].get('datePublished').value}"></div>
                               </div>
                           </div>
                         </div>
@@ -503,7 +503,7 @@
                             <div class="field-wrapper__type">abc</div>
                             <div
                               class="field-wrapper__status"
-                              [ngClass]="{invalid : !this.form.get('miscellaneous').get('publications').get('items').controls[i].get('description').value}"></div>
+                              [ngClass]="{'invalid-should' : !this.form.get('miscellaneous').get('publications').get('items').controls[i].get('description').value}"></div>
                           </div>
                         </div>
                       </div>
@@ -566,6 +566,7 @@
               </div>
             </div>
           </div>
+
           <div class="subcategory-item">
             <accordion-item #accordion04
                             (click)="accordionChange(accordion04.expanded)">
@@ -629,7 +630,7 @@
                               <div class="field-wrapper__type">abc</div>
                               <div
                                 class="field-wrapper__status"
-                                [ngClass]="{invalid : !this.form.get('miscellaneous').get('awards').get('items').controls[i].get('awardFor').value}">
+                                [ngClass]="{'invalid-should' : !this.form.get('miscellaneous').get('awards').get('items').controls[i].get('awardFor').value}">
                               </div>
                             </div>
                           </div>
@@ -648,7 +649,7 @@
                               <div class="field-wrapper__type">abc</div>
                               <div
                                 class="field-wrapper__status"
-                                [ngClass]="{invalid : !this.form.get('miscellaneous').get('awards').get('items').controls[i].get('awardedBy').value}"></div>
+                                [ngClass]="{'invalid-should' : !this.form.get('miscellaneous').get('awards').get('items').controls[i].get('awardedBy').value}"></div>
                             </div>
                           </div>
                         </div>
@@ -667,7 +668,7 @@
                             <div class="field-wrapper__type">abc</div>
                             <div
                               class="field-wrapper__status"
-                              [ngClass]="{invalid : !this.form.get('miscellaneous').get('awards').get('items').controls[i].get('description').value}"></div>
+                              [ngClass]="{'invalid-should' : !this.form.get('miscellaneous').get('awards').get('items').controls[i].get('description').value}"></div>
                           </div>
                         </div>
                         <div
@@ -694,7 +695,7 @@
                             </div>
                             <div
                               class="field-wrapper__status"
-                              [ngClass]="{invalid : !this.form.get('miscellaneous').get('awards').get('items').controls[i].get('receivedAt').value}"></div>
+                              [ngClass]="{'invalid-should' : !this.form.get('miscellaneous').get('awards').get('items').controls[i].get('receivedAt').value}"></div>
                           </div>
                         </div>
                       </div>

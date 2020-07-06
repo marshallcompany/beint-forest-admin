@@ -12,7 +12,7 @@
     <div class="container">
       <form
         class="form"
-        *ngIf="form"
+        *ngIf="form && firstPersonalData"
         [formGroup]="form">
         <div
           formGroupName="personal"
@@ -37,7 +37,7 @@
               <div class="field-wrapper__type">abc</div>
               <div
                 class="field-wrapper__status"
-                [ngClass]="{invalid : !form.get('personal').get('firstName').value}"></div>
+                [ngClass]="{'invalid-must' : !form.get('personal').get('firstName').value}"></div>
             </div>
           </div>
           <div class="field">
@@ -52,7 +52,7 @@
               <div class="field-wrapper__type">abc</div>
               <div
                 class="field-wrapper__status"
-                [ngClass]="{invalid : !form.get('personal').get('lastName').value}"></div>
+                [ngClass]="{'invalid-must' : !form.get('personal').get('lastName').value}"></div>
             </div>
           </div>
           <div class="field">
@@ -67,7 +67,7 @@
               <div class="field-wrapper__type">abc</div>
               <div
                 class="field-wrapper__status"
-                [ngClass]="{invalid : !form.get('personal').get('middleName').value}"></div>
+                [ngClass]="{'invalid-could' : !form.get('personal').get('middleName').value}"></div>
             </div>
           </div>
           <div class="field field_select">
@@ -86,7 +86,7 @@
               </ng-select>
               <div
                 class="field-wrapper__status"
-                [ngClass]="{invalid : !form.get('personal').get('gender').value}"></div>
+                [ngClass]="{'invalid-could' : !form.get('personal').get('gender').value}"></div>
             </div>
           </div>
           <div class="field field_select">
@@ -103,7 +103,7 @@
               </ng-select>
               <div
                 class="field-wrapper__status"
-                [ngClass]="{invalid : !form.get('personal').get('academicTitle').value}">
+                [ngClass]="{'invalid-could' : !form.get('personal').get('academicTitle').value}">
               </div>
             </div>
           </div>
@@ -128,7 +128,7 @@
               </div>
               <div
                 class="field-wrapper__status"
-                [ngClass]="{invalid : !form.get('personal').get('dateBirth').value}"></div>
+                [ngClass]="{'invalid-could' : !form.get('personal').get('dateBirth').value}"></div>
             </div>
           </div>
           <div class="field">
@@ -143,7 +143,7 @@
               <div class="field-wrapper__type">abc</div>
               <div
                 class="field-wrapper__status"
-                [ngClass]="{invalid : !form.get('personal').get('birthPlace').value}"></div>
+                [ngClass]="{'invalid-could' : !form.get('personal').get('birthPlace').value}"></div>
             </div>
           </div>
           <div class="field field_select field_select-singleselect-arrow clearable">
@@ -159,7 +159,7 @@
               </ng-select>
               <div
                 class="field-wrapper__status"
-                [ngClass]="{invalid : !form.get('personal').get('nationality').value}">
+                [ngClass]="{'invalid-could' : !form.get('personal').get('nationality').value}">
               </div>
             </div>
           </div>
@@ -179,7 +179,7 @@
               </ng-select>
               <div
                 class="field-wrapper__status"
-                [ngClass]="{invalid : !form.get('personal').get('maritalStatus').value}">
+                [ngClass]="{'invalid-should' : !form.get('personal').get('maritalStatus').value}">
               </div>
             </div>
           </div>
@@ -202,7 +202,7 @@
               </ng-select>
               <div
                 class="field-wrapper__status"
-                [ngClass]="{invalid : !driverLicensesArray.controls.length}"></div>
+                [ngClass]="{'invalid-should' : !driverLicensesArray.controls.length}"></div>
             </div>
             <div class="tags-wrapper">
               <div
@@ -246,7 +246,7 @@
               </ng-select>
               <div class="field-wrapper__type">abc</div>
               <div
-                [ngClass]="{invalid : !form.get('contact').get('residence').get('country').value}"
+                [ngClass]="{'invalid-must' : !form.get('contact').get('residence').get('country').value}"
                 class="field-wrapper__status"></div>
             </div>
           </div>
@@ -267,7 +267,7 @@
               </ng-select>
               <div class="field-wrapper__type">abc</div>
               <div
-                [ngClass]="{invalid : !form.get('contact').get('residence').get('place').value}"
+                [ngClass]="{'invalid-must' : !form.get('contact').get('residence').get('place').value}"
                 class="field-wrapper__status"></div>
             </div>
           </div>
@@ -288,7 +288,7 @@
               </ng-select>
               <div class="field-wrapper__type">123</div>
               <div
-                [ngClass]="{invalid : !form.get('contact').get('residence').get('zipCode').value}"
+                [ngClass]="{'invalid-must' : !form.get('contact').get('residence').get('zipCode').value}"
                 class="field-wrapper__status"></div>
             </div>
           </div>
@@ -306,7 +306,7 @@
               <div class="field-wrapper__type">abc</div>
               <div
                 class="field-wrapper__status"
-                [ngClass]="{invalid : !form.get('contact').get('residence').get('street').value}"></div>
+                [ngClass]="{'invalid-must' : !form.get('contact').get('residence').get('street').value}"></div>
             </div>
           </div>
           <div
@@ -323,7 +323,7 @@
               <div class="field-wrapper__type">123</div>
               <div
                 class="field-wrapper__status"
-                [ngClass]="{invalid : !form.get('contact').get('residence').get('houseNumber').value}"></div>
+                [ngClass]="{'invalid-must' : !form.get('contact').get('residence').get('houseNumber').value}"></div>
             </div>
           </div>
           <div class="field" formGroupName="residence">
@@ -338,7 +338,7 @@
               <div class="field-wrapper__type">abc</div>
               <div
                 class="field-wrapper__status"
-                [ngClass]="{invalid : !form.get('contact').get('residence').get('addressAddition').value}">
+                [ngClass]="{'invalid-should' : !form.get('contact').get('residence').get('addressAddition').value}">
               </div>
             </div>
           </div>
@@ -355,7 +355,7 @@
               <div class="field-wrapper__type">123</div>
               <div
                 class="field-wrapper__status"
-                [ngClass]="{invalid : !form.get('contact').get('phoneNumberMobile').value}"></div>
+                [ngClass]="{'invalid-must' : !form.get('contact').get('phoneNumberMobile').value}"></div>
             </div>
           </div>
         </div>
@@ -382,7 +382,7 @@
               <div class="field-wrapper__type">abc</div>
               <div
                 class="field-wrapper__status"
-                [ngClass]="{invalid : !form.get('contact').get('instagram').value}"></div>
+                [ngClass]="{'invalid-could' : !form.get('contact').get('instagram').value}"></div>
             </div>
           </div>
           <div class="field">
@@ -397,7 +397,7 @@
               <div class="field-wrapper__type">abc</div>
               <div
                 class="field-wrapper__status"
-                [ngClass]="{invalid : !form.get('contact').get('facebook').value}"></div>
+                [ngClass]="{'invalid-could' : !form.get('contact').get('facebook').value}"></div>
             </div>
           </div>
           <div class="field">
@@ -412,7 +412,7 @@
               <div class="field-wrapper__type">abc</div>
               <div
                 class="field-wrapper__status"
-                [ngClass]="{invalid : !form.get('contact').get('xing').value}"></div>
+                [ngClass]="{'invalid-could' : !form.get('contact').get('xing').value}"></div>
             </div>
           </div>
           <div class="field">
@@ -427,7 +427,7 @@
               <div class="field-wrapper__type">abc</div>
               <div
                 class="field-wrapper__status"
-                [ngClass]="{invalid : !form.get('contact').get('linkedin').value}"></div>
+                [ngClass]="{'invalid-could' : !form.get('contact').get('linkedin').value}"></div>
             </div>
           </div>
         </div>

@@ -72,7 +72,7 @@
                           </ng-select>
                           <div
                             class="field-wrapper__status"
-                            [ngClass]="{invalid : !this.form.get('education').get('schools').controls[i].get('schoolType').value}"></div>
+                            [ngClass]="{'invalid-should' : !this.form.get('education').get('schools').controls[i].get('schoolType').value}"></div>
                         </div>
                       </div>
                       <div class="field">
@@ -87,7 +87,7 @@
                           <div class="field-wrapper__type">abc</div>
                           <div
                             class="field-wrapper__status"
-                            [ngClass]="{invalid : !this.form.get('education').get('schools').controls[i].get('schoolName').value}"></div>
+                            [ngClass]="{'invalid-should' : !this.form.get('education').get('schools').controls[i].get('schoolName').value}"></div>
                         </div>
                       </div>
                       <div class="field field_select field_select-search single">
@@ -105,7 +105,7 @@
                           <div class="field-wrapper__type">abc</div>
                           <div
                             class="field-wrapper__status"
-                            [ngClass]="{invalid : !this.form.get('education').get('schools').controls[i].get('country').value}"></div>
+                            [ngClass]="{'invalid-should' : !this.form.get('education').get('schools').controls[i].get('country').value}"></div>
                         </div>
                       </div>
                       <div
@@ -126,7 +126,7 @@
                           <div class="field-wrapper__type">abc</div>
                           <div
                             class="field-wrapper__status"
-                            [ngClass]="{invalid : !this.form.get('education').get('schools').controls[i].get('place').value}">
+                            [ngClass]="{'invalid-should' : !this.form.get('education').get('schools').controls[i].get('place').value}">
                           </div>
                         </div>
                       </div>
@@ -148,7 +148,7 @@
                           </ng-select>
                           <div
                             class="field-wrapper__status"
-                            [ngClass]="{invalid : !this.form.get('education').get('schools').controls[i].get('country').value}"></div>
+                            [ngClass]="{'invalid-should' : !this.form.get('education').get('schools').controls[i].get('graduation').value}"></div>
                         </div>
                       </div>
                       <div class="field">
@@ -166,7 +166,7 @@
                           <div class="field-wrapper__type">123</div>
                           <div
                             class="field-wrapper__status"
-                            [ngClass]="{invalid : !this.form.get('education').get('schools').controls[i].get('grade').value}"></div>
+                            [ngClass]="{'invalid-could' : !this.form.get('education').get('schools').controls[i].get('grade').value}"></div>
                         </div>
                         <p
                           *ngIf="this.form.get('education').get('schools').controls[i].get('grade').hasError('maxValue')"
@@ -199,7 +199,7 @@
                               </div>
                               <div
                                   class="field-wrapper__status"
-                                  [ngClass]="{invalid : !this.form.get('education').get('schools').controls[i].get('dateStart').value}">
+                                  [ngClass]="{'invalid-should' : !this.form.get('education').get('schools').controls[i].get('dateStart').value}">
                               </div>
                             </div>
                           </div>
@@ -228,7 +228,7 @@
                               </div>
                               <div
                                   class="field-wrapper__status"
-                                  [ngClass]="{invalid : !this.form.get('education').get('schools').controls[i].get('dateEnd').value}">
+                                  [ngClass]="{'invalid-should' : !this.form.get('education').get('schools').controls[i].get('dateEnd').value}">
                               </div>
                             </div>
                           </div>
@@ -367,7 +367,7 @@
                             <div class="field-wrapper__type">abc</div>
                             <div
                               class="field-wrapper__status"
-                              [ngClass]="{invalid : !this.form.get('education').get('specialEducation').get('items').controls[i].get('professionalEducation').value}"></div>
+                              [ngClass]="{'invalid-should' : !this.form.get('education').get('specialEducation').get('items').controls[i].get('professionalEducation').value}"></div>
                           </div>
                         </div>
                         <div
@@ -384,7 +384,7 @@
                             <div class="field-wrapper__type">abc</div>
                             <div
                               class="field-wrapper__status"
-                              [ngClass]="{invalid : !this.form.get('education').get('specialEducation').get('items').controls[i].get('company').value}"></div>
+                              [ngClass]="{'invalid-should' : !this.form.get('education').get('specialEducation').get('items').controls[i].get('company').value}"></div>
                           </div>
                         </div>
                         <div
@@ -404,7 +404,7 @@
                             <div class="field-wrapper__type">abc</div>
                             <div
                               class="field-wrapper__status"
-                              [ngClass]="{invalid : !this.form.get('education').get('specialEducation').get('items').controls[i].get('country').value}"></div>
+                              [ngClass]="{'invalid-should' : !this.form.get('education').get('specialEducation').get('items').controls[i].get('country').value}"></div>
                           </div>
                         </div>
                         <div
@@ -425,7 +425,7 @@
                             <div class="field-wrapper__type">abc</div>
                             <div
                               class="field-wrapper__status"
-                              [ngClass]="{invalid : !this.form.get('education').get('specialEducation').get('items').controls[i].get('place').value}">
+                              [ngClass]="{'invalid-should' : !this.form.get('education').get('specialEducation').get('items').controls[i].get('place').value}">
                             </div>
                           </div>
                         </div>
@@ -443,7 +443,7 @@
                             <div class="field-wrapper__type">abc</div>
                             <div
                               class="field-wrapper__status"
-                              [ngClass]="{invalid : !this.form.get('education').get('specialEducation').get('items').controls[i].get('professionalSchool').value}"></div>
+                              [ngClass]="{'invalid-should' : !this.form.get('education').get('specialEducation').get('items').controls[i].get('professionalSchool').value}"></div>
                           </div>
                         </div>
                         <div
@@ -463,7 +463,7 @@
                             <div class="field-wrapper__type">123</div>
                             <div
                               class="field-wrapper__status"
-                              [ngClass]="{invalid : !this.form.get('education').get('specialEducation').get('items').controls[i].get('grade').value}"></div>
+                              [ngClass]="{'invalid-could' : !this.form.get('education').get('specialEducation').get('items').controls[i].get('grade').value}"></div>
                           </div>
                           <p
                             *ngIf="this.form.get('education').get('specialEducation').get('items').controls[i].get('grade').hasError('maxValue')"
@@ -497,15 +497,15 @@
                                 </div>
                                 <div
                                     class="field-wrapper__status"
-                                    [ngClass]="{invalid : !this.form.get('education').get('specialEducation').get('items').controls[i].get('dateStart').value}">
+                                    [ngClass]="{'invalid-should' : !this.form.get('education').get('specialEducation').get('items').controls[i].get('dateStart').value}">
                                 </div>
                               </div>
                             </div>
                             <div
                               class="field field_datapicker"
                               [ngClass]="{
-                                notRelevant : this.form.get('education').get('specialEducation').get('isNotRelevant').value,
-                                disabled: this.form.get('education').get('specialEducation').get('items').controls[i].get('tilToday').value
+                                notRelevant: this.form.get('education').get('specialEducation').get('items').controls[i].get('tilToday').value ||
+                                this.form.get('education').get('specialEducation').get('isNotRelevant').value
                               }">
                               <p class="field__label">Bis</p>
                               <div
@@ -529,7 +529,7 @@
                                 </div>
                                 <div
                                     class="field-wrapper__status"
-                                    [ngClass]="{invalid : !this.form.get('education').get('specialEducation').get('items').controls[i].get('dateEnd').value}"></div>
+                                    [ngClass]="{'invalid-should' : !this.form.get('education').get('specialEducation').get('items').controls[i].get('dateEnd').value}"></div>
                               </div>
                             </div>
                             <div
@@ -673,7 +673,7 @@
                             <div class="field-wrapper__type">abc</div>
                             <div
                               class="field-wrapper__status"
-                              [ngClass]="{invalid : !this.form.get('education').get('universities').get('items').controls[i].get('universityName').value}"></div>
+                              [ngClass]="{'invalid-should' : !this.form.get('education').get('universities').get('items').controls[i].get('universityName').value}"></div>
                           </div>
                         </div>
                         <div
@@ -690,7 +690,7 @@
                             <div class="field-wrapper__type">abc</div>
                             <div
                               class="field-wrapper__status"
-                              [ngClass]="{invalid : !this.form.get('education').get('universities').get('items').controls[i].get('degreeProgramTitle').value}"></div>
+                              [ngClass]="{'invalid-should' : !this.form.get('education').get('universities').get('items').controls[i].get('degreeProgramTitle').value}"></div>
                           </div>
                         </div>
                         <div
@@ -707,7 +707,7 @@
                               <div class="field-wrapper__type">abc</div>
                               <div
                                 class="field-wrapper__status"
-                                [ngClass]="{invalid : !form.get('education').get('universities').get('items').controls[i].get('priorities').controls.length || universityPrioritiesControl.hasError('maxlength')}"></div>
+                                [ngClass]="{'invalid-could' : !form.get('education').get('universities').get('items').controls[i].get('priorities').controls.length || universityPrioritiesControl.hasError('maxlength')}"></div>
                             </div>
                             <p
                               class="error-box"
@@ -748,7 +748,7 @@
                             <div class="field-wrapper__type">abc</div>
                             <div
                               class="field-wrapper__status"
-                              [ngClass]="{invalid : !this.form.get('education').get('universities').get('items').controls[i].get('country').value}"></div>
+                              [ngClass]="{'invalid-should' : !this.form.get('education').get('universities').get('items').controls[i].get('country').value}"></div>
                           </div>
                         </div>
                         <div
@@ -769,7 +769,7 @@
                             <div class="field-wrapper__type">abc</div>
                             <div
                               class="field-wrapper__status"
-                              [ngClass]="{invalid : !this.form.get('education').get('universities').get('items').controls[i].get('place').value}">
+                              [ngClass]="{'invalid-should' : !this.form.get('education').get('universities').get('items').controls[i].get('place').value}">
                             </div>
                           </div>
                         </div>
@@ -788,7 +788,7 @@
                               </ng-select>
                               <div
                                 class="field-wrapper__status"
-                                [ngClass]="{invalid : !this.form.get('education').get('universities').get('items').controls[i].get('typeOfDegree').value}"></div>
+                                [ngClass]="{'invalid-should' : !this.form.get('education').get('universities').get('items').controls[i].get('typeOfDegree').value}"></div>
                             </div>
                         </div>
                         <!-- <div
@@ -832,7 +832,7 @@
                               </ng-select>
                               <div
                                 class="field-wrapper__status"
-                                [ngClass]="{invalid : !this.form.get('education').get('universities').get('items').controls[i].get('typeOfStudyTime').value}"></div>
+                                [ngClass]="{'invalid-should' : !this.form.get('education').get('universities').get('items').controls[i].get('typeOfStudyTime').value}"></div>
                             </div>
                           </div>
                           <div class="datepicker-group">
@@ -860,15 +860,15 @@
                                 </div>
                                 <div
                                     class="field-wrapper__status"
-                                    [ngClass]="{invalid : !this.form.get('education').get('universities').get('items').controls[i].get('dateStart').value}">
+                                    [ngClass]="{'invalid-should' : !this.form.get('education').get('universities').get('items').controls[i].get('dateStart').value}">
                                 </div>
                               </div>
                             </div>
                             <div
                               class="field field_datapicker"
                               [ngClass]="{
-                                notRelevant : this.form.get('education').get('universities').get('isNotRelevant').value,
-                                disabled: this.form.get('education').get('universities').get('items').controls[i].get('tilToday').value
+                                disabled : this.form.get('education').get('universities').get('isNotRelevant').value ||
+                                this.form.get('education').get('universities').get('items').controls[i].get('tilToday').value
                               }">
                               <p class="field__label">Bis</p>
                               <div
@@ -892,7 +892,7 @@
                                 </div>
                                 <div
                                     class="field-wrapper__status"
-                                    [ngClass]="{invalid : !this.form.get('education').get('universities').get('items').controls[i].get('dateEnd').value}">
+                                    [ngClass]="{'invalid-should' : !this.form.get('education').get('universities').get('items').controls[i].get('dateEnd').value}">
                                 </div>
                               </div>
                             </div>
@@ -925,7 +925,7 @@
                             <div class="field-wrapper__type">abc</div>
                             <div
                               class="field-wrapper__status"
-                              [ngClass]="{invalid : !this.form.get('education').get('universities').get('items').controls[i].get('titleThesis').value}"></div>
+                              [ngClass]="{'invalid-could' : !this.form.get('education').get('universities').get('items').controls[i].get('titleThesis').value}"></div>
                           </div>
                         </div>
                         <div
@@ -945,7 +945,7 @@
                             <div class="field-wrapper__type">123</div>
                             <div
                               class="field-wrapper__status"
-                              [ngClass]="{invalid : !this.form.get('education').get('universities').get('items').controls[i].get('grade').value}"></div>
+                              [ngClass]="{'invalid-could' : !this.form.get('education').get('universities').get('items').controls[i].get('grade').value}"></div>
                           </div>
                           <p
                             *ngIf="this.form.get('education').get('universities').get('items').controls[i].get('grade').hasError('maxValue')"
@@ -1079,7 +1079,7 @@
                               <div class="field-wrapper__type">abc</div>
                               <div
                                 class="field-wrapper__status"
-                                [ngClass]="{invalid : !this.form.get('education').get('additionalEducations').get('items').controls[i].get('trainingTitle').value}"></div>
+                                [ngClass]="{'invalid-should' : !this.form.get('education').get('additionalEducations').get('items').controls[i].get('trainingTitle').value}"></div>
                             </div>
                           </div>
                           <div class="field field_group">
@@ -1108,15 +1108,15 @@
                                   </div>
                                   <div
                                       class="field-wrapper__status"
-                                      [ngClass]="{invalid : !this.form.get('education').get('additionalEducations').get('items').controls[i].get('dateStart').value}">
+                                      [ngClass]="{'invalid-should' : !this.form.get('education').get('additionalEducations').get('items').controls[i].get('dateStart').value}">
                                   </div>
                                 </div>
                               </div>
                               <div
                                 class="field field_datapicker"
                                 [ngClass]="{
-                                  notRelevant : this.form.get('education').get('additionalEducations').get('isNotRelevant').value,
-                                  disabled: this.form.get('education').get('additionalEducations').get('items').controls[i].get('tilToday').value
+                                  disabled: this.form.get('education').get('additionalEducations').get('isNotRelevant').value ||
+                                  this.form.get('education').get('additionalEducations').get('items').controls[i].get('tilToday').value
                                 }">
                                 <p class="field__label">Bis</p>
                                 <div
@@ -1140,7 +1140,7 @@
                                   </div>
                                   <div
                                       class="field-wrapper__status"
-                                      [ngClass]="{invalid : !this.form.get('education').get('additionalEducations').get('items').controls[i].get('dateEnd').value}">
+                                      [ngClass]="{'invalid-should' : !this.form.get('education').get('additionalEducations').get('items').controls[i].get('dateEnd').value}">
                                   </div>
                                 </div>
                               </div>
@@ -1173,7 +1173,7 @@
                             <div class="field-wrapper__type">abc</div>
                             <div
                               class="field-wrapper__status"
-                              [ngClass]="{invalid : !this.form.get('education').get('additionalEducations').get('items').controls[i].get('trainingDescription').value}"></div>
+                              [ngClass]="{'invalid-should' : !this.form.get('education').get('additionalEducations').get('items').controls[i].get('trainingDescription').value}"></div>
                           </div>
                         </div>
                       </div>
@@ -1269,7 +1269,7 @@
                         </div>
                         <div
                           class="field field_select field_select-multiselect-arrow"
-                          [ngClass]="{'invalid': primarySkillsArray.controls.length > 2}">
+                          [ngClass]="{'disabled': primarySkillsArray.controls.length > 2}">
                           <p class="field__label">Top Skills (3 max.)</p>
                           <div class="field-wrapper">
                             <ng-select
@@ -1287,7 +1287,7 @@
                             </ng-select>
                             <div
                               class="field-wrapper__status"
-                              [ngClass]="{invalid : !primarySkillsArray.controls.length}"></div>
+                              [ngClass]="{'invalid-should' : !primarySkillsArray.controls.length}"></div>
                           </div>
                           <div class="tags-wrapper">
                             <div
@@ -1305,7 +1305,7 @@
                           </div>
                         </div>
                         <div class="field field_select field_select-multiselect-arrow"
-                            [ngClass]="{'invalid': secondarySkillsArray.controls.length > 9}">
+                            [ngClass]="{'disabled': secondarySkillsArray.controls.length > 9}">
                           <p class="field__label">weitere Skills (10 max.) </p>
                           <div class="field-wrapper">
                             <ng-select
@@ -1323,7 +1323,7 @@
                             </ng-select>
                             <div
                               class="field-wrapper__status"
-                              [ngClass]="{invalid : !secondarySkillsArray.controls.length}"></div>
+                              [ngClass]="{'invalid-should' : !secondarySkillsArray.controls.length}"></div>
                           </div>
                           <div class="tags-wrapper">
                             <div
@@ -1437,12 +1437,12 @@
                           </ng-select>
                           <div
                             class="field-wrapper__status"
-                            [ngClass]="{invalid : !this.form.get('education').get('linguisticProficiency').controls[i].get('language').value}"></div>
+                            [ngClass]="{'invalid-should' : !this.form.get('education').get('linguisticProficiency').controls[i].get('language').value}"></div>
                         </div>
                       </div>
                       <div
                         class="field field_select"
-                        [ngClass]="{'invalid' : !form.get('education').get('linguisticProficiency').controls[i].get('language').value}">
+                        [ngClass]="{'disabled' : !form.get('education').get('linguisticProficiency').controls[i].get('language').value}">
                         <p class="field__label">Sprachniveau</p>
                         <div class="field-wrapper">
                           <ng-select
@@ -1461,7 +1461,7 @@
                           </ng-select>
                           <div
                             class="field-wrapper__status"
-                            [ngClass]="{invalid : !this.form.get('education').get('linguisticProficiency').controls[i].get('skillLevel').value}"></div>
+                            [ngClass]="{'invalid-should' : !this.form.get('education').get('linguisticProficiency').controls[i].get('skillLevel').value}"></div>
                         </div>
                       </div>
                     </div>

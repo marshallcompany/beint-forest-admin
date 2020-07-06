@@ -349,13 +349,17 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
         .subscribe(
           dialog => {
             if (nameArray && formGroupName && nameArray.controls.length < 2) {
+              if (cityArray) {
+                cityArray.splice(index, 1);
+              }
               nameArray.removeAt(index);
-              cityArray.splice(index, 1);
               nameArray.push(this.createFormGroup({}, formGroupName));
               this.submit();
             } else {
+              if (cityArray) {
+                cityArray.splice(index, 1);
+              }
               nameArray.removeAt(index);
-              cityArray.splice(index, 1);
               this.submit();
             }
           },
