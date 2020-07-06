@@ -694,6 +694,44 @@
                           </div>
                         </div>
                         <div
+                            class="field"
+                            [ngClass]="{notRelevant : this.form.get('education').get('universities').get('isNotRelevant').value}">
+                            <p class="field__label">Schwerpunkte</p>
+                            <div class="field-wrapper">
+                              <input
+                                type="text"
+                                placeholder="Schwerpunkte"
+                                [formControl]="universityPrioritiesControl"
+                                (change)="pushFormControl(universitiesArray, 'priorities', universityPrioritiesControl, i, 'Schwerpunkte')"
+                                class="field-wrapper__input">
+                              <div class="field-wrapper__type">abc</div>
+                              <div
+                                class="field-wrapper__status"
+                                [ngClass]="{invalid : !form.get('education').get('universities').get('items').controls[i].get('priorities').controls.length || universityPrioritiesControl.hasError('maxlength')}"></div>
+                            </div>
+                            <p
+                              class="error-box"
+                              *ngIf="universityPrioritiesControl.hasError('maxlength')">
+                              <span class="error-box__text">
+                                Maximum length 100 characters
+                              </span>
+                            </p>
+                            <div class="tags-wrapper">
+                              <div
+                                formArrayName="priorities"
+                                *ngFor="let item of form.get('education').get('universities').get('items').controls[i].get('priorities').controls; let indexArr = index;"
+                                class="tags-wrapper__item">
+                                <p class="tags-wrapper__label">{{item.value}}</p>
+                                <button
+                                  type="button"
+                                  class="tags-wrapper__remove"
+                                  (click)="deleteTags(i, indexArr,'universitiesArray','priorities', 'Schwerpunkte')">
+                                  <img src="../assets/image/close.svg">
+                                </button>
+                              </div>
+                            </div>
+                        </div>
+                        <div
                           class="field field_select field_select-search single"
                           [ngClass]="{notRelevant : this.form.get('education').get('universities').get('isNotRelevant').value}">
                           <p class="field__label">Land</p>
@@ -736,29 +774,24 @@
                           </div>
                         </div>
                         <div
-                          class="field field_select"
-                          [ngClass]="{notRelevant : this.form.get('education').get('universities').get('isNotRelevant').value}">
-                          <p class="field__label">Art des (angestrebten) Abschlusses</p>
-                          <div class="field-wrapper">
-                            <ng-select
-                              [searchable]="false"
-                              [clearable]="false"
-                              placeholder="Art des (angestrebten) Abschlusses"
-                              (change)="submit('Abschlusses')"
-                              class="custom-select"
-                              formControlName="typeOfStudyTime">
-                              <ng-option
-                                *ngFor="let option of dropdownOptions.university_study_times"
-                                [value]="option">
-                                {{ option }}
-                              </ng-option>
-                            </ng-select>
-                            <div
-                              class="field-wrapper__status"
-                              [ngClass]="{invalid : !this.form.get('education').get('universities').get('items').controls[i].get('typeOfStudyTime').value}"></div>
-                          </div>
+                            class="field field_select field_select-singleselect-arrow clearable"
+                            [ngClass]="{notRelevant : this.form.get('education').get('universities').get('isNotRelevant').value}">
+                            <p class="field__label">Art des Studiums</p>
+                            <div class="field-wrapper">
+                              <ng-select
+                                [searchable]="true"
+                                [items]="$degreeList | async"
+                                placeholder="Art des Studiums"
+                                (change)="submit('Art des Studiums')"
+                                class="custom-select"
+                                formControlName="typeOfDegree">
+                              </ng-select>
+                              <div
+                                class="field-wrapper__status"
+                                [ngClass]="{invalid : !this.form.get('education').get('universities').get('items').controls[i].get('typeOfDegree').value}"></div>
+                            </div>
                         </div>
-                        <div
+                        <!-- <div
                           class="field field_select field_select-search single"
                           [ngClass]="{notRelevant : this.form.get('education').get('universities').get('isNotRelevant').value}">
                           <p class="field__label">Fachrichtung</p>
@@ -777,83 +810,31 @@
                               class="field-wrapper__status"
                               [ngClass]="{invalid : !this.form.get('education').get('universities').get('items').controls[i].get('specialization').value}"></div>
                           </div>
-                        </div>
+                        </div> -->
                         <div class="field field_group">
                           <div
-                            class="field field_select field_select-singleselect-arrow clearable"
+                            class="field field_select"
                             [ngClass]="{notRelevant : this.form.get('education').get('universities').get('isNotRelevant').value}">
-                            <p class="field__label">Art des Abschlusses</p>
+                            <p class="field__label">Art des (angestrebten) Abschlusses</p>
                             <div class="field-wrapper">
                               <ng-select
-                                [searchable]="true"
-                                [items]="$degreeList | async"
-                                placeholder="Art des Abschlusses"
-                                (change)="submit('Art des Abschlusses')"
+                                [searchable]="false"
+                                [clearable]="false"
+                                placeholder="Art des (angestrebten) Abschlusses"
+                                (change)="submit('Abschlusses')"
                                 class="custom-select"
-                                formControlName="typeOfDegree">
+                                formControlName="typeOfStudyTime">
+                                <ng-option
+                                  *ngFor="let option of dropdownOptions.university_study_times"
+                                  [value]="option">
+                                  {{ option }}
+                                </ng-option>
                               </ng-select>
                               <div
                                 class="field-wrapper__status"
-                                [ngClass]="{invalid : !this.form.get('education').get('universities').get('items').controls[i].get('typeOfDegree').value}"></div>
+                                [ngClass]="{invalid : !this.form.get('education').get('universities').get('items').controls[i].get('typeOfStudyTime').value}"></div>
                             </div>
                           </div>
-                          <div
-                            class="field"
-                            [ngClass]="{notRelevant : this.form.get('education').get('universities').get('isNotRelevant').value}">
-                            <p class="field__label">Schwerpunkte</p>
-                            <div class="field-wrapper">
-                              <input
-                                type="text"
-                                placeholder="Schwerpunkte"
-                                [formControl]="universityPrioritiesControl"
-                                (change)="pushFormControl(universitiesArray, 'priorities', universityPrioritiesControl, i, 'Schwerpunkte')"
-                                class="field-wrapper__input">
-                              <div class="field-wrapper__type">abc</div>
-                              <div
-                                class="field-wrapper__status"
-                                [ngClass]="{invalid : !form.get('education').get('universities').get('items').controls[i].get('priorities').controls.length || universityPrioritiesControl.hasError('maxlength')}"></div>
-                            </div>
-                            <p
-                              class="error-box"
-                              *ngIf="universityPrioritiesControl.hasError('maxlength')">
-                              <span class="error-box__text">
-                                Maximum length 100 characters
-                              </span>
-                            </p>
-                            <div class="tags-wrapper">
-                              <div
-                                formArrayName="priorities"
-                                *ngFor="let item of form.get('education').get('universities').get('items').controls[i].get('priorities').controls; let indexArr = index;"
-                                class="tags-wrapper__item">
-                                <p class="tags-wrapper__label">{{item.value}}</p>
-                                <button
-                                  type="button"
-                                  class="tags-wrapper__remove"
-                                  (click)="deleteTags(i, indexArr,'universitiesArray','priorities', 'Schwerpunkte')">
-                                  <img src="../assets/image/close.svg">
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div
-                          class="field field_textarea"
-                          [ngClass]="{notRelevant : this.form.get('education').get('universities').get('isNotRelevant').value}">
-                          <p class="field__label">Titel Abschlussarbeit</p>
-                          <div class="field-wrapper textarea">
-                            <textarea
-                              placeholder="Titel Abschlussarbeit"
-                              class="field-wrapper__input"
-                              rows="8"
-                              formControlName="titleThesis"
-                              (change)="submit('Titel Abschlussarbeit')"></textarea>
-                            <div class="field-wrapper__type">abc</div>
-                            <div
-                              class="field-wrapper__status"
-                              [ngClass]="{invalid : !this.form.get('education').get('universities').get('items').controls[i].get('titleThesis').value}"></div>
-                          </div>
-                        </div>
-                        <div class="field field_group">
                           <div class="datepicker-group">
                             <div
                               class="field field_datapicker"
@@ -928,6 +909,23 @@
                                 <span class="checkmark"></span>
                               </label>
                             </div>
+                          </div>
+                        </div>
+                        <div
+                          class="field field_textarea"
+                          [ngClass]="{notRelevant : this.form.get('education').get('universities').get('isNotRelevant').value}">
+                          <p class="field__label">Titel Abschlussarbeit</p>
+                          <div class="field-wrapper textarea">
+                            <textarea
+                              placeholder="Titel Abschlussarbeit"
+                              class="field-wrapper__input"
+                              rows="8"
+                              formControlName="titleThesis"
+                              (change)="submit('Titel Abschlussarbeit')"></textarea>
+                            <div class="field-wrapper__type">abc</div>
+                            <div
+                              class="field-wrapper__status"
+                              [ngClass]="{invalid : !this.form.get('education').get('universities').get('items').controls[i].get('titleThesis').value}"></div>
                           </div>
                         </div>
                         <div
@@ -1017,7 +1015,7 @@
               </div>
             </div>
           </div>
-          <div class="subcategory-item" #z>
+          <div class="subcategory-item">
             <accordion-item #accordion04
                             (click)="accordionChange(accordion04.expanded)">
               <div class="accordion-header subcategory-header">

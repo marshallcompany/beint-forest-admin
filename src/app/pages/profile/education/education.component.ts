@@ -45,7 +45,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
   $countriesList: Observable<string[]>;
 
   $apprenticeshipList: Observable<string[]>;
-  $specializationList: Observable<string[]>;
+  // $specializationList: Observable<string[]>;
   $degreeList: Observable<string[]>;
   $skillsList: Observable<string[]>;
   $langList: Observable<string[]>;
@@ -316,7 +316,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
       case 'universities':
         return this.fb.group({
           degreeProgramTitle: [data && data.degreeProgramTitle ? data.degreeProgramTitle : '', Validators.required],
-          specialization: [data && data.specialization ? data.specialization : null, Validators.required],
+          // specialization: [data && data.specialization ? data.specialization : null, Validators.required],
           dateStart: [data && data.dateStart ? data.dateStart : null, Validators.required],
           dateEnd: [data && data.dateEnd ? data.dateEnd : null],
           country: [data && data.country ? data.country : null, Validators.required],
@@ -524,7 +524,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
     this.$langList = this.searchService.getLang('de', '');
     this.$skillsList = this.searchService.getSkills('de', '');
     this.$countriesList = this.searchService.getCountries('de', '');
-    this.$specializationList = this.searchService.getSpecializationUniversity('de', '');
+    // this.$specializationList = this.searchService.getSpecializationUniversity('de', '');
     this.$degreeList = this.searchService.getDegreeUniversity('de', '');
     this.$apprenticeshipList = this.searchService.getProfessionalEducation('de', '');
   }
