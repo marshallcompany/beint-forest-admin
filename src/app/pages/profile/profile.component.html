@@ -3,16 +3,13 @@
   *ngIf="!childrenRoutes">
   <div class="background">
     <img
-      src="../assets/image/background-circle-01.png"
-      class="background__circle background__circle_01">
-    <img
       src="../assets/image/background-circle-02.png"
       class="background__circle background__circle_02">
   </div>
   <section class="profile-details">
     <div class="container">
-      <div class="profile-details__avatar">
-        <circle-progress
+      <div class="profile-avatar">
+        <!-- <circle-progress
           [percent]="70"
           [radius]="100"
           [outerStrokeWidth]="8"
@@ -24,22 +21,19 @@
           [animation]="true"
           [animationDuration]="1000"
           [startFromZero]="false"
-          [responsive]="true"></circle-progress>
-        <div class="profile-details__image profile-details__image_default">
-          <img
-            src="../assets/image/icon-image.svg"
-            class="image-cropper__icon">
+          [responsive]="true"></circle-progress> -->
+        <div class="profile-avatar-spinner" *ngIf="spinner || !profileDate">
+          <img src="../assets/image/spinner.svg"
+                class="profile-avatar-spinner__item">
         </div>
-        <img
-          [src]="imageUrl"
-          *ngIf="imageUrl"
-          class="profile-details__image">
-        <div
-          class="profile-details__image profile-details__image_loading"
-          *ngIf="spinner || !profileDate">
-          <img
-            src="../assets/image/spinner.svg"
-            class="image-cropper__icon">
+        <div class="profile-avatar-default">
+          <svg class="profile-avatar-default__item" width="138" height="138" viewBox="0 0 138 138" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M68.71 68.71C87.6837 68.71 103.065 53.3287 103.065 34.355C103.065 15.3813 87.6837 0 68.71 0C49.7362 0 34.355 15.3813 34.355 34.355C34.3495 53.3232 49.7218 68.7045 68.6899 68.71C68.6967 68.71 68.7034 68.71 68.71 68.71ZM68.71 85.887C45.778 85.887 0 97.4 0 120.242V137.419H137.419V120.242C137.419 97.4 91.641 85.887 68.71 85.887Z" fill="#F4F4F4"/>
+          </svg>
+        </div>
+        <div class="profile-avatar-image" *ngIf="imageUrl">
+          <img [src]="imageUrl"
+            class="profile-avatar-image__item">
         </div>
         <button
           [ngClass]="{'edit-picture' : imageUrl}"
@@ -53,10 +47,20 @@
             class="add-profile-picture__icon add-profile-picture__icon_edit">
         </button>
       </div>
-      <p class="profile-details__name">Hey <span *ngIf="profileDate">{{ profileDate.profile.personal.firstName }}</span>!</p>
-      <p class="profile-details__description">
-        Dein Profil ist zu 65% vollständig. Ergänze fehlende Infos und erhöhe deine Chance bei der Bewerbung.
-      </p>
+      <div class="profile-details-information">
+        <p class="profile-details-information__name">Hi <span *ngIf="profileDate">{{ profileDate.profile.personal.firstName }}</span>!</p>
+        <p class="profile-details-information__happy">Wir freuen uns, dass Du da bist!</p>
+      </div>
+    </div>
+  </section>
+  <section class="pdf">
+    <div class="container">
+      <div class="pdf-action">
+        <button type="button" class="pdf-button">
+          <img src="../assets/image/apply/download.svg" alt="download">
+        </button>
+        <p class="pdf-action__text">Dein Lebenslauf - PDF</p>
+      </div>
     </div>
   </section>
   <section class="categories">

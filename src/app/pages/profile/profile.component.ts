@@ -45,13 +45,13 @@ export class ProfileComponent implements OnInit {
   ) {
     this.childrenRoutes = false;
     this.categories = [
-      { name: 'Persönliches & Kontakt', icon: '../assets/image/profile/category-01.svg', path: ['profile/personal'] },
-      { name: 'Berufliche Ausbildung', icon: '../assets/image/profile/category-02.svg', path: ['profile/education'] },
-      { name: 'Beruflicher Werdegang', icon: '../assets/image/profile/category-03.svg', path: ['profile/professional-background'] },
-      { name: 'Such-Präferenzen', icon: '../assets/image/profile/category-04.svg', path: ['profile/search-settings'] },
-      { name: 'Dokumente', icon: '../assets/image/profile/category-05.svg', path: ['profile/document'] },
-      { name: 'Sonstiges', icon: '../assets/image/profile/category-06.svg', path: ['profile/miscellaneous'] },
-      { name: 'Ich über mich', icon: '../assets/image/profile/category-07.svg', path: ['profile/about'] }
+      { name: 'Persönliches <br> & Kontakt', icon: 'category-01', path: ['profile/personal'] },
+      { name: 'Ausbildung', icon: 'category-02', path: ['profile/education'] },
+      { name: 'Beruflicher <br> Werdegang', icon: 'category-03', path: ['profile/professional-background'] },
+      { name: 'Such- <br> Präferenzen', icon: 'category-04', path: ['profile/search-settings'] },
+      { name: 'Dokumente', icon: 'category-05', path: ['profile/document'] },
+      { name: 'Sonstiges', icon: 'category-06', path: ['profile/miscellaneous'] },
+      { name: 'Ich über mich', icon: 'category-07', path: ['profile/about'] }
     ];
   }
 
