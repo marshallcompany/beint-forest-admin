@@ -13,6 +13,9 @@ import { CropperComponent } from 'src/app/components/modal/cropper/cropper.compo
 import { UploadFileService } from 'src/app/services/upload-file.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { ConfirmEmailComponent } from 'src/app/components/modal/confirm-email/confirm-email.component';
+import { DownloadFileService } from 'src/app/services/download-file.service';
+import { CvOptionModalComponent } from '../../components/modal/cv-option/cv-option-modal.component';
+import { CvOptionComponent } from 'src/app/components/sheet/cv-option/cv-option.component';
 
 interface Category {
   name: string;
@@ -32,9 +35,11 @@ export class ProfileComponent implements OnInit {
   public imageUrl: string;
   public spinner = false;
   public childrenRoutes: boolean;
+  public cvOption$: Observable<any>;
 
   constructor(
     public rf: ChangeDetectorRef,
+    public downloadFileService: DownloadFileService,
     private router: Router,
     private profileService: ProfileService,
     private bottomSheet: MatBottomSheet,
@@ -42,6 +47,7 @@ export class ProfileComponent implements OnInit {
     private uploadFileService: UploadFileService,
     private globalErrorService: GlobalErrorService,
     private notificationService: NotificationService,
+
   ) {
     this.childrenRoutes = false;
     this.categories = [
@@ -96,6 +102,29 @@ export class ProfileComponent implements OnInit {
         },
         () => {
           console.log('[ PROFILE DONE ]');
+        }
+      );
+  }
+
+  public onPdfOption = () => {
+    if (window.innerWidth < 568) {
+      this.cvOption$ = this.bottomSheet.open(CvOptionComponent, { panelClass: 'cv-option-sheet' }).afterDismissed();
+    } else {
+      this.cvOption$ = this.matDialog.open(CvOptionModalComponent, { panelClass: 'cv-option-dialog' }).afterClosed();
+    }
+    this.cvOption$
+      .pipe()
+      .subscribe(
+        res => {
+          if (res === 'download') {
+            this.downloadFileService.downloadCandidateCv();
+          }
+          if (res === 'open') {
+            this.downloadFileService.openCandidateCv();
+          }
+        },
+        err => {
+          console.log('[ PDF OPTION ERROR ]', err);
         }
       );
   }

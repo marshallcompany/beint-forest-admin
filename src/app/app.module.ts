@@ -69,6 +69,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 
 import { AccordionModule } from './components/accordion/accordion.module';
+import { CvOptionModalComponent } from './components/modal/cv-option/cv-option-modal.component';
+import { CvOptionComponent } from './components/sheet/cv-option/cv-option.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -89,6 +91,8 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     AppComponent,
     LoginComponent,
     ProfileComponent,
+    CvOptionModalComponent,
+    CvOptionComponent,
     NotFoundComponent,
     HomeComponent,
     PersonalComponent,
@@ -171,6 +175,8 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     ConfirmModalComponent,
     ImageChoiceComponent,
     CropperComponent,
+    CvOptionModalComponent,
+    CvOptionComponent,
     DocumentOptionComponent,
     DocumentOptionModalComponent,
     FileRenameComponent,
