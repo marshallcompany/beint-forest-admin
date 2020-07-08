@@ -22,6 +22,7 @@ export class SettingsComponent implements OnInit {
 
   public setting: Array<Setting>;
   public selectedIndex = null;
+  public routerName: string;
 
   constructor(
     public authService: AuthService,
@@ -30,13 +31,13 @@ export class SettingsComponent implements OnInit {
   ) {
     this.setting = [
       { icon: '../assets/image/settings/icon-01.svg', label: 'Passwort ändern', class: 'setting-button', event: 'password-reset' },
-      { icon: '../assets/image/settings/icon-02.svg', label: 'Email Adresse ändern', class: 'setting-button' },
-      { icon: '../assets/image/settings/icon-03.svg', label: 'Nutzungsbedingungen', class: 'setting-button', event: 'termsUse' },
-      { icon: '../assets/image/settings/icon-04.svg', label: 'Datenschutzbestimmungen', class: 'setting-button', event: 'privacyPolicy' },
-      { icon: '../assets/image/settings/icon-05.svg', label: 'Support und Feedback', class: 'setting-button' },
-      { icon: '../assets/image/settings/icon-06.svg', label: 'Benachrichtigungen', class: 'setting-button' },
+      { icon: '../assets/image/settings/icon-02.svg', label: 'Email Adresse ändern', class: 'setting-button', event: 'email-reset' },
+      { icon: '../assets/image/settings/icon-03.svg', label: 'Nutzungsbedingungen', class: 'setting-button', event: 'terms-use' },
+      { icon: '../assets/image/settings/icon-04.svg', label: 'Datenschutzbestimmungen', class: 'setting-button', event: 'privacy-policy' },
+      { icon: '../assets/image/settings/icon-05.svg', label: 'Support und Feedback', class: 'setting-button', event: 'support' },
+      { icon: '../assets/image/settings/icon-06.svg', label: 'Benachrichtigungen', class: 'setting-button', event: 'notification' },
       { icon: '../assets/image/settings/icon-07.svg', label: 'Abmelden', class: 'setting-button logout', event: 'logout' },
-      { icon: '../assets/image/settings/icon-08.svg', label: 'Konto löschen', class: 'setting-button remove', event: 'removeAccount' },
+      { icon: '../assets/image/settings/icon-08.svg', label: 'Konto löschen', class: 'setting-button remove', event: 'remove-account' },
     ];
   }
 
@@ -46,35 +47,37 @@ export class SettingsComponent implements OnInit {
   public clickEvent = (event, index) => {
     if (window.innerWidth >= 768) {
       this.selectedIndex = index + 1;
+      this.routerName = event;
     }
-    switch (event) {
-      case 'logout':
-        if (window.innerWidth <= 768) {
-          this.logOut();
-        }
-        break;
-      case 'privacyPolicy':
-        if (window.innerWidth <= 768) {
-          this.router.navigate(['/settings/privacy-policy']);
-        }
-        break;
-      case 'removeAccount':
-        if (window.innerWidth <= 768) {
-          this.removeAccount();
-        }
-        break;
-      case 'termsUse':
-        if (window.innerWidth <= 768) {
-          this.router.navigate(['/settings/terms-of-use']);
-        }
-        break;
-      case 'password-reset':
-        if (window.innerWidth <= 768) {
-          this.router.navigate(['/settings/password-reset']);
-        }
-        break;
-      default:
-        break;
+    if (window.innerWidth <= 768) {
+      switch (event) {
+        case 'logout':
+            this.logOut();
+            break;
+        case 'privacy-policy':
+            this.router.navigate(['/settings/privacy-policy']);
+            break;
+        case 'remove-account':
+            this.removeAccount();
+            break;
+        case 'terms-use':
+            this.router.navigate(['/settings/terms-of-use']);
+            break;
+        case 'password-reset':
+            this.router.navigate(['/settings/password-reset']);
+            break;
+        case 'email-reset':
+          this.router.navigate(['/settings/email-reset']);
+          break;
+        case 'support':
+          this.router.navigate(['/settings/support']);
+          break;
+        case 'notification':
+          this.router.navigate(['/settings/notification']);
+          break;
+        default:
+          break;
+      }
     }
   }
 

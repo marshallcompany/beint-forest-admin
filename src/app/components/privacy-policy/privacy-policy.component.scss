@@ -66,8 +66,10 @@
 
 
 .category-header{
-  background-color: $primary;
-  border-bottom-left-radius: 40px;
+  background-image: url('../../../assets/image/bg-header-mobile.svg');
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: cover;
   height:120px;
   position: relative;
   display: none;
@@ -94,7 +96,7 @@
   &__label{
     font-size: 17px;
     color: #ffffff;
-    font-family: $workSansBold;
+    font-family: $workSansSemiBold;
   }
 }
 .back{
