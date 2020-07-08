@@ -81,7 +81,7 @@
                 (change)="submit('Geschlecht')"
                 class="custom-select">
                 <ng-option *ngFor="let item of dropdownOptions?.gender" [value]="item">
-                  <span style="text-transform: capitalize;">{{ item }}</span>
+                  {{ item }}
                 </ng-option>
               </ng-select>
               <div

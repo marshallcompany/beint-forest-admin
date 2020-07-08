@@ -23,7 +23,7 @@
     "@angular/pwa": "^0.901.8",
     "@angular/router": "~8.2.14",
     "@angular/service-worker": "~8.2.14",
-    "@ng-select/ng-select": "^3.7.2",
+    "@ng-select/ng-select": "3.0.0",
     "@ngx-translate/core": "^11.0.1",
     "@ngx-translate/http-loader": "^4.0.0",
     "@types/file-saver": "^2.0.1",
