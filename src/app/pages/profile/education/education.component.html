@@ -1274,14 +1274,17 @@
                           <div class="field-wrapper">
                             <ng-select
                               #primarySkillsElement
+                              [addTag]="true"
+                              addTagText="Add new"
                               [searchable]="true"
                               [clearable]="false"
                               [multiple]="true"
                               [hideSelected]="true"
                               dropdownPosition="top"
                               placeholder="Deine drei Top Skills"
-                              [items]="$skillsList | async"
+                              [items]="skillsList"
                               [formControl]="primarySkillsControl"
+                              (add)="add($event)"
                               (change)="formArrayPush($event, primarySkillsArray, 'Deine drei Topskills', primarySkillsElement)"
                               class="custom-select">
                             </ng-select>
@@ -1310,13 +1313,16 @@
                           <div class="field-wrapper">
                             <ng-select
                               #secondarySkillsElement
+                              [addTag]="true"
+                              addTagText="Add new"
                               [searchable]="true"
                               [clearable]="false"
                               [multiple]="true"
                               [hideSelected]="true"
                               dropdownPosition="top"
-                              [items]="$skillsList | async"
+                              [items]="skillsList"
                               [formControl]="secondarySkillsControl"
+                              (add)="add($event)"
                               (change)="formArrayPush($event, secondarySkillsArray, 'Deine weiteren Skills', secondarySkillsElement)"
                               placeholder="weitere Skills"
                               class="custom-select">

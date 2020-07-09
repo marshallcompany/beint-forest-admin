@@ -1,254 +1,43 @@
 <section class="home">
-  <div class="user-information-wrp">
-    <div class="user-information">
-      <div class="user-avatar">
-        <circle-progress
-          [percent]="70"
-          [radius]="100"
-          [outerStrokeWidth]="8"
-          [innerStrokeWidth]="8"
-          [space]="-8"
-          [showSubtitle]="false"
-          [showTitle]="false"
-          [showUnits]="false"
-          [animation]="true"
-          [animationDuration]="1000"
-          [startFromZero]="false"
-          [responsive]="true">
-        </circle-progress>
-        <div class="user-avatar__img user-avatar__img_default">
-          <img
-            src="../assets/image/icon-image.svg"
-            class="image-cropper__icon">
-        </div>
-        <img
-          [src]="user.media.avatar.storagePath"
-          *ngIf="user && user.media && user.media.avatar && user.media.avatar.storagePath"
-          class="user-avatar__img">
-      </div>
-      <p
-        class="user-information__name"
-        *ngIf="user">Hey {{user.profile.personal.firstName}}!</p>
-      <p class="user-information__description">
-       Your profile is <strong>65%</strong> complete. Fill in missing information and increase your chance when applying.
-      </p>
-    </div>
-    <button
-      class="profile-setting-button"
-      (click)="goToProfile()">
-      EDIT PROFILE
-    </button>
+  <div class="background">
+    <img
+      src="../assets/image/background-circle-02.png"
+      class="background__circle background__circle_02">
   </div>
-  <div class="user-actions">
+  <div class="profile-details">
     <div class="container">
-      <swiper
-        slidesPerView="2"
-        threshold="200">
-        <div class="actions-item">
-          <p class="actions-item__number_overlay">1</p>
-          <div class="flex-wrp">
-            <div class="actions-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13.404 16.908" class="actions-icon__img">
-                <path d="M65.8,11.624a.66.66,0,0,0,.66-.66V2.642A2.645,2.645,0,0,0,63.818,0H55.7a2.645,2.645,0,0,0-2.642,2.642V14.266A2.645,2.645,0,0,0,55.7,16.908h8.12a2.645,2.645,0,0,0,2.642-2.642.66.66,0,1,0-1.321,0,1.322,1.322,0,0,1-1.321,1.321H55.7a1.322,1.322,0,0,1-1.321-1.321V2.642A1.322,1.322,0,0,1,55.7,1.321h8.12a1.322,1.322,0,0,1,1.321,1.321v8.322A.66.66,0,0,0,65.8,11.624Z" transform="translate(-53.056)"/>
-                <g transform="translate(2.638 3.963)">
-                  <path d="M140.407,120h-6.8a.66.66,0,0,0,0,1.321h6.8a.66.66,0,0,0,0-1.321Z" transform="translate(-132.944 -120)"/>
-                </g>
-                <g transform="translate(2.638 6.605)">
-                  <path d="M140.407,200h-6.8a.66.66,0,0,0,0,1.321h6.8a.66.66,0,0,0,0-1.321Z" transform="translate(-132.944 -200)"/>
-                </g>
-                <g transform="translate(2.638 9.247)">
-                  <path d="M137.736,280H133.6a.66.66,0,1,0,0,1.321h4.132a.66.66,0,1,0,0-1.321Z" transform="translate(-132.944 -280)"/>
-                </g>
-              </svg>
-            </div>
-            <p class="actions-item__number">1</p>
-          </div>
-          <p class="actions-item__title">Open applications</p>
+      <div class="profile-avatar">
+        <div class="profile-avatar-spinner" *ngIf="!user">
+          <img src="../assets/image/spinner.svg"
+                class="profile-avatar-spinner__item">
         </div>
-        <div class="actions-item">
-          <p class="actions-item__number_overlay">10</p>
-          <div class="flex-wrp">
-            <div class="actions-icon">
-              <svg version="1.1" class="actions-icon__img" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	              viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
-
-                <path d="M310,190c-5.52,0-10,4.48-10,10s4.48,10,10,10c5.52,0,10-4.48,10-10S315.52,190,310,190z"/>
-                <path d="M500.281,443.719l-133.48-133.48C388.546,277.485,400,239.555,400,200C400,89.72,310.28,0,200,0S0,89.72,0,200
-                s89.72,200,200,200c39.556,0,77.486-11.455,110.239-33.198l36.895,36.895c0.005,0.005,0.01,0.01,0.016,0.016l96.568,96.568
-                C451.276,507.838,461.319,512,472,512c10.681,0,20.724-4.162,28.278-11.716C507.837,492.731,512,482.687,512,472
-                S507.837,451.269,500.281,443.719z M305.536,345.727c0,0.001-0.001,0.001-0.002,0.002C274.667,368.149,238.175,380,200,380
-                c-99.252,0-180-80.748-180-180S100.748,20,200,20s180,80.748,180,180c0,38.175-11.851,74.667-34.272,105.535
-                C334.511,320.988,320.989,334.511,305.536,345.727z M326.516,354.793c10.35-8.467,19.811-17.928,28.277-28.277l28.371,28.371
-                c-8.628,10.183-18.094,19.65-28.277,28.277L326.516,354.793z M486.139,486.139c-3.78,3.78-8.801,5.861-14.139,5.861
-                s-10.359-2.081-14.139-5.861l-88.795-88.795c10.127-8.691,19.587-18.15,28.277-28.277l88.798,88.798
-                C489.919,461.639,492,466.658,492,472C492,477.342,489.919,482.361,486.139,486.139z"/>
-
-                <path d="M200,40c-88.225,0-160,71.775-160,160s71.775,160,160,160s160-71.775,160-160S288.225,40,200,40z M200,340
-                c-77.196,0-140-62.804-140-140S122.804,60,200,60s140,62.804,140,140S277.196,340,200,340z"/>
-
-                <path d="M312.065,157.073c-8.611-22.412-23.604-41.574-43.36-55.413C248.479,87.49,224.721,80,200,80c-5.522,0-10,4.478-10,10
-                c0,5.522,4.478,10,10,10c41.099,0,78.631,25.818,93.396,64.247c1.528,3.976,5.317,6.416,9.337,6.416
-                c1.192,0,2.405-0.215,3.584-0.668C311.472,168.014,314.046,162.229,312.065,157.073z"/>
-              </svg>
-            </div>
-            <p class="actions-item__number">10</p>
-          </div>
-          <p class="actions-item__title">New jobs</p>
-        </div>
-        <div class="actions-item">
-          <p class="actions-item__number_overlay">150</p>
-          <div class="flex-wrp">
-            <div class="actions-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13.404 16.908" class="actions-icon__img">
-                <path d="M65.8,11.624a.66.66,0,0,0,.66-.66V2.642A2.645,2.645,0,0,0,63.818,0H55.7a2.645,2.645,0,0,0-2.642,2.642V14.266A2.645,2.645,0,0,0,55.7,16.908h8.12a2.645,2.645,0,0,0,2.642-2.642.66.66,0,1,0-1.321,0,1.322,1.322,0,0,1-1.321,1.321H55.7a1.322,1.322,0,0,1-1.321-1.321V2.642A1.322,1.322,0,0,1,55.7,1.321h8.12a1.322,1.322,0,0,1,1.321,1.321v8.322A.66.66,0,0,0,65.8,11.624Z" transform="translate(-53.056)"/>
-                <g transform="translate(2.638 3.963)">
-                  <path d="M140.407,120h-6.8a.66.66,0,0,0,0,1.321h6.8a.66.66,0,0,0,0-1.321Z" transform="translate(-132.944 -120)"/>
-                </g>
-                <g transform="translate(2.638 6.605)">
-                  <path d="M140.407,200h-6.8a.66.66,0,0,0,0,1.321h6.8a.66.66,0,0,0,0-1.321Z" transform="translate(-132.944 -200)"/>
-                </g>
-                <g transform="translate(2.638 9.247)">
-                  <path d="M137.736,280H133.6a.66.66,0,1,0,0,1.321h4.132a.66.66,0,1,0,0-1.321Z" transform="translate(-132.944 -280)"/>
-                </g>
-              </svg>
-            </div>
-            <p class="actions-item__number">150</p>
-          </div>
-          <p class="actions-item__title">New jobs/////</p>
-        </div>
-      </swiper>
-    </div>
-  </div>
-  <div class="top-offer">
-    <div class="container">
-      <div class="top-offer-box">
-        <h2 class="top-offer-box__title">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20.861 20.085"><path  d="M20.744,17.033a2.215,2.215,0,0,0-2.135-1.559H14.441a.6.6,0,0,1-.586-.4l-1.289-3.991a2.246,2.246,0,0,0-4.273,0L7.005,15.069a.6.6,0,0,1-.587.405H2.25A2.26,2.26,0,0,0,.93,19.559L4.3,22.009a.615.615,0,0,1,.224.69L3.238,26.663a2.213,2.213,0,0,0,.816,2.512,2.213,2.213,0,0,0,2.641,0l3.372-2.45a.615.615,0,0,1,.725,0l3.372,2.45a2.246,2.246,0,0,0,3.457-2.512l-.882-2.714a.815.815,0,1,0-1.55.5l.882,2.714a.617.617,0,0,1-.949.69l-3.372-2.45a2.241,2.241,0,0,0-2.641,0l-3.372,2.45a.617.617,0,0,1-.949-.69L6.076,23.2a2.241,2.241,0,0,0-.816-2.511l-3.372-2.45a.611.611,0,0,1-.223-.7A.6.6,0,0,1,2.25,17.1H6.419a2.231,2.231,0,0,0,2.137-1.533l1.288-3.988a.617.617,0,0,1,1.173,0L12.3,15.573A2.231,2.231,0,0,0,14.441,17.1h4.168a.6.6,0,0,1,.585.433.611.611,0,0,1-.223.7l-2.3,1.671a.815.815,0,0,0,.958,1.318l2.3-1.671A2.224,2.224,0,0,0,20.744,17.033Z" transform="translate(0.001 -9.527)"/>
+        <div class="profile-avatar-default">
+          <svg class="profile-avatar-default__item" width="138" height="138" viewBox="0 0 138 138" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M68.71 68.71C87.6837 68.71 103.065 53.3287 103.065 34.355C103.065 15.3813 87.6837 0 68.71 0C49.7362 0 34.355 15.3813 34.355 34.355C34.3495 53.3232 49.7218 68.7045 68.6899 68.71C68.6967 68.71 68.7034 68.71 68.71 68.71ZM68.71 85.887C45.778 85.887 0 97.4 0 120.242V137.419H137.419V120.242C137.419 97.4 91.641 85.887 68.71 85.887Z" fill="#F4F4F4"/>
           </svg>
-          <span>YOUR TOP MATCHES</span>
-        </h2>
-        <div
-          class="offer-item"
-          *ngFor="let item of acord; let i = index">
-          <div class="offer-preview-header">
-            <div class="offer-logo">
-              <p class="logo-default">
-                  <span class="logo-default__item"></span>
-                  <span class="logo-default__item"></span>
-              </p>
-              <span>LOGO</span>
-            </div>
-            <div class="offer-actions">
-              <button class="bookmark-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.156 20" class="bookmark-btn__icon">
-                  <g transform="translate(-62.002)">
-                    <g transform="translate(62.002)">
-                      <path class="a" d="M76.377,16.875a.781.781,0,0,0-.781.781.737.737,0,0,1-.219.545.848.848,0,0,1-.591.236.718.718,0,0,1-.531-.223L70.14,13.986a.781.781,0,0,0-1.12,0l-4.115,4.228a.727.727,0,0,1-.535.223.834.834,0,0,1-.591-.232.722.722,0,0,1-.215-.536V3.125a1.564,1.564,0,0,1,1.563-1.562h8.906A1.564,1.564,0,0,1,75.6,3.125V13.789a.781.781,0,0,0,1.563,0V3.125A3.129,3.129,0,0,0,74.033,0H65.127A3.129,3.129,0,0,0,62,3.125V17.67a2.292,2.292,0,0,0,.683,1.65,2.4,2.4,0,0,0,1.672.68H64.4a2.278,2.278,0,0,0,1.627-.7l3.555-3.653L73.135,19.3a2.268,2.268,0,0,0,1.631.7,2.412,2.412,0,0,0,1.709-.687,2.307,2.307,0,0,0,.684-1.657A.781.781,0,0,0,76.377,16.875Z" transform="translate(-62.002)"/>
-                    </g>
-                  </g>
-                </svg>
-              </button>
-              <div class="offer-status"></div>
-            </div>
-          </div>
-          <mat-expansion-panel
-            (opened)="openGroup(i)"
-            (closed)="closeGroup(i)"
-            #mep="matExpansionPanel">
-            <mat-expansion-panel-header>
-              <!-- offer preview -->
-              <div class="offer-preview">
-                <div class="offer-info">
-                  <p class="offer-info__date">01.11.2019</p>
-                  <p class="offer-info__vacancy">{{item.title}}</p>
-                  <p class="offer-info__scope">{{item.category}}</p>
-                  <p class="offer-info__company">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70.514 65.286"><path d="M67.76,62.094a2.754,2.754,0,0,0,2.754-2.754V41.16A11.03,11.03,0,0,0,59.5,30.142H47.642V26.551a7.578,7.578,0,0,0-7.57-7.57h-9.63a7.578,7.578,0,0,0-7.57,7.57v3.591H11.018A11.03,11.03,0,0,0,0,41.16v32.09A11.03,11.03,0,0,0,11.018,84.267H59.5A11.03,11.03,0,0,0,70.514,73.249a2.754,2.754,0,0,0-5.509,0A5.515,5.515,0,0,1,59.5,78.758H11.018a5.515,5.515,0,0,1-5.509-5.509V53.687H32.64v4.137a2.754,2.754,0,0,0,5.509,0V53.687H65.005v5.652A2.754,2.754,0,0,0,67.76,62.094ZM28.381,26.551a2.063,2.063,0,0,1,2.061-2.061h9.63a2.063,2.063,0,0,1,2.061,2.061v3.591H28.381V26.551ZM5.509,48.178V41.16a5.515,5.515,0,0,1,5.509-5.509H59.5a5.515,5.515,0,0,1,5.509,5.509v7.019Z" transform="translate(0 -18.981)"/>
-                    </svg>
-                    Model company GmbH
-                  </p>
-                </div>
-              </div>
-            </mat-expansion-panel-header>
-            <!-- offer details -->
-            <div class="offer-details">
-              <div class="offer-details-item">
-                <p class="offer-details-item__label">Place</p>
-                <p class="offer-details-item__info">
-                Osnabrück
-                <span class="field-status field-status_green"></span>
-              </p>
-              </div>
-              <div class="offer-details-item">
-                <p class="offer-details-item__label">Type of enployment</p>
-                <p class="offer-details-item__info">
-                Permanent employment
-                <span class="field-status field-status_red"></span>
-              </p>
-              </div>
-              <div class="offer-details-item">
-                <p class="offer-details-item__label">Working hours</p>
-                <p class="offer-details-item__info">
-                35h / week
-                <span class="field-status field-status_yellow"></span>
-              </p>
-              </div>
-              <div class="offer-details-item">
-                <p class="offer-details-item__label">Collective agreement</p>
-                <p class="offer-details-item__info">
-                No collective agreement
-                <span class="field-status field-status_yellow"></span>
-              </p>
-              </div>
-              <div class="offer-details-item">
-                <p class="offer-details-item__label">Top Skills</p>
-                <div class="offer-skill">
-                  <div class="offer-skill-item green">
-                    <div class="offer-skill-item__circle"></div>
-                    <p class="offer-skill-item__text">Adobe XD</p>
-                  </div>
-                  <div class="offer-skill-item yellow">
-                    <div class="offer-skill-item__circle"></div>
-                    <p class="offer-skill-item__text">Paint</p>
-                  </div>
-                  <div class="offer-skill-item red">
-                    <div class="offer-skill-item__circle"></div>
-                    <p class="offer-skill-item__text">Creativity</p>
-                  </div>
-                </div>
-              </div>
-              <div class="offer-details-item">
-                <p class="offer-details-item__label">Languages</p>
-                <div class="offer-skill">
-                  <div class="offer-skill-item green">
-                    <div class="offer-skill-item__circle"></div>
-                    <p class="offer-skill-item__text">Deutsch</p>
-                  </div>
-                  <div class="offer-skill-item yellow">
-                    <div class="offer-skill-item__circle"></div>
-                    <p class="offer-skill-item__text">Englisch</p>
-                  </div>
-                </div>
-              </div>
-              <button
-                class="apply-btn"
-                (click)="offer(item.id)">
-                Apply now
-              </button>
-            </div>
-          </mat-expansion-panel>
-          <!-- show offer button -->
-          <button
-            class="show-offer-btn"
-            (click)="mep.expanded = !mep.expanded"
-            #i>
-            <i class="material-icons">
-                keyboard_arrow_down
-              </i>
-          </button>
         </div>
+        <div class="profile-avatar-image" *ngIf="user">
+          <img 
+            [src]="user.media.avatar.storagePath"
+            class="profile-avatar-image__item">
+        </div>
+      </div>
+      <div class="profile-details-information">
+        <p class="profile-details-information__name">Hi <span *ngIf="user">{{ user.profile.personal.firstName }}</span>!</p>
+        <p class="profile-details-information__happy">Wir freuen uns, dass Du da bist!</p>
       </div>
     </div>
   </div>
-
+  <div class="info">
+    <div class="container">
+      <p class="info__text">
+        Noch stecken wir Mitten in der Produktentwicklung. Aber wir werden zeitnah Schritt für Schritt <br> 
+        weitere Features ausrollen um Dir das Bewerben zukünftig so einfach wie möglich zu machen.
+      </p>
+      <div class="stubs" style="text-align: center;">
+        <img src="../assets/image/home/1.svg" alt="" class="i1">
+        <img src="../assets/image/home/2.svg" alt="" class="i2">
+      </div>
+    </div>
+  </div>
 </section>

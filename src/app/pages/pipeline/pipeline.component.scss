@@ -1,7 +1,8 @@
 @import "../../theme/variables.scss";
 .pipeline{
   background-color:$primary;
-  min-height: 100vh;
+  min-height: 100%;
+  position: relative;
 }
 .search-header{
   // background-color: $primary;

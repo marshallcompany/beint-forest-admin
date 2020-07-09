@@ -16,18 +16,7 @@ import { MatDialog } from '@angular/material';
 export class HomeComponent implements OnInit {
 
   public user;
-  public acord: Array<any> = [
-    {
-      title: 'Front-end Developer',
-      category: 'Development',
-      id: '1'
-    },
-    {
-      title: 'Back-end Developer',
-      category: 'Development',
-      id: '2'
-    }
-  ];
+
   constructor(
     private matDialog: MatDialog,
     private router: Router,

@@ -1,13 +1,13 @@
 @import "../../theme/variables.scss";
 
 .search{
-  min-height: 100%;
   background-color: $primary;
   position: relative;
+  min-height: 100%;
   // padding:50px 0;
   padding-bottom: 50px;
-  overflow: hidden;
-  overflow-y: auto;
+  // overflow: hidden;
+  // overflow-y: auto;
 }
 
 .spinner{

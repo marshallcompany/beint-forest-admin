@@ -47,9 +47,9 @@ export class EducationComponent implements OnInit, AfterViewInit {
   $apprenticeshipList: Observable<string[]>;
   // $specializationList: Observable<string[]>;
   $degreeList: Observable<string[]>;
-  $skillsList: Observable<string[]>;
   $langList: Observable<string[]>;
 
+  skillsList = [];
   public schoolCityArray = [];
   public schoolCountryArray = [];
 
@@ -123,6 +123,18 @@ export class EducationComponent implements OnInit, AfterViewInit {
           console.log('[ ERROR EDUCATION DATA ]', err);
         }
       );
+  }
+
+  public add = ($event) => {
+    let skillsListCheck = false;
+    this.skillsList.filter(skill => {
+      if (skill === $event) {
+        skillsListCheck = true;
+      }
+    });
+    if (!skillsListCheck) {
+      console.log('go to route');
+    }
   }
 
   public formInit = () => {
@@ -526,7 +538,12 @@ export class EducationComponent implements OnInit, AfterViewInit {
 
   public initDropDownList = () => {
     this.$langList = this.searchService.getLang('de', '');
-    this.$skillsList = this.searchService.getSkills('de', '');
+    this.searchService.getSkills('de', '')
+    .subscribe(
+      res => {
+        this.skillsList = res;
+      }
+    );
     this.$countriesList = this.searchService.getCountries('de', '');
     // this.$specializationList = this.searchService.getSpecializationUniversity('de', '');
     this.$degreeList = this.searchService.getDegreeUniversity('de', '');
