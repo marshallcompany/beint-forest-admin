@@ -15,10 +15,9 @@
         [formGroup]="form"
         *ngIf="form">
         <accordion mode="single">
-          <div class="subcategory-item">
-            <accordion-item #accordion01
-                            (click)="accordionChange(accordion01.expanded)">
-              <div class="accordion-header subcategory-header">
+          <div class="subcategory-item" #accordionItem01>
+            <accordion-item #accordion01>
+              <div class="accordion-header subcategory-header" (click)="accordionChange(accordion01, accordionItem01)">
                 <div class="subcategory-info">
                   <img
                     src="../assets/image/profile/professional-background/subcategory-01.svg"
@@ -396,10 +395,9 @@
               </div>
             </div>
           </div>
-          <div class="subcategory-item">
-            <accordion-item #accordion02 
-                            (click)="accordionChange(accordion02.expanded)">
-              <div class="accordion-header subcategory-header">
+          <div class="subcategory-item" #accordionItem02>
+            <accordion-item #accordion02 >
+              <div class="accordion-header subcategory-header" (click)="accordionChange(accordion02, accordionItem02)">
                 <div class="subcategory-info">
                   <img
                     src="../assets/image/profile/professional-background/subcategory-02.svg"
@@ -721,10 +719,9 @@
               </div>
             </div>
           </div>
-          <div class="subcategory-item">
-            <accordion-item #accordion03
-                            (click)="accordionChange(accordion03.expanded)">
-              <div class="accordion-header subcategory-header">
+          <div class="subcategory-item" #accordionItem03>
+            <accordion-item #accordion03>
+              <div class="accordion-header subcategory-header" (click)="accordionChange(accordion03, accordionItem03)">
                 <div class="subcategory-info">
                   <img
                     src="../assets/image/profile/professional-background/subcategory-03.svg"

@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormGroupName, Validators, FormControl } from '@angular/forms';
 import { FormValidators } from '../../../validators/validators';
 import { ProfileService } from 'src/app/services/profile.service';
 import { NotificationService } from 'src/app/services/notification.service';
-import { map, switchMap, toArray, concatMap, delay } from 'rxjs/operators';
+import { map, switchMap, toArray, concatMap, delay, distinctUntilChanged } from 'rxjs/operators';
 import { MatDialog } from '@angular/material';
 import { SearchService } from 'src/app/services/search.service';
 import { Observable, forkJoin, of, throwError, from } from 'rxjs';
@@ -229,12 +229,23 @@ export class EducationComponent implements OnInit, AfterViewInit {
         });
   }
 
-  public accordionChange = ($event) => {
-    if ($event) {
-      this.accordionsStatus = false;
-    } else {
-      this.accordionsStatus = true;
-    }
+  public accordionChange = ($event: AccordionItemComponent, element: HTMLElement) => {
+    $event.toggleEmitter
+    .pipe(
+      distinctUntilChanged()
+    )
+    .subscribe(
+      res => {
+        if (res.expanded) {
+          this.accordionsStatus = false;
+          setTimeout(() => {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+          }, 500);
+        } else {
+          this.accordionsStatus = true;
+        }
+      }
+    );
   }
 
   public get schoolsArray(): FormArray {

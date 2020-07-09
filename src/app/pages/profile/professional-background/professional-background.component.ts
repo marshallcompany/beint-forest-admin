@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormGroupName, FormControl, Validators } from '@angular/forms';
 import { ProfileService } from '../../../services/profile.service';
-import { map, switchMap, delay, concatMap, toArray } from 'rxjs/operators';
+import { map, switchMap, delay, concatMap, toArray, distinctUntilChanged } from 'rxjs/operators';
 import { Observable, of, throwError, from } from 'rxjs';
 import { SearchService } from '../../../services/search.service';
 import * as moment from 'moment';
@@ -218,23 +218,25 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
           });
   }
 
-  public accordionChange = ($event) => {
-    if ($event) {
-      this.accordionsStatus = false;
-    } else {
-      this.accordionsStatus = true;
-    }
-    // if (eventName === 'open') {
-    //   if (this.accordion01.expanded || this.accordion02.expanded || this.accordion03.expanded) {
-    //     this.accordionsStatus = false;
-    //   }
-    // }
-    // if (eventName === 'close') {
-    //   if (!this.accordion01.expanded && !this.accordion02.expanded && !this.accordion03.expanded) {
-    //     this.accordionsStatus = true;
-    //   }
-    // }
+  public accordionChange = ($event: AccordionItemComponent, element: HTMLElement) => {
+    $event.toggleEmitter
+      .pipe(
+        distinctUntilChanged()
+      )
+      .subscribe(
+        res => {
+          if (res.expanded) {
+            this.accordionsStatus = false;
+            setTimeout(() => {
+              element.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+            }, 500);
+          } else {
+            this.accordionsStatus = true;
+          }
+        }
+      );
   }
+  
   private patchFormValue(searchPreferences) {
     this.form.patchValue({
       workExperience: {

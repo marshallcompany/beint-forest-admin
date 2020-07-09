@@ -18,10 +18,9 @@
         [formGroup]="form"
         *ngIf="form">
         <accordion mode="single">
-          <div class="subcategory-item">
-            <accordion-item #accordion01
-                            (click)="accordionChange(accordion01.expanded)">
-              <div class="accordion-header subcategory-header">
+          <div class="subcategory-item" #accordionItem01>
+            <accordion-item #accordion01>
+              <div class="accordion-header subcategory-header" (click)="accordionChange(accordion01, accordionItem01)">
                 <div class="subcategory-info">
                   <img
                     src="../assets/image/profile/education/subcategory-01.svg"
@@ -300,10 +299,9 @@
               </div>
             </div>
           </div>
-          <div class="subcategory-item">
-            <accordion-item #accordion02
-                            (click)="accordionChange(accordion02.expanded)">
-              <div class="accordion-header subcategory-header">
+          <div class="subcategory-item" #accordionItem02>
+            <accordion-item #accordion02>
+              <div class="accordion-header subcategory-header" (click)="accordionChange(accordion02, accordionItem02)">
                 <div class="subcategory-info">
                   <img
                     src="../assets/image/profile/education/subcategory-02.svg"
@@ -609,10 +607,9 @@
               </div>
             </div>
           </div>
-          <div class="subcategory-item">
-            <accordion-item #accordion03
-                            (click)="accordionChange(accordion03.expanded)">
-              <div class="accordion-header subcategory-header">
+          <div class="subcategory-item" #accordionItem03>
+            <accordion-item #accordion03>
+              <div class="accordion-header subcategory-header" (click)="accordionChange(accordion03, accordionItem03)">
                 <div class="subcategory-info">
                   <img
                     src="../assets/image/profile/education/subcategory-03.svg"
@@ -1015,10 +1012,9 @@
               </div>
             </div>
           </div>
-          <div class="subcategory-item">
-            <accordion-item #accordion04
-                            (click)="accordionChange(accordion04.expanded)">
-              <div class="accordion-header subcategory-header">
+          <div class="subcategory-item" #accordionItem04>
+            <accordion-item #accordion04>
+              <div class="accordion-header subcategory-header" (click)="accordionChange(accordion04, accordionItem04)">
                 <div class="subcategory-info">
                   <img
                     src="../assets/image/profile/education/subcategory-04.svg"
@@ -1236,10 +1232,9 @@
               </div>
             </div>
           </div>
-          <div class="subcategory-item">
-            <accordion-item #accordion05
-                            (click)="accordionChange(accordion05.expanded)">
-              <div class="accordion-header subcategory-header">
+          <div class="subcategory-item" #accordionItem05>
+            <accordion-item #accordion05>
+              <div class="accordion-header subcategory-header" (click)="accordionChange(accordion05, accordionItem05)">
                 <div class="subcategory-info">
                   <img
                     src="../assets/image/profile/education/subcategory-05.svg"
@@ -1393,10 +1388,9 @@
               </div>
             </div>
           </div>
-          <div class="subcategory-item">
-            <accordion-item #accordion06
-                            (click)="accordionChange(accordion06.expanded)">
-              <div class="accordion-header subcategory-header">
+          <div class="subcategory-item" #accordionItem06>
+            <accordion-item #accordion06 (click)="accordionChange(accordion06, accordionItem06)">
+              <div class="accordion-header subcategory-header" >
                 <div class="subcategory-info">
                   <img
                     src="../assets/image/profile/education/subcategory-06.svg"
