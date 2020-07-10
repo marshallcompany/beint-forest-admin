@@ -125,7 +125,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
       );
   }
 
-  public add = ($event) => {
+  public addCustomSkillTag = ($event: string) => {
     let skillsListCheck = false;
     this.skillsList.filter(skill => {
       if (skill === $event) {
@@ -133,7 +133,14 @@ export class EducationComponent implements OnInit, AfterViewInit {
       }
     });
     if (!skillsListCheck) {
-      console.log('go to route');
+      console.log('[ ADD CUSTOM TAG ]');
+      // this.profileService.addCustomSkillTag({name: $event})
+      // .pipe()
+      // .subscribe(
+      //   res => {
+      //     console.log('[ ADD CUSTOM TAG ]');
+      //   }
+      // );
     }
   }
 

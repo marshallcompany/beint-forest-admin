@@ -1279,7 +1279,7 @@
                               placeholder="Deine drei Top Skills"
                               [items]="skillsList"
                               [formControl]="primarySkillsControl"
-                              (add)="add($event)"
+                              (add)="addCustomSkillTag($event)"
                               (change)="formArrayPush($event, primarySkillsArray, 'Deine drei Topskills', primarySkillsElement)"
                               class="custom-select">
                             </ng-select>
@@ -1317,7 +1317,7 @@
                               dropdownPosition="top"
                               [items]="skillsList"
                               [formControl]="secondarySkillsControl"
-                              (add)="add($event)"
+                              (add)="addCustomSkillTag($event)"
                               (change)="formArrayPush($event, secondarySkillsArray, 'Deine weiteren Skills', secondarySkillsElement)"
                               placeholder="weitere Skills"
                               class="custom-select">
