@@ -50,7 +50,7 @@
   &__label{
     font-size: 50px;
     color: #ffffff;
-    font-family: $workSansSemiBold;
+    font-family: $workSansLight;
   }
 }
 @media screen and (max-width: 1500px) {
@@ -81,6 +81,9 @@
   .pipeline{
     background-color: #f9f9f9;
     padding-left: 0;
+  }
+  .category-detail__icon {
+    height: 40px;
   }
   // NEW 
     .search-header{

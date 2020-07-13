@@ -51,10 +51,11 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
   public independentBusinessAreaControl = new FormControl(['']);
   public $countriesList: Observable<string[]>;
 
-  public $citiesList: Observable<string[]>;
-
   public otherExperienceCityArray = [];
   public otherExperienceCountryArray = [];
+
+  public independentExperienceCityArray = [];
+  public independentExperienceCountryArray = [];
 
   currentDate = moment().toDate();
   previousDate = moment().add(-1, 'day').toDate();
@@ -77,8 +78,6 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
     this.$countriesList = this.searchService.getCountries('de', '');
     this.businessArea$ = this.searchService.getBusinessBranches('de', '');
     this.industryArea$ = this.searchService.getIndustryBranches('de', '');
-    // this.$citiesList = this.searchService.getTowns('de', '');
-
   }
 
   ngAfterViewInit() {
@@ -236,7 +235,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
         }
       );
   }
-  
+
   private patchFormValue(searchPreferences) {
     this.form.patchValue({
       workExperience: {
@@ -259,6 +258,10 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
     if (searchPreferences.independentExperience.items.length) {
       searchPreferences.independentExperience.items.forEach(item => {
         this.independentExperienceArray.push(this.createFormGroup(item, 'independentExperience'));
+        if (item && item.country) {
+          this.independentExperienceCountryArray.push(item.country);
+          this.residenceChanges(this.independentExperienceCountryArray, 'independentExperience');
+        }
       });
     }
     if (searchPreferences.otherExperience.items.length) {
@@ -284,6 +287,9 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
           switch (arrayCity) {
             case 'otherExperience':
               this.otherExperienceCityArray = res;
+              break;
+            case 'independentExperience':
+              this.independentExperienceCityArray = res;
               break;
             default:
               break;
