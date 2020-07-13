@@ -28,6 +28,9 @@ import { TermsUseComponent } from '../components/terms-use/terms-use.component';
 import { PrivacyPolicyComponent } from '../components/privacy-policy/privacy-policy.component';
 import { MiscellaneousComponent } from '../pages/profile/miscellaneous/miscellaneous.component';
 import { RegistrationComponent } from '../pages/auth/registration/registration.component';
+import { SupportComponent } from '../pages/settings/support/support.component';
+import { EmailResetComponent } from '../pages/auth/email-reset/email-reset.component';
+import { NotificationComponent } from '../pages/settings/notification/notification.component';
 
 
 
@@ -59,12 +62,15 @@ const routes: Route[] = [
   { path: 'offer/:jobId', component: OfferComponent, canActivate: [AuthGuard] },
   { path: 'offer-thanks', component: OfferThanksComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: '/home', pathMatch: 'full', canActivate: [AuthGuard] },
-  { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
   { path: 'search', component: SearchComponent, canActivate: [AuthGuard] },
   { path: 'pipeline', component: PipelineComponent, canActivate: [AuthGuard] },
+  { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
   { path: 'settings/password-reset', component: PasswordResetComponent },
   { path: 'settings/terms-of-use', component: TermsUseComponent },
   { path: 'settings/privacy-policy', component: PrivacyPolicyComponent },
+  { path: 'settings/support', component: SupportComponent },
+  { path: 'settings/email-reset', component: EmailResetComponent },
+  { path: 'settings/notification', component: NotificationComponent },
   { path: '**', component: NotFoundComponent }
 ];
 @NgModule({

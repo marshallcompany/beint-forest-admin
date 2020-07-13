@@ -12,6 +12,7 @@ import { DownloadFileService } from './services/download-file.service';
 import { Interceptors } from './interceptors/index';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CommonModule } from '@angular/common';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { HttpMultiLoaderServiceService } from './services/http-multi-loader-service';
@@ -67,6 +68,12 @@ import { ConfirmEmailComponent } from './components/modal/confirm-email/confirm-
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 
+import { AccordionModule } from './components/accordion/accordion.module';
+import { CvOptionModalComponent } from './components/modal/cv-option/cv-option-modal.component';
+import { CvOptionComponent } from './components/sheet/cv-option/cv-option.component';
+import { SupportComponent } from './pages/settings/support/support.component';
+import { EmailResetComponent } from './pages/auth/email-reset/email-reset.component';
+import { NotificationComponent } from './pages/settings/notification/notification.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -87,6 +94,8 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     AppComponent,
     LoginComponent,
     ProfileComponent,
+    CvOptionModalComponent,
+    CvOptionComponent,
     NotFoundComponent,
     HomeComponent,
     PersonalComponent,
@@ -119,11 +128,15 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     MiscellaneousComponent,
     AuthComponent,
     RegistrationComponent,
-    ConfirmEmailComponent
+    ConfirmEmailComponent,
+    SupportComponent,
+    EmailResetComponent,
+    NotificationComponent
   ],
   imports: [
     RoutingModule,
     BrowserModule,
+    AccordionModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
@@ -141,6 +154,7 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
       }
     }),
     BrowserAnimationsModule,
+    CommonModule,
     MaterialModule,
     NgCircleProgressModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
@@ -167,6 +181,8 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     ConfirmModalComponent,
     ImageChoiceComponent,
     CropperComponent,
+    CvOptionModalComponent,
+    CvOptionComponent,
     DocumentOptionComponent,
     DocumentOptionModalComponent,
     FileRenameComponent,

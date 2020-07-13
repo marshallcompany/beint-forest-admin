@@ -1,16 +1,16 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormGroupName, FormControl, Validators } from '@angular/forms';
 import { ProfileService } from '../../../services/profile.service';
-import { map, switchMap, delay, concatMap, toArray } from 'rxjs/operators';
+import { map, switchMap, delay, concatMap, toArray, distinctUntilChanged } from 'rxjs/operators';
 import { Observable, of, throwError, from } from 'rxjs';
 import { SearchService } from '../../../services/search.service';
 import * as moment from 'moment';
 import { forkJoin } from 'rxjs';
 import { NotificationService } from 'src/app/services/notification.service';
 
-import { MatExpansionPanel } from '@angular/material/expansion';
 import { MatDialog } from '@angular/material';
 import { ConfirmModalComponent } from 'src/app/components/modal/confirm/confirm-modal.component';
+import { AccordionItemComponent } from 'src/app/components/accordion/accordion-item.component';
 
 
 @Component({
@@ -21,9 +21,9 @@ import { ConfirmModalComponent } from 'src/app/components/modal/confirm/confirm-
 export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
   public accordionsStatus: boolean;
 
-  @ViewChild('accordion01', { static: false }) accordion01: MatExpansionPanel;
-  @ViewChild('accordion02', { static: false }) accordion02: MatExpansionPanel;
-  @ViewChild('accordion03', { static: false }) accordion03: MatExpansionPanel;
+  @ViewChild('accordion01', { static: false }) accordion01: AccordionItemComponent;
+  @ViewChild('accordion02', { static: false }) accordion02: AccordionItemComponent;
+  @ViewChild('accordion03', { static: false }) accordion03: AccordionItemComponent;
 
   businessArea$: Observable<Array<string>>;
   industryArea$: Observable<Array<string>>;
@@ -51,10 +51,11 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
   public independentBusinessAreaControl = new FormControl(['']);
   public $countriesList: Observable<string[]>;
 
-  public $citiesList: Observable<string[]>;
-
   public otherExperienceCityArray = [];
   public otherExperienceCountryArray = [];
+
+  public independentExperienceCityArray = [];
+  public independentExperienceCountryArray = [];
 
   currentDate = moment().toDate();
   previousDate = moment().add(-1, 'day').toDate();
@@ -77,8 +78,6 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
     this.$countriesList = this.searchService.getCountries('de', '');
     this.businessArea$ = this.searchService.getBusinessBranches('de', '');
     this.industryArea$ = this.searchService.getIndustryBranches('de', '');
-    // this.$citiesList = this.searchService.getTowns('de', '');
-
   }
 
   ngAfterViewInit() {
@@ -192,7 +191,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
   }
 
   public onOpenAccordion() {
-    this.accordion01.opened
+    this.accordion01.toggleEmitter
       .subscribe(
         ($event) => {
           if (this.employmentConditionsArray.controls.length) {
@@ -200,7 +199,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
           }
           this.employmentConditionsArray.push((this.createFormGroup(null, 'employmentConditions')));
         }),
-      this.accordion02.opened
+      this.accordion02.toggleEmitter
         .subscribe(
           ($event) => {
             if (this.independentExperienceArray.controls.length) {
@@ -208,7 +207,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
             }
             this.independentExperienceArray.push(this.createFormGroup(null, 'independentExperience'));
           }),
-      this.accordion03.opened
+      this.accordion03.toggleEmitter
         .subscribe(
           ($event) => {
             if (this.otherExperienceArray.controls.length) {
@@ -216,6 +215,25 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
             }
             this.otherExperienceArray.push(this.createFormGroup(null, 'otherExperience'));
           });
+  }
+
+  public accordionChange = ($event: AccordionItemComponent, element: HTMLElement) => {
+    $event.toggleEmitter
+      .pipe(
+        distinctUntilChanged()
+      )
+      .subscribe(
+        res => {
+          if (res.expanded) {
+            this.accordionsStatus = false;
+            setTimeout(() => {
+              element.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+            }, 500);
+          } else {
+            this.accordionsStatus = true;
+          }
+        }
+      );
   }
 
   private patchFormValue(searchPreferences) {
@@ -240,6 +258,10 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
     if (searchPreferences.independentExperience.items.length) {
       searchPreferences.independentExperience.items.forEach(item => {
         this.independentExperienceArray.push(this.createFormGroup(item, 'independentExperience'));
+        if (item && item.country) {
+          this.independentExperienceCountryArray.push(item.country);
+          this.residenceChanges(this.independentExperienceCountryArray, 'independentExperience');
+        }
       });
     }
     if (searchPreferences.otherExperience.items.length) {
@@ -265,6 +287,9 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
           switch (arrayCity) {
             case 'otherExperience':
               this.otherExperienceCityArray = res;
+              break;
+            case 'independentExperience':
+              this.independentExperienceCityArray = res;
               break;
             default:
               break;
@@ -311,20 +336,6 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
     this.submit('bis heute');
   }
 
-  public accordionChange = (eventName: string) => {
-    if (eventName === 'open') {
-      if (this.accordion01.expanded || this.accordion02.expanded || this.accordion03.expanded) {
-        this.accordionsStatus = false;
-      }
-    }
-    if (eventName === 'close') {
-      if (!this.accordion01.expanded && !this.accordion02.expanded && !this.accordion03.expanded) {
-        this.accordionsStatus = true;
-      }
-    }
-  }
-
-
   public deleteFormGroup = (nameArray: FormArray, index: number, formGroupName?: string, cityArray?: Array<string>) => {
     const FormGroupValue = nameArray.at(index).value;
     let FormGroupStatus = false;
@@ -346,13 +357,17 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
         .subscribe(
           dialog => {
             if (nameArray && formGroupName && nameArray.controls.length < 2) {
+              if (cityArray) {
+                cityArray.splice(index, 1);
+              }
               nameArray.removeAt(index);
-              cityArray.splice(index, 1);
               nameArray.push(this.createFormGroup({}, formGroupName));
               this.submit();
             } else {
+              if (cityArray) {
+                cityArray.splice(index, 1);
+              }
               nameArray.removeAt(index);
-              cityArray.splice(index, 1);
               this.submit();
             }
           },

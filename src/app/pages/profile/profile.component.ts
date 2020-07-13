@@ -13,6 +13,9 @@ import { CropperComponent } from 'src/app/components/modal/cropper/cropper.compo
 import { UploadFileService } from 'src/app/services/upload-file.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { ConfirmEmailComponent } from 'src/app/components/modal/confirm-email/confirm-email.component';
+import { DownloadFileService } from 'src/app/services/download-file.service';
+import { CvOptionModalComponent } from '../../components/modal/cv-option/cv-option-modal.component';
+import { CvOptionComponent } from 'src/app/components/sheet/cv-option/cv-option.component';
 
 interface Category {
   name: string;
@@ -32,9 +35,11 @@ export class ProfileComponent implements OnInit {
   public imageUrl: string;
   public spinner = false;
   public childrenRoutes: boolean;
+  public cvOption$: Observable<any>;
 
   constructor(
     public rf: ChangeDetectorRef,
+    public downloadFileService: DownloadFileService,
     private router: Router,
     private profileService: ProfileService,
     private bottomSheet: MatBottomSheet,
@@ -42,16 +47,17 @@ export class ProfileComponent implements OnInit {
     private uploadFileService: UploadFileService,
     private globalErrorService: GlobalErrorService,
     private notificationService: NotificationService,
+
   ) {
     this.childrenRoutes = false;
     this.categories = [
-      { name: 'Persönliches & Kontakt', icon: '../assets/image/profile/category-01.svg', path: ['profile/personal'] },
-      { name: 'Berufliche Ausbildung', icon: '../assets/image/profile/category-02.svg', path: ['profile/education'] },
-      { name: 'Beruflicher Werdegang', icon: '../assets/image/profile/category-03.svg', path: ['profile/professional-background'] },
-      { name: 'Such-Präferenzen', icon: '../assets/image/profile/category-04.svg', path: ['profile/search-settings'] },
-      { name: 'Dokumente', icon: '../assets/image/profile/category-05.svg', path: ['profile/document'] },
-      { name: 'Sonstiges', icon: '../assets/image/profile/category-06.svg', path: ['profile/miscellaneous'] },
-      { name: 'Ich über mich', icon: '../assets/image/profile/category-07.svg', path: ['profile/about'] }
+      { name: 'Persönliches <br> & Kontakt', icon: 'category-01', path: ['profile/personal'] },
+      { name: 'Ausbildung', icon: 'category-02', path: ['profile/education'] },
+      { name: 'Beruflicher <br> Werdegang', icon: 'category-03', path: ['profile/professional-background'] },
+      { name: 'Such- <br> Präferenzen', icon: 'category-04', path: ['profile/search-settings'] },
+      { name: 'Dokumente', icon: 'category-05', path: ['profile/document'] },
+      { name: 'Sonstiges', icon: 'category-06', path: ['profile/miscellaneous'] },
+      { name: 'Ich über mich', icon: 'category-07', path: ['profile/about'] }
     ];
   }
 
@@ -96,6 +102,29 @@ export class ProfileComponent implements OnInit {
         },
         () => {
           console.log('[ PROFILE DONE ]');
+        }
+      );
+  }
+
+  public onPdfOption = () => {
+    if (window.innerWidth < 568) {
+      this.cvOption$ = this.bottomSheet.open(CvOptionComponent, { panelClass: 'cv-option-sheet' }).afterDismissed();
+    } else {
+      this.cvOption$ = this.matDialog.open(CvOptionModalComponent, { panelClass: 'cv-option-dialog' }).afterClosed();
+    }
+    this.cvOption$
+      .pipe()
+      .subscribe(
+        res => {
+          if (res === 'download') {
+            this.downloadFileService.downloadCandidateCv();
+          }
+          if (res === 'open') {
+            this.downloadFileService.openCandidateCv();
+          }
+        },
+        err => {
+          console.log('[ PDF OPTION ERROR ]', err);
         }
       );
   }

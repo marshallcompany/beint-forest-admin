@@ -3,12 +3,13 @@ import { FormBuilder, FormGroup, FormArray, FormGroupName, Validators, FormContr
 import { FormValidators } from '../../../validators/validators';
 import { ProfileService } from 'src/app/services/profile.service';
 import { NotificationService } from 'src/app/services/notification.service';
-import { map, switchMap, toArray, concatMap, delay } from 'rxjs/operators';
-import { MatExpansionPanel, MatDialog } from '@angular/material';
+import { map, switchMap, toArray, concatMap, delay, distinctUntilChanged } from 'rxjs/operators';
+import { MatDialog } from '@angular/material';
 import { SearchService } from 'src/app/services/search.service';
 import { Observable, forkJoin, of, throwError, from } from 'rxjs';
 import * as moment from 'moment';
 import { ConfirmModalComponent } from 'src/app/components/modal/confirm/confirm-modal.component';
+import { AccordionItemComponent } from 'src/app/components/accordion/accordion-item.component';
 
 interface DropDownOptions {
   school_types: Array<string[]>;
@@ -34,21 +35,21 @@ export class EducationComponent implements OnInit, AfterViewInit {
   };
 
   public accordionsStatus: boolean;
-  @ViewChild('accordion01', { static: false }) accordion01: MatExpansionPanel;
-  @ViewChild('accordion02', { static: false }) accordion02: MatExpansionPanel;
-  @ViewChild('accordion03', { static: false }) accordion03: MatExpansionPanel;
-  @ViewChild('accordion04', { static: false }) accordion04: MatExpansionPanel;
-  @ViewChild('accordion05', { static: false }) accordion05: MatExpansionPanel;
-  @ViewChild('accordion06', { static: false }) accordion06: MatExpansionPanel;
+  @ViewChild('accordion01', { static: false }) accordion01: AccordionItemComponent;
+  @ViewChild('accordion02', { static: false }) accordion02: AccordionItemComponent;
+  @ViewChild('accordion03', { static: false }) accordion03: AccordionItemComponent;
+  @ViewChild('accordion04', { static: false }) accordion04: AccordionItemComponent;
+  @ViewChild('accordion05', { static: false }) accordion05: AccordionItemComponent;
+  @ViewChild('accordion06', { static: false }) accordion06: AccordionItemComponent;
 
   $countriesList: Observable<string[]>;
 
   $apprenticeshipList: Observable<string[]>;
-  $specializationList: Observable<string[]>;
+  // $specializationList: Observable<string[]>;
   $degreeList: Observable<string[]>;
-  $skillsList: Observable<string[]>;
   $langList: Observable<string[]>;
 
+  skillsList = [];
   public schoolCityArray = [];
   public schoolCountryArray = [];
 
@@ -124,6 +125,25 @@ export class EducationComponent implements OnInit, AfterViewInit {
       );
   }
 
+  public addCustomSkillTag = ($event: string) => {
+    let skillsListCheck = false;
+    this.skillsList.filter(skill => {
+      if (skill === $event) {
+        skillsListCheck = true;
+      }
+    });
+    if (!skillsListCheck) {
+      console.log('[ ADD CUSTOM TAG ]');
+      // this.profileService.addCustomSkillTag({name: $event})
+      // .pipe()
+      // .subscribe(
+      //   res => {
+      //     console.log('[ ADD CUSTOM TAG ]');
+      //   }
+      // );
+    }
+  }
+
   public formInit = () => {
     this.form = this.fb.group({
       education: this.fb.group({
@@ -174,7 +194,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
   }
 
   public onOpenAccordion() {
-    this.accordion01.opened
+    this.accordion01.toggleEmitter
       .subscribe(
         ($event) => {
           if (this.schoolsArray.controls.length) {
@@ -182,7 +202,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
           }
           this.schoolsArray.push((this.createFormGroup({}, 'schools')));
         }),
-      this.accordion02.opened
+    this.accordion02.toggleEmitter
         .subscribe(
           ($event) => {
             if (this.specialEducationArray.controls.length) {
@@ -190,7 +210,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
             }
             this.specialEducationArray.push(this.createFormGroup({}, 'specialEducation'));
           });
-    this.accordion03.opened
+    this.accordion03.toggleEmitter
       .subscribe(
         ($event) => {
           if (this.universitiesArray.controls.length) {
@@ -198,7 +218,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
           }
           this.universitiesArray.push(this.createFormGroup({}, 'universities'));
         });
-    this.accordion04.opened
+    this.accordion04.toggleEmitter
       .subscribe(
         ($event) => {
           if (this.additionalEducationsArray.controls.length) {
@@ -206,7 +226,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
           }
           this.additionalEducationsArray.push(this.createFormGroup({}, 'additionalEducations'));
         });
-    this.accordion06.opened
+    this.accordion06.toggleEmitter
       .subscribe(
         ($event) => {
           if (this.linguisticProficiencyArray.controls.length) {
@@ -214,6 +234,25 @@ export class EducationComponent implements OnInit, AfterViewInit {
           }
           this.linguisticProficiencyArray.push(this.createFormGroup({}, 'linguisticProficiency'));
         });
+  }
+
+  public accordionChange = ($event: AccordionItemComponent, element: HTMLElement) => {
+    $event.toggleEmitter
+    .pipe(
+      distinctUntilChanged()
+    )
+    .subscribe(
+      res => {
+        if (res.expanded) {
+          this.accordionsStatus = false;
+          setTimeout(() => {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+          }, 500);
+        } else {
+          this.accordionsStatus = true;
+        }
+      }
+    );
   }
 
   public get schoolsArray(): FormArray {
@@ -307,7 +346,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
       case 'universities':
         return this.fb.group({
           degreeProgramTitle: [data && data.degreeProgramTitle ? data.degreeProgramTitle : '', Validators.required],
-          specialization: [data && data.specialization ? data.specialization : null, Validators.required],
+          // specialization: [data && data.specialization ? data.specialization : null, Validators.required],
           dateStart: [data && data.dateStart ? data.dateStart : null, Validators.required],
           dateEnd: [data && data.dateEnd ? data.dateEnd : null],
           country: [data && data.country ? data.country : null, Validators.required],
@@ -487,13 +526,17 @@ export class EducationComponent implements OnInit, AfterViewInit {
         .subscribe(
           dialog => {
             if (nameArray && formGroupName && nameArray.controls.length < 2) {
+              if (cityArray) {
+                cityArray.splice(index, 1);
+              }
               nameArray.removeAt(index);
-              cityArray.splice(index, 1);
               nameArray.push(this.createFormGroup({}, formGroupName));
               this.submit();
             } else {
+              if (cityArray) {
+                cityArray.splice(index, 1);
+              }
               nameArray.removeAt(index);
-              cityArray.splice(index, 1);
               this.submit();
             }
           },
@@ -513,9 +556,14 @@ export class EducationComponent implements OnInit, AfterViewInit {
 
   public initDropDownList = () => {
     this.$langList = this.searchService.getLang('de', '');
-    this.$skillsList = this.searchService.getSkills('de', '');
+    this.searchService.getSkills('de', '')
+    .subscribe(
+      res => {
+        this.skillsList = res;
+      }
+    );
     this.$countriesList = this.searchService.getCountries('de', '');
-    this.$specializationList = this.searchService.getSpecializationUniversity('de', '');
+    // this.$specializationList = this.searchService.getSpecializationUniversity('de', '');
     this.$degreeList = this.searchService.getDegreeUniversity('de', '');
     this.$apprenticeshipList = this.searchService.getProfessionalEducation('de', '');
   }
@@ -526,23 +574,6 @@ export class EducationComponent implements OnInit, AfterViewInit {
       group.get('dateEnd').setValue('');
     }
     this.submit('bis heute');
-  }
-
-  public accordionChange = (eventName: string) => {
-    if (eventName === 'open') {
-      if (this.accordion01.expanded || this.accordion02.expanded
-          || this.accordion03.expanded || this.accordion04.expanded
-          || this.accordion05.expanded || this.accordion06.expanded) {
-        this.accordionsStatus = false;
-      }
-    }
-    if (eventName === 'close') {
-      if (!this.accordion01.expanded && !this.accordion02.expanded
-          && !this.accordion03.expanded && !this.accordion04.expanded
-          && !this.accordion05.expanded && !this.accordion06.expanded) {
-        this.accordionsStatus = true;
-      }
-    }
   }
 
 

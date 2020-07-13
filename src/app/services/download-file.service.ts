@@ -34,4 +34,22 @@ export class DownloadFileService {
         () => console.log('[ DONE DOWNLOAD CV ]')
       );
   }
+
+  public openCandidateCv = () => {
+    this.http.get(this.apiRoutes.GET_CANDIDATE_CV, {
+      headers: new HttpHeaders({ 'Content-Type': 'application/pdf' }), responseType: 'blob'
+    })
+    .pipe()
+    .subscribe(
+      res => {
+        const url = window.URL.createObjectURL(res);
+        window.open(url, '_blank');
+      },
+      err => {
+        console.log('[ ERROR OPEN CV ]', err);
+        this.globalErrorService.handleError(err);
+      },
+      () => console.log('[ DONE OPEN CV ]')
+    );
+  }
 }

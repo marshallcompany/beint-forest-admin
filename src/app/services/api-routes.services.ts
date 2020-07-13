@@ -40,6 +40,8 @@ export class ApiRoutesProvider {
   public readonly UPDATE_PASSWORD_MAIL: string;
   public readonly RESEND_VERIFICATION_EMAIL: string;
 
+  public readonly ADD_CUSTOM_SKILL_TAG: string;
+
 
   constructor() {
     this.BASE_API_URL = environment.BASE_API_URL;
@@ -58,9 +60,7 @@ export class ApiRoutesProvider {
     this.GET_TOWNS_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/towns/:lang`;
     this.GET_COUNTRIES_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/countries/:lang`;
     this.GET_ZIP_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/zipCodes/:lang`;
-
     this.GET_NATIONALITIES_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/nationalities/:lang`;
-
     this.GET_EDUCATION_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/professionalEducation/:lang`;
     this.GET_SPECIALIZATION_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/universitySpecialization/:lang`;
     this.GET_DEGREE_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/universityDegree/:lang`;
@@ -78,5 +78,7 @@ export class ApiRoutesProvider {
     this.UPDATE_PASSWORD = `${this.BASE_API_URL}/api/v1/auth/password`;
     this.UPDATE_PASSWORD_MAIL = `${this.BASE_API_URL}/api/v1/auth/password/reset`;
     this.RESEND_VERIFICATION_EMAIL = `${this.BASE_API_URL}/api/v1/auth/resend-verification-email`;
+
+    this.ADD_CUSTOM_SKILL_TAG = `${this.BASE_API_URL}/api/v1/skills`;
   }
 }
