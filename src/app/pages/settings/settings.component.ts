@@ -31,7 +31,7 @@ export class SettingsComponent implements OnInit {
   ) {
     this.setting = [
       { icon: '../assets/image/settings/icon-01.svg', label: 'Passwort ändern', class: 'setting-button', event: 'password-reset' },
-      { icon: '../assets/image/settings/icon-02.svg', label: 'Email Adresse ändern', class: 'setting-button', event: 'email-reset' },
+      { icon: '../assets/image/settings/icon-02.svg', label: 'E-Mail Adresse ändern', class: 'setting-button', event: 'email-reset' },
       { icon: '../assets/image/settings/icon-03.svg', label: 'Nutzungsbedingungen', class: 'setting-button', event: 'terms-use' },
       { icon: '../assets/image/settings/icon-04.svg', label: 'Datenschutzbestimmungen', class: 'setting-button', event: 'privacy-policy' },
       { icon: '../assets/image/settings/icon-05.svg', label: 'Support und Feedback', class: 'setting-button', event: 'support' },

@@ -36,12 +36,12 @@
                       <div
                         class="field"
                         [ngClass]="{notRelevant : this.form.get('miscellaneous').get('hobbies').get('isNotRelevant').value}">
-                        <p class="field__label">Deine Hobby</p>
+                        <p class="field__label">Deine Hobbys</p>
                         <div class="field-wrapper">
                           <input
                             type="text"
                             maxlength="100"
-                            placeholder="Deine Hobby"
+                            placeholder="Deine Hobbys"
                             class="field-wrapper__input"
                             [formControl]="hobbiesControl"
                             (change)="formArrayPush(hobbiesControl, hobbiesArray)">
@@ -404,15 +404,15 @@
                         <div
                           class="field"
                           [ngClass]="{notRelevant : this.form.get('miscellaneous').get('publications').get('isNotRelevant').value}">
-                          <p class="field__label">Art der Veröffentlichungen</p>
+                          <p class="field__label">Art der Veröffentlichung</p>
                           <div class="field-wrapper">
                             <input
                               type="text"
                               maxlength="100"
-                              placeholder="Art der Veröffentlichungen"
+                              placeholder="Art der Veröffentlichung"
                               class="field-wrapper__input"
                               formControlName="publicationType"
-                              (change)="submit('Art der Veröffentlichungen')">
+                              (change)="submit('Art der Veröffentlichung')">
                             <div class="field-wrapper__type">abc</div>
                             <div
                               class="field-wrapper__status"
@@ -460,7 +460,7 @@
                           <div
                               class="field field_datapicker"
                               [ngClass]="{notRelevant : this.form.get('miscellaneous').get('publications').get('isNotRelevant').value}">
-                              <p class="field__label">Datum der Veröffentlichung</p>
+                              <p class="field__label">Datum der Auszeichnung</p>
                               <div
                                 class="field-wrapper"
                                 [owlDateTimeTrigger]="dt1">
@@ -470,7 +470,7 @@
                                   class="field-wrapper__input"
                                   formControlName="datePublished"
                                   placeholder="DD/MM/YYYY"
-                                  (dateTimeChange)="submit('Datum der Veröffentlichung')">
+                                  (dateTimeChange)="submit('Datum der Auszeichnung')">
                                 <owl-date-time
                                   #dt1
                                   pickerMode="dialog"
