@@ -16,9 +16,9 @@
             <path d="M68.71 68.71C87.6837 68.71 103.065 53.3287 103.065 34.355C103.065 15.3813 87.6837 0 68.71 0C49.7362 0 34.355 15.3813 34.355 34.355C34.3495 53.3232 49.7218 68.7045 68.6899 68.71C68.6967 68.71 68.7034 68.71 68.71 68.71ZM68.71 85.887C45.778 85.887 0 97.4 0 120.242V137.419H137.419V120.242C137.419 97.4 91.641 85.887 68.71 85.887Z" fill="#F4F4F4"/>
           </svg>
         </div>
-        <div class="profile-avatar-image" *ngIf="user">
+        <div class="profile-avatar-image" *ngIf="imageUrl">
           <img 
-            [src]="user.media.avatar.storagePath"
+            [src]="imageUrl"
             class="profile-avatar-image__item">
         </div>
       </div>
