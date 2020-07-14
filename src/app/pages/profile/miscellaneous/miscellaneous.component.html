@@ -460,7 +460,7 @@
                           <div
                               class="field field_datapicker"
                               [ngClass]="{notRelevant : this.form.get('miscellaneous').get('publications').get('isNotRelevant').value}">
-                              <p class="field__label">Datum der Auszeichnung</p>
+                              <p class="field__label">Datum der Veröffentlichung</p>
                               <div
                                 class="field-wrapper"
                                 [owlDateTimeTrigger]="dt1">
@@ -470,7 +470,7 @@
                                   class="field-wrapper__input"
                                   formControlName="datePublished"
                                   placeholder="DD/MM/YYYY"
-                                  (dateTimeChange)="submit('Datum der Auszeichnung')">
+                                  (dateTimeChange)="submit('Datum der Veröffentlichung')">
                                 <owl-date-time
                                   #dt1
                                   pickerMode="dialog"
@@ -669,7 +669,7 @@
                         <div
                           class="field field_datapicker"
                           [ngClass]="{notRelevant : this.form.get('miscellaneous').get('awards').get('isNotRelevant').value}">
-                          <p class="field__label">Datum der Veröffentlichung</p>
+                          <p class="field__label">Datum der Auszeichnung</p>
                           <div
                             class="field-wrapper"
                             [owlDateTimeTrigger]="dt1">
@@ -679,7 +679,7 @@
                               class="field-wrapper__input"
                               formControlName="receivedAt"
                               placeholder="DD/MM/YYYY"
-                              (dateTimeChange)="submit('Datum der Veröffentlichung')">
+                              (dateTimeChange)="submit('Datum der Auszeichnung')">
                             <owl-date-time
                               #dt1
                               pickerMode="dialog"
