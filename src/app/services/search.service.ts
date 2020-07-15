@@ -95,13 +95,9 @@ export class SearchService {
     });
   }
 
-  public getSkills(lang, query): Observable<string[]> {
-    const url = this.apiRoutes.GET_SKILLS_SCHEMA.replace(':lang', lang);
-    return this.http.get<any>(url, {
-      params: {
-        filter: query
-      }
-    });
+  public getSkills(lang): Observable<string[]> {
+    const url = this.apiRoutes.GET_SKILLS.replace(':lang', lang);
+    return this.http.get<any>(url);
   }
 
   public getLang(lang, query): Observable<string[]> {

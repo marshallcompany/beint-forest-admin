@@ -24,7 +24,6 @@ export class ApiRoutesProvider {
   public readonly GET_DEGREE_SCHEMA: string;
   public readonly GET_SPECIALIZATION_SCHEMA: string;
   public readonly GET_ZIP_SCHEMA: string;
-  public readonly GET_SKILLS_SCHEMA: string;
   public readonly GET_LANG_SCHEMA: string;
   public readonly GET_NATIONALITIES_SCHEMA;
   public readonly GET_LINK_IMAGE: string;
@@ -40,7 +39,8 @@ export class ApiRoutesProvider {
   public readonly UPDATE_PASSWORD_MAIL: string;
   public readonly RESEND_VERIFICATION_EMAIL: string;
 
-  public readonly ADD_CUSTOM_SKILL_TAG: string;
+  public readonly GET_SKILLS: string;
+  public readonly CREATE_SKILLS: string;
 
 
   constructor() {
@@ -64,7 +64,6 @@ export class ApiRoutesProvider {
     this.GET_EDUCATION_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/professionalEducation/:lang`;
     this.GET_SPECIALIZATION_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/universitySpecialization/:lang`;
     this.GET_DEGREE_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/universityDegree/:lang`;
-    this.GET_SKILLS_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/skills/:lang`;
     this.GET_LANG_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/languages/:lang`;
     this.GET_LINK_IMAGE = `${this.BASE_API_URL}/api/v1/profile/avatar`;
     this.UPDATE_PROFILE_AVATAR = `${this.BASE_API_URL}/api/v1/profile/avatar`;
@@ -79,6 +78,7 @@ export class ApiRoutesProvider {
     this.UPDATE_PASSWORD_MAIL = `${this.BASE_API_URL}/api/v1/auth/password/reset`;
     this.RESEND_VERIFICATION_EMAIL = `${this.BASE_API_URL}/api/v1/auth/resend-verification-email`;
 
-    this.ADD_CUSTOM_SKILL_TAG = `${this.BASE_API_URL}/api/v1/skills`;
+    this.GET_SKILLS = `${this.BASE_API_URL}/api/v1/skills/:lang`;
+    this.CREATE_SKILLS = `${this.BASE_API_URL}/api/v1/skills/:lang`;
   }
 }
