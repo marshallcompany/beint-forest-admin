@@ -315,7 +315,7 @@
               <div
                 class="subcategory-preview-item"
                 *ngFor="let item of form.get('miscellaneous').get('volunteering').get('items').controls; let i = index">
-                <ng-container *ngIf="item.valid; else notValid">
+                <ng-container *ngIf="item.valid && (item.get('dateTo').value || item.get('tilToday').value); else notValid">
                   <div class="subcategory-preview-info" (click)="accordion02.expanded = !accordion02.expanded">
                     <p class="subcategory-preview-info__number">
                       <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
@@ -323,7 +323,12 @@
                     <div class="subcategory-preview-info__details">
                       <p class="subcategory-preview-info__species">{{ item.get('volunteeringTitle').value }}</p>
                       <div class="subcategory-preview-info__circle"></div>
-                      <p class="subcategory-preview-info__date">{{ item.get('dateFrom').value | date: 'MM/yyyy' }} - {{ item.get('dateTo').value | date: 'MM/yyyy' }}</p>
+                      <p class="subcategory-preview-info__date">
+                        <span>{{ item.get('dateFrom').value | date: 'MM/yyyy' }}</span>
+                        - 
+                        <span>{{ item.get('dateTo').value | date: 'MM/yyyy' }}</span>
+                        <span *ngIf="item.get('tilToday').value">bis heute</span>
+                      </p>
                     </div>
                   </div>
                   <button

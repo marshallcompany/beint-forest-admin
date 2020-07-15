@@ -266,7 +266,7 @@
               <div
                 class="subcategory-preview-item"
                 *ngFor="let item of form.get('education').get('schools').controls; let i = index">
-                <ng-container *ngIf="item.valid; else notValid">
+                <ng-container *ngIf="item.valid && (item.get('dateEnd').value || item.get('tilToday').value); else notValid">
                   <div class="subcategory-preview-info" (click)="accordion01.expanded = !accordion01.expanded">
                     <p class="subcategory-preview-info__number">
                       <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
@@ -274,7 +274,12 @@
                     <div class="subcategory-preview-info__details">
                       <p class="subcategory-preview-info__species">{{ item.get('schoolName').value }}</p>
                       <div class="subcategory-preview-info__circle"></div>
-                      <p class="subcategory-preview-info__date">{{ item.get('dateStart').value | date: 'MM/yyyy' }} - {{ item.get('dateEnd').value | date: 'MM/yyyy' }}</p>
+                      <p class="subcategory-preview-info__date">
+                        <span>{{ item.get('dateStart').value | date: 'MM/yyyy' }}</span> 
+                        - 
+                        <span>{{ item.get('dateEnd').value | date: 'MM/yyyy' }}</span>
+                        <span *ngIf="item.get('tilToday').value">bis heute</span>
+                      </p>
                       <div class="subcategory-preview-info__circle"></div>
                       <p class="subcategory-preview-info__scope">{{ item.get('schoolType').value }}</p>
                     </div>
@@ -567,7 +572,7 @@
               <div
                 class="subcategory-preview-item"
                 *ngFor="let item of form.get('education').get('specialEducation').get('items').controls; let i = index">
-                <ng-container *ngIf="item.valid; else notValid">
+                <ng-container *ngIf="item.valid && (item.get('dateEnd').value || item.get('tilToday').value); else notValid">
                   <div class="subcategory-preview-info" (click)="accordion02.expanded = !accordion02.expanded">
                     <p class="subcategory-preview-info__number">
                       <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
@@ -575,7 +580,12 @@
                     <div class="subcategory-preview-info__details">
                       <p class="subcategory-preview-info__species">{{ item.get('professionalEducation').value }}</p>
                       <div class="subcategory-preview-info__circle"></div>
-                      <p class="subcategory-preview-info__date">{{ item.get('dateStart').value | date: 'MM/yyyy' }} - {{ item.get('dateEnd').value | date: 'MM/yyyy' }}</p>
+                      <p class="subcategory-preview-info__date">
+                        <span>{{ item.get('dateStart').value | date: 'MM/yyyy' }}</span>
+                        - 
+                        <span>{{ item.get('dateEnd').value | date: 'MM/yyyy' }}</span>
+                        <span *ngIf="item.get('tilToday').value">bis heute</span>
+                      </p>
                       <div class="subcategory-preview-info__circle"></div>
                       <p class="subcategory-preview-info__scope">Abschlussnote {{ item.get('grade').value }}</p>
                     </div>
@@ -972,7 +982,7 @@
               <div
                 class="subcategory-preview-item"
                 *ngFor="let item of form.get('education').get('universities').get('items').controls; let i = index">
-                <ng-container *ngIf="item.valid; else notValid">
+                <ng-container *ngIf="item.valid && (item.get('dateEnd').value || item.get('tilToday').value); else notValid">
                   <div class="subcategory-preview-info" (click)="accordion03.expanded = !accordion03.expanded">
                     <p class="subcategory-preview-info__number">
                       <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
@@ -980,7 +990,12 @@
                     <div class="subcategory-preview-info__details">
                       <p class="subcategory-preview-info__species">{{ item.get('universityName').value }}</p>
                       <div class="subcategory-preview-info__circle"></div>
-                      <p class="subcategory-preview-info__date">{{ item.get('dateStart').value | date: 'MM/yyyy' }} - {{ item.get('dateEnd').value | date: 'MM/yyyy' }}</p>
+                      <p class="subcategory-preview-info__date">
+                        <span>{{ item.get('dateStart').value | date: 'MM/yyyy' }}</span> 
+                        - 
+                        <span>{{ item.get('dateEnd').value | date: 'MM/yyyy' }}</span>
+                        <span *ngIf="item.get('tilToday').value">bis heute</span>
+                      </p>
                       <div class="subcategory-preview-info__circle"></div>
                       <p class="subcategory-preview-info__scope">Abschlussnote {{ item.get('grade').value }}</p>
                     </div>
@@ -1194,7 +1209,7 @@
               <div
                 class="subcategory-preview-item"
                 *ngFor="let item of form.get('education').get('additionalEducations').get('items').controls; let i = index">
-                <ng-container *ngIf="item.valid; else notValid">
+                <ng-container *ngIf="item.valid && (item.get('dateEnd').value || item.get('tilToday').value); else notValid">
                   <div class="subcategory-preview-info" (click)="accordion04.expanded = !accordion04.expanded">
                     <p class="subcategory-preview-info__number">
                       <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
@@ -1202,7 +1217,12 @@
                     <div class="subcategory-preview-info__details">
                       <p class="subcategory-preview-info__species">{{ item.get('trainingTitle').value }}</p>
                       <div class="subcategory-preview-info__circle"></div>
-                      <p class="subcategory-preview-info__date">{{ item.get('dateStart').value | date: 'MM/yyyy' }} - {{ item.get('dateEnd').value | date: 'MM/yyyy' }}</p>
+                      <p class="subcategory-preview-info__date">
+                        <span>{{ item.get('dateStart').value | date: 'MM/yyyy' }}</span> 
+                        - 
+                        <span>{{ item.get('dateEnd').value | date: 'MM/yyyy' }}</span>
+                        <span *ngIf="item.get('tilToday').value">bis heute</span>
+                      </p>
                     </div>
                   </div>
                   <button

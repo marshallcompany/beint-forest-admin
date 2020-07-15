@@ -353,7 +353,7 @@
               <div
                 class="subcategory-preview-item"
                 *ngFor="let item of form.get('workExperience').get('employmentConditions').get('items').controls; let i = index">
-                <ng-container *ngIf="item.valid; else notValid">
+                <ng-container *ngIf="item.valid && (item.get('dateEnd').value || item.get('tilToday').value); else notValid">
                   <div class="subcategory-preview-info" (click)="accordion01.expanded = !accordion01.expanded">
                     <p class="subcategory-preview-info__number">
                       <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
@@ -361,7 +361,12 @@
                     <div class="subcategory-preview-info__details">
                       <p class="subcategory-preview-info__species">{{ item.get('company').value }}</p>
                       <div class="subcategory-preview-info__circle"></div>
-                      <p class="subcategory-preview-info__date">{{ item.get('dateStart').value | date: 'MM/yyyy' }} - {{ item.get('dateEnd').value | date: 'MM/yyyy' }}</p>
+                      <p class="subcategory-preview-info__date">
+                        <span>{{ item.get('dateStart').value | date: 'MM/yyyy' }}</span>
+                        - 
+                        <span>{{ item.get('dateEnd').value | date: 'MM/yyyy' }}</span>
+                        <span *ngIf="item.get('tilToday').value">bis heute</span>
+                      </p>
                       <div class="subcategory-preview-info__circle"></div>
                       <p class="subcategory-preview-info__scope">{{ item.get('employmentType').value }}</p>
                     </div>
@@ -678,7 +683,7 @@
               <div
                 class="subcategory-preview-item"
                 *ngFor="let item of this.form.get('workExperience').get('independentExperience').get('items').controls; let i = index">
-                <ng-container *ngIf="item.valid; else notValid">
+                <ng-container *ngIf="item.valid && (item.get('dateEnd').value || item.get('tilToday').value); else notValid">
                   <div class="subcategory-preview-info" (click)="accordion02.expanded = !accordion02.expanded">
                     <p class="subcategory-preview-info__number">
                       <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
@@ -686,7 +691,12 @@
                     <div class="subcategory-preview-info__details">
                       <p class="subcategory-preview-info__species">{{ item.get('companyName').value }}</p>
                       <div class="subcategory-preview-info__circle"></div>
-                      <p class="subcategory-preview-info__date">{{ item.get('dateStart').value | date: 'MM/yyyy' }} - {{ item.get('dateEnd').value | date: 'MM/yyyy' }}</p>
+                      <p class="subcategory-preview-info__date">
+                        <span>{{ item.get('dateStart').value | date: 'MM/yyyy' }}</span>
+                        - 
+                        <span>{{ item.get('dateEnd').value | date: 'MM/yyyy' }}</span>
+                        <span *ngIf="item.get('tilToday').value">bis heute</span>
+                      </p>
                       <div class="subcategory-preview-info__circle"></div>
                       <p class="subcategory-preview-info__scope">{{ item.get('jobTitle').value }}</p>
                     </div>
@@ -937,7 +947,7 @@
               <div
                 class="subcategory-preview-item"
                 *ngFor="let item of this.form.get('workExperience').get('otherExperience').get('items').controls; let i = index">
-                <ng-container *ngIf="item.valid; else notValid">
+                <ng-container *ngIf="item.valid && (item.get('dateEnd').value || item.get('tilToday').value); else notValid">
                   <div class="subcategory-preview-info" (click)="accordion03.expanded = !accordion03.expanded">
                     <p class="subcategory-preview-info__number">
                       <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
@@ -945,7 +955,12 @@
                     <div class="subcategory-preview-info__details">
                       <p class="subcategory-preview-info__species">{{ item.get('jobTitle').value }}</p>
                       <div class="subcategory-preview-info__circle"></div>
-                      <p class="subcategory-preview-info__date">{{ item.get('dateStart').value | date: 'MM/yyyy' }} - {{ item.get('dateEnd').value | date: 'MM/yyyy' }}</p>
+                      <p class="subcategory-preview-info__date">
+                        <span>{{ item.get('dateStart').value | date: 'MM/yyyy' }}</span>
+                        - 
+                        <span>{{ item.get('dateEnd').value | date: 'MM/yyyy' }}</span>
+                        <span *ngIf="item.get('tilToday').value">bis heute</span>
+                      </p>
                       <div class="subcategory-preview-info__circle"></div>
                       <p class="subcategory-preview-info__scope">{{ item.get('workPlace').value }}</p>
                     </div>
