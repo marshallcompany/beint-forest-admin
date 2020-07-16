@@ -86,8 +86,10 @@
             <div
               class="subcategory-preview"
               *ngIf="!accordion01.expanded && miscellaneousData">
-              <div class="subcategory-preview-item">
-                <ng-container *ngIf="form.get('miscellaneous').get('hobbies').get('items').valid; else notValid">
+              <div class="subcategory-preview-item" 
+                   *ngIf="form.get('miscellaneous').get('hobbies').get('items').valid || form.get('miscellaneous').get('hobbies').get('isNotRelevant').value">
+
+                <ng-container *ngIf="form.get('miscellaneous').get('hobbies').get('items').valid">
                   <div class="tags-wrapper">
                     <div
                       *ngFor="let item of form.get('miscellaneous').get('hobbies').get('items').controls; let i = index;"
@@ -102,22 +104,17 @@
                     </div>
                   </div>
                 </ng-container>
-                <ng-template #notValid>
+                
+                <ng-container *ngIf="form.get('miscellaneous').get('hobbies').get('isNotRelevant').value">
                   <div class="subcategory-preview-info" (click)="accordion01.expanded = !accordion01.expanded">
                     <div class="subcategory-preview-info__details">
-                        <p
-                            class="subcategory-preview-info__invalid"
-                            *ngIf="!form.get('miscellaneous').get('hobbies').get('isNotRelevant').value; else notRelevant">
-                            Unvollständige Angaben
-                        </p>
-                    </div>
-                    <ng-template #notRelevant>
                       <div class="relevant-info">
                         <p class="relevant-info__line"></p>
                       </div>
-                    </ng-template>
+                    </div>
                   </div>
-                </ng-template>
+                </ng-container>
+
               </div>
             </div>
           </div>
