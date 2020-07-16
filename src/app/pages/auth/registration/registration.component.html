@@ -272,7 +272,7 @@
               *ngIf="form.get('placeOfResidence').hasError('required')">{{ 'local_error.FIELD_REQUIRED' | translate }}</p>
           </div>
         </div>
-        <div class="form-item">
+        <!-- <div class="form-item">
           <p class="form-item__label">Geschlecht</p>
           <div class="form-field form-field_select">
             <ng-select
@@ -293,7 +293,7 @@
               class="error-box__text"
               *ngIf="form.get('gender').hasError('required')">{{ 'local_error.FIELD_REQUIRED' | translate }}</p>
           </div>
-        </div>
+        </div> -->
         <div class="form-item">
           <p class="form-item__label">Geburtsdatum</p>
           <div class="form-field field_datapicker" [owlDateTimeTrigger]="dt1">

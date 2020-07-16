@@ -53,8 +53,8 @@ export class RegistrationComponent implements OnInit {
       lastName: ['', Validators.required],
       placeOfResidence: [null, Validators.required],
       dateBirth: [null, Validators.required],
-      country: [null, Validators.required],
-      gender: [null, Validators.required]
+      country: [null, Validators.required]
+      // gender: [null, Validators.required]
     }, this.initFormValidation());
   }
 
@@ -123,9 +123,9 @@ export class RegistrationComponent implements OnInit {
       firstName: this.form.get('firstName').value,
       lastName: this.form.get('lastName').value,
       placeOfResidence: this.form.get('placeOfResidence').value,
-      gender: this.form.get('gender').value,
+      // gender: this.form.get('gender').value,
       dateBirth: this.form.get('dateBirth').value,
-      country: this.form.get('country').value,
+      country: this.form.get('country').value
     };
     this.auth.registration(registrationData)
     .pipe()
