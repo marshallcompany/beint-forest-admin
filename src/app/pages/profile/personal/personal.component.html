@@ -252,7 +252,7 @@
           </div>
           <div
             class="field field_select field_select-search single clearable"
-            [ngClass]="{'invalid': !form.get('contact').get('residence').get('country').value}"
+            [ngClass]="{'disabled': !form.get('contact').get('residence').get('country').value}"
             formGroupName="residence">
             <p class="field__label">Wohnort</p>
             <div class="field-wrapper">
@@ -273,7 +273,7 @@
           </div>
           <div
             class="field field_select field_select-search single clearable"
-            [ngClass]="{'invalid': !form.get('contact').get('residence').get('place').value}"
+            [ngClass]="{'disabled': !form.get('contact').get('residence').get('place').value}"
             formGroupName="residence">
             <p class="field__label">PLZ</p>
             <div class="field-wrapper">

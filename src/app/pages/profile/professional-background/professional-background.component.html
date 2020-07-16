@@ -64,7 +64,7 @@
                       </div>
                       <div
                         class="field"
-                        [ngClass]="{notRelevant : this.form.get('workExperience').get('employmentConditions').get('isNotRelevant').value}">
+                        [ngClass]="{'disabled' : this.form.get('workExperience').get('employmentConditions').get('isNotRelevant').value}">
                         <p class="field__label">Job Bezeichnung</p>
                         <div class="field-wrapper">
                           <input
@@ -81,7 +81,7 @@
                       </div>
                       <div
                         class="field"
-                        [ngClass]="{notRelevant : this.form.get('workExperience').get('employmentConditions').get('isNotRelevant').value}">
+                        [ngClass]="{'disabled' : this.form.get('workExperience').get('employmentConditions').get('isNotRelevant').value}">
                         <p class="field__label">Arbeitgeber</p>
                         <div class="field-wrapper">
                           <input
@@ -98,7 +98,7 @@
                       </div>
                       <div
                         class="field field_select field_select-search single"
-                        [ngClass]="{notRelevant : this.form.get('workExperience').get('employmentConditions').get('isNotRelevant').value}">
+                        [ngClass]="{'disabled' : this.form.get('workExperience').get('employmentConditions').get('isNotRelevant').value}">
                         <p class="field__label">Land</p>
                         <div class="field-wrapper">
                           <ng-select
@@ -118,7 +118,7 @@
                       </div>
                       <div
                         class="field"
-                        [ngClass]="{notRelevant : this.form.get('workExperience').get('employmentConditions').get('isNotRelevant').value}">
+                        [ngClass]="{'disabled' : this.form.get('workExperience').get('employmentConditions').get('isNotRelevant').value}">
                         <p class="field__label">Arbeitsort</p>
                         <div class="field-wrapper">
                           <input
@@ -134,7 +134,7 @@
                         </div>
                       </div>
                       <div class="field field_select"
-                            [ngClass]="{notRelevant : this.form.get('workExperience').get('employmentConditions').get('isNotRelevant').value}">
+                            [ngClass]="{'disabled' : this.form.get('workExperience').get('employmentConditions').get('isNotRelevant').value}">
                         <p class="field__label">Geschäftsbereich</p>
                         <div class="field-wrapper">
                           <ng-select
@@ -153,7 +153,7 @@
                       </div>
                       <div
                         class="field field_select field_select-search"
-                        [ngClass]="{notRelevant : this.form.get('workExperience').get('employmentConditions').get('isNotRelevant').value}">
+                        [ngClass]="{'disabled' : this.form.get('workExperience').get('employmentConditions').get('isNotRelevant').value}">
                         <p class="field__label">Branche</p>
                         <div class="field-wrapper">
                           <ng-select
@@ -191,7 +191,7 @@
                       <div class="field-group">
                         <div
                           class="field field_select"
-                          [ngClass]="{notRelevant : this.form.get('workExperience').get('employmentConditions').get('isNotRelevant').value}">
+                          [ngClass]="{'disabled' : this.form.get('workExperience').get('employmentConditions').get('isNotRelevant').value}">
                           <p class="field__label">Art der Anstellung</p>
                           <div class="field-wrapper">
                             <ng-select
@@ -217,7 +217,7 @@
                         </div>
                         <div
                           class="field field_select"
-                          [ngClass]="{notRelevant : this.form.get('workExperience').get('employmentConditions').get('isNotRelevant').value}">
+                          [ngClass]="{'disabled' : this.form.get('workExperience').get('employmentConditions').get('isNotRelevant').value}">
                           <p class="field__label">Karrierelevel</p>
                           <div class="field-wrapper">
                             <ng-select
@@ -244,7 +244,7 @@
                       </div>
                       <div
                         class="field field_textarea"
-                        [ngClass]="{notRelevant : this.form.get('workExperience').get('employmentConditions').get('isNotRelevant').value}">
+                        [ngClass]="{'disabled' : this.form.get('workExperience').get('employmentConditions').get('isNotRelevant').value}">
                         <p class="field__label">Beschreibung</p>
                         <div class="field-wrapper textarea">
                           <textarea
@@ -263,7 +263,7 @@
                         <div class="datepicker-group">
                           <div
                             class="field field_datapicker"
-                            [ngClass]="{notRelevant : this.form.get('workExperience').get('employmentConditions').get('isNotRelevant').value}">
+                            [ngClass]="{'disabled' : this.form.get('workExperience').get('employmentConditions').get('isNotRelevant').value}">
                             <p class="field__label">Von</p>
                             <div
                               class="field-wrapper"
@@ -291,8 +291,8 @@
                           <div
                             class="field field_datapicker"
                             [ngClass]="{
-                              notRelevant : this.form.get('workExperience').get('employmentConditions').get('isNotRelevant').value,
-                              disabled: this.form.get('workExperience').get('employmentConditions').get('items').controls[i].get('tilToday').value
+                              'disabled' : this.form.get('workExperience').get('employmentConditions').get('isNotRelevant').value ||
+                              this.form.get('workExperience').get('employmentConditions').get('items').controls[i].get('tilToday').value
                             }">
                             <p class="field__label">Bis</p>
                             <div
@@ -321,7 +321,7 @@
                           </div>
                           <div
                             class="datapicker-checkbox"
-                            [ngClass]="{notRelevant : this.form.get('workExperience').get('employmentConditions').get('isNotRelevant').value}">
+                            [ngClass]="{'disabled' : this.form.get('workExperience').get('employmentConditions').get('isNotRelevant').value}">
                             <label class="checkbox-container">
                               bis heute
                               <input
@@ -449,7 +449,7 @@
                       </div>
                       <div
                         class="field"
-                        [ngClass]="{notRelevant : this.form.get('workExperience').get('independentExperience').get('isNotRelevant').value}">
+                        [ngClass]="{'disabled' : this.form.get('workExperience').get('independentExperience').get('isNotRelevant').value}">
                         <p class="field__label">Bezeichnung</p>
                         <div class="field-wrapper">
                           <input
@@ -466,7 +466,7 @@
                       </div>
                       <div
                         class="field"
-                        [ngClass]="{notRelevant : this.form.get('workExperience').get('independentExperience').get('isNotRelevant').value}">
+                        [ngClass]="{'disabled' : this.form.get('workExperience').get('independentExperience').get('isNotRelevant').value}">
                         <p class="field__label">Name der Firma</p>
                         <div class="field-wrapper">
                           <input
@@ -483,7 +483,7 @@
                       </div>
                       <div
                         class="field field_checkbox"
-                        [ngClass]="{notRelevant : this.form.get('workExperience').get('independentExperience').get('isNotRelevant').value}">
+                        [ngClass]="{'disabled' : this.form.get('workExperience').get('independentExperience').get('isNotRelevant').value}">
                         <label class="checkbox-container">
                           Freiberufler
                           <input
@@ -496,7 +496,7 @@
                       </div>
                       <div
                         class="field field_select field_select-search"
-                        [ngClass]="{notRelevant : this.form.get('workExperience').get('independentExperience').get('isNotRelevant').value}">
+                        [ngClass]="{'disabled' : this.form.get('workExperience').get('independentExperience').get('isNotRelevant').value}">
                         <p class="field__label">Branche</p>
                         <div class="field-wrapper">
                           <ng-select
@@ -532,7 +532,7 @@
                       </div>
                       <div
                         class="field field_select field_select-search single"
-                        [ngClass]="{notRelevant : this.form.get('workExperience').get('independentExperience').get('isNotRelevant').value}">
+                        [ngClass]="{'disabled' : this.form.get('workExperience').get('independentExperience').get('isNotRelevant').value}">
                         <p class="field__label">Land</p>
                         <div class="field-wrapper">
                           <ng-select
@@ -553,7 +553,7 @@
                       <div class="field field_group">
                         <div
                           class="field field_select field_select-search single"
-                          [ngClass]="{'notRelevant' : !this.form.get('workExperience').get('independentExperience').get('items').controls[i].get('country').value || this.form.get('workExperience').get('independentExperience').get('isNotRelevant').value}">
+                          [ngClass]="{'disabled' : !this.form.get('workExperience').get('independentExperience').get('items').controls[i].get('country').value || this.form.get('workExperience').get('independentExperience').get('isNotRelevant').value}">
                           <p class="field__label">Ort</p>
                           <div class="field-wrapper">
                             <ng-select
@@ -576,7 +576,7 @@
                         <div class="datepicker-group">
                           <div
                             class="field field_datapicker"
-                            [ngClass]="{notRelevant : this.form.get('workExperience').get('independentExperience').get('isNotRelevant').value}">
+                            [ngClass]="{'disabled' : this.form.get('workExperience').get('independentExperience').get('isNotRelevant').value}">
                             <p class="field__label">Von</p>
                             <div
                               class="field-wrapper"
@@ -604,8 +604,8 @@
                           <div
                             class="field field_datapicker"
                             [ngClass]="{
-                              notRelevant : this.form.get('workExperience').get('independentExperience').get('isNotRelevant').value,
-                              disabled: this.form.get('workExperience').get('independentExperience').get('items').controls[i].get('tilToday').value
+                              'disabled' : this.form.get('workExperience').get('independentExperience').get('isNotRelevant').value ||
+                              this.form.get('workExperience').get('independentExperience').get('items').controls[i].get('tilToday').value
                             }">
                             <p class="field__label">Bis</p>
                             <div
@@ -634,7 +634,7 @@
                           </div>
                           <div
                             class="datapicker-checkbox"
-                            [ngClass]="{notRelevant : this.form.get('workExperience').get('independentExperience').get('isNotRelevant').value}">
+                            [ngClass]="{'disabled' : this.form.get('workExperience').get('independentExperience').get('isNotRelevant').value}">
                             <label class="checkbox-container">
                               bis heute
                               <input
@@ -649,7 +649,7 @@
                       </div>
                       <div
                         class="field field_textarea"
-                        [ngClass]="{notRelevant : this.form.get('workExperience').get('independentExperience').get('isNotRelevant').value}">
+                        [ngClass]="{'disabled' : this.form.get('workExperience').get('independentExperience').get('isNotRelevant').value}">
                         <p class="field__label">Beschreibung</p>
                         <div class="field-wrapper textarea">
                           <textarea
@@ -779,7 +779,7 @@
                       </div>
                       <div
                         class="field"
-                        [ngClass]="{notRelevant : this.form.get('workExperience').get('otherExperience').get('isNotRelevant').value}">
+                        [ngClass]="{'disabled' : this.form.get('workExperience').get('otherExperience').get('isNotRelevant').value}">
                         <p class="field__label">Bezeichnung</p>
                         <div class="field-wrapper">
                           <input
@@ -796,7 +796,7 @@
                       </div>
                       <div
                         class="field field_select field_select-search single"
-                        [ngClass]="{notRelevant : this.form.get('workExperience').get('otherExperience').get('isNotRelevant').value}">
+                        [ngClass]="{'disabled' : this.form.get('workExperience').get('otherExperience').get('isNotRelevant').value}">
                         <p class="field__label">Land</p>
                         <div class="field-wrapper">
                           <ng-select
@@ -817,7 +817,7 @@
                       <div class="field field_group">
                         <div
                           class="field field_select field_select-search single"
-                          [ngClass]="{notRelevant : !this.form.get('workExperience').get('otherExperience').get('items').controls[i].get('country').value || this.form.get('workExperience').get('otherExperience').get('isNotRelevant').value}">
+                          [ngClass]="{'disabled' : !this.form.get('workExperience').get('otherExperience').get('items').controls[i].get('country').value || this.form.get('workExperience').get('otherExperience').get('isNotRelevant').value}">
                           <p class="field__label">Ort</p>
                           <div class="field-wrapper">
                             <ng-select
@@ -840,7 +840,7 @@
                         <div class="datepicker-group">
                           <div
                             class="field field_datapicker"
-                            [ngClass]="{notRelevant : this.form.get('workExperience').get('otherExperience').get('isNotRelevant').value}">
+                            [ngClass]="{'disabled' : this.form.get('workExperience').get('otherExperience').get('isNotRelevant').value}">
                             <p class="field__label">Von</p>
                             <div
                               class="field-wrapper"
@@ -868,8 +868,8 @@
                           <div
                             class="field field_datapicker"
                             [ngClass]="{
-                              notRelevant : this.form.get('workExperience').get('otherExperience').get('isNotRelevant').value,
-                              disabled: this.form.get('workExperience').get('otherExperience').get('items').controls[i].get('tilToday').value
+                              'disabled' : this.form.get('workExperience').get('otherExperience').get('isNotRelevant').value ||
+                              this.form.get('workExperience').get('otherExperience').get('items').controls[i].get('tilToday').value
                             }">
                             <p class="field__label">Bis</p>
                             <div
@@ -898,7 +898,7 @@
                           </div>
                           <div
                             class="datapicker-checkbox"
-                            [ngClass]="{notRelevant : this.form.get('workExperience').get('otherExperience').get('isNotRelevant').value}">
+                            [ngClass]="{'disabled' : this.form.get('workExperience').get('otherExperience').get('isNotRelevant').value}">
                             <label class="checkbox-container">
                               bis heute
                               <input
@@ -913,7 +913,7 @@
                       </div>
                       <div
                         class="field field_textarea"
-                        [ngClass]="{notRelevant : this.form.get('workExperience').get('otherExperience').get('isNotRelevant').value}">
+                        [ngClass]="{'disabled' : this.form.get('workExperience').get('otherExperience').get('isNotRelevant').value}">
                         <p class="field__label">Beschreibung</p>
                         <div class="field-wrapper textarea">
                           <textarea

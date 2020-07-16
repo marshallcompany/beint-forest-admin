@@ -382,7 +382,7 @@ body .field-group {
     margin-right: 10px;
   }
 }
-.notRelevant{
+.disabled{
     .checkbox-container{
         pointer-events: none;
     }
@@ -422,29 +422,6 @@ body .field-group {
             background-color: transparent;
         }
     }
-}
-.disabled{
-  .field-wrapper{
-      pointer-events: none;
-      position: relative;
-      overflow: hidden;
-      &:before{
-        content:'';
-        position:absolute;
-        left:0;
-        top:0;
-        width:100%;
-        height:100%;
-        background-color:rgba(152, 152, 152, .2);
-        z-index: 1;
-      }
-      &__status{
-        background-color:#989898;
-      }
-      &__input{
-        background-color: transparent;
-      }
-  }
 }
 // STYLE SELECT
 .custom-select {

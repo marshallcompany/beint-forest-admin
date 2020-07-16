@@ -35,7 +35,7 @@
                     <div class="flex-grid flex-grid_relevant">
                       <div
                         class="field"
-                        [ngClass]="{notRelevant : this.form.get('miscellaneous').get('hobbies').get('isNotRelevant').value}">
+                        [ngClass]="{'disabled' : this.form.get('miscellaneous').get('hobbies').get('isNotRelevant').value}">
                         <p class="field__label">Deine Hobbys</p>
                         <div class="field-wrapper">
                           <input
@@ -167,7 +167,7 @@
                         <div class="field-group">
                           <div
                             class="field"
-                            [ngClass]="{notRelevant : this.form.get('miscellaneous').get('volunteering').get('isNotRelevant').value}">
+                            [ngClass]="{'disabled' : this.form.get('miscellaneous').get('volunteering').get('isNotRelevant').value}">
                             <p class="field__label">Ehrenamt</p>
                             <div class="field-wrapper">
                               <input
@@ -184,7 +184,7 @@
                           </div>
                           <div
                             class="field"
-                            [ngClass]="{notRelevant : this.form.get('miscellaneous').get('volunteering').get('isNotRelevant').value}">
+                            [ngClass]="{'disabled' : this.form.get('miscellaneous').get('volunteering').get('isNotRelevant').value}">
                             <p class="field__label">Institution</p>
                             <div class="field-wrapper">
                               <input
@@ -202,7 +202,7 @@
                         </div>
                         <div
                           class="field field_textarea"
-                          [ngClass]="{notRelevant : this.form.get('miscellaneous').get('volunteering').get('isNotRelevant').value}">
+                          [ngClass]="{'disabled' : this.form.get('miscellaneous').get('volunteering').get('isNotRelevant').value}">
                           <p class="field__label">Beschreibung</p>
                           <div class="field-wrapper textarea">
                             <textarea
@@ -221,7 +221,7 @@
                           <div class="datepicker-group">
                             <div
                               class="field field_datapicker"
-                              [ngClass]="{notRelevant : this.form.get('miscellaneous').get('volunteering').get('isNotRelevant').value}">
+                              [ngClass]="{'disabled' : this.form.get('miscellaneous').get('volunteering').get('isNotRelevant').value}">
                               <p class="field__label">Von</p>
                               <div
                                 class="field-wrapper"
@@ -249,8 +249,8 @@
                             <div
                               class="field field_datapicker"
                               [ngClass]="{
-                                notRelevant : this.form.get('miscellaneous').get('volunteering').get('isNotRelevant').value,
-                                disabled: this.form.get('miscellaneous').get('volunteering').get('items').controls[i].get('tilToday').value
+                                'disabled' : this.form.get('miscellaneous').get('volunteering').get('isNotRelevant').value ||
+                                this.form.get('miscellaneous').get('volunteering').get('items').controls[i].get('tilToday').value
                               }">
                               <p class="field__label">Bis</p>
                               <div
@@ -279,7 +279,7 @@
                             </div>
                             <div
                               class="datapicker-checkbox"
-                              [ngClass]="{notRelevant : this.form.get('miscellaneous').get('volunteering').get('isNotRelevant').value}">
+                              [ngClass]="{'disabled' : this.form.get('miscellaneous').get('volunteering').get('isNotRelevant').value}">
                               <label class="checkbox-container">
                                 bis heute
                                 <input
@@ -405,7 +405,7 @@
                         </div>
                         <div
                           class="field"
-                          [ngClass]="{notRelevant : this.form.get('miscellaneous').get('publications').get('isNotRelevant').value}">
+                          [ngClass]="{'disabled' : this.form.get('miscellaneous').get('publications').get('isNotRelevant').value}">
                           <p class="field__label">Art der Veröffentlichung</p>
                           <div class="field-wrapper">
                             <input
@@ -423,7 +423,7 @@
                         </div>
                         <div
                           class="field"
-                          [ngClass]="{notRelevant : this.form.get('miscellaneous').get('publications').get('isNotRelevant').value}">
+                          [ngClass]="{'disabled' : this.form.get('miscellaneous').get('publications').get('isNotRelevant').value}">
                           <p class="field__label">Medium</p>
                           <div class="field-wrapper">
                             <input
@@ -442,7 +442,7 @@
                         <div class="field-group">
                           <div
                             class="field"
-                            [ngClass]="{notRelevant : this.form.get('miscellaneous').get('publications').get('isNotRelevant').value}">
+                            [ngClass]="{'disabled' : this.form.get('miscellaneous').get('publications').get('isNotRelevant').value}">
                             <p class="field__label">Link</p>
                             <div class="field-wrapper">
                               <input
@@ -461,7 +461,7 @@
                           </div>
                           <div
                               class="field field_datapicker"
-                              [ngClass]="{notRelevant : this.form.get('miscellaneous').get('publications').get('isNotRelevant').value}">
+                              [ngClass]="{'disabled' : this.form.get('miscellaneous').get('publications').get('isNotRelevant').value}">
                               <p class="field__label">Datum der Veröffentlichung</p>
                               <div
                                 class="field-wrapper"
@@ -489,7 +489,7 @@
                         </div>
                         <div
                           class="field field_textarea"
-                          [ngClass]="{notRelevant : this.form.get('miscellaneous').get('publications').get('isNotRelevant').value}">
+                          [ngClass]="{'disabled' : this.form.get('miscellaneous').get('publications').get('isNotRelevant').value}">
                           <p class="field__label">Beschreibung</p>
                           <div class="field-wrapper textarea">
                             <textarea
@@ -614,7 +614,7 @@
                         <div class="field-group">
                           <div
                             class="field"
-                            [ngClass]="{notRelevant : this.form.get('miscellaneous').get('awards').get('isNotRelevant').value}">
+                            [ngClass]="{'disabled' : this.form.get('miscellaneous').get('awards').get('isNotRelevant').value}">
                             <p class="field__label">Auszeichung für</p>
                             <div class="field-wrapper">
                               <input
@@ -633,7 +633,7 @@
                           </div>
                           <div
                             class="field"
-                            [ngClass]="{notRelevant : this.form.get('miscellaneous').get('awards').get('isNotRelevant').value}">
+                            [ngClass]="{'disabled' : this.form.get('miscellaneous').get('awards').get('isNotRelevant').value}">
                             <p class="field__label">Ausgezeichnet durch</p>
                             <div class="field-wrapper">
                               <input
@@ -652,7 +652,7 @@
                         </div>
                         <div
                           class="field field_textarea"
-                          [ngClass]="{notRelevant : this.form.get('miscellaneous').get('awards').get('isNotRelevant').value}">
+                          [ngClass]="{'disabled' : this.form.get('miscellaneous').get('awards').get('isNotRelevant').value}">
                           <p class="field__label">Beschreibung</p>
                           <div class="field-wrapper textarea">
                             <textarea
@@ -670,7 +670,7 @@
                         </div>
                         <div
                           class="field field_datapicker"
-                          [ngClass]="{notRelevant : this.form.get('miscellaneous').get('awards').get('isNotRelevant').value}">
+                          [ngClass]="{'disabled' : this.form.get('miscellaneous').get('awards').get('isNotRelevant').value}">
                           <p class="field__label">Datum der Auszeichnung</p>
                           <div
                             class="field-wrapper"

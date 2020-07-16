@@ -109,7 +109,7 @@
                       </div>
                       <div
                         class="field field_select field_select-search single"
-                        [ngClass]="{'invalid' : !this.form.get('education').get('schools').controls[i].get('country').value}">
+                        [ngClass]="{'disabled' : !this.form.get('education').get('schools').controls[i].get('country').value}">
                         <p class="field__label">Ort</p>
                         <div class="field-wrapper">
                           <ng-select
@@ -355,7 +355,7 @@
                         </div>
                         <div
                           class="field field_select field_select-search single"
-                          [ngClass]="{notRelevant : this.form.get('education').get('specialEducation').get('isNotRelevant').value}">
+                          [ngClass]="{'disabled' : this.form.get('education').get('specialEducation').get('isNotRelevant').value}">
                           <p class="field__label">Ausbildungsberuf</p>
                           <div class="field-wrapper">
                             <ng-select
@@ -375,7 +375,7 @@
                         </div>
                         <div
                           class="field"
-                          [ngClass]="{notRelevant : this.form.get('education').get('specialEducation').get('isNotRelevant').value}">
+                          [ngClass]="{'disabled' : this.form.get('education').get('specialEducation').get('isNotRelevant').value}">
                           <p class="field__label">Arbeitgeber</p>
                           <div class="field-wrapper">
                             <input
@@ -392,7 +392,7 @@
                         </div>
                         <div
                           class="field field_select field_select-search single"
-                          [ngClass]="{notRelevant : this.form.get('education').get('specialEducation').get('isNotRelevant').value}">
+                          [ngClass]="{'disabled' : this.form.get('education').get('specialEducation').get('isNotRelevant').value}">
                           <p class="field__label">Land</p>
                           <div class="field-wrapper">
                             <ng-select
@@ -412,7 +412,7 @@
                         </div>
                         <div
                           class="field field_select field_select-search single"
-                          [ngClass]="{'invalid' : !this.form.get('education').get('specialEducation').get('items').controls[i].get('country').value || this.form.get('education').get('specialEducation').get('isNotRelevant').value}">
+                          [ngClass]="{'disabled' : !this.form.get('education').get('specialEducation').get('items').controls[i].get('country').value || this.form.get('education').get('specialEducation').get('isNotRelevant').value}">
                           <p class="field__label">Ort</p>
                           <div class="field-wrapper">
                             <ng-select
@@ -434,7 +434,7 @@
                         </div>
                         <div
                           class="field"
-                          [ngClass]="{notRelevant : this.form.get('education').get('specialEducation').get('isNotRelevant').value}">
+                          [ngClass]="{'disabled' : this.form.get('education').get('specialEducation').get('isNotRelevant').value}">
                           <p class="field__label">Berufsschule</p>
                           <div class="field-wrapper">
                             <input
@@ -451,7 +451,7 @@
                         </div>
                         <div
                           class="field"
-                          [ngClass]="{notRelevant : this.form.get('education').get('specialEducation').get('isNotRelevant').value}">
+                          [ngClass]="{'disabled' : this.form.get('education').get('specialEducation').get('isNotRelevant').value}">
                           <p class="field__label">Abschlussnote</p>
                           <div class="field-wrapper">
                             <input
@@ -478,7 +478,7 @@
                           <div class="datepicker-group">
                             <div
                               class="field field_datapicker"
-                              [ngClass]="{notRelevant : this.form.get('education').get('specialEducation').get('isNotRelevant').value}">
+                              [ngClass]="{'disabled' : this.form.get('education').get('specialEducation').get('isNotRelevant').value}">
                               <p class="field__label">Von</p>
                               <div
                                 class="field-wrapper"
@@ -506,8 +506,7 @@
                             </div>
                             <div
                               class="field field_datapicker"
-                              [ngClass]="{
-                                notRelevant: this.form.get('education').get('specialEducation').get('items').controls[i].get('tilToday').value ||
+                              [ngClass]="{'disabled': this.form.get('education').get('specialEducation').get('items').controls[i].get('tilToday').value ||
                                 this.form.get('education').get('specialEducation').get('isNotRelevant').value
                               }">
                               <p class="field__label">Bis</p>
@@ -537,7 +536,7 @@
                             </div>
                             <div
                               class="datapicker-checkbox"
-                              [ngClass]="{notRelevant : this.form.get('education').get('specialEducation').get('isNotRelevant').value}">
+                              [ngClass]="{'disabled' : this.form.get('education').get('specialEducation').get('isNotRelevant').value}">
                               <label class="checkbox-container">
                                 bis heute
                                 <input
@@ -668,7 +667,7 @@
                         </div>
                         <div
                           class="field"
-                          [ngClass]="{notRelevant : this.form.get('education').get('universities').get('isNotRelevant').value}">
+                          [ngClass]="{'disabled' : this.form.get('education').get('universities').get('isNotRelevant').value}">
                           <p class="field__label">Name der Hochschule</p>
                           <div class="field-wrapper">
                             <input
@@ -685,7 +684,7 @@
                         </div>
                         <div
                           class="field"
-                          [ngClass]="{notRelevant : this.form.get('education').get('universities').get('isNotRelevant').value}">
+                          [ngClass]="{'disabled' : this.form.get('education').get('universities').get('isNotRelevant').value}">
                           <p class="field__label">Studiengang</p>
                           <div class="field-wrapper">
                             <input
@@ -702,7 +701,7 @@
                         </div>
                         <div
                             class="field"
-                            [ngClass]="{notRelevant : this.form.get('education').get('universities').get('isNotRelevant').value}">
+                            [ngClass]="{'disabled' : this.form.get('education').get('universities').get('isNotRelevant').value}">
                             <p class="field__label">Schwerpunkte</p>
                             <div class="field-wrapper">
                               <input
@@ -740,7 +739,7 @@
                         </div>
                         <div
                           class="field field_select field_select-search single"
-                          [ngClass]="{notRelevant : this.form.get('education').get('universities').get('isNotRelevant').value}">
+                          [ngClass]="{'disabled' : this.form.get('education').get('universities').get('isNotRelevant').value}">
                           <p class="field__label">Land</p>
                           <div class="field-wrapper">
                             <ng-select
@@ -760,7 +759,7 @@
                         </div>
                         <div
                           class="field field_select field_select-search single"
-                          [ngClass]="{'invalid' : !this.form.get('education').get('universities').get('items').controls[i].get('country').value || this.form.get('education').get('specialEducation').get('isNotRelevant').value}">
+                          [ngClass]="{'disabled' : !this.form.get('education').get('universities').get('items').controls[i].get('country').value || this.form.get('education').get('specialEducation').get('isNotRelevant').value}">
                           <p class="field__label">Ort</p>
                           <div class="field-wrapper">
                             <ng-select
@@ -782,7 +781,7 @@
                         </div>
                         <div
                             class="field field_select field_select-singleselect-arrow clearable"
-                            [ngClass]="{notRelevant : this.form.get('education').get('universities').get('isNotRelevant').value}">
+                            [ngClass]="{'disabled' : this.form.get('education').get('universities').get('isNotRelevant').value}">
                             <p class="field__label">Art des Studiums</p>
                             <div class="field-wrapper">
                               <ng-select
@@ -800,7 +799,7 @@
                         </div>
                         <!-- <div
                           class="field field_select field_select-search single"
-                          [ngClass]="{notRelevant : this.form.get('education').get('universities').get('isNotRelevant').value}">
+                          [ngClass]="{'disabled' : this.form.get('education').get('universities').get('isNotRelevant').value}">
                           <p class="field__label">Fachrichtung</p>
                           <div class="field-wrapper">
                             <ng-select
@@ -821,7 +820,7 @@
                         <div class="field field_group">
                           <div
                             class="field field_select"
-                            [ngClass]="{notRelevant : this.form.get('education').get('universities').get('isNotRelevant').value}">
+                            [ngClass]="{'disabled' : this.form.get('education').get('universities').get('isNotRelevant').value}">
                             <p class="field__label">Art des (angestrebten) Abschlusses</p>
                             <div class="field-wrapper">
                               <ng-select
@@ -845,7 +844,7 @@
                           <div class="datepicker-group">
                             <div
                               class="field field_datapicker"
-                              [ngClass]="{notRelevant : this.form.get('education').get('universities').get('isNotRelevant').value}">
+                              [ngClass]="{'disabled' : this.form.get('education').get('universities').get('isNotRelevant').value}">
                               <p class="field__label">Von</p>
                               <div
                                 class="field-wrapper"
@@ -874,7 +873,7 @@
                             <div
                               class="field field_datapicker"
                               [ngClass]="{
-                                disabled : this.form.get('education').get('universities').get('isNotRelevant').value ||
+                                'disabled' : this.form.get('education').get('universities').get('isNotRelevant').value ||
                                 this.form.get('education').get('universities').get('items').controls[i].get('tilToday').value
                               }">
                               <p class="field__label">Bis</p>
@@ -905,7 +904,7 @@
                             </div>
                             <div
                               class="datapicker-checkbox"
-                              [ngClass]="{notRelevant : this.form.get('education').get('universities').get('isNotRelevant').value}">
+                              [ngClass]="{'disabled' : this.form.get('education').get('universities').get('isNotRelevant').value}">
                               <label class="checkbox-container">
                                 bis heute
                                 <input
@@ -920,7 +919,7 @@
                         </div>
                         <div
                           class="field field_textarea"
-                          [ngClass]="{notRelevant : this.form.get('education').get('universities').get('isNotRelevant').value}">
+                          [ngClass]="{'disabled' : this.form.get('education').get('universities').get('isNotRelevant').value}">
                           <p class="field__label">Titel Abschlussarbeit</p>
                           <div class="field-wrapper textarea">
                             <textarea
@@ -937,7 +936,7 @@
                         </div>
                         <div
                           class="field"
-                          [ngClass]="{notRelevant : this.form.get('education').get('universities').get('isNotRelevant').value}">
+                          [ngClass]="{'disabled' : this.form.get('education').get('universities').get('isNotRelevant').value}">
                           <p class="field__label">Abschlussnote</p>
                           <div class="field-wrapper">
                             <input
@@ -1079,7 +1078,7 @@
                         <div class="field field_group">
                           <div
                             class="field"
-                            [ngClass]="{notRelevant : this.form.get('education').get('additionalEducations').get('isNotRelevant').value}">
+                            [ngClass]="{'disabled' : this.form.get('education').get('additionalEducations').get('isNotRelevant').value}">
                             <p class="field__label">Art der Ausbildung</p>
                             <div class="field-wrapper">
                               <input
@@ -1097,7 +1096,7 @@
                             <div class="datepicker-group">
                               <div
                                 class="field field_datapicker"
-                                [ngClass]="{notRelevant : this.form.get('education').get('additionalEducations').get('isNotRelevant').value}">
+                                [ngClass]="{'disabled' : this.form.get('education').get('additionalEducations').get('isNotRelevant').value}">
                                 <p class="field__label">Von</p>
                                 <div
                                   class="field-wrapper"
@@ -1126,7 +1125,7 @@
                               <div
                                 class="field field_datapicker"
                                 [ngClass]="{
-                                  disabled: this.form.get('education').get('additionalEducations').get('isNotRelevant').value ||
+                                  'disabled': this.form.get('education').get('additionalEducations').get('isNotRelevant').value ||
                                   this.form.get('education').get('additionalEducations').get('items').controls[i].get('tilToday').value
                                 }">
                                 <p class="field__label">Bis</p>
@@ -1157,7 +1156,7 @@
                               </div>
                               <div
                                 class="datapicker-checkbox"
-                                [ngClass]="{notRelevant : this.form.get('education').get('additionalEducations').get('isNotRelevant').value}">
+                                [ngClass]="{'disabled' : this.form.get('education').get('additionalEducations').get('isNotRelevant').value}">
                                 <label class="checkbox-container">
                                   bis heute
                                   <input
@@ -1173,7 +1172,7 @@
                         </div>
                         <div
                           class="field field_textarea"
-                          [ngClass]="{notRelevant : this.form.get('education').get('additionalEducations').get('isNotRelevant').value}">
+                          [ngClass]="{'disabled' : this.form.get('education').get('additionalEducations').get('isNotRelevant').value}">
                           <p class="field__label">Beschreibung</p>
                           <div class="field-wrapper textarea">
                             <textarea
