@@ -215,11 +215,12 @@
     display: block;
     color: $blue;
     position: relative;
-    width: 255px;
+    width: 120px;
     margin: 0 auto;
     margin-top: 15px;
     padding: 15px 0;
     font-size: 17px;
+    text-transform: uppercase;
     background-color: transparent;
     svg{
       transform: translate(0, -50%) rotate(90deg);

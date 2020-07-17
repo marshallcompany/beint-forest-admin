@@ -16,6 +16,7 @@ import { MatDialog } from '@angular/material';
 export class HomeComponent implements OnInit {
 
   public user;
+  public imageUrl;
 
   constructor(
     private matDialog: MatDialog,
@@ -48,6 +49,9 @@ export class HomeComponent implements OnInit {
       .subscribe(
         data => {
           this.user = data;
+          if (data && data.media && data.media.avatar && data.media.avatar.storagePath) {
+            this.imageUrl = data.media.avatar.storagePath;
+          }
           console.log('[ USER DATA ]', this.user);
         },
         err => {

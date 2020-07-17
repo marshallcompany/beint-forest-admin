@@ -14,7 +14,7 @@
   },
   "local_error": {
     "FIELD_REQUIRED": "This field is required",
-    "INVALID_EMAIL": "Invalid Email format",
+    "INVALID_EMAIL": "Invalid E-Mail format",
     "LENGTH_PASS": "Password must be at least 8 characters"
   },
   "profile": {

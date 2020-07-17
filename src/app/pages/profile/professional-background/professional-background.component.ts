@@ -165,7 +165,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
           jobTitle: [data && data.jobTitle ? data.jobTitle : '', Validators.required],
           companyName: [data && data.companyName ? data.companyName : '', Validators.required],
           dateStart: [data && data.dateStart ? data.dateStart : null, Validators.required],
-          dateEnd: [data && data.dateEnd ? data.dateEnd : null, Validators.required],
+          dateEnd: [data && data.dateEnd ? data.dateEnd : null],
           country: [data && data.country ? data.country : null, Validators.required],
           workPlace: [data && data.workPlace ? data.workPlace : null, Validators.required],
           jobDescription: [data && data.jobDescription ? data.jobDescription : '', Validators.required],
@@ -179,7 +179,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
         return this.fb.group({
           jobTitle: [data && data.jobTitle ? data.jobTitle : '', Validators.required],
           dateStart: [data && data.dateStart ? data.dateStart : null, Validators.required],
-          dateEnd: [data && data.dateEnd ? data.dateEnd : null, Validators.required],
+          dateEnd: [data && data.dateEnd ? data.dateEnd : null],
           country: [data && data.country ? data.country : null, Validators.required],
           workPlace: [data && data.workPlace ? data.workPlace : null, Validators.required],
           jobDescription: [data && data.jobDescription ? data.jobDescription : '', Validators.required],

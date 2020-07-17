@@ -208,7 +208,7 @@ export class MiscellaneousComponent implements OnInit, AfterViewInit {
       case 'volunteering':
         return this.fb.group({
           dateFrom: [data && data.dateFrom ? data.dateFrom : null, Validators.required],
-          dateTo: [data && data.dateTo ? data.dateTo : '', Validators.required],
+          dateTo: [data && data.dateTo ? data.dateTo : ''],
           description: [data && data.description ? data.description : null, Validators.required],
           institution: [data && data.institution ? data.institution : null, Validators.required],
           volunteeringTitle: [data && data.volunteeringTitle ? data.volunteeringTitle : null, Validators.required],

@@ -30,8 +30,9 @@ export class ProfileService {
     return this.http.patch<any>(this.apiRoutes.PROFILE, data);
   }
 
-  public addCustomSkillTag(data) {
-    return this.http.post<any>(this.apiRoutes.ADD_CUSTOM_SKILL_TAG, data);
+  public createSkills(data: object, lang?: string) {
+    const url = this.apiRoutes.CREATE_SKILLS.replace(':lang', lang ? lang : '');
+    return this.http.post<any>(url, data);
   }
 
 }

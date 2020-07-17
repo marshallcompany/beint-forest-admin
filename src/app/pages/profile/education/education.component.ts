@@ -133,14 +133,21 @@ export class EducationComponent implements OnInit, AfterViewInit {
       }
     });
     if (!skillsListCheck) {
-      console.log('[ ADD CUSTOM TAG ]');
-      // this.profileService.addCustomSkillTag({name: $event})
-      // .pipe()
-      // .subscribe(
-      //   res => {
-      //     console.log('[ ADD CUSTOM TAG ]');
-      //   }
-      // );
+      this.profileService.createSkills({name: $event})
+      .pipe(
+        switchMap(() => {
+          return this.searchService.getSkills('de');
+        })
+      )
+      .subscribe(
+        skills => {
+          this.skillsList = skills;
+          console.log('[ ADD CUSTOM TAG RESULT ]', skills);
+        },
+        error => {
+          console.log('[ ADD CUSTOM TAG ERROR ]', error);
+        }
+      );
     }
   }
 
@@ -556,7 +563,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
 
   public initDropDownList = () => {
     this.$langList = this.searchService.getLang('de', '');
-    this.searchService.getSkills('de', '')
+    this.searchService.getSkills('de')
     .subscribe(
       res => {
         this.skillsList = res;
