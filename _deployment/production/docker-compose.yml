@@ -1,0 +1,35 @@
+version: "3.4"
+
+services:
+  web_candidate:
+    build:
+      context: ../../.
+      args:
+        - BUILD=1
+    container_name: beint_web_app
+    restart: always
+    env_file:
+      - './.env'
+      - '../../.env'
+    environment:
+      - NGINX_PORT=80
+      - LETSENCRYPT_HOST=app.beint.de
+      - LETSENCRYPT_EMAIL=oleg.or@room4.team
+      - VIRTUAL_HOST=app.beint.de
+    ports:
+      - "${LISTEN_HOST}:${GATEWAY_PORT_HTTP}:80"
+      - "${LISTEN_HOST}:${GATEWAY_PORT_SSL}:443"
+    volumes:
+      - ./gateway.conf:/external_confs/gateway.conf:ro
+    command: /bin/sh -c "envsubst '' < /external_confs/gateway.conf > /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"
+    networks:
+      - beint-common
+
+volumes:
+  web_candidate:
+    driver: local
+
+networks:
+  beint-common:
+    external: true
+    driver: bridge
