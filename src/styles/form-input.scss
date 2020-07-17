@@ -424,6 +424,18 @@ body .field-group {
     }
 }
 // STYLE SELECT
+.custom-select.custom-select__tag{
+  .ng-option{
+    .ng-star-inserted{
+      display: flex;
+      align-items: center;
+      .ng-tag-label{
+        order: 1;
+        margin-left: 5px;
+      }
+    }
+  }
+}
 .custom-select {
   width: 100%;
   height: 100%;

@@ -1289,7 +1289,7 @@
                             <ng-select
                               #primarySkillsElement
                               [addTag]="true"
-                              addTagText="Add new"
+                              addTagText="hinzufügen"
                               [searchable]="true"
                               [clearable]="false"
                               [multiple]="true"
@@ -1300,7 +1300,7 @@
                               [formControl]="primarySkillsControl"
                               (add)="addCustomSkillTag($event)"
                               (change)="formArrayPush($event, primarySkillsArray, 'Deine drei Topskills', primarySkillsElement)"
-                              class="custom-select">
+                              class="custom-select custom-select__tag">
                             </ng-select>
                             <div
                               class="field-wrapper__status"
@@ -1328,7 +1328,7 @@
                             <ng-select
                               #secondarySkillsElement
                               [addTag]="true"
-                              addTagText="Add new"
+                              addTagText="hinzufügen"
                               [searchable]="true"
                               [clearable]="false"
                               [multiple]="true"
@@ -1339,7 +1339,7 @@
                               (add)="addCustomSkillTag($event)"
                               (change)="formArrayPush($event, secondarySkillsArray, 'Deine weiteren Skills', secondarySkillsElement)"
                               placeholder="weitere Skills"
-                              class="custom-select">
+                              class="custom-select custom-select__tag">
                             </ng-select>
                             <div
                               class="field-wrapper__status"
