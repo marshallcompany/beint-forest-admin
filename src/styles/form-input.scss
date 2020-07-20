@@ -122,7 +122,9 @@
 .ng-value-container {
   padding: 0 !important;
 }
-
+.ng-select-container .ng-value-container .ng-value{
+  width: 100%;
+}
 body .field-group {
   width: 47%;
   position: relative;
