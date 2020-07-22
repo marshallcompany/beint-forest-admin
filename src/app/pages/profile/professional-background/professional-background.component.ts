@@ -217,6 +217,11 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
           });
   }
 
+  public triggerClick = (id: string) => {
+    const element: HTMLElement = document.getElementById(id) as HTMLElement;
+    element.click();
+  }
+
   public accordionChange = ($event: AccordionItemComponent, element: HTMLElement) => {
     $event.toggleEmitter
       .pipe(
