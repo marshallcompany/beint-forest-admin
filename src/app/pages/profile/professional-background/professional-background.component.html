@@ -478,7 +478,9 @@
                           <div class="field-wrapper__type">abc</div>
                           <div
                             class="field-wrapper__status"
-                            [ngClass]="{'invalid-should' : !this.form.get('workExperience').get('independentExperience').get('items').controls[i].get('companyName').value}"></div>
+                            [ngClass]="{
+                              'invalid-should' : !this.form.get('workExperience').get('independentExperience').get('items').controls[i].get('companyName').value && !this.form.get('workExperience').get('independentExperience').get('items').controls[i].get('isFreelancer').value,
+                              'invalid-could' : this.form.get('workExperience').get('independentExperience').get('items').controls[i].get('isFreelancer').value && !this.form.get('workExperience').get('independentExperience').get('items').controls[i].get('companyName').value}"></div>
                         </div>
                       </div>
                       <div
@@ -683,13 +685,19 @@
               <div
                 class="subcategory-preview-item"
                 *ngFor="let item of this.form.get('workExperience').get('independentExperience').get('items').controls; let i = index">
-                <ng-container *ngIf="item.valid && (item.get('dateEnd').value || item.get('tilToday').value); else notValid">
+                <ng-container *ngIf="item.valid && (item.get('dateEnd').value || item.get('tilToday').value) && (item.get('isFreelancer').value || item.get('companyName').value); else notValid">
                   <div class="subcategory-preview-info" (click)="accordion02.expanded = !accordion02.expanded">
                     <p class="subcategory-preview-info__number">
                       <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
                     </p>
                     <div class="subcategory-preview-info__details">
-                      <p class="subcategory-preview-info__species">{{ item.get('companyName').value }}</p>
+                      <p class="subcategory-preview-info__species" *ngIf="item.get('isFreelancer').value">Freiberufler</p>
+                      <div class="subcategory-preview-info__circle"
+                           *ngIf="item.get('isFreelancer').value && item.get('companyName').value">
+                      </div>
+                      <p class="subcategory-preview-info__species" *ngIf="item.get('companyName').value">
+                        {{ item.get('companyName').value }}
+                      </p>
                       <div class="subcategory-preview-info__circle"></div>
                       <p class="subcategory-preview-info__date">
                         <span>{{ item.get('dateStart').value | date: 'MM/yyyy' }}</span>

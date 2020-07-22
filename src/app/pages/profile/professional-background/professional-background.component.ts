@@ -163,7 +163,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
       case 'independentExperience':
         return this.fb.group({
           jobTitle: [data && data.jobTitle ? data.jobTitle : '', Validators.required],
-          companyName: [data && data.companyName ? data.companyName : '', Validators.required],
+          companyName: [data && data.companyName ? data.companyName : ''],
           dateStart: [data && data.dateStart ? data.dateStart : null, Validators.required],
           dateEnd: [data && data.dateEnd ? data.dateEnd : null],
           country: [data && data.country ? data.country : null, Validators.required],
