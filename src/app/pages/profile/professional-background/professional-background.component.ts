@@ -222,7 +222,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
     element.click();
   }
 
-  public accordionChange = ($event: AccordionItemComponent, element: HTMLElement) => {
+  public accordionChange = ($event: AccordionItemComponent) => {
     $event.toggleEmitter
       .pipe(
         distinctUntilChanged()
@@ -231,9 +231,6 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
         res => {
           if (res.expanded) {
             this.accordionsStatus = false;
-            setTimeout(() => {
-              element.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
-            }, 500);
           } else {
             this.accordionsStatus = true;
           }

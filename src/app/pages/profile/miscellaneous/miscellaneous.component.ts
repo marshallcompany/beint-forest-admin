@@ -126,9 +126,6 @@ export class MiscellaneousComponent implements OnInit, AfterViewInit {
         res => {
           if (res.expanded) {
             this.accordionsStatus = false;
-            setTimeout(() => {
-              element.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
-            }, 500);
           } else {
             this.accordionsStatus = true;
           }
