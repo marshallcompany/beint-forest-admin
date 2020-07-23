@@ -1323,7 +1323,7 @@
                         </div>
                         <div class="field field_select field_select-multiselect-arrow"
                             [ngClass]="{'disabled': secondarySkillsArray.controls.length > 9}">
-                          <p class="field__label">weitere Skills (10 max.) </p>
+                          <p class="field__label">Weitere Skills (10 max.) </p>
                           <div class="field-wrapper">
                             <ng-select
                               #secondarySkillsElement
@@ -1338,7 +1338,7 @@
                               [formControl]="secondarySkillsControl"
                               (add)="addCustomSkillTag($event)"
                               (change)="formArrayPush($event, secondarySkillsArray, 'Deine weiteren Skills', secondarySkillsElement)"
-                              placeholder="weitere Skills"
+                              placeholder="Weitere Skills"
                               class="custom-select custom-select__tag">
                             </ng-select>
                             <div
