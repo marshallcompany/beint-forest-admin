@@ -8,6 +8,7 @@ import { map, switchMap, distinctUntilChanged } from 'rxjs/operators';
 import { ConfirmModalComponent } from 'src/app/components/modal/confirm/confirm-modal.component';
 import * as moment from 'moment';
 import { AccordionItemComponent } from 'src/app/components/accordion/accordion-item.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-miscellaneous',
@@ -40,6 +41,7 @@ export class MiscellaneousComponent implements OnInit, AfterViewInit {
   public hobbiesControl = new FormControl(['']);
 
   constructor(
+    public router: Router,
     private fb: FormBuilder,
     private profileService: ProfileService,
     // private searchService: SearchService,
@@ -115,6 +117,17 @@ export class MiscellaneousComponent implements OnInit, AfterViewInit {
   public triggerClick = (id: string) => {
     const element: HTMLElement = document.getElementById(id) as HTMLElement;
     element.click();
+  }
+
+  public swipe = ($event) => {
+    // SWIPE RIGHT
+    if ($event.deltaX > 100 && window.innerWidth <= 768) {
+      this.router.navigate([this.navSettings.prevCategory]);
+    }
+    // SWIPE LEFT
+    if ($event.deltaX < 0 && window.innerWidth <= 768) {
+      this.router.navigate([this.navSettings.nextCategory]);
+    }
   }
 
   public accordionChange = ($event: AccordionItemComponent, element: HTMLElement) => {

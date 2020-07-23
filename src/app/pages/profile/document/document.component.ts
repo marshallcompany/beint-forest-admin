@@ -10,6 +10,7 @@ import { GlobalErrorService } from 'src/app/services/global-error-service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { ConfirmModalComponent } from 'src/app/components/modal/confirm/confirm-modal.component';
 import { FileRenameComponent } from 'src/app/components/modal/file-rename/file-rename.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-document',
@@ -31,6 +32,7 @@ export class DocumentComponent implements OnInit {
   public fileTypeConfig: Array<any>;
 
   constructor(
+    public router: Router,
     private profileService: ProfileService,
     private uploadFileService: UploadFileService,
     private bottomSheet: MatBottomSheet,
@@ -76,6 +78,17 @@ export class DocumentComponent implements OnInit {
           console.log('[ DOCUMENT DONE ]');
         }
       );
+  }
+
+  public swipe = ($event) => {
+    // SWIPE RIGHT
+    if ($event.deltaX > 100 && window.innerWidth <= 768) {
+      this.router.navigate([this.navSettings.prevCategory]);
+    }
+    // SWIPE LEFT
+    if ($event.deltaX < 0 && window.innerWidth <= 768) {
+      this.router.navigate([this.navSettings.nextCategory]);
+    }
   }
 
   public fileSelect = ($event, inputFile) => {

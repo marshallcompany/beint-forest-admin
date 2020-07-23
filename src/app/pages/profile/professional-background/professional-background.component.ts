@@ -11,6 +11,7 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { MatDialog } from '@angular/material';
 import { ConfirmModalComponent } from 'src/app/components/modal/confirm/confirm-modal.component';
 import { AccordionItemComponent } from 'src/app/components/accordion/accordion-item.component';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -62,6 +63,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
 
 
   constructor(
+    public router: Router,
     private fb: FormBuilder,
     private profileService: ProfileService,
     private searchService: SearchService,
@@ -220,6 +222,17 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
   public triggerClick = (id: string) => {
     const element: HTMLElement = document.getElementById(id) as HTMLElement;
     element.click();
+  }
+
+  public swipe = ($event) => {
+    // SWIPE RIGHT
+    if ($event.deltaX > 100 && window.innerWidth <= 768) {
+      this.router.navigate([this.navSettings.prevCategory]);
+    }
+    // SWIPE LEFT
+    if ($event.deltaX < 0 && window.innerWidth <= 768) {
+      this.router.navigate([this.navSettings.nextCategory]);
+    }
   }
 
   public accordionChange = ($event: AccordionItemComponent, element: HTMLElement) => {

@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { map, switchMap } from 'rxjs/operators';
 import { throwError, of, forkJoin } from 'rxjs';
 import { NotificationService } from 'src/app/services/notification.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-about',
@@ -29,6 +30,7 @@ export class AboutComponent implements OnInit {
 
   constructor(
     public fb: FormBuilder,
+    public router: Router,
     private profileService: ProfileService,
     private notificationService: NotificationService,
   ) { }
@@ -74,6 +76,17 @@ export class AboutComponent implements OnInit {
 
   public get aboutAnswers(): FormArray {
     return this.form.get('aboutAnswers') as FormArray;
+  }
+
+  public swipe = ($event) => {
+    // SWIPE RIGHT
+    if ($event.deltaX > 100 && window.innerWidth <= 768) {
+      this.router.navigate([this.navSettings.prevCategory]);
+    }
+    // SWIPE LEFT
+    if ($event.deltaX < 0 && window.innerWidth <= 768) {
+      this.router.navigate([this.navSettings.nextCategory]);
+    }
   }
 
   public createAnswerGroup = (question, answer, index): FormGroup => {

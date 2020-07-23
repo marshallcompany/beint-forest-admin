@@ -8,6 +8,7 @@ import { NotificationService } from 'src/app/services/notification.service';
 
 import * as moment from 'moment';
 import { throwError, of, forkJoin, Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -48,6 +49,7 @@ export class SearchSettingsComponent implements OnInit {
   constructor(
     public searchService: SearchService,
     public profileService: ProfileService,
+    public router: Router,
     private fb: FormBuilder,
     private notificationService: NotificationService
   ) { }
@@ -158,6 +160,17 @@ export class SearchSettingsComponent implements OnInit {
         this.patchFormValue(res.searchPreferences);
         console.log('res', res);
       });
+  }
+
+  public swipe = ($event) => {
+    // SWIPE RIGHT
+    if ($event.deltaX > 100 && window.innerWidth <= 768) {
+      this.router.navigate([this.navSettings.prevCategory]);
+    }
+    // SWIPE LEFT
+    if ($event.deltaX < 0 && window.innerWidth <= 768) {
+      this.router.navigate([this.navSettings.nextCategory]);
+    }
   }
 
   public patchFormValue = (searchPreferences) => {

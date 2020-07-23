@@ -7,6 +7,7 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { switchMap } from 'rxjs/operators';
 import { throwError, of, Observable, forkJoin } from 'rxjs';
 import { SearchService } from '../../../services/search.service';
+import { Router } from '@angular/router';
 
 interface DropDownOptions {
   academic_titles: Array<string[]>;
@@ -47,6 +48,7 @@ export class PersonalComponent implements OnInit {
 
   constructor(
     public formBuilder: FormBuilder,
+    public router: Router,
     private profileService: ProfileService,
     private notificationService: NotificationService,
     private searchService: SearchService
@@ -138,6 +140,17 @@ export class PersonalComponent implements OnInit {
 
   public get driverLicensesArray(): FormArray {
     return this.form.get('personal').get('driverLicenses') as FormArray;
+  }
+
+  public swipe = ($event) => {
+    // SWIPE RIGHT
+    if ($event.deltaX > 100 && window.innerWidth <= 768) {
+      this.router.navigate([this.navSettings.prevCategory]);
+    }
+    // SWIPE LEFT
+    if ($event.deltaX < 0 && window.innerWidth <= 768) {
+      this.router.navigate([this.navSettings.nextCategory]);
+    }
   }
 
   public patchFormValue = (personalData) => {

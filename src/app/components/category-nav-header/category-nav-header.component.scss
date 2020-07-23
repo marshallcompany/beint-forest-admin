@@ -114,9 +114,9 @@
 }
 .mobile-navigation{
     padding: 0 7px;
-    display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
+    display: none;
 }
 .mobile-navigation__button{
     width: 30px;
@@ -259,11 +259,11 @@
     .category-header{
         position: relative;
         padding:0;
-        padding-top: 120px;
+        padding-top: 100px;
         &:before{
             content: '';
             width:100%;
-            height: 120px;
+            height: 100px;
             background-image: url('../../../assets/image/profile-navigation/1.svg');
             background-repeat: no-repeat;
             background-size: cover;
@@ -284,7 +284,7 @@
         left: 0;
         top: 0;
         width: 100%;
-        height:120px;
+        height:100px;
         display: flex;
         margin-bottom: 10px;
         background-image: url('../../../assets/image/profile-navigation/2.svg');
@@ -293,6 +293,9 @@
         background-position: center bottom;
     }
     // NEW STYLES
+    .mobile-navigation{
+        display: flex;
+    }
     .category-detail_show-image{
         height: auto;
         margin-top: 15px;
@@ -325,15 +328,6 @@
 @media screen and (max-width:414px){}
 @media screen and (max-width:375px){}
 @media screen and (max-width:360px){
-    .category-header{
-        padding-top: 100px;
-        &:before{
-            height: 100px;
-        }
-    }
-    .mobile-category-header{
-        height: 100px;
-    }
     .mobile-category-information{
         &__icon{
             height:40px;

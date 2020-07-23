@@ -68,10 +68,6 @@ export class CategoryNavHeaderComponent implements OnInit {
   }
 
 
-  public closeCategory = () => {
-    this.router.navigate(['profile']);
-  }
-
   public onBack = () => {
     this.location.back();
   }
