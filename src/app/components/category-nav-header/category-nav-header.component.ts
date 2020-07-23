@@ -1,7 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { Location } from '@angular/common';
-
 
 interface RouterParams {
   routerName: string;
@@ -22,8 +20,7 @@ export class CategoryNavHeaderComponent implements OnInit {
   public routers: Array<RouterParams>;
 
   constructor(
-    private router: Router,
-    private location: Location
+    private router: Router
   ) {
     this.routers = [
       {
@@ -69,7 +66,7 @@ export class CategoryNavHeaderComponent implements OnInit {
 
 
   public onBack = () => {
-    this.location.back();
+    this.router.navigate(['profile']);
   }
 
   public prevCategory = () => {
