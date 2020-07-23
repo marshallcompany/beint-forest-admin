@@ -19,7 +19,6 @@ import { AccordionItemComponent } from 'src/app/components/accordion/accordion-i
   styleUrls: ['./professional-background.component.scss']
 })
 export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
-  public accordionsStatus: boolean;
 
   @ViewChild('accordion01', { static: false }) accordion01: AccordionItemComponent;
   @ViewChild('accordion02', { static: false }) accordion02: AccordionItemComponent;
@@ -67,9 +66,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
     private searchService: SearchService,
     private notificationService: NotificationService,
     private matDialog: MatDialog,
-  ) {
-    this.accordionsStatus = true;
-  }
+  ) {}
 
   ngOnInit(): void {
     this.init();
@@ -220,22 +217,6 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
   public triggerClick = (id: string) => {
     const element: HTMLElement = document.getElementById(id) as HTMLElement;
     element.click();
-  }
-
-  public accordionChange = ($event: AccordionItemComponent) => {
-    $event.toggleEmitter
-      .pipe(
-        distinctUntilChanged()
-      )
-      .subscribe(
-        res => {
-          if (res.expanded) {
-            this.accordionsStatus = false;
-          } else {
-            this.accordionsStatus = true;
-          }
-        }
-      );
   }
 
   private patchFormValue(searchPreferences) {
