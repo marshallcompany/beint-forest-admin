@@ -729,7 +729,7 @@
                 item.get('country').value || item.get('dateEnd').value || item.get('dateStart').value ||
                 item.get('isFreelancer').value || item.get('jobDescription').value || item.get('jobTitle').value ||
                 item.get('tilToday').value || item.get('workPlace').value)) ||
-                (item.valid && ((!item.get('dateEnd').value && !item.get('tilToday').value ) || (!item.get('isFreelancer').value && item.get('companyName').value)))">
+                (item.valid && ((!item.get('dateEnd').value && !item.get('tilToday').value ) || (!item.get('isFreelancer').value && !item.get('companyName').value)))">
                   <div class="subcategory-preview-info" (click)="triggerClick('accordion-header-02')">
                     <p class="subcategory-preview-info__number">
                       <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
