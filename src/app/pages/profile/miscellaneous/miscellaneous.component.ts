@@ -4,7 +4,7 @@ import { ProfileService } from 'src/app/services/profile.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { MatDialog } from '@angular/material';
 import { forkJoin, of, throwError } from 'rxjs';
-import { map, switchMap, distinctUntilChanged } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { ConfirmModalComponent } from 'src/app/components/modal/confirm/confirm-modal.component';
 import * as moment from 'moment';
 import { AccordionItemComponent } from 'src/app/components/accordion/accordion-item.component';
@@ -31,7 +31,6 @@ export class MiscellaneousComponent implements OnInit, AfterViewInit {
     prevCategory: 'profile/document'
   };
 
-  public accordionsStatus: boolean;
   public miscellaneousData: any;
   public dropdownOptions: any;
   public currentDate = moment().toDate();
@@ -47,9 +46,7 @@ export class MiscellaneousComponent implements OnInit, AfterViewInit {
     // private searchService: SearchService,
     private notificationService: NotificationService,
     private matDialog: MatDialog,
-  ) {
-    this.accordionsStatus = true;
-  }
+  ) {}
 
   ngOnInit(): void {
     this.init();
@@ -128,25 +125,6 @@ export class MiscellaneousComponent implements OnInit, AfterViewInit {
     if ($event.deltaX < 0 && window.innerWidth <= 768) {
       this.router.navigate([this.navSettings.nextCategory]);
     }
-  }
-
-  public accordionChange = ($event: AccordionItemComponent, element: HTMLElement) => {
-    $event.toggleEmitter
-      .pipe(
-        distinctUntilChanged()
-      )
-      .subscribe(
-        res => {
-          if (res.expanded) {
-            this.accordionsStatus = false;
-            setTimeout(() => {
-              element.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
-            }, 500);
-          } else {
-            this.accordionsStatus = true;
-          }
-        }
-      );
   }
 
   public get hobbiesArray(): FormArray {

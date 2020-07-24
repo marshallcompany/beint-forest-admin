@@ -27,7 +27,7 @@
                 [virtualScroll]="true"
                 [formControl]="placeControl"
                 [items]="placeOptions$ | async"
-                placeholder="City"
+                placeholder="Wunsch-Arbeitsort(e)"
                 (change)="formArrayPush($event, 'desiredPlacesOfWorkArray', 'Wunsch-Arbeitsort')"
                 class="custom-select">
               </ng-select>
@@ -36,7 +36,6 @@
                 [ngClass]="{'invalid-should' : form.get('searchPreferences').get('desiredPlacesOfWork').value.length === 0}"
                 class="field-wrapper__status"></div>
             </div>
-            
             <div class="tags-wrapper">
               <div
                 formArrayName="desiredPlacesOfWork"
@@ -71,7 +70,7 @@
                 [multiple]="true"
                 [hideSelected]="true"
                 [items]="businessOptions$ | async"
-                placeholder="Geschäftsbereiche"
+                placeholder="Bevorzugte(r) Geschäftsbereich(e)"
                 [formControl]="businessBranchesControl"
                 (change)="formArrayPush($event, 'preferredBusinessArray', 'Bevorzugte(r) Geschäftsbereich(e)')"
                 class="custom-select">
@@ -104,7 +103,7 @@
                 [clearable]="false"
                 [multiple]="true"
                 [hideSelected]="true"
-                placeholder="Branche"
+                placeholder="Wunsch-Branchen"
                 [formControl]="industryBranchesControl"
                 (change)="formArrayPush($event, 'industryBranchesArray', 'Wunsch-Branchen')"
                 class="custom-select">
@@ -137,7 +136,7 @@
                 [searchable]="false"
                 [multiple]="true"
                 [hideSelected]="true"
-                placeholder="Art der Anstellung"
+                placeholder="Wähle aus der Liste"
                 [formControl]="employmentTypesControl"
                 (change)="formArrayPush($event, 'employmentTypesArray', 'Gewünschte Art der Anstellung')"
                 class="custom-select">
@@ -176,7 +175,7 @@
                 [clearable]="false"
                 [multiple]="true"
                 [hideSelected]="true"
-                placeholder="Arbeitszeit"
+                placeholder="Wähle aus der Liste"
                 [formControl]="workingHoursControl"
                 (change)="formArrayPush($event, 'preferredWorkingHoursArray', 'Präferierte Arbeitszeit')"
                 class="custom-select">
@@ -323,7 +322,7 @@
                 dropdownPosition="top"
                 [hideSelected]="true"
                 [items]="benefitsOptions$ | async"
-                placeholder="Benefits"
+                placeholder="Wunsch-Benefits"
                 [formControl]="benefitsControl"
                 (change)="formArrayPush($event, 'benefitsArray', 'Benefit(s)')"
                 class="custom-select">

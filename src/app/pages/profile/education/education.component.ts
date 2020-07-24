@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, FormArray, FormGroupName, Validators, FormContr
 import { FormValidators } from '../../../validators/validators';
 import { ProfileService } from 'src/app/services/profile.service';
 import { NotificationService } from 'src/app/services/notification.service';
-import { map, switchMap, toArray, concatMap, delay, distinctUntilChanged } from 'rxjs/operators';
+import { map, switchMap, toArray, concatMap, delay } from 'rxjs/operators';
 import { MatDialog } from '@angular/material';
 import { SearchService } from 'src/app/services/search.service';
 import { Observable, forkJoin, of, throwError, from } from 'rxjs';
@@ -34,7 +34,6 @@ export class EducationComponent implements OnInit, AfterViewInit {
     prevCategory: 'profile/personal'
   };
 
-  public accordionsStatus: boolean;
   @ViewChild('accordion01', { static: false }) accordion01: AccordionItemComponent;
   @ViewChild('accordion02', { static: false }) accordion02: AccordionItemComponent;
   @ViewChild('accordion03', { static: false }) accordion03: AccordionItemComponent;
@@ -79,9 +78,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
     private searchService: SearchService,
     private notificationService: NotificationService,
     private matDialog: MatDialog
-  ) {
-    this.accordionsStatus = true;
-  }
+  ) {}
 
   ngOnInit() {
     this.formInit();
@@ -258,25 +255,6 @@ export class EducationComponent implements OnInit, AfterViewInit {
     if ($event.deltaX < 0 && window.innerWidth <= 768) {
       this.router.navigate([this.navSettings.nextCategory]);
     }
-  }
-
-  public accordionChange = ($event: AccordionItemComponent, element: HTMLElement) => {
-    $event.toggleEmitter
-    .pipe(
-      distinctUntilChanged()
-    )
-    .subscribe(
-      res => {
-        if (res.expanded) {
-          this.accordionsStatus = false;
-          setTimeout(() => {
-            element.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
-          }, 500);
-        } else {
-          this.accordionsStatus = true;
-        }
-      }
-    );
   }
 
   public get schoolsArray(): FormArray {

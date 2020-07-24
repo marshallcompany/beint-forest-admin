@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormGroupName, FormControl, Validators } from '@angular/forms';
 import { ProfileService } from '../../../services/profile.service';
-import { map, switchMap, delay, concatMap, toArray, distinctUntilChanged } from 'rxjs/operators';
+import { map, switchMap, delay, concatMap, toArray } from 'rxjs/operators';
 import { Observable, of, throwError, from } from 'rxjs';
 import { SearchService } from '../../../services/search.service';
 import * as moment from 'moment';
@@ -20,7 +20,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./professional-background.component.scss']
 })
 export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
-  public accordionsStatus: boolean;
 
   @ViewChild('accordion01', { static: false }) accordion01: AccordionItemComponent;
   @ViewChild('accordion02', { static: false }) accordion02: AccordionItemComponent;
@@ -69,9 +68,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
     private searchService: SearchService,
     private notificationService: NotificationService,
     private matDialog: MatDialog,
-  ) {
-    this.accordionsStatus = true;
-  }
+  ) {}
 
   ngOnInit(): void {
     this.init();
@@ -233,25 +230,6 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
     if ($event.deltaX < 0 && window.innerWidth <= 768) {
       this.router.navigate([this.navSettings.nextCategory]);
     }
-  }
-
-  public accordionChange = ($event: AccordionItemComponent, element: HTMLElement) => {
-    $event.toggleEmitter
-      .pipe(
-        distinctUntilChanged()
-      )
-      .subscribe(
-        res => {
-          if (res.expanded) {
-            this.accordionsStatus = false;
-            setTimeout(() => {
-              element.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
-            }, 500);
-          } else {
-            this.accordionsStatus = true;
-          }
-        }
-      );
   }
 
   private patchFormValue(searchPreferences) {
