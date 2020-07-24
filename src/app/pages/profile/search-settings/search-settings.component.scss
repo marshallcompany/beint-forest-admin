@@ -112,13 +112,6 @@
             width:47%;
         }
     }
-    .field-wrapper{
-        &__placeholder{
-            left: 19px;
-            width: calc(100% - 65px);
-            font-size: 17px;
-        }
-    }
 }
 @media screen and (max-width:568px){
     .search{
@@ -126,13 +119,6 @@
     }
     .tags-wrapper{
         padding-left:10px;
-    }
-}
-@media screen and (min-width: 320px) and (max-width: 374px) {
-    .field-wrapper{
-        &__placeholder{
-            left: 10px;
-        }
     }
 }
 /* = MEDIA END = */

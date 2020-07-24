@@ -109,12 +109,6 @@
     input {
       font-size: 17px;
       font-family: $workSansRegular;
-
-      &::placeholder {
-        color: #989898;
-        opacity: .8;
-        font-size: 17px;
-      }
     }
   }
 }
@@ -264,8 +258,19 @@ body .field-group {
         }
       }
     }
-
     &-multiselect {
+      .ng-arrow-wrapper {
+        display: none;
+      }
+      .ng-select.ng-select-filtered .ng-placeholder {
+        display: none!important;
+      }
+      .ng-select .ng-has-value .ng-placeholder{
+        display: block;
+      }
+      .ng-input{
+        padding: 0!important;
+      }
       .ng-value {
         display: none;
       }
@@ -338,16 +343,6 @@ body .field-group {
       opacity: .8;
       font-size: 17px;
     }
-  }
-  &__placeholder {
-    position: absolute;
-    left: 19px;
-    top: 50%;
-    width: calc(100% - 74px);
-    transform: translate(0, -50%);
-    color: #989898;
-    opacity: .8;
-    font-size: 17px;
   }
   &__type {
     position: absolute;
@@ -470,6 +465,8 @@ body .field-group {
 
       .ng-placeholder {
         font-size: 17px;
+        color: #989898;
+        opacity: .8;
       }
     }
 

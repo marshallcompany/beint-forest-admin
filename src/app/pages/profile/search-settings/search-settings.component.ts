@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProfileService } from '../../../services/profile.service';
 import { SearchService } from '../../../services/search.service';
 import { FormGroup, FormArray, FormBuilder, FormGroupName, FormControl } from '@angular/forms';
@@ -16,12 +16,7 @@ import { throwError, of, forkJoin, Observable } from 'rxjs';
   styleUrls: ['./search-settings.component.scss']
 })
 
-export class SearchSettingsComponent implements OnInit, AfterViewInit {
-
-  @ViewChild('searchBusiness', { static: false }) searchBusiness;
-  @ViewChild('searchIndustry', { static: false }) searchIndustry;
-  @ViewChild('searchBenefits', { static: false }) searchBenefits;
-  @ViewChild('searchPlace', { static: false }) searchPlace;
+export class SearchSettingsComponent implements OnInit {
 
   public navSettings = {
     iconCategory: '../assets/image/profile/category-04.svg',
@@ -64,13 +59,6 @@ export class SearchSettingsComponent implements OnInit, AfterViewInit {
     this.industryOptions$ = this.searchService.getIndustryBranches('de', '');
     this.benefitsOptions$ = this.searchService.getBenefits('de', '');
     this.businessOptions$ = this.searchService.getBusinessBranches('de', '');
-  }
-
-  ngAfterViewInit() {
-    this.searchBenefits.searchInput.nativeElement.placeholder = 'Wunsch-Benefits';
-    this.searchPlace.searchInput.nativeElement.placeholder = 'Wunsch-Arbeitsort';
-    this.searchIndustry.searchInput.nativeElement.placeholder = 'Wunsch-Branchen';
-    this.searchBusiness.searchInput.nativeElement.placeholder = 'Bevorzugte(r) Geschäftsbereich(e)';
   }
 
   public initForm = () => {

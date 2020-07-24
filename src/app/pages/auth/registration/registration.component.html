@@ -9,8 +9,8 @@
           Wir freuen uns, dass Du da bist!
         </h2>
         <h3 class="step-form__title-strong">
-          Mit beint wird Bewerben für dich <br>
-          zum Kinderspiel.
+          Mit beint werden Bewerbungen für Dich
+          zum Kinderspiel
         </h3>
         <div class="steps">
           <div class="steps-item">
@@ -154,14 +154,16 @@
           <div class="privacy-policy">
               <p class="privacy-policy__text">
                 Mit der Registrierung akzeptiere ich die <br>
-                <span class="privacy-policy__details">AGB</span> und habe die 
+                <span class="privacy-policy__details"
+                      (click)="onOpenAgb()">AGB</span>
+                und habe die
                 <span
                   class="privacy-policy__details"
-                  (click)="openPrivacyDialog()">
+                  (click)="onOpenPrivacyDialog()">
                   Datenschutzerklärung
                 </span>
                 <br>
-                zur Kenntnis genommen
+                zur Kenntnis genommen.
               </p>
           </div>
           <button 
@@ -357,19 +359,19 @@
             </svg>
           </div>
           <p class="confirm-email__text">  
-            Bitte bestätige noch Deine E-Mail Adresse. Wir haben Dir dafür eine Mail geschickt.
+            Bitte bestätige noch Deine E-Mail-Adresse. Wir haben Dir dafür eine Mail geschickt.
           </p>
         </div>
       </div>
       <p class="successful-registration__text">
-        Jetzt liegt es and Dir! <br>
+        Jetzt liegt es an Dir! <br>
         Profil ausfüllen - Dokumente hochladen einfach und 
         unkompliziert bewerben! <br>
         Schnapp Ihn Dir - Deinen Traumjob.
       </p>
       
       <button class="start-beint-button" (click)="onGoToRouter('/profile')">
-        Weiter zu Deinem Profile
+        Weiter zu Deinem Profil
         <svg viewBox="0 0 21 15"  xmlns="http://www.w3.org/2000/svg" class="start-beint-button__arrow">
           <path d="M11.3109 13.8764C10.9118 14.4295 10.0883 14.4295 9.68912 13.8764L0.818707 1.58521C0.341408 0.923842 0.813982 0 1.62959 0H19.3704C20.186 0 20.6586 0.923841 20.1813 1.58521L11.3109 13.8764Z"/>
         </svg>

@@ -19,7 +19,6 @@ import { AccordionItemComponent } from 'src/app/components/accordion/accordion-i
   styleUrls: ['./professional-background.component.scss']
 })
 export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
-  public accordionsStatus: boolean;
 
   @ViewChild('accordion01', { static: false }) accordion01: AccordionItemComponent;
   @ViewChild('accordion02', { static: false }) accordion02: AccordionItemComponent;
@@ -67,9 +66,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
     private searchService: SearchService,
     private notificationService: NotificationService,
     private matDialog: MatDialog,
-  ) {
-    this.accordionsStatus = true;
-  }
+  ) {}
 
   ngOnInit(): void {
     this.init();
@@ -163,7 +160,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
       case 'independentExperience':
         return this.fb.group({
           jobTitle: [data && data.jobTitle ? data.jobTitle : '', Validators.required],
-          companyName: [data && data.companyName ? data.companyName : '', Validators.required],
+          companyName: [data && data.companyName ? data.companyName : ''],
           dateStart: [data && data.dateStart ? data.dateStart : null, Validators.required],
           dateEnd: [data && data.dateEnd ? data.dateEnd : null],
           country: [data && data.country ? data.country : null, Validators.required],
@@ -217,23 +214,9 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
           });
   }
 
-  public accordionChange = ($event: AccordionItemComponent, element: HTMLElement) => {
-    $event.toggleEmitter
-      .pipe(
-        distinctUntilChanged()
-      )
-      .subscribe(
-        res => {
-          if (res.expanded) {
-            this.accordionsStatus = false;
-            setTimeout(() => {
-              element.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
-            }, 500);
-          } else {
-            this.accordionsStatus = true;
-          }
-        }
-      );
+  public triggerClick = (id: string) => {
+    const element: HTMLElement = document.getElementById(id) as HTMLElement;
+    element.click();
   }
 
   private patchFormValue(searchPreferences) {
