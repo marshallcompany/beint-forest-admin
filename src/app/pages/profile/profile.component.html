@@ -75,7 +75,7 @@
     </div>
   </section>
 </div>
-<router-outlet
-  (activate)="onActivate()"
-  (deactivate)="onDeactivate()">
-</router-outlet>
+
+<div [@animRoutes]="animationState">
+  <router-outlet (activate)="onActivate($event)" (deactivate)="onDeactivate()"></router-outlet>
+</div>

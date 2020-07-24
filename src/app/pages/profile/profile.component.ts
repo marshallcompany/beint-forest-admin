@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { ProfileService } from '../../services/profile.service';
 import { GlobalErrorService } from 'src/app/services/global-error-service';
@@ -16,6 +16,8 @@ import { ConfirmEmailComponent } from 'src/app/components/modal/confirm-email/co
 import { DownloadFileService } from 'src/app/services/download-file.service';
 import { CvOptionModalComponent } from '../../components/modal/cv-option/cv-option-modal.component';
 import { CvOptionComponent } from 'src/app/components/sheet/cv-option/cv-option.component';
+import { left, right } from '../../animations/router-animations';
+import { trigger, transition } from '@angular/animations';
 
 interface Category {
   name: string;
@@ -26,7 +28,13 @@ interface Category {
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  styleUrls: ['./profile.component.scss'],
+  animations: [
+    trigger('animRoutes', [
+      transition(':increment', right),
+      transition(':decrement', left),
+    ]),
+  ],
 })
 export class ProfileComponent implements OnInit {
 
@@ -47,7 +55,7 @@ export class ProfileComponent implements OnInit {
     private uploadFileService: UploadFileService,
     private globalErrorService: GlobalErrorService,
     private notificationService: NotificationService,
-
+    private route: ActivatedRoute
   ) {
     this.childrenRoutes = false;
     this.categories = [
@@ -61,12 +69,17 @@ export class ProfileComponent implements OnInit {
     ];
   }
 
+  animationState: number;
+
   ngOnInit() {
     this.init();
   }
 
-  onActivate() {
+  onActivate($event) {
     this.childrenRoutes = !this.childrenRoutes;
+    if (window.innerWidth <= 768) {
+      this.animationState = this.route.firstChild.snapshot.data.routeIdx;
+    }
   }
   onDeactivate() {
     this.childrenRoutes = !this.childrenRoutes;
