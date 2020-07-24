@@ -355,9 +355,9 @@
               <div
                 class="subcategory-preview-item"
                 *ngFor="let item of form.get('workExperience').get('employmentConditions').get('items').controls; let i = index">
-                <ng-container *ngIf="item.valid && (item.get('dateEnd').value || item.get('tilToday').value); else notValid">
-                  <div class="subcategory-preview-info" (click)="triggerClick('accordion-header-01')">
-                    <p class="subcategory-preview-info__number">
+                <ng-container *ngIf="item.valid && (item.get('dateEnd').value || item.get('tilToday').value)">
+                  <div class="subcategory-preview-info">
+                    <p class="subcategory-preview-info__number" (click)="triggerClick('accordion-header-01')">
                       <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
                     </p>
                     <div class="subcategory-preview-info__details">
@@ -372,33 +372,40 @@
                       <div class="subcategory-preview-info__circle"></div>
                       <p class="subcategory-preview-info__scope">{{ item.get('employmentType').value }}</p>
                     </div>
+                    <button
+                      type="button"
+                      class="subcategory-preview-item__remove"
+                      (click)="deleteFormGroup(employmentConditionsArray, i)">
+                      <img src="../assets/image/close.svg">
+                    </button>
                   </div>
-                  <button
-                    type="button"
-                    class="subcategory-preview-item__remove"
-                    (click)="deleteFormGroup(employmentConditionsArray, i)">
-                    <img src="../assets/image/close.svg">
-                  </button>
                 </ng-container>
-                <ng-template #notValid>
+                <ng-container *ngIf="(item.invalid && (item.get('businessArea').value.length || item.get('careerLevel').value ||
+                item.get('company').value || item.get('country').value ||
+                item.get('dateStart').value || item.get('employmentType').value || item.get('industryBranch').value ||
+                item.get('jobDescription').value || item.get('jobTitle').value  || item.get('workPlace').value ||
+                item.get('tilToday').value || item.get('dateEnd').value)) || 
+                (item.valid && (!item.get('tilToday').value && !item.get('dateEnd').value))">
                   <div class="subcategory-preview-info" (click)="triggerClick('accordion-header-01')">
-                    <p class="subcategory-preview-info__number" *ngIf="!form.get('workExperience').get('employmentConditions').get('isNotRelevant').value">
+                    <p class="subcategory-preview-info__number">
                       <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
                     </p>
                     <div class="subcategory-preview-info__details">
-                        <p
-                            class="subcategory-preview-info__invalid"
-                            *ngIf="!form.get('workExperience').get('employmentConditions').get('isNotRelevant').value; else notRelevant">
-                            Unvollständige Angaben
+                        <p class="subcategory-preview-info__invalid">
+                          Unvollständige Angaben
                         </p>
                     </div>
-                    <ng-template #notRelevant>
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="form.get('workExperience').get('employmentConditions').get('isNotRelevant').value">
+                  <div class="subcategory-preview-info" (click)="triggerClick('accordion-header-01')">
+                    <div class="subcategory-preview-info__details">
                       <div class="relevant-info">
                         <p class="relevant-info__line"></p>
                       </div>
-                    </ng-template>
+                    </div>
                   </div>
-                </ng-template>
+                </ng-container>
               </div>
             </div>
           </div>
@@ -686,9 +693,9 @@
               <div
                 class="subcategory-preview-item"
                 *ngFor="let item of this.form.get('workExperience').get('independentExperience').get('items').controls; let i = index">
-                <ng-container *ngIf="item.valid && (item.get('dateEnd').value || item.get('tilToday').value) && (item.get('isFreelancer').value || item.get('companyName').value); else notValid">
-                  <div class="subcategory-preview-info" (click)="triggerClick('accordion-header-02')">
-                    <p class="subcategory-preview-info__number">
+                <ng-container *ngIf="item.valid && (item.get('dateEnd').value || item.get('tilToday').value) && (item.get('isFreelancer').value || item.get('companyName').value)">
+                  <div class="subcategory-preview-info">
+                    <p class="subcategory-preview-info__number" (click)="triggerClick('accordion-header-02')">
                       <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
                     </p>
                     <div class="subcategory-preview-info__details">
@@ -709,33 +716,40 @@
                       <div class="subcategory-preview-info__circle"></div>
                       <p class="subcategory-preview-info__scope">{{ item.get('jobTitle').value }}</p>
                     </div>
+                    <button
+                      type="button"
+                      class="subcategory-preview-item__remove"
+                      (click)="deleteFormGroup(independentExperienceArray, i)">
+                      <img src="../assets/image/close.svg">
+                    </button>
                   </div>
-                  <button
-                    type="button"
-                    class="subcategory-preview-item__remove"
-                    (click)="deleteFormGroup(independentExperienceArray, i)">
-                    <img src="../assets/image/close.svg">
-                  </button>
                 </ng-container>
-                <ng-template #notValid>
+                <ng-container 
+                *ngIf="(item.invalid && (item.get('businessArea').value.length || item.get('companyName').value ||
+                item.get('country').value || item.get('dateEnd').value || item.get('dateStart').value ||
+                item.get('isFreelancer').value || item.get('jobDescription').value || item.get('jobTitle').value ||
+                item.get('tilToday').value || item.get('workPlace').value)) ||
+                (item.valid && ((!item.get('dateEnd').value && !item.get('tilToday').value ) || (!item.get('isFreelancer').value && item.get('companyName').value)))">
                   <div class="subcategory-preview-info" (click)="triggerClick('accordion-header-02')">
-                    <p class="subcategory-preview-info__number" *ngIf="!form.get('workExperience').get('independentExperience').get('isNotRelevant').value">
+                    <p class="subcategory-preview-info__number">
                       <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
                     </p>
                     <div class="subcategory-preview-info__details">
-                        <p
-                            class="subcategory-preview-info__invalid"
-                            *ngIf="!form.get('workExperience').get('independentExperience').get('isNotRelevant').value; else notRelevant">
+                        <p class="subcategory-preview-info__invalid">
                             Unvollständige Angaben
                         </p>
                     </div>
-                    <ng-template #notRelevant>
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="form.get('workExperience').get('independentExperience').get('isNotRelevant').value">
+                  <div class="subcategory-preview-info" (click)="triggerClick('accordion-header-02')">
+                    <div class="subcategory-preview-info__details">
                       <div class="relevant-info">
                         <p class="relevant-info__line"></p>
                       </div>
-                    </ng-template>
+                    </div>
                   </div>
-                </ng-template>
+                </ng-container>
               </div>
             </div>
           </div>
@@ -956,9 +970,9 @@
               <div
                 class="subcategory-preview-item"
                 *ngFor="let item of this.form.get('workExperience').get('otherExperience').get('items').controls; let i = index">
-                <ng-container *ngIf="item.valid && (item.get('dateEnd').value || item.get('tilToday').value); else notValid">
-                  <div class="subcategory-preview-info" (click)="triggerClick('accordion-header-03')">
-                    <p class="subcategory-preview-info__number">
+                <ng-container *ngIf="item.valid && (item.get('dateEnd').value || item.get('tilToday').value)">
+                  <div class="subcategory-preview-info">
+                    <p class="subcategory-preview-info__number" (click)="triggerClick('accordion-header-03')">
                       <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
                     </p>
                     <div class="subcategory-preview-info__details">
@@ -973,33 +987,38 @@
                       <div class="subcategory-preview-info__circle"></div>
                       <p class="subcategory-preview-info__scope">{{ item.get('workPlace').value }}</p>
                     </div>
+                    <button
+                      type="button"
+                      class="subcategory-preview-item__remove"
+                      (click)="deleteFormGroup(otherExperienceArray, i)">
+                      <img src="../assets/image/close.svg">
+                    </button>
                   </div>
-                  <button
-                    type="button"
-                    class="subcategory-preview-item__remove"
-                    (click)="deleteFormGroup(otherExperienceArray, i)">
-                    <img src="../assets/image/close.svg">
-                  </button>
                 </ng-container>
-                <ng-template #notValid>
+                <ng-container 
+                *ngIf="(item.invalid && (item.get('country').value || item.get('dateEnd').value || item.get('dateStart').value || 
+                item.get('jobDescription').value || item.get('jobTitle').value || item.get('tilToday').value || 
+                item.get('workPlace').value)) || (item.valid && !item.get('dateEnd').value && !item.get('tilToday').value)">
                   <div class="subcategory-preview-info" (click)="triggerClick('accordion-header-03')">
-                    <p class="subcategory-preview-info__number" *ngIf="!form.get('workExperience').get('otherExperience').get('isNotRelevant').value">
+                    <p class="subcategory-preview-info__number">
                       <span class="subcategory-preview-info__text">{{ i + 1 }}</span>
                     </p>
                     <div class="subcategory-preview-info__details">
-                        <p
-                            class="subcategory-preview-info__invalid"
-                            *ngIf="!form.get('workExperience').get('otherExperience').get('isNotRelevant').value; else notRelevant">
+                        <p class="subcategory-preview-info__invalid">
                             Unvollständige Angaben
                         </p>
                     </div>
-                    <ng-template #notRelevant>
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="form.get('workExperience').get('otherExperience').get('isNotRelevant').value">
+                  <div class="subcategory-preview-info" (click)="triggerClick('accordion-header-03')">
+                    <div class="subcategory-preview-info__details">
                       <div class="relevant-info">
                         <p class="relevant-info__line"></p>
                       </div>
-                    </ng-template>
+                    </div>
                   </div>
-                </ng-template>
+                </ng-container>
               </div>
             </div>
           </div>
