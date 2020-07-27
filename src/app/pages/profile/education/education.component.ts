@@ -11,6 +11,7 @@ import * as moment from 'moment';
 import { ConfirmModalComponent } from 'src/app/components/modal/confirm/confirm-modal.component';
 import { AccordionItemComponent } from 'src/app/components/accordion/accordion-item.component';
 import { Router } from '@angular/router';
+import { fadeAnimation } from 'src/app/animations/router-animations';
 interface DropDownOptions {
   school_types: Array<string[]>;
   school_graduation: Array<string[]>;
@@ -21,7 +22,8 @@ interface DropDownOptions {
 @Component({
   selector: 'app-education',
   templateUrl: './education.component.html',
-  styleUrls: ['./education.component.scss']
+  styleUrls: ['./education.component.scss'],
+  animations: [fadeAnimation]
 })
 export class EducationComponent implements OnInit, AfterViewInit {
   public mask = '0,00';
@@ -49,6 +51,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
   $langList: Observable<string[]>;
 
   skillsList = [];
+  public viewPortStatus = true;
   public schoolCityArray = [];
   public schoolCountryArray = [];
 
@@ -93,6 +96,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
   public init = () => {
     const profile$ = this.profileService.getProfile();
     const dropdownOptions$ = this.profileService.getLocalBundle('de');
+    this.checkViewPort();
     forkJoin([profile$, dropdownOptions$])
       .pipe(
         map(([profile, dropdownOptions]) => {
@@ -121,6 +125,13 @@ export class EducationComponent implements OnInit, AfterViewInit {
           console.log('[ ERROR EDUCATION DATA ]', err);
         }
       );
+  }
+
+  public checkViewPort = () => {
+    if (window.innerWidth <= 768) {
+      this.viewPortStatus = false;
+    }
+    return;
   }
 
   public addCustomSkillTag = ($event: string) => {

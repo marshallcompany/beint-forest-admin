@@ -38,13 +38,13 @@ import { NotificationComponent } from '../pages/settings/notification/notificati
 
 
 const profileChildren: Routes = [
-  { path: 'personal', component: PersonalComponent, canActivate: [AuthGuard], data: { routeIdx: 0 } },
-  { path: 'education', component: EducationComponent, canActivate: [AuthGuard], data: { routeIdx: 1 } },
-  { path: 'professional-background', component: ProfessionalBackgroundComponent, canActivate: [AuthGuard], data: { routeIdx: 2 } },
-  { path: 'search-settings', component: SearchSettingsComponent, canActivate: [AuthGuard], data: { routeIdx: 3 } },
-  { path: 'document', component: DocumentComponent, canActivate: [AuthGuard], data: { routeIdx: 4 } },
-  { path: 'miscellaneous', component: MiscellaneousComponent, canActivate: [AuthGuard], data: { routeIdx: 5 } },
-  { path: 'about', component: AboutComponent, canActivate: [AuthGuard], data: { routeIdx: 6 } }
+  { path: 'personal', component: PersonalComponent, canActivate: [AuthGuard]},
+  { path: 'education', component: EducationComponent, canActivate: [AuthGuard]},
+  { path: 'professional-background', component: ProfessionalBackgroundComponent, canActivate: [AuthGuard]},
+  { path: 'search-settings', component: SearchSettingsComponent, canActivate: [AuthGuard]},
+  { path: 'document', component: DocumentComponent, canActivate: [AuthGuard]},
+  { path: 'miscellaneous', component: MiscellaneousComponent, canActivate: [AuthGuard]},
+  { path: 'about', component: AboutComponent, canActivate: [AuthGuard]}
 ];
 
 const authChildren: Routes = [

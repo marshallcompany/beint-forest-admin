@@ -8,6 +8,8 @@ import { switchMap } from 'rxjs/operators';
 import { throwError, of, Observable, forkJoin } from 'rxjs';
 import { SearchService } from '../../../services/search.service';
 import { Router } from '@angular/router';
+import { fadeAnimation } from 'src/app/animations/router-animations';
+
 
 interface DropDownOptions {
   academic_titles: Array<string[]>;
@@ -19,7 +21,8 @@ interface DropDownOptions {
 @Component({
   selector: 'app-personal',
   templateUrl: './personal.component.html',
-  styleUrls: ['./personal.component.scss']
+  styleUrls: ['./personal.component.scss'],
+  animations: [fadeAnimation]
 })
 export class PersonalComponent implements OnInit {
 
@@ -32,6 +35,7 @@ export class PersonalComponent implements OnInit {
     prevCategory: 'profile/about'
   };
 
+  public viewPortStatus = true;
   public firstPersonalData: object;
   public dropdownOptions: DropDownOptions;
 
@@ -65,6 +69,7 @@ export class PersonalComponent implements OnInit {
   public init = () => {
     const getProfileData$ = this.profileService.getProfile();
     const getLocalBundle$ = this.profileService.getLocalBundle('de');
+    this.checkViewPort();
     forkJoin([getProfileData$, getLocalBundle$])
       .pipe(
         map(([fullProfileData, fullLocalBundle]) => {
@@ -104,6 +109,13 @@ export class PersonalComponent implements OnInit {
           }
         );
     }
+  }
+
+  public checkViewPort = () => {
+    if (window.innerWidth <= 768) {
+      this.viewPortStatus = false;
+    }
+    return;
   }
 
   public initForm = () => {

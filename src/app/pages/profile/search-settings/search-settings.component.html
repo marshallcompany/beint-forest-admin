@@ -1,4 +1,4 @@
-<div class="search" (swipe)="swipe($event)">
+<div class="search" @fadeAnimation [@.disabled]="viewPortStatus" (swipe)="swipe($event)">
   <div class="background">
     <img
       src="../assets/image/background-circle-01.png"

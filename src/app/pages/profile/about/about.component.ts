@@ -5,11 +5,13 @@ import { map, switchMap } from 'rxjs/operators';
 import { throwError, of, forkJoin } from 'rxjs';
 import { NotificationService } from 'src/app/services/notification.service';
 import { Router } from '@angular/router';
+import { fadeAnimation } from 'src/app/animations/router-animations';
 
 @Component({
   selector: 'app-about',
   templateUrl: './about.component.html',
-  styleUrls: ['./about.component.scss']
+  styleUrls: ['./about.component.scss'],
+  animations: [fadeAnimation]
 })
 export class AboutComponent implements OnInit {
 
@@ -22,6 +24,7 @@ export class AboutComponent implements OnInit {
     prevCategory: 'profile/miscellaneous'
   };
 
+  public viewPortStatus = true;
   public formData: any;
   public questionsData: any;
   public answersData: any;
@@ -43,6 +46,7 @@ export class AboutComponent implements OnInit {
   public init = () => {
     const question$ = this.profileService.getQuestion();
     const profile$ = this.profileService.getProfile();
+    this.checkViewPort();
     forkJoin(profile$, question$)
       .pipe(
         map(([profile, question]) => {
@@ -66,6 +70,13 @@ export class AboutComponent implements OnInit {
           console.log('ERROR', err);
         }
       );
+  }
+
+  public checkViewPort = () => {
+    if (window.innerWidth <= 768) {
+      this.viewPortStatus = false;
+    }
+    return;
   }
 
   public initForm = () => {

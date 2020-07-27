@@ -11,11 +11,13 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { ConfirmModalComponent } from 'src/app/components/modal/confirm/confirm-modal.component';
 import { FileRenameComponent } from 'src/app/components/modal/file-rename/file-rename.component';
 import { Router } from '@angular/router';
+import { fadeAnimation } from 'src/app/animations/router-animations';
 
 @Component({
   selector: 'app-document',
   templateUrl: './document.component.html',
-  styleUrls: ['./document.component.scss']
+  styleUrls: ['./document.component.scss'],
+  animations: [fadeAnimation]
 })
 export class DocumentComponent implements OnInit {
 
@@ -26,6 +28,7 @@ export class DocumentComponent implements OnInit {
     prevCategory: 'profile/search-settings'
   };
 
+  public viewPortStatus = true;
   public profileDate;
   public documentOption$: Observable<any>;
   public spinner = false;
@@ -55,6 +58,7 @@ export class DocumentComponent implements OnInit {
   }
 
   public init = () => {
+    this.checkViewPort();
     this.profileService.getProfile()
       .pipe(
         map((fullProfileData: any) => {
@@ -78,6 +82,13 @@ export class DocumentComponent implements OnInit {
           console.log('[ DOCUMENT DONE ]');
         }
       );
+  }
+
+  public checkViewPort = () => {
+    if (window.innerWidth <= 768) {
+      this.viewPortStatus = false;
+    }
+    return;
   }
 
   public swipe = ($event) => {

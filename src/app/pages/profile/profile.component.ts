@@ -16,8 +16,6 @@ import { ConfirmEmailComponent } from 'src/app/components/modal/confirm-email/co
 import { DownloadFileService } from 'src/app/services/download-file.service';
 import { CvOptionModalComponent } from '../../components/modal/cv-option/cv-option-modal.component';
 import { CvOptionComponent } from 'src/app/components/sheet/cv-option/cv-option.component';
-import { left, right } from '../../animations/router-animations';
-import { trigger, transition } from '@angular/animations';
 
 interface Category {
   name: string;
@@ -28,13 +26,7 @@ interface Category {
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss'],
-  animations: [
-    trigger('animRoutes', [
-      transition(':increment', right),
-      transition(':decrement', left),
-    ]),
-  ],
+  styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
 
@@ -75,12 +67,10 @@ export class ProfileComponent implements OnInit {
     this.init();
   }
 
-  onActivate($event) {
+  onActivate() {
     this.childrenRoutes = !this.childrenRoutes;
-    if (window.innerWidth <= 768) {
-      this.animationState = this.route.firstChild.snapshot.data.routeIdx;
-    }
   }
+
   onDeactivate() {
     this.childrenRoutes = !this.childrenRoutes;
   }

@@ -9,12 +9,14 @@ import { NotificationService } from 'src/app/services/notification.service';
 import * as moment from 'moment';
 import { throwError, of, forkJoin, Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { fadeAnimation } from 'src/app/animations/router-animations';
 
 
 @Component({
   selector: 'app-search-settings',
   templateUrl: './search-settings.component.html',
-  styleUrls: ['./search-settings.component.scss']
+  styleUrls: ['./search-settings.component.scss'],
+  animations: [fadeAnimation]
 })
 
 export class SearchSettingsComponent implements OnInit {
@@ -28,6 +30,7 @@ export class SearchSettingsComponent implements OnInit {
     prevCategory: 'profile/professional-background'
   };
 
+  public viewPortStatus = true;
   public businessOptions$: Observable<any>;
   public industryOptions$: Observable<any>;
   public benefitsOptions$: Observable<any>;
@@ -98,6 +101,13 @@ export class SearchSettingsComponent implements OnInit {
     }
   }
 
+  public checkViewPort = () => {
+    if (window.innerWidth <= 768) {
+      this.viewPortStatus = false;
+    }
+    return;
+  }
+
   public get desiredPlacesOfWorkArray(): FormArray {
     return this.form.get('searchPreferences').get('desiredPlacesOfWork') as FormArray;
   }
@@ -139,6 +149,7 @@ export class SearchSettingsComponent implements OnInit {
   public init = () => {
     const profile$ = this.profileService.getProfile();
     const dropdownOptions$ = this.profileService.getLocalBundle('de');
+    this.checkViewPort();
     forkJoin([profile$, dropdownOptions$])
       .pipe(
         map(([profile, dropdownOptions]) => {

@@ -9,11 +9,13 @@ import { ConfirmModalComponent } from 'src/app/components/modal/confirm/confirm-
 import * as moment from 'moment';
 import { AccordionItemComponent } from 'src/app/components/accordion/accordion-item.component';
 import { Router } from '@angular/router';
+import { fadeAnimation } from 'src/app/animations/router-animations';
 
 @Component({
   selector: 'app-miscellaneous',
   templateUrl: './miscellaneous.component.html',
-  styleUrls: ['./miscellaneous.component.scss']
+  styleUrls: ['./miscellaneous.component.scss'],
+  animations: [fadeAnimation]
 })
 export class MiscellaneousComponent implements OnInit, AfterViewInit {
 
@@ -31,6 +33,7 @@ export class MiscellaneousComponent implements OnInit, AfterViewInit {
     prevCategory: 'profile/document'
   };
 
+  public viewPortStatus = true;
   public miscellaneousData: any;
   public dropdownOptions: any;
   public currentDate = moment().toDate();
@@ -60,6 +63,7 @@ export class MiscellaneousComponent implements OnInit, AfterViewInit {
   public init = () => {
     const profile$ = this.profileService.getProfile();
     // const dropdownOptions$ = this.profileService.getLocalBundle('de');
+    this.checkViewPort();
     forkJoin([profile$])
       .pipe(
         map(([profile]) => {
@@ -82,6 +86,13 @@ export class MiscellaneousComponent implements OnInit, AfterViewInit {
         // this.dropdownOptions = res.dropdownOptions;
         this.patchFormValue(res.miscellaneous);
       });
+  }
+
+  public checkViewPort = () => {
+    if (window.innerWidth <= 768) {
+      this.viewPortStatus = false;
+    }
+    return;
   }
 
   public onOpenAccordion() {

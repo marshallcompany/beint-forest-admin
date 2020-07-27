@@ -12,12 +12,14 @@ import { MatDialog } from '@angular/material';
 import { ConfirmModalComponent } from 'src/app/components/modal/confirm/confirm-modal.component';
 import { AccordionItemComponent } from 'src/app/components/accordion/accordion-item.component';
 import { Router } from '@angular/router';
+import { fadeAnimation } from 'src/app/animations/router-animations';
 
 
 @Component({
   selector: 'app-professional-background',
   templateUrl: './professional-background.component.html',
-  styleUrls: ['./professional-background.component.scss']
+  styleUrls: ['./professional-background.component.scss'],
+  animations: [fadeAnimation]
 })
 export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
 
@@ -43,6 +45,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
 
   private firstPersonalData: object;
   public professionalBackgroundData: object;
+  public viewPortStatus = true;
 
   public form: FormGroup;
   public workExperience: FormGroupName;
@@ -86,6 +89,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
   public init = () => {
     const profile$ = this.profileService.getProfile();
     const dropdownOptions$ = this.profileService.getLocalBundle('de');
+    this.checkViewPort();
     forkJoin([profile$, dropdownOptions$])
       .pipe(
         map(([profile, dropdownOptions]) => {
@@ -107,6 +111,13 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
         this.dropdownOptions = res.dropdownOptions;
         this.patchFormValue(res.workExperience);
       });
+  }
+
+  public checkViewPort = () => {
+    if (window.innerWidth <= 768) {
+      this.viewPortStatus = false;
+    }
+    return;
   }
 
   public get employmentConditionsArray(): FormArray {
