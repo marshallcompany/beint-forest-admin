@@ -8,6 +8,7 @@ import { GlobalErrorService } from 'src/app/services/global-error-service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { SearchService } from 'src/app/services/search.service';
+import { AgbComponent } from 'src/app/components/agb/agb.component';
 
 
 
@@ -100,12 +101,12 @@ export class RegistrationComponent implements OnInit {
       );
   }
 
-  public onOpenAgb = () => {
-    window.open('https://onedrive.live.com/view.aspx?resid=2E551277530B930D!11498&ithint=file%2cdocx&authkey=!AIxGf05CZB_uKHQ', '_blank');
-  }
-
   public onOpenPrivacyDialog = () => {
     this.matDialog.open(PrivacyPolicyComponent, { panelClass: 'privacy-policy-dialog' });
+  }
+
+  public onOpenAgb = () => {
+    this.matDialog.open(AgbComponent, { panelClass: 'agb-dialog' });
   }
 
   public onChangeState = () => {
