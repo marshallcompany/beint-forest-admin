@@ -74,6 +74,7 @@ import { CvOptionComponent } from './components/sheet/cv-option/cv-option.compon
 import { SupportComponent } from './pages/settings/support/support.component';
 import { EmailResetComponent } from './pages/auth/email-reset/email-reset.component';
 import { NotificationComponent } from './pages/settings/notification/notification.component';
+import { AgbComponent } from './components/agb/agb.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -119,6 +120,7 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     BottomNavigationComponent,
     SettingsComponent,
     PrivacyPolicyComponent,
+    AgbComponent,
     RemoveAccountComponent,
     SearchComponent,
     DetailsVacancyComponent,
@@ -187,6 +189,7 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     DocumentOptionModalComponent,
     FileRenameComponent,
     PrivacyPolicyComponent,
+    AgbComponent,
     TermsUseComponent,
     ConfirmEmailComponent
   ]

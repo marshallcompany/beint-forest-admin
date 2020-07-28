@@ -4,17 +4,17 @@ import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-agbs',
-  templateUrl: './AGBs.component.html',
-  styleUrls: ['./AGBs.component.scss']
+  selector: 'app-agb',
+  templateUrl: './agb.component.html',
+  styleUrls: ['./agb.component.scss']
 })
-export class AGBsComponent implements OnInit {
+export class AgbComponent implements OnInit {
 
 
   public routerUrl: any;
 
   constructor(
-    @Optional() private matDialogRef: MatDialogRef<AGBsComponent>,
+    @Optional() private matDialogRef: MatDialogRef<AgbComponent>,
     public location: Location,
     public router: Router,
   ) {
@@ -26,10 +26,6 @@ export class AGBsComponent implements OnInit {
 
   public closeDialog = () => {
     this.matDialogRef.close();
-  }
-
-  public backRoute = () => {
-    this.location.back();
   }
 
 }
