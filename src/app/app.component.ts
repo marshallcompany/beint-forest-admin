@@ -54,7 +54,6 @@ export class AppComponent implements OnInit {
     this.translatesService.initLanguage();
     this.checkRouterState();
     this.dateTimeAdapter.setLocale('de');
-
   }
 
   private checkRouterState = () => {
@@ -70,6 +69,8 @@ export class AppComponent implements OnInit {
           // } else {
           //   this.routerStatus = false;
           // }
+          document.querySelector('mat-sidenav-content').scrollTo(0, 0);
+          document.querySelector('mat-sidenav-container').scrollTo(0, 0);
           this.routerClass = 'router-' + urlAfterRedirects.replace('/', '');
         }
       );

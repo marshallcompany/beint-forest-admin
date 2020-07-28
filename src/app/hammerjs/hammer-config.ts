@@ -16,10 +16,15 @@ import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-br
 
 export class HammerConfig extends HammerGestureConfig {
   buildHammer(element: HTMLElement) {
-    const hammer = new Hammer(element, {
-      touchAction: 'pan-y'
+    return new Hammer.Manager(element, {
+      touchAction: 'auto',
+      inputClass: Hammer.TouchInput,
+      recognizers: [
+        [Hammer.Swipe, {
+          direction: Hammer.DIRECTION_ALL
+        }]
+      ]
     });
-    return hammer;
   }
 }
 
