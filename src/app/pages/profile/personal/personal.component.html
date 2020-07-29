@@ -1,4 +1,4 @@
-<section @fadeAnimation [@.disabled]="viewPortStatus" class="personal" (swipe)="swipe($event)">
+<section @fadeAnimation [@.disabled]="viewPortStatus" class="personal" (swipeleft)="swipe($event)" (swiperight)="swipe($event)">
   <div class="background">
     <img
       src="../assets/image/background-circle-01.png"
