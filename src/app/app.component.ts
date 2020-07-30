@@ -69,8 +69,10 @@ export class AppComponent implements OnInit {
           // } else {
           //   this.routerStatus = false;
           // }
-          document.querySelector('mat-sidenav-content').scrollTo(0, 0);
-          document.querySelector('mat-sidenav-container').scrollTo(0, 0);
+          if (document.getElementsByTagName('mat-sidenav-content')[0]) {
+            document.getElementsByTagName('mat-sidenav-content')[0].scrollTo(0, 0);
+            console.log('mat-sidenav-content');
+          }
           this.routerClass = 'router-' + urlAfterRedirects.replace('/', '');
         },
         error => {
