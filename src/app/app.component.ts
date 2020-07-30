@@ -72,6 +72,9 @@ export class AppComponent implements OnInit {
           document.querySelector('mat-sidenav-content').scrollTo(0, 0);
           document.querySelector('mat-sidenav-container').scrollTo(0, 0);
           this.routerClass = 'router-' + urlAfterRedirects.replace('/', '');
+        },
+        error => {
+          console.log('[ ROUTER STATE ERROR ]', error);
         }
       );
   }
