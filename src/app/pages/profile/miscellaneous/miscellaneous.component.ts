@@ -30,7 +30,8 @@ export class MiscellaneousComponent implements OnInit, AfterViewInit {
     imgMobile: '../assets/image/profile/education/image-mobile.svg',
     nameCategory: 'Sonstiges',
     nextCategory: 'profile/about',
-    prevCategory: 'profile/document'
+    prevCategory: 'profile/document',
+    loading: true
   };
 
   public viewPortStatus = true;
@@ -85,6 +86,7 @@ export class MiscellaneousComponent implements OnInit, AfterViewInit {
         this.miscellaneousData = res;
         // this.dropdownOptions = res.dropdownOptions;
         this.patchFormValue(res.miscellaneous);
+        this.navSettings.loading = false;
       });
   }
 

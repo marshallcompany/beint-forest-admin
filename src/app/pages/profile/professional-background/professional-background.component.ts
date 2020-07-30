@@ -40,7 +40,8 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
     imgMobile: '../assets/image/profile/professional-background/image-mobile.svg',
     nameCategory: 'Beruflicher Werdegang',
     nextCategory: 'profile/search-settings',
-    prevCategory: 'profile/education'
+    prevCategory: 'profile/education',
+    loading: true
   };
 
   private firstPersonalData: object;
@@ -110,6 +111,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
         this.professionalBackgroundData = res.workExperience;
         this.dropdownOptions = res.dropdownOptions;
         this.patchFormValue(res.workExperience);
+        this.navSettings.loading = false;
       });
   }
 

@@ -27,7 +27,8 @@ export class SearchSettingsComponent implements OnInit {
     imgMobile: '../assets/image/profile/search/image-mobile.svg',
     nameCategory: 'Such-Präferenzen',
     nextCategory: 'profile/document',
-    prevCategory: 'profile/professional-background'
+    prevCategory: 'profile/professional-background',
+    loading: true
   };
 
   public viewPortStatus = true;
@@ -169,6 +170,7 @@ export class SearchSettingsComponent implements OnInit {
       .subscribe((res: any) => {
         this.dropdownOptions = res.dropdownOptions;
         this.patchFormValue(res.searchPreferences);
+        this.navSettings.loading = false;
         console.log('res', res);
       });
   }

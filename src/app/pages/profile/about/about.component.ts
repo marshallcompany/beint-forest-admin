@@ -21,7 +21,8 @@ export class AboutComponent implements OnInit {
     imgMobile: '../assets/image/profile/about/image-mobile.svg',
     nameCategory: 'Ich über mich',
     nextCategory: 'profile/personal',
-    prevCategory: 'profile/miscellaneous'
+    prevCategory: 'profile/miscellaneous',
+    loading: true
   };
 
   public viewPortStatus = true;
@@ -64,6 +65,7 @@ export class AboutComponent implements OnInit {
         this.answersData = res.answers;
         this.questionGroupInit();
         this.formData = this.form.value;
+        this.navSettings.loading = false;
         console.log('[ ABOUT INIT ]', res);
       },
         err => {

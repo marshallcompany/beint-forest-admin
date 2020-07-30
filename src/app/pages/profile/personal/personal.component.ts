@@ -32,7 +32,8 @@ export class PersonalComponent implements OnInit {
     imgMobile: '../assets/image/profile/personal/image-mobile.svg',
     nameCategory: 'Persönliches & Kontakt',
     nextCategory: 'profile/education',
-    prevCategory: 'profile/about'
+    prevCategory: 'profile/about',
+    loading: true
   };
 
   public viewPortStatus = true;
@@ -94,6 +95,7 @@ export class PersonalComponent implements OnInit {
           this.patchFormValue(res);
           this.dropdownOptions = res.dropdownOptions;
           this.firstPersonalData = this.form.value;
+          this.navSettings.loading = false;
         },
         err => {
           console.log('[ ERROR EDIT PROFILE DATA ]', err);

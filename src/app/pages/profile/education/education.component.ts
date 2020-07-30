@@ -33,7 +33,8 @@ export class EducationComponent implements OnInit, AfterViewInit {
     imgMobile: '../assets/image/profile/education/image-mobile.svg',
     nameCategory: 'Berufliche Ausbildung',
     nextCategory: 'profile/professional-background',
-    prevCategory: 'profile/personal'
+    prevCategory: 'profile/personal',
+    loading: true
   };
 
   @ViewChild('accordion01', { static: false }) accordion01: AccordionItemComponent;
@@ -119,6 +120,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
           this.educationData = data.education;
           this.dropdownOptions = data.dropdownOptions;
           this.patchFormValue(data.education);
+          this.navSettings.loading = false;
           console.log('[ EDUCATION DATA ]', data);
         },
         err => {

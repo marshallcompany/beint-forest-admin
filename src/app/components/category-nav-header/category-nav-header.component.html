@@ -1,4 +1,5 @@
 <div class="category-header">
+  <div class="category-header__background-blue"></div>
   <div class="container">
     <div class="category-header-wrapper">
       <div class="tab-navigation">
@@ -85,7 +86,14 @@
           <p class="category-detail-info__label">{{ navSettings.nameCategory }}</p>
         </div>
         <img *ngIf="navSettings.imgDesktop && (categoryPictureStatus || categoryPictureStatus === undefined || categoryPictureStatus === null)" class="category-image category-image_desktop" [src]="navSettings.imgDesktop">
-        <img *ngIf="navSettings.imgMobile && (categoryPictureStatus || categoryPictureStatus === undefined || categoryPictureStatus === null)" class="category-image category-image_mobile" [src]="navSettings.imgMobile">
+        <img *ngIf="navSettings.imgMobile && 
+                    (categoryPictureStatus || categoryPictureStatus === undefined || categoryPictureStatus === null) &&
+                    !navSettings.loading" 
+              [ngClass]="{'image-show': !navSettings.loading}"
+              class="category-image category-image_mobile" [src]="navSettings.imgMobile">
+        <div class="image-loading" *ngIf="navSettings.loading">
+          <img src="../assets/image/spinner.svg" alt="">
+        </div>
       </div>
       <div class="mobile-navigation" [style.marginTop]="categoryPictureStatus ? '-10px' :'0px'">
         <button
