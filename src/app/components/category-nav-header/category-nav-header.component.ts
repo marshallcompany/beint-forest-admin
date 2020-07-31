@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
-
 interface RouterParams {
   routerName: string;
   routerLink: string;
@@ -21,7 +20,7 @@ export class CategoryNavHeaderComponent implements OnInit {
   public routers: Array<RouterParams>;
 
   constructor(
-    private router: Router,
+    private router: Router
   ) {
     this.routers = [
       {
@@ -66,10 +65,9 @@ export class CategoryNavHeaderComponent implements OnInit {
   }
 
 
-  public closeCategory = () => {
+  public onBack = () => {
     this.router.navigate(['profile']);
   }
-
 
   public prevCategory = () => {
     if (this.navSettings && this.navSettings.prevCategory !== null) {

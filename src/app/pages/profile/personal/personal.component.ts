@@ -7,6 +7,9 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { switchMap } from 'rxjs/operators';
 import { throwError, of, Observable, forkJoin } from 'rxjs';
 import { SearchService } from '../../../services/search.service';
+import { Router } from '@angular/router';
+import { fadeAnimation } from 'src/app/animations/router-animations';
+
 
 interface DropDownOptions {
   academic_titles: Array<string[]>;
@@ -18,7 +21,8 @@ interface DropDownOptions {
 @Component({
   selector: 'app-personal',
   templateUrl: './personal.component.html',
-  styleUrls: ['./personal.component.scss']
+  styleUrls: ['./personal.component.scss'],
+  animations: [fadeAnimation]
 })
 export class PersonalComponent implements OnInit {
 
@@ -28,9 +32,11 @@ export class PersonalComponent implements OnInit {
     imgMobile: '../assets/image/profile/personal/image-mobile.svg',
     nameCategory: 'Persönliches & Kontakt',
     nextCategory: 'profile/education',
-    prevCategory: 'profile/about'
+    prevCategory: 'profile/about',
+    loading: true
   };
 
+  public viewPortStatus = true;
   public firstPersonalData: object;
   public dropdownOptions: DropDownOptions;
 
@@ -47,6 +53,7 @@ export class PersonalComponent implements OnInit {
 
   constructor(
     public formBuilder: FormBuilder,
+    public router: Router,
     private profileService: ProfileService,
     private notificationService: NotificationService,
     private searchService: SearchService
@@ -63,6 +70,7 @@ export class PersonalComponent implements OnInit {
   public init = () => {
     const getProfileData$ = this.profileService.getProfile();
     const getLocalBundle$ = this.profileService.getLocalBundle('de');
+    this.checkViewPort();
     forkJoin([getProfileData$, getLocalBundle$])
       .pipe(
         map(([fullProfileData, fullLocalBundle]) => {
@@ -87,6 +95,7 @@ export class PersonalComponent implements OnInit {
           this.patchFormValue(res);
           this.dropdownOptions = res.dropdownOptions;
           this.firstPersonalData = this.form.value;
+          this.navSettings.loading = false;
         },
         err => {
           console.log('[ ERROR EDIT PROFILE DATA ]', err);
@@ -102,6 +111,13 @@ export class PersonalComponent implements OnInit {
           }
         );
     }
+  }
+
+  public checkViewPort = () => {
+    if (window.innerWidth <= 768) {
+      this.viewPortStatus = false;
+    }
+    return;
   }
 
   public initForm = () => {
@@ -138,6 +154,17 @@ export class PersonalComponent implements OnInit {
 
   public get driverLicensesArray(): FormArray {
     return this.form.get('personal').get('driverLicenses') as FormArray;
+  }
+
+  public swipe = ($event) => {
+    // SWIPE RIGHT
+    if ($event.deltaX > 100 && window.innerWidth <= 768) {
+      this.router.navigate([this.navSettings.prevCategory]);
+    }
+    // SWIPE LEFT
+    if ($event.deltaX < 0 && window.innerWidth <= 768) {
+      this.router.navigate([this.navSettings.nextCategory]);
+    }
   }
 
   public patchFormValue = (personalData) => {

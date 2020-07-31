@@ -4,11 +4,14 @@ import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { map, switchMap } from 'rxjs/operators';
 import { throwError, of, forkJoin } from 'rxjs';
 import { NotificationService } from 'src/app/services/notification.service';
+import { Router } from '@angular/router';
+import { fadeAnimation } from 'src/app/animations/router-animations';
 
 @Component({
   selector: 'app-about',
   templateUrl: './about.component.html',
-  styleUrls: ['./about.component.scss']
+  styleUrls: ['./about.component.scss'],
+  animations: [fadeAnimation]
 })
 export class AboutComponent implements OnInit {
 
@@ -18,9 +21,11 @@ export class AboutComponent implements OnInit {
     imgMobile: '../assets/image/profile/about/image-mobile.svg',
     nameCategory: 'Ich über mich',
     nextCategory: 'profile/personal',
-    prevCategory: 'profile/miscellaneous'
+    prevCategory: 'profile/miscellaneous',
+    loading: true
   };
 
+  public viewPortStatus = true;
   public formData: any;
   public questionsData: any;
   public answersData: any;
@@ -29,6 +34,7 @@ export class AboutComponent implements OnInit {
 
   constructor(
     public fb: FormBuilder,
+    public router: Router,
     private profileService: ProfileService,
     private notificationService: NotificationService,
   ) { }
@@ -41,6 +47,7 @@ export class AboutComponent implements OnInit {
   public init = () => {
     const question$ = this.profileService.getQuestion();
     const profile$ = this.profileService.getProfile();
+    this.checkViewPort();
     forkJoin(profile$, question$)
       .pipe(
         map(([profile, question]) => {
@@ -58,12 +65,20 @@ export class AboutComponent implements OnInit {
         this.answersData = res.answers;
         this.questionGroupInit();
         this.formData = this.form.value;
+        this.navSettings.loading = false;
         console.log('[ ABOUT INIT ]', res);
       },
         err => {
           console.log('ERROR', err);
         }
       );
+  }
+
+  public checkViewPort = () => {
+    if (window.innerWidth <= 768) {
+      this.viewPortStatus = false;
+    }
+    return;
   }
 
   public initForm = () => {
@@ -74,6 +89,17 @@ export class AboutComponent implements OnInit {
 
   public get aboutAnswers(): FormArray {
     return this.form.get('aboutAnswers') as FormArray;
+  }
+
+  public swipe = ($event) => {
+    // SWIPE RIGHT
+    if ($event.deltaX > 100 && window.innerWidth <= 768) {
+      this.router.navigate([this.navSettings.prevCategory]);
+    }
+    // SWIPE LEFT
+    if ($event.deltaX < 0 && window.innerWidth <= 768) {
+      this.router.navigate([this.navSettings.nextCategory]);
+    }
   }
 
   public createAnswerGroup = (question, answer, index): FormGroup => {

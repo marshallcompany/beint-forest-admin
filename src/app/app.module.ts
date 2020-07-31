@@ -23,11 +23,9 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 import { NgxMaskModule } from 'ngx-mask';
-import { SwiperModule } from 'ngx-swiper-wrapper';
-import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
-import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { MaterialModule } from './modules/material.module';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { HammerConfig } from './hammerjs/hammer-config';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/auth/login/login.component';
@@ -75,12 +73,6 @@ import { SupportComponent } from './pages/settings/support/support.component';
 import { EmailResetComponent } from './pages/auth/email-reset/email-reset.component';
 import { NotificationComponent } from './pages/settings/notification/notification.component';
 import { AgbComponent } from './components/agb/agb.component';
-
-const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
-  direction: 'horizontal',
-  slidesPerView: 'auto'
-};
-
 
 
 export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRoutesProvider) => {
@@ -142,12 +134,12 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    SwiperModule,
     NgSelectModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     ImageCropperModule,
     NgxMaskModule.forRoot(),
+    HammerConfig,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -167,10 +159,6 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     AuthService,
     DownloadFileService,
     NotificationService,
-    {
-      provide: SWIPER_CONFIG,
-      useValue: DEFAULT_SWIPER_CONFIG
-    },
     {
       provide: ErrorHandler,
       useClass: GlobalErrorService

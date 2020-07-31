@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormGroupName, FormControl, Validators } from '@angular/forms';
 import { ProfileService } from '../../../services/profile.service';
-import { map, switchMap, delay, concatMap, toArray, distinctUntilChanged } from 'rxjs/operators';
+import { map, switchMap, delay, concatMap, toArray } from 'rxjs/operators';
 import { Observable, of, throwError, from } from 'rxjs';
 import { SearchService } from '../../../services/search.service';
 import * as moment from 'moment';
@@ -11,12 +11,15 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { MatDialog } from '@angular/material';
 import { ConfirmModalComponent } from 'src/app/components/modal/confirm/confirm-modal.component';
 import { AccordionItemComponent } from 'src/app/components/accordion/accordion-item.component';
+import { Router } from '@angular/router';
+import { fadeAnimation } from 'src/app/animations/router-animations';
 
 
 @Component({
   selector: 'app-professional-background',
   templateUrl: './professional-background.component.html',
-  styleUrls: ['./professional-background.component.scss']
+  styleUrls: ['./professional-background.component.scss'],
+  animations: [fadeAnimation]
 })
 export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
 
@@ -37,11 +40,13 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
     imgMobile: '../assets/image/profile/professional-background/image-mobile.svg',
     nameCategory: 'Beruflicher Werdegang',
     nextCategory: 'profile/search-settings',
-    prevCategory: 'profile/education'
+    prevCategory: 'profile/education',
+    loading: true
   };
 
   private firstPersonalData: object;
   public professionalBackgroundData: object;
+  public viewPortStatus = true;
 
   public form: FormGroup;
   public workExperience: FormGroupName;
@@ -61,6 +66,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
 
 
   constructor(
+    public router: Router,
     private fb: FormBuilder,
     private profileService: ProfileService,
     private searchService: SearchService,
@@ -84,6 +90,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
   public init = () => {
     const profile$ = this.profileService.getProfile();
     const dropdownOptions$ = this.profileService.getLocalBundle('de');
+    this.checkViewPort();
     forkJoin([profile$, dropdownOptions$])
       .pipe(
         map(([profile, dropdownOptions]) => {
@@ -104,7 +111,15 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
         this.professionalBackgroundData = res.workExperience;
         this.dropdownOptions = res.dropdownOptions;
         this.patchFormValue(res.workExperience);
+        this.navSettings.loading = false;
       });
+  }
+
+  public checkViewPort = () => {
+    if (window.innerWidth <= 768) {
+      this.viewPortStatus = false;
+    }
+    return;
   }
 
   public get employmentConditionsArray(): FormArray {
@@ -217,6 +232,17 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
   public triggerClick = (id: string) => {
     const element: HTMLElement = document.getElementById(id) as HTMLElement;
     element.click();
+  }
+
+  public swipe = ($event) => {
+    // SWIPE RIGHT
+    if ($event.deltaX > 100 && window.innerWidth <= 768) {
+      this.router.navigate([this.navSettings.prevCategory]);
+    }
+    // SWIPE LEFT
+    if ($event.deltaX < 0 && window.innerWidth <= 768) {
+      this.router.navigate([this.navSettings.nextCategory]);
+    }
   }
 
   private patchFormValue(searchPreferences) {

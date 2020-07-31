@@ -8,11 +8,14 @@ import { map, switchMap } from 'rxjs/operators';
 import { ConfirmModalComponent } from 'src/app/components/modal/confirm/confirm-modal.component';
 import * as moment from 'moment';
 import { AccordionItemComponent } from 'src/app/components/accordion/accordion-item.component';
+import { Router } from '@angular/router';
+import { fadeAnimation } from 'src/app/animations/router-animations';
 
 @Component({
   selector: 'app-miscellaneous',
   templateUrl: './miscellaneous.component.html',
-  styleUrls: ['./miscellaneous.component.scss']
+  styleUrls: ['./miscellaneous.component.scss'],
+  animations: [fadeAnimation]
 })
 export class MiscellaneousComponent implements OnInit, AfterViewInit {
 
@@ -27,9 +30,11 @@ export class MiscellaneousComponent implements OnInit, AfterViewInit {
     imgMobile: '../assets/image/profile/education/image-mobile.svg',
     nameCategory: 'Sonstiges',
     nextCategory: 'profile/about',
-    prevCategory: 'profile/document'
+    prevCategory: 'profile/document',
+    loading: true
   };
 
+  public viewPortStatus = true;
   public miscellaneousData: any;
   public dropdownOptions: any;
   public currentDate = moment().toDate();
@@ -39,6 +44,7 @@ export class MiscellaneousComponent implements OnInit, AfterViewInit {
   public hobbiesControl = new FormControl(['']);
 
   constructor(
+    public router: Router,
     private fb: FormBuilder,
     private profileService: ProfileService,
     // private searchService: SearchService,
@@ -58,6 +64,7 @@ export class MiscellaneousComponent implements OnInit, AfterViewInit {
   public init = () => {
     const profile$ = this.profileService.getProfile();
     // const dropdownOptions$ = this.profileService.getLocalBundle('de');
+    this.checkViewPort();
     forkJoin([profile$])
       .pipe(
         map(([profile]) => {
@@ -79,7 +86,15 @@ export class MiscellaneousComponent implements OnInit, AfterViewInit {
         this.miscellaneousData = res;
         // this.dropdownOptions = res.dropdownOptions;
         this.patchFormValue(res.miscellaneous);
+        this.navSettings.loading = false;
       });
+  }
+
+  public checkViewPort = () => {
+    if (window.innerWidth <= 768) {
+      this.viewPortStatus = false;
+    }
+    return;
   }
 
   public onOpenAccordion() {
@@ -112,6 +127,17 @@ export class MiscellaneousComponent implements OnInit, AfterViewInit {
   public triggerClick = (id: string) => {
     const element: HTMLElement = document.getElementById(id) as HTMLElement;
     element.click();
+  }
+
+  public swipe = ($event) => {
+    // SWIPE RIGHT
+    if ($event.deltaX > 100 && window.innerWidth <= 768) {
+      this.router.navigate([this.navSettings.prevCategory]);
+    }
+    // SWIPE LEFT
+    if ($event.deltaX < 0 && window.innerWidth <= 768) {
+      this.router.navigate([this.navSettings.nextCategory]);
+    }
   }
 
   public get hobbiesArray(): FormArray {

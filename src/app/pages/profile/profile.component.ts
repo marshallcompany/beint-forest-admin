@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { ProfileService } from '../../services/profile.service';
 import { GlobalErrorService } from 'src/app/services/global-error-service';
@@ -47,7 +47,7 @@ export class ProfileComponent implements OnInit {
     private uploadFileService: UploadFileService,
     private globalErrorService: GlobalErrorService,
     private notificationService: NotificationService,
-
+    private route: ActivatedRoute
   ) {
     this.childrenRoutes = false;
     this.categories = [
@@ -61,6 +61,8 @@ export class ProfileComponent implements OnInit {
     ];
   }
 
+  animationState: number;
+
   ngOnInit() {
     this.init();
   }
@@ -68,6 +70,7 @@ export class ProfileComponent implements OnInit {
   onActivate() {
     this.childrenRoutes = !this.childrenRoutes;
   }
+
   onDeactivate() {
     this.childrenRoutes = !this.childrenRoutes;
   }

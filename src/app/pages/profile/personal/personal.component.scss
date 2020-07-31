@@ -10,7 +10,10 @@
         width: 100%;
         max-width: 1350px;
         margin: 0 auto;
-        margin-top: -50px;
+        margin-top: 5px;
+    }
+    ::ng-deep .mobile-navigation{
+        margin-top: -10px!important;
     }
 }
 .subcategory-item{
@@ -112,9 +115,6 @@
     .personal{
         background-color:#F9F9F9;
         padding-bottom: 0;
-        .personal-wrapper{
-            margin-top: -25px;
-        }
     }
     .personal-wrapper{
         padding:0;

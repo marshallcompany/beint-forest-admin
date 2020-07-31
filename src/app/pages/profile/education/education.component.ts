@@ -10,7 +10,8 @@ import { Observable, forkJoin, of, throwError, from } from 'rxjs';
 import * as moment from 'moment';
 import { ConfirmModalComponent } from 'src/app/components/modal/confirm/confirm-modal.component';
 import { AccordionItemComponent } from 'src/app/components/accordion/accordion-item.component';
-
+import { Router } from '@angular/router';
+import { fadeAnimation } from 'src/app/animations/router-animations';
 interface DropDownOptions {
   school_types: Array<string[]>;
   school_graduation: Array<string[]>;
@@ -21,7 +22,8 @@ interface DropDownOptions {
 @Component({
   selector: 'app-education',
   templateUrl: './education.component.html',
-  styleUrls: ['./education.component.scss']
+  styleUrls: ['./education.component.scss'],
+  animations: [fadeAnimation]
 })
 export class EducationComponent implements OnInit, AfterViewInit {
   public mask = '0,00';
@@ -31,7 +33,8 @@ export class EducationComponent implements OnInit, AfterViewInit {
     imgMobile: '../assets/image/profile/education/image-mobile.svg',
     nameCategory: 'Berufliche Ausbildung',
     nextCategory: 'profile/professional-background',
-    prevCategory: 'profile/personal'
+    prevCategory: 'profile/personal',
+    loading: true
   };
 
   @ViewChild('accordion01', { static: false }) accordion01: AccordionItemComponent;
@@ -49,6 +52,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
   $langList: Observable<string[]>;
 
   skillsList = [];
+  public viewPortStatus = true;
   public schoolCityArray = [];
   public schoolCountryArray = [];
 
@@ -73,6 +77,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
 
   constructor(
     public fb: FormBuilder,
+    public router: Router,
     private profileService: ProfileService,
     private searchService: SearchService,
     private notificationService: NotificationService,
@@ -92,6 +97,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
   public init = () => {
     const profile$ = this.profileService.getProfile();
     const dropdownOptions$ = this.profileService.getLocalBundle('de');
+    this.checkViewPort();
     forkJoin([profile$, dropdownOptions$])
       .pipe(
         map(([profile, dropdownOptions]) => {
@@ -114,12 +120,20 @@ export class EducationComponent implements OnInit, AfterViewInit {
           this.educationData = data.education;
           this.dropdownOptions = data.dropdownOptions;
           this.patchFormValue(data.education);
+          this.navSettings.loading = false;
           console.log('[ EDUCATION DATA ]', data);
         },
         err => {
           console.log('[ ERROR EDUCATION DATA ]', err);
         }
       );
+  }
+
+  public checkViewPort = () => {
+    if (window.innerWidth <= 768) {
+      this.viewPortStatus = false;
+    }
+    return;
   }
 
   public addCustomSkillTag = ($event: string) => {
@@ -243,6 +257,17 @@ export class EducationComponent implements OnInit, AfterViewInit {
   public triggerClick = (id: string) => {
     const element: HTMLElement = document.getElementById(id) as HTMLElement;
     element.click();
+  }
+
+  public swipe = ($event) => {
+    // SWIPE RIGHT
+    if ($event.deltaX > 100 && window.innerWidth <= 768) {
+      this.router.navigate([this.navSettings.prevCategory]);
+    }
+    // SWIPE LEFT
+    if ($event.deltaX < 0 && window.innerWidth <= 768) {
+      this.router.navigate([this.navSettings.nextCategory]);
+    }
   }
 
   public get schoolsArray(): FormArray {

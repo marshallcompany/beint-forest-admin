@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 
 import { Router, NavigationEnd } from '@angular/router';
 import { AuthService } from './services/auth.service';
@@ -20,7 +20,7 @@ interface State {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
 
   public stateRoute: Array<State>;
 
@@ -52,9 +52,11 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.translatesService.initLanguage();
-    this.checkRouterState();
     this.dateTimeAdapter.setLocale('de');
+  }
 
+  ngAfterViewInit() {
+    this.checkRouterState();
   }
 
   private checkRouterState = () => {
@@ -70,7 +72,14 @@ export class AppComponent implements OnInit {
           // } else {
           //   this.routerStatus = false;
           // }
+          if (document.getElementsByTagName('mat-sidenav-content')[0]) {
+            document.getElementsByTagName('mat-sidenav-content')[0].scrollTo(0, 0);
+            console.log('[ mat-sidenav-content ]');
+          }
           this.routerClass = 'router-' + urlAfterRedirects.replace('/', '');
+        },
+        error => {
+          console.log('[ ROUTER STATE ERROR ]', error);
         }
       );
   }
