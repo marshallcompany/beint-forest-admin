@@ -22,6 +22,9 @@ import {
     display: block;
   }
   .accordion-content-wrapper{
+    background-color: #ffffff;
+    position: relative;
+    z-index: 1;
     overflow: hidden;
   }`],
   animations: [
