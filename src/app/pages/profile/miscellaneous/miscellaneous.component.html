@@ -1,4 +1,4 @@
-<section class="miscellaneous" @fadeAnimation [@.disabled]="viewPortStatus" (swipeleft)="swipe($event)" (swiperight)="swipe($event)">
+<section class="miscellaneous" (swipeleft)="swipe($event)" (swiperight)="swipe($event)">
   <div class="background">
     <img
       src="../assets/image/background-circle-01.png"
@@ -7,10 +7,9 @@
       src="../assets/image/background-circle-02.png"
       class="background__circle background__circle_02">
   </div>
-  <app-category-nav-header [categoryPictureStatus]="accordion01?.expanded || accordion02?.expanded || accordion03?.expanded || 
-                            accordion04?.expanded ? false : true" [navSettings]="navSettings">
+  <app-category-nav-header [navSettings]="navSettings">
   </app-category-nav-header>
-  <div class="subcategory">
+  <div class="subcategory" [@fadeAnimation]="!viewPortStatus ? 'active' : 'disabled'">
     <div class="container">
       <form
         class="form"
