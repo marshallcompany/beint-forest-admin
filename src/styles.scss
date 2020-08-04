@@ -22,7 +22,44 @@ body {
   color: #313131;
   font-family: $workSansRegular, sans-serif;
 }
-
+// 
+.pac-container {
+    z-index: 1000!important;
+    width: 100%!important;
+    position: absolute!important;
+    left: 0 !important;
+    top: calc(100% + 2px)!important;
+    border-radius: 10px!important;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2)!important;
+}
+.pac-container:after{
+    content: none!important;
+}
+.pac-item{
+  font-size: 14px!important;
+  border:none!important;
+}
+.pac-item-query{
+  font-size: 14px!important;
+}
+.google-autocomplete{
+  width:100%;
+  height: 100%;
+}
+.pac-icon {
+    width: 15px!important;
+    height: 20px!important;
+    margin-right: 7px!important;
+    margin-top: 6px!important;
+    display: inline-block!important;
+    vertical-align: top!important;
+    background-image: url(https://maps.gstatic.com/mapfiles/api-3/images/autocomplete-icons.png)!important;
+    background-size: 34px!important;
+}
+.hdpi .pac-icon {
+    background-image: url(https://maps.gstatic.com/mapfiles/api-3/images/autocomplete-icons_hdpi.png)!important;
+}
+// 
 // STYLE SNACKBAR
 .snack {
   box-shadow: 0px 4px 25px 0px rgba(0, 0, 0, .5);

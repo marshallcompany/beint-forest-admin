@@ -74,6 +74,9 @@ import { EmailResetComponent } from './pages/auth/email-reset/email-reset.compon
 import { NotificationComponent } from './pages/settings/notification/notification.component';
 import { AgbComponent } from './components/agb/agb.component';
 
+import { AgmCoreModule } from '@agm/core';
+import { GoogleAutocompleteComponent } from './components/google-autocomplete/google-autocomplete.component';
+import { AutocompleteDataService } from './services/autocomplete-data.service';
 
 export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRoutesProvider) => {
   return new HttpMultiLoaderServiceService(http, [
@@ -125,7 +128,8 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     ConfirmEmailComponent,
     SupportComponent,
     EmailResetComponent,
-    NotificationComponent
+    NotificationComponent,
+    GoogleAutocompleteComponent
   ],
   imports: [
     RoutingModule,
@@ -140,6 +144,11 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     ImageCropperModule,
     NgxMaskModule.forRoot(),
     HammerConfig,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBULnvGFJFpAjIvmouIzlEh7_ge_GutzEk',
+      libraries: ['places'],
+      language: 'de'
+    }),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -157,6 +166,7 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     Validators,
     ApiRoutesProvider,
     AuthService,
+    AutocompleteDataService,
     DownloadFileService,
     NotificationService,
     {

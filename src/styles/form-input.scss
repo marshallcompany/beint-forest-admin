@@ -320,7 +320,12 @@ body .field-group {
     }
   }
 }
-
+.field_google-autocomplete{
+  .field-wrapper{
+    padding-left:0;
+    padding-right:0;
+  }
+}
 .field-wrapper {
   height: 50px;
   width: 100%;

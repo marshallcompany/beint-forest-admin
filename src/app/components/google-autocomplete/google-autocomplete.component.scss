@@ -1,0 +1,13 @@
+@import "../../theme/variables.scss";
+
+.autocomplete-container{
+  height: 100%;
+  width: 100%;
+  position:relative;
+  display: flex;
+  align-items: center;
+}
+input{
+  padding-left: 19px;
+  padding-right: 55px;
+}
