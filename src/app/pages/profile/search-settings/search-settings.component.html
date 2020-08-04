@@ -1,4 +1,4 @@
-<div class="search" @fadeAnimation [@.disabled]="viewPortStatus" (swipeleft)="swipe($event)" (swiperight)="swipe($event)">
+<div class="search" (swipeleft)="swipe($event)" (swiperight)="swipe($event)">
   <div class="background">
     <img
       src="../assets/image/background-circle-01.png"
@@ -8,7 +8,7 @@
       class="background__circle background__circle_02">
   </div>
   <app-category-nav-header [navSettings]="navSettings"></app-category-nav-header>
-  <div class="search-preference-wrapper">
+  <div class="search-preference-wrapper" [@fadeAnimation]="!viewPortStatus ? 'active' : 'disabled'">
     <div class="container">
       <form
         class="form"

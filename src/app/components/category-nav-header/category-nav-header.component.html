@@ -76,7 +76,7 @@
           <p class="mobile-category-information__label">{{ navSettings.nameCategory }}</p>
         </div>
       </div>
-      <div class="category-detail" [ngClass]="{'category-detail_show-image': navSettings.imgDesktop && (categoryPictureStatus || categoryPictureStatus === undefined || categoryPictureStatus === null)}">
+      <div class="category-detail" [ngClass]="{'category-detail_show-image': navSettings.imgDesktop || navSettings.imgMobile }">
         <div class="category-detail-info">
           <div class="category-detail-info__icon">
             <img
@@ -85,17 +85,15 @@
           </div>
           <p class="category-detail-info__label">{{ navSettings.nameCategory }}</p>
         </div>
-        <img *ngIf="navSettings.imgDesktop && (categoryPictureStatus || categoryPictureStatus === undefined || categoryPictureStatus === null)" class="category-image category-image_desktop" [src]="navSettings.imgDesktop">
-        <img *ngIf="navSettings.imgMobile && 
-                    (categoryPictureStatus || categoryPictureStatus === undefined || categoryPictureStatus === null) &&
-                    !navSettings.loading" 
+        <img *ngIf="navSettings.imgDesktop" class="category-image category-image_desktop" [src]="navSettings.imgDesktop">
+        <img *ngIf="navSettings.imgMobile && !navSettings.loading" 
               [ngClass]="{'image-show': !navSettings.loading}"
               class="category-image category-image_mobile" [src]="navSettings.imgMobile">
         <div class="image-loading" *ngIf="navSettings.loading">
           <img src="../assets/image/spinner.svg" alt="">
         </div>
       </div>
-      <div class="mobile-navigation" [style.marginTop]="categoryPictureStatus ? '-10px' :'0px'">
+      <div class="mobile-navigation">
         <button
           class="mobile-navigation__button mobile-navigation__button_prev"
           (click)="prevCategory()">
