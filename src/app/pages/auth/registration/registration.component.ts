@@ -145,7 +145,7 @@ export class RegistrationComponent implements OnInit {
       },
       error => {
         if (error.error.message === 'E-Mail address already taken') {
-          this.globalErrorService.handleError(new Error('Es gibt bereits einen Nutzer mit dieser Emailadresse'));
+          this.globalErrorService.handleError(new Error('Es gibt bereits einen Nutzer mit dieser E-Mail-Adresse'));
           setTimeout(() => {
             this.onChangeState();
           }, 500);
