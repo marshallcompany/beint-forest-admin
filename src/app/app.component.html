@@ -29,7 +29,8 @@
             (click)="menuClose(sidemenu)"
             class="nav-list-item__link"><img
               [src]="state.icon"
-              class="nav-list-item__icon"><span class="nav-list-item__name">{{ state.name }}</span>
+              class="nav-list-item__icon">
+              <span class="nav-list-item__name" [innerHTML]="state.name | translate"></span>
           </a>
         </li>
       </ul>
@@ -39,7 +40,7 @@
         <img
           src="../assets/image/menu/logOut.svg"
           class="log-out__icon">
-        <span class="log-out__text">Log Out</span>
+        <span class="log-out__text">{{ 'side-menu.LOGOUT' | translate }}</span>
       </button>
     </div>
   </mat-sidenav>

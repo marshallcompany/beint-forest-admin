@@ -7,9 +7,9 @@
     },
     "password": {
       "PASSWORD_TITLE": "Passwort",
-      "CONFIRM_PASSWORD_TITLE": "",
       "PASSWORD_PLACEHOLDER": "Passwort eingeben",
-      "CONFIRM_PASSWORD_PLACEHOLDER": ""
+      "CONFIRM_PASSWORD_TITLE": "Passwort bestätigen",
+      "CONFIRM_PASSWORD_PLACEHOLDER": "Passwort bestätigen"
     }
   },
   "data_reset": {
@@ -22,31 +22,65 @@
     "SIGN_UP_BUTTON": "Account erstellen",
     "LOGIN_INVALID": "E-Mail-Adresse oder Passwort falsch"
   },
+  "registration": {
+    "step-1": {
+      "TEXT-1": "Hi! Wir sind beint. <br> Wir freuen uns, dass Du da bist!",
+      "TEXT-2": "Mit beint werden Bewerbungen für Dich zum Kinderspiel",
+      "TEXT-3": "Zu Beginn brauchen wir Deine <br> Log-in Daten",
+      "TEXT-4": "(Schritt 1/2)",
+      "TEXT-5": "",
+      "steps": {
+        "TEXT-1": "Registrieren",
+        "TEXT-2": "Profil <br> vervollständigen",
+        "TEXT-3": "Mit wenigen <br> Klicks bewerben"
+      }
+    },
+    "step-2": {
+      "TEXT-1": "Nun noch ein paar wenige <br> persönliche Angaben",
+      "TEXT-2": "(Schritt 2/2)",
+      "PREV_BUTTON": "zurück",
+      "SUBMIT_BUTTON": "Registrierung abschließen"
+    },
+    "successful": {
+      "TITLE": "YEAH!",
+      "SUBTITLE": "Dein Konto wurde erfolgreich <br> angelegt.",
+      "TEXT-1": "Bitte bestätige noch Deine <br> E-Mail-Adresse. Wir haben  <br> Dir dafür eine Mail geschickt.",
+      "TEXT-2": "Jetzt liegt es an Dir! <br> Profil ausfüllen - Dokumente hochladen einfach und  unkompliziert bewerben! <br> Schnapp Ihn Dir - Deinen Traumjob.",
+      "PROFILE_BUTTON": "Weiter zu Deinem Profil"
+    }
+  },
   "local_error": {
     "FIELD_REQUIRED": "Dieses Feld wird benötigt",
     "INVALID_EMAIL": "Ungültiges E-Mail Format",
     "LENGTH_PASS": "Das Passwort muss aus mindestens 8 Zeichen bestehen",
     "PASSWORD_MATCH": "Die beiden Passwörter stimmen nicht überein"
   },
-  "profile": {
-    "PROFILE_TTL": "Profil"
+  "side-menu": {
+    "HOME": "Home",
+    "PIPELINE": "Deine Bewerbungen",
+    "PROFILE": "Dein Profil",
+    "SETTINGS": "Einstellungen",
+    "JOBS": "Jobs",
+    "LOGOUT": "Log Out"
   },
-  "job_description": {
-    "TTL": "Arbeitsbeschreibung",
-    "APPLY_BTN": "Sich bewerben",
-    "PROFILE_BTN": "Profil",
-    "DOWNLOAD_BTN": "HERUNTERLADEN",
-    "DOWNLOAD_TEXT": "Laden Sie Ihren Lebenslauf zur Ansicht herunter",
-    "JOB_TTL": "Titel:",
-    "JOB_DESCRIPTION_TTL": "Beschreibung:",
-    "JOB_ID_TTL": "Job ID:",
-    "JOB_CREATED_TTL": "Job erstellt:"
+  "password-reset": {
+    "no-user": {
+      "TITLE": "Bitte gibt Deine Emails Adresse ein",
+      "INPUT_TITLE": "E-Mail",
+      "INPUT_PLACEHOLDER": "E-Mail-Adresse eingeben",
+      "INFO": "Im Anschluss senden wir Dir einen Email mit einem Link. Click auf diesen Link um Dein Passwort zurückzusetzen und eine neues einzugeben",
+      "BUTTON_LABEL": "Absenden",
+      "successful-message": {
+        "TITLE": "Du hast Post",
+        "TEXT": "Bitte kontrolliere dein <br> Email-Postfach"
+      }
+    }
   },
   "not-found": {
     "MESSAGE": "Hoppla! Seite nicht gefunden. Bitte komm zurück."
   },
   "languages": {
-    "english": "English",
-    "germany": "Germany"
+    "english": "Englisch",
+    "germany": "Deutschland"
   }
 }
