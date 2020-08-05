@@ -145,7 +145,6 @@
 
 }
 .info-wrapper{
-  word-break: break-all;
   &__text{
     font-size: 17px;
     margin-bottom:30px;
@@ -187,6 +186,9 @@
     top:10px;
     background-color: $black;
   }
+}
+a{
+  word-break: break-all;
 }
 @media screen and (max-width: 1200px) {
   ::ng-deep .privacy-policy-dialog{

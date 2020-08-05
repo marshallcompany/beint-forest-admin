@@ -8,7 +8,7 @@ import { GlobalErrorService } from 'src/app/services/global-error-service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { SearchService } from 'src/app/services/search.service';
-import { AgbComponent } from 'src/app/components/agb/agb.component';
+import { TermsUseComponent } from 'src/app/components/terms-use/terms-use.component';
 
 
 
@@ -106,7 +106,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   public onOpenAgb = () => {
-    this.matDialog.open(AgbComponent, { panelClass: 'agb-dialog' });
+    this.matDialog.open(TermsUseComponent, { panelClass: 'terms-use-dialog' });
   }
 
   public onChangeState = () => {

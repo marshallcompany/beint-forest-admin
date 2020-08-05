@@ -238,7 +238,7 @@
                 <div class="field-wrapper">
                   <input
                     type="tel"
-                    placeholder="min"
+                    placeholder="Gehaltsvorstellung"
                     mask="separator"
                     maxlength="8"
                     thousandSeparator="."
@@ -246,7 +246,7 @@
                     [validation]="false"
                     class="field-wrapper__input"
                     formControlName="min"
-                    (change)="submit('Gehaltsvorstellung (min)')">
+                    (change)="submit('Gehaltsvorstellung')">
                   <div class="field-wrapper__type">123</div>
                   <div
                     [ngClass]="{'invalid-should' : !form.get('searchPreferences').get('salaryExpectations').get('min').value || form.get('searchPreferences').get('salaryExpectations').get('min').hasError('onlyNumbers')}"
