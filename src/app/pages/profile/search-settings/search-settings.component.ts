@@ -71,8 +71,8 @@ export class SearchSettingsComponent implements OnInit {
     this.form = this.fb.group({
       searchPreferences: this.fb.group({
         salaryExpectations: this.fb.group({
-          min: [null, [FormValidators.numberValidation]],
-          max: [null, [FormValidators.numberValidation]]
+          min: ['', [FormValidators.numberValidation]],
+          max: ['', [FormValidators.numberValidation]]
         }),
         willingToRelocate: [false],
         allDesiredPlaces: [false],
