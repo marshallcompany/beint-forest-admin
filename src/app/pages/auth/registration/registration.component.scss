@@ -327,9 +327,11 @@
     fill: #ffffff;
   }
   &__text{
-    word-break: break-all;
     font-size: 12px;
     line-height: 1.25;
+    br{
+      display: none;
+    }
   }
 }
 .start-beint-button{
@@ -368,6 +370,11 @@
     padding: 15px 0;
     display: flex;
     justify-content: center;
+    &__text{
+      br{
+        display: block;
+      }
+    }
   }
   .confirm-email-wrapper{
     width:243px;
