@@ -39,8 +39,9 @@ export class TranslatesService {
   public setLanguage = () => {
     const browserLang = this.translateService.getBrowserLang();
     this.translateService.addLangs(this.languagesSelect.map((lang: Languages) => lang.code));
-    this.translateService.setDefaultLang('en');
-    this.translateService.use(browserLang.match(/en|de/) ? browserLang : 'en');
+    this.translateService.setDefaultLang('de');
+    this.translateService.use(browserLang.match(/de/) ? browserLang : 'de');
+    // /en|de/
   }
 
   public changeLanguageCode = (code: string) => {

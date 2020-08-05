@@ -1,21 +1,32 @@
 {
   "global.default_error_message": "Hoppla! Etwas ist schief gelaufen.",
   "general": {
-    "FIRST_NAME": "Vorname:",
-    "LAST_NAME": "Familienname, Nachname:",
-    "PLACE": "Wohnort:",
-    "PHONE": "Telefon:",
-    "BIRTH": "Geburtstag:",
-    "ACCOUNT_CREATED": "Account erstellt:"
+    "email": {
+      "TITLE": "E-Mail",
+      "PLACEHOLDER": "E-Mail-Adresse eingeben"
+    },
+    "password": {
+      "PASSWORD_TITLE": "Passwort",
+      "CONFIRM_PASSWORD_TITLE": "",
+      "PASSWORD_PLACEHOLDER": "Passwort eingeben",
+      "CONFIRM_PASSWORD_PLACEHOLDER": ""
+    }
+  },
+  "data_reset": {
+    "EMAIL": "E-Mail",
+    "PASSWORD": "Passwort vergessen"
   },
   "login": {
-    "SIGN_IN": "Einloggen",
-    "SIGN_IN_BUTTON": "Einloggen"
+    "SIGN_IN_TITLE": "Einloggen mit E-Mail",
+    "SIGN_IN_BUTTON": "Einloggen",
+    "SIGN_UP_BUTTON": "Account erstellen",
+    "LOGIN_INVALID": "E-Mail-Adresse oder Passwort falsch"
   },
   "local_error": {
     "FIELD_REQUIRED": "Dieses Feld wird benötigt",
     "INVALID_EMAIL": "Ungültiges E-Mail Format",
-    "LENGTH_PASS": "Das Passwort muss aus mindestens 8 Zeichen bestehen"
+    "LENGTH_PASS": "Das Passwort muss aus mindestens 8 Zeichen bestehen",
+    "PASSWORD_MATCH": "Die beiden Passwörter stimmen nicht überein"
   },
   "profile": {
     "PROFILE_TTL": "Profil"

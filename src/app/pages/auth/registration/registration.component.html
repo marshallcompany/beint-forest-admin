@@ -146,7 +146,7 @@
             <p
               class="error-box__text center"
               *ngIf="form.get('password').valid && form.get('confirmPassword').valid && form.hasError('mismatchedPasswords')">
-            Dein beiden Paswörter stimmen nicht überein
+              {{ 'local_error.PASSWORD_MATCH' | translate }}
           </p>
           </div>
         </div>
