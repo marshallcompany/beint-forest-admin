@@ -83,7 +83,7 @@
     padding-left: 0;
   }
   .category-detail__icon {
-    height: 40px;
+    height: 55px;
   }
   // NEW 
     .search-header{
@@ -96,6 +96,7 @@
     }
     .category-detail__label{
       font-size: 20px;
+      font-family: $workSansSemiBold;
     }
     .i1{
       display: none;
@@ -104,4 +105,15 @@
       display: inline-block;
     }
   // END
+}
+@media screen and (max-width: 360px){
+  .search-header{
+    height: 100px;
+  }
+  .category-detail__icon {
+    height: 40px;
+  }
+  .category-detail__label{
+    font-size: 17px;
+  }
 }
