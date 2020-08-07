@@ -78,6 +78,8 @@ export class SearchSettingsComponent implements OnInit {
         allDesiredPlaces: [false],
         readyToStartJobFrom: [''],
         travellingReady: [null],
+        timeLimit: [null],
+        immediately: [false],
         desiredPlacesOfWork: this.fb.array([]),
         desiredEmploymentTypes: this.fb.array([]),
         preferredBusinessAreas: this.fb.array([]),
@@ -193,6 +195,8 @@ export class SearchSettingsComponent implements OnInit {
         max: searchPreferences.salaryExpectations.max,
       },
       travellingReady: searchPreferences.travellingReady ? searchPreferences.travellingReady : null,
+      timeLimit: searchPreferences.timeLimit ? searchPreferences.timeLimit : null,
+      immediately: searchPreferences.immediately ? searchPreferences.immediately : false,
       readyToStartJobFrom: searchPreferences.readyToStartJobFrom,
       willingToRelocate: searchPreferences.willingToRelocate
     });
@@ -214,6 +218,13 @@ export class SearchSettingsComponent implements OnInit {
     searchPreferences.benefits.forEach(element => {
       this.benefitsArray.push(this.fb.control(element));
     });
+  }
+
+  public onImmediately = (formControl: FormControl) => {
+    if (formControl.value) {
+      this.form.get('searchPreferences').get('readyToStartJobFrom').setValue(null);
+    }
+    this.submit('ab sofort');
   }
 
   public submit = (field) => {
