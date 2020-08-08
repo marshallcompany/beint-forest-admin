@@ -73,6 +73,8 @@ import { SupportComponent } from './pages/settings/support/support.component';
 import { EmailResetComponent } from './pages/auth/email-reset/email-reset.component';
 import { NotificationComponent } from './pages/settings/notification/notification.component';
 
+import { IMaskModule } from 'angular-imask';
+import { DateService } from './services/date.service';
 
 export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRoutesProvider) => {
   return new HttpMultiLoaderServiceService(http, [
@@ -138,6 +140,7 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     ImageCropperModule,
     NgxMaskModule.forRoot(),
     HammerConfig,
+    IMaskModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -155,6 +158,7 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     Validators,
     ApiRoutesProvider,
     AuthService,
+    DateService,
     DownloadFileService,
     NotificationService,
     {
