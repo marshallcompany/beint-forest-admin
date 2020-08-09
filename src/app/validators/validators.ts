@@ -37,4 +37,11 @@ export class FormValidators {
         };
 
     }
+
+    static checkFullDate(control: FormControl) {
+        if (control && control.value && !control.value.match(/^[0-9]{2}.[0-9]{2}.[0-9]{4}/)) {
+            return { dateInvalid: true };
+        }
+        return null;
+    }
 }
