@@ -171,7 +171,7 @@ export class PersonalComponent implements OnInit {
 
   public dateSave = (message: string, formControl: FormControl) => {
     if (formControl.value.match(this.dateService.regexFullDateNumber)) {
-      this.form.get('personal').get('dateBirth').setValue(this.dateService.createNewDate(formControl.value));
+      this.form.get('personal').get('dateBirth').setValue(this.dateService.createDayMonthYearDate(formControl.value));
       this.submit(message);
     }
     if (formControl.value.match(this.dateService.regexFullDateEmpty)) {
@@ -186,7 +186,7 @@ export class PersonalComponent implements OnInit {
         academicTitle: personalData.personal && personalData.personal.academicTitle ? personalData.personal.academicTitle : null,
         birthPlace: personalData.personal && personalData.personal.birthPlace ? personalData.personal.birthPlace : '',
         dateBirth: personalData.personal && personalData.personal.dateBirth ? personalData.personal.dateBirth : '',
-        dateBirthString: personalData.personal && personalData.personal.dateBirth ? this.dateService.updateFormControlDate(personalData.personal.dateBirth) : '',
+        dateBirthString: personalData.personal && personalData.personal.dateBirth ? this.dateService.updateFormControlDate(personalData.personal.dateBirth, 'd.m.y') : '',
         firstName: personalData.personal && personalData.personal.firstName ? personalData.personal.firstName : '',
         gender: personalData.personal && personalData.personal.gender ? personalData.personal.gender : null,
         lastName: personalData.personal && personalData.personal.lastName ? personalData.personal.lastName : '',

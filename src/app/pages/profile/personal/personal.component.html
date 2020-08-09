@@ -111,7 +111,7 @@
             <p class="field__label">Geburtsdatum</p>
             <div class="field-wrapper">
               <input
-                [imask]="dateService.maskFullDate" 
+                [imask]="dateService.maskDayMonthYearDate"
                 [unmask]="false"
                 (change)="dateSave('Geburtsdatum', form.get('personal').get('dateBirthString'))"
                 class="field-wrapper__input"

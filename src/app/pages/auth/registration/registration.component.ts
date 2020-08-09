@@ -132,7 +132,7 @@ export class RegistrationComponent implements OnInit {
       lastName: this.form.get('lastName').value,
       placeOfResidence: this.form.get('placeOfResidence').value,
       // gender: this.form.get('gender').value,
-      dateBirth: this.dateService.createNewDate(this.form.get('dateBirth').value),
+      dateBirth: this.dateService.createDayMonthYearDate(this.form.get('dateBirth').value),
       country: this.form.get('country').value
     };
     this.auth.registration(registrationData)

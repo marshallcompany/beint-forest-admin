@@ -12,6 +12,7 @@ import { ConfirmModalComponent } from 'src/app/components/modal/confirm/confirm-
 import { AccordionItemComponent } from 'src/app/components/accordion/accordion-item.component';
 import { Router } from '@angular/router';
 import { fadeAnimation } from 'src/app/animations/router-animations';
+import { DateService } from 'src/app/services/date.service';
 interface DropDownOptions {
   school_types: Array<string[]>;
   school_graduation: Array<string[]>;
@@ -78,6 +79,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
   constructor(
     public fb: FormBuilder,
     public router: Router,
+    public dateService: DateService,
     private profileService: ProfileService,
     private searchService: SearchService,
     private notificationService: NotificationService,
@@ -337,8 +339,10 @@ export class EducationComponent implements OnInit, AfterViewInit {
         return this.fb.group({
           schoolType: [data && data.schoolType ? data.schoolType : null, Validators.required],
           schoolName: [data && data.schoolName ? data.schoolName : '', Validators.required],
-          dateStart: [data && data.dateStart ? data.dateStart : null, Validators.required],
-          dateEnd: [data && data.dateEnd ? data.dateEnd : null],
+          dateStart: [data && data.dateStart ? data.dateStart : '', Validators.required],
+          dateStartString: [data && data.dateStart ? this.dateService.updateFormControlDate(data.dateStart, 'm.y') : ''],
+          dateEnd: [data && data.dateEnd ? data.dateEnd : ''],
+          dateEndString: [data && data.dateEnd ? this.dateService.updateFormControlDate(data.dateEnd, 'm.y') : ''],
           country: [data && data.country ? data.country : null, Validators.required],
           place: [data && data.place ? data.place : null, Validators.required],
           tilToday: [data && data.tilToday ? data.tilToday : false],
@@ -417,6 +421,20 @@ export class EducationComponent implements OnInit, AfterViewInit {
         }
       );
   }
+
+  public dateSave = (message: string, formGroup: FormGroup, formControl: string) => {
+    const formControlDateString = formControl + 'String';
+    const valueDateString = formGroup.get(formControlDateString).value;
+    if (formGroup.get(formControlDateString).value.match(this.dateService.regexNotFullDateNumber)) {
+      formGroup.get(formControl).setValue(this.dateService.createMonthYearDate(valueDateString));
+      this.submit(message);
+    }
+    if (formGroup.get(formControlDateString).value.match(this.dateService.regexNotFullDateEmpty)) {
+      formGroup.get(formControl).setValue('');
+      this.submit(message);
+    }
+  }
+
   private patchFormValue(education) {
     this.form.patchValue({
       education: {
@@ -587,6 +605,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
     const isSet = group.get('tilToday').value;
     if (isSet) {
       group.get('dateEnd').setValue('');
+      group.get('dateEndString').setValue('');
     }
     this.submit('bis heute');
   }
