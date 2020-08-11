@@ -343,30 +343,24 @@
               </div>
             </div>
           </div>
-          <div class="field field_datapicker">
+          <div class="field">
             <p class="field__label">Verfügbar ab</p>
             <div class="checkbox-group-1">
               <div class="field" [ngClass]="{'disabled' : form.get('searchPreferences').get('immediately').value}">
-                <div
-                  class="field-wrapper"
-                  [owlDateTimeTrigger]="dt1">
+                <div class="field-wrapper">
                   <input
-                    [owlDateTime]="dt1"
-                    (dateTimeChange)="submit('Verfügbar ab')"
                     class="field-wrapper__input"
-                    formControlName="readyToStartJobFrom"
-                    placeholder="DD/MM/YYYY">
-                  <owl-date-time
-                    #dt1
-                    pickerMode="dialog"
-                    pickerType="calendar"
-                    panelClass="calendar"></owl-date-time>
+                    formControlName="readyToStartJobFromString"
+                    [imask]="dateService.maskDayMonthYearDate"
+                    [unmask]="false"
+                    (change)="dateSave('Verfügbar ab', form.get('searchPreferences'), 'readyToStartJobFrom')">
                   <div class="field-wrapper__type">
                     <img src="../assets/image/calendar.svg">
                   </div>
                   <div
                     class="field-wrapper__status"
-                    [ngClass]="{'invalid-should' : !form.get('searchPreferences').get('readyToStartJobFrom').value }">
+                    [ngClass]="{'invalid-should' : 
+                    !form.get('searchPreferences').get('readyToStartJobFromString').value || !form.get('searchPreferences').get('readyToStartJobFromString').value.match(dateService.regexFullDateNumber)}">
                   </div>
                 </div>
               </div>

@@ -38,6 +38,25 @@ export class FormValidators {
 
     }
 
+    static dateCheck(from: string, to: string) {
+        return (group: FormGroup) => {
+            const fromDate = group.controls[from].value;
+            const toDate = group.controls[to].value;
+            const fromDateArray = fromDate.split('.');
+            const toDateArray = toDate.split('.');
+            if (fromDate.match(/^[0-9]{2}.[0-9]{4}/) && toDate.match(/^[0-9]{2}.[0-9]{4}/)) {
+                if (+fromDateArray[1] > +toDateArray[1]) {
+                    return { valueDateError: true };
+                } else if (+fromDateArray[1] === +toDateArray[1]) {
+                    if (+fromDateArray[0] > +toDateArray[0]) {
+                        return { valueDateError: true };
+                    }
+                }
+            }
+            return null;
+        };
+    }
+
     static checkFullDate(control: FormControl) {
         if (control && control.value && !control.value.match(/^[0-9]{2}.[0-9]{2}.[0-9]{4}/)) {
             return { dateInvalid: true };
