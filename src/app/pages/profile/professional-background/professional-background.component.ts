@@ -13,6 +13,8 @@ import { ConfirmModalComponent } from 'src/app/components/modal/confirm/confirm-
 import { AccordionItemComponent } from 'src/app/components/accordion/accordion-item.component';
 import { Router } from '@angular/router';
 import { fadeAnimation } from 'src/app/animations/router-animations';
+import { DateService } from 'src/app/services/date.service';
+import { FormValidators } from 'src/app/validators/validators';
 
 
 @Component({
@@ -67,6 +69,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
 
   constructor(
     public router: Router,
+    public dateService: DateService,
     private fb: FormBuilder,
     private profileService: ProfileService,
     private searchService: SearchService,
@@ -158,8 +161,10 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
       case 'employmentConditions':
         return this.fb.group({
           company: [data && data.company ? data.company : '', Validators.required],
-          dateStart: [data && data.dateStart ? data.dateStart : null],
-          dateEnd: [data && data.dateEnd ? data.dateEnd : null],
+          dateStart: [data && data.dateStart ? data.dateStart : ''],
+          dateStartString: [data && data.dateStart ? this.dateService.updateFormControlDate(data.dateStart, 'm.y') : ''],
+          dateEnd: [data && data.dateEnd ? data.dateEnd : ''],
+          dateEndString: [data && data.dateEnd ? this.dateService.updateFormControlDate(data.dateEnd, 'm.y') : ''],
           country: [data && data.country ? data.country : null, Validators.required],
           workPlace: [data && data.workPlace ? data.workPlace : null, Validators.required],
           jobTitle: [data && data.jobTitle ? data.jobTitle : '', Validators.required],
@@ -171,13 +176,15 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
 
           businessArea: this.fb.array(data && data.businessArea ? data.businessArea : []),
           businessAreaControl: [data && data.businessArea ? data.businessArea : null, Validators.required]
-        });
+        }, this.initFormValidation('dateStartString', 'dateEndString'));
       case 'independentExperience':
         return this.fb.group({
           jobTitle: [data && data.jobTitle ? data.jobTitle : '', Validators.required],
           companyName: [data && data.companyName ? data.companyName : ''],
-          dateStart: [data && data.dateStart ? data.dateStart : null, Validators.required],
-          dateEnd: [data && data.dateEnd ? data.dateEnd : null],
+          dateStart: [data && data.dateStart ? data.dateStart : '', Validators.required],
+          dateStartString: [data && data.dateStart ? this.dateService.updateFormControlDate(data.dateStart, 'm.y') : ''],
+          dateEnd: [data && data.dateEnd ? data.dateEnd : ''],
+          dateEndString: [data && data.dateEnd ? this.dateService.updateFormControlDate(data.dateEnd, 'm.y') : ''],
           country: [data && data.country ? data.country : null, Validators.required],
           workPlace: [data && data.workPlace ? data.workPlace : null, Validators.required],
           jobDescription: [data && data.jobDescription ? data.jobDescription : '', Validators.required],
@@ -186,20 +193,33 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
 
           businessArea: this.fb.array(data && data.businessArea ? data.businessArea : []),
           businessAreaControl: [data && data.businessArea ? data.businessArea : null, Validators.required]
-        });
+        }, this.initFormValidation('dateStartString', 'dateEndString'));
       case 'otherExperience':
         return this.fb.group({
           jobTitle: [data && data.jobTitle ? data.jobTitle : '', Validators.required],
-          dateStart: [data && data.dateStart ? data.dateStart : null, Validators.required],
-          dateEnd: [data && data.dateEnd ? data.dateEnd : null],
+          dateStart: [data && data.dateStart ? data.dateStart : '', Validators.required],
+          dateStartString: [data && data.dateStart ? this.dateService.updateFormControlDate(data.dateStart, 'm.y') : ''],
+          dateEnd: [data && data.dateEnd ? data.dateEnd : ''],
+          dateEndString: [data && data.dateEnd ? this.dateService.updateFormControlDate(data.dateEnd, 'm.y') : ''],
           country: [data && data.country ? data.country : null, Validators.required],
           workPlace: [data && data.workPlace ? data.workPlace : null, Validators.required],
           jobDescription: [data && data.jobDescription ? data.jobDescription : '', Validators.required],
           tilToday: [data && data.tilToday ? data.tilToday : false]
-        });
+        }, this.initFormValidation('dateStartString', 'dateEndString'));
       default:
         break;
     }
+  }
+
+  public initFormValidation = (from: string, to: string) => {
+    let formValidation: object;
+    formValidation = {
+      validator: FormValidators.dateCheck(
+        from,
+        to
+      )
+    };
+    return formValidation;
   }
 
   public onOpenAccordion() {
@@ -242,6 +262,21 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
     // SWIPE LEFT
     if ($event.deltaX < 0 && window.innerWidth <= 768) {
       this.router.navigate([this.navSettings.nextCategory]);
+    }
+  }
+
+  public dateSave = (message: string, formGroup: FormGroup, formControl: string) => {
+    const formControlDateString = formControl + 'String';
+    const valueDateString = formGroup.get(formControlDateString).value;
+    if (formGroup.get(formControlDateString).value.match(this.dateService.regexNotFullDateNumber)) {
+      formGroup.get(formControl).setValue(this.dateService.createMonthYearDate(valueDateString));
+      if (formGroup.errors === null) {
+        this.submit(message);
+      }
+    }
+    if (formGroup.get(formControlDateString).value.match(this.dateService.regexNotFullDateEmpty)) {
+      formGroup.get(formControl).setValue('');
+      this.submit(message);
     }
   }
 
@@ -341,6 +376,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
     const isSet = group.get('tilToday').value;
     if (isSet) {
       group.get('dateEnd').setValue('');
+      group.get('dateEndString').setValue('');
     }
     this.submit('bis heute');
   }

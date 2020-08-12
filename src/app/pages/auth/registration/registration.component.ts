@@ -8,7 +8,8 @@ import { GlobalErrorService } from 'src/app/services/global-error-service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { SearchService } from 'src/app/services/search.service';
-import { AgbComponent } from 'src/app/components/agb/agb.component';
+import { TermsUseComponent } from 'src/app/components/terms-use/terms-use.component';
+import { DateService } from 'src/app/services/date.service';
 
 
 
@@ -41,6 +42,7 @@ export class RegistrationComponent implements OnInit {
     public router: Router,
     public fb: FormBuilder,
     public matDialog: MatDialog,
+    public dateService: DateService,
     private auth: AuthService,
     private globalErrorService: GlobalErrorService,
     private searchService: SearchService
@@ -53,7 +55,7 @@ export class RegistrationComponent implements OnInit {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       placeOfResidence: [null, Validators.required],
-      dateBirth: [null, Validators.required],
+      dateBirth: [null, [Validators.required, FormValidators.checkFullDate]],
       country: [null, Validators.required]
       // gender: [null, Validators.required]
     }, this.initFormValidation());
@@ -106,7 +108,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   public onOpenAgb = () => {
-    this.matDialog.open(AgbComponent, { panelClass: 'agb-dialog' });
+    this.matDialog.open(TermsUseComponent, { panelClass: 'terms-use-dialog' });
   }
 
   public onChangeState = () => {
@@ -120,6 +122,7 @@ export class RegistrationComponent implements OnInit {
     }
   }
 
+
   public submit = () => {
     const registrationData = {
       email: this.form.get('email').value,
@@ -129,7 +132,7 @@ export class RegistrationComponent implements OnInit {
       lastName: this.form.get('lastName').value,
       placeOfResidence: this.form.get('placeOfResidence').value,
       // gender: this.form.get('gender').value,
-      dateBirth: this.form.get('dateBirth').value,
+      dateBirth: this.dateService.createDayMonthYearDate(this.form.get('dateBirth').value),
       country: this.form.get('country').value
     };
     this.auth.registration(registrationData)
@@ -145,7 +148,7 @@ export class RegistrationComponent implements OnInit {
       },
       error => {
         if (error.error.message === 'E-Mail address already taken') {
-          this.globalErrorService.handleError(new Error('Es gibt bereits einen Nutzer mit dieser Emailadresse'));
+          this.globalErrorService.handleError(new Error('Es gibt bereits einen Nutzer mit dieser E-Mail-Adresse'));
           setTimeout(() => {
             this.onChangeState();
           }, 500);

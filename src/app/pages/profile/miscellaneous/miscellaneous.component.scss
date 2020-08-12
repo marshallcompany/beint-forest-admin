@@ -224,6 +224,11 @@
         margin-bottom:0;
     }
 }
+.datepicker-group__error{
+    width: 100%;
+    margin:10px 0;
+    color: $red;
+}
 .datapicker-checkbox{
     height: 50px;
     display: flex;

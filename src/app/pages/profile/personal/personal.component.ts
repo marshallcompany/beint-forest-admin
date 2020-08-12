@@ -9,7 +9,7 @@ import { throwError, of, Observable, forkJoin } from 'rxjs';
 import { SearchService } from '../../../services/search.service';
 import { Router } from '@angular/router';
 import { fadeAnimation } from 'src/app/animations/router-animations';
-
+import { DateService } from 'src/app/services/date.service';
 
 interface DropDownOptions {
   academic_titles: Array<string[]>;
@@ -54,11 +54,11 @@ export class PersonalComponent implements OnInit {
   constructor(
     public formBuilder: FormBuilder,
     public router: Router,
+    public dateService: DateService,
     private profileService: ProfileService,
     private notificationService: NotificationService,
     private searchService: SearchService
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
     this.initForm();
@@ -126,6 +126,7 @@ export class PersonalComponent implements OnInit {
         academicTitle: [''],
         birthPlace: [''],
         dateBirth: [''],
+        dateBirthString: [''],
         firstName: [''],
         gender: [''],
         lastName: [''],
@@ -167,12 +168,25 @@ export class PersonalComponent implements OnInit {
     }
   }
 
+
+  public dateSave = (message: string, formControl: FormControl) => {
+    if (formControl.value.match(this.dateService.regexFullDateNumber)) {
+      this.form.get('personal').get('dateBirth').setValue(this.dateService.createDayMonthYearDate(formControl.value));
+      this.submit(message);
+    }
+    if (formControl.value.match(this.dateService.regexFullDateEmpty)) {
+      this.form.get('personal').get('dateBirth').setValue('');
+      this.submit(message);
+    }
+  }
+
   public patchFormValue = (personalData) => {
     this.form.patchValue({
       personal: {
         academicTitle: personalData.personal && personalData.personal.academicTitle ? personalData.personal.academicTitle : null,
         birthPlace: personalData.personal && personalData.personal.birthPlace ? personalData.personal.birthPlace : '',
         dateBirth: personalData.personal && personalData.personal.dateBirth ? personalData.personal.dateBirth : '',
+        dateBirthString: personalData.personal && personalData.personal.dateBirth ? this.dateService.updateFormControlDate(personalData.personal.dateBirth, 'd.m.y') : '',
         firstName: personalData.personal && personalData.personal.firstName ? personalData.personal.firstName : '',
         gender: personalData.personal && personalData.personal.gender ? personalData.personal.gender : null,
         lastName: personalData.personal && personalData.personal.lastName ? personalData.personal.lastName : '',
