@@ -1,3 +1,25 @@
-<div #container class="autocomplete-container">
-  <input placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="field-wrapper__input" #search>
+<div class="field_google-autocomplete">
+  <p class="field__label">{{ fieldLabel }}</p>
+  <div class="field-wrapper">
+    <div 
+      #container
+      class="autocomplete-container">
+      <input
+        [placeholder]="fieldPlaceholder" 
+        autocorrect="off"
+        autocapitalize="off"
+        spellcheck="off"
+        type="text"
+        class="field-wrapper__input"
+        [formControl]="location"
+        (change)="inputChange($event)"
+        #search>
+    </div>
+    <div class="field-wrapper__type">abc</div>
+    <div
+      *ngIf="status"
+      class="field-wrapper__status"
+      [ngClass]="{'invalid-must': !location.value}">
+    </div>
+  </div>
 </div>

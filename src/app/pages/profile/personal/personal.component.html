@@ -225,7 +225,16 @@
             </div>
             <p class="subcategory-info__name">Kontaktinformationen</p>
           </div>
-          <div
+          <app-google-autocomplete
+            class="field"
+            [formControlValue]=""
+            [status]="true"
+            [fieldLabel]="'Ort'"
+            [fieldPlaceholder]="'Ort'"
+            (setAddress)="googleAddressChange($event, form.get('contact').get('residence'), ['country', 'zipCode', 'place'], 'message')" 
+            adressType="geocode">
+          </app-google-autocomplete>
+          <!-- <div
             class="field field_select field_select-search single clearable"
             formGroupName="residence">
             <p class="field__label">Land</p>
@@ -243,8 +252,8 @@
                 [ngClass]="{'invalid-must' : !form.get('contact').get('residence').get('country').value}"
                 class="field-wrapper__status"></div>
             </div>
-          </div>
-          <div
+          </div> -->
+          <!-- <div
             class="field field_select field_select-search single clearable"
             [ngClass]="{'disabled': !form.get('contact').get('residence').get('country').value}"
             formGroupName="residence">
@@ -264,8 +273,8 @@
                 [ngClass]="{'invalid-must' : !form.get('contact').get('residence').get('place').value}"
                 class="field-wrapper__status"></div>
             </div>
-          </div>
-          <div
+          </div> -->
+          <!-- <div
             class="field field_select field_select-search single clearable"
             [ngClass]="{'disabled': !form.get('contact').get('residence').get('place').value}"
             formGroupName="residence">
@@ -285,7 +294,7 @@
                 [ngClass]="{'invalid-must' : !form.get('contact').get('residence').get('zipCode').value}"
                 class="field-wrapper__status"></div>
             </div>
-          </div>
+          </div> -->
           <div
             class="field"
             formGroupName="residence">

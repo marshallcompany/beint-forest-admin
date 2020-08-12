@@ -18,7 +18,7 @@ export class AutocompleteDataService {
         return result;
       }
     }
-    return;
+    return null;
   }
 
   getStreetNumber(place) {

@@ -3,6 +3,7 @@ import { MapsAPILoader } from '@agm/core';
 import { google } from 'google-maps';
 import { BehaviorSubject } from 'rxjs';
 import { delay } from 'rxjs/operators';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-google-autocomplete',
@@ -11,20 +12,28 @@ import { delay } from 'rxjs/operators';
 })
 export class GoogleAutocompleteComponent implements OnInit {
 
+  @Input() adressType: string;
+  @Input() status: boolean;
+  @Input() formControlValue: string;
+  @Input() fieldLabel: string;
+  @Input() fieldPlaceholder: string;
   @ViewChild('search', { static: false }) searchElementRef: ElementRef;
   @ViewChild('container', { static: false }) container: ElementRef;
-  @Input() adressType: string;
   @Output() setAddress: EventEmitter<any> = new EventEmitter();
 
   public autocompleteData;
   public changesPacContainer = new BehaviorSubject(false);
+  public location = new FormControl('');
 
   constructor(
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone
-  ) {}
+  ) {
+
+  }
 
   ngOnInit() {
+    this.location.setValue(this.formControlValue ? this.formControlValue : '');
     this.mapsAPILoader.load().then(() => {
       const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
         types: [this.adressType]
@@ -35,6 +44,7 @@ export class GoogleAutocompleteComponent implements OnInit {
         this.ngZone.run(() => {
           const place: google.maps.places.PlaceResult = autocomplete.getPlace();
           this.setAddress.emit(place);
+          this.location.setValue(place.formatted_address);
           if (place.geometry === undefined || place.geometry === null) {
             return;
           }
@@ -52,6 +62,12 @@ export class GoogleAutocompleteComponent implements OnInit {
         }
       }
     );
+  }
+
+  inputChange = (ev) => {
+    if (!ev.target.value.length) {
+      this.setAddress.emit('[NO VALUE]');
+    }
   }
 
   getAutocompletePacContainer(autocomplete) {
