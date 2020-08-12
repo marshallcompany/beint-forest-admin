@@ -316,20 +316,24 @@ export class MiscellaneousComponent implements OnInit, AfterViewInit {
   public dateSave = (message: string, formGroup: FormGroup, formControl: string, type: string) => {
     const formControlDateString = formControl + 'String';
     const valueDateString = formGroup.get(formControlDateString).value;
-    if (type === 'notFullDate' && formGroup.errors === null) {
+    if (type === 'notFullDate') {
       if (formGroup.get(formControlDateString).value.match(this.dateService.regexNotFullDateNumber)) {
         formGroup.get(formControl).setValue(this.dateService.createMonthYearDate(valueDateString));
-        this.submit(message);
+        if (formGroup.errors === null) {
+          this.submit(message);
+        }
       }
       if (formGroup.get(formControlDateString).value.match(this.dateService.regexNotFullDateEmpty)) {
         formGroup.get(formControl).setValue('');
         this.submit(message);
       }
     }
-    if (type === 'fullDate' && formGroup.errors === null) {
+    if (type === 'fullDate') {
       if (formGroup.get(formControlDateString).value.match(this.dateService.regexFullDateNumber)) {
         formGroup.get(formControl).setValue(this.dateService.createDayMonthYearDate(valueDateString));
-        this.submit(message);
+        if (formGroup.errors === null) {
+          this.submit(message);
+        }
       }
       if (formGroup.get(formControlDateString).value.match(this.dateService.regexFullDateEmpty)) {
         formGroup.get(formControl).setValue('');

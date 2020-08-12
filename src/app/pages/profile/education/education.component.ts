@@ -442,9 +442,11 @@ export class EducationComponent implements OnInit, AfterViewInit {
   public dateSave = (message: string, formGroup: FormGroup, formControl: string) => {
     const formControlDateString = formControl + 'String';
     const valueDateString = formGroup.get(formControlDateString).value;
-    if (formGroup.get(formControlDateString).value.match(this.dateService.regexNotFullDateNumber) && formGroup.errors === null) {
+    if (formGroup.get(formControlDateString).value.match(this.dateService.regexNotFullDateNumber)) {
       formGroup.get(formControl).setValue(this.dateService.createMonthYearDate(valueDateString));
-      this.submit(message);
+      if (formGroup.errors === null) {
+        this.submit(message);
+      }
     }
     if (formGroup.get(formControlDateString).value.match(this.dateService.regexNotFullDateEmpty)) {
       formGroup.get(formControl).setValue('');
