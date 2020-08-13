@@ -227,7 +227,7 @@
           </div>
           <app-google-autocomplete
             class="field"
-            [formControlValue]=""
+            [formControlValue]="form.get('contact').get('residence').get('location').value"
             [fieldStatus]="'invalid-must'"
             [validation]="'place/zipCode'"
             [fieldLabel]="'Ort'"

@@ -12,7 +12,8 @@
         type="text"
         class="field-wrapper__input"
         [formControl]="location"
-        (input)="inputChange($event)"
+        (input)="checkInputValue($event)"
+        (change)="checkChangeValue($event)"
         #search>
     </div>
     <div class="field-wrapper__type">abc</div>

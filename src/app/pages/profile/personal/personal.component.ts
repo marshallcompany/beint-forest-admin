@@ -149,7 +149,8 @@ export class PersonalComponent implements OnInit {
           street: [''],
           zipCode: [null],
           country: [null, Validators.required],
-          addressAddition: ['']
+          addressAddition: [''],
+          location: ['']
         })
       }),
     });
@@ -275,7 +276,14 @@ export class PersonalComponent implements OnInit {
           street: personalData.contact && personalData.contact.residence && personalData.contact.residence.street ? personalData.contact.residence.street : '',
           zipCode: personalData.contact && personalData.contact.residence && personalData.contact.residence.zipCode ? personalData.contact.residence.zipCode : null,
           country: personalData.contact && personalData.contact.residence && personalData.contact.residence.country ? personalData.contact.residence.country : null,
-          addressAddition: personalData.contact && personalData.contact.residence && personalData.contact.residence.addressAddition ? personalData.contact.residence.addressAddition : ''
+          addressAddition: personalData.contact && personalData.contact.residence && personalData.contact.residence.addressAddition ? personalData.contact.residence.addressAddition : '',
+          location: personalData.contact.residence.zipCode &&
+                    personalData.contact.residence.place &&
+                    personalData.contact.residence.country ?
+                    `${personalData.contact.residence.zipCode + ` ` +
+                      personalData.contact.residence.place + `, ` +
+                      personalData.contact.residence.country}`
+                      : ''
         }
       },
     });
