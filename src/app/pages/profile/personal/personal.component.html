@@ -229,6 +229,7 @@
             class="field"
             [formControlValue]=""
             [status]="true"
+            [validation]="'place/zipCode'"
             [fieldLabel]="'Ort'"
             [fieldPlaceholder]="'Ort'"
             (setAddress)="googleAddressChange($event, form.get('contact').get('residence'), ['country', 'zipCode', 'place'], 'message')" 

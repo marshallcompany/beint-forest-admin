@@ -12,14 +12,14 @@
         type="text"
         class="field-wrapper__input"
         [formControl]="location"
-        (change)="inputChange($event)"
+        (input)="inputChange($event)"
         #search>
     </div>
     <div class="field-wrapper__type">abc</div>
     <div
       *ngIf="status"
       class="field-wrapper__status"
-      [ngClass]="{'invalid-must': !location.value}">
+      [ngClass]="{'invalid-must': !formControlValue}">
     </div>
   </div>
 </div>

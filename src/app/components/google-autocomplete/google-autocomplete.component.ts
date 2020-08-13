@@ -4,6 +4,7 @@ import { google } from 'google-maps';
 import { BehaviorSubject } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
+import { AutocompleteDataService } from 'src/app/services/autocomplete-data.service';
 
 @Component({
   selector: 'app-google-autocomplete',
@@ -14,6 +15,7 @@ export class GoogleAutocompleteComponent implements OnInit {
 
   @Input() adressType: string;
   @Input() status: boolean;
+  @Input() validation: string;
   @Input() formControlValue: string;
   @Input() fieldLabel: string;
   @Input() fieldPlaceholder: string;
@@ -27,7 +29,8 @@ export class GoogleAutocompleteComponent implements OnInit {
 
   constructor(
     private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private autocompleteDataService: AutocompleteDataService,
   ) {
 
   }
@@ -45,6 +48,8 @@ export class GoogleAutocompleteComponent implements OnInit {
           const place: google.maps.places.PlaceResult = autocomplete.getPlace();
           this.setAddress.emit(place);
           this.location.setValue(place.formatted_address);
+          this.formControlValue = place.formatted_address;
+          this.inputValidation(place);
           if (place.geometry === undefined || place.geometry === null) {
             return;
           }
@@ -64,8 +69,20 @@ export class GoogleAutocompleteComponent implements OnInit {
     );
   }
 
+  inputValidation = (place) => {
+    if (place && this.validation && this.validation === 'place/zipCode') {
+      if (!this.autocompleteDataService.getCity(place)) {
+        this.formControlValue = null;
+      }
+      if (!this.autocompleteDataService.getPostCode(place)) {
+        this.formControlValue = null;
+      }
+    }
+  }
+
   inputChange = (ev) => {
     if (!ev.target.value.length) {
+      this.formControlValue = null;
       this.setAddress.emit('[NO VALUE]');
     }
   }
