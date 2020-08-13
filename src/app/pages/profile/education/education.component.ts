@@ -13,6 +13,7 @@ import { AccordionItemComponent } from 'src/app/components/accordion/accordion-i
 import { Router } from '@angular/router';
 import { fadeAnimation } from 'src/app/animations/router-animations';
 import { DateService } from 'src/app/services/date.service';
+import { AutocompleteDataService } from 'src/app/services/autocomplete-data.service';
 interface DropDownOptions {
   school_types: Array<string[]>;
   school_graduation: Array<string[]>;
@@ -80,6 +81,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
     public fb: FormBuilder,
     public router: Router,
     public dateService: DateService,
+    public autocompleteDataService: AutocompleteDataService,
     private profileService: ProfileService,
     private searchService: SearchService,
     private notificationService: NotificationService,
@@ -136,6 +138,68 @@ export class EducationComponent implements OnInit, AfterViewInit {
       this.viewPortStatus = false;
     }
     return;
+  }
+
+  public googleAddressChange = (data, formGroup: FormGroup, fields: Array<string>, message: string) => {
+    of(data)
+      .pipe(
+        switchMap(value => {
+          if (value === '[NO VALUE]') {
+            this.cleaningFormControl(formGroup, fields, message);
+            return throwError('[NO VALUE]');
+          }
+          return of(value);
+        }),
+        switchMap(googleAddress => {
+          const arr: Array<Observable<any>> = [
+            of(this.autocompleteDataService.getCity(googleAddress)),
+            of(this.autocompleteDataService.getCountry(googleAddress)),
+            of(googleAddress.formatted_address)
+          ];
+          return forkJoin(arr);
+        }),
+        switchMap(([cityItem, countryItem, value]) => {
+          if (!cityItem) {
+            return throwError('[NO CITY]');
+          }
+          return of(
+            {
+              place: cityItem,
+              country: countryItem,
+              value: `${value}`
+            }
+          );
+        })
+      )
+      .subscribe(
+        res => {
+          console.log('RESULT', res);
+          this.updateFormControl(formGroup, fields, res, message);
+        },
+        error => {
+          if (error === '[NO POSTAL CODE]') {
+            this.notificationService.notify('Standortinformationen unvollständig, fehlende Postleitzahl');
+          }
+          if (error === '[NO CITY]') {
+            this.notificationService.notify('Standortinformationen unvollständig, fehlende Stadt');
+          }
+          console.log('[ GOOGLE ADDRESS ERROR ]', error);
+        }
+      );
+  }
+
+  public cleaningFormControl = (formGroup: FormGroup, fields: Array<string>, message: string) => {
+    fields.forEach(item => {
+      formGroup.get(item).setValue('');
+    });
+    this.submit(message);
+  }
+
+  public updateFormControl = (formGroup: FormGroup, fields: Array<string>, value, message: string) => {
+    fields.forEach(item => {
+      formGroup.get(item).setValue(value[item]);
+    });
+    this.submit(message);
   }
 
   public addCustomSkillTag = ($event: string) => {

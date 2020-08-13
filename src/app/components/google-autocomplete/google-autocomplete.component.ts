@@ -14,11 +14,12 @@ import { AutocompleteDataService } from 'src/app/services/autocomplete-data.serv
 export class GoogleAutocompleteComponent implements OnInit {
 
   @Input() adressType: string;
-  @Input() status: boolean;
   @Input() validation: string;
   @Input() formControlValue: string;
+  @Input() fieldStatus: string;
   @Input() fieldLabel: string;
   @Input() fieldPlaceholder: string;
+
   @ViewChild('search', { static: false }) searchElementRef: ElementRef;
   @ViewChild('container', { static: false }) container: ElementRef;
   @Output() setAddress: EventEmitter<any> = new EventEmitter();
@@ -70,11 +71,18 @@ export class GoogleAutocompleteComponent implements OnInit {
   }
 
   inputValidation = (place) => {
+    // CHECK CITY AND ZIP CODE
     if (place && this.validation && this.validation === 'place/zipCode') {
       if (!this.autocompleteDataService.getCity(place)) {
         this.formControlValue = null;
       }
       if (!this.autocompleteDataService.getPostCode(place)) {
+        this.formControlValue = null;
+      }
+    }
+    // CHECK CITY
+    if (place && this.validation && this.validation === 'place') {
+      if (!this.autocompleteDataService.getCity(place)) {
         this.formControlValue = null;
       }
     }

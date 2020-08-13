@@ -51,6 +51,16 @@
                           </svg>
                         </button>
                       </div>
+                      <app-google-autocomplete
+                        class="field"
+                        [formControlValue]=""
+                        [fieldStatus]="'invalid-should'"
+                        [validation]="'place'"
+                        [fieldLabel]="'Ort'"
+                        [fieldPlaceholder]="'Ort'"
+                        (setAddress)="googleAddressChange($event, form.get('education').get('schools').controls[i], ['country', 'place'], 'Ort')" 
+                        adressType="geocode">
+                      </app-google-autocomplete>
                       <div class="field field_select">
                         <p class="field__label">Schultyp</p>
                         <div class="field-wrapper">
