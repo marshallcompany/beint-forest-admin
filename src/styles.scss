@@ -22,7 +22,7 @@ body {
   color: #313131;
   font-family: $workSansRegular, sans-serif;
 }
-// 
+// GOOGLE DROPDOWN STYLE
 .pac-container {
     z-index: 1000!important;
     width: 100%!important;
@@ -31,35 +31,36 @@ body {
     top: calc(100% + 2px)!important;
     border-radius: 10px!important;
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2)!important;
+    font-family: $workSansRegular, sans-serif!important;
 }
 .pac-container:after{
     content: none!important;
 }
 .pac-item{
-  font-size: 14px!important;
   border:none!important;
+  height: 35px!important;
+  padding: 0 8px!important;
+  cursor: pointer!important;
+}
+.pac-item:hover{
+  background-color: #f5faff!important;
 }
 .pac-item-query{
-  font-size: 14px!important;
+  font-size: 17px!important;
+  color: #333!important;
+}
+.pac-matched{
+  font-weight: 400!important;
 }
 .google-autocomplete{
   width:100%;
   height: 100%;
 }
 .pac-icon {
-    width: 15px!important;
-    height: 20px!important;
-    margin-right: 7px!important;
-    margin-top: 6px!important;
-    display: inline-block!important;
-    vertical-align: top!important;
-    background-image: url(https://maps.gstatic.com/mapfiles/api-3/images/autocomplete-icons.png)!important;
-    background-size: 34px!important;
+  display: none!important;
 }
-.hdpi .pac-icon {
-    background-image: url(https://maps.gstatic.com/mapfiles/api-3/images/autocomplete-icons_hdpi.png)!important;
-}
-// 
+
+// // GOOGLE DROPDOWN STYLE END
 // STYLE SNACKBAR
 .snack {
   box-shadow: 0px 4px 25px 0px rgba(0, 0, 0, .5);
