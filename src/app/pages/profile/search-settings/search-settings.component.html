@@ -239,9 +239,9 @@
                 formControlName="timeLimit"
                 (change)="submit('Befristung')"
                 class="custom-select">
-                <ng-container>
-                  <ng-option value="ja">ja</ng-option>
-                  <ng-option value="nein">nein</ng-option>
+                <ng-container *ngIf="dropdownOptions && dropdownOptions.timeLimit">
+                  <ng-option *ngFor="let option of dropdownOptions.timeLimit" [value]="option">{{option}}</ng-option>
+                  
                 </ng-container>
               </ng-select>
               <div
@@ -265,19 +265,19 @@
                     suffix="€"
                     [validation]="false"
                     class="field-wrapper__input"
-                    formControlName="min"
+                    formControlName="salary"
                     (change)="submit('Gehaltsvorstellung')">
                   <div class="field-wrapper__type">123</div>
                   <div
-                    [ngClass]="{'invalid-should' : !form.get('searchPreferences').get('salaryExpectations').get('min').value || form.get('searchPreferences').get('salaryExpectations').get('min').hasError('onlyNumbers')}"
+                    [ngClass]="{'invalid-should' : !form.get('searchPreferences').get('salaryExpectations').get('salary').value || form.get('searchPreferences').get('salaryExpectations').get('salary').hasError('onlyNumbers')}"
                     class="field-wrapper__status"></div>
                 </div>
                 <p
                   class="error-box"
-                  *ngIf="(form.get('searchPreferences').get('salaryExpectations').get('min').touched || form.get('searchPreferences').get('salaryExpectations').get('min').dirty) && form.get('searchPreferences').get('salaryExpectations').get('min').invalid">
+                  *ngIf="(form.get('searchPreferences').get('salaryExpectations').get('salary').touched || form.get('searchPreferences').get('salaryExpectations').get('salary').dirty) && form.get('searchPreferences').get('salaryExpectations').get('salary').invalid">
                   <span
                     class="error-box__text"
-                    *ngIf="form.get('searchPreferences').get('salaryExpectations').get('min').hasError('onlyNumbers')">nur Zahlen eingeben</span>
+                    *ngIf="form.get('searchPreferences').get('salaryExpectations').get('salary').hasError('onlyNumbers')">nur Zahlen eingeben</span>
                 </p>
               </div>
               <!-- <div class="field">
@@ -346,7 +346,7 @@
           <div class="field">
             <p class="field__label">Verfügbar ab</p>
             <div class="checkbox-group-1">
-              <div class="field" [ngClass]="{'disabled' : form.get('searchPreferences').get('immediately').value}">
+              <div class="field" [ngClass]="{'disabled' : form.get('searchPreferences').get('fromNow').value}">
                 <div class="field-wrapper">
                   <input
                     class="field-wrapper__input"
@@ -370,8 +370,8 @@
                   <input
                     type="checkbox"
                     class="not-relevant__checkbox"
-                    formControlName="immediately"
-                    (change)="onImmediately(form.get('searchPreferences').get('immediately'))">
+                    formControlName="fromNow"
+                    (change)="fromNow(form.get('searchPreferences').get('fromNow'))">
                   <span class="checkmark"></span>
                 </label>
               </div>
