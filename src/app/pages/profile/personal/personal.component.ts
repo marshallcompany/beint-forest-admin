@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { fadeAnimation } from 'src/app/animations/router-animations';
 import { DateService } from 'src/app/services/date.service';
 import { AutocompleteDataService } from 'src/app/services/autocomplete-data.service';
+import { google } from '@agm/core/services/google-maps-types';
 
 interface DropDownOptions {
   academic_titles: Array<string[]>;
@@ -183,35 +184,25 @@ export class PersonalComponent implements OnInit {
         return of(value);
       }),
       switchMap(googleAddress => {
-        const arr: Array<Observable<any>> = [
-          of(this.autocompleteDataService.getCity(googleAddress)),
-          of(this.autocompleteDataService.getCountry(googleAddress)),
-          of(this.autocompleteDataService.getPostCode(googleAddress)),
-          of(googleAddress.formatted_address)
-        ];
-        return forkJoin(arr);
-      }),
-      switchMap(([cityItem, countryItem, postalCodeItem, value]) => {
-        if (!cityItem) {
+        if (!googleAddress.city) {
           return throwError('[NO CITY]');
         }
-        if (!postalCodeItem) {
+        if (!googleAddress.zipCode) {
           return throwError('[NO POSTAL CODE]');
         }
         return of(
           {
-            place: cityItem,
-            country: countryItem,
-            zipCode: postalCodeItem,
-            value: `${value}`
+            place: googleAddress.city,
+            country: googleAddress.country,
+            zipCode: googleAddress.zipCode
           }
         );
       })
     )
     .subscribe(
-      res => {
-        console.log('RESULT', res);
-        this.updateFormControl(formGroup, fields, res, message);
+      result => {
+        console.log('RESULT', result);
+        this.updateFormControl(formGroup, fields, result, message);
       },
       error => {
         if (error === '[NO POSTAL CODE]') {

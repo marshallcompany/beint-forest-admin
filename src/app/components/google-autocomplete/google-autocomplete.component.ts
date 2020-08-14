@@ -46,8 +46,13 @@ export class GoogleAutocompleteComponent implements OnInit, OnChanges {
       autocomplete.addListener('place_changed', () => {
         this.ngZone.run(() => {
           const place: google.maps.places.PlaceResult = autocomplete.getPlace();
-          this.setAddress.emit(place);
-          this.formControlValue = place.formatted_address;
+          const address = {
+            city: this.autocompleteDataService.getCity(place),
+            zipCode: this.autocompleteDataService.getPostCode(place),
+            country: this.autocompleteDataService.getCountry(place),
+            value: this.searchElementRef.nativeElement.value
+          };
+          this.setAddress.emit(address);
           this.setInputValue(place);
           this.inputValidation(place);
           if (place.geometry === undefined || place.geometry === null) {
@@ -81,18 +86,21 @@ export class GoogleAutocompleteComponent implements OnInit, OnChanges {
     if (this.validation && this.validation === 'place/zipCode') {
       if (this.autocompleteDataService.getCity(place) && this.autocompleteDataService.getPostCode(place)) {
         value = zipCode + ` ` + city + `, ` + country;
+        this.formControlValue = value;
         this.location.setValue(value);
       } else {
-        this.location.setValue(place.formatted_address);
+        this.location.setValue(this.searchElementRef.nativeElement.value);
       }
-    }
-    if (this.validation && this.validation === 'place') {
+    } else if (this.validation && this.validation === 'place') {
       if (this.autocompleteDataService.getCity(place)) {
         value = city + `, ` + country;
+        this.formControlValue = value;
         this.location.setValue(value);
       } else {
-        this.location.setValue(place.formatted_address);
+        this.location.setValue(this.searchElementRef.nativeElement.value);
       }
+    } else {
+      this.location.setValue(country);
     }
   }
 

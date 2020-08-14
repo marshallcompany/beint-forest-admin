@@ -151,30 +151,21 @@ export class EducationComponent implements OnInit, AfterViewInit {
           return of(value);
         }),
         switchMap(googleAddress => {
-          const arr: Array<Observable<any>> = [
-            of(this.autocompleteDataService.getCity(googleAddress)),
-            of(this.autocompleteDataService.getCountry(googleAddress)),
-            of(googleAddress.formatted_address)
-          ];
-          return forkJoin(arr);
-        }),
-        switchMap(([cityItem, countryItem, value]) => {
-          if (!cityItem) {
+          if (!googleAddress.city) {
             return throwError('[NO CITY]');
           }
           return of(
             {
-              place: cityItem,
-              country: countryItem,
-              value: `${value}`
+              place: googleAddress.city,
+              country: googleAddress.country
             }
           );
         })
       )
       .subscribe(
-        res => {
-          console.log('RESULT', res);
-          this.updateFormControl(formGroup, fields, res, message);
+        result => {
+          console.log('RESULT', result);
+          this.updateFormControl(formGroup, fields, result, message);
         },
         error => {
           if (error === '[NO CITY]') {

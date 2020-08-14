@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 import { fadeAnimation } from 'src/app/animations/router-animations';
 import { DateService } from 'src/app/services/date.service';
 import { FormValidators } from 'src/app/validators/validators';
+import { AutocompleteDataService } from 'src/app/services/autocomplete-data.service';
 
 
 @Component({
@@ -70,6 +71,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
   constructor(
     public router: Router,
     public dateService: DateService,
+    public autocompleteDataService: AutocompleteDataService,
     private fb: FormBuilder,
     private profileService: ProfileService,
     private searchService: SearchService,
@@ -156,6 +158,56 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
     });
   }
 
+  public googleAddressChange = (data, formGroup: FormGroup, fields: Array<string>, message: string, onlyCountry?: boolean) => {
+    of(data)
+      .pipe(
+        switchMap(value => {
+          if (value === '[NO VALUE]') {
+            this.cleaningFormControl(formGroup, fields, message);
+            return throwError('[NO VALUE]');
+          }
+          return of(value);
+        }),
+        switchMap(googleAddress => {
+          if (!googleAddress.city && !onlyCountry) {
+            return throwError('[NO CITY]');
+          }
+          return of(
+            {
+              workPlace: googleAddress.city,
+              country: googleAddress.country
+            }
+          );
+        })
+      )
+      .subscribe(
+        result => {
+          console.log('RESULT', result);
+          this.updateFormControl(formGroup, fields, result, message);
+        },
+        error => {
+          if (error === '[NO CITY]') {
+            this.notificationService.notify('Standortinformationen unvollständig, fehlende Stadt');
+          }
+          console.log('[ GOOGLE ADDRESS ERROR ]', error);
+        }
+      );
+  }
+
+  public cleaningFormControl = (formGroup: FormGroup, fields: Array<string>, message: string) => {
+    fields.forEach(item => {
+      formGroup.get(item).setValue('');
+    });
+    this.submit(message);
+  }
+
+  public updateFormControl = (formGroup: FormGroup, fields: Array<string>, value, message: string) => {
+    fields.forEach(item => {
+      formGroup.get(item).setValue(value[item]);
+    });
+    this.submit(message);
+  }
+
   public createFormGroup = (data: any, nameGroup: string): FormGroup => {
     switch (nameGroup) {
       case 'employmentConditions':
@@ -191,6 +243,7 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
           isFreelancer: [data && data.isFreelancer ? data.isFreelancer : false],
           tilToday: [data && data.tilToday ? data.tilToday : false],
 
+          location: [data.workPlace && data.country ? `${data.workPlace + `, ` + data.country}` : ''],
           businessArea: this.fb.array(data && data.businessArea ? data.businessArea : []),
           businessAreaControl: [data && data.businessArea ? data.businessArea : null, Validators.required]
         }, this.initFormValidation('dateStartString', 'dateEndString'));
@@ -204,7 +257,9 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
           country: [data && data.country ? data.country : null, Validators.required],
           workPlace: [data && data.workPlace ? data.workPlace : null, Validators.required],
           jobDescription: [data && data.jobDescription ? data.jobDescription : '', Validators.required],
-          tilToday: [data && data.tilToday ? data.tilToday : false]
+          tilToday: [data && data.tilToday ? data.tilToday : false],
+
+          location: [data.workPlace && data.country ? `${data.workPlace + `, ` + data.country}` : ''],
         }, this.initFormValidation('dateStartString', 'dateEndString'));
       default:
         break;
@@ -302,61 +357,61 @@ export class ProfessionalBackgroundComponent implements OnInit, AfterViewInit {
     if (searchPreferences.independentExperience.items.length) {
       searchPreferences.independentExperience.items.forEach(item => {
         this.independentExperienceArray.push(this.createFormGroup(item, 'independentExperience'));
-        if (item && item.country) {
-          this.independentExperienceCountryArray.push(item.country);
-          this.residenceChanges(this.independentExperienceCountryArray, 'independentExperience');
-        }
+        // if (item && item.country) {
+        //   this.independentExperienceCountryArray.push(item.country);
+        //   this.residenceChanges(this.independentExperienceCountryArray, 'independentExperience');
+        // }
       });
     }
     if (searchPreferences.otherExperience.items.length) {
       searchPreferences.otherExperience.items.forEach(item => {
         this.otherExperienceArray.push(this.createFormGroup(item, 'otherExperience'));
-        if (item && item.country) {
-          this.otherExperienceCountryArray.push(item.country);
-          this.residenceChanges(this.otherExperienceCountryArray, 'otherExperience');
-        }
+        // if (item && item.country) {
+        //   this.otherExperienceCountryArray.push(item.country);
+        //   this.residenceChanges(this.otherExperienceCountryArray, 'otherExperience');
+        // }
       });
     }
   }
 
-  public residenceChanges = (arrayCountry, arrayCity) => {
-    from(arrayCountry)
-      .pipe(
-        delay(500),
-        concatMap((country: string) => this.searchService.getTowns('de', '', country)),
-        toArray()
-      )
-      .subscribe(
-        res => {
-          switch (arrayCity) {
-            case 'otherExperience':
-              this.otherExperienceCityArray = res;
-              break;
-            case 'independentExperience':
-              this.independentExperienceCityArray = res;
-              break;
-            default:
-              break;
-          }
-        }
-      );
-  }
+  // public residenceChanges = (arrayCountry, arrayCity) => {
+  //   from(arrayCountry)
+  //     .pipe(
+  //       delay(500),
+  //       concatMap((country: string) => this.searchService.getTowns('de', '', country)),
+  //       toArray()
+  //     )
+  //     .subscribe(
+  //       res => {
+  //         switch (arrayCity) {
+  //           case 'otherExperience':
+  //             this.otherExperienceCityArray = res;
+  //             break;
+  //           case 'independentExperience':
+  //             this.independentExperienceCityArray = res;
+  //             break;
+  //           default:
+  //             break;
+  //         }
+  //       }
+  //     );
+  // }
 
-  public selectionResidence = (event, index, array, formGroup: FormGroup) => {
-    this.searchService.getTowns('de', '', event)
-      .pipe()
-      .subscribe(
-        res => {
-          array[index] = res;
-          if (formGroup.controls[index].get('workPlace').value) {
-            formGroup.controls[index].get('workPlace').setValue(null);
-            this.submit('Land and Ort');
-          } else {
-            this.submit('Land');
-          }
-        }
-      );
-  }
+  // public selectionResidence = (event, index, array, formGroup: FormGroup) => {
+  //   this.searchService.getTowns('de', '', event)
+  //     .pipe()
+  //     .subscribe(
+  //       res => {
+  //         array[index] = res;
+  //         if (formGroup.controls[index].get('workPlace').value) {
+  //           formGroup.controls[index].get('workPlace').setValue(null);
+  //           this.submit('Land and Ort');
+  //         } else {
+  //           this.submit('Land');
+  //         }
+  //       }
+  //     );
+  // }
 
   notRelevant(groupName: string, nameArray: string, nameCategory: string) {
     const isRelevant = this.form.get(groupName).get(nameCategory).get('isNotRelevant').value;
