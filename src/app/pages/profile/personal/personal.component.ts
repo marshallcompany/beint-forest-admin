@@ -10,6 +10,8 @@ import { SearchService } from '../../../services/search.service';
 import { Router } from '@angular/router';
 import { fadeAnimation } from 'src/app/animations/router-animations';
 import { DateService } from 'src/app/services/date.service';
+import { AutocompleteDataService } from 'src/app/services/autocomplete-data.service';
+import { google } from '@agm/core/services/google-maps-types';
 
 interface DropDownOptions {
   academic_titles: Array<string[]>;
@@ -55,6 +57,7 @@ export class PersonalComponent implements OnInit {
     public formBuilder: FormBuilder,
     public router: Router,
     public dateService: DateService,
+    public autocompleteDataService: AutocompleteDataService,
     private profileService: ProfileService,
     private notificationService: NotificationService,
     private searchService: SearchService
@@ -64,7 +67,7 @@ export class PersonalComponent implements OnInit {
     this.initForm();
     this.init();
     this.nationalitiesList$ = this.searchService.getNationalities('de');
-    this.landList$ = this.searchService.getCountries('de', '');
+    // this.landList$ = this.searchService.getCountries('de', '');
   }
 
   public init = () => {
@@ -147,7 +150,8 @@ export class PersonalComponent implements OnInit {
           street: [''],
           zipCode: [null],
           country: [null, Validators.required],
-          addressAddition: ['']
+          addressAddition: [''],
+          location: ['']
         })
       }),
     });
@@ -168,6 +172,63 @@ export class PersonalComponent implements OnInit {
     }
   }
 
+
+  public googleAddressChange = (data, formGroup: FormGroup, fields: Array<string>, message: string) => {
+    of(data)
+    .pipe(
+      switchMap(value => {
+        if (value === '[NO VALUE]') {
+          this.cleaningFormControl(formGroup, fields, message);
+          return throwError('[NO VALUE]');
+        }
+        return of(value);
+      }),
+      switchMap(googleAddress => {
+        if (!googleAddress.city) {
+          return throwError('[NO CITY]');
+        }
+        if (!googleAddress.zipCode) {
+          return throwError('[NO POSTAL CODE]');
+        }
+        return of(
+          {
+            place: googleAddress.city,
+            country: googleAddress.country,
+            zipCode: googleAddress.zipCode
+          }
+        );
+      })
+    )
+    .subscribe(
+      result => {
+        console.log('RESULT', result);
+        this.updateFormControl(formGroup, fields, result, message);
+      },
+      error => {
+        if (error === '[NO POSTAL CODE]') {
+          this.notificationService.notify('Standortinformationen unvollständig, fehlende Postleitzahl');
+        }
+        if (error === '[NO CITY]') {
+          this.notificationService.notify('Standortinformationen unvollständig, fehlende Stadt');
+        }
+        console.log('[ GOOGLE ADDRESS ERROR ]', error);
+      }
+    );
+  }
+
+  public cleaningFormControl = (formGroup: FormGroup, fields: Array<string>, message: string) => {
+    fields.forEach(item => {
+      formGroup.get(item).setValue('');
+    });
+    this.submit(message);
+  }
+
+  public updateFormControl = (formGroup: FormGroup, fields: Array<string>, value, message: string) => {
+    fields.forEach(item => {
+      formGroup.get(item).setValue(value[item]);
+    });
+    this.submit(message);
+  }
 
   public dateSave = (message: string, formControl: FormControl) => {
     if (formControl.value.match(this.dateService.regexFullDateNumber)) {
@@ -206,7 +267,14 @@ export class PersonalComponent implements OnInit {
           street: personalData.contact && personalData.contact.residence && personalData.contact.residence.street ? personalData.contact.residence.street : '',
           zipCode: personalData.contact && personalData.contact.residence && personalData.contact.residence.zipCode ? personalData.contact.residence.zipCode : null,
           country: personalData.contact && personalData.contact.residence && personalData.contact.residence.country ? personalData.contact.residence.country : null,
-          addressAddition: personalData.contact && personalData.contact.residence && personalData.contact.residence.addressAddition ? personalData.contact.residence.addressAddition : ''
+          addressAddition: personalData.contact && personalData.contact.residence && personalData.contact.residence.addressAddition ? personalData.contact.residence.addressAddition : '',
+          location: personalData.contact.residence.zipCode &&
+                    personalData.contact.residence.place &&
+                    personalData.contact.residence.country ?
+                    `${personalData.contact.residence.zipCode + ` ` +
+                      personalData.contact.residence.place + `, ` +
+                      personalData.contact.residence.country}`
+                      : ''
         }
       },
     });
@@ -215,15 +283,15 @@ export class PersonalComponent implements OnInit {
         this.driverLicensesArray.push(this.formBuilder.control(element));
       });
     }
-    if (personalData.contact.residence.country) {
-      const countryValue = personalData.contact.residence.country;
-      this.cityList$ = this.searchService.getTowns('de', '', countryValue);
-    }
-    if (personalData.contact.residence.country && personalData.contact.residence.place) {
-      const place = personalData.contact.residence.place;
-      const country = personalData.contact.residence.country;
-      this.zip$ = this.searchService.getZipCode('de', country, place, '');
-    }
+    // if (personalData.contact.residence.country) {
+    //   const countryValue = personalData.contact.residence.country;
+    //   this.cityList$ = this.searchService.getTowns('de', '', countryValue);
+    // }
+    // if (personalData.contact.residence.country && personalData.contact.residence.place) {
+    //   const place = personalData.contact.residence.place;
+    //   const country = personalData.contact.residence.country;
+    //   this.zip$ = this.searchService.getZipCode('de', country, place, '');
+    // }
   }
 
   public formArrayPush = (value, formArrayName: FormArray, message: string, element?: any) => {
@@ -240,70 +308,56 @@ export class PersonalComponent implements OnInit {
     this.submit(message);
   }
 
-  onChangeLand(formGroup) {
-    if (formGroup.get('country').value) {
-      this.cityList$ = this.searchService.getTowns('de', '', formGroup.get('country').value);
-    }
-    of(true)
-      .pipe(
-        switchMap(() => {
-          if (!formGroup.get('country').value) {
-            formGroup.get('place').setValue(null);
-            formGroup.get('zipCode').setValue(null);
-            return throwError('[ NO COUNTRY ]');
-          }
-          return this.searchService.getTowns('de', '', formGroup.get('country').value);
-        }),
-        switchMap(towns => {
-          let filterStatus;
-          towns.filter(v => {
-            if (v === formGroup.get('place').value) {
-              filterStatus = true;
-            }
-          });
-          if (filterStatus) {
-            return throwError('[ THERE ARE MATCHES ]');
-          }
-          return of(towns);
-        })
-      )
-      .subscribe(
-        result => {
-          formGroup.get('place').setValue(null);
-          formGroup.get('zipCode').setValue(null);
-          this.submit('Land');
-        },
-        err => {
-          console.log('Change Land', err);
-          this.submit('Land');
-        }
-      );
-  }
-
-  onChangeCity(formGroup: FormGroup) {
-    const place = formGroup.get('place').value;
-    const country = formGroup.get('country').value;
-    if (place && country) {
-      this.zip$ = this.searchService.getZipCode('de', country, place, '');
-    }
-    if (!place && formGroup.get('zipCode').value) {
-      formGroup.get('zipCode').setValue(null);
-    }
-    this.submit('Wohnort');
-  }
-
-  // onChangeZip(formGroup: FormGroup) {
-  //   const zip = formGroup.get('zipCode').value;
-  //   const cityControl = formGroup.get('place');
-  //   this.searchService.getTowns('de', '', zip)
-  //     .subscribe(
-  //       (res: Array<string>) => {
-  //         console.log('cities', res);
-  //         if (res.length) {
-  //           cityControl.setValue(res[0]);
+  // onChangeLand(formGroup) {
+  //   if (formGroup.get('country').value) {
+  //     this.cityList$ = this.searchService.getTowns('de', '', formGroup.get('country').value);
+  //   }
+  //   of(true)
+  //     .pipe(
+  //       switchMap(() => {
+  //         if (!formGroup.get('country').value) {
+  //           formGroup.get('place').setValue(null);
+  //           formGroup.get('zipCode').setValue(null);
+  //           return throwError('[ NO COUNTRY ]');
   //         }
+  //         return this.searchService.getTowns('de', '', formGroup.get('country').value);
+  //       }),
+  //       switchMap(towns => {
+  //         let filterStatus;
+  //         towns.filter(v => {
+  //           if (v === formGroup.get('place').value) {
+  //             filterStatus = true;
+  //           }
+  //         });
+  //         if (filterStatus) {
+  //           return throwError('[ THERE ARE MATCHES ]');
+  //         }
+  //         return of(towns);
+  //       })
+  //     )
+  //     .subscribe(
+  //       result => {
+  //         formGroup.get('place').setValue(null);
+  //         formGroup.get('zipCode').setValue(null);
+  //         this.submit('Land');
+  //       },
+  //       err => {
+  //         console.log('Change Land', err);
+  //         this.submit('Land');
   //       }
   //     );
+  // }
+
+  // onChangeCity(formGroup: FormGroup) {
+  //   const place = formGroup.get('place').value;
+  //   const country = formGroup.get('country').value;
+  //   if (place && country) {
+  //     this.zip$ = this.searchService.getZipCode('de', country, place, '');
+  //   }
+  //   if (!place && formGroup.get('zipCode').value) {
+  //     formGroup.get('zipCode').setValue(null);
+  //   }
+  //   this.submit('Wohnort');
   // }
 
   public submit = (field: string) => {

@@ -13,6 +13,7 @@ import { AccordionItemComponent } from 'src/app/components/accordion/accordion-i
 import { Router } from '@angular/router';
 import { fadeAnimation } from 'src/app/animations/router-animations';
 import { DateService } from 'src/app/services/date.service';
+import { AutocompleteDataService } from 'src/app/services/autocomplete-data.service';
 interface DropDownOptions {
   school_types: Array<string[]>;
   school_graduation: Array<string[]>;
@@ -80,6 +81,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
     public fb: FormBuilder,
     public router: Router,
     public dateService: DateService,
+    public autocompleteDataService: AutocompleteDataService,
     private profileService: ProfileService,
     private searchService: SearchService,
     private notificationService: NotificationService,
@@ -136,6 +138,56 @@ export class EducationComponent implements OnInit, AfterViewInit {
       this.viewPortStatus = false;
     }
     return;
+  }
+
+  public googleAddressChange = (data, formGroup: FormGroup, fields: Array<string>, message: string) => {
+    of(data)
+      .pipe(
+        switchMap(value => {
+          if (value === '[NO VALUE]') {
+            this.cleaningFormControl(formGroup, fields, message);
+            return throwError('[NO VALUE]');
+          }
+          return of(value);
+        }),
+        switchMap(googleAddress => {
+          if (!googleAddress.city) {
+            return throwError('[NO CITY]');
+          }
+          return of(
+            {
+              place: googleAddress.city,
+              country: googleAddress.country
+            }
+          );
+        })
+      )
+      .subscribe(
+        result => {
+          console.log('RESULT', result);
+          this.updateFormControl(formGroup, fields, result, message);
+        },
+        error => {
+          if (error === '[NO CITY]') {
+            this.notificationService.notify('Standortinformationen unvollständig, fehlende Stadt');
+          }
+          console.log('[ GOOGLE ADDRESS ERROR ]', error);
+        }
+      );
+  }
+
+  public cleaningFormControl = (formGroup: FormGroup, fields: Array<string>, message: string) => {
+    fields.forEach(item => {
+      formGroup.get(item).setValue('');
+    });
+    this.submit(message);
+  }
+
+  public updateFormControl = (formGroup: FormGroup, fields: Array<string>, value, message: string) => {
+    fields.forEach(item => {
+      formGroup.get(item).setValue(value[item]);
+    });
+    this.submit(message);
   }
 
   public addCustomSkillTag = ($event: string) => {
@@ -358,7 +410,8 @@ export class EducationComponent implements OnInit, AfterViewInit {
           place: [data && data.place ? data.place : null, Validators.required],
           tilToday: [data && data.tilToday ? data.tilToday : false],
           graduation: [data && data.graduation ? data.graduation : null, Validators.required],
-          grade: [data && data.grade ? data.grade : '', [Validators.required, FormValidators.maxValueValidation]]
+          grade: [data && data.grade ? data.grade : '', [Validators.required, FormValidators.maxValueValidation]],
+          location: [data.place && data.country ? `${data.place + `, ` + data.country}` : ''],
         }, this.initFormValidation('dateStartString', 'dateEndString'));
       case 'specialEducation':
         return this.fb.group({
@@ -374,6 +427,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
           professionalSchool: [data && data.professionalSchool ? data.professionalSchool : null, Validators.required],
           grade: [data && data.grade ? data.grade : '', [Validators.required, FormValidators.maxValueValidation]],
           isNoVocationTraining: [data && data.isNoVocationTraining ? data.isNoVocationTraining : false],
+          location: [data.place && data.country ? `${data.place + `, ` + data.country}` : ''],
         }, this.initFormValidation('dateStartString', 'dateEndString'));
       case 'universities':
         return this.fb.group({
@@ -392,6 +446,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
           universityName: [data && data.universityName ? data.universityName : '', Validators.required],
           priorities: this.fb.array(data && data.priorities ? data.priorities : [], Validators.required),
           titleThesis: [data && data.titleThesis ? data.titleThesis : '', Validators.required],
+          location: [data.place && data.country ? `${data.place + `, ` + data.country}` : ''],
         }, this.initFormValidation('dateStartString', 'dateEndString'));
       case 'additionalEducations':
         return this.fb.group({
@@ -411,32 +466,6 @@ export class EducationComponent implements OnInit, AfterViewInit {
       default:
         break;
     }
-  }
-
-  public residenceChanges = (arrayCountry, arrayCity) => {
-    from(arrayCountry)
-      .pipe(
-        delay(500),
-        concatMap((country: string) => this.searchService.getTowns('de', '', country)),
-        toArray()
-      )
-      .subscribe(
-        res => {
-          switch (arrayCity) {
-            case 'school':
-              this.schoolCityArray = res;
-              break;
-            case 'specialEducation':
-              this.specialEducationCityArray = res;
-              break;
-            case 'universities':
-              this.universitiesCityArray = res;
-              break;
-            default:
-              break;
-          }
-        }
-      );
   }
 
   public dateSave = (message: string, formGroup: FormGroup, formControl: string) => {
@@ -471,28 +500,28 @@ export class EducationComponent implements OnInit, AfterViewInit {
     if (education.schools.length) {
       education.schools.forEach(item => {
         this.schoolsArray.push(this.createFormGroup(item, 'schools'));
-        if (item && item.country) {
-          this.schoolCountryArray.push(item.country);
-          this.residenceChanges(this.schoolCountryArray, 'school');
-        }
+        // if (item && item.country) {
+        //   this.schoolCountryArray.push(item.country);
+        //   this.residenceChanges(this.schoolCountryArray, 'school');
+        // }
       });
     }
     if (education.specialEducation.items.length) {
       education.specialEducation.items.forEach(item => {
         this.specialEducationArray.push(this.createFormGroup(item, 'specialEducation'));
-        if (item && item.country) {
-          this.specialEducationCountryArray.push(item.country);
-          this.residenceChanges(this.specialEducationCountryArray, 'specialEducation');
-        }
+        // if (item && item.country) {
+        //   this.specialEducationCountryArray.push(item.country);
+        //   this.residenceChanges(this.specialEducationCountryArray, 'specialEducation');
+        // }
       });
     }
     if (education.universities.items.length) {
       education.universities.items.forEach(item => {
         this.universitiesArray.push(this.createFormGroup(item, 'universities'));
-        if (item && item.country) {
-          this.universitiesCountryArray.push(item.country);
-          this.residenceChanges(this.universitiesCountryArray, 'universities');
-        }
+        // if (item && item.country) {
+        //   this.universitiesCountryArray.push(item.country);
+        //   this.residenceChanges(this.universitiesCountryArray, 'universities');
+        // }
       });
     }
     if (education.additionalEducations.items.length) {
@@ -630,21 +659,47 @@ export class EducationComponent implements OnInit, AfterViewInit {
   }
 
 
-  public selectionResidence = (event, index, array, formGroup: FormGroup) => {
-    this.searchService.getTowns('de', '', event)
-    .pipe()
-    .subscribe(
-      res => {
-        array[index] = res;
-        if (formGroup.controls[index].get('place').value) {
-          formGroup.controls[index].get('place').setValue(null);
-          this.submit('Land and Ort');
-        } else {
-          this.submit('Land');
-        }
-      }
-    );
-  }
+  // public residenceChanges = (arrayCountry, arrayCity) => {
+  //   from(arrayCountry)
+  //     .pipe(
+  //       delay(500),
+  //       concatMap((country: string) => this.searchService.getTowns('de', '', country)),
+  //       toArray()
+  //     )
+  //     .subscribe(
+  //       res => {
+  //         switch (arrayCity) {
+  //           case 'school':
+  //             this.schoolCityArray = res;
+  //             break;
+  //           case 'specialEducation':
+  //             this.specialEducationCityArray = res;
+  //             break;
+  //           case 'universities':
+  //             this.universitiesCityArray = res;
+  //             break;
+  //           default:
+  //             break;
+  //         }
+  //       }
+  //     );
+  // }
+
+  // public selectionResidence = (event, index, array, formGroup: FormGroup) => {
+  //   this.searchService.getTowns('de', '', event)
+  //   .pipe()
+  //   .subscribe(
+  //     res => {
+  //       array[index] = res;
+  //       if (formGroup.controls[index].get('place').value) {
+  //         formGroup.controls[index].get('place').setValue(null);
+  //         this.submit('Land and Ort');
+  //       } else {
+  //         this.submit('Land');
+  //       }
+  //     }
+  //   );
+  // }
 
   public submit = (field?: string) => {
     this.profileService.updateProfile(this.form.value)

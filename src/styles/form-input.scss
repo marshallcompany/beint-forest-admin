@@ -332,6 +332,12 @@ body .field-group {
     }
   }
 }
+.field_google-autocomplete{
+  .field-wrapper{
+    padding-left:0;
+    padding-right:0;
+  }
+}
 
 .custom-select_type{
   .ng-select-container{
@@ -613,6 +619,12 @@ body .ng-select.ng-select-multiple .ng-select-container .ng-value-container {
     .checkbox{
       padding-left: 10px;
     }
+  }
+  .form-field{
+    padding-left: 10px!important;
+  }
+  .form-item__label{
+    padding-left: 10px!important;
   }
 }
 

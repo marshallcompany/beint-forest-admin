@@ -97,7 +97,16 @@
                             [ngClass]="{'invalid-should' : !this.form.get('workExperience').get('employmentConditions').get('items').controls[i].get('company').value}"></div>
                         </div>
                       </div>
-                      <div
+                      <app-google-autocomplete
+                          class="field"
+                          [formControlValue]="form.get('workExperience').get('employmentConditions').get('items').controls[i].get('country').value"
+                          [fieldStatus]="'invalid-should'"
+                          [fieldLabel]="'Land'"
+                          [fieldPlaceholder]="'Land'"
+                          (setAddress)="googleAddressChange($event, form.get('workExperience').get('employmentConditions').get('items').controls[i], ['country'], 'Ort', true)" 
+                          adressType="geocode">
+                      </app-google-autocomplete>
+                      <!-- <div
                         class="field field_select field_select-search single"
                         [ngClass]="{'disabled' : this.form.get('workExperience').get('employmentConditions').get('isNotRelevant').value}">
                         <p class="field__label">Land</p>
@@ -116,7 +125,7 @@
                             class="field-wrapper__status"
                             [ngClass]="{'invalid-should' : !this.form.get('workExperience').get('employmentConditions').get('items').controls[i].get('country').value}"></div>
                         </div>
-                      </div>
+                      </div> -->
                       <div
                         class="field"
                         [ngClass]="{'disabled' : this.form.get('workExperience').get('employmentConditions').get('isNotRelevant').value}">
@@ -530,7 +539,17 @@
                           </div>
                         </div>
                       </div>
-                      <div
+                      <app-google-autocomplete
+                          class="field"
+                          [formControlValue]="form.get('workExperience').get('independentExperience').get('items').controls[i].get('location').value"
+                          [fieldStatus]="'invalid-should'"
+                          [validation]="'place'"
+                          [fieldLabel]="'Ort'"
+                          [fieldPlaceholder]="'Ort'"
+                          (setAddress)="googleAddressChange($event, form.get('workExperience').get('independentExperience').get('items').controls[i], ['country', 'workPlace'], 'Ort')" 
+                          adressType="geocode">
+                      </app-google-autocomplete>
+                      <!-- <div
                         class="field field_select field_select-search single"
                         [ngClass]="{'disabled' : this.form.get('workExperience').get('independentExperience').get('isNotRelevant').value}">
                         <p class="field__label">Land</p>
@@ -549,9 +568,9 @@
                             class="field-wrapper__status"
                             [ngClass]="{'invalid-should' : !this.form.get('workExperience').get('independentExperience').get('items').controls[i].get('country').value}"></div>
                         </div>
-                      </div>
+                      </div> -->
                       <div class="field field_group">
-                        <div
+                        <!-- <div
                           class="field field_select field_select-search single"
                           [ngClass]="{'disabled' : !this.form.get('workExperience').get('independentExperience').get('items').controls[i].get('country').value || this.form.get('workExperience').get('independentExperience').get('isNotRelevant').value}">
                           <p class="field__label">Ort</p>
@@ -572,7 +591,7 @@
                               [ngClass]="{'invalid-should' : !this.form.get('workExperience').get('independentExperience').get('items').controls[i].get('workPlace').value}">
                             </div>
                           </div>
-                        </div>
+                        </div> -->
                         <div class="datepicker-group">
                           <div
                             class="field"
@@ -795,7 +814,7 @@
                             [ngClass]="{'invalid-should' : !this.form.get('workExperience').get('otherExperience').get('items').controls[i].get('jobTitle').value}"></div>
                         </div>
                       </div>
-                      <div
+                      <!-- <div
                         class="field field_select field_select-search single"
                         [ngClass]="{'disabled' : this.form.get('workExperience').get('otherExperience').get('isNotRelevant').value}">
                         <p class="field__label">Land</p>
@@ -814,9 +833,19 @@
                             class="field-wrapper__status"
                             [ngClass]="{'invalid-should' : !this.form.get('workExperience').get('otherExperience').get('items').controls[i].get('country').value}"></div>
                         </div>
-                      </div>
+                      </div> -->
+                      <app-google-autocomplete
+                          class="field"
+                          [formControlValue]="form.get('workExperience').get('otherExperience').get('items').controls[i].get('location').value"
+                          [fieldStatus]="'invalid-should'"
+                          [validation]="'place'"
+                          [fieldLabel]="'Ort'"
+                          [fieldPlaceholder]="'Ort'"
+                          (setAddress)="googleAddressChange($event, form.get('workExperience').get('otherExperience').get('items').controls[i], ['country', 'workPlace'], 'Ort')" 
+                          adressType="geocode">
+                      </app-google-autocomplete>
                       <div class="field field_group">
-                        <div
+                        <!-- <div
                           class="field field_select field_select-search single"
                           [ngClass]="{'disabled' : !this.form.get('workExperience').get('otherExperience').get('items').controls[i].get('country').value || this.form.get('workExperience').get('otherExperience').get('isNotRelevant').value}">
                           <p class="field__label">Ort</p>
@@ -837,7 +866,7 @@
                               [ngClass]="{'invalid-should' : !this.form.get('workExperience').get('otherExperience').get('items').controls[i].get('workPlace').value}">
                             </div>
                           </div>
-                        </div>
+                        </div> -->
                         <div class="datepicker-group">
                           <div
                             class="field"

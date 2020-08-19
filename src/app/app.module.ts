@@ -73,6 +73,9 @@ import { SupportComponent } from './pages/settings/support/support.component';
 import { EmailResetComponent } from './pages/auth/email-reset/email-reset.component';
 import { NotificationComponent } from './pages/settings/notification/notification.component';
 
+import { AgmCoreModule } from '@agm/core';
+import { GoogleAutocompleteComponent } from './components/google-autocomplete/google-autocomplete.component';
+import { AutocompleteDataService } from './services/autocomplete-data.service';
 import { IMaskModule } from 'angular-imask';
 import { DateService } from './services/date.service';
 
@@ -125,7 +128,8 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     ConfirmEmailComponent,
     SupportComponent,
     EmailResetComponent,
-    NotificationComponent
+    NotificationComponent,
+    GoogleAutocompleteComponent
   ],
   imports: [
     RoutingModule,
@@ -140,6 +144,11 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     ImageCropperModule,
     NgxMaskModule.forRoot(),
     HammerConfig,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBULnvGFJFpAjIvmouIzlEh7_ge_GutzEk',
+      libraries: ['places'],
+      language: 'de'
+    }),
     IMaskModule,
     TranslateModule.forRoot({
       loader: {
@@ -158,6 +167,7 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     Validators,
     ApiRoutesProvider,
     AuthService,
+    AutocompleteDataService,
     DateService,
     DownloadFileService,
     NotificationService,

@@ -87,7 +87,7 @@
                             [ngClass]="{'invalid-should' : !this.form.get('education').get('schools').controls[i].get('schoolName').value}"></div>
                         </div>
                       </div>
-                      <div class="field field_select field_select-search single">
+                      <!-- <div class="field field_select field_select-search single">
                         <p class="field__label">Land</p>
                         <div class="field-wrapper">
                           <ng-select
@@ -104,8 +104,8 @@
                             class="field-wrapper__status"
                             [ngClass]="{'invalid-should' : !this.form.get('education').get('schools').controls[i].get('country').value}"></div>
                         </div>
-                      </div>
-                      <div
+                      </div> -->
+                      <!-- <div
                         class="field field_select field_select-search single"
                         [ngClass]="{'disabled' : !this.form.get('education').get('schools').controls[i].get('country').value}">
                         <p class="field__label">Ort</p>
@@ -126,7 +126,7 @@
                             [ngClass]="{'invalid-should' : !this.form.get('education').get('schools').controls[i].get('place').value}">
                           </div>
                         </div>
-                      </div>
+                      </div> -->
                       <div class="field field_select">
                         <p class="field__label">Abschluss</p>
                         <div class="field-wrapper">
@@ -148,29 +148,16 @@
                             [ngClass]="{'invalid-should' : !this.form.get('education').get('schools').controls[i].get('graduation').value}"></div>
                         </div>
                       </div>
-                      <div class="field">
-                        <p class="field__label">Abschlussnote</p>
-                        <div class="field-wrapper">
-                          <input
-                            type="tel"
-                            [mask]="mask"
-                            [validation]="false"
-                            [dropSpecialCharacters]="false"
-                            placeholder="Abschlussnote"
-                            formControlName="grade"
-                            (change)="submit('Abschlussnote')"
-                            class="field-wrapper__input">
-                          <div class="field-wrapper__type">123</div>
-                          <div
-                            class="field-wrapper__status"
-                            [ngClass]="{'invalid-could' : !this.form.get('education').get('schools').controls[i].get('grade').value}"></div>
-                        </div>
-                        <p
-                          *ngIf="this.form.get('education').get('schools').controls[i].get('grade').hasError('maxValue')"
-                          class="error-box">
-                            <span class="error-box__text">Zulässige Werte: 0-6</span>
-                          </p>
-                      </div>
+                      <app-google-autocomplete
+                        class="field"
+                        [formControlValue]="form.get('education').get('schools').controls[i].get('location').value"
+                        [fieldStatus]="'invalid-should'"
+                        [validation]="'place'"
+                        [fieldLabel]="'Ort'"
+                        [fieldPlaceholder]="'Ort'"
+                        (setAddress)="googleAddressChange($event, form.get('education').get('schools').controls[i], ['country', 'place'], 'Ort')" 
+                        adressType="geocode">
+                      </app-google-autocomplete>
                       <div class="field field_group">
                         <div class="datepicker-group">
                           <div
@@ -230,6 +217,29 @@
                               Die eingegebenen Daten sind ungültig
                           </p>
                         </div>
+                      </div>
+                      <div class="field">
+                        <p class="field__label">Abschlussnote</p>
+                        <div class="field-wrapper">
+                          <input
+                            type="tel"
+                            [mask]="mask"
+                            [validation]="false"
+                            [dropSpecialCharacters]="false"
+                            placeholder="Abschlussnote"
+                            formControlName="grade"
+                            (change)="submit('Abschlussnote')"
+                            class="field-wrapper__input">
+                          <div class="field-wrapper__type">123</div>
+                          <div
+                            class="field-wrapper__status"
+                            [ngClass]="{'invalid-could' : !this.form.get('education').get('schools').controls[i].get('grade').value}"></div>
+                        </div>
+                        <p
+                          *ngIf="this.form.get('education').get('schools').controls[i].get('grade').hasError('maxValue')"
+                          class="error-box">
+                            <span class="error-box__text">Zulässige Werte: 0-6</span>
+                          </p>
                       </div>
                     </div>
                     <div
@@ -379,7 +389,7 @@
                               [ngClass]="{'invalid-should' : !this.form.get('education').get('specialEducation').get('items').controls[i].get('company').value}"></div>
                           </div>
                         </div>
-                        <div
+                        <!-- <div
                           class="field field_select field_select-search single"
                           [ngClass]="{'disabled' : this.form.get('education').get('specialEducation').get('isNotRelevant').value}">
                           <p class="field__label">Land</p>
@@ -398,8 +408,8 @@
                               class="field-wrapper__status"
                               [ngClass]="{'invalid-should' : !this.form.get('education').get('specialEducation').get('items').controls[i].get('country').value}"></div>
                           </div>
-                        </div>
-                        <div
+                        </div> -->
+                        <!-- <div
                           class="field field_select field_select-search single"
                           [ngClass]="{'disabled' : !this.form.get('education').get('specialEducation').get('items').controls[i].get('country').value || this.form.get('education').get('specialEducation').get('isNotRelevant').value}">
                           <p class="field__label">Ort</p>
@@ -420,7 +430,7 @@
                               [ngClass]="{'invalid-should' : !this.form.get('education').get('specialEducation').get('items').controls[i].get('place').value}">
                             </div>
                           </div>
-                        </div>
+                        </div> -->
                         <div
                           class="field"
                           [ngClass]="{'disabled' : this.form.get('education').get('specialEducation').get('isNotRelevant').value}">
@@ -438,31 +448,16 @@
                               [ngClass]="{'invalid-should' : !this.form.get('education').get('specialEducation').get('items').controls[i].get('professionalSchool').value}"></div>
                           </div>
                         </div>
-                        <div
+                        <app-google-autocomplete
                           class="field"
-                          [ngClass]="{'disabled' : this.form.get('education').get('specialEducation').get('isNotRelevant').value}">
-                          <p class="field__label">Abschlussnote</p>
-                          <div class="field-wrapper">
-                            <input
-                              type="tel"
-                              [mask]="mask"
-                              [validation]="false"
-                              [dropSpecialCharacters]="false"
-                              placeholder="Abschlussnote"
-                              formControlName="grade"
-                              (change)="submit('Abschlussnote')"
-                              class="field-wrapper__input">
-                            <div class="field-wrapper__type">123</div>
-                            <div
-                              class="field-wrapper__status"
-                              [ngClass]="{'invalid-could' : !this.form.get('education').get('specialEducation').get('items').controls[i].get('grade').value}"></div>
-                          </div>
-                          <p
-                            *ngIf="this.form.get('education').get('specialEducation').get('items').controls[i].get('grade').hasError('maxValue')"
-                            class="error-box">
-                            <span class="error-box__text">Zulässige Werte: 0-6</span>
-                          </p>
-                        </div>
+                          [formControlValue]="form.get('education').get('specialEducation').get('items').controls[i].get('location').value"
+                          [fieldStatus]="'invalid-should'"
+                          [validation]="'place'"
+                          [fieldLabel]="'Ort'"
+                          [fieldPlaceholder]="'Ort'"
+                          (setAddress)="googleAddressChange($event, form.get('education').get('specialEducation').get('items').controls[i], ['country', 'place'], 'Ort')" 
+                          adressType="geocode">
+                        </app-google-autocomplete>
                         <div class="field field_group">
                           <div class="datepicker-group">
                             <div
@@ -527,6 +522,31 @@
                               Die eingegebenen Daten sind ungültig
                             </p>
                           </div>
+                        </div>
+                        <div
+                          class="field"
+                          [ngClass]="{'disabled' : this.form.get('education').get('specialEducation').get('isNotRelevant').value}">
+                          <p class="field__label">Abschlussnote</p>
+                          <div class="field-wrapper">
+                            <input
+                              type="tel"
+                              [mask]="mask"
+                              [validation]="false"
+                              [dropSpecialCharacters]="false"
+                              placeholder="Abschlussnote"
+                              formControlName="grade"
+                              (change)="submit('Abschlussnote')"
+                              class="field-wrapper__input">
+                            <div class="field-wrapper__type">123</div>
+                            <div
+                              class="field-wrapper__status"
+                              [ngClass]="{'invalid-could' : !this.form.get('education').get('specialEducation').get('items').controls[i].get('grade').value}"></div>
+                          </div>
+                          <p
+                            *ngIf="this.form.get('education').get('specialEducation').get('items').controls[i].get('grade').hasError('maxValue')"
+                            class="error-box">
+                            <span class="error-box__text">Zulässige Werte: 0-6</span>
+                          </p>
                         </div>
                       </div>
                       <div
@@ -723,7 +743,7 @@
                               </div>
                             </div>
                         </div>
-                        <div
+                        <!-- <div
                           class="field field_select field_select-search single"
                           [ngClass]="{'disabled' : this.form.get('education').get('universities').get('isNotRelevant').value}">
                           <p class="field__label">Land</p>
@@ -742,8 +762,8 @@
                               class="field-wrapper__status"
                               [ngClass]="{'invalid-should' : !this.form.get('education').get('universities').get('items').controls[i].get('country').value}"></div>
                           </div>
-                        </div>
-                        <div
+                        </div> -->
+                        <!-- <div
                           class="field field_select field_select-search single"
                           [ngClass]="{'disabled' : !this.form.get('education').get('universities').get('items').controls[i].get('country').value || this.form.get('education').get('universities').get('isNotRelevant').value}">
                           <p class="field__label">Ort</p>
@@ -764,7 +784,17 @@
                               [ngClass]="{'invalid-should' : !this.form.get('education').get('universities').get('items').controls[i].get('place').value}">
                             </div>
                           </div>
-                        </div>
+                        </div> -->
+                        <app-google-autocomplete
+                          class="field"
+                          [formControlValue]="form.get('education').get('universities').get('items').controls[i].get('location').value"
+                          [fieldStatus]="'invalid-should'"
+                          [validation]="'place'"
+                          [fieldLabel]="'Ort'"
+                          [fieldPlaceholder]="'Ort'"
+                          (setAddress)="googleAddressChange($event, form.get('education').get('universities').get('items').controls[i], ['country', 'place'], 'Ort')" 
+                          adressType="geocode">
+                        </app-google-autocomplete>
                         <div
                             class="field field_select field_select-singleselect-arrow clearable"
                             [ngClass]="{'disabled' : this.form.get('education').get('universities').get('isNotRelevant').value}">
@@ -803,6 +833,31 @@
                               [ngClass]="{invalid : !this.form.get('education').get('universities').get('items').controls[i].get('specialization').value}"></div>
                           </div>
                         </div> -->
+                        <div
+                          class="field"
+                          [ngClass]="{'disabled' : this.form.get('education').get('universities').get('isNotRelevant').value}">
+                          <p class="field__label">Abschlussnote</p>
+                          <div class="field-wrapper">
+                            <input
+                              type="tel"
+                              [mask]="mask"
+                              [validation]="false"
+                              [dropSpecialCharacters]="false"
+                              placeholder="Abschlussnote"
+                              (change)="submit('Abschlussnote')"
+                              formControlName="grade"
+                              class="field-wrapper__input">
+                            <div class="field-wrapper__type">123</div>
+                            <div
+                              class="field-wrapper__status"
+                              [ngClass]="{'invalid-could' : !this.form.get('education').get('universities').get('items').controls[i].get('grade').value}"></div>
+                          </div>
+                          <p
+                            *ngIf="this.form.get('education').get('universities').get('items').controls[i].get('grade').hasError('maxValue')"
+                            class="error-box">
+                            <span class="error-box__text">Zulässige Werte: 0-6</span>
+                          </p>
+                        </div>
                         <div class="field field_group">
                           <div
                             class="field field_select"
@@ -909,31 +964,6 @@
                               class="field-wrapper__status"
                               [ngClass]="{'invalid-could' : !this.form.get('education').get('universities').get('items').controls[i].get('titleThesis').value}"></div>
                           </div>
-                        </div>
-                        <div
-                          class="field"
-                          [ngClass]="{'disabled' : this.form.get('education').get('universities').get('isNotRelevant').value}">
-                          <p class="field__label">Abschlussnote</p>
-                          <div class="field-wrapper">
-                            <input
-                              type="tel"
-                              [mask]="mask"
-                              [validation]="false"
-                              [dropSpecialCharacters]="false"
-                              placeholder="Abschlussnote"
-                              (change)="submit('Abschlussnote')"
-                              formControlName="grade"
-                              class="field-wrapper__input">
-                            <div class="field-wrapper__type">123</div>
-                            <div
-                              class="field-wrapper__status"
-                              [ngClass]="{'invalid-could' : !this.form.get('education').get('universities').get('items').controls[i].get('grade').value}"></div>
-                          </div>
-                          <p
-                            *ngIf="this.form.get('education').get('universities').get('items').controls[i].get('grade').hasError('maxValue')"
-                            class="error-box">
-                            <span class="error-box__text">Zulässige Werte: 0-6</span>
-                          </p>
                         </div>
                       </div>
                       <div
