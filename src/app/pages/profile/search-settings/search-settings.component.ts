@@ -10,6 +10,7 @@ import * as moment from 'moment';
 import { throwError, of, forkJoin, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { fadeAnimation } from 'src/app/animations/router-animations';
+import { DateService } from 'src/app/services/date.service';
 
 
 @Component({
@@ -54,6 +55,7 @@ export class SearchSettingsComponent implements OnInit {
     public searchService: SearchService,
     public profileService: ProfileService,
     public router: Router,
+    public dateService: DateService,
     private fb: FormBuilder,
     private notificationService: NotificationService
   ) { }
@@ -71,13 +73,17 @@ export class SearchSettingsComponent implements OnInit {
     this.form = this.fb.group({
       searchPreferences: this.fb.group({
         salaryExpectations: this.fb.group({
-          min: [null, [FormValidators.numberValidation]],
-          max: [null, [FormValidators.numberValidation]]
+          // min: ['', [FormValidators.numberValidation]],
+          // max: ['', [FormValidators.numberValidation]],
+          salary: ['', [FormValidators.numberValidation]]
         }),
         willingToRelocate: [false],
         allDesiredPlaces: [false],
         readyToStartJobFrom: [''],
+        readyToStartJobFromString: [''],
         travellingReady: [null],
+        timeLimit: [null],
+        fromNow: [false],
         desiredPlacesOfWork: this.fb.array([]),
         desiredEmploymentTypes: this.fb.array([]),
         preferredBusinessAreas: this.fb.array([]),
@@ -160,7 +166,8 @@ export class SearchSettingsComponent implements OnInit {
               dropdownOptions: {
                 employment_type: dropdownOptions.dropdownOptions.employment_type,
                 working_hours: dropdownOptions.dropdownOptions.working_hours,
-                travelling: dropdownOptions.dropdownOptions.travelling
+                travelling: dropdownOptions.dropdownOptions.travelling,
+                timeLimit: dropdownOptions.dropdownOptions.timeLimit
               }
             };
           }
@@ -186,14 +193,31 @@ export class SearchSettingsComponent implements OnInit {
     }
   }
 
+  public dateSave = (message: string, formGroup: FormGroup, formControl: string) => {
+    const formControlDateString = formControl + 'String';
+    const valueDateString = formGroup.get(formControlDateString).value;
+    if (formGroup.get(formControlDateString).value.match(this.dateService.regexFullDateNumber)) {
+      formGroup.get(formControl).setValue(this.dateService.createDayMonthYearDate(valueDateString));
+      this.submit(message);
+    }
+    if (formGroup.get(formControlDateString).value.match(this.dateService.regexFullDateEmpty)) {
+      formGroup.get(formControl).setValue('');
+      this.submit(message);
+    }
+  }
+
   public patchFormValue = (searchPreferences) => {
     this.form.get('searchPreferences').patchValue({
       salaryExpectations: {
-        min: searchPreferences.salaryExpectations.min,
-        max: searchPreferences.salaryExpectations.max,
+        // min: searchPreferences.salaryExpectations.min,
+        // max: searchPreferences.salaryExpectations.max,
+        salary: searchPreferences.salaryExpectations.salary,
       },
       travellingReady: searchPreferences.travellingReady ? searchPreferences.travellingReady : null,
+      timeLimit: searchPreferences.timeLimit ? searchPreferences.timeLimit : null,
+      fromNow: searchPreferences.fromNow ? searchPreferences.fromNow : false,
       readyToStartJobFrom: searchPreferences.readyToStartJobFrom,
+      readyToStartJobFromString: searchPreferences.readyToStartJobFrom ? this.dateService.updateFormControlDate(searchPreferences.readyToStartJobFrom, 'd.m.y') : '',
       willingToRelocate: searchPreferences.willingToRelocate
     });
     searchPreferences.desiredPlacesOfWork.forEach(element => {
@@ -214,6 +238,14 @@ export class SearchSettingsComponent implements OnInit {
     searchPreferences.benefits.forEach(element => {
       this.benefitsArray.push(this.fb.control(element));
     });
+  }
+
+  public fromNow = (formControl: FormControl) => {
+    if (formControl.value) {
+      this.form.get('searchPreferences').get('readyToStartJobFrom').setValue('');
+      this.form.get('searchPreferences').get('readyToStartJobFromString').setValue('');
+    }
+    this.submit('ab sofort');
   }
 
   public submit = (field) => {

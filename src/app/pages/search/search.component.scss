@@ -627,7 +627,7 @@
       height: 145px;
     }
     .category-detail__label{
-      font-size: 45px;
+      font-size: 35px;
     }
   // END
   .search{
@@ -686,7 +686,8 @@
       }
     }
     .category-detail__label{
-      font-size: 24px;
+      font-size: 20px;
+      font-family: $workSansSemiBold;
     }
     .i1{
       display: none;
@@ -735,7 +736,7 @@
       height: 40px;
     }
     &__label{
-      font-size: 20px;
+      font-size: 17px;
     }
   }
   .vacancy{

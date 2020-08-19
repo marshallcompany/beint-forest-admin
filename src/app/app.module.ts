@@ -72,8 +72,9 @@ import { CvOptionComponent } from './components/sheet/cv-option/cv-option.compon
 import { SupportComponent } from './pages/settings/support/support.component';
 import { EmailResetComponent } from './pages/auth/email-reset/email-reset.component';
 import { NotificationComponent } from './pages/settings/notification/notification.component';
-import { AgbComponent } from './components/agb/agb.component';
 
+import { IMaskModule } from 'angular-imask';
+import { DateService } from './services/date.service';
 
 export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRoutesProvider) => {
   return new HttpMultiLoaderServiceService(http, [
@@ -112,7 +113,6 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     BottomNavigationComponent,
     SettingsComponent,
     PrivacyPolicyComponent,
-    AgbComponent,
     RemoveAccountComponent,
     SearchComponent,
     DetailsVacancyComponent,
@@ -140,6 +140,7 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     ImageCropperModule,
     NgxMaskModule.forRoot(),
     HammerConfig,
+    IMaskModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -157,6 +158,7 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     Validators,
     ApiRoutesProvider,
     AuthService,
+    DateService,
     DownloadFileService,
     NotificationService,
     {
@@ -177,7 +179,6 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     DocumentOptionModalComponent,
     FileRenameComponent,
     PrivacyPolicyComponent,
-    AgbComponent,
     TermsUseComponent,
     ConfirmEmailComponent
   ]

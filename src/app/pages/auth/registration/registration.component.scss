@@ -97,12 +97,6 @@
         opacity: .8;
         font-size: 17px!important;
       }
-      ::ng-deep .ng-select .ng-select-container{
-        padding-left: 19px!important;
-      }
-      ::ng-deep .ng-input {
-        padding-left: 19px!important;
-      }
     }
     &__input{
         width:100%;
@@ -327,9 +321,11 @@
     fill: #ffffff;
   }
   &__text{
-    word-break: break-all;
     font-size: 12px;
     line-height: 1.25;
+    br{
+      display: none;
+    }
   }
 }
 .start-beint-button{
@@ -368,6 +364,11 @@
     padding: 15px 0;
     display: flex;
     justify-content: center;
+    &__text{
+      br{
+        display: block;
+      }
+    }
   }
   .confirm-email-wrapper{
     width:243px;
@@ -397,6 +398,12 @@
   }
 }
 @media screen and (max-width: 374px) {
+  .form-field{
+    padding-left: 10px;
+  }
+  .form-field_select{
+    padding-left: 0px;
+  }
   .form-field__input{
     font-size: 16px;
   }

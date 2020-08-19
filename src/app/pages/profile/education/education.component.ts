@@ -12,6 +12,7 @@ import { ConfirmModalComponent } from 'src/app/components/modal/confirm/confirm-
 import { AccordionItemComponent } from 'src/app/components/accordion/accordion-item.component';
 import { Router } from '@angular/router';
 import { fadeAnimation } from 'src/app/animations/router-animations';
+import { DateService } from 'src/app/services/date.service';
 interface DropDownOptions {
   school_types: Array<string[]>;
   school_graduation: Array<string[]>;
@@ -78,6 +79,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
   constructor(
     public fb: FormBuilder,
     public router: Router,
+    public dateService: DateService,
     private profileService: ProfileService,
     private searchService: SearchService,
     private notificationService: NotificationService,
@@ -195,6 +197,17 @@ export class EducationComponent implements OnInit, AfterViewInit {
         }
       );
     }
+  }
+
+  public initFormValidation = (from: string, to: string) => {
+    let formValidation: object;
+    formValidation = {
+      validator: FormValidators.dateCheck(
+        from,
+        to
+      )
+    };
+    return formValidation;
   }
 
   notRelevant(groupName: string, nameArray: string, nameCategory: string) {
@@ -337,33 +350,39 @@ export class EducationComponent implements OnInit, AfterViewInit {
         return this.fb.group({
           schoolType: [data && data.schoolType ? data.schoolType : null, Validators.required],
           schoolName: [data && data.schoolName ? data.schoolName : '', Validators.required],
-          dateStart: [data && data.dateStart ? data.dateStart : null, Validators.required],
-          dateEnd: [data && data.dateEnd ? data.dateEnd : null],
+          dateStart: [data && data.dateStart ? data.dateStart : '', Validators.required],
+          dateStartString: [data && data.dateStart ? this.dateService.updateFormControlDate(data.dateStart, 'm.y') : ''],
+          dateEnd: [data && data.dateEnd ? data.dateEnd : ''],
+          dateEndString: [data && data.dateEnd ? this.dateService.updateFormControlDate(data.dateEnd, 'm.y') : ''],
           country: [data && data.country ? data.country : null, Validators.required],
           place: [data && data.place ? data.place : null, Validators.required],
           tilToday: [data && data.tilToday ? data.tilToday : false],
           graduation: [data && data.graduation ? data.graduation : null, Validators.required],
           grade: [data && data.grade ? data.grade : '', [Validators.required, FormValidators.maxValueValidation]]
-        });
+        }, this.initFormValidation('dateStartString', 'dateEndString'));
       case 'specialEducation':
         return this.fb.group({
           professionalEducation: [data && data.professionalEducation ? data.professionalEducation : null, Validators.required],
           company: [data && data.company ? data.company : '', Validators.required],
-          dateStart: [data && data.dateStart ? data.dateStart : null, Validators.required],
-          dateEnd: [data && data.dateEnd ? data.dateEnd : null],
+          dateStart: [data && data.dateStart ? data.dateStart : '', Validators.required],
+          dateStartString: [data && data.dateStart ? this.dateService.updateFormControlDate(data.dateStart, 'm.y') : ''],
+          dateEnd: [data && data.dateEnd ? data.dateEnd : ''],
+          dateEndString: [data && data.dateEnd ? this.dateService.updateFormControlDate(data.dateEnd, 'm.y') : ''],
           country: [data && data.country ? data.country : null, Validators.required],
           place: [data && data.place ? data.place : null, Validators.required],
           tilToday: [data && data.tilToday ? data.tilToday : false],
           professionalSchool: [data && data.professionalSchool ? data.professionalSchool : null, Validators.required],
           grade: [data && data.grade ? data.grade : '', [Validators.required, FormValidators.maxValueValidation]],
           isNoVocationTraining: [data && data.isNoVocationTraining ? data.isNoVocationTraining : false],
-        });
+        }, this.initFormValidation('dateStartString', 'dateEndString'));
       case 'universities':
         return this.fb.group({
           degreeProgramTitle: [data && data.degreeProgramTitle ? data.degreeProgramTitle : '', Validators.required],
           // specialization: [data && data.specialization ? data.specialization : null, Validators.required],
-          dateStart: [data && data.dateStart ? data.dateStart : null, Validators.required],
-          dateEnd: [data && data.dateEnd ? data.dateEnd : null],
+          dateStart: [data && data.dateStart ? data.dateStart : '', Validators.required],
+          dateStartString: [data && data.dateStart ? this.dateService.updateFormControlDate(data.dateStart, 'm.y') : ''],
+          dateEnd: [data && data.dateEnd ? data.dateEnd : ''],
+          dateEndString: [data && data.dateEnd ? this.dateService.updateFormControlDate(data.dateEnd, 'm.y') : ''],
           country: [data && data.country ? data.country : null, Validators.required],
           place: [data && data.place ? data.place : null, Validators.required],
           tilToday: [data && data.tilToday ? data.tilToday : false],
@@ -373,15 +392,17 @@ export class EducationComponent implements OnInit, AfterViewInit {
           universityName: [data && data.universityName ? data.universityName : '', Validators.required],
           priorities: this.fb.array(data && data.priorities ? data.priorities : [], Validators.required),
           titleThesis: [data && data.titleThesis ? data.titleThesis : '', Validators.required],
-        });
+        }, this.initFormValidation('dateStartString', 'dateEndString'));
       case 'additionalEducations':
         return this.fb.group({
           trainingTitle: [data && data.trainingTitle ? data.trainingTitle : '', Validators.required],
           trainingDescription: [data && data.trainingDescription ? data.trainingDescription : '', Validators.required],
-          dateStart: [data && data.dateStart ? data.dateStart : null, Validators.required],
-          dateEnd: [data && data.dateEnd ? data.dateEnd : null],
+          dateStart: [data && data.dateStart ? data.dateStart : '', Validators.required],
+          dateStartString: [data && data.dateStart ? this.dateService.updateFormControlDate(data.dateStart, 'm.y') : ''],
+          dateEnd: [data && data.dateEnd ? data.dateEnd : ''],
+          dateEndString: [data && data.dateEnd ? this.dateService.updateFormControlDate(data.dateEnd, 'm.y') : ''],
           tilToday: [data && data.tilToday ? data.tilToday : false]
-        });
+        }, this.initFormValidation('dateStartString', 'dateEndString'));
       case 'linguisticProficiency':
         return this.fb.group({
           skillLevel: [data && data.skillLevel ? data.skillLevel : null, Validators.required],
@@ -417,6 +438,22 @@ export class EducationComponent implements OnInit, AfterViewInit {
         }
       );
   }
+
+  public dateSave = (message: string, formGroup: FormGroup, formControl: string) => {
+    const formControlDateString = formControl + 'String';
+    const valueDateString = formGroup.get(formControlDateString).value;
+    if (formGroup.get(formControlDateString).value.match(this.dateService.regexNotFullDateNumber)) {
+      formGroup.get(formControl).setValue(this.dateService.createMonthYearDate(valueDateString));
+      if (formGroup.errors === null) {
+        this.submit(message);
+      }
+    }
+    if (formGroup.get(formControlDateString).value.match(this.dateService.regexNotFullDateEmpty)) {
+      formGroup.get(formControl).setValue('');
+      this.submit(message);
+    }
+  }
+
   private patchFormValue(education) {
     this.form.patchValue({
       education: {
@@ -587,6 +624,7 @@ export class EducationComponent implements OnInit, AfterViewInit {
     const isSet = group.get('tilToday').value;
     if (isSet) {
       group.get('dateEnd').setValue('');
+      group.get('dateEndString').setValue('');
     }
     this.submit('bis heute');
   }

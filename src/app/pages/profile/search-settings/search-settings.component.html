@@ -17,7 +17,7 @@
         <div
           class="flex-grid"
           formGroupName="searchPreferences">
-          <div class="field field_select field_select-multiselect">
+          <div class="field field_select field_select-multiselect ">
             <p class="field__label">Wunsch-Arbeitsort(e)</p>
             <div class="field-wrapper">
               <ng-select
@@ -29,7 +29,7 @@
                 [items]="placeOptions$ | async"
                 placeholder="Wunsch-Arbeitsort(e)"
                 (change)="formArrayPush($event, 'desiredPlacesOfWorkArray', 'Wunsch-Arbeitsort')"
-                class="custom-select">
+                class="custom-select custom-select_type">
               </ng-select>
               <div class="field-wrapper__type">abc</div>
               <div
@@ -73,7 +73,7 @@
                 placeholder="Bevorzugte(r) Geschäftsbereich(e)"
                 [formControl]="businessBranchesControl"
                 (change)="formArrayPush($event, 'preferredBusinessArray', 'Bevorzugte(r) Geschäftsbereich(e)')"
-                class="custom-select">
+                class="custom-select custom-select_type">
               </ng-select>
               <div class="field-wrapper__type">abc</div>
               <div
@@ -106,7 +106,7 @@
                 placeholder="Wunsch-Branchen"
                 [formControl]="industryBranchesControl"
                 (change)="formArrayPush($event, 'industryBranchesArray', 'Wunsch-Branchen')"
-                class="custom-select">
+                class="custom-select custom-select_type">
               </ng-select>
               <div class="field-wrapper__type">abc</div>
               <div
@@ -128,7 +128,7 @@
               </div>
             </div>
           </div>
-          <div class="field field_select field_select-multiselect">
+          <div class="field field_select field_select-multiselect-arrow">
             <p class="field__label">Gewünschte Art der Anstellung</p>
             <div class="field-wrapper">
               <ng-select
@@ -167,7 +167,7 @@
               </div>
             </div>
           </div>
-          <div class="field field_select field_select-multiselect">
+          <div class="field field_select field_select-multiselect-arrow">
             <p class="field__label">Präferierte Arbeitszeit</p>
             <div class="field-wrapper">
               <ng-select
@@ -229,6 +229,26 @@
                 class="field-wrapper__status"></div>
             </div>
           </div>
+          <div class="field field_select">
+            <p class="field__label">Befristung</p>
+            <div class="field-wrapper">
+              <ng-select
+                [searchable]="false"
+                [clearable]="false"
+                placeholder="Wähle aus Liste"
+                formControlName="timeLimit"
+                (change)="submit('Befristung')"
+                class="custom-select">
+                <ng-container *ngIf="dropdownOptions && dropdownOptions.timeLimit">
+                  <ng-option *ngFor="let option of dropdownOptions.timeLimit" [value]="option">{{option}}</ng-option>
+                  
+                </ng-container>
+              </ng-select>
+              <div
+                [ngClass]="{'invalid-should' : !form.get('searchPreferences').get('timeLimit').value }"
+                class="field-wrapper__status"></div>
+            </div>
+          </div>
           <div class="field field_group">
             <p class="field__label">Gehaltsvorstellung</p>
             <div
@@ -238,29 +258,29 @@
                 <div class="field-wrapper">
                   <input
                     type="tel"
-                    placeholder="min"
+                    placeholder="Gehaltsvorstellung"
                     mask="separator"
                     maxlength="8"
                     thousandSeparator="."
                     suffix="€"
                     [validation]="false"
                     class="field-wrapper__input"
-                    formControlName="min"
-                    (change)="submit('max')">
+                    formControlName="salary"
+                    (change)="submit('Gehaltsvorstellung')">
                   <div class="field-wrapper__type">123</div>
                   <div
-                    [ngClass]="{'invalid-should' : !form.get('searchPreferences').get('salaryExpectations').get('min').value || form.get('searchPreferences').get('salaryExpectations').get('min').hasError('onlyNumbers')}"
+                    [ngClass]="{'invalid-should' : !form.get('searchPreferences').get('salaryExpectations').get('salary').value || form.get('searchPreferences').get('salaryExpectations').get('salary').hasError('onlyNumbers')}"
                     class="field-wrapper__status"></div>
                 </div>
                 <p
                   class="error-box"
-                  *ngIf="(form.get('searchPreferences').get('salaryExpectations').get('min').touched || form.get('searchPreferences').get('salaryExpectations').get('min').dirty) && form.get('searchPreferences').get('salaryExpectations').get('min').invalid">
+                  *ngIf="(form.get('searchPreferences').get('salaryExpectations').get('salary').touched || form.get('searchPreferences').get('salaryExpectations').get('salary').dirty) && form.get('searchPreferences').get('salaryExpectations').get('salary').invalid">
                   <span
                     class="error-box__text"
-                    *ngIf="form.get('searchPreferences').get('salaryExpectations').get('min').hasError('onlyNumbers')">nur Zahlen eingeben</span>
+                    *ngIf="form.get('searchPreferences').get('salaryExpectations').get('salary').hasError('onlyNumbers')">nur Zahlen eingeben</span>
                 </p>
               </div>
-              <div class="field">
+              <!-- <div class="field">
                 <div class="field-wrapper">
                   <input
                     type="tel"
@@ -286,31 +306,7 @@
                     class="error-box__text"
                     *ngIf="form.get('searchPreferences').get('salaryExpectations').get('max').hasError('onlyNumbers')">nur Zahlen eingeben</span>
                 </p>
-              </div>
-            </div>
-          </div>
-          <div class="field field_datapicker">
-            <p class="field__label">Verfügbar ab</p>
-            <div
-              class="field-wrapper"
-              [owlDateTimeTrigger]="dt1">
-              <input
-                [owlDateTime]="dt1"
-                (dateTimeChange)="submit('Verfügbar ab')"
-                class="field-wrapper__input"
-                formControlName="readyToStartJobFrom"
-                placeholder="DD/MM/YYYY">
-              <owl-date-time
-                #dt1
-                pickerMode="dialog"
-                pickerType="calendar"
-                panelClass="calendar"></owl-date-time>
-              <div class="field-wrapper__type">
-                <img src="../assets/image/calendar.svg">
-              </div>
-              <div
-                class="field-wrapper__status"
-                [ngClass]="{'invalid-should' : !form.get('searchPreferences').get('readyToStartJobFrom').value }"></div>
+              </div> -->
             </div>
           </div>
           <div class="field field_select field_select-multiselect">
@@ -325,7 +321,7 @@
                 placeholder="Wunsch-Benefits"
                 [formControl]="benefitsControl"
                 (change)="formArrayPush($event, 'benefitsArray', 'Benefit(s)')"
-                class="custom-select">
+                class="custom-select custom-select_type">
               </ng-select>
               <div class="field-wrapper__type">abc</div>
               <div
@@ -344,6 +340,40 @@
                   (click)="formArrayRemove(i, 'benefitsArray', 'Benefit(s)')">
                   <img src="../assets/image/close.svg">
                 </button>
+              </div>
+            </div>
+          </div>
+          <div class="field">
+            <p class="field__label">Verfügbar ab</p>
+            <div class="checkbox-group-1">
+              <div class="field" [ngClass]="{'disabled' : form.get('searchPreferences').get('fromNow').value}">
+                <div class="field-wrapper">
+                  <input
+                    class="field-wrapper__input"
+                    formControlName="readyToStartJobFromString"
+                    [imask]="dateService.maskDayMonthYearDate"
+                    [unmask]="false"
+                    (change)="dateSave('Verfügbar ab', form.get('searchPreferences'), 'readyToStartJobFrom')">
+                  <div class="field-wrapper__type">
+                    <img src="../assets/image/calendar.svg">
+                  </div>
+                  <div
+                    class="field-wrapper__status"
+                    [ngClass]="{'invalid-should' : 
+                    !form.get('searchPreferences').get('readyToStartJobFromString').value || !form.get('searchPreferences').get('readyToStartJobFromString').value.match(dateService.regexFullDateNumber)}">
+                  </div>
+                </div>
+              </div>
+              <div class="checkbox">
+                <label class="checkbox-container">
+                  ab sofort
+                  <input
+                    type="checkbox"
+                    class="not-relevant__checkbox"
+                    formControlName="fromNow"
+                    (change)="fromNow(form.get('searchPreferences').get('fromNow'))">
+                  <span class="checkmark"></span>
+                </label>
               </div>
             </div>
           </div>

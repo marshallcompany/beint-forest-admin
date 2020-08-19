@@ -174,58 +174,43 @@
                       <div class="field field_group">
                         <div class="datepicker-group">
                           <div
-                            class="field field_datapicker">
+                            class="field">
                             <p class="field__label">Von</p>
-                            <div
-                              class="field-wrapper"
-                              [owlDateTimeTrigger]="dt1">
+                            <div class="field-wrapper">
                               <input
-                                [owlDateTime]="dt1"
-                                [max]="previousDate"
                                 class="field-wrapper__input"
-                                formControlName="dateStart"
-                                placeholder="DD/MM/YYYY"
-                                (dateTimeChange)="submit('Von')">
-                              <owl-date-time
-                                #dt1
-                                pickerMode="dialog"
-                                pickerType="calendar"
-                                panelClass="calendar"></owl-date-time>
+                                formControlName="dateStartString"
+                                [imask]="dateService.maskMonthYearDate"
+                                [unmask]="false"
+                                (change)="dateSave('Von', form.get('education').get('schools').controls[i], 'dateStart')">
                               <div class="field-wrapper__type">
                                 <img src="../assets/image/calendar.svg">
                               </div>
                               <div
                                   class="field-wrapper__status"
-                                  [ngClass]="{'invalid-should' : !this.form.get('education').get('schools').controls[i].get('dateStart').value}">
+                                  [ngClass]="{'invalid-should' : !form.get('education').get('schools').controls[i].get('dateStartString').value ||
+                                  !form.get('education').get('schools').controls[i].get('dateStartString').value.match(dateService.regexNotFullDateNumber)}">
                               </div>
                             </div>
                           </div>
                           <div
                             [ngClass]="{'disabled': this.form.get('education').get('schools').controls[i].get('tilToday').value}"
-                            class="field field_datapicker">
+                            class="field">
                             <p class="field__label">Bis</p>
-                            <div
-                              class="field-wrapper"
-                              [owlDateTimeTrigger]="dt2">
+                            <div class="field-wrapper">
                               <input
-                                [disabled]="this.form.get('education').get('schools').controls[i].get('tilToday').value"
-                                [owlDateTime]="dt2"
-                                [max]="currentDate"
                                 class="field-wrapper__input"
-                                formControlName="dateEnd"
-                                placeholder="DD/MM/YYYY"
-                                (dateTimeChange)="submit('Bis')">
-                              <owl-date-time
-                                #dt2
-                                pickerMode="dialog"
-                                pickerType="calendar"
-                                panelClass="calendar"></owl-date-time>
+                                formControlName="dateEndString"
+                                [imask]="dateService.maskMonthYearDate"
+                                [unmask]="false"
+                                (change)="dateSave('Bis', form.get('education').get('schools').controls[i], 'dateEnd')">
                               <div class="field-wrapper__type">
                                 <img src="../assets/image/calendar.svg">
                               </div>
                               <div
                                   class="field-wrapper__status"
-                                  [ngClass]="{'invalid-should' : !this.form.get('education').get('schools').controls[i].get('dateEnd').value}">
+                                  [ngClass]="{'invalid-should' : !form.get('education').get('schools').controls[i].get('dateEndString').value ||
+                                  !form.get('education').get('schools').controls[i].get('dateEndString').value.match(dateService.regexNotFullDateNumber)}">
                               </div>
                             </div>
                           </div>
@@ -241,6 +226,9 @@
                               <span class="checkmark"></span>
                             </label>
                           </div>
+                          <p class="datepicker-group__error" *ngIf="form.get('education').get('schools').controls[i].hasError('valueDateError')">
+                              Die eingegebenen Daten sind ungültig
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -478,61 +466,48 @@
                         <div class="field field_group">
                           <div class="datepicker-group">
                             <div
-                              class="field field_datapicker"
+                              class="field"
                               [ngClass]="{'disabled' : this.form.get('education').get('specialEducation').get('isNotRelevant').value}">
                               <p class="field__label">Von</p>
-                              <div
-                                class="field-wrapper"
-                                [owlDateTimeTrigger]="dt1">
+                              <div class="field-wrapper">
                                 <input
-                                  [owlDateTime]="dt1"
-                                  [max]="previousDate"
                                   class="field-wrapper__input"
-                                  formControlName="dateStart"
-                                  placeholder="DD/MM/YYYY"
-                                  (dateTimeChange)="submit('Von')">
-                                <owl-date-time
-                                  #dt1
-                                  pickerMode="dialog"
-                                  pickerType="calendar"
-                                  panelClass="calendar"></owl-date-time>
+                                  formControlName="dateStartString"
+                                  [imask]="dateService.maskMonthYearDate"
+                                  [unmask]="false"
+                                  (change)="dateSave('Von', form.get('education').get('specialEducation').get('items').controls[i], 'dateStart')">
                                 <div class="field-wrapper__type">
                                   <img src="../assets/image/calendar.svg">
                                 </div>
                                 <div
                                     class="field-wrapper__status"
-                                    [ngClass]="{'invalid-should' : !this.form.get('education').get('specialEducation').get('items').controls[i].get('dateStart').value}">
+                                    [ngClass]="{'invalid-should' : !this.form.get('education').get('specialEducation').get('items').controls[i].get('dateStartString').value ||
+                                    !form.get('education').get('specialEducation').get('items').controls[i].get('dateStartString').value.match(dateService.regexNotFullDateNumber)}">
                                 </div>
                               </div>
                             </div>
                             <div
-                              class="field field_datapicker"
+                              class="field"
                               [ngClass]="{'disabled': this.form.get('education').get('specialEducation').get('items').controls[i].get('tilToday').value ||
                                 this.form.get('education').get('specialEducation').get('isNotRelevant').value
                               }">
                               <p class="field__label">Bis</p>
-                              <div
-                                class="field-wrapper"
-                                [owlDateTimeTrigger]="dt2">
+                              <div class="field-wrapper">
                                 <input
-                                  [disabled]="this.form.get('education').get('specialEducation').get('items').controls[i].get('tilToday').value"
-                                  [owlDateTime]="dt2"
-                                  [max]="currentDate"
                                   class="field-wrapper__input"
-                                  formControlName="dateEnd"
-                                  placeholder="DD/MM/YYYY"
-                                  (dateTimeChange)="submit('Bis')">
-                                <owl-date-time
-                                  #dt2
-                                  pickerMode="dialog"
-                                  pickerType="calendar"
-                                  panelClass="calendar"></owl-date-time>
+                                  formControlName="dateEndString"
+                                  [imask]="dateService.maskMonthYearDate"
+                                  [unmask]="false"
+                                  (change)="dateSave('Bis', form.get('education').get('specialEducation').get('items').controls[i], 'dateEnd')">
                                 <div class="field-wrapper__type">
                                   <img src="../assets/image/calendar.svg">
                                 </div>
                                 <div
                                     class="field-wrapper__status"
-                                    [ngClass]="{'invalid-should' : !this.form.get('education').get('specialEducation').get('items').controls[i].get('dateEnd').value}"></div>
+                                    [ngClass]="{'invalid-should' :
+                                    !this.form.get('education').get('specialEducation').get('items').controls[i].get('dateEndString').value 
+                                    || !form.get('education').get('specialEducation').get('items').controls[i].get('dateEndString').value.match(dateService.regexNotFullDateNumber)}">
+                                </div>
                               </div>
                             </div>
                             <div
@@ -548,6 +523,9 @@
                                 <span class="checkmark"></span>
                               </label>
                             </div>
+                            <p class="datepicker-group__error" *ngIf="form.get('education').get('specialEducation').get('items').controls[i].hasError('valueDateError')">
+                              Die eingegebenen Daten sind ungültig
+                            </p>
                           </div>
                         </div>
                       </div>
@@ -851,62 +829,49 @@
                           </div>
                           <div class="datepicker-group">
                             <div
-                              class="field field_datapicker"
+                              class="field"
                               [ngClass]="{'disabled' : this.form.get('education').get('universities').get('isNotRelevant').value}">
                               <p class="field__label">Von</p>
-                              <div
-                                class="field-wrapper"
-                                [owlDateTimeTrigger]="dt1">
+                              <div class="field-wrapper">
                                 <input
-                                  [owlDateTime]="dt1"
-                                  [max]="previousDate"
                                   class="field-wrapper__input"
-                                  formControlName="dateStart"
-                                  placeholder="DD/MM/YYYY"
-                                  (dateTimeChange)="submit('Von')">
-                                <owl-date-time
-                                  #dt1
-                                  pickerMode="dialog"
-                                  pickerType="calendar"
-                                  panelClass="calendar"></owl-date-time>
+                                  formControlName="dateStartString"
+                                  [imask]="dateService.maskMonthYearDate"
+                                  [unmask]="false"
+                                  (change)="dateSave('Von', form.get('education').get('universities').get('items').controls[i], 'dateStart')">
                                 <div class="field-wrapper__type">
                                   <img src="../assets/image/calendar.svg">
                                 </div>
                                 <div
                                     class="field-wrapper__status"
-                                    [ngClass]="{'invalid-should' : !this.form.get('education').get('universities').get('items').controls[i].get('dateStart').value}">
+                                    [ngClass]="{'invalid-should' : 
+                                    !this.form.get('education').get('universities').get('items').controls[i].get('dateStartString').value ||
+                                    !form.get('education').get('universities').get('items').controls[i].get('dateStartString').value.match(dateService.regexNotFullDateNumber)}">
                                 </div>
                               </div>
                             </div>
                             <div
-                              class="field field_datapicker"
+                              class="field"
                               [ngClass]="{
                                 'disabled' : this.form.get('education').get('universities').get('isNotRelevant').value ||
                                 this.form.get('education').get('universities').get('items').controls[i].get('tilToday').value
                               }">
                               <p class="field__label">Bis</p>
-                              <div
-                                class="field-wrapper"
-                                [owlDateTimeTrigger]="dt2">
+                              <div class="field-wrapper">
                                 <input
-                                  [disabled]="this.form.get('education').get('universities').get('items').controls[i].get('tilToday').value"
-                                  [owlDateTime]="dt2"
-                                  [max]="currentDate"
                                   class="field-wrapper__input"
-                                  formControlName="dateEnd"
-                                  placeholder="DD/MM/YYYY"
-                                  (dateTimeChange)="submit('Bis')">
-                                <owl-date-time
-                                  #dt2
-                                  pickerMode="dialog"
-                                  pickerType="calendar"
-                                  panelClass="calendar"></owl-date-time>
+                                  formControlName="dateEndString"
+                                  [imask]="dateService.maskMonthYearDate"
+                                  [unmask]="false"
+                                  (change)="dateSave('Bis', form.get('education').get('universities').get('items').controls[i], 'dateEnd')">
                                 <div class="field-wrapper__type">
                                   <img src="../assets/image/calendar.svg">
                                 </div>
                                 <div
                                     class="field-wrapper__status"
-                                    [ngClass]="{'invalid-should' : !this.form.get('education').get('universities').get('items').controls[i].get('dateEnd').value}">
+                                    [ngClass]="{'invalid-should' : 
+                                    !this.form.get('education').get('universities').get('items').controls[i].get('dateEndString').value ||
+                                    !form.get('education').get('universities').get('items').controls[i].get('dateEndString').value.match(dateService.regexNotFullDateNumber)}">
                                 </div>
                               </div>
                             </div>
@@ -923,6 +888,9 @@
                                 <span class="checkmark"></span>
                               </label>
                             </div>
+                            <p class="datepicker-group__error" *ngIf="form.get('education').get('universities').get('items').controls[i].hasError('valueDateError')">
+                              Die eingegebenen Daten sind ungültig
+                            </p>
                           </div>
                         </div>
                         <div
@@ -1112,62 +1080,48 @@
                           <div class="field field_group">
                             <div class="datepicker-group">
                               <div
-                                class="field field_datapicker"
+                                class="field"
                                 [ngClass]="{'disabled' : this.form.get('education').get('additionalEducations').get('isNotRelevant').value}">
                                 <p class="field__label">Von</p>
-                                <div
-                                  class="field-wrapper"
-                                  [owlDateTimeTrigger]="dt1">
+                                <div class="field-wrapper">
                                   <input
-                                    [owlDateTime]="dt1"
-                                    [max]="previousDate"
                                     class="field-wrapper__input"
-                                    formControlName="dateStart"
-                                    placeholder="DD/MM/YYYY"
-                                    (dateTimeChange)="submit('Von')">
-                                  <owl-date-time
-                                    #dt1
-                                    pickerMode="dialog"
-                                    pickerType="calendar"
-                                    panelClass="calendar"></owl-date-time>
+                                    formControlName="dateStartString"
+                                    [imask]="dateService.maskMonthYearDate"
+                                    [unmask]="false"
+                                    (change)="dateSave('Von', form.get('education').get('additionalEducations').get('items').controls[i], 'dateStart')">
                                   <div class="field-wrapper__type">
                                     <img src="../assets/image/calendar.svg">
                                   </div>
                                   <div
                                       class="field-wrapper__status"
-                                      [ngClass]="{'invalid-should' : !this.form.get('education').get('additionalEducations').get('items').controls[i].get('dateStart').value}">
+                                      [ngClass]="{'invalid-should' : 
+                                      !this.form.get('education').get('additionalEducations').get('items').controls[i].get('dateStartString').value
+                                      || !form.get('education').get('additionalEducations').get('items').controls[i].get('dateStartString').value.match(dateService.regexNotFullDateNumber)}">
                                   </div>
                                 </div>
                               </div>
                               <div
-                                class="field field_datapicker"
+                                class="field"
                                 [ngClass]="{
                                   'disabled': this.form.get('education').get('additionalEducations').get('isNotRelevant').value ||
                                   this.form.get('education').get('additionalEducations').get('items').controls[i].get('tilToday').value
                                 }">
                                 <p class="field__label">Bis</p>
-                                <div
-                                  class="field-wrapper"
-                                  [owlDateTimeTrigger]="dt2">
+                                <div class="field-wrapper">
                                   <input
-                                    [disabled]="this.form.get('education').get('additionalEducations').get('items').controls[i].get('tilToday').value"
-                                    [owlDateTime]="dt2"
-                                    [max]="currentDate"
                                     class="field-wrapper__input"
-                                    formControlName="dateEnd"
-                                    placeholder="DD/MM/YYYY"
-                                    (dateTimeChange)="submit('Bis')">
-                                  <owl-date-time
-                                    #dt2
-                                    pickerMode="dialog"
-                                    pickerType="calendar"
-                                    panelClass="calendar"></owl-date-time>
+                                    formControlName="dateEndString"
+                                    [imask]="dateService.maskMonthYearDate"
+                                    [unmask]="false"
+                                    (change)="dateSave('Bis', form.get('education').get('additionalEducations').get('items').controls[i], 'dateEnd')">
                                   <div class="field-wrapper__type">
                                     <img src="../assets/image/calendar.svg">
                                   </div>
                                   <div
                                       class="field-wrapper__status"
-                                      [ngClass]="{'invalid-should' : !this.form.get('education').get('additionalEducations').get('items').controls[i].get('dateEnd').value}">
+                                      [ngClass]="{'invalid-should' : 
+                                      !this.form.get('education').get('additionalEducations').get('items').controls[i].get('dateEndString').value || !form.get('education').get('additionalEducations').get('items').controls[i].get('dateEndString').value.match(dateService.regexNotFullDateNumber)}">
                                   </div>
                                 </div>
                               </div>
@@ -1184,6 +1138,9 @@
                                   <span class="checkmark"></span>
                                 </label>
                               </div>
+                              <p class="datepicker-group__error" *ngIf="form.get('education').get('additionalEducations').get('items').controls[i].hasError('valueDateError')">
+                                Die eingegebenen Daten sind ungültig
+                              </p>
                             </div>
                           </div>
                         </div>
