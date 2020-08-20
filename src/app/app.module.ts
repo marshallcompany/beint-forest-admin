@@ -19,9 +19,6 @@ import { HttpMultiLoaderServiceService } from './services/http-multi-loader-serv
 import { NotificationService } from './services/notification.service';
 import { GlobalErrorService } from './services/global-error-service';
 
-import { NgCircleProgressModule } from 'ng-circle-progress';
-import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
-
 import { NgxMaskModule } from 'ngx-mask';
 import { MaterialModule } from './modules/material.module';
 import { ImageCropperModule } from 'ngx-image-cropper';
@@ -33,11 +30,6 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { PersonalComponent } from './pages/profile/personal/personal.component';
 import { EducationComponent } from './pages/profile/education/education.component';
-import { OfferComponent } from './pages/offer/offer.component';
-import { OfferThanksComponent } from './pages/offer/offer-thanks/offer-thanks.component';
-import { HomeComponent } from './pages/home/home.component';
-import { ApplyComponent } from './pages/apply/apply.component';
-import { ApplyThanksComponent } from './pages/apply/apply-thanks/apply-thanks.component';
 import { ProfileCategoryItemComponent } from './components/profile-category-item/profile-category-item.component';
 import { CategoryNavHeaderComponent } from './components/category-nav-header/category-nav-header.component';
 import { AboutComponent } from './pages/profile/about/about.component';
@@ -51,12 +43,7 @@ import { DocumentOptionComponent } from './components/sheet/document-option/docu
 import { FileRenameComponent } from './components/modal/file-rename/file-rename.component';
 import { DocumentOptionModalComponent } from './components/modal/document-option/document-option-modal.component';
 import { BottomNavigationComponent } from './components/bottom-navigation/bottom-navigation.component';
-import { SettingsComponent } from './pages/settings/settings.component';
-import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
-import { RemoveAccountComponent } from './pages/settings/remove-account/remove-account.component';
-import { SearchComponent } from './pages/search/search.component';
 import { DetailsVacancyComponent } from './components/details-vacancy/details-vacancy.component';
-import { PipelineComponent } from './pages/pipeline/pipeline.component';
 import { TermsUseComponent } from './components/terms-use/terms-use.component';
 import { PasswordResetComponent } from './pages/auth/password-reset/password-reset.component';
 import { MiscellaneousComponent } from './pages/profile/miscellaneous/miscellaneous.component';
@@ -69,15 +56,17 @@ import { environment } from '../environments/environment';
 import { AccordionModule } from './components/accordion/accordion.module';
 import { CvOptionModalComponent } from './components/modal/cv-option/cv-option-modal.component';
 import { CvOptionComponent } from './components/sheet/cv-option/cv-option.component';
-import { SupportComponent } from './pages/settings/support/support.component';
 import { EmailResetComponent } from './pages/auth/email-reset/email-reset.component';
-import { NotificationComponent } from './pages/settings/notification/notification.component';
 
 import { AgmCoreModule } from '@agm/core';
 import { GoogleAutocompleteComponent } from './components/google-autocomplete/google-autocomplete.component';
 import { AutocompleteDataService } from './services/autocomplete-data.service';
 import { IMaskModule } from 'angular-imask';
 import { DateService } from './services/date.service';
+
+import { CompanyCreateComponent } from './pages/company/company-create/company-create.component';
+import { CompanyEditComponent } from './pages/company/company-edit/company-edit.component';
+import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 
 export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRoutesProvider) => {
   return new HttpMultiLoaderServiceService(http, [
@@ -94,13 +83,8 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     CvOptionModalComponent,
     CvOptionComponent,
     NotFoundComponent,
-    HomeComponent,
     PersonalComponent,
     EducationComponent,
-    OfferComponent,
-    OfferThanksComponent,
-    ApplyComponent,
-    ApplyThanksComponent,
     ProfileCategoryItemComponent,
     CategoryNavHeaderComponent,
     AboutComponent,
@@ -114,22 +98,18 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     DocumentOptionModalComponent,
     FileRenameComponent,
     BottomNavigationComponent,
-    SettingsComponent,
-    PrivacyPolicyComponent,
-    RemoveAccountComponent,
-    SearchComponent,
     DetailsVacancyComponent,
-    PipelineComponent,
     TermsUseComponent,
     PasswordResetComponent,
     MiscellaneousComponent,
     AuthComponent,
     RegistrationComponent,
     ConfirmEmailComponent,
-    SupportComponent,
     EmailResetComponent,
-    NotificationComponent,
-    GoogleAutocompleteComponent
+    GoogleAutocompleteComponent,
+    CompanyCreateComponent,
+    CompanyEditComponent,
+    PrivacyPolicyComponent
   ],
   imports: [
     RoutingModule,
@@ -139,8 +119,6 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     ReactiveFormsModule,
     HttpClientModule,
     NgSelectModule,
-    OwlDateTimeModule,
-    OwlNativeDateTimeModule,
     ImageCropperModule,
     NgxMaskModule.forRoot(),
     HammerConfig,
@@ -160,7 +138,6 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     BrowserAnimationsModule,
     CommonModule,
     MaterialModule,
-    NgCircleProgressModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
@@ -188,9 +165,9 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     DocumentOptionComponent,
     DocumentOptionModalComponent,
     FileRenameComponent,
-    PrivacyPolicyComponent,
     TermsUseComponent,
-    ConfirmEmailComponent
+    ConfirmEmailComponent,
+    PrivacyPolicyComponent
   ]
 })
 export class AppModule { }

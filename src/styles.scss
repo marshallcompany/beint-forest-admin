@@ -2,8 +2,6 @@
 @import "app/theme/variables.scss";
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 @import "~@ng-select/ng-select/themes/default.theme.css";
-@import "~ng-pick-datetime/assets/style/picker.min.css";
-@import "app/theme/calendar";
 @import "app/theme/fonts";
 @import "./styles/form-input";
 
@@ -59,8 +57,8 @@ body {
 .pac-icon {
   display: none!important;
 }
-
 // // GOOGLE DROPDOWN STYLE END
+
 // STYLE SNACKBAR
 .snack {
   box-shadow: 0px 4px 25px 0px rgba(0, 0, 0, .5);
@@ -130,7 +128,7 @@ body {
   position: absolute;
   right: 0;
   top: 0;
-  width: calc(100% - 60px);
+  width:100%;
   min-height: 100%;
   background-color: #F9F9F9;
   border-bottom-left-radius: 50px;
@@ -162,22 +160,6 @@ body {
     font-size: 14px;
     font-family: $workSansRegular;
     letter-spacing: .2px;
-  }
-}
-
-// SWIPER
-app-home {
-  .s-wrapper {
-    overflow: inherit !important;
-  }
-
-  .s-wrapper,
-  .swiper-wrapper,
-  .swiper-slide {
-    width: auto !important;
-    height: auto !important;
-    max-width: inherit !important;
-    max-height: inherit !important;
   }
 }
 

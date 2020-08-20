@@ -17,7 +17,7 @@ export class WelcomeGuard implements CanActivate {
   public canActivate(): Observable<boolean> | Promise<boolean> | boolean {
 
     if (this.auth.getAuthData()) {
-      this.router.navigate(['/home']);
+      this.router.navigate(['/company/create']);
       return false;
     }
     return true;
