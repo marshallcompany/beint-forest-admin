@@ -61,7 +61,31 @@
 }
 
 // CUSTOM CHECKBOX END
-
+// TAGS WRAPPER
+.tags-wrapper{
+    display: flex;
+    padding-left:19px;
+    flex-wrap: wrap;
+    &__item{
+        border:1px solid $primary;
+        border-radius:10px;
+        padding:10px 15px;
+        margin:25px 20px 0 0;
+        position: relative;
+    }
+    &__label{
+        color:$primary;
+    }
+    &__remove{
+        width:20px;
+        height:20px;
+        background-color:$red;
+        border-radius:50%;
+        position:absolute;
+        right:-10px;
+        top:-5px;
+    }
+}
 // FIELD VALIDATION COLOR
 .field-wrapper {
   &__status {
@@ -594,6 +618,22 @@ body .ng-select.ng-select-multiple .ng-select-container .ng-value-container {
       padding-left: 19px;
     }
   }
+  .tags-wrapper{
+        &__item{
+            padding:5px 10px;
+            margin-top: 20px;
+        }
+        &__label{
+            font-size: 16px;
+        }
+        &__remove{
+            right: -10px;
+            top: -10px;
+            img{
+                height: 10px;
+            }
+        }
+    }
 }
 @media screen and (min-width: 320px) and (max-width: 374px) {
   .field {
@@ -625,6 +665,9 @@ body .ng-select.ng-select-multiple .ng-select-container .ng-value-container {
   }
   .form-item__label{
     padding-left: 10px!important;
+  }
+  .tags-wrapper{
+    padding-left: 10px;
   }
 }
 
