@@ -50,7 +50,7 @@ export class GoogleAutocompleteComponent implements OnInit, OnChanges {
             city: this.autocompleteDataService.getCity(place),
             zipCode: this.autocompleteDataService.getPostCode(place),
             country: this.autocompleteDataService.getCountry(place),
-            value: this.searchElementRef.nativeElement.value
+            value: place.formatted_address
           };
           this.setAddress.emit(address);
           this.setInputValue(place);
@@ -79,15 +79,13 @@ export class GoogleAutocompleteComponent implements OnInit, OnChanges {
   }
 
   setInputValue = (place) => {
-    const zipCode = this.autocompleteDataService.getPostCode(place) ? this.autocompleteDataService.getPostCode(place) : '';
     const city = this.autocompleteDataService.getCity(place) ? this.autocompleteDataService.getCity(place) : '';
     const country = this.autocompleteDataService.getCountry(place) ? this.autocompleteDataService.getCountry(place) : '';
     let value: string;
     if (this.validation && this.validation === 'place/zipCode') {
       if (this.autocompleteDataService.getCity(place) && this.autocompleteDataService.getPostCode(place)) {
-        value = zipCode + ` ` + city + `, ` + country;
-        this.formControlValue = value;
-        this.location.setValue(value);
+        this.formControlValue = place.formatted_address;
+        this.location.setValue(place.formatted_address);
       } else {
         this.location.setValue(this.searchElementRef.nativeElement.value);
       }
@@ -97,7 +95,7 @@ export class GoogleAutocompleteComponent implements OnInit, OnChanges {
         this.formControlValue = value;
         this.location.setValue(value);
       } else {
-        this.location.setValue(this.searchElementRef.nativeElement.value);
+        this.location.setValue(place.formatted_address);
       }
     } else {
       this.location.setValue(country);

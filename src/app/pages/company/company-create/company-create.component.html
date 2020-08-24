@@ -56,12 +56,12 @@
                 type="text"
                 maxlength="100"
                 placeholder="Firmenname"
-                formControlName="a1"
+                formControlName="companyName"
                 class="field-wrapper__input">
               <div class="field-wrapper__type">abc</div>
               <div
                 class="field-wrapper__status"
-                [ngClass]="{'invalid-should' : !this.form.get('general').get('a1').value}"></div>
+                [ngClass]="{'invalid-should' : !form.get('general').get('companyName').value}"></div>
             </div>
           </div>
           <div class="field field_select">
@@ -71,60 +71,17 @@
                 [searchable]="false"
                 [clearable]="false"
                 placeholder="Rechtsform"
-                formControlName="a2"
+                formControlName="legalForm"
                 class="custom-select">
                 <ng-option
-                  *ngFor="let option of dropdownOptions"
+                  *ngFor="let option of benefitsOptions$ | async"
                   [value]="option">
                   {{option}}
                 </ng-option>
               </ng-select>
               <div
                 class="field-wrapper__status"
-                [ngClass]="{'invalid-should' : !this.form.get('general').get('a2').value}"></div>
-            </div>
-          </div>
-          <div class="field">
-            <p class="field__label">Straße</p>
-            <div class="field-wrapper">
-              <input
-                type="text"
-                placeholder="Straße"
-                formControlName="a3"
-                class="field-wrapper__input">
-              <div class="field-wrapper__type">abc</div>
-              <div
-                class="field-wrapper__status"
-                [ngClass]="{'invalid-should' : !this.form.get('general').get('a3').value}"></div>
-            </div>
-          </div>
-          <div class="field">
-            <p class="field__label">Hausnummer</p>
-            <div class="field-wrapper">
-              <input
-                type="tel"
-                (keypress)="onlyNumber($event)"
-                placeholder="Hausnummer"
-                formControlName="a4"
-                class="field-wrapper__input">
-              <div class="field-wrapper__type">123</div>
-              <div
-                class="field-wrapper__status"
-                [ngClass]="{'invalid-should' : !this.form.get('general').get('a4').value}"></div>
-            </div>
-          </div>
-          <div class="field">
-            <p class="field__label">Adresszusatz</p>
-            <div class="field-wrapper">
-              <input
-                type="text"
-                placeholder="Adresszusatz"
-                formControlName="a5"
-                class="field-wrapper__input">
-              <div class="field-wrapper__type">abc</div>
-              <div
-                class="field-wrapper__status"
-                [ngClass]="{'invalid-should' : !this.form.get('general').get('a5').value}"></div>
+                [ngClass]="{'invalid-should' : !form.get('general').get('legalForm').value}"></div>
             </div>
           </div>
           <app-google-autocomplete
@@ -135,8 +92,51 @@
             [fieldLabel]="'Ort'"
             [fieldPlaceholder]="'Ort'"
             (setAddress)="googleAddressChange($event, generalFormGroup, ['country', 'zipCode', 'place', 'location'])" 
-            adressType="geocode">
+            adressType="(regions)">
           </app-google-autocomplete>
+          <div class="field">
+            <p class="field__label">Straße</p>
+            <div class="field-wrapper">
+              <input
+                type="text"
+                placeholder="Straße"
+                formControlName="street"
+                class="field-wrapper__input">
+              <div class="field-wrapper__type">abc</div>
+              <div
+                class="field-wrapper__status"
+                [ngClass]="{'invalid-should' : !form.get('general').get('street').value}"></div>
+            </div>
+          </div>
+          <div class="field">
+            <p class="field__label">Hausnummer</p>
+            <div class="field-wrapper">
+              <input
+                type="tel"
+                (keypress)="onlyNumber($event)"
+                placeholder="Hausnummer"
+                formControlName="houseNumber"
+                class="field-wrapper__input">
+              <div class="field-wrapper__type">123</div>
+              <div
+                class="field-wrapper__status"
+                [ngClass]="{'invalid-should' : !form.get('general').get('houseNumber').value}"></div>
+            </div>
+          </div>
+          <div class="field">
+            <p class="field__label">Adresszusatz</p>
+            <div class="field-wrapper">
+              <input
+                type="text"
+                placeholder="Adresszusatz"
+                formControlName="additionalAddress"
+                class="field-wrapper__input">
+              <div class="field-wrapper__type">abc</div>
+              <div
+                class="field-wrapper__status"
+                [ngClass]="{'invalid-should' : !form.get('general').get('additionalAddress').value}"></div>
+            </div>
+          </div>
           <div class="field">
             <p class="field__label">Ländervorwahl</p>
             <div class="field-wrapper">
@@ -144,12 +144,12 @@
                 type="text"
                 (keypress)="onlyNumber($event, true)"
                 placeholder="Ländervorwahl"
-                formControlName="a9"
+                formControlName="countryCode"
                 class="field-wrapper__input">
               <div class="field-wrapper__type">123</div>
               <div
                 class="field-wrapper__status"
-                [ngClass]="{'invalid-should' : !this.form.get('general').get('a9').value}"></div>
+                [ngClass]="{'invalid-should' : !form.get('general').get('countryCode').value}"></div>
             </div>
           </div>
           <div class="field">
@@ -159,12 +159,12 @@
                 type="text"
                 (keypress)="onlyNumber($event)"
                 placeholder="Ortsvorwahl"
-                formControlName="a10"
+                formControlName="cityCode"
                 class="field-wrapper__input">
               <div class="field-wrapper__type">123</div>
               <div
                 class="field-wrapper__status"
-                [ngClass]="{'invalid-should' : !this.form.get('general').get('a10').value}"></div>
+                [ngClass]="{'invalid-should' : !form.get('general').get('cityCode').value}"></div>
             </div>
           </div>
           <div class="field">
@@ -174,12 +174,12 @@
                 type="text"
                 (keypress)="onlyNumber($event)"
                 placeholder="Telefonnummer"
-                formControlName="a11"
+                formControlName="contactPhone"
                 class="field-wrapper__input">
               <div class="field-wrapper__type">123</div>
               <div
                 class="field-wrapper__status"
-                [ngClass]="{'invalid-should' : !this.form.get('general').get('a11').value}"></div>
+                [ngClass]="{'invalid-should' : !form.get('general').get('contactPhone').value}"></div>
             </div>
           </div>
           <div class="field">
@@ -188,12 +188,12 @@
               <input
                 type="text"
                 placeholder="Email Adresse"
-                formControlName="a12"
+                formControlName="contactEmail"
                 class="field-wrapper__input">
               <div class="field-wrapper__type">abc</div>
               <div
                 class="field-wrapper__status"
-                [ngClass]="{'invalid-should' : !this.form.get('general').get('a12').value}"></div>
+                [ngClass]="{'invalid-should' : !form.get('general').get('contactEmail').value}"></div>
             </div>
           </div>
           <div class="field">
@@ -202,15 +202,15 @@
               <input
                 type="text"
                 placeholder="Homepage"
-                formControlName="a13"
+                formControlName="homepage"
                 class="field-wrapper__input">
               <div class="field-wrapper__type">abc</div>
               <div
                 class="field-wrapper__status"
-                [ngClass]="{'invalid-should' : !this.form.get('general').get('a13').value}"></div>
+                [ngClass]="{'invalid-should' : !form.get('general').get('homepage').value}"></div>
             </div>
           </div>
-          <div class="field field_select field_select-multiselect-arrow">
+          <div class="field field_select">
             <p class="field__label">Benefits</p>
             <div class="field-wrapper">
               <ng-select
@@ -223,10 +223,13 @@
                 (change)="formArrayPush($event, 'generalBenefitsArray')"
                 class="custom-select">
                 <ng-option
-                  *ngFor="let option of dropdownOptions"
+                  *ngFor="let option of benefitsOptions$ | async"
                   [value]="option">
                   {{option}}
                 </ng-option>
+                <ng-template ng-multi-label-tmp>
+                  <span style="display:block" class="ng-placeholder">Select items</span>
+                </ng-template>
               </ng-select>
               <div
                 class="field-wrapper__status"
@@ -248,146 +251,310 @@
             </div>
           </div>
         </div>
-        <div class="category-wrapper" formGroupName="recruiter">
+        <div class="category-wrapper" formArrayName="recruiters">
           <h2 class="title">Werber</h2>
-          <div class="field field_select">
-            <p class="field__label">Anrede</p>
-            <div class="field-wrapper">
-              <ng-select
-                [searchable]="false"
-                [clearable]="false"
-                placeholder="Anrede"
-                formControlName="a1"
-                class="custom-select">
-                <ng-option
-                  *ngFor="let option of dropdownOptions"
-                  [value]="option">
-                  {{option}}
-                </ng-option>
-              </ng-select>
-              <div
-                class="field-wrapper__status"
-                [ngClass]="{'invalid-should' : !this.form.get('recruiter').get('a1').value}"></div>
+          <div class="category-wrapper" [formGroupName]="i" *ngFor="let item of recruitersArray.controls; let i = index">
+            <button type="button" (click)="deleteFormGroup(recruitersArray, i, 'recruiter')" class="remove-button">
+              <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" class="remove-button__icon">
+                  <path d="M0.050293 0.050293L9.94979 9.94979M9.94979 0.050293L0.0502933 9.94979" stroke-width="2"
+                  stroke-linecap="round"/>
+              </svg>
+            </button>
+            <h2 class="sub-title">Werber {{i + 1}}</h2>
+            <div class="field field_select">
+              <p class="field__label">Anrede</p>
+              <div class="field-wrapper">
+                <ng-select
+                  [searchable]="false"
+                  [clearable]="false"
+                  placeholder="Anrede"
+                  formControlName="salutation"
+                  class="custom-select">
+                  <ng-option
+                    *ngFor="let option of dropdownOptions"
+                    [value]="option">
+                    {{option}}
+                  </ng-option>
+                </ng-select>
+                <div
+                  class="field-wrapper__status"
+                  [ngClass]="{'invalid-should' : !item.get('salutation').value}"></div>
+              </div>
+            </div>
+            <div class="field">
+              <p class="field__label">Titel</p>
+              <div class="field-wrapper">
+                <input
+                  type="text"
+                  placeholder="Titel"
+                  formControlName="title"
+                  class="field-wrapper__input">
+                <div class="field-wrapper__type">abc</div>
+                <div
+                  class="field-wrapper__status"
+                  [ngClass]="{'invalid-should' : !item.get('title').value}"></div>
+              </div>
+            </div>
+            <div class="field">
+              <p class="field__label">Vorname</p>
+              <div class="field-wrapper">
+                <input
+                  type="text"
+                  placeholder="Vorname"
+                  formControlName="firstName"
+                  class="field-wrapper__input">
+                <div class="field-wrapper__type">abc</div>
+                <div
+                  class="field-wrapper__status"
+                  [ngClass]="{'invalid-should' : !item.get('firstName').value}"></div>
+              </div>
+            </div>
+            <div class="field">
+              <p class="field__label">Nachname</p>
+              <div class="field-wrapper">
+                <input
+                  type="text"
+                  placeholder="Nachname"
+                  formControlName="lastName"
+                  class="field-wrapper__input">
+                <div class="field-wrapper__type">abc</div>
+                <div
+                  class="field-wrapper__status"
+                  [ngClass]="{'invalid-should' : !item.get('lastName').value}"></div>
+              </div>
+            </div>
+            <div class="field">
+              <p class="field__label">Position</p>
+              <div class="field-wrapper">
+                <input
+                  type="text"
+                  placeholder="Position"
+                  formControlName="jobTitle"
+                  class="field-wrapper__input">
+                <div class="field-wrapper__type">abc</div>
+                <div
+                  class="field-wrapper__status"
+                  [ngClass]="{'invalid-should' : !item.get('jobTitle').value}"></div>
+              </div>
+            </div>
+            <div class="field">
+              <p class="field__label">Ländervorwahl</p>
+              <div class="field-wrapper">
+                <input
+                  type="text"
+                  (keypress)="onlyNumber($event, true)"
+                  placeholder="Ländervorwahl"
+                  formControlName="countryCode"
+                  class="field-wrapper__input">
+                <div class="field-wrapper__type">abc</div>
+                <div
+                  class="field-wrapper__status"
+                  [ngClass]="{'invalid-should' : !item.get('countryCode').value}"></div>
+              </div>
+            </div>
+            <div class="field">
+              <p class="field__label">Ortsvorwahl</p>
+              <div class="field-wrapper">
+                <input
+                  type="text"
+                  (keypress)="onlyNumber($event)"
+                  placeholder="Ortsvorwahl"
+                  formControlName="cityCode"
+                  class="field-wrapper__input">
+                <div class="field-wrapper__type">abc</div>
+                <div
+                  class="field-wrapper__status"
+                  [ngClass]="{'invalid-should' : !item.get('cityCode').value}"></div>
+              </div>
+            </div>
+            <div class="field">
+              <p class="field__label">Telefonnummer</p>
+              <div class="field-wrapper">
+                <input
+                  type="text"
+                  (keypress)="onlyNumber($event)"
+                  placeholder="Telefonnummer"
+                  formControlName="phoneNumberMobile"
+                  class="field-wrapper__input">
+                <div class="field-wrapper__type">abc</div>
+                <div
+                  class="field-wrapper__status"
+                  [ngClass]="{'invalid-should' : !item.get('phoneNumberMobile').value}"></div>
+              </div>
+            </div>
+            <div class="field">
+              <p class="field__label">Email Adresse</p>
+              <div class="field-wrapper">
+                <input
+                  type="text"
+                  placeholder="Email Adresse"
+                  formControlName="email"
+                  class="field-wrapper__input">
+                <div class="field-wrapper__type">abc</div>
+                <div
+                  class="field-wrapper__status"
+                  [ngClass]="{'invalid-should' : !item.get('email').value}"></div>
+              </div>
             </div>
           </div>
+          <button type="button" (click)="newFormGroup(recruitersArray, 'recruiter')" class="add-form-button">
+            <img src="../assets/image/plus.svg">
+          </button>
+        </div>
+        <div class="category-wrapper" formGroupName="offices">
+          <h2 class="title">Niederlassung</h2>
           <div class="field">
-            <p class="field__label">Titel</p>
+            <p class="field__label">Niederlassung</p>
             <div class="field-wrapper">
               <input
                 type="text"
-                placeholder="Titel"
-                formControlName="a2"
+                placeholder="Niederlassung"
+                formControlName="name"
                 class="field-wrapper__input">
               <div class="field-wrapper__type">abc</div>
               <div
                 class="field-wrapper__status"
-                [ngClass]="{'invalid-should' : !this.form.get('recruiter').get('a2').value}"></div>
+                [ngClass]="{'invalid-should' : !form.get('offices').get('name').value}"></div>
             </div>
           </div>
+          <app-google-autocomplete
+            class="field"
+            [formControlValue]="form.get('offices').get('location').value"
+            [fieldStatus]="'invalid-should'"
+            [validation]="'place/zipCode'"
+            [fieldLabel]="'Ort'"
+            [fieldPlaceholder]="'Ort'"
+            (setAddress)="googleAddressChange($event, officesFormGroup, ['country', 'zipCode', 'place', 'location'])" 
+            adressType="(regions)">
+          </app-google-autocomplete>
           <div class="field">
-            <p class="field__label">Vorname</p>
+            <p class="field__label">Straße</p>
             <div class="field-wrapper">
               <input
                 type="text"
-                placeholder="Vorname"
-                formControlName="a3"
+                placeholder="Straße"
+                formControlName="street"
                 class="field-wrapper__input">
               <div class="field-wrapper__type">abc</div>
               <div
                 class="field-wrapper__status"
-                [ngClass]="{'invalid-should' : !this.form.get('recruiter').get('a3').value}"></div>
+                [ngClass]="{'invalid-should' : !form.get('offices').get('street').value}"></div>
             </div>
           </div>
           <div class="field">
-            <p class="field__label">Nachname</p>
-            <div class="field-wrapper">
-              <input
-                type="text"
-                placeholder="Nachname"
-                formControlName="a4"
-                class="field-wrapper__input">
-              <div class="field-wrapper__type">abc</div>
-              <div
-                class="field-wrapper__status"
-                [ngClass]="{'invalid-should' : !this.form.get('recruiter').get('a4').value}"></div>
-            </div>
-          </div>
-          <div class="field">
-            <p class="field__label">Position</p>
-            <div class="field-wrapper">
-              <input
-                type="text"
-                placeholder="Position"
-                formControlName="a5"
-                class="field-wrapper__input">
-              <div class="field-wrapper__type">abc</div>
-              <div
-                class="field-wrapper__status"
-                [ngClass]="{'invalid-should' : !this.form.get('recruiter').get('a5').value}"></div>
-            </div>
-          </div>
-          <div class="field">
-            <p class="field__label">Ländervorwahl</p>
-            <div class="field-wrapper">
-              <input
-                type="text"
-                (keypress)="onlyNumber($event, true)"
-                placeholder="Ländervorwahl"
-                formControlName="a6"
-                class="field-wrapper__input">
-              <div class="field-wrapper__type">abc</div>
-              <div
-                class="field-wrapper__status"
-                [ngClass]="{'invalid-should' : !this.form.get('recruiter').get('a6').value}"></div>
-            </div>
-          </div>
-          <div class="field">
-            <p class="field__label">Ortsvorwahl</p>
+            <p class="field__label">Hausnummer</p>
             <div class="field-wrapper">
               <input
                 type="text"
                 (keypress)="onlyNumber($event)"
-                placeholder="Ortsvorwahl"
-                formControlName="a7"
+                placeholder="Hausnummer"
+                formControlName="houseNumber"
                 class="field-wrapper__input">
               <div class="field-wrapper__type">abc</div>
               <div
                 class="field-wrapper__status"
-                [ngClass]="{'invalid-should' : !this.form.get('recruiter').get('a7').value}"></div>
+                [ngClass]="{'invalid-should' : !form.get('offices').get('houseNumber').value}"></div>
             </div>
           </div>
           <div class="field">
-            <p class="field__label">Telefonnummer</p>
+            <p class="field__label">Adresszusatz</p>
             <div class="field-wrapper">
               <input
                 type="text"
                 (keypress)="onlyNumber($event)"
-                placeholder="Telefonnummer"
-                formControlName="a8"
+                placeholder="Adresszusatz"
+                formControlName="additionalAddress"
                 class="field-wrapper__input">
               <div class="field-wrapper__type">abc</div>
               <div
                 class="field-wrapper__status"
-                [ngClass]="{'invalid-should' : !this.form.get('recruiter').get('a8').value}"></div>
-            </div>
-          </div>
-          <div class="field">
-            <p class="field__label">Email Adresse</p>
-            <div class="field-wrapper">
-              <input
-                type="text"
-                placeholder="Email Adresse"
-                formControlName="a9"
-                class="field-wrapper__input">
-              <div class="field-wrapper__type">abc</div>
-              <div
-                class="field-wrapper__status"
-                [ngClass]="{'invalid-should' : !this.form.get('recruiter').get('a9').value}"></div>
+                [ngClass]="{'invalid-should' : !form.get('offices').get('additionalAddress').value}"></div>
             </div>
           </div>
         </div>
-        <br>
-        <br>
+        <div class="category-wrapper" formArrayName="filials">
+          <h2 class="title">Filliale</h2>
+          <div class="category-wrapper" *ngFor="let formGroup of filialsArray.controls; let i = index" [formGroupName]="i">
+            <button type="button" (click)="deleteFormGroup(filialsArray, i, 'filials')" class="remove-button">
+              <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" class="remove-button__icon">
+                  <path d="M0.050293 0.050293L9.94979 9.94979M9.94979 0.050293L0.0502933 9.94979" stroke-width="2"
+                  stroke-linecap="round"/>
+              </svg>
+            </button>
+            <h3 class="sub-title">Filliale {{i + 1}}</h3>
+            <div class="field">
+              <p class="field__label">Niederlassung</p>
+              <div class="field-wrapper">
+                <input
+                  type="text"
+                  placeholder="Niederlassung"
+                  formControlName="name"
+                  class="field-wrapper__input">
+                <div class="field-wrapper__type">abc</div>
+                <div
+                  class="field-wrapper__status"
+                  [ngClass]="{'invalid-should' : !formGroup.get('name').value}"></div>
+              </div>
+            </div>
+            <app-google-autocomplete
+              class="field"
+              [formControlValue]="formGroup.get('location').value"
+              [fieldStatus]="'invalid-should'"
+              [validation]="'place/zipCode'"
+              [fieldLabel]="'Ort'"
+              [fieldPlaceholder]="'Ort'"
+              (setAddress)="googleAddressChange($event, formGroup, ['country', 'zipCode', 'place', 'location'])" 
+              adressType="(regions)">
+            </app-google-autocomplete>
+            <div class="field">
+              <p class="field__label">Straße</p>
+              <div class="field-wrapper">
+                <input
+                  type="text"
+                  placeholder="Straße"
+                  formControlName="street"
+                  class="field-wrapper__input">
+                <div class="field-wrapper__type">abc</div>
+                <div
+                  class="field-wrapper__status"
+                  [ngClass]="{'invalid-should' : !formGroup.get('street').value}"></div>
+              </div>
+            </div>
+            <div class="field">
+              <p class="field__label">Hausnummer</p>
+              <div class="field-wrapper">
+                <input
+                  type="text"
+                  (keypress)="onlyNumber($event)"
+                  placeholder="Hausnummer"
+                  formControlName="houseNumber"
+                  class="field-wrapper__input">
+                <div class="field-wrapper__type">abc</div>
+                <div
+                  class="field-wrapper__status"
+                  [ngClass]="{'invalid-should' : !formGroup.get('houseNumber').value}"></div>
+              </div>
+            </div>
+            <div class="field">
+              <p class="field__label">Adresszusatz</p>
+              <div class="field-wrapper">
+                <input
+                  type="text"
+                  (keypress)="onlyNumber($event)"
+                  placeholder="Adresszusatz"
+                  formControlName="additionalAddress"
+                  class="field-wrapper__input">
+                <div class="field-wrapper__type">abc</div>
+                <div
+                  class="field-wrapper__status"
+                  [ngClass]="{'invalid-should' : !formGroup.get('additionalAddress').value}"></div>
+              </div>
+            </div>
+          </div>
+          <button type="button" (click)="newFormGroup(filialsArray, 'filials')" class="add-form-button">
+            <img src="../assets/image/plus.svg">
+          </button>
+        </div>
         <button class="submit-button" type="submit">
           Erstellen Sie eine Firma
         </button>

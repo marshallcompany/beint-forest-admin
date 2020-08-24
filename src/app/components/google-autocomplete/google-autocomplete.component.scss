@@ -11,3 +11,9 @@ input{
   padding-left: 19px;
   padding-right: 55px;
 }
+
+@media screen and (min-width: 320px) and (max-width: 374px){
+  input{
+    padding-left: 10px;
+  }
+}

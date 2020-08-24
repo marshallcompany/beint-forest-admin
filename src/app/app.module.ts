@@ -67,6 +67,7 @@ import { DateService } from './services/date.service';
 import { CompanyCreateComponent } from './pages/company/company-create/company-create.component';
 import { CompanyEditComponent } from './pages/company/company-edit/company-edit.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
+import { OptionsService } from './services/options.service';
 
 export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRoutesProvider) => {
   return new HttpMultiLoaderServiceService(http, [
@@ -146,6 +147,7 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     AuthService,
     AutocompleteDataService,
     DateService,
+    OptionsService,
     DownloadFileService,
     NotificationService,
     {

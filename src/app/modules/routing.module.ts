@@ -49,13 +49,14 @@ const authChildren: Routes = [
 const routes: Route[] = [
   { path: 'auth', component: AuthComponent, canActivate: [WelcomeGuard], children: authChildren },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard], children: profileChildren },
-  { path: '', redirectTo: '/home', pathMatch: 'full', canActivate: [AuthGuard] },
   { path: 'settings/password-reset', component: PasswordResetComponent },
   { path: 'settings/terms-of-use', component: TermsUseComponent },
   { path: 'settings/privacy-policy', component: PrivacyPolicyComponent },
   { path: 'settings/email-reset', component: EmailResetComponent },
+
   { path: 'company/create', component: CompanyCreateComponent },
   { path: 'company/edit/:id', component: CompanyEditComponent },
+  { path: '', redirectTo: 'company/create', pathMatch: 'full', canActivate: [AuthGuard] },
   { path: '**', component: NotFoundComponent }
 ];
 @NgModule({
