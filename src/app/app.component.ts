@@ -1,11 +1,6 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
-
-import { Router, NavigationEnd } from '@angular/router';
-import { AuthService } from './services/auth.service';
-import { NotificationService } from './services/notification.service';
-import { filter } from 'rxjs/operators';
+import { Component, OnInit} from '@angular/core';
 import { TranslatesService } from './services/translates.service';
-import { SwUpdate } from '@angular/service-worker';
+
 
 interface State {
   name: string;
@@ -21,9 +16,12 @@ interface State {
 })
 export class AppComponent implements OnInit {
 
-  constructor() {}
+  constructor(
+    private translatesService: TranslatesService
+  ) {}
 
   ngOnInit() {
+    this.translatesService.initLanguage();
   }
 
 }

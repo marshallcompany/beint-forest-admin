@@ -9,9 +9,9 @@ import { CropperComponent } from 'src/app/components/modal/cropper/cropper.compo
 import { GlobalErrorService } from 'src/app/services/global-error-service';
 import { NoopScrollStrategy } from '@angular/cdk/overlay';
 import { OptionsService } from 'src/app/services/options.service';
-import { ActivatedRoute } from '@angular/router';
 import { FormValidators } from 'src/app/validators/validators';
 import { CompanyService } from 'src/app/services/company.service';
+import { UploadFileService } from 'src/app/services/upload-file.service';
 
 interface DropdownOption {
   salutation: Array<string[]>;
@@ -19,11 +19,11 @@ interface DropdownOption {
 }
 
 @Component({
-  selector: 'app-company-edit',
-  templateUrl: './company-edit.component.html',
-  styleUrls: ['./company-edit.component.scss']
+  selector: 'app-job-summary-edit',
+  templateUrl: './job-summary-edit.component.html',
+  styleUrls: ['./job-summary-edit.component.scss']
 })
-export class CompanyEditComponent implements OnInit {
+export class JobSummaryEditComponent implements OnInit {
 
   public benefitsOptions$: Observable<any>;
   public dropdownOptions: DropdownOption;
@@ -31,58 +31,48 @@ export class CompanyEditComponent implements OnInit {
   public form: FormGroup;
   public generalBenefitsControl = new FormControl();
   public generalFormGroup: FormGroup;
-
   public spinner = false;
-  public imageData;
-
   constructor(
     public fb: FormBuilder,
     public companyService: CompanyService,
-    private route: ActivatedRoute,
     private notificationService: NotificationService,
     private bottomSheet: MatBottomSheet,
     private matDialog: MatDialog,
     private globalErrorService: GlobalErrorService,
-    private optionsService: OptionsService
-  ) {}
+    private optionsService: OptionsService,
+    private uploadFileService: UploadFileService
+  ) { }
 
   ngOnInit() {
-    this.formInit();
     this.init();
+    this.formInit();
   }
 
-
   public init = () => {
-    const companyData$ = this.companyService.getCompany(this.route.snapshot.paramMap.get('id'));
     const dropdownOptions$ = this.optionsService.getLocalBundle('de');
     this.benefitsOptions$ = this.optionsService.getBenefitsOptions('de', '');
-    this.spinner = true;
-    forkJoin([companyData$, dropdownOptions$])
-      .pipe(
-        map(([companyData, dropdownOptions]) => {
-          if (companyData && dropdownOptions && dropdownOptions.dropdownOptions) {
-            return {
-              companyData,
-              dropdownOptions: {
-                legal_forms: dropdownOptions.dropdownOptions.legal_forms,
-                salutation: dropdownOptions.dropdownOptions.salutation
-              }
-            };
-          }
-        })
-      )
-      .subscribe(
-        (result: any) => {
-          console.log('[ INIT ]', result);
-          this.dropdownOptions = result.dropdownOptions;
-          this.patchFormValue(result.companyData);
-          this.spinner = false;
-        },
-        error => {
-          console.log('[ INIT ERROR ]', error);
-          this.spinner = false;
+    forkJoin([dropdownOptions$])
+    .pipe(
+      map(([dropdownOptions]) => {
+        if (dropdownOptions && dropdownOptions.dropdownOptions) {
+          return {
+            dropdownOptions: {
+              legal_forms: dropdownOptions.dropdownOptions.legal_forms,
+              salutation: dropdownOptions.dropdownOptions.salutation
+            }
+          };
         }
-      );
+      })
+    )
+    .subscribe(
+      (result: any) => {
+        console.log('[ INIT ]', result);
+        this.dropdownOptions = result.dropdownOptions;
+      },
+      error => {
+        console.log('[ INIT ERROR ]', error);
+      }
+    );
   }
 
   public formInit = () => {
@@ -111,8 +101,8 @@ export class CompanyEditComponent implements OnInit {
     });
     if (this.form) {
       this.generalFormGroup = this.form.get('general') as FormGroup;
-      this.officesArray.push(this.createFormGroup({}, 'offices'));
       this.fillialsArray.push(this.createFormGroup({}, 'fillials'));
+      this.officesArray.push(this.createFormGroup({}, 'offices'));
       this.recruitersArray.push(this.createFormGroup({}, 'recruiter'));
       this.form.valueChanges
         .pipe()
@@ -150,51 +140,6 @@ export class CompanyEditComponent implements OnInit {
       formArray.push(this.createFormGroup({}, formGroupName));
     } else {
       formArray.removeAt(index);
-    }
-  }
-
-  public patchFormValue = (data) => {
-    this.form.patchValue({
-      general: {
-        companyName: data && data.company && data.company.companyName ? data.company.companyName : '',
-        legalForm: data && data.company && data.company.legalForm ? data.company.legalForm : null,
-        street: data && data.company && data.company.street ? data.company.street : '',
-        houseNumber: data && data.company && data.company.houseNumber ? data.company.houseNumber : '',
-        additionalAddress: data && data.company && data.company.additionalAddress ? data.company.additionalAddress : '',
-        location: data && data.company && data.company.location ? data.company.location : '',
-        country: data && data.company && data.company.country ? data.company.country : '',
-        place: data && data.company && data.company.place ? data.company.place : '',
-        zipCode: data && data.company && data.company.zipCode ? data.company.zipCode : '',
-        countryCode: data && data.company && data.company.countryCode ? data.company.countryCode : '',
-        cityCode: data && data.company && data.company.cityCode ? data.company.cityCode : '',
-        contactPhone: data && data.company && data.company.contactPhone ? data.company.contactPhone : '',
-        contactEmail: data && data.company && data.company.contactEmail ? data.company.contactEmail : '',
-        homepage: data && data.company && data.company.homepage ? data.company.homepage : '',
-        logo: data && data.company && data.company.logo && data.company.logo.storagePath ? data.company.logo.storagePath : '',
-      }
-    });
-    if (data && data.company && data.company.benefits) {
-      data.company.benefits.forEach(element => {
-        this.generalBenefitsArray.push(this.fb.control(element));
-      });
-    }
-    if (data && data.recruiters.length) {
-      this.recruitersArray.removeAt(0);
-      data.recruiters.forEach(element => {
-        this.recruitersArray.push(this.createFormGroup(element, 'recruiter'));
-      });
-    }
-    if (data && data.company.fillials.length) {
-      this.fillialsArray.removeAt(0);
-      data.company.fillials.forEach(element => {
-        this.fillialsArray.push(this.createFormGroup(element, 'fillials'));
-      });
-    }
-    if (data && data.company.offices.length) {
-      this.officesArray.removeAt(0);
-      data.company.offices.forEach(element => {
-        this.officesArray.push(this.createFormGroup(element, 'offices'));
-      });
     }
   }
 
@@ -240,7 +185,7 @@ export class CompanyEditComponent implements OnInit {
   }
 
   public takeProfilePicture = () => {
-    this.bottomSheet.open(ImageChoiceComponent, { scrollStrategy: new NoopScrollStrategy() }).afterDismissed()
+    this.bottomSheet.open(ImageChoiceComponent, { scrollStrategy: new NoopScrollStrategy()}).afterDismissed()
       .pipe(
         switchMap(selectedFile => {
           if (!selectedFile || selectedFile === undefined) {
@@ -282,29 +227,28 @@ export class CompanyEditComponent implements OnInit {
 
   public uploadImage = (blob: Blob, type: string) => {
     this.spinner = true;
-    this.companyService.getUS3Link()
+    this.uploadFileService.getUploadAvatarLink()
       .pipe(
         switchMap(urlS3 => {
           const arr: Array<Observable<any>> = [
-            this.companyService.uploadImage(urlS3.signedUploadUrl, blob, type),
+            // this.uploadFileService.uploadImage(urlS3.signedUploadUrl, blob, type),
             of(urlS3)
           ];
           return forkJoin(arr);
         }),
-        switchMap(([s3answer, urlS3]) => {
-          const image = {
+        switchMap(([urlS3]) => {
+          const avatar = {
             filename: type,
             mimeType: type,
             storagePath: urlS3.storagePath
           };
-          this.imageData = image;
-          return of(image);
+          return of(avatar);
         })
       )
       .subscribe(
         res => {
           console.log('UPLOAD IMAGE', res);
-          this.form.get('general').get('logo').patchValue(res.storagePath);
+          // this.form.get('general').get('logo').patchValue(res.storagePath);
           this.notificationService.notify(`Picture saved successfully!`, 'success');
           this.spinner = false;
         },
@@ -397,7 +341,7 @@ export class CompanyEditComponent implements OnInit {
     const patternPlus = /[0-9\+]/;
     const inputChar = String.fromCharCode(event.charCode);
 
-    if (!addition && event.keyCode !== 8 && !pattern.test(inputChar)) {
+    if (!addition &&  event.keyCode !== 8 && !pattern.test(inputChar)) {
       event.preventDefault();
     }
     if (addition && event.keyCode !== 8 && !patternPlus.test(inputChar)) {
@@ -410,6 +354,7 @@ export class CompanyEditComponent implements OnInit {
       company: {
         companyName: this.form.get('general').get('companyName').value,
         legalForm: this.form.get('general').get('legalForm').value,
+        location: this.form.get('general').get('location').value,
         street: this.form.get('general').get('street').value,
         houseNumber: this.form.get('general').get('houseNumber').value,
         additionalAddress: this.form.get('general').get('additionalAddress').value,
@@ -421,24 +366,23 @@ export class CompanyEditComponent implements OnInit {
         contactPhone: this.form.get('general').get('contactPhone').value,
         contactEmail: this.form.get('general').get('contactEmail').value,
         homepage: this.form.get('general').get('homepage').value,
-        logo: this.imageData,
+        logo: this.form.get('general').get('logo').value,
         benefits: this.form.get('general').get('benefits').value,
         fillials: this.fillialsArray.value,
-        offices: this.form.get('offices').value
+        offices: this.officesArray.value
       },
       recruiters: this.recruitersArray.value
     };
-    this.companyService.updateCompany(formValue, this.route.snapshot.paramMap.get('id'))
+    console.log('SUBMIT', formValue);
+    this.companyService.createCompany(formValue)
     .pipe()
     .subscribe(
       result => {
-        console.log('[ COMPANY UPDATE DONE ]', result);
+        console.log('[ CREATE COMPANY DONE ]', result);
       },
       error => {
-        console.log('[ COMPANY UPDATE ERROR ]', error);
+        console.log('[ CREATE COMPANY ERROR ]', error);
       }
     );
-    console.log('SUBMIT', formValue);
   }
-
 }

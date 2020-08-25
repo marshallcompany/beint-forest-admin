@@ -14,7 +14,7 @@
   </header>
   <section class="company-body">
     <div class="container">
-      <form *ngIf="form" [formGroup]="form" (ngSubmit)="submit()">
+      <form *ngIf="form" [formGroup]="form">
         <div class="category-wrapper" formGroupName="general">
           <h2 class="title">Allgemeines</h2>
           <div class="logo-wrapper">
@@ -484,10 +484,10 @@
             <img src="../assets/image/plus.svg">
           </button>
         </div>
-        <div class="category-wrapper" formArrayName="filials">
+        <div class="category-wrapper" formArrayName="fillials">
           <h2 class="title">Filliale</h2>
-          <div class="category-wrapper" *ngFor="let formGroup of filialsArray.controls; let i = index" [formGroupName]="i">
-            <button type="button" (click)="deleteFormGroup(filialsArray, i, 'filials')" class="remove-button">
+          <div class="category-wrapper" *ngFor="let formGroup of fillialsArray.controls; let i = index" [formGroupName]="i">
+            <button type="button" (click)="deleteFormGroup(fillialsArray, i, 'fillials')" class="remove-button">
               <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" class="remove-button__icon">
                   <path d="M0.050293 0.050293L9.94979 9.94979M9.94979 0.050293L0.0502933 9.94979" stroke-width="2"
                   stroke-linecap="round"/>
@@ -563,12 +563,12 @@
               </div>
             </div>
           </div>
-          <button type="button" (click)="newFormGroup(filialsArray, 'filials')" class="add-form-button">
+          <button type="button" (click)="newFormGroup(fillialsArray, 'fillials')" class="add-form-button">
             <img src="../assets/image/plus.svg">
           </button>
         </div>
-        <button class="submit-button" [disabled]="!form.valid" type="submit">
-          Save
+        <button class="submit-button" [disabled]="!form.valid" type="button" (click)="submit()">
+          sparen
         </button>
       </form>
     </div>

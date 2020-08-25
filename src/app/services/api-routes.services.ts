@@ -37,16 +37,15 @@ export class ApiRoutesProvider {
   public readonly UPDATE_PASSWORD: string;
   public readonly UPDATE_PASSWORD_MAIL: string;
   public readonly RESEND_VERIFICATION_EMAIL: string;
+  public readonly CREATE_SKILLS: string;
 
+  //
   public readonly GET_SKILLS: string;
   public readonly GET_BENEFITS_SCHEMA: string;
   public readonly CREATE_COMPANY: string;
   public readonly GET_COMPANY: string;
   public readonly UPDATE_COMPANY: string;
-
-  public readonly CREATE_SKILLS: string;
-
-
+  public readonly GET_LINK_S3_COMPANY: string;
   constructor() {
     this.BASE_API_URL = environment.BASE_API_URL;
     this.LOGIN = `${this.BASE_API_URL}/api/v1/auth/signin`;
@@ -90,5 +89,6 @@ export class ApiRoutesProvider {
     this.CREATE_COMPANY = `${this.BASE_API_URL}/api/v1/company/forest`;
     this.GET_COMPANY = `${this.BASE_API_URL}/api/v1/company/forest/:id`;
     this.UPDATE_COMPANY = `${this.BASE_API_URL}/api/v1/company/forest/:id`;
+    this.GET_LINK_S3_COMPANY = `${this.BASE_API_URL}/api/v1/company/forest/upload-link`;
   }
 }

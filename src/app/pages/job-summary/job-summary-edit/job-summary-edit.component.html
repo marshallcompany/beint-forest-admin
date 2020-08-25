@@ -14,7 +14,7 @@
   </header>
   <section class="company-body">
     <div class="container">
-      <form *ngIf="form" [formGroup]="form">
+      <form *ngIf="form" [formGroup]="form" (ngSubmit)="submit()">
         <div class="category-wrapper" formGroupName="general">
           <h2 class="title">Allgemeines</h2>
           <div class="logo-wrapper">
@@ -567,7 +567,7 @@
             <img src="../assets/image/plus.svg">
           </button>
         </div>
-        <button class="submit-button" [disabled]="!form.valid" type="button" (click)="submit()">
+        <button class="submit-button" [disabled]="!form.valid" type="submit">
           Erstellen Sie eine Firma
         </button>
       </form>

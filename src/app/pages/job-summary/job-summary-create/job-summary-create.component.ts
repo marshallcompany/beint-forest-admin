@@ -4,14 +4,11 @@ import { of, throwError, Observable, forkJoin } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
 import { NotificationService } from 'src/app/services/notification.service';
 import { MatBottomSheet, MatDialog } from '@angular/material';
-import { ImageChoiceComponent } from 'src/app/components/sheet/image-choice/image-choice.component';
-import { CropperComponent } from 'src/app/components/modal/cropper/cropper.component';
 import { GlobalErrorService } from 'src/app/services/global-error-service';
-import { NoopScrollStrategy } from '@angular/cdk/overlay';
 import { OptionsService } from 'src/app/services/options.service';
 import { FormValidators } from 'src/app/validators/validators';
 import { CompanyService } from 'src/app/services/company.service';
-import { UploadFileService } from 'src/app/services/upload-file.service';
+
 
 interface DropdownOption {
   salutation: Array<string[]>;
@@ -19,11 +16,11 @@ interface DropdownOption {
 }
 
 @Component({
-  selector: 'app-company-create',
-  templateUrl: './company-create.component.html',
-  styleUrls: ['./company-create.component.scss']
+  selector: 'app-job-summary-create',
+  templateUrl: './job-summary-create.component.html',
+  styleUrls: ['./job-summary-create.component.scss']
 })
-export class CompanyCreateComponent implements OnInit {
+export class JobSummaryCreateComponent implements OnInit {
 
   public benefitsOptions$: Observable<any>;
   public dropdownOptions: DropdownOption;
@@ -31,19 +28,12 @@ export class CompanyCreateComponent implements OnInit {
   public form: FormGroup;
   public generalBenefitsControl = new FormControl();
   public generalFormGroup: FormGroup;
-
-  public imageData;
   public spinner = false;
-
   constructor(
     public fb: FormBuilder,
     public companyService: CompanyService,
     private notificationService: NotificationService,
-    private bottomSheet: MatBottomSheet,
-    private matDialog: MatDialog,
-    private globalErrorService: GlobalErrorService,
     private optionsService: OptionsService,
-    private uploadFileService: UploadFileService
   ) { }
 
   ngOnInit() {
@@ -80,41 +70,28 @@ export class CompanyCreateComponent implements OnInit {
 
   public formInit = () => {
     this.form = this.fb.group({
-      general: this.fb.group({
-        companyName: ['', Validators.required],
-        legalForm: [null, Validators.required],
-        street: ['', Validators.required],
-        houseNumber: ['', Validators.required],
-        additionalAddress: ['', Validators.required],
-        location: ['', Validators.required],
-        country: ['', Validators.required],
-        place: ['', Validators.required],
-        zipCode: ['', Validators.required],
-        countryCode: ['', Validators.required],
-        cityCode: ['', Validators.required],
-        contactPhone: ['', Validators.required],
-        contactEmail: ['', [Validators.required, FormValidators.emailValidator]],
-        homepage: ['', Validators.required],
-        logo: [''],
-        benefits: this.fb.array([], Validators.required)
-      }),
-      recruiters: this.fb.array([]),
-      offices: this.fb.array([]),
-      fillials: this.fb.array([])
+      a1: [],
+      a2: [],
+      a3: [],
+      a4: [],
+      a5: [],
+      a6: [],
+      a7: [],
+      a8: [],
+      a9: [],
+      a10: [],
+      a11: [],
+      a12: [],
     });
-    if (this.form) {
-      this.generalFormGroup = this.form.get('general') as FormGroup;
-      this.fillialsArray.push(this.createFormGroup({}, 'fillials'));
-      this.officesArray.push(this.createFormGroup({}, 'offices'));
-      this.recruitersArray.push(this.createFormGroup({}, 'recruiter'));
-      this.form.valueChanges
-        .pipe()
-        .subscribe(
-          () => {
-            this.generalBenefitsControl.patchValue(this.generalBenefitsArray.value.length !== 0 ? this.generalBenefitsArray.value : ['']);
-          }
-        );
-    }
+    // if (this.form) {
+    //   this.form.valueChanges
+    //     .pipe()
+    //     .subscribe(
+    //       () => {
+    //         this.generalBenefitsControl.patchValue(this.generalBenefitsArray.value.length !== 0 ? this.generalBenefitsArray.value : ['']);
+    //       }
+    //     );
+    // }
   }
 
   public get generalBenefitsArray(): FormArray {
@@ -187,87 +164,6 @@ export class CompanyCreateComponent implements OnInit {
     }
   }
 
-  public takeProfilePicture = () => {
-    this.bottomSheet.open(ImageChoiceComponent, { scrollStrategy: new NoopScrollStrategy()}).afterDismissed()
-      .pipe(
-        switchMap(selectedFile => {
-          if (!selectedFile || selectedFile === undefined) {
-            return throwError('NO_FILE');
-          }
-          if (selectedFile.target.files[0] && selectedFile.target.files[0].size > 5000000) {
-            return throwError(new Error('Sorry, the maximum file size is 5MB'));
-          }
-          return of(selectedFile);
-        }),
-        switchMap(targetFile => {
-          return this.openCropperDialog(targetFile);
-        }),
-        switchMap(cropperValue => {
-          if (!cropperValue || cropperValue === undefined) {
-            return throwError('CROPPER_CLOSED');
-          }
-          return of(cropperValue);
-        }),
-        switchMap((base64: string) => {
-          return fetch(base64).then(base64Url => base64Url.blob());
-        })
-      )
-      .subscribe(
-        res => {
-          console.log('CROPPER EVENT', res);
-          this.uploadImage(res, res.type);
-        },
-        err => {
-          console.log('ERROR', err);
-          if (err === 'NO_FILE' || err === 'CROPPER_CLOSED') {
-            return;
-          } else {
-            this.globalErrorService.handleError(err);
-          }
-        }
-      );
-  }
-
-  public uploadImage = (blob: Blob, type: string) => {
-    this.spinner = true;
-    this.companyService.getUS3Link()
-      .pipe(
-        switchMap(urlS3 => {
-          const arr: Array<Observable<any>> = [
-            this.companyService.uploadImage(urlS3.signedUploadUrl, blob, type),
-            of(urlS3)
-          ];
-          return forkJoin(arr);
-        }),
-        switchMap(([s3answer, urlS3]) => {
-          const image = {
-            filename: type,
-            mimeType: type,
-            storagePath: urlS3.storagePath
-          };
-          this.imageData = image;
-          return of(image);
-        })
-      )
-      .subscribe(
-        res => {
-          console.log('UPLOAD IMAGE', res);
-          this.form.get('general').get('logo').patchValue(res.storagePath);
-          this.notificationService.notify(`Picture saved successfully!`, 'success');
-          this.spinner = false;
-        },
-        err => {
-          console.log('UPLOAD IMAGE ERROR', err);
-          this.globalErrorService.handleError(err);
-          this.spinner = false;
-        }
-      );
-  }
-
-  openCropperDialog(fileData): Observable<any> {
-    return this.matDialog.open(CropperComponent, { data: fileData, panelClass: 'cropper-modal', scrollStrategy: new NoopScrollStrategy() }).afterClosed();
-  }
-
   public googleAddressChange = (data, formGroup: FormGroup, fields: Array<string>) => {
     of(data)
       .pipe(
@@ -279,18 +175,9 @@ export class CompanyCreateComponent implements OnInit {
           return of(value);
         }),
         switchMap(googleAddress => {
-          if (!googleAddress.city) {
-            return throwError('[NO CITY]');
-          }
-          if (!googleAddress.zipCode) {
-            return throwError('[NO POSTAL CODE]');
-          }
           return of(
             {
-              place: googleAddress.city,
-              country: googleAddress.country,
-              zipCode: googleAddress.zipCode,
-              location: googleAddress.value
+              a3: googleAddress.value
             }
           );
         })
@@ -301,12 +188,6 @@ export class CompanyCreateComponent implements OnInit {
           this.updateFormControl(formGroup, fields, result);
         },
         error => {
-          if (error === '[NO POSTAL CODE]') {
-            this.notificationService.notify('Standortinformationen unvollständig, fehlende Postleitzahl');
-          }
-          if (error === '[NO CITY]') {
-            this.notificationService.notify('Standortinformationen unvollständig, fehlende Stadt');
-          }
           console.log('[ GOOGLE ADDRESS ERROR ]', error);
         }
       );
@@ -353,40 +234,6 @@ export class CompanyCreateComponent implements OnInit {
     }
   }
   public submit = () => {
-    let formValue: object;
-    formValue = {
-      company: {
-        companyName: this.form.get('general').get('companyName').value,
-        legalForm: this.form.get('general').get('legalForm').value,
-        location: this.form.get('general').get('location').value,
-        street: this.form.get('general').get('street').value,
-        houseNumber: this.form.get('general').get('houseNumber').value,
-        additionalAddress: this.form.get('general').get('additionalAddress').value,
-        zipCode: this.form.get('general').get('zipCode').value,
-        place: this.form.get('general').get('place').value,
-        country: this.form.get('general').get('country').value,
-        countryCode: this.form.get('general').get('countryCode').value,
-        cityCode: this.form.get('general').get('cityCode').value,
-        contactPhone: this.form.get('general').get('contactPhone').value,
-        contactEmail: this.form.get('general').get('contactEmail').value,
-        homepage: this.form.get('general').get('homepage').value,
-        logo: this.imageData,
-        benefits: this.form.get('general').get('benefits').value,
-        fillials: this.fillialsArray.value,
-        offices: this.officesArray.value
-      },
-      recruiters: this.recruitersArray.value
-    };
-    this.companyService.createCompany(formValue)
-    .pipe()
-    .subscribe(
-      result => {
-        console.log('[ CREATE COMPANY DONE ]', result);
-      },
-      error => {
-        console.log('[ CREATE COMPANY ERROR ]', error);
-      }
-    );
-    console.log('SUBMIT', formValue);
+    console.log('SUBMIT');
   }
 }
