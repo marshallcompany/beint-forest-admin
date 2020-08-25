@@ -9,8 +9,6 @@ import { ApiRoutesProvider } from './services/api-routes.services';
 import { AuthService } from './services/auth.service';
 import { DownloadFileService } from './services/download-file.service';
 
-import { Interceptors } from './interceptors/index';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -154,8 +152,6 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
       provide: ErrorHandler,
       useClass: GlobalErrorService
     },
-    // { provide: HTTP_INTERCEPTORS, useClass: Interceptors.contentType, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: Interceptors.accessToken, multi: true },
   ],
   bootstrap: [AppComponent],
   entryComponents: [

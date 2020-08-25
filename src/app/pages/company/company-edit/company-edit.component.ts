@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { of, throwError, Observable, forkJoin } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
 import { NotificationService } from 'src/app/services/notification.service';
@@ -10,6 +10,13 @@ import { GlobalErrorService } from 'src/app/services/global-error-service';
 import { NoopScrollStrategy } from '@angular/cdk/overlay';
 import { OptionsService } from 'src/app/services/options.service';
 import { ActivatedRoute } from '@angular/router';
+import { FormValidators } from 'src/app/validators/validators';
+import { CompanyService } from 'src/app/services/company.service';
+
+interface DropdownOption {
+  salutation: Array<string[]>;
+  legal_forms: Array<string[]>;
+}
 
 @Component({
   selector: 'app-company-edit',
@@ -18,91 +25,24 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CompanyEditComponent implements OnInit {
 
-  public data = {
-    general: {
-      companyName: 'companyName',
-      legalForm: 'Bahncard ',
-      street: 'street',
-      houseNumber: 'houseNumber',
-      additionalAddress: 'additionalAddress',
-      location: 'location',
-      country: 'country',
-      place: 'place',
-      zipCode: 'zipCode',
-      countryCode: 'ccountry',
-      cityCode: '2',
-      contactPhone: '3',
-      contactEmail: '4',
-      homepage: '5',
-      logo: '',
-      benefits: ['Anbindung öffentlicher Nahverkehr', 'Betriebs-Kita', 'Barrierefreiheit']
-    },
-    offices: {
-      name: '1',
-      street: '1',
-      houseNumber: '1',
-      additionalAddress: '1',
-      country: '1',
-      place: '1',
-      zipCode: '1',
-      location: '1',
-    },
-    recruiters: [
-      {
-        salutation: null,
-        title: '2',
-        firstName: '2',
-        lastName: '2',
-        jobTitle: '2',
-        countryCode: '2',
-        cityCode: '2',
-        phoneNumberMobile: '2',
-        email: '2'
-      },
-      {
-        salutation: null,
-        title: '3',
-        firstName: '3',
-        lastName: '3',
-        jobTitle: '3',
-        countryCode: '3',
-        cityCode: '3',
-        phoneNumberMobile: '3',
-        email: '3'
-      }
-    ],
-    filials: [
-      {
-        name: '4',
-        street: '4',
-        houseNumber: '4',
-        additionalAddress: '4',
-        country: '4',
-        place: '4',
-        location: '4',
-        zipCode: '4'
-      }
-    ]
-  };
   public benefitsOptions$: Observable<any>;
+  public dropdownOptions: DropdownOption;
 
   public form: FormGroup;
   public generalBenefitsControl = new FormControl();
   public generalFormGroup: FormGroup;
-  public officesFormGroup: FormGroup;
-
+  public spinner = false;
 
   constructor(
     public fb: FormBuilder,
+    public companyService: CompanyService,
     private route: ActivatedRoute,
     private notificationService: NotificationService,
     private bottomSheet: MatBottomSheet,
     private matDialog: MatDialog,
     private globalErrorService: GlobalErrorService,
     private optionsService: OptionsService
-  ) {
-    console.log('[ GET URL PARAMS ]', this.route.snapshot.paramMap.get('id'));
-  }
+  ) {}
 
   ngOnInit() {
     this.formInit();
@@ -111,22 +51,28 @@ export class CompanyEditComponent implements OnInit {
 
 
   public init = () => {
+    const companyData$ = this.companyService.getCompany(this.route.snapshot.paramMap.get('id'));
     const dropdownOptions$ = this.optionsService.getLocalBundle('de');
     this.benefitsOptions$ = this.optionsService.getBenefitsOptions('de', '');
-    forkJoin([dropdownOptions$])
+    forkJoin([companyData$, dropdownOptions$])
       .pipe(
-        map(([dropdownOptions]) => {
-          if (dropdownOptions && dropdownOptions.dropdownOptions) {
+        map(([companyData, dropdownOptions]) => {
+          if (companyData && dropdownOptions && dropdownOptions.dropdownOptions) {
             return {
-              dropdownOptions: dropdownOptions.dropdownOptions
+              companyData,
+              dropdownOptions: {
+                legal_forms: dropdownOptions.dropdownOptions.legal_forms,
+                salutation: dropdownOptions.dropdownOptions.salutation
+              }
             };
           }
         })
       )
       .subscribe(
-        result => {
+        (result: any) => {
           console.log('[ INIT ]', result);
-          this.patchFormValue(this.data);
+          this.dropdownOptions = result.dropdownOptions;
+          // this.patchFormValue(data);
         },
         error => {
           console.log('[ INIT ERROR ]', error);
@@ -137,39 +83,30 @@ export class CompanyEditComponent implements OnInit {
   public formInit = () => {
     this.form = this.fb.group({
       general: this.fb.group({
-        companyName: [''],
-        legalForm: [null],
-        street: [''],
-        houseNumber: [''],
-        additionalAddress: [''],
-        location: [''],
-        country: [''],
-        place: [''],
-        zipCode: [''],
-        countryCode: [''],
-        cityCode: [''],
-        contactPhone: [''],
-        contactEmail: [''],
-        homepage: [''],
+        companyName: ['', Validators.required],
+        legalForm: [null, Validators.required],
+        street: ['', Validators.required],
+        houseNumber: ['', Validators.required],
+        additionalAddress: ['', Validators.required],
+        location: ['', Validators.required],
+        country: ['', Validators.required],
+        place: ['', Validators.required],
+        zipCode: ['', Validators.required],
+        countryCode: ['', Validators.required],
+        cityCode: ['', Validators.required],
+        contactPhone: ['', Validators.required],
+        contactEmail: ['', [Validators.required, FormValidators.emailValidator]],
+        homepage: ['', Validators.required],
         logo: [''],
-        benefits: this.fb.array([])
+        benefits: this.fb.array([], Validators.required)
       }),
       recruiters: this.fb.array([]),
-      offices: this.fb.group({
-        name: [''],
-        street: [''],
-        houseNumber: [''],
-        additionalAddress: [''],
-        country: [''],
-        place: [''],
-        zipCode: [''],
-        location: [''],
-      }),
+      offices: this.fb.array([]),
       filials: this.fb.array([])
     });
     if (this.form) {
       this.generalFormGroup = this.form.get('general') as FormGroup;
-      this.officesFormGroup = this.form.get('offices') as FormGroup;
+      this.officesArray.push(this.createFormGroup({}, 'offices'));
       this.filialsArray.push(this.createFormGroup({}, 'filials'));
       this.recruitersArray.push(this.createFormGroup({}, 'recruiter'));
       this.form.valueChanges
@@ -188,6 +125,10 @@ export class CompanyEditComponent implements OnInit {
 
   public get filialsArray(): FormArray {
     return this.form.get('filials') as FormArray;
+  }
+
+  public get officesArray(): FormArray {
+    return this.form.get('offices') as FormArray;
   }
 
   public get recruitersArray(): FormArray {
@@ -225,16 +166,6 @@ export class CompanyEditComponent implements OnInit {
         contactEmail: data && data.general && data.general.contactEmail ? data.general.contactEmail : '',
         homepage: data && data.general && data.general.homepage ? data.general.homepage : '',
         logo: data && data.general && data.general.logo ? data.general.logo : '',
-      },
-      offices: {
-        name: data && data.offices && data.offices.name ? data.offices.name : '',
-        street: data && data.offices && data.offices.street ? data.offices.street : '',
-        houseNumber: data && data.offices && data.offices.houseNumber ? data.offices.houseNumber : '',
-        additionalAddress: data && data.offices && data.offices.additionalAddress ? data.offices.additionalAddress : '',
-        country: data && data.offices && data.offices.country ? data.offices.country : '',
-        place: data && data.offices && data.offices.place ? data.offices.place : '',
-        zipCode: data && data.offices && data.offices.zipCode ? data.offices.zipCode : '',
-        location: data && data.offices && data.offices.location ? data.offices.location : '',
       }
     });
     if (data && data.general && data.general.benefits) {
@@ -252,6 +183,12 @@ export class CompanyEditComponent implements OnInit {
       this.filialsArray.removeAt(0);
       data.filials.forEach(element => {
         this.filialsArray.push(this.createFormGroup(element, 'filials'));
+      });
+    }
+    if (data && data.offices.length) {
+      this.officesArray.removeAt(0);
+      data.offices.forEach(element => {
+        this.officesArray.push(this.createFormGroup(element, 'offices'));
       });
     }
   }
@@ -281,10 +218,22 @@ export class CompanyEditComponent implements OnInit {
           location: [data && data.location ? data.location : ''],
           zipCode: [data && data.zipCode ? data.zipCode : '']
         });
+      case 'offices':
+        return this.fb.group({
+          name: [data && data.name ? data.name : ''],
+          street: [data && data.street ? data.street : ''],
+          houseNumber: [data && data.houseNumber ? data.houseNumber : ''],
+          additionalAddress: [data && data.additionalAddress ? data.additionalAddress : ''],
+          country: [data && data.country ? data.country : ''],
+          place: [data && data.place ? data.place : ''],
+          location: [data && data.location ? data.location : ''],
+          zipCode: [data && data.zipCode ? data.zipCode : '']
+        });
       default:
         break;
     }
   }
+
   public takeProfilePicture = () => {
     this.bottomSheet.open(ImageChoiceComponent, { scrollStrategy: new NoopScrollStrategy() }).afterDismissed()
       .pipe(
@@ -307,14 +256,13 @@ export class CompanyEditComponent implements OnInit {
           return of(cropperValue);
         }),
         switchMap((base64: string) => {
-          this.form.get('general').get('logo').patchValue(base64);
-          return of(base64);
-          // return fetch(base64).then(base64Url => base64Url.blob());
+          return fetch(base64).then(base64Url => base64Url.blob());
         })
       )
       .subscribe(
         res => {
           console.log('CROPPER EVENT', res);
+          // this.uploadImage(res, res.type);
         },
         err => {
           console.log('ERROR', err);
@@ -326,6 +274,41 @@ export class CompanyEditComponent implements OnInit {
         }
       );
   }
+
+  // public uploadImage = (blob: Blob, type: string) => {
+  //   this.spinner = true;
+  //   this.uploadFileService.getUploadAvatarLink()
+  //     .pipe(
+  //       switchMap(urlS3 => {
+  //         const arr: Array<Observable<any>> = [
+  //           // this.uploadFileService.uploadImage(urlS3.signedUploadUrl, blob, type),
+  //           of(urlS3)
+  //         ];
+  //         return forkJoin(arr);
+  //       }),
+  //       switchMap(([urlS3]) => {
+  //         const avatar = {
+  //           filename: type,
+  //           mimeType: type,
+  //           storagePath: urlS3.storagePath
+  //         };
+  //         return of(avatar);
+  //       })
+  //     )
+  //     .subscribe(
+  //       res => {
+  //         console.log('UPLOAD IMAGE', res);
+  //         // this.form.get('general').get('logo').patchValue(res.storagePath);
+  //         this.notificationService.notify(`Picture saved successfully!`, 'success');
+  //         this.spinner = false;
+  //       },
+  //       err => {
+  //         console.log('UPLOAD IMAGE ERROR', err);
+  //         this.globalErrorService.handleError(err);
+  //         this.spinner = false;
+  //       }
+  //     );
+  // }
 
   openCropperDialog(fileData): Observable<any> {
     return this.matDialog.open(CropperComponent, { data: fileData, panelClass: 'cropper-modal', scrollStrategy: new NoopScrollStrategy() }).afterClosed();

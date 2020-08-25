@@ -21,10 +21,10 @@
             <div>
               <h2 class="logo-wrapper__title">Firmenlogo</h2>
               <div class="logo">
-                <!-- <div class="profile-avatar-spinner">
+                <div class="logo-spinner" *ngIf="spinner">
                   <img src="../assets/image/spinner.svg"
-                        class="profile-avatar-spinner__item">
-                </div> -->
+                        class="logo-spinner__icon">
+                </div>
                 <div class="logo-default">
                   <svg viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M4.5 3C3.67157 3 3 3.67157 3 4.5V25.5C3 26.1432 3.40485 26.6919 3.97363 26.905L19.9393 10.9393C20.5251 10.3536 21.4749 10.3536 22.0607 10.9393L27 15.8787V4.5C27 3.67157 26.3284 3 25.5 3H4.5ZM30 19.4985V4.5C30 2.01472 27.9853 0 25.5 0H4.5C2.01472 0 0 2.01472 0 4.5V25.5C0 27.9853 2.01472 30 4.5 30H25.5C27.9853 30 30 27.9853 30 25.5V19.5015C30 19.5005 30 19.4995 30 19.4985ZM27 20.1213L21 14.1213L8.12132 27H25.5C26.3284 27 27 26.3284 27 25.5V20.1213ZM9.75 9C9.33579 9 9 9.33579 9 9.75C9 10.1642 9.33579 10.5 9.75 10.5C10.1642 10.5 10.5 10.1642 10.5 9.75C10.5 9.33579 10.1642 9 9.75 9ZM6 9.75C6 7.67893 7.67893 6 9.75 6C11.8211 6 13.5 7.67893 13.5 9.75C13.5 11.8211 11.8211 13.5 9.75 13.5C7.67893 13.5 6 11.8211 6 9.75Z"/>
@@ -74,7 +74,7 @@
                 formControlName="legalForm"
                 class="custom-select">
                 <ng-option
-                  *ngFor="let option of benefitsOptions$ | async"
+                  *ngFor="let option of dropdownOptions?.legal_forms"
                   [value]="option">
                   {{option}}
                 </ng-option>
@@ -193,7 +193,7 @@
               <div class="field-wrapper__type">abc</div>
               <div
                 class="field-wrapper__status"
-                [ngClass]="{'invalid-should' : !form.get('general').get('contactEmail').value}"></div>
+                [ngClass]="{'invalid-should' : !form.get('general').get('contactEmail').value || form.get('general').get('contactEmail').hasError('invalidEmailAddress')}"></div>
             </div>
           </div>
           <div class="field">
@@ -271,7 +271,7 @@
                   formControlName="salutation"
                   class="custom-select">
                   <ng-option
-                    *ngFor="let option of dropdownOptions"
+                    *ngFor="let option of dropdownOptions?.salutation"
                     [value]="option">
                     {{option}}
                   </ng-option>
@@ -393,7 +393,7 @@
                 <div class="field-wrapper__type">abc</div>
                 <div
                   class="field-wrapper__status"
-                  [ngClass]="{'invalid-should' : !item.get('email').value}"></div>
+                  [ngClass]="{'invalid-should' : !item.get('email').value || item.get('email').hasError('invalidEmailAddress')}"></div>
               </div>
             </div>
           </div>
@@ -401,76 +401,88 @@
             <img src="../assets/image/plus.svg">
           </button>
         </div>
-        <div class="category-wrapper" formGroupName="offices">
+        <div class="category-wrapper" formArrayName="offices">
           <h2 class="title">Niederlassung</h2>
-          <div class="field">
-            <p class="field__label">Niederlassung</p>
-            <div class="field-wrapper">
-              <input
-                type="text"
-                placeholder="Niederlassung"
-                formControlName="name"
-                class="field-wrapper__input">
-              <div class="field-wrapper__type">abc</div>
-              <div
-                class="field-wrapper__status"
-                [ngClass]="{'invalid-should' : !form.get('offices').get('name').value}"></div>
+          <div class="category-wrapper" *ngFor="let formGroup of officesArray.controls; let i = index" [formGroupName]="i">
+            <button type="button" (click)="deleteFormGroup(officesArray, i, 'offices')" class="remove-button">
+              <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" class="remove-button__icon">
+                  <path d="M0.050293 0.050293L9.94979 9.94979M9.94979 0.050293L0.0502933 9.94979" stroke-width="2"
+                  stroke-linecap="round"/>
+              </svg>
+            </button>
+            <h3 class="sub-title">Niederlassung {{i + 1}}</h3>
+            <div class="field">
+              <p class="field__label">Niederlassung</p>
+              <div class="field-wrapper">
+                <input
+                  type="text"
+                  placeholder="Niederlassung"
+                  formControlName="name"
+                  class="field-wrapper__input">
+                <div class="field-wrapper__type">abc</div>
+                <div
+                  class="field-wrapper__status"
+                  [ngClass]="{'invalid-should' : !formGroup.get('name').value}"></div>
+              </div>
+            </div>
+            <app-google-autocomplete
+              class="field"
+              [formControlValue]="formGroup.get('location').value"
+              [fieldStatus]="'invalid-should'"
+              [validation]="'place/zipCode'"
+              [fieldLabel]="'Ort'"
+              [fieldPlaceholder]="'Ort'"
+              (setAddress)="googleAddressChange($event, formGroup, ['country', 'zipCode', 'place', 'location'])" 
+              adressType="(regions)">
+            </app-google-autocomplete>
+            <div class="field">
+              <p class="field__label">Straße</p>
+              <div class="field-wrapper">
+                <input
+                  type="text"
+                  placeholder="Straße"
+                  formControlName="street"
+                  class="field-wrapper__input">
+                <div class="field-wrapper__type">abc</div>
+                <div
+                  class="field-wrapper__status"
+                  [ngClass]="{'invalid-should' : !formGroup.get('street').value}"></div>
+              </div>
+            </div>
+            <div class="field">
+              <p class="field__label">Hausnummer</p>
+              <div class="field-wrapper">
+                <input
+                  type="text"
+                  (keypress)="onlyNumber($event)"
+                  placeholder="Hausnummer"
+                  formControlName="houseNumber"
+                  class="field-wrapper__input">
+                <div class="field-wrapper__type">abc</div>
+                <div
+                  class="field-wrapper__status"
+                  [ngClass]="{'invalid-should' : !formGroup.get('houseNumber').value}"></div>
+              </div>
+            </div>
+            <div class="field">
+              <p class="field__label">Adresszusatz</p>
+              <div class="field-wrapper">
+                <input
+                  type="text"
+                  (keypress)="onlyNumber($event)"
+                  placeholder="Adresszusatz"
+                  formControlName="additionalAddress"
+                  class="field-wrapper__input">
+                <div class="field-wrapper__type">abc</div>
+                <div
+                  class="field-wrapper__status"
+                  [ngClass]="{'invalid-should' : !formGroup.get('additionalAddress').value}"></div>
+              </div>
             </div>
           </div>
-          <app-google-autocomplete
-            class="field"
-            [formControlValue]="form.get('offices').get('location').value"
-            [fieldStatus]="'invalid-should'"
-            [validation]="'place/zipCode'"
-            [fieldLabel]="'Ort'"
-            [fieldPlaceholder]="'Ort'"
-            (setAddress)="googleAddressChange($event, officesFormGroup, ['country', 'zipCode', 'place', 'location'])" 
-            adressType="(regions)">
-          </app-google-autocomplete>
-          <div class="field">
-            <p class="field__label">Straße</p>
-            <div class="field-wrapper">
-              <input
-                type="text"
-                placeholder="Straße"
-                formControlName="street"
-                class="field-wrapper__input">
-              <div class="field-wrapper__type">abc</div>
-              <div
-                class="field-wrapper__status"
-                [ngClass]="{'invalid-should' : !form.get('offices').get('street').value}"></div>
-            </div>
-          </div>
-          <div class="field">
-            <p class="field__label">Hausnummer</p>
-            <div class="field-wrapper">
-              <input
-                type="text"
-                (keypress)="onlyNumber($event)"
-                placeholder="Hausnummer"
-                formControlName="houseNumber"
-                class="field-wrapper__input">
-              <div class="field-wrapper__type">abc</div>
-              <div
-                class="field-wrapper__status"
-                [ngClass]="{'invalid-should' : !form.get('offices').get('houseNumber').value}"></div>
-            </div>
-          </div>
-          <div class="field">
-            <p class="field__label">Adresszusatz</p>
-            <div class="field-wrapper">
-              <input
-                type="text"
-                (keypress)="onlyNumber($event)"
-                placeholder="Adresszusatz"
-                formControlName="additionalAddress"
-                class="field-wrapper__input">
-              <div class="field-wrapper__type">abc</div>
-              <div
-                class="field-wrapper__status"
-                [ngClass]="{'invalid-should' : !form.get('offices').get('additionalAddress').value}"></div>
-            </div>
-          </div>
+          <button type="button" (click)="newFormGroup(officesArray, 'offices')" class="add-form-button">
+            <img src="../assets/image/plus.svg">
+          </button>
         </div>
         <div class="category-wrapper" formArrayName="filials">
           <h2 class="title">Filliale</h2>
@@ -555,8 +567,8 @@
             <img src="../assets/image/plus.svg">
           </button>
         </div>
-        <button class="submit-button" type="submit">
-          Sparen
+        <button class="submit-button" [disabled]="!form.valid" type="submit">
+          Save
         </button>
       </form>
     </div>

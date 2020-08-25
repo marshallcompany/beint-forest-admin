@@ -17,7 +17,6 @@ export class ApiRoutesProvider {
   public readonly GET_LOCAL_BUNDLE: string;
   public readonly GET_BUSINESS_SCHEMA: string;
   public readonly GET_INDUSTRY_SCHEMA: string;
-  public readonly GET_BENEFITS_SCHEMA: string;
   public readonly GET_TOWNS_SCHEMA: string;
   public readonly GET_COUNTRIES_SCHEMA: string;
   public readonly GET_EDUCATION_SCHEMA: string;
@@ -40,6 +39,11 @@ export class ApiRoutesProvider {
   public readonly RESEND_VERIFICATION_EMAIL: string;
 
   public readonly GET_SKILLS: string;
+  public readonly GET_BENEFITS_SCHEMA: string;
+  public readonly CREATE_COMPANY: string;
+  public readonly GET_COMPANY: string;
+  public readonly UPDATE_COMPANY: string;
+
   public readonly CREATE_SKILLS: string;
 
 
@@ -53,10 +57,9 @@ export class ApiRoutesProvider {
     this.GET_CANDIDATE_CV = `${this.BASE_API_URL}/api/v1/profile/pdf`;
     this.GET_LANG = `${this.BASE_API_URL}/api/v1/i18n/system-messages`;
     this.GET_QUESTION = `${this.BASE_API_URL}/api/v1/profile/questions`;
-    this.GET_LOCAL_BUNDLE = `${this.BASE_API_URL}/api/v1/i18n/locale-bundle/:lang`;
+
     this.GET_BUSINESS_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/businessBranches/:lang`;
     this.GET_INDUSTRY_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/industryBranches/:lang`;
-    this.GET_BENEFITS_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/benefits/:lang`;
     this.GET_TOWNS_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/towns/:lang`;
     this.GET_COUNTRIES_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/countries/:lang`;
     this.GET_ZIP_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/zipCodes/:lang`;
@@ -77,8 +80,15 @@ export class ApiRoutesProvider {
     this.UPDATE_PASSWORD = `${this.BASE_API_URL}/api/v1/auth/password`;
     this.UPDATE_PASSWORD_MAIL = `${this.BASE_API_URL}/api/v1/auth/password/reset`;
     this.RESEND_VERIFICATION_EMAIL = `${this.BASE_API_URL}/api/v1/auth/resend-verification-email`;
-
-    this.GET_SKILLS = `${this.BASE_API_URL}/api/v1/skills/:lang`;
     this.CREATE_SKILLS = `${this.BASE_API_URL}/api/v1/skills/:lang`;
+
+    // OPTIONS
+    this.GET_SKILLS = `${this.BASE_API_URL}/api/v1/skills/:lang`;
+    this.GET_BENEFITS_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/benefits/:lang`;
+    this.GET_LOCAL_BUNDLE = `${this.BASE_API_URL}/api/v1/i18n/locale-bundle/:lang`;
+    // COMPANY
+    this.CREATE_COMPANY = `${this.BASE_API_URL}/api/v1/company/forest`;
+    this.GET_COMPANY = `${this.BASE_API_URL}/api/v1/company/forest/:id`;
+    this.UPDATE_COMPANY = `${this.BASE_API_URL}/api/v1/company/forest/:id`;
   }
 }

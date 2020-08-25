@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { of, throwError, Observable, forkJoin } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
 import { NotificationService } from 'src/app/services/notification.service';
@@ -9,6 +9,14 @@ import { CropperComponent } from 'src/app/components/modal/cropper/cropper.compo
 import { GlobalErrorService } from 'src/app/services/global-error-service';
 import { NoopScrollStrategy } from '@angular/cdk/overlay';
 import { OptionsService } from 'src/app/services/options.service';
+import { FormValidators } from 'src/app/validators/validators';
+import { CompanyService } from 'src/app/services/company.service';
+import { UploadFileService } from 'src/app/services/upload-file.service';
+
+interface DropdownOption {
+  salutation: Array<string[]>;
+  legal_forms: Array<string[]>;
+}
 
 @Component({
   selector: 'app-company-create',
@@ -18,24 +26,26 @@ import { OptionsService } from 'src/app/services/options.service';
 export class CompanyCreateComponent implements OnInit {
 
   public benefitsOptions$: Observable<any>;
+  public dropdownOptions: DropdownOption;
 
   public form: FormGroup;
   public generalBenefitsControl = new FormControl();
   public generalFormGroup: FormGroup;
-  public officesFormGroup: FormGroup;
-
+  public spinner = false;
   constructor(
     public fb: FormBuilder,
+    public companyService: CompanyService,
     private notificationService: NotificationService,
     private bottomSheet: MatBottomSheet,
     private matDialog: MatDialog,
     private globalErrorService: GlobalErrorService,
-    private optionsService: OptionsService
+    private optionsService: OptionsService,
+    private uploadFileService: UploadFileService
   ) { }
 
   ngOnInit() {
-    this.formInit();
     this.init();
+    this.formInit();
   }
 
   public init = () => {
@@ -46,14 +56,18 @@ export class CompanyCreateComponent implements OnInit {
       map(([dropdownOptions]) => {
         if (dropdownOptions && dropdownOptions.dropdownOptions) {
           return {
-            dropdownOptions: dropdownOptions.dropdownOptions
+            dropdownOptions: {
+              legal_forms: dropdownOptions.dropdownOptions.legal_forms,
+              salutation: dropdownOptions.dropdownOptions.salutation
+            }
           };
         }
       })
     )
     .subscribe(
-      result => {
+      (result: any) => {
         console.log('[ INIT ]', result);
+        this.dropdownOptions = result.dropdownOptions;
       },
       error => {
         console.log('[ INIT ERROR ]', error);
@@ -64,40 +78,31 @@ export class CompanyCreateComponent implements OnInit {
   public formInit = () => {
     this.form = this.fb.group({
       general: this.fb.group({
-        companyName: [''],
-        legalForm: [null],
-        street: [''],
-        houseNumber: [''],
-        additionalAddress: [''],
-        location: [''],
-        country: [''],
-        place: [''],
-        zipCode: [''],
-        countryCode: [''],
-        cityCode: [''],
-        contactPhone: [''],
-        contactEmail: [''],
-        homepage: [''],
+        companyName: ['', Validators.required],
+        legalForm: [null, Validators.required],
+        street: ['', Validators.required],
+        houseNumber: ['', Validators.required],
+        additionalAddress: ['', Validators.required],
+        location: ['', Validators.required],
+        country: ['', Validators.required],
+        place: ['', Validators.required],
+        zipCode: ['', Validators.required],
+        countryCode: ['', Validators.required],
+        cityCode: ['', Validators.required],
+        contactPhone: ['', Validators.required],
+        contactEmail: ['', [Validators.required, FormValidators.emailValidator]],
+        homepage: ['', Validators.required],
         logo: [''],
-        benefits: this.fb.array([])
+        benefits: this.fb.array([], Validators.required)
       }),
       recruiters: this.fb.array([]),
-      offices: this.fb.group({
-        name: [''],
-        street: [''],
-        houseNumber: [''],
-        additionalAddress: [''],
-        country: [''],
-        place: [''],
-        zipCode: [''],
-        location: [''],
-      }),
+      offices: this.fb.array([]),
       filials: this.fb.array([])
     });
     if (this.form) {
       this.generalFormGroup = this.form.get('general') as FormGroup;
-      this.officesFormGroup = this.form.get('offices') as FormGroup;
       this.filialsArray.push(this.createFormGroup({}, 'filials'));
+      this.officesArray.push(this.createFormGroup({}, 'offices'));
       this.recruitersArray.push(this.createFormGroup({}, 'recruiter'));
       this.form.valueChanges
         .pipe()
@@ -115,6 +120,10 @@ export class CompanyCreateComponent implements OnInit {
 
   public get filialsArray(): FormArray {
     return this.form.get('filials') as FormArray;
+  }
+
+  public get officesArray(): FormArray {
+    return this.form.get('offices') as FormArray;
   }
 
   public get recruitersArray(): FormArray {
@@ -138,17 +147,28 @@ export class CompanyCreateComponent implements OnInit {
     switch (nameGroup) {
       case 'recruiter':
         return this.fb.group({
-          salutation: [data && data.salutation ? data.salutation : null],
-          title: [data && data.title ? data.title : ''],
-          firstName: [data && data.firstName ? data.firstName : ''],
-          lastName: [data && data.lastName ? data.lastName : ''],
-          jobTitle: [data && data.jobTitle ? data.jobTitle : ''],
-          countryCode: [data && data.countryCode ? data.countryCode : ''],
-          cityCode: [data && data.cityCode ? data.cityCode : ''],
-          phoneNumberMobile: [data && data.phoneNumberMobile ? data.phoneNumberMobile : ''],
-          email: [data && data.email ? data.email : '']
+          salutation: [data && data.salutation ? data.salutation : null, Validators.required],
+          title: [data && data.title ? data.title : '', Validators.required],
+          firstName: [data && data.firstName ? data.firstName : '', Validators.required],
+          lastName: [data && data.lastName ? data.lastName : '', Validators.required],
+          jobTitle: [data && data.jobTitle ? data.jobTitle : '', Validators.required],
+          countryCode: [data && data.countryCode ? data.countryCode : '', Validators.required],
+          cityCode: [data && data.cityCode ? data.cityCode : '', Validators.required],
+          phoneNumberMobile: [data && data.phoneNumberMobile ? data.phoneNumberMobile : '', Validators.required],
+          email: [data && data.email ? data.email : '', FormValidators.emailValidator]
         });
       case 'filials':
+        return this.fb.group({
+          name: [data && data.name ? data.name : ''],
+          street: [data && data.street ? data.street : ''],
+          houseNumber: [data && data.houseNumber ? data.houseNumber : ''],
+          additionalAddress: [data && data.additionalAddress ? data.additionalAddress : ''],
+          country: [data && data.country ? data.country : ''],
+          place: [data && data.place ? data.place : ''],
+          location: [data && data.location ? data.location : ''],
+          zipCode: [data && data.zipCode ? data.zipCode : '']
+        });
+      case 'offices':
         return this.fb.group({
           name: [data && data.name ? data.name : ''],
           street: [data && data.street ? data.street : ''],
@@ -163,6 +183,7 @@ export class CompanyCreateComponent implements OnInit {
         break;
     }
   }
+
   public takeProfilePicture = () => {
     this.bottomSheet.open(ImageChoiceComponent, { scrollStrategy: new NoopScrollStrategy()}).afterDismissed()
       .pipe(
@@ -185,14 +206,13 @@ export class CompanyCreateComponent implements OnInit {
           return of(cropperValue);
         }),
         switchMap((base64: string) => {
-          this.form.get('general').get('logo').patchValue(base64);
-          return of(base64);
-          // return fetch(base64).then(base64Url => base64Url.blob());
+          return fetch(base64).then(base64Url => base64Url.blob());
         })
       )
       .subscribe(
         res => {
           console.log('CROPPER EVENT', res);
+          this.uploadImage(res, res.type);
         },
         err => {
           console.log('ERROR', err);
@@ -201,6 +221,41 @@ export class CompanyCreateComponent implements OnInit {
           } else {
             this.globalErrorService.handleError(err);
           }
+        }
+      );
+  }
+
+  public uploadImage = (blob: Blob, type: string) => {
+    this.spinner = true;
+    this.uploadFileService.getUploadAvatarLink()
+      .pipe(
+        switchMap(urlS3 => {
+          const arr: Array<Observable<any>> = [
+            // this.uploadFileService.uploadImage(urlS3.signedUploadUrl, blob, type),
+            of(urlS3)
+          ];
+          return forkJoin(arr);
+        }),
+        switchMap(([urlS3]) => {
+          const avatar = {
+            filename: type,
+            mimeType: type,
+            storagePath: urlS3.storagePath
+          };
+          return of(avatar);
+        })
+      )
+      .subscribe(
+        res => {
+          console.log('UPLOAD IMAGE', res);
+          // this.form.get('general').get('logo').patchValue(res.storagePath);
+          this.notificationService.notify(`Picture saved successfully!`, 'success');
+          this.spinner = false;
+        },
+        err => {
+          console.log('UPLOAD IMAGE ERROR', err);
+          this.globalErrorService.handleError(err);
+          this.spinner = false;
         }
       );
   }
@@ -299,6 +354,7 @@ export class CompanyCreateComponent implements OnInit {
       company: {
         companyName: this.form.get('general').get('companyName').value,
         legalForm: this.form.get('general').get('legalForm').value,
+        location: this.form.get('general').get('location').value,
         street: this.form.get('general').get('street').value,
         houseNumber: this.form.get('general').get('houseNumber').value,
         additionalAddress: this.form.get('general').get('additionalAddress').value,
@@ -313,10 +369,20 @@ export class CompanyCreateComponent implements OnInit {
         logo: this.form.get('general').get('logo').value,
         benefits: this.form.get('general').get('benefits').value,
         fillials: this.filialsArray.value,
-        offices: this.form.get('offices').value
+        offices: this.officesArray.value
       },
       recruiters: this.recruitersArray.value
     };
-    console.log('submit', formValue);
+    console.log('SUBMIT', formValue);
+    this.companyService.createCompany(formValue)
+    .pipe()
+    .subscribe(
+      result => {
+        console.log('[ CREATE COMPANY DONE ]', result);
+      },
+      error => {
+        console.log('[ CREATE COMPANY ERROR ]', error);
+      }
+    );
   }
 }
