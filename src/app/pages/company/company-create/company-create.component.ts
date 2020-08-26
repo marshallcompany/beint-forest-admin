@@ -11,7 +11,6 @@ import { NoopScrollStrategy } from '@angular/cdk/overlay';
 import { OptionsService } from 'src/app/services/options.service';
 import { FormValidators } from 'src/app/validators/validators';
 import { CompanyService } from 'src/app/services/company.service';
-import { UploadFileService } from 'src/app/services/upload-file.service';
 
 interface DropdownOption {
   salutation: Array<string[]>;
@@ -32,7 +31,6 @@ export class CompanyCreateComponent implements OnInit {
   public generalBenefitsControl = new FormControl();
   public generalFormGroup: FormGroup;
 
-  public imageData;
   public spinner = false;
 
   constructor(
@@ -43,7 +41,6 @@ export class CompanyCreateComponent implements OnInit {
     private matDialog: MatDialog,
     private globalErrorService: GlobalErrorService,
     private optionsService: OptionsService,
-    private uploadFileService: UploadFileService
   ) { }
 
   ngOnInit() {
@@ -95,7 +92,11 @@ export class CompanyCreateComponent implements OnInit {
         contactPhone: ['', Validators.required],
         contactEmail: ['', [Validators.required, FormValidators.emailValidator]],
         homepage: ['', Validators.required],
-        logo: [''],
+        logo: this.fb.group({
+          filename: [],
+          mimeType: [],
+          storagePath: []
+        }),
         benefits: this.fb.array([], Validators.required)
       }),
       recruiters: this.fb.array([]),
@@ -245,15 +246,17 @@ export class CompanyCreateComponent implements OnInit {
             mimeType: type,
             storagePath: urlS3.storagePath
           };
-          this.imageData = image;
           return of(image);
         })
       )
       .subscribe(
         res => {
           console.log('UPLOAD IMAGE', res);
-          this.form.get('general').get('logo').patchValue(res.storagePath);
-          this.notificationService.notify(`Picture saved successfully!`, 'success');
+          this.form.get('general').get('logo').patchValue({
+            filename: res.filename,
+            mimeType: res.mimeType,
+            storagePath: res.storagePath
+          });
           this.spinner = false;
         },
         err => {
@@ -370,7 +373,11 @@ export class CompanyCreateComponent implements OnInit {
         contactPhone: this.form.get('general').get('contactPhone').value,
         contactEmail: this.form.get('general').get('contactEmail').value,
         homepage: this.form.get('general').get('homepage').value,
-        logo: this.imageData,
+        logo: {
+          filename: this.form.get('general').get('logo').get('filename').value,
+          mimeType: this.form.get('general').get('logo').get('mimeType').value,
+          storagePath: this.form.get('general').get('logo').get('storagePath').value
+        },
         benefits: this.form.get('general').get('benefits').value,
         fillials: this.fillialsArray.value,
         offices: this.officesArray.value

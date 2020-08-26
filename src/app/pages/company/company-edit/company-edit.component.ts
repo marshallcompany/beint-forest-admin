@@ -33,7 +33,6 @@ export class CompanyEditComponent implements OnInit {
   public generalFormGroup: FormGroup;
 
   public spinner = false;
-  public imageData;
 
   constructor(
     public fb: FormBuilder,
@@ -102,7 +101,11 @@ export class CompanyEditComponent implements OnInit {
         contactPhone: ['', Validators.required],
         contactEmail: ['', [Validators.required, FormValidators.emailValidator]],
         homepage: ['', Validators.required],
-        logo: [''],
+        logo: this.fb.group({
+          filename: [],
+          mimeType: [],
+          storagePath: []
+        }),
         benefits: this.fb.array([], Validators.required)
       }),
       recruiters: this.fb.array([]),
@@ -170,7 +173,11 @@ export class CompanyEditComponent implements OnInit {
         contactPhone: data && data.company && data.company.contactPhone ? data.company.contactPhone : '',
         contactEmail: data && data.company && data.company.contactEmail ? data.company.contactEmail : '',
         homepage: data && data.company && data.company.homepage ? data.company.homepage : '',
-        logo: data && data.company && data.company.logo && data.company.logo.storagePath ? data.company.logo.storagePath : '',
+        logo: {
+          filename: data && data.company && data.company.logo && data.company.logo.filename ? data.company.logo.filename : '',
+          mimeType: data && data.company && data.company.logo && data.company.logo.mimeType ? data.company.logo.mimeType : '',
+          storagePath: data && data.company && data.company.logo && data.company.logo.storagePath ? data.company.logo.storagePath : ''
+        }
       }
     });
     if (data && data.company && data.company.benefits) {
@@ -297,15 +304,17 @@ export class CompanyEditComponent implements OnInit {
             mimeType: type,
             storagePath: urlS3.storagePath
           };
-          this.imageData = image;
           return of(image);
         })
       )
       .subscribe(
         res => {
           console.log('UPLOAD IMAGE', res);
-          this.form.get('general').get('logo').patchValue(res.storagePath);
-          this.notificationService.notify(`Picture saved successfully!`, 'success');
+          this.form.get('general').get('logo').patchValue({
+            filename: res.filename,
+            mimeType: res.mimeType,
+            storagePath: res.storagePath
+          });
           this.spinner = false;
         },
         err => {
@@ -411,6 +420,7 @@ export class CompanyEditComponent implements OnInit {
         companyName: this.form.get('general').get('companyName').value,
         legalForm: this.form.get('general').get('legalForm').value,
         street: this.form.get('general').get('street').value,
+        location: this.form.get('general').get('location').value,
         houseNumber: this.form.get('general').get('houseNumber').value,
         additionalAddress: this.form.get('general').get('additionalAddress').value,
         zipCode: this.form.get('general').get('zipCode').value,
@@ -421,7 +431,11 @@ export class CompanyEditComponent implements OnInit {
         contactPhone: this.form.get('general').get('contactPhone').value,
         contactEmail: this.form.get('general').get('contactEmail').value,
         homepage: this.form.get('general').get('homepage').value,
-        logo: this.imageData,
+        logo: {
+          filename: this.form.get('general').get('logo').get('filename').value,
+          mimeType: this.form.get('general').get('logo').get('mimeType').value,
+          storagePath: this.form.get('general').get('logo').get('storagePath').value
+        },
         benefits: this.form.get('general').get('benefits').value,
         fillials: this.fillialsArray.value,
         offices: this.form.get('offices').value

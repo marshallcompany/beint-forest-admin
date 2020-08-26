@@ -30,12 +30,12 @@
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M4.5 3C3.67157 3 3 3.67157 3 4.5V25.5C3 26.1432 3.40485 26.6919 3.97363 26.905L19.9393 10.9393C20.5251 10.3536 21.4749 10.3536 22.0607 10.9393L27 15.8787V4.5C27 3.67157 26.3284 3 25.5 3H4.5ZM30 19.4985V4.5C30 2.01472 27.9853 0 25.5 0H4.5C2.01472 0 0 2.01472 0 4.5V25.5C0 27.9853 2.01472 30 4.5 30H25.5C27.9853 30 30 27.9853 30 25.5V19.5015C30 19.5005 30 19.4995 30 19.4985ZM27 20.1213L21 14.1213L8.12132 27H25.5C26.3284 27 27 26.3284 27 25.5V20.1213ZM9.75 9C9.33579 9 9 9.33579 9 9.75C9 10.1642 9.33579 10.5 9.75 10.5C10.1642 10.5 10.5 10.1642 10.5 9.75C10.5 9.33579 10.1642 9 9.75 9ZM6 9.75C6 7.67893 7.67893 6 9.75 6C11.8211 6 13.5 7.67893 13.5 9.75C13.5 11.8211 11.8211 13.5 9.75 13.5C7.67893 13.5 6 11.8211 6 9.75Z"/>
                   </svg>
                 </div>
-                <div class="logo-image" *ngIf="form && form.get('general').get('logo').value">
-                  <img [src]="form.get('general').get('logo').value"
+                <div class="logo-image" *ngIf="form && form.get('general').get('logo').get('storagePath').value">
+                  <img [src]="form.get('general').get('logo').get('storagePath').value"
                     class="logo-image__item">
                 </div>
                 <button
-                  [ngClass]="{'change-logo-button__active' : (form && form.get('general').get('logo').value)}"
+                  [ngClass]="{'change-logo-button__active' : (form && form.get('general').get('logo').get('storagePath').value)}"
                   type="button"
                   (click)="takeProfilePicture()"
                   class="change-logo-button">
