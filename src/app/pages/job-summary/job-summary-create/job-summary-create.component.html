@@ -1,4 +1,4 @@
-<div class="company">
+<div class="job-summary">
   <section class="background">
     <img
       src="../assets/image/background-circle-01.png"
@@ -12,9 +12,9 @@
         <p class="category-detail__label">Jobübersicht</p>
       </div>
   </header>
-  <section class="company-body">
+  <section class="job-summary-body">
     <div class="container">
-      <form *ngIf="form" [formGroup]="form" (ngSubmit)="submit()">
+      <form *ngIf="form" [formGroup]="form">
         <div class="category-wrapper">
           <!-- <div class="logo-wrapper">
             <div>
@@ -48,89 +48,764 @@
               </div>
             </div>
           </div> -->
-          <div class="field">
+          <div class="field" formGroupName="details">
             <p class="field__label">Job Titel</p>
             <div class="field-wrapper">
               <input
                 type="text"
                 maxlength="100"
                 placeholder="Job Titel"
-                formControlName="a1"
+                formControlName="title"
                 class="field-wrapper__input">
               <div class="field-wrapper__type">abc</div>
               <div
                 class="field-wrapper__status"
-                [ngClass]="{'invalid-should' : !form.get('a1').value}"></div>
+                [ngClass]="{'invalid-should' : !form.get('details').get('title').value}"></div>
             </div>
           </div>
-          <div class="field">
+          <div class="field" formGroupName="details">
             <p class="field__label">Link zur Original Stellenanzeige</p>
             <div class="field-wrapper">
               <input
                 type="text"
                 maxlength="100"
                 placeholder="Link zur Original Stellenanzeige"
-                formControlName="a2"
+                formControlName="vacancyExternalUrl"
                 class="field-wrapper__input">
               <div class="field-wrapper__type">abc</div>
               <div
                 class="field-wrapper__status"
-                [ngClass]="{'invalid-should' : !form.get('a2').value}"></div>
+                [ngClass]="{'invalid-should' : !form.get('details').get('vacancyExternalUrl').value}"></div>
             </div>
           </div>
           <app-google-autocomplete
             class="field"
-            [formControlValue]="form.get('a3').value"
+            [formControlValue]="form.get('details').get('location').value"
             [fieldStatus]="'invalid-should'"
             [validation]=""
             [fieldLabel]="'Adresse'"
             [fieldPlaceholder]="'Adresse'"
-            (setAddress)="googleAddressChange($event, form, ['a3'])" 
+            (setAddress)="googleAddressChange($event, form.get('details'), ['location'])" 
             adressType="establishment">
           </app-google-autocomplete>
-          <!-- <div class="field field_select">
-            <p class="field__label">Benefits</p>
+          <div class="field" formGroupName="details">
+            <p class="field__label">Zu besetzen ab</p>
+            <div class="checkbox-group-1">
+              <div class="field" [ngClass]="{'disabled' : form.get('details').get('occupyAt').value}">
+                <div class="field-wrapper">
+                  <input
+                    class="field-wrapper__input"
+                    formControlName="occupyAtString"
+                    [imask]="dateService.maskDayMonthYearDate"
+                    [unmask]="false"
+                    (change)="dateSave(form.get('details'), 'occupyAt')">
+                  <div class="field-wrapper__type">
+                    <img src="../assets/image/calendar.svg">
+                  </div>
+                  <div
+                    class="field-wrapper__status"
+                    [ngClass]="{'invalid-should' : 
+                    !form.get('details').get('occupyAtString').value || !form.get('details').get('occupyAtString').value.match(dateService.regexFullDateNumber)}">
+                  </div>
+                </div>
+              </div>
+              <div class="checkbox">
+                <label class="checkbox-container">
+                  ab sofort
+                  <input
+                    type="checkbox"
+                    class="not-relevant__checkbox"
+                    formControlName="fromNow"
+                    (change)="fromNow(form.get('details').get('fromNow'))">
+                  <span class="checkmark"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="field field_select" formGroupName="details" [ngClass]="{disabled: form.get('details').get('industryBranch').value.length === 3}">
+            <p class="field__label">Branche</p>
             <div class="field-wrapper">
               <ng-select
                 [clearable]="false"
-                [searchable]="false"
+                [searchable]="true"
                 [multiple]="true"
                 [hideSelected]="true"
-                placeholder="Benefits"
-                [formControl]="generalBenefitsControl"
-                (change)="formArrayPush($event, 'generalBenefitsArray')"
+                placeholder="Branche"
+                [formControl]="industryBranchControl"
+                (change)="formArrayPush($event, 'industryBranchArray')"
                 class="custom-select">
                 <ng-option
-                  *ngFor="let option of benefitsOptions$ | async"
+                  *ngFor="let option of dropdownOptions?.industry_branches"
                   [value]="option">
                   {{option}}
                 </ng-option>
                 <ng-template ng-multi-label-tmp>
-                  <span style="display:block" class="ng-placeholder">Benefits</span>
+                  <span style="display:block" class="ng-placeholder">Branche</span>
                 </ng-template>
               </ng-select>
               <div
                 class="field-wrapper__status"
-                [ngClass]="{'invalid-should' : this.form.get('general').get('benefits').value.length === 0}"></div>
+                [ngClass]="{'invalid-should' : form.get('details').get('industryBranch').value.length === 0}">
+              </div>
             </div>
             <div class="tags-wrapper">
               <div
-                formArrayName="benefits"
-                *ngFor="let item of form.get('general').get('benefits')['controls']; let i = index;"
+                formArrayName="industryBranch"
+                *ngFor="let item of form.get('details').get('industryBranch')['controls']; let i = index;"
                 class="tags-wrapper__item">
                 <p class="tags-wrapper__label">{{item.value}}</p>
                 <button
                   type="button"
                   class="tags-wrapper__remove"
-                  (click)="formArrayRemove(i, 'generalBenefitsArray')">
+                  (click)="formArrayRemove(i, 'industryBranchArray')">
                   <img src="../assets/image/close.svg">
                 </button>
               </div>
             </div>
-          </div> -->
+          </div>
+          <div class="field field_select" formGroupName="details" [ngClass]="{disabled: form.get('details').get('businessArea').value.length === 3}">
+            <p class="field__label">Geschäftsbereich</p>
+            <div class="field-wrapper">
+              <ng-select
+                [clearable]="false"
+                [searchable]="true"
+                [multiple]="true"
+                [hideSelected]="true"
+                placeholder="Geschäftsbereich"
+                [formControl]="businessAreaControl"
+                (change)="formArrayPush($event, 'businessAreaArray')"
+                class="custom-select">
+                <ng-option
+                  *ngFor="let option of businessArea$ | async"
+                  [value]="option">
+                  {{option}}
+                </ng-option>
+                <ng-template ng-multi-label-tmp>
+                  <span style="display:block" class="ng-placeholder">Geschäftsbereich</span>
+                </ng-template>
+              </ng-select>
+              <div
+                class="field-wrapper__status"
+                [ngClass]="{'invalid-should' : form.get('details').get('businessArea').value.length === 0}">
+              </div>
+            </div>
+            <div class="tags-wrapper">
+              <div
+                formArrayName="businessArea"
+                *ngFor="let item of form.get('details').get('businessArea')['controls']; let i = index;"
+                class="tags-wrapper__item">
+                <p class="tags-wrapper__label">{{item.value}}</p>
+                <button
+                  type="button"
+                  class="tags-wrapper__remove"
+                  (click)="formArrayRemove(i, 'businessAreaArray')">
+                  <img src="../assets/image/close.svg">
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="field field_select" formGroupName="details">
+            <p class="field__label">Art der Anstellung</p>
+            <div class="field-wrapper">
+              <ng-select
+                [clearable]="false"
+                [searchable]="false"
+                [multiple]="false"
+                [hideSelected]="true"
+                placeholder="Art der Anstellung"
+                formControlName="employmentType"
+                class="custom-select">
+                <ng-option
+                  *ngFor="let option of dropdownOptions?.employment_type"
+                  [value]="option">
+                  {{option}}
+                </ng-option>
+              </ng-select>
+              <div
+                class="field-wrapper__status"
+                [ngClass]="{'invalid-should' : !form.get('details').get('employmentType').value}">
+              </div>
+            </div>
+          </div>
+          <div class="field field_select" formGroupName="details">
+            <p class="field__label">Arbeitszeit</p>
+            <div class="field-wrapper">
+              <ng-select
+                [clearable]="false"
+                [searchable]="false"
+                [multiple]="false"
+                [hideSelected]="true"
+                placeholder="Arbeitszeit"
+                formControlName="workingHours"
+                class="custom-select">
+                <ng-option
+                  *ngFor="let option of dropdownOptions?.working_hours"
+                  [value]="option">
+                  {{option}}
+                </ng-option>
+              </ng-select>
+              <div
+                class="field-wrapper__status"
+                [ngClass]="{'invalid-should' : !form.get('details').get('workingHours').value}">
+              </div>
+            </div>
+          </div>
+          <div class="field" formGroupName="details">
+            <p class="field__label">Arbeiszeit bei Teilzeit in h</p>
+            <div class="field-wrapper">
+              <input
+                maxlength="2"
+                class="field-wrapper__input"
+                placeholder="Arbeiszeit bei Teilzeit in h"
+                formControlName="limitDayHours"
+                (keypress)="onlyNumber($event)">
+              <div class="field-wrapper__type">123</div>
+              <div
+                class="field-wrapper__status"
+                [ngClass]="{'invalid-should' :  !form.get('details').get('limitDayHours').value}">
+              </div>
+            </div>
+          </div>
+          <div class="field field_select" formGroupName="details">
+            <p class="field__label">Befristung</p>
+            <div class="field-wrapper">
+              <ng-select
+                [clearable]="false"
+                [searchable]="false"
+                [multiple]="false"
+                [hideSelected]="true"
+                placeholder="Befristung"
+                formControlName="isTimeLimited"
+                class="custom-select">
+                <ng-option
+                  *ngFor="let option of dropdownOptions?.timeLimit"
+                  [value]="option">
+                  {{option}}
+                </ng-option>
+              </ng-select>
+              <div
+                class="field-wrapper__status"
+                [ngClass]="{'invalid-should' : !form.get('details').get('isTimeLimited').value}">
+              </div>
+            </div>
+          </div>
+          <div class="field" formGroupName="details">
+            <p class="field__label">Befristung bis</p>
+            <div class="field-wrapper">
+              <input
+                class="field-wrapper__input"
+                formControlName="timeLimitUntilString"
+                [imask]="dateService.maskDayMonthYearDate"
+                [unmask]="false"
+                (change)="dateSave(form.get('details'), 'timeLimitUntil')">
+              <div class="field-wrapper__type">
+                <img src="../assets/image/calendar.svg">
+              </div>
+              <div
+                class="field-wrapper__status"
+                [ngClass]="{'invalid-should' : 
+                !form.get('details').get('timeLimitUntilString').value || !form.get('details').get('timeLimitUntilString').value.match(dateService.regexFullDateNumber)}">
+              </div>
+            </div>
+          </div>
+          <div class="field" formGroupName="details">
+            <p class="field__label">Befristung auf (Monate)</p>
+            <div class="field-wrapper">
+              <input
+                maxlength="2"
+                class="field-wrapper__input"
+                placeholder="Befristung auf (Monate)"
+                formControlName="timeLimitInMonths"
+                (keypress)="onlyNumber($event)">
+              <div class="field-wrapper__type">123</div>
+              <div
+                class="field-wrapper__status"
+                [ngClass]="{'invalid-should' :  !form.get('details').get('timeLimitInMonths').value}">
+              </div>
+            </div>
+          </div>
+          <div class="field" formGroupName="candidateRequirements">
+            <p class="field__label">Notwendige Berufserfahrung in Jahren</p>
+            <div class="field-wrapper">
+              <input
+                maxlength="2"
+                class="field-wrapper__input"
+                placeholder="Notwendige Berufserfahrung in Jahren"
+                formControlName="workExperienceInYears"
+                (keypress)="onlyNumber($event)">
+              <div class="field-wrapper__type">123</div>
+              <div
+                class="field-wrapper__status"
+                [ngClass]="{'invalid-should' :  !form.get('candidateRequirements').get('workExperienceInYears').value}">
+              </div>
+            </div>
+          </div>
+          <div class="field field_select" formGroupName="candidateRequirements">
+            <p class="field__label">Fürhungserfahrung</p>
+            <div class="field-wrapper">
+              <ng-select
+                [clearable]="false"
+                [searchable]="false"
+                [multiple]="false"
+                [hideSelected]="true"
+                placeholder="Fürhungserfahrung"
+                formControlName="isLeadershipExperienceNecessary"
+                class="custom-select">
+                <ng-option
+                  *ngFor="let option of dropdownOptions?.timeLimit"
+                  [value]="option">
+                  {{option}}
+                </ng-option>
+              </ng-select>
+              <div
+                class="field-wrapper__status"
+                [ngClass]="{'invalid-should' : !form.get('candidateRequirements').get('isLeadershipExperienceNecessary').value}">
+              </div>
+            </div>
+          </div>
+          <div class="field" formGroupName="candidateRequirements" [ngClass]="{disabled: form.get('candidateRequirements').get('isLeadershipExperienceNecessary').value !== dropdownOptions?.timeLimit[0]}">
+            <p class="field__label">Führungserfahrung in Jahren</p>
+            <div class="field-wrapper">
+              <input
+                maxlength="2"
+                class="field-wrapper__input"
+                placeholder="Führungserfahrung in Jahren"
+                formControlName="leadershipExperienceYears"
+                (keypress)="onlyNumber($event)">
+              <div class="field-wrapper__type">123</div>
+              <div
+                class="field-wrapper__status"
+                [ngClass]="{'invalid-should' :  !form.get('candidateRequirements').get('leadershipExperienceYears').value}">
+              </div>
+            </div>
+          </div>
+          <div class="field field_select" formGroupName="candidateRequirements">
+            <p class="field__label">Notwendiger Abschluss</p>
+            <div class="field-wrapper">
+              <ng-select
+                [clearable]="false"
+                [searchable]="false"
+                [multiple]="false"
+                [hideSelected]="true"
+                placeholder="Notwendiger Abschluss"
+                formControlName="typeOfDegree"
+                class="custom-select">
+                <ng-option
+                  *ngFor="let option of dropdownOptions?.employment_type"
+                  [value]="option">
+                  {{option}}
+                </ng-option>
+              </ng-select>
+              <div
+                class="field-wrapper__status"
+                [ngClass]="{'invalid-should' : !form.get('candidateRequirements').get('typeOfDegree').value}">
+              </div>
+            </div>
+          </div>
+          <div class="field field_select" formGroupName="candidateRequirements">
+            <p class="field__label">Notwendige Reisebereitschaft</p>
+            <div class="field-wrapper">
+              <ng-select
+                [clearable]="false"
+                [searchable]="false"
+                [multiple]="false"
+                [hideSelected]="true"
+                placeholder="Notwendige Reisebereitschaft"
+                formControlName="travellingReady"
+                class="custom-select">
+                <ng-option
+                  *ngFor="let option of dropdownOptions?.travelling"
+                  [value]="option">
+                  {{option}}
+                </ng-option>
+              </ng-select>
+              <div
+                class="field-wrapper__status"
+                [ngClass]="{'invalid-should' : !form.get('candidateRequirements').get('travellingReady').value}">
+              </div>
+            </div>
+          </div>
+          <div class="field field_select" formGroupName="candidateRequirements" [ngClass]="{disabled: form.get('candidateRequirements').get('specialization').value.length === 5}">
+            <p class="field__label">Schwerpunkte Studium</p>
+            <div class="field-wrapper">
+              <ng-select
+                [clearable]="false"
+                [searchable]="true"
+                [multiple]="true"
+                [hideSelected]="true"
+                placeholder="Schwerpunkte Studium"
+                [formControl]="specializationControl"
+                (change)="formArrayPush($event, 'specializationArray')"
+                class="custom-select">
+                  <ng-option
+                    *ngFor="let option of specializationList$ | async"
+                    [value]="option">
+                    {{option}}
+                  </ng-option>
+                  <ng-template ng-multi-label-tmp>
+                    <span style="display:block" class="ng-placeholder">Schwerpunkte Studium</span>
+                  </ng-template>
+              </ng-select>
+              <div
+                class="field-wrapper__status"
+                [ngClass]="{'invalid-should' : form.get('candidateRequirements').get('specialization').value.length === 0}">
+              </div>
+            </div>
+            <div class="tags-wrapper">
+              <div
+                formArrayName="specialization"
+                *ngFor="let item of form.get('candidateRequirements').get('specialization')['controls']; let i = index;"
+                class="tags-wrapper__item">
+                <p class="tags-wrapper__label">{{item.value}}</p>
+                <button
+                  type="button"
+                  class="tags-wrapper__remove"
+                  (click)="formArrayRemove(i, 'specializationArray')">
+                  <img src="../assets/image/close.svg">
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="field" formGroupName="candidateRequirements">
+            <p class="field__label">Studiengang</p>
+            <div class="checkbox-group-1">
+              <div class="field field_select" [ngClass]="{disabled: form.get('candidateRequirements').get('courseOfStudy').value.length === 5}">
+                <div class="field-wrapper">
+                  <ng-select
+                    [clearable]="false"
+                    [searchable]="true"
+                    [multiple]="true"
+                    [hideSelected]="true"
+                    placeholder="Studiengang"
+                    [formControl]="courseOfStudyControl"
+                    (change)="formArrayPush($event, 'courseOfStudyArray')"
+                    class="custom-select">
+                    <ng-option
+                      *ngFor="let option of businessArea$ | async"
+                      [value]="option">
+                      {{option}}
+                    </ng-option>
+                    <ng-template ng-multi-label-tmp>
+                      <span style="display:block" class="ng-placeholder">Studiengang</span>
+                    </ng-template>
+                  </ng-select>
+                  <div
+                    class="field-wrapper__status"
+                    [ngClass]="{'invalid-should' : form.get('candidateRequirements').get('courseOfStudy').value.length === 0}">
+                  </div>
+                </div>
+                <div class="tags-wrapper">
+                  <div
+                    formArrayName="courseOfStudy"
+                    *ngFor="let item of form.get('candidateRequirements').get('courseOfStudy')['controls']; let i = index;"
+                    class="tags-wrapper__item">
+                    <p class="tags-wrapper__label">{{item.value}}</p>
+                    <button
+                      type="button"
+                      class="tags-wrapper__remove"
+                      (click)="formArrayRemove(i, 'courseOfStudyArray')">
+                      <img src="../assets/image/close.svg">
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="checkbox">
+                <label class="checkbox-container">
+                  Oder vergleichbar
+                  <input
+                    type="checkbox"
+                    class="not-relevant__checkbox"
+                    formControlName="orSimilarCourse">
+                  <span class="checkmark"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="field" formGroupName="candidateRequirements">
+            <p class="field__label">Ausbildung</p>
+            <div class="checkbox-group-1">
+              <div class="field field_select" [ngClass]="{disabled: form.get('candidateRequirements').get('professionalEducation').value.length === 5}">
+                <div class="field-wrapper">
+                  <ng-select
+                    [clearable]="false"
+                    [searchable]="true"
+                    [multiple]="true"
+                    [hideSelected]="true"
+                    placeholder="Ausbildung"
+                    [formControl]="professionalEducationControl"
+                    (change)="formArrayPush($event, 'professionalEducationArray')"
+                    class="custom-select">
+                    <ng-option
+                      *ngFor="let option of apprenticeshipList$ | async"
+                      [value]="option">
+                      {{option}}
+                    </ng-option>
+                    <ng-template ng-multi-label-tmp>
+                      <span style="display:block" class="ng-placeholder">Ausbildung</span>
+                    </ng-template>
+                  </ng-select>
+                  <div
+                    class="field-wrapper__status"
+                    [ngClass]="{'invalid-should' : form.get('candidateRequirements').get('professionalEducation').value.length === 0}">
+                  </div>
+                </div>
+                <div class="tags-wrapper">
+                  <div
+                    formArrayName="professionalEducation"
+                    *ngFor="let item of form.get('candidateRequirements').get('professionalEducation')['controls']; let i = index;"
+                    class="tags-wrapper__item">
+                    <p class="tags-wrapper__label">{{item.value}}</p>
+                    <button
+                      type="button"
+                      class="tags-wrapper__remove"
+                      (click)="formArrayRemove(i, 'professionalEducationArray')">
+                      <img src="../assets/image/close.svg">
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="checkbox">
+                <label class="checkbox-container">
+                  Oder vergleichbar
+                  <input
+                    type="checkbox"
+                    class="not-relevant__checkbox"
+                    formControlName="orSimilarEducation">
+                  <span class="checkmark"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="field field_select" formGroupName="candidateRequirements" [ngClass]="{disabled: form.get('candidateRequirements').get('driverLicenses').value.length === 5}">
+            <p class="field__label">Führerschein</p>
+            <div class="field-wrapper">
+              <ng-select
+                [clearable]="false"
+                [searchable]="true"
+                [multiple]="true"
+                [hideSelected]="true"
+                placeholder="Führerschein"
+                [formControl]="driverLicensesControl"
+                (change)="formArrayPush($event, 'driverLicensesArray')"
+                class="custom-select">
+                <ng-option
+                  *ngFor="let option of dropdownOptions?.driving_license_category"
+                  [value]="option">
+                  {{option}}
+                </ng-option>
+                <ng-template ng-multi-label-tmp>
+                  <span style="display:block" class="ng-placeholder">Führerschein</span>
+                </ng-template>
+              </ng-select>
+              <div
+                class="field-wrapper__status"
+                [ngClass]="{'invalid-should' : form.get('candidateRequirements').get('driverLicenses').value.length === 0}">
+              </div>
+            </div>
+            <div class="tags-wrapper">
+              <div
+                formArrayName="driverLicenses"
+                *ngFor="let item of form.get('candidateRequirements').get('driverLicenses')['controls']; let i = index;"
+                class="tags-wrapper__item">
+                <p class="tags-wrapper__label">{{item.value}}</p>
+                <button
+                  type="button"
+                  class="tags-wrapper__remove"
+                  (click)="formArrayRemove(i, 'driverLicensesArray')">
+                  <img src="../assets/image/close.svg">
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="field field_select" formGroupName="candidateRequirements" [ngClass]="{disabled: form.get('candidateRequirements').get('primarySkills').value.length === 3}">
+            <p class="field__label">Top Skills</p>
+            <div class="field-wrapper">
+              <ng-select
+                [clearable]="false"
+                [searchable]="true"
+                [multiple]="true"
+                [hideSelected]="true"
+                placeholder="Top Skills"
+                [formControl]="primarySkillsControl"
+                (change)="formArrayPush($event, 'primarySkillsArray')"
+                class="custom-select">
+                <ng-option
+                  *ngFor="let option of skillsList$ | async"
+                  [value]="option">
+                  {{option}}
+                </ng-option>
+                <ng-template ng-multi-label-tmp>
+                  <span style="display:block" class="ng-placeholder">Top Skills</span>
+                </ng-template>
+              </ng-select>
+              <div
+                class="field-wrapper__status"
+                [ngClass]="{'invalid-should' : form.get('candidateRequirements').get('primarySkills').value.length === 0}">
+              </div>
+            </div>
+            <div class="tags-wrapper">
+              <div
+                formArrayName="primarySkills"
+                *ngFor="let item of form.get('candidateRequirements').get('primarySkills')['controls']; let i = index;"
+                class="tags-wrapper__item">
+                <p class="tags-wrapper__label">{{item.value}}</p>
+                <button
+                  type="button"
+                  class="tags-wrapper__remove"
+                  (click)="formArrayRemove(i, 'driverLicensesArray')">
+                  <img src="../assets/image/close.svg">
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="field field_select" formGroupName="details" [ngClass]="{disabled: form.get('candidateRequirements').get('secondarySkills').value.length === 10}">
+            <p class="field__label">Skills</p>
+            <div class="field-wrapper">
+              <ng-select
+                [clearable]="false"
+                [searchable]="true"
+                [multiple]="true"
+                [hideSelected]="true"
+                placeholder="Skills"
+                [formControl]="secondarySkillsControl"
+                (change)="formArrayPush($event, 'secondarySkillsArray')"
+                class="custom-select">
+                <ng-option
+                  *ngFor="let option of skillsList$ | async"
+                  [value]="option">
+                  {{option}}
+                </ng-option>
+                <ng-template ng-multi-label-tmp>
+                  <span style="display:block" class="ng-placeholder">Skills</span>
+                </ng-template>
+              </ng-select>
+              <div
+                class="field-wrapper__status"
+                [ngClass]="{'invalid-should' : form.get('candidateRequirements').get('secondarySkills').value.length === 0}">
+              </div>
+            </div>
+            <div class="tags-wrapper">
+              <div
+                formArrayName="secondarySkills"
+                *ngFor="let item of form.get('candidateRequirements').get('secondarySkills')['controls']; let i = index;"
+                class="tags-wrapper__item">
+                <p class="tags-wrapper__label">{{item.value}}</p>
+                <button
+                  type="button"
+                  class="tags-wrapper__remove"
+                  (click)="formArrayRemove(i, 'driverLicensesArray')">
+                  <img src="../assets/image/close.svg">
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="field field_select" formGroupName="details" [ngClass]="{disabled: form.get('details').get('benefits').value.length === 10}">
+            <p class="field__label">Beneftits</p>
+            <div class="field-wrapper">
+              <ng-select
+                [clearable]="false"
+                [searchable]="true"
+                [multiple]="true"
+                [hideSelected]="true"
+                placeholder="Beneftits"
+                [formControl]="benefitsControl"
+                (change)="formArrayPush($event, 'benefitsArray')"
+                class="custom-select">
+                <ng-option
+                  *ngFor="let option of benefitsList$ | async"
+                  [value]="option">
+                  {{option}}
+                </ng-option>
+                <ng-template ng-multi-label-tmp>
+                  <span style="display:block" class="ng-placeholder">Beneftits</span>
+                </ng-template>
+              </ng-select>
+              <div
+                class="field-wrapper__status"
+                [ngClass]="{'invalid-should' : form.get('details').get('benefits').value.length === 0}">
+              </div>
+            </div>
+            <div class="tags-wrapper">
+              <div
+                formArrayName="benefits"
+                *ngFor="let item of form.get('details').get('benefits')['controls']; let i = index;"
+                class="tags-wrapper__item">
+                <p class="tags-wrapper__label">{{item.value}}</p>
+                <button
+                  type="button"
+                  class="tags-wrapper__remove"
+                  (click)="formArrayRemove(i, 'benefitsArray')">
+                  <img src="../assets/image/close.svg">
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-        <button class="submit-button" [disabled]="!form.valid" type="submit">
-          Erstellen Sie eine Firma
+        <div class="category-wrapper" formGroupName="candidateRequirements">
+          <h2 class="title">Sprachen</h2>
+          <div class="formArrayWrapper" formArrayName="linguisticProficiency">
+            <div class="category-item" *ngFor="let formGroup of linguisticProficiencyArray.controls; let i = index" [formGroupName]="i">
+              <button type="button" (click)="deleteFormGroup(linguisticProficiencyArray, i, 'linguistic')" class="remove-button">
+                <svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" class="remove-button__icon">
+                    <path d="M0.050293 0.050293L9.94979 9.94979M9.94979 0.050293L0.0502933 9.94979" stroke-width="2"
+                    stroke-linecap="round"/>
+                </svg>
+              </button>
+              <h3 class="sub-title">Sprachen {{i + 1}}</h3>
+              <div class="field field_select">
+                <p class="field__label">Notwendige Sprachkenntnisse</p>
+                <div class="field-wrapper">
+                  <ng-select
+                    [clearable]="false"
+                    [searchable]="true"
+                    [multiple]="false"
+                    [hideSelected]="true"
+                    placeholder="Notwendige Sprachkenntnisse"
+                    formControlName="language"
+                    class="custom-select">
+                    <ng-option
+                      *ngFor="let option of langList$ | async"
+                      [value]="option">
+                      {{option}}
+                    </ng-option>
+                  </ng-select>
+                  <div
+                    class="field-wrapper__status"
+                    [ngClass]="{'invalid-should' : !formGroup.get('language').value}">
+                  </div>
+                </div>
+              </div>
+              <div class="field field_select" [ngClass]="{disabled: !formGroup.get('language').value}">
+                <p class="field__label">Sprachlevel</p>
+                <div class="field-wrapper">
+                  <ng-select
+                    [clearable]="false"
+                    [searchable]="false"
+                    [multiple]="false"
+                    [hideSelected]="true"
+                    placeholder="Sprachlevel"
+                    formControlName="skillLevel"
+                    class="custom-select">
+                    <ng-option
+                      *ngFor="let option of dropdownOptions?.language_level"
+                      [value]="option">
+                      {{option}}
+                    </ng-option>
+                  </ng-select>
+                  <div
+                    class="field-wrapper__status"
+                    [ngClass]="{'invalid-should' : !formGroup.get('skillLevel').value}">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button type="button" (click)="newFormGroup(linguisticProficiencyArray, 'linguistic')" class="add-form-button">
+            <img src="../assets/image/plus.svg">
+          </button>
+        </div>
+        <button class="submit-button" [disabled]="!form.valid" type="button" (click)="submit()">
+          Stellenangebot erstellen
         </button>
       </form>
     </div>

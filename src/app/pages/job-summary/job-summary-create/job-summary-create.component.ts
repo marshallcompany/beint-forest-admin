@@ -8,11 +8,19 @@ import { GlobalErrorService } from 'src/app/services/global-error-service';
 import { OptionsService } from 'src/app/services/options.service';
 import { FormValidators } from 'src/app/validators/validators';
 import { CompanyService } from 'src/app/services/company.service';
+import { DateService } from 'src/app/services/date.service';
+import { Router } from '@angular/router';
+
 
 
 interface DropdownOption {
-  salutation: Array<string[]>;
-  legal_forms: Array<string[]>;
+  industry_branches: Array<string[]>;
+  employment_type: Array<string[]>;
+  working_hours: Array<string[]>;
+  timeLimit: Array<string[]>;
+  travelling: Array<string[]>;
+  driving_license_category: Array<string[]>;
+  language_level: Array<string[]>;
 }
 
 @Component({
@@ -22,17 +30,35 @@ interface DropdownOption {
 })
 export class JobSummaryCreateComponent implements OnInit {
 
-  public benefitsOptions$: Observable<any>;
+  public benefitsList$: Observable<any>;
+  public businessArea$: Observable<any>;
+  public apprenticeshipList$: Observable<any>;
+  public skillsList$: Observable<any>;
+  public langList$: Observable<any>;
+  public specializationList$: Observable<any>;
+
   public dropdownOptions: DropdownOption;
 
   public form: FormGroup;
-  public generalBenefitsControl = new FormControl();
   public generalFormGroup: FormGroup;
+  public industryBranchControl = new FormControl();
+  public businessAreaControl = new FormControl();
+  public courseOfStudyControl = new FormControl();
+  public specializationControl = new FormControl();
+  public professionalEducationControl = new FormControl();
+  public driverLicensesControl = new FormControl();
+  public primarySkillsControl = new FormControl();
+  public secondarySkillsControl = new FormControl();
+  public benefitsControl = new FormControl();
+
   public spinner = false;
+
   constructor(
     public fb: FormBuilder,
     public companyService: CompanyService,
+    public dateService: DateService,
     private notificationService: NotificationService,
+    private router: Router,
     private optionsService: OptionsService,
   ) { }
 
@@ -43,15 +69,26 @@ export class JobSummaryCreateComponent implements OnInit {
 
   public init = () => {
     const dropdownOptions$ = this.optionsService.getLocalBundle('de');
-    this.benefitsOptions$ = this.optionsService.getBenefitsOptions('de', '');
+    this.businessArea$ = this.optionsService.getBusinessBranches('de', '');
+    this.benefitsList$ = this.optionsService.getBenefitsOptions('de', '');
+    this.apprenticeshipList$ = this.optionsService.getProfessionalEducation('de', '');
+    this.skillsList$ = this.optionsService.getSkills('de');
+    this.langList$ = this.optionsService.getLang('de', '');
+    this.specializationList$ = this.optionsService.getSpecializationUniversity('de', '');
     forkJoin([dropdownOptions$])
     .pipe(
       map(([dropdownOptions]) => {
         if (dropdownOptions && dropdownOptions.dropdownOptions) {
+          console.log('XXXXXX', dropdownOptions.dropdownOptions);
           return {
             dropdownOptions: {
-              legal_forms: dropdownOptions.dropdownOptions.legal_forms,
-              salutation: dropdownOptions.dropdownOptions.salutation
+              industry_branches: dropdownOptions.dropdownOptions.industry_branches,
+              employment_type: dropdownOptions.dropdownOptions.employment_type,
+              working_hours: dropdownOptions.dropdownOptions.working_hours,
+              timeLimit: dropdownOptions.dropdownOptions.timeLimit,
+              travelling: dropdownOptions.dropdownOptions.travelling,
+              driving_license_category: dropdownOptions.dropdownOptions.driving_license_category,
+              language_level: dropdownOptions.dropdownOptions.language_level,
             }
           };
         }
@@ -70,44 +107,99 @@ export class JobSummaryCreateComponent implements OnInit {
 
   public formInit = () => {
     this.form = this.fb.group({
-      a1: [],
-      a2: [],
-      a3: [],
-      a4: [],
-      a5: [],
-      a6: [],
-      a7: [],
-      a8: [],
-      a9: [],
-      a10: [],
-      a11: [],
-      a12: [],
+      details: this.fb.group({
+        title: [''],
+        vacancyExternalUrl: [''],
+        location: [''],
+        occupyAt: [''],
+        occupyAtString: [''],
+        fromNow: [false],
+        industryBranch: this.fb.array([]),
+        businessArea: this.fb.array([]),
+        employmentType: [null],
+        workingHours: [null],
+        limitDayHours: [''],
+        isTimeLimited: [null],
+        timeLimitUntil: [''],
+        timeLimitUntilString: [''],
+        timeLimitInMonths: [''],
+        benefits: this.fb.array([])
+      }),
+      candidateRequirements: this.fb.group({
+        workExperienceInYears: [''],
+        isLeadershipExperienceNecessary: [null],
+        leadershipExperienceYears: [''],
+        typeOfDegree: [null],
+        courseOfStudy: this.fb.array([]),
+        orSimilarCourse: [false],
+        specialization: this.fb.array([]),
+        professionalEducation: this.fb.array([]),
+        orSimilarEducation: [false],
+        travellingReady: [null],
+        driverLicenses: this.fb.array([]),
+        primarySkills: this.fb.array([]),
+        secondarySkills: this.fb.array([]),
+        linguisticProficiency: this.fb.array([])
+      })
     });
-    // if (this.form) {
-    //   this.form.valueChanges
-    //     .pipe()
-    //     .subscribe(
-    //       () => {
-    //         this.generalBenefitsControl.patchValue(this.generalBenefitsArray.value.length !== 0 ? this.generalBenefitsArray.value : ['']);
-    //       }
-    //     );
-    // }
+    if (this.form) {
+      this.linguisticProficiencyArray.push(this.createFormGroup({}, 'linguistic'));
+      this.form.valueChanges
+        .pipe()
+        .subscribe(
+          () => {
+            this.industryBranchControl.patchValue(this.industryBranchArray.value.length !== 0 ? this.industryBranchArray.value : ['']);
+            this.businessAreaControl.patchValue(this.businessAreaArray.value.length !== 0 ? this.businessAreaArray.value : ['']);
+            this.courseOfStudyControl.patchValue(this.courseOfStudyArray.value.length !== 0 ? this.courseOfStudyArray.value : ['']);
+            this.specializationControl.patchValue(this.specializationArray.value.length !== 0 ? this.specializationArray.value : ['']);
+            this.driverLicensesControl.patchValue(this.driverLicensesArray.value.length !== 0 ? this.driverLicensesArray.value : ['']);
+            this.primarySkillsControl.patchValue(this.primarySkillsArray.value.length !== 0 ? this.primarySkillsArray.value : ['']);
+            this.secondarySkillsControl.patchValue(this.secondarySkillsArray.value.length !== 0 ? this.secondarySkillsArray.value : ['']);
+            this.benefitsControl.patchValue(this.benefitsArray.value.length !== 0 ? this.benefitsArray.value : ['']);
+
+          }
+        );
+    }
   }
 
-  public get generalBenefitsArray(): FormArray {
-    return this.form.get('general').get('benefits') as FormArray;
+  public get industryBranchArray(): FormArray {
+    return this.form.get('details').get('industryBranch') as FormArray;
   }
 
-  public get fillialsArray(): FormArray {
-    return this.form.get('fillials') as FormArray;
+  public get businessAreaArray(): FormArray {
+    return this.form.get('details').get('businessArea') as FormArray;
   }
 
-  public get officesArray(): FormArray {
-    return this.form.get('offices') as FormArray;
+  public get courseOfStudyArray(): FormArray {
+    return this.form.get('candidateRequirements').get('courseOfStudy') as FormArray;
   }
 
-  public get recruitersArray(): FormArray {
-    return this.form.get('recruiters') as FormArray;
+  public get specializationArray(): FormArray {
+    return this.form.get('candidateRequirements').get('specialization') as FormArray;
+  }
+
+  public get professionalEducationArray(): FormArray {
+    return this.form.get('candidateRequirements').get('professionalEducation') as FormArray;
+  }
+
+  public get driverLicensesArray(): FormArray {
+    return this.form.get('candidateRequirements').get('driverLicenses') as FormArray;
+  }
+
+  public get primarySkillsArray(): FormArray {
+    return this.form.get('candidateRequirements').get('primarySkills') as FormArray;
+  }
+
+  public get secondarySkillsArray(): FormArray {
+    return this.form.get('candidateRequirements').get('secondarySkills') as FormArray;
+  }
+
+  public get linguisticProficiencyArray(): FormArray {
+    return this.form.get('candidateRequirements').get('linguisticProficiency') as FormArray;
+  }
+
+  public get benefitsArray(): FormArray {
+    return this.form.get('details').get('benefits') as FormArray;
   }
 
   public newFormGroup = (formArrayName: FormArray, formGroupName: string) => {
@@ -125,45 +217,15 @@ export class JobSummaryCreateComponent implements OnInit {
 
   public createFormGroup = (data, nameGroup: string): FormGroup => {
     switch (nameGroup) {
-      case 'recruiter':
+      case 'linguistic':
         return this.fb.group({
-          salutation: [data && data.salutation ? data.salutation : null, Validators.required],
-          title: [data && data.title ? data.title : '', Validators.required],
-          firstName: [data && data.firstName ? data.firstName : '', Validators.required],
-          lastName: [data && data.lastName ? data.lastName : '', Validators.required],
-          jobTitle: [data && data.jobTitle ? data.jobTitle : '', Validators.required],
-          countryCode: [data && data.countryCode ? data.countryCode : '', Validators.required],
-          cityCode: [data && data.cityCode ? data.cityCode : '', Validators.required],
-          phoneNumberMobile: [data && data.phoneNumberMobile ? data.phoneNumberMobile : '', Validators.required],
-          email: [data && data.email ? data.email : '', FormValidators.emailValidator]
-        });
-      case 'fillials':
-        return this.fb.group({
-          name: [data && data.name ? data.name : ''],
-          street: [data && data.street ? data.street : ''],
-          houseNumber: [data && data.houseNumber ? data.houseNumber : ''],
-          additionalAddress: [data && data.additionalAddress ? data.additionalAddress : ''],
-          country: [data && data.country ? data.country : ''],
-          place: [data && data.place ? data.place : ''],
-          location: [data && data.location ? data.location : ''],
-          zipCode: [data && data.zipCode ? data.zipCode : '']
-        });
-      case 'offices':
-        return this.fb.group({
-          name: [data && data.name ? data.name : ''],
-          street: [data && data.street ? data.street : ''],
-          houseNumber: [data && data.houseNumber ? data.houseNumber : ''],
-          additionalAddress: [data && data.additionalAddress ? data.additionalAddress : ''],
-          country: [data && data.country ? data.country : ''],
-          place: [data && data.place ? data.place : ''],
-          location: [data && data.location ? data.location : ''],
-          zipCode: [data && data.zipCode ? data.zipCode : '']
+          language: [data && data.language ? data.language : null],
+          skillLevel: [data && data.skillLevel ? data.skillLevel : null],
         });
       default:
         break;
     }
   }
-
   public googleAddressChange = (data, formGroup: FormGroup, fields: Array<string>) => {
     of(data)
       .pipe(
@@ -177,7 +239,7 @@ export class JobSummaryCreateComponent implements OnInit {
         switchMap(googleAddress => {
           return of(
             {
-              a3: googleAddress.value
+              location: googleAddress.value
             }
           );
         })
@@ -203,6 +265,24 @@ export class JobSummaryCreateComponent implements OnInit {
     fields.forEach(item => {
       formGroup.get(item).setValue(value[item]);
     });
+  }
+
+  public dateSave = (formGroup: FormGroup, formControl: string) => {
+    const formControlDateString = formControl + 'String';
+    const valueDateString = formGroup.get(formControlDateString).value;
+    if (formGroup.get(formControlDateString).value.match(this.dateService.regexFullDateNumber)) {
+      formGroup.get(formControl).setValue(this.dateService.createDayMonthYearDate(valueDateString));
+    }
+    if (formGroup.get(formControlDateString).value.match(this.dateService.regexFullDateEmpty)) {
+      formGroup.get(formControl).setValue('');
+    }
+  }
+
+  public fromNow = (formControl: FormControl) => {
+    if (formControl.value) {
+      this.form.get('occupyAt').setValue('');
+      this.form.get('occupyAtString').setValue('');
+    }
   }
 
   public formArrayPush = (value, formArrayName) => {
@@ -234,6 +314,7 @@ export class JobSummaryCreateComponent implements OnInit {
     }
   }
   public submit = () => {
-    console.log('SUBMIT');
+    console.log('SUBMIT', this.form.value);
+    this.router.navigate(['job-summary/successful']);
   }
 }

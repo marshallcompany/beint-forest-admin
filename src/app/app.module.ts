@@ -68,6 +68,8 @@ import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-poli
 import { OptionsService } from './services/options.service';
 import { JobSummaryCreateComponent } from './pages/job-summary/job-summary-create/job-summary-create.component';
 import { JobSummaryEditComponent } from './pages/job-summary/job-summary-edit/job-summary-edit.component';
+import { JobSummaryThxComponent } from './pages/job-summary/job-summary-thx/job-summary-thx.component';
+import { CompanyThxComponent } from './pages/company/company-thx/company-thx.component';
 
 export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRoutesProvider) => {
   return new HttpMultiLoaderServiceService(http, [
@@ -110,8 +112,10 @@ export const createTranslateLoader = (http: HttpClient, apiRoutesProvider: ApiRo
     GoogleAutocompleteComponent,
     PrivacyPolicyComponent,
     CompanyCreateComponent,
+    CompanyThxComponent,
     CompanyEditComponent,
     JobSummaryCreateComponent,
+    JobSummaryThxComponent,
     JobSummaryEditComponent
   ],
   imports: [

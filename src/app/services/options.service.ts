@@ -29,4 +29,45 @@ export class OptionsService {
     return this.http.get<any>(url);
   }
 
+  public getBusinessBranches = (lang, params) => {
+    const url = this.apiRoutes.GET_BUSINESS_SCHEMA.replace(':lang', lang);
+    return this.http.get<any>(url, {
+      params: {
+        filter: params
+      }
+    });
+  }
+
+  public getProfessionalEducation(lang, query): Observable<string[]> {
+    const url = this.apiRoutes.GET_EDUCATION_SCHEMA.replace(':lang', lang);
+    return this.http.get<any>(url, {
+      params: {
+        filter: query
+      }
+    });
+  }
+
+  public getSkills(lang): Observable<string[]> {
+    const url = this.apiRoutes.GET_SKILLS.replace(':lang', lang);
+    return this.http.get<any>(url);
+  }
+
+  public getLang(lang, query): Observable<string[]> {
+    const url = this.apiRoutes.GET_LANG_SCHEMA.replace(':lang', lang);
+    return this.http.get<any>(url, {
+      params: {
+        filter: query
+      }
+    });
+  }
+
+  public getSpecializationUniversity(lang, query): Observable<string[]> {
+    const url = this.apiRoutes.GET_SPECIALIZATION_SCHEMA.replace(':lang', lang);
+    return this.http.get<any>(url, {
+      params: {
+        filter: query
+      }
+    });
+  }
+
 }

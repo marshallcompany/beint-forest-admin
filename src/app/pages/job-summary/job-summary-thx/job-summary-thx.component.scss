@@ -1,0 +1,56 @@
+@import "../../../theme/variables.scss";
+.job-summary{
+  min-height: 100%;
+  padding-bottom: 50px;
+  position: relative;
+}
+.successful{
+  position: fixed;
+  left: 0;
+  top:0;
+  width:100%;
+  height: 100%;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  img{
+    height: 350px;
+    margin-bottom: 35px;
+  }
+  p{
+    font-size: 24px;
+    font-family: $workSansSemiBold;
+    text-align: center;
+  }
+}
+
+
+@media screen and (max-width: 768px) {
+  .job-summary{
+    background-color: #f9f9f9;
+  }
+  .successful{
+    img{
+      height: 250px;
+      margin-bottom: 35px;
+    }
+    p{
+      font-size: 18px;
+      font-family: $workSansSemiBold;
+    }
+  }
+}
+@media screen and (max-width: 360px){
+  .successful{
+    img{
+      height: 200px;
+      margin-bottom: 35px;
+    }
+    p{
+      font-size: 16px;
+      font-family: $workSansSemiBold;
+    }
+  }
+}

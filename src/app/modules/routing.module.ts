@@ -26,6 +26,8 @@ import { CompanyCreateComponent } from '../pages/company/company-create/company-
 import { CompanyEditComponent } from '../pages/company/company-edit/company-edit.component';
 import { JobSummaryCreateComponent } from '../pages/job-summary/job-summary-create/job-summary-create.component';
 import { JobSummaryEditComponent } from '../pages/job-summary/job-summary-edit/job-summary-edit.component';
+import { JobSummaryThxComponent } from '../pages/job-summary/job-summary-thx/job-summary-thx.component';
+import { CompanyThxComponent } from '../pages/company/company-thx/company-thx.component';
 
 
 
@@ -57,8 +59,10 @@ const routes: Route[] = [
   { path: 'settings/email-reset', component: EmailResetComponent },
 
   { path: 'company/create', component: CompanyCreateComponent },
+  { path: 'company/successful', component: CompanyThxComponent },
   { path: 'company/edit/:id', component: CompanyEditComponent },
   { path: 'job-summary/create', component: JobSummaryCreateComponent },
+  { path: 'job-summary/successful', component: JobSummaryThxComponent },
   { path: 'job-summary/edit', component: JobSummaryEditComponent },
   { path: '', redirectTo: 'company/create', pathMatch: 'full', canActivate: [AuthGuard] },
   { path: '**', component: NotFoundComponent }

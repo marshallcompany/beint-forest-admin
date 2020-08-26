@@ -11,6 +11,7 @@ import { NoopScrollStrategy } from '@angular/cdk/overlay';
 import { OptionsService } from 'src/app/services/options.service';
 import { FormValidators } from 'src/app/validators/validators';
 import { CompanyService } from 'src/app/services/company.service';
+import { Router } from '@angular/router';
 
 interface DropdownOption {
   salutation: Array<string[]>;
@@ -41,6 +42,7 @@ export class CompanyCreateComponent implements OnInit {
     private matDialog: MatDialog,
     private globalErrorService: GlobalErrorService,
     private optionsService: OptionsService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -389,6 +391,7 @@ export class CompanyCreateComponent implements OnInit {
     .subscribe(
       result => {
         console.log('[ CREATE COMPANY DONE ]', result);
+        this.router.navigate(['company/successful']);
       },
       error => {
         console.log('[ CREATE COMPANY ERROR ]', error);

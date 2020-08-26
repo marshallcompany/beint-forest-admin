@@ -1,5 +1,5 @@
 @import "../../../theme/variables.scss";
-.company{
+.job-summary{
   min-height: 100%;
   padding-bottom: 50px;
   position: relative;
@@ -41,6 +41,27 @@
   justify-content: space-between;
   flex-wrap: wrap;
   position: relative;
+}
+.category-item{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  position: relative;
+}
+.title{
+  width: 100%;
+  margin: 25px 0;
+  font-size: 18px;
+}
+.sub-title{
+  font-size: 16px;
+  width: 100%;
+  padding-left: 19px;
+  margin: 15px 0;
+  opacity: .8;
+}
+.formArrayWrapper{
+  width: 100%;
 }
 // LOGO
 .logo-wrapper{
@@ -205,7 +226,7 @@
   }
 }
 @media screen and (max-width: 768px) {
-  .company{
+  .job-summary{
     background-color: #f9f9f9;
   }
   .category-wrapper{
@@ -225,7 +246,6 @@
     font-size: 20px;
     font-family: $workSansSemiBold;
   }
-  
 }
 @media screen and (max-width: 360px){
   .header{
