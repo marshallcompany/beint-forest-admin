@@ -9,7 +9,8 @@ import { OptionsService } from 'src/app/services/options.service';
 import { FormValidators } from 'src/app/validators/validators';
 import { CompanyService } from 'src/app/services/company.service';
 import { DateService } from 'src/app/services/date.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { JobSummaryService } from 'src/app/services/job-summary.service';
 
 
 
@@ -21,6 +22,8 @@ interface DropdownOption {
   travelling: Array<string[]>;
   driving_license_category: Array<string[]>;
   language_level: Array<string[]>;
+  typeOfDegree: Array<string[]>;
+  courseOfStudy: Array<string[]>;
 }
 
 @Component({
@@ -51,20 +54,26 @@ export class JobSummaryCreateComponent implements OnInit {
   public secondarySkillsControl = new FormControl();
   public benefitsControl = new FormControl();
 
-  public spinner = false;
+  public recruiters;
+  public companyID;
 
   constructor(
     public fb: FormBuilder,
     public companyService: CompanyService,
+    public jobSummaryService: JobSummaryService,
     public dateService: DateService,
     private notificationService: NotificationService,
     private router: Router,
     private optionsService: OptionsService,
-  ) { }
+    private route: ActivatedRoute,
+  ) {
+    this.companyID = this.route.snapshot.paramMap.get('companyID');
+  }
 
   ngOnInit() {
     this.init();
     this.formInit();
+    this.getCompanyData();
   }
 
   public init = () => {
@@ -89,6 +98,8 @@ export class JobSummaryCreateComponent implements OnInit {
               travelling: dropdownOptions.dropdownOptions.travelling,
               driving_license_category: dropdownOptions.dropdownOptions.driving_license_category,
               language_level: dropdownOptions.dropdownOptions.language_level,
+              typeOfDegree: dropdownOptions.dropdownOptions.typeOfDegree,
+              courseOfStudy: dropdownOptions.dropdownOptions.courseOfStudy,
             }
           };
         }
@@ -108,8 +119,8 @@ export class JobSummaryCreateComponent implements OnInit {
   public formInit = () => {
     this.form = this.fb.group({
       details: this.fb.group({
-        title: [''],
-        vacancyExternalUrl: [''],
+        title: ['', [Validators.required]],
+        vacancyExternalUrl: ['', [Validators.required]],
         location: [''],
         occupyAt: [''],
         occupyAtString: [''],
@@ -140,6 +151,13 @@ export class JobSummaryCreateComponent implements OnInit {
         primarySkills: this.fb.array([]),
         secondarySkills: this.fb.array([]),
         linguisticProficiency: this.fb.array([])
+      }),
+      company: this.fb.group({
+        companyName: [''],
+        logo: [''],
+        recruiter: [null, [Validators.required]],
+        recruiterPhone: [''],
+        recruiterEmail: ['']
       })
     });
     if (this.form) {
@@ -160,6 +178,39 @@ export class JobSummaryCreateComponent implements OnInit {
           }
         );
     }
+  }
+
+  public changeRecruiter = (value) => {
+    this.recruiters.filter(item => {
+      if (item._id === value) {
+        this.form.get('company').patchValue({
+          recruiterPhone: item.phoneNumberMobile ? item.phoneNumberMobile : '',
+          recruiterEmail: item.email ? item.email : ''
+        });
+      }
+    });
+  }
+
+  public getCompanyData = () => {
+    this.companyService.getCompany(this.companyID)
+    .pipe(
+      map((companyData) => {
+        if (companyData && companyData.company.companyName && companyData.company.logo && companyData.company.logo.storagePath && companyData.recruiters) {
+          return {
+            companyName: companyData.company.companyName ? companyData.company.companyName : '',
+            logo: companyData.company.logo.storagePath ? companyData.company.logo.storagePath : '',
+            recruiters: companyData.recruiters ? companyData.recruiters : []
+          };
+        }
+      })
+    )
+    .subscribe( result => {
+      this.recruiters = result.recruiters;
+      this.form.get('company').patchValue({
+        companyName: result.companyName ? result.companyName : '',
+        logo: result.logo ? result.logo : ''
+      });
+    });
   }
 
   public get industryBranchArray(): FormArray {
@@ -314,7 +365,23 @@ export class JobSummaryCreateComponent implements OnInit {
     }
   }
   public submit = () => {
-    console.log('SUBMIT', this.form.value);
-    this.router.navigate(['job-summary/successful']);
+    const formValue = {
+      details: this.form.get('details').value,
+      candidateRequirements: this.form.get('candidateRequirements').value,
+      company: this.companyID,
+      responsible_recruiter: this.form.get('company').get('recruiter').value
+    };
+    this.jobSummaryService.createJobSummary(formValue)
+    .pipe()
+    .subscribe(
+      result => {
+        console.log('[ CREATE JOB SUMMARY DONE]', result);
+        this.router.navigate(['job-summary/successful']);
+      },
+      error => {
+        console.log('[ CREATE JOB SUMMARY ERROR]', error);
+      }
+    );
+    console.log('SUBMIT', formValue);
   }
 }

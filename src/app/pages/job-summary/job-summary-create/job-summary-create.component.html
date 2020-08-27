@@ -14,40 +14,89 @@
   </header>
   <section class="job-summary-body">
     <div class="container">
+
       <form *ngIf="form" [formGroup]="form">
         <div class="category-wrapper">
-          <!-- <div class="logo-wrapper">
-            <div>
-              <h2 class="logo-wrapper__title">Firmenlogo</h2>
-              <div class="logo">
-                <div class="logo-spinner" *ngIf="spinner">
-                  <img src="../assets/image/spinner.svg"
-                        class="logo-spinner__icon">
+          <div class="company" formGroupName="company">
+            <h2 class="title">Firme</h2>
+            <div class="logo-wrapper">
+              <div>
+                <h2 class="logo-wrapper__title">Firmenlogo</h2>
+                <div class="logo">
+                  <div class="logo-default">
+                    <svg viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M4.5 3C3.67157 3 3 3.67157 3 4.5V25.5C3 26.1432 3.40485 26.6919 3.97363 26.905L19.9393 10.9393C20.5251 10.3536 21.4749 10.3536 22.0607 10.9393L27 15.8787V4.5C27 3.67157 26.3284 3 25.5 3H4.5ZM30 19.4985V4.5C30 2.01472 27.9853 0 25.5 0H4.5C2.01472 0 0 2.01472 0 4.5V25.5C0 27.9853 2.01472 30 4.5 30H25.5C27.9853 30 30 27.9853 30 25.5V19.5015C30 19.5005 30 19.4995 30 19.4985ZM27 20.1213L21 14.1213L8.12132 27H25.5C26.3284 27 27 26.3284 27 25.5V20.1213ZM9.75 9C9.33579 9 9 9.33579 9 9.75C9 10.1642 9.33579 10.5 9.75 10.5C10.1642 10.5 10.5 10.1642 10.5 9.75C10.5 9.33579 10.1642 9 9.75 9ZM6 9.75C6 7.67893 7.67893 6 9.75 6C11.8211 6 13.5 7.67893 13.5 9.75C13.5 11.8211 11.8211 13.5 9.75 13.5C7.67893 13.5 6 11.8211 6 9.75Z"/>
+                    </svg>
+                  </div>
+                  <div class="logo-image" *ngIf="form && form.get('company').get('logo').value">
+                    <img [src]="form.get('company').get('logo').value"
+                      class="logo-image__item">
+                  </div>
                 </div>
-                <div class="logo-default">
-                  <svg viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M4.5 3C3.67157 3 3 3.67157 3 4.5V25.5C3 26.1432 3.40485 26.6919 3.97363 26.905L19.9393 10.9393C20.5251 10.3536 21.4749 10.3536 22.0607 10.9393L27 15.8787V4.5C27 3.67157 26.3284 3 25.5 3H4.5ZM30 19.4985V4.5C30 2.01472 27.9853 0 25.5 0H4.5C2.01472 0 0 2.01472 0 4.5V25.5C0 27.9853 2.01472 30 4.5 30H25.5C27.9853 30 30 27.9853 30 25.5V19.5015C30 19.5005 30 19.4995 30 19.4985ZM27 20.1213L21 14.1213L8.12132 27H25.5C26.3284 27 27 26.3284 27 25.5V20.1213ZM9.75 9C9.33579 9 9 9.33579 9 9.75C9 10.1642 9.33579 10.5 9.75 10.5C10.1642 10.5 10.5 10.1642 10.5 9.75C10.5 9.33579 10.1642 9 9.75 9ZM6 9.75C6 7.67893 7.67893 6 9.75 6C11.8211 6 13.5 7.67893 13.5 9.75C13.5 11.8211 11.8211 13.5 9.75 13.5C7.67893 13.5 6 11.8211 6 9.75Z"/>
-                  </svg>
-                </div>
-                <div class="logo-image" *ngIf="form && form.get('general').get('logo').value">
-                  <img [src]="form.get('general').get('logo').value"
-                    class="logo-image__item">
-                </div>
-                <button
-                  [ngClass]="{'change-logo-button__active' : (form && form.get('general').get('logo').value)}"
-                  type="button"
-                  (click)="takeProfilePicture()"
-                  class="change-logo-button">
-                  <img
-                    src="../assets/image/plus.svg"
-                    class="change-logo-button__icon change-logo-button__icon_plus">
-                  <img
-                    src="../assets/image/profile/pencil.svg"
-                    class="change-logo-button__icon change-logo-button__icon_edit">
-                </button>
               </div>
             </div>
-          </div> -->
+            <div class="company-fields">
+              <div class="field">
+                <p class="field__label">Firmenname</p>
+                <div class="field-wrapper">
+                  <input
+                    type="text"
+                    disabled
+                    formControlName="companyName"
+                    placeholder="Firmenname"
+                    class="field-wrapper__input">
+                </div>
+              </div>
+              <div class="field field_select">
+                <p class="field__label">Recruiter</p>
+                <div class="field-wrapper">
+                  <ng-select
+                    [clearable]="false"
+                    [searchable]="false"
+                    [multiple]="false"
+                    [hideSelected]="true"
+                    placeholder="Recruiter"
+                    formControlName="recruiter"
+                    (change)="changeRecruiter($event)"
+                    class="custom-select">
+                    <ng-option
+                      *ngFor="let option of recruiters"
+                      [value]="option._id">
+                      {{option.firstName}}
+                      {{option.lastName}}
+                    </ng-option>
+                  </ng-select>
+                  <div
+                    class="field-wrapper__status"
+                    [ngClass]="{'invalid-should' : !form.get('company').get('recruiter').value}">
+                  </div>
+                </div>
+              </div>
+              <div class="field">
+                <p class="field__label">Telefonnummer Recruiter</p>
+                <div class="field-wrapper">
+                  <input
+                    type="text"
+                    disabled
+                    formControlName="recruiterPhone"
+                    placeholder="Telefonnummer Recruiter"
+                    class="field-wrapper__input">
+                </div>
+              </div>
+              <div class="field">
+                <p class="field__label">Email Adresse Recruiter</p>
+                <div class="field-wrapper">
+                  <input
+                    type="text"
+                    disabled
+                    formControlName="recruiterEmail"
+                    placeholder="Email Adresse Recruiter"
+                    class="field-wrapper__input">
+                </div>
+              </div>
+            </div>
+          </div>
+          <h2 class="title">Jobübersicht</h2>
           <div class="field" formGroupName="details">
             <p class="field__label">Job Titel</p>
             <div class="field-wrapper">
@@ -91,7 +140,7 @@
           <div class="field" formGroupName="details">
             <p class="field__label">Zu besetzen ab</p>
             <div class="checkbox-group-1">
-              <div class="field" [ngClass]="{'disabled' : form.get('details').get('occupyAt').value}">
+              <div class="field" [ngClass]="{'disabled' : form.get('details').get('fromNow').value}">
                 <div class="field-wrapper">
                   <input
                     class="field-wrapper__input"
@@ -122,7 +171,7 @@
               </div>
             </div>
           </div>
-          <div class="field field_select" formGroupName="details" [ngClass]="{disabled: form.get('details').get('industryBranch').value.length === 3}">
+          <div class="field field_select field_select-multiselect-arrow" formGroupName="details" [ngClass]="{disabled: form.get('details').get('industryBranch').value.length === 3}">
             <p class="field__label">Branche</p>
             <div class="field-wrapper">
               <ng-select
@@ -163,7 +212,7 @@
               </div>
             </div>
           </div>
-          <div class="field field_select" formGroupName="details" [ngClass]="{disabled: form.get('details').get('businessArea').value.length === 3}">
+          <div class="field field_select field_select-multiselect-arrow" formGroupName="details" [ngClass]="{disabled: form.get('details').get('businessArea').value.length === 3}">
             <p class="field__label">Geschäftsbereich</p>
             <div class="field-wrapper">
               <ng-select
@@ -391,7 +440,7 @@
                 formControlName="typeOfDegree"
                 class="custom-select">
                 <ng-option
-                  *ngFor="let option of dropdownOptions?.employment_type"
+                  *ngFor="let option of dropdownOptions?.typeOfDegree"
                   [value]="option">
                   {{option}}
                 </ng-option>
@@ -425,7 +474,7 @@
               </div>
             </div>
           </div>
-          <div class="field field_select" formGroupName="candidateRequirements" [ngClass]="{disabled: form.get('candidateRequirements').get('specialization').value.length === 5}">
+          <div class="field field_select field_select-multiselect-arrow" formGroupName="candidateRequirements" [ngClass]="{disabled: form.get('candidateRequirements').get('specialization').value.length === 5}">
             <p class="field__label">Schwerpunkte Studium</p>
             <div class="field-wrapper">
               <ng-select
@@ -469,7 +518,7 @@
           <div class="field" formGroupName="candidateRequirements">
             <p class="field__label">Studiengang</p>
             <div class="checkbox-group-1">
-              <div class="field field_select" [ngClass]="{disabled: form.get('candidateRequirements').get('courseOfStudy').value.length === 5}">
+              <div class="field field_select field_select-multiselect-arrow" [ngClass]="{disabled: form.get('candidateRequirements').get('courseOfStudy').value.length === 5}">
                 <div class="field-wrapper">
                   <ng-select
                     [clearable]="false"
@@ -481,7 +530,7 @@
                     (change)="formArrayPush($event, 'courseOfStudyArray')"
                     class="custom-select">
                     <ng-option
-                      *ngFor="let option of businessArea$ | async"
+                      *ngFor="let option of dropdownOptions?.courseOfStudy"
                       [value]="option">
                       {{option}}
                     </ng-option>
@@ -524,7 +573,7 @@
           <div class="field" formGroupName="candidateRequirements">
             <p class="field__label">Ausbildung</p>
             <div class="checkbox-group-1">
-              <div class="field field_select" [ngClass]="{disabled: form.get('candidateRequirements').get('professionalEducation').value.length === 5}">
+              <div class="field field_select field_select-multiselect-arrow" [ngClass]="{disabled: form.get('candidateRequirements').get('professionalEducation').value.length === 5}">
                 <div class="field-wrapper">
                   <ng-select
                     [clearable]="false"
@@ -576,7 +625,7 @@
               </div>
             </div>
           </div>
-          <div class="field field_select" formGroupName="candidateRequirements" [ngClass]="{disabled: form.get('candidateRequirements').get('driverLicenses').value.length === 5}">
+          <div class="field field_select field_select-multiselect-arrow" formGroupName="candidateRequirements" [ngClass]="{disabled: form.get('candidateRequirements').get('driverLicenses').value.length === 5}">
             <p class="field__label">Führerschein</p>
             <div class="field-wrapper">
               <ng-select
@@ -617,7 +666,7 @@
               </div>
             </div>
           </div>
-          <div class="field field_select" formGroupName="candidateRequirements" [ngClass]="{disabled: form.get('candidateRequirements').get('primarySkills').value.length === 3}">
+          <div class="field field_select field_select-multiselect-arrow" formGroupName="candidateRequirements" [ngClass]="{disabled: form.get('candidateRequirements').get('primarySkills').value.length === 3}">
             <p class="field__label">Top Skills</p>
             <div class="field-wrapper">
               <ng-select
@@ -658,7 +707,7 @@
               </div>
             </div>
           </div>
-          <div class="field field_select" formGroupName="candidateRequirements" [ngClass]="{disabled: form.get('candidateRequirements').get('secondarySkills').value.length === 10}">
+          <div class="field field_select field_select-multiselect-arrow" formGroupName="candidateRequirements" [ngClass]="{disabled: form.get('candidateRequirements').get('secondarySkills').value.length === 10}">
             <p class="field__label">Skills</p>
             <div class="field-wrapper">
               <ng-select
@@ -699,7 +748,7 @@
               </div>
             </div>
           </div>
-          <div class="field field_select" formGroupName="details" [ngClass]="{disabled: form.get('details').get('benefits').value.length === 10}">
+          <div class="field field_select field_select-multiselect-arrow" formGroupName="details" [ngClass]="{disabled: form.get('details').get('benefits').value.length === 10}">
             <p class="field__label">Beneftits</p>
             <div class="field-wrapper">
               <ng-select
