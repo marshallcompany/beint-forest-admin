@@ -18,7 +18,7 @@ export class AccessTokenInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const cloned = req.clone({
         setHeaders: {
-        'x-access-token': this.authService.getJwtToken() ? this.authService.getJwtToken() : null
+        'x-access-token': this.authService.getJwtToken() ? this.authService.getJwtToken() : ''
         }
     });
     return next.handle(cloned);

@@ -17,7 +17,7 @@ const routes: Route[] = [
   { path: 'company/edit/:companyID/:jwt', component: CompanyEditComponent, canActivate: [AuthGuard] },
   { path: 'company/successful', component: CompanyThxComponent },
   { path: 'job-summary/create/:companyID/:jwt', component: JobSummaryCreateComponent, canActivate: [AuthGuard]},
-  { path: 'job-summary/edit/:companyID/:jobSummaryId/:jwt', component: JobSummaryEditComponent, canActivate: [AuthGuard]},
+  { path: 'job-summary/edit/:jobSummaryId/:jwt', component: JobSummaryEditComponent, canActivate: [AuthGuard]},
   { path: 'job-summary/successful', component: JobSummaryThxComponent},
   { path: 'not-found', component: NotFoundComponent },
   { path: '', redirectTo: 'not-found', pathMatch: 'full'},

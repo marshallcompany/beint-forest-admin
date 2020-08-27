@@ -127,16 +127,29 @@
                 [ngClass]="{'invalid-should' : !form.get('details').get('vacancyExternalUrl').value}"></div>
             </div>
           </div>
-          <app-google-autocomplete
-            class="field"
-            [formControlValue]="form.get('details').get('location').value"
-            [fieldStatus]="'invalid-should'"
-            [validation]=""
-            [fieldLabel]="'Adresse'"
-            [fieldPlaceholder]="'Adresse'"
-            (setAddress)="googleAddressChange($event, form.get('details'), ['location'])" 
-            adressType="establishment">
-          </app-google-autocomplete>
+          <div class="field field_select" formGroupName="details">
+            <p class="field__label">Adresse</p>
+            <div class="field-wrapper">
+              <ng-select
+                [clearable]="false"
+                [searchable]="false"
+                [multiple]="false"
+                [hideSelected]="true"
+                placeholder="Adresse"
+                formControlName="location"
+                class="custom-select">
+                <ng-option
+                  *ngFor="let option of jobSummaryAddressList$ | async"
+                  [value]="option">
+                  {{option}}
+                </ng-option>
+              </ng-select>
+              <div
+                class="field-wrapper__status"
+                [ngClass]="{'invalid-should' : !form.get('details').get('location').value}">
+              </div>
+            </div>
+          </div>
           <div class="field" formGroupName="details">
             <p class="field__label">Zu besetzen ab</p>
             <div class="checkbox-group-1">

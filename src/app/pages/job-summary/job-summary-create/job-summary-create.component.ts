@@ -3,10 +3,7 @@ import { FormBuilder, FormGroup, FormControl, FormArray, Validators } from '@ang
 import { of, throwError, Observable, forkJoin } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
 import { NotificationService } from 'src/app/services/notification.service';
-import { MatBottomSheet, MatDialog } from '@angular/material';
-import { GlobalErrorService } from 'src/app/services/global-error-service';
 import { OptionsService } from 'src/app/services/options.service';
-import { FormValidators } from 'src/app/validators/validators';
 import { CompanyService } from 'src/app/services/company.service';
 import { DateService } from 'src/app/services/date.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -39,6 +36,7 @@ export class JobSummaryCreateComponent implements OnInit {
   public skillsList$: Observable<any>;
   public langList$: Observable<any>;
   public specializationList$: Observable<any>;
+  public jobSummaryAddressList$: Observable<any>;
 
   public dropdownOptions: DropdownOption;
 
@@ -83,12 +81,12 @@ export class JobSummaryCreateComponent implements OnInit {
     this.apprenticeshipList$ = this.optionsService.getProfessionalEducation('de', '');
     this.skillsList$ = this.optionsService.getSkills('de');
     this.langList$ = this.optionsService.getLang('de', '');
+    this.jobSummaryAddressList$ = this.optionsService.getJobSummaryAddres(this.companyID);
     this.specializationList$ = this.optionsService.getSpecializationUniversity('de', '');
     forkJoin([dropdownOptions$])
     .pipe(
       map(([dropdownOptions]) => {
         if (dropdownOptions && dropdownOptions.dropdownOptions) {
-          console.log('XXXXXX', dropdownOptions.dropdownOptions);
           return {
             dropdownOptions: {
               industry_branches: dropdownOptions.dropdownOptions.industry_branches,
@@ -121,7 +119,7 @@ export class JobSummaryCreateComponent implements OnInit {
       details: this.fb.group({
         title: ['', [Validators.required]],
         vacancyExternalUrl: ['', [Validators.required]],
-        location: [''],
+        location: [null],
         occupyAt: [''],
         occupyAtString: [''],
         fromNow: [false],
@@ -277,46 +275,6 @@ export class JobSummaryCreateComponent implements OnInit {
         break;
     }
   }
-  public googleAddressChange = (data, formGroup: FormGroup, fields: Array<string>) => {
-    of(data)
-      .pipe(
-        switchMap(value => {
-          if (value === '[NO VALUE]') {
-            this.cleaningFormControl(formGroup, fields);
-            return throwError('[NO VALUE]');
-          }
-          return of(value);
-        }),
-        switchMap(googleAddress => {
-          return of(
-            {
-              location: googleAddress.value
-            }
-          );
-        })
-      )
-      .subscribe(
-        result => {
-          console.log('RESULT', result);
-          this.updateFormControl(formGroup, fields, result);
-        },
-        error => {
-          console.log('[ GOOGLE ADDRESS ERROR ]', error);
-        }
-      );
-  }
-
-  public cleaningFormControl = (formGroup: FormGroup, fields: Array<string>) => {
-    fields.forEach(item => {
-      formGroup.get(item).setValue('');
-    });
-  }
-
-  public updateFormControl = (formGroup: FormGroup, fields: Array<string>, value) => {
-    fields.forEach(item => {
-      formGroup.get(item).setValue(value[item]);
-    });
-  }
 
   public dateSave = (formGroup: FormGroup, formControl: string) => {
     const formControlDateString = formControl + 'String';
@@ -331,8 +289,8 @@ export class JobSummaryCreateComponent implements OnInit {
 
   public fromNow = (formControl: FormControl) => {
     if (formControl.value) {
-      this.form.get('occupyAt').setValue('');
-      this.form.get('occupyAtString').setValue('');
+      this.form.get('details').get('occupyAt').setValue('');
+      this.form.get('details').get('occupyAtString').setValue('');
     }
   }
 

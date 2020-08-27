@@ -61,6 +61,11 @@ export class OptionsService {
     });
   }
 
+  public getJobSummaryAddres(id: string): Observable<string[]> {
+    const url = this.apiRoutes.GET_JOB_SUMMARY_ADDRESS.replace(':id', id);
+    return this.http.get<any>(url);
+  }
+
   public getSpecializationUniversity(lang, query): Observable<string[]> {
     const url = this.apiRoutes.GET_SPECIALIZATION_SCHEMA.replace(':lang', lang);
     return this.http.get<any>(url, {

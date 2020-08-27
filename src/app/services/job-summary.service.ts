@@ -19,4 +19,13 @@ export class JobSummaryService {
     return this.http.post<any>(this.apiRoutes.CREATE_JOB_SUMMARY, data);
   }
 
+  public getJobSummary = (id: string): Observable<any> => {
+    const url = this.apiRoutes.GET_JOB_SUMMARY.replace(':id', id);
+    return this.http.get<any>(url);
+  }
+
+  public updateJobSummary = (data, id: string): Observable<any> => {
+    const url = this.apiRoutes.UPDATE_JOB_SUMMARY.replace(':id', id);
+    return this.http.patch<any>(url, data);
+  }
 }

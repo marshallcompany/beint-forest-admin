@@ -19,7 +19,9 @@ export class ApiRoutesProvider {
   public readonly GET_LANG_SCHEMA: string;
   public readonly GET_SPECIALIZATION_SCHEMA: string;
   public readonly GET_LANG: string;
-
+  public readonly GET_JOB_SUMMARY: string;
+  public readonly UPDATE_JOB_SUMMARY: string;
+  public readonly GET_JOB_SUMMARY_ADDRESS: string;
   constructor() {
     this.BASE_API_URL = environment.BASE_API_URL;
     this.GET_LANG = `${this.BASE_API_URL}/api/v1/i18n/system-messages`;
@@ -38,5 +40,8 @@ export class ApiRoutesProvider {
     this.GET_LINK_S3_COMPANY = `${this.BASE_API_URL}/api/v1/company/forest/upload-link`;
     // JOB SUMMARY
     this.CREATE_JOB_SUMMARY = `${this.BASE_API_URL}/api/v1/job-vacancy/forest`;
+    this.GET_JOB_SUMMARY = `${this.BASE_API_URL}/api/v1/job-vacancy/forest/:id`;
+    this.UPDATE_JOB_SUMMARY = `${this.BASE_API_URL}/api/v1/job-vacancy/forest/:id`;
+    this.GET_JOB_SUMMARY_ADDRESS = `${this.BASE_API_URL}/api/v1/company/forest/:id/locations`;
   }
 }
