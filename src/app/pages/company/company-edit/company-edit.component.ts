@@ -52,7 +52,7 @@ export class CompanyEditComponent implements OnInit {
 
 
   public init = () => {
-    const companyData$ = this.companyService.getCompany(this.route.snapshot.paramMap.get('id'));
+    const companyData$ = this.companyService.getCompany(this.route.snapshot.paramMap.get('companyID'));
     const dropdownOptions$ = this.optionsService.getLocalBundle('de');
     this.benefitsOptions$ = this.optionsService.getBenefitsOptions('de', '');
     this.spinner = true;
@@ -442,11 +442,12 @@ export class CompanyEditComponent implements OnInit {
       },
       recruiters: this.recruitersArray.value
     };
-    this.companyService.updateCompany(formValue, this.route.snapshot.paramMap.get('id'))
+    this.companyService.updateCompany(formValue, this.route.snapshot.paramMap.get('companyID'))
     .pipe()
     .subscribe(
       result => {
         console.log('[ COMPANY UPDATE DONE ]', result);
+        this.notificationService.notify('Änderungen erfolgreich gespeichert', 'success');
       },
       error => {
         console.log('[ COMPANY UPDATE ERROR ]', error);

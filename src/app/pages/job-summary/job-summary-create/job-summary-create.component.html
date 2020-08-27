@@ -658,7 +658,7 @@
               </div>
             </div>
           </div>
-          <div class="field field_select" formGroupName="details" [ngClass]="{disabled: form.get('candidateRequirements').get('secondarySkills').value.length === 10}">
+          <div class="field field_select" formGroupName="candidateRequirements" [ngClass]="{disabled: form.get('candidateRequirements').get('secondarySkills').value.length === 10}">
             <p class="field__label">Skills</p>
             <div class="field-wrapper">
               <ng-select
@@ -693,7 +693,7 @@
                 <button
                   type="button"
                   class="tags-wrapper__remove"
-                  (click)="formArrayRemove(i, 'driverLicensesArray')">
+                  (click)="formArrayRemove(i, 'secondarySkillsArray')">
                   <img src="../assets/image/close.svg">
                 </button>
               </div>

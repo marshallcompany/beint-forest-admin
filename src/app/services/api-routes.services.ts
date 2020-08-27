@@ -6,40 +6,7 @@ import { environment } from '../../environments/environment';
 export class ApiRoutesProvider {
 
   public readonly BASE_API_URL: string;
-  public readonly LOGIN: string;
-  public readonly REGISTRATION: string;
-  public readonly PROFILE: string;
-  public readonly JOB_VACANCIES: string;
-  public readonly GET_JOB_DATA: string;
-  public readonly GET_CANDIDATE_CV: string;
-  public readonly GET_LANG: string;
-  public readonly GET_QUESTION: string;
   public readonly GET_LOCAL_BUNDLE: string;
-
-  public readonly GET_INDUSTRY_SCHEMA: string;
-  public readonly GET_TOWNS_SCHEMA: string;
-  public readonly GET_COUNTRIES_SCHEMA: string;
-
-  public readonly GET_DEGREE_SCHEMA: string;
-
-  public readonly GET_ZIP_SCHEMA: string;
-
-  public readonly GET_NATIONALITIES_SCHEMA;
-  public readonly GET_LINK_IMAGE: string;
-  public readonly UPDATE_PROFILE_AVATAR: string;
-  public readonly GET_LINK_DOCUMENT: string;
-  public readonly UPDATE_PROFILE_DOCUMENT: string;
-  public readonly UPDATE_DOCUMENT: string;
-  public readonly REMOVE_DOCUMENT: string;
-  public readonly REFRESH_TOKEN: string;
-  public readonly REMOVE_ACCOUNT: string;
-  public readonly GET_VACANCIES: string;
-  public readonly UPDATE_PASSWORD: string;
-  public readonly UPDATE_PASSWORD_MAIL: string;
-  public readonly RESEND_VERIFICATION_EMAIL: string;
-  public readonly CREATE_SKILLS: string;
-
-  //
   public readonly GET_SKILLS: string;
   public readonly GET_BENEFITS_SCHEMA: string;
   public readonly CREATE_COMPANY: string;
@@ -50,36 +17,10 @@ export class ApiRoutesProvider {
   public readonly GET_EDUCATION_SCHEMA: string;
   public readonly GET_LANG_SCHEMA: string;
   public readonly GET_SPECIALIZATION_SCHEMA: string;
+  public readonly GET_LANG: string;
   constructor() {
     this.BASE_API_URL = environment.BASE_API_URL;
-    this.LOGIN = `${this.BASE_API_URL}/api/v1/auth/signin`;
-    this.REGISTRATION = `${this.BASE_API_URL}/api/v1/auth/signup`;
-    this.PROFILE = `${this.BASE_API_URL}/api/v1/profile/`;
-    this.JOB_VACANCIES = `${this.BASE_API_URL}/api/v1/job-vacancy/:id/job-applications`;
-    this.GET_JOB_DATA = `${this.BASE_API_URL}/api/v1/job-vacancy/:id`;
-    this.GET_CANDIDATE_CV = `${this.BASE_API_URL}/api/v1/profile/pdf`;
     this.GET_LANG = `${this.BASE_API_URL}/api/v1/i18n/system-messages`;
-    this.GET_QUESTION = `${this.BASE_API_URL}/api/v1/profile/questions`;
-    this.GET_INDUSTRY_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/industryBranches/:lang`;
-    this.GET_TOWNS_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/towns/:lang`;
-    this.GET_COUNTRIES_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/countries/:lang`;
-    this.GET_ZIP_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/zipCodes/:lang`;
-    this.GET_NATIONALITIES_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/nationalities/:lang`;
-    this.GET_DEGREE_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/universityDegree/:lang`;
-    this.GET_LINK_IMAGE = `${this.BASE_API_URL}/api/v1/profile/avatar`;
-    this.UPDATE_PROFILE_AVATAR = `${this.BASE_API_URL}/api/v1/profile/avatar`;
-    this.GET_LINK_DOCUMENT = `${this.BASE_API_URL}/api/v1/profile/documents`;
-    this.UPDATE_PROFILE_DOCUMENT = `${this.BASE_API_URL}/api/v1/profile/documents`;
-    this.UPDATE_DOCUMENT = `${this.BASE_API_URL}/api/v1/profile/documents/:id`;
-    this.REMOVE_DOCUMENT = `${this.BASE_API_URL}/api/v1/profile/documents/:id`;
-    this.REFRESH_TOKEN = `${this.BASE_API_URL}/api/v1/auth/refresh/:refreshTokenId`;
-    this.REMOVE_ACCOUNT = `${this.BASE_API_URL}/api/v1/profile`;
-    this.GET_VACANCIES = `${this.BASE_API_URL}/api/v1/job-vacancy/all/?page=1&limit=100&title`;
-    this.UPDATE_PASSWORD = `${this.BASE_API_URL}/api/v1/auth/password`;
-    this.UPDATE_PASSWORD_MAIL = `${this.BASE_API_URL}/api/v1/auth/password/reset`;
-    this.RESEND_VERIFICATION_EMAIL = `${this.BASE_API_URL}/api/v1/auth/resend-verification-email`;
-    this.CREATE_SKILLS = `${this.BASE_API_URL}/api/v1/skills/:lang`;
-
     // OPTIONS
     this.GET_SKILLS = `${this.BASE_API_URL}/api/v1/skills/:lang`;
     this.GET_BENEFITS_SCHEMA = `${this.BASE_API_URL}/api/v1/schema/benefits/:lang`;

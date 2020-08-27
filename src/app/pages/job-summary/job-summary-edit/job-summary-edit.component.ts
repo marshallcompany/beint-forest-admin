@@ -11,7 +11,6 @@ import { NoopScrollStrategy } from '@angular/cdk/overlay';
 import { OptionsService } from 'src/app/services/options.service';
 import { FormValidators } from 'src/app/validators/validators';
 import { CompanyService } from 'src/app/services/company.service';
-import { UploadFileService } from 'src/app/services/upload-file.service';
 
 interface DropdownOption {
   salutation: Array<string[]>;
@@ -40,7 +39,6 @@ export class JobSummaryEditComponent implements OnInit {
     private matDialog: MatDialog,
     private globalErrorService: GlobalErrorService,
     private optionsService: OptionsService,
-    private uploadFileService: UploadFileService
   ) { }
 
   ngOnInit() {
@@ -184,82 +182,6 @@ export class JobSummaryEditComponent implements OnInit {
     }
   }
 
-  public takeProfilePicture = () => {
-    this.bottomSheet.open(ImageChoiceComponent, { scrollStrategy: new NoopScrollStrategy()}).afterDismissed()
-      .pipe(
-        switchMap(selectedFile => {
-          if (!selectedFile || selectedFile === undefined) {
-            return throwError('NO_FILE');
-          }
-          if (selectedFile.target.files[0] && selectedFile.target.files[0].size > 5000000) {
-            return throwError(new Error('Sorry, the maximum file size is 5MB'));
-          }
-          return of(selectedFile);
-        }),
-        switchMap(targetFile => {
-          return this.openCropperDialog(targetFile);
-        }),
-        switchMap(cropperValue => {
-          if (!cropperValue || cropperValue === undefined) {
-            return throwError('CROPPER_CLOSED');
-          }
-          return of(cropperValue);
-        }),
-        switchMap((base64: string) => {
-          return fetch(base64).then(base64Url => base64Url.blob());
-        })
-      )
-      .subscribe(
-        res => {
-          console.log('CROPPER EVENT', res);
-          this.uploadImage(res, res.type);
-        },
-        err => {
-          console.log('ERROR', err);
-          if (err === 'NO_FILE' || err === 'CROPPER_CLOSED') {
-            return;
-          } else {
-            this.globalErrorService.handleError(err);
-          }
-        }
-      );
-  }
-
-  public uploadImage = (blob: Blob, type: string) => {
-    this.spinner = true;
-    this.uploadFileService.getUploadAvatarLink()
-      .pipe(
-        switchMap(urlS3 => {
-          const arr: Array<Observable<any>> = [
-            // this.uploadFileService.uploadImage(urlS3.signedUploadUrl, blob, type),
-            of(urlS3)
-          ];
-          return forkJoin(arr);
-        }),
-        switchMap(([urlS3]) => {
-          const avatar = {
-            filename: type,
-            mimeType: type,
-            storagePath: urlS3.storagePath
-          };
-          return of(avatar);
-        })
-      )
-      .subscribe(
-        res => {
-          console.log('UPLOAD IMAGE', res);
-          // this.form.get('general').get('logo').patchValue(res.storagePath);
-          this.notificationService.notify(`Picture saved successfully!`, 'success');
-          this.spinner = false;
-        },
-        err => {
-          console.log('UPLOAD IMAGE ERROR', err);
-          this.globalErrorService.handleError(err);
-          this.spinner = false;
-        }
-      );
-  }
-
   openCropperDialog(fileData): Observable<any> {
     return this.matDialog.open(CropperComponent, { data: fileData, panelClass: 'cropper-modal', scrollStrategy: new NoopScrollStrategy() }).afterClosed();
   }
@@ -379,6 +301,7 @@ export class JobSummaryEditComponent implements OnInit {
     .subscribe(
       result => {
         console.log('[ CREATE COMPANY DONE ]', result);
+        this.notificationService.notify('Änderungen erfolgreich gespeichert', 'success');
       },
       error => {
         console.log('[ CREATE COMPANY ERROR ]', error);
